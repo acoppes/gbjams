@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace GBJAM7.Scripts
@@ -16,6 +17,8 @@ namespace GBJAM7.Scripts
         public UnitMovementArea movementArea;
 
         public UnitInfo unitInfo;
+
+        public PlayerActions playerActions;
         
         // TODO: scroll camera if moving outside world bounds
 
@@ -39,31 +42,72 @@ namespace GBJAM7.Scripts
 //        private State state;
 
         private Unit selectedUnit;
-        
+
+        private bool showingPlayerActions;
+
+        private void Start()
+        {
+            playerActions.Hide();
+            unitInfo.Hide();
+        }
+
         public void Update()
         {
             // TODO: controls state, like "if in selection mode, then allow movement"
+
+            var leftPressed = Input.GetKeyDown(leftKey);
+            var rightPressed = Input.GetKeyDown(rigthKey);
+            
+            var upPressed = Input.GetKeyDown(upKey);
+            var downPressed = Input.GetKeyDown(downKey);
+
+            var button1Pressed = Input.GetKeyDown(button1KeyCode);
+            var button2Pressed = Input.GetKeyDown(button2KeyCode);
+            
+            if (showingPlayerActions)
+            {
+                // do stuff here
+                
+                // with up/down we move between actions
+
+                if (button1Pressed)
+                {
+                    // confirm selected action
+                    // for now we only have end turn...
+                    EndCurrentPlayerTurn();
+                    playerActions.Hide();
+                    showingPlayerActions = false;
+                }
+
+                if (button2Pressed)
+                {
+                    playerActions.Hide();
+                    showingPlayerActions = false;
+                }
+                
+                return;
+            }
             
             var selectorOverUnit = FindObjectsOfType<Unit>()
                 .FirstOrDefault(u => u.movementsLeft > 0 &&
                                      Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
             
-            if (Input.GetKeyDown(leftKey))
+            if (leftPressed)
             {
                 selector.Move(new Vector2Int(-1, 0));
             }
             
-            if (Input.GetKeyDown(rigthKey))
+            if (rightPressed)
             {
                 selector.Move(new Vector2Int(1, 0));
             }
             
-            if (Input.GetKeyDown(upKey))
+            if (upPressed)
             {
                 selector.Move(new Vector2Int(0, 1));
             }
             
-            if (Input.GetKeyDown(downKey))
+            if (downPressed)
             {
                 selector.Move(new Vector2Int(0, -1));
             }
@@ -84,7 +128,7 @@ namespace GBJAM7.Scripts
             }
             
             
-            if (Input.GetKeyDown(button1KeyCode))
+            if (button1Pressed)
             {
                 // search for unit in location
                 if (selectedUnit == null)
@@ -125,9 +169,17 @@ namespace GBJAM7.Scripts
 
             }
 
-            if (Input.GetKeyDown(button2KeyCode))
+            if (button2Pressed)
             {
-                DeselectUnit();
+                if (selectedUnit != null)
+                {
+                    DeselectUnit();
+                }
+                else
+                {
+                    playerActions.Show();
+                    showingPlayerActions = true;
+                }
             }
 
             if (selectorOverUnit != null)
@@ -139,6 +191,11 @@ namespace GBJAM7.Scripts
                 unitInfo.Hide();
             }
             
+        }
+
+        private void EndCurrentPlayerTurn()
+        {
+            FindObjectsOfType<Unit>().ToList().ForEach(u => u.movementsLeft = 1);
         }
 
         public void SelectUnit(Unit unit)
