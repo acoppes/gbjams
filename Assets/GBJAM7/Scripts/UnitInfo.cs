@@ -9,6 +9,9 @@ namespace GBJAM7.Scripts
         private CanvasGroup canvasGroup;
 
         [SerializeField]
+        private Text nameText;
+        
+        [SerializeField]
         private Text hpText;
         
         [SerializeField]
@@ -20,6 +23,7 @@ namespace GBJAM7.Scripts
         public void Preview(Unit unit)
         {
             canvasGroup.alpha = 1;
+            nameText.text = $"{unit.name}";
             hpText.text = $"{unit.hp}";
             dmgText.text = $"{unit.dmg}";
             movementsText.text = $"{unit.movementsLeft}";
