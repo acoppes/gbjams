@@ -4,14 +4,17 @@ To keep it simple we are going 1v1 for now and then if we have time add some bas
 
 ## Map view 
 
-General actions
- - menu to show general actions
- - complete a turn
+- Show turn and player transition
 
-- Unit selector.
+General actions
+ - ~~menu to show general actions~~
+ - ~~complete a turn~~
+
+Units
+- ~~Unit selector~~
 - ~~Unit movement area.~~
-- Select unit and target and action move.
-- Unit consumes movement action.
+- ~~Select unit and move it.~~
+- ~~Unit consumes movement action.~~
 
 Build units
 - Build units menu 
