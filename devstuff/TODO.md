@@ -4,8 +4,12 @@ To keep it simple we are going 1v1 for now and then if we have time add some bas
 
 ## Map view 
 
+General actions
+ - menu to show general actions
+ - complete a turn
+
 - Unit selector.
-- Unit movement area.
+- ~~Unit movement area.~~
 - Select unit and target and action move.
 - Unit consumes movement action.
 

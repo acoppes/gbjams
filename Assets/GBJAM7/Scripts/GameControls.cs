@@ -14,6 +14,8 @@ namespace GBJAM7.Scripts
         public Camera worldCamera;
 
         public UnitMovementArea movementArea;
+
+        public UnitInfo unitInfo;
         
         // TODO: scroll camera if moving outside world bounds
 
@@ -41,6 +43,10 @@ namespace GBJAM7.Scripts
         public void Update()
         {
             // TODO: controls state, like "if in selection mode, then allow movement"
+            
+            var selectorOverUnit = FindObjectsOfType<Unit>()
+                .FirstOrDefault(u => u.movementsLeft > 0 &&
+                                     Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
             
             if (Input.GetKeyDown(leftKey))
             {
@@ -83,10 +89,7 @@ namespace GBJAM7.Scripts
                 // search for unit in location
                 if (selectedUnit == null)
                 {
-                    var unit = FindObjectsOfType<Unit>()
-                        .FirstOrDefault(u => u.movementsLeft > 0 &&
-                            Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
-                    SelectUnit(unit);
+                    SelectUnit(selectorOverUnit);
                 }
                 else
                 {
@@ -126,6 +129,16 @@ namespace GBJAM7.Scripts
             {
                 DeselectUnit();
             }
+
+            if (selectorOverUnit != null)
+            {
+                unitInfo.Preview(selectorOverUnit);
+            }
+            else
+            {
+                unitInfo.Hide();
+            }
+            
         }
 
         public void SelectUnit(Unit unit)
