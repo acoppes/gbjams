@@ -62,33 +62,56 @@ namespace GBJAM7.Scripts
                 // search for unit in location
                 if (selectedUnit == null)
                 {
-                    selectedUnit = FindObjectsOfType<Unit>()
+                    var unit = FindObjectsOfType<Unit>()
                         .FirstOrDefault(u => 
                             Vector2.Distance(selector.transform.position, u.transform.position) < 2.0f);
-
-                    if (selectedUnit != null)
-                    {
-                        movementArea.Show(selectedUnit);
-                    }
+                    SelectUnit(unit);
                 }
                 else
                 {
                     // cant select new unit while other selected for now...
                     
+                    // if selected same unit, then show UI for actions
+                    
+                    // if selected another unit, show UI for actions
+                    
+                    // if selected terrain, then check for movement
+                    
                     // here we wait for movement and confirmation
+
+//                    if (IsValidMovement())
+//                    {
+//                        MoveUnit();
+//                        ConsumeUnitMovement();
+//                        deselect the unit
+//                    }
                 }
 
             }
 
             if (Input.GetKeyDown(button2KeyCode))
             {
-                if (selectedUnit != null)
-                {
-                    movementArea.Hide();
-                    // hide UI probably too here
-                    selectedUnit = null;
-                }
+                DeselectUnit();
             }
+        }
+
+        public void SelectUnit(Unit unit)
+        {
+            if (unit == null)
+                return;
+            DeselectUnit();
+            selectedUnit = unit;
+            movementArea.Show(unit);
+        }
+
+        public void DeselectUnit()
+        {
+            if (selectedUnit == null) 
+                return;
+            
+            movementArea.Hide();
+            // hide UI probably too here
+            selectedUnit = null;
         }
     }
 }

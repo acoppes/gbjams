@@ -13,8 +13,24 @@ namespace GBJAM7.Scripts
         
         public void Show(Unit unit)
         {
+            var d = unit.movementDistance;
+            
+            var p = new Vector2Int(-d, -d);
+            for (var i = p.x; i <= d; i++)
+            {
+                for (var j = p.y; j <= d; j++)
+                {
+                    var totalDistance = Mathf.Abs(i) + Mathf.Abs(j);
+                    if (totalDistance <= d)
+                    {
+                        var offset = new Vector3(i * 8, j * 8, 0);
+                        Instantiate(areaPrefab, unit.transform.position + offset, Quaternion.identity, areaContainer);
+                    }
+                }
+            }
+            
             // TODO: instantiate areas in container, use unit movement distance to spawn
-            Instantiate(areaPrefab, unit.transform.position, Quaternion.identity, areaContainer);
+//            Instantiate(areaPrefab, unit.transform.position, Quaternion.identity, areaContainer);
         }
 
         public void Hide()
