@@ -15,6 +15,10 @@ Units
 - ~~Unit movement area.~~
 - ~~Select unit and move it.~~
 - ~~Unit consumes movement action.~~
+- Animate walk (now it teleports)
+
+Unit info
+- unit info shows different info for different units
 
 Build units
 - Build units menu 

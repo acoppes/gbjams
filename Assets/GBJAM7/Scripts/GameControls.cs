@@ -138,7 +138,6 @@ namespace GBJAM7.Scripts
                     var unit = FindObjectsOfType<Unit>()
                         .FirstOrDefault(u => u.movementsLeft > 0 &&
                                              Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
-                    
                     SelectUnit(unit);
                 }
                 else
