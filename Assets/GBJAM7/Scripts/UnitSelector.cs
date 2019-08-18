@@ -2,7 +2,7 @@
 
 namespace GBJAM7.Scripts
 {
-    public class GridObjectMovement : MonoBehaviour
+    public class UnitSelector : MonoBehaviour
     {
         public Vector3Int movement = new Vector3Int(4, 4, 0);
 
