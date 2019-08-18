@@ -7,7 +7,8 @@ To keep it simple we are going 1v1 for now and then if we have time add some bas
 - Show turn and player transition
 
 General actions
- - ~~menu to show general actions~~
+ - ~~menu to show general actions and info~~
+ - have that menu appear on the far side of the screen compared to cursor
  - ~~complete a turn~~
 
 Units
