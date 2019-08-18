@@ -20,9 +20,9 @@ namespace GBJAM7.Scripts
         public void Preview(Unit unit)
         {
             canvasGroup.alpha = 1;
-            hpText.text = $"HP:{unit.hp}";
-            dmgText.text = $"DMG:{unit.dmg}";
-            movementsText.text = $"MOV LEFT:{unit.movementsLeft}";
+            hpText.text = $"{unit.hp}";
+            dmgText.text = $"{unit.dmg}";
+            movementsText.text = $"{unit.movementsLeft}";
         }
 
         public void Hide()
