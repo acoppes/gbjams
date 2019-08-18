@@ -64,7 +64,7 @@ namespace GBJAM7.Scripts
                 {
                     var unit = FindObjectsOfType<Unit>()
                         .FirstOrDefault(u => u.movementsLeft > 0 &&
-                            Vector2.Distance(selector.transform.position, u.transform.position) < 2.0f);
+                            Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
                     SelectUnit(unit);
                 }
                 else
@@ -77,8 +77,8 @@ namespace GBJAM7.Scripts
                     
                     // if selected terrain, then check for movement
 
-                    var selectedUnitPosition = selectedUnit.transform.position / 8;
-                    var selectorPosition = selector.transform.position / 8;
+                    var selectedUnitPosition = selectedUnit.transform.position / 1;
+                    var selectorPosition = selector.transform.position / 1;
 
                     var distance = Mathf.RoundToInt(Mathf.Abs(selectedUnitPosition.x - selectorPosition.x) +
                                                     Mathf.Abs(selectedUnitPosition.y - selectorPosition.y));

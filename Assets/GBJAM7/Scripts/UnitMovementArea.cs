@@ -23,7 +23,7 @@ namespace GBJAM7.Scripts
                     var totalDistance = Mathf.Abs(i) + Mathf.Abs(j);
                     if (totalDistance <= d)
                     {
-                        var offset = new Vector3(i * 8, j * 8, 0);
+                        var offset = new Vector3(i * 1, j * 1, 0);
                         Instantiate(areaPrefab, unit.transform.position + offset, Quaternion.identity, areaContainer);
                     }
                 }

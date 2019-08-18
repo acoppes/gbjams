@@ -4,7 +4,7 @@ namespace GBJAM7.Scripts
 {
     public class UnitSelector : MonoBehaviour
     {
-        public Vector3Int movement = new Vector3Int(4, 4, 0);
+        public Vector3Int movement = new Vector3Int(1, 1, 0);
 
         public void Move(Vector2Int direction)
         {
