@@ -9,6 +9,8 @@ namespace GBJAM7.Scripts
 
         public BoundsInt worldBounds;
         
+        public BoundsInt cameraBounds;
+        
         public Camera worldCamera;
 
         public UnitMovementArea movementArea;
@@ -22,6 +24,9 @@ namespace GBJAM7.Scripts
 
         public KeyCode button1KeyCode;
         public KeyCode button2KeyCode;
+        
+        public KeyCode startKeyCode;
+        public KeyCode selectKeyCode;
         
 //        private enum State
 //        {
@@ -57,14 +62,15 @@ namespace GBJAM7.Scripts
                 selector.Move(new Vector2Int(0, -1));
             }
 
-            while (Mathf.Abs(worldCamera.transform.position.x - selector.transform.position.x) > worldBounds.size.x)
+            // if not in world limits already then pan the camera
+            while (Mathf.Abs(worldCamera.transform.position.x - selector.transform.position.x) > cameraBounds.size.x)
             {
                 var direction = selector.transform.position.x - worldCamera.transform.position.x;
                 var d = direction / Mathf.Abs(direction);
                 worldCamera.transform.position += new Vector3(d, 0,0);
             }
             
-            while (Mathf.Abs(worldCamera.transform.position.y - selector.transform.position.y) > worldBounds.size.y)
+            while (Mathf.Abs(worldCamera.transform.position.y - selector.transform.position.y) > cameraBounds.size.y)
             {
                 var direction = selector.transform.position.y - worldCamera.transform.position.y;
                 var d = direction / Mathf.Abs(direction);
