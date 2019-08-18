@@ -100,8 +100,7 @@ namespace GBJAM7.Scripts
             }
             
             var selectorOverUnit = FindObjectsOfType<Unit>()
-                .FirstOrDefault(u => u.movementsLeft > 0 &&
-                                     Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+                .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
 
             movementRepeatCooldown -= Time.deltaTime;
             
@@ -136,7 +135,11 @@ namespace GBJAM7.Scripts
                 // search for unit in location
                 if (selectedUnit == null)
                 {
-                    SelectUnit(selectorOverUnit);
+                    var unit = FindObjectsOfType<Unit>()
+                        .FirstOrDefault(u => u.movementsLeft > 0 &&
+                                             Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+                    
+                    SelectUnit(unit);
                 }
                 else
                 {
