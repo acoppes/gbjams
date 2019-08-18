@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace GBJAM7.Scripts
 {
-    public class PlayerActions : MonoBehaviour
+    public class BuildActions : MonoBehaviour
     {
         [SerializeField]
         private CanvasGroup _canvasGroup;

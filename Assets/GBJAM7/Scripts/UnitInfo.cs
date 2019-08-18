@@ -26,7 +26,7 @@ namespace GBJAM7.Scripts
             nameText.text = $"{unit.name}";
             hpText.text = $"{unit.hp}";
             dmgText.text = $"{unit.dmg}";
-            movementsText.text = $"{unit.movementsLeft}";
+            movementsText.text = $"{unit.currentMovements}";
         }
 
         public void Hide()

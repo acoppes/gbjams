@@ -19,7 +19,7 @@ Units
 - Animate walk (now it teleports)
 
 Unit info
-- unit info shows different info for different units
+- unit info shows different info for different unit types
 
 Build units
 - Build units menu 

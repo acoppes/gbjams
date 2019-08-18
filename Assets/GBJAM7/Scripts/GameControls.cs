@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace GBJAM7.Scripts
@@ -19,6 +18,8 @@ namespace GBJAM7.Scripts
         public UnitInfo unitInfo;
 
         public PlayerActions playerActions;
+
+        public BuildActions buildActions;
         
         // TODO: scroll camera if moving outside world bounds
 
@@ -52,6 +53,7 @@ namespace GBJAM7.Scripts
         {
             playerActions.Hide();
             unitInfo.Hide();
+            buildActions.Hide();
         }
 
         public void Update()
@@ -75,6 +77,7 @@ namespace GBJAM7.Scripts
             var button1Pressed = Input.GetKeyDown(button1KeyCode);
             var button2Pressed = Input.GetKeyDown(button2KeyCode);
             
+            // if showing a any menu and waiting for action..
             if (showingPlayerActions)
             {
                 // do stuff here
@@ -136,8 +139,7 @@ namespace GBJAM7.Scripts
                 if (selectedUnit == null)
                 {
                     var unit = FindObjectsOfType<Unit>()
-                        .FirstOrDefault(u => u.movementsLeft > 0 &&
-                                             Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+                        .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
                     SelectUnit(unit);
                 }
                 else
@@ -158,7 +160,7 @@ namespace GBJAM7.Scripts
                     if (distance <= selectedUnit.movementDistance)
                     {
                         selectedUnit.transform.position = selector.transform.position;
-                        selectedUnit.movementsLeft = 0;
+                        selectedUnit.currentMovements = 0;
                         DeselectUnit();
                     }
                     
@@ -200,7 +202,7 @@ namespace GBJAM7.Scripts
 
         private void EndCurrentPlayerTurn()
         {
-            FindObjectsOfType<Unit>().ToList().ForEach(u => u.movementsLeft = 1);
+            FindObjectsOfType<Unit>().ToList().ForEach(u => u.currentMovements = u.totalMovements);
         }
 
         public void SelectUnit(Unit unit)
@@ -209,7 +211,15 @@ namespace GBJAM7.Scripts
                 return;
             DeselectUnit();
             selectedUnit = unit;
-            movementArea.Show(unit);
+            if (unit.unitType == Unit.UnitType.Unit)
+            {
+                if (unit.currentMovements > 0)
+                    movementArea.Show(unit);
+            } else if (unit.unitType == Unit.UnitType.Spawner)
+            {
+                buildActions.Show();
+//                buildMenu.Show(unit);
+            }
         }
 
         public void DeselectUnit()
