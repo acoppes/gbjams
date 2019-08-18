@@ -56,6 +56,21 @@ namespace GBJAM7.Scripts
             {
                 selector.Move(new Vector2Int(0, -1));
             }
+
+            while (Mathf.Abs(worldCamera.transform.position.x - selector.transform.position.x) > worldBounds.size.x)
+            {
+                var direction = selector.transform.position.x - worldCamera.transform.position.x;
+                var d = direction / Mathf.Abs(direction);
+                worldCamera.transform.position += new Vector3(d, 0,0);
+            }
+            
+            while (Mathf.Abs(worldCamera.transform.position.y - selector.transform.position.y) > worldBounds.size.y)
+            {
+                var direction = selector.transform.position.y - worldCamera.transform.position.y;
+                var d = direction / Mathf.Abs(direction);
+                worldCamera.transform.position += new Vector3(0, d,0);
+            }
+            
             
             if (Input.GetKeyDown(button1KeyCode))
             {
