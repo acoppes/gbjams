@@ -6,7 +6,7 @@ namespace GBJAM7.Scripts
     {
         public int movementDistance;
         public int movementsLeft = 1;
-        public int health;
+        public int hp;
         public int dmg;
     }
 }

@@ -45,6 +45,9 @@ namespace GBJAM7.Scripts
 
         private bool showingPlayerActions;
 
+        public float movementRepeatDelay = 0.5f;
+        private float movementRepeatCooldown = 0.0f;
+
         private void Start()
         {
             playerActions.Hide();
@@ -55,12 +58,20 @@ namespace GBJAM7.Scripts
         {
             // TODO: controls state, like "if in selection mode, then allow movement"
 
-            var leftPressed = Input.GetKeyDown(leftKey);
-            var rightPressed = Input.GetKeyDown(rigthKey);
+            var leftPressed = Input.GetKey(leftKey);
+            var rightPressed = Input.GetKey(rigthKey);
             
-            var upPressed = Input.GetKeyDown(upKey);
-            var downPressed = Input.GetKeyDown(downKey);
+            var upPressed = Input.GetKey(upKey);
+            var downPressed = Input.GetKey(downKey);
+            
+            var movement = new Vector2Int(0, 0);
 
+            movement.x += leftPressed ? -1 : 0;
+            movement.x += rightPressed ? 1 : 0;
+            
+            movement.y += upPressed ? 1 : 0;
+            movement.y += downPressed ? -1 : 0;
+            
             var button1Pressed = Input.GetKeyDown(button1KeyCode);
             var button2Pressed = Input.GetKeyDown(button2KeyCode);
             
@@ -89,29 +100,20 @@ namespace GBJAM7.Scripts
             }
             
             var selectorOverUnit = FindObjectsOfType<Unit>()
-                .FirstOrDefault(u => u.movementsLeft > 0 &&
-                                     Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
-            
-            if (leftPressed)
-            {
-                selector.Move(new Vector2Int(-1, 0));
-            }
-            
-            if (rightPressed)
-            {
-                selector.Move(new Vector2Int(1, 0));
-            }
-            
-            if (upPressed)
-            {
-                selector.Move(new Vector2Int(0, 1));
-            }
-            
-            if (downPressed)
-            {
-                selector.Move(new Vector2Int(0, -1));
-            }
+                .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
 
+            movementRepeatCooldown -= Time.deltaTime;
+            
+            if (movementRepeatCooldown <= 0 && (movement.x != 0 || movement.y != 0))
+            {
+                selector.Move(movement);
+                movementRepeatCooldown = movementRepeatDelay;
+            }
+            else if (movement.x == 0 && movement.y == 0)
+            {
+                movementRepeatCooldown = 0;
+            }
+            
             // if not in world limits already then pan the camera
             while (Mathf.Abs(worldCamera.transform.position.x - selector.transform.position.x) > cameraBounds.size.x)
             {
@@ -133,7 +135,11 @@ namespace GBJAM7.Scripts
                 // search for unit in location
                 if (selectedUnit == null)
                 {
-                    SelectUnit(selectorOverUnit);
+                    var unit = FindObjectsOfType<Unit>()
+                        .FirstOrDefault(u => u.movementsLeft > 0 &&
+                                             Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+                    
+                    SelectUnit(unit);
                 }
                 else
                 {
@@ -182,7 +188,7 @@ namespace GBJAM7.Scripts
                 }
             }
 
-            if (selectorOverUnit != null)
+            if (selectorOverUnit != null && selectedUnit == null)
             {
                 unitInfo.Preview(selectorOverUnit);
             }
