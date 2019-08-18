@@ -28,9 +28,6 @@ namespace GBJAM7.Scripts
                     }
                 }
             }
-            
-            // TODO: instantiate areas in container, use unit movement distance to spawn
-//            Instantiate(areaPrefab, unit.transform.position, Quaternion.identity, areaContainer);
         }
 
         public void Hide()

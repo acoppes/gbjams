@@ -63,7 +63,7 @@ namespace GBJAM7.Scripts
                 if (selectedUnit == null)
                 {
                     var unit = FindObjectsOfType<Unit>()
-                        .FirstOrDefault(u => 
+                        .FirstOrDefault(u => u.movementsLeft > 0 &&
                             Vector2.Distance(selector.transform.position, u.transform.position) < 2.0f);
                     SelectUnit(unit);
                 }
@@ -76,6 +76,18 @@ namespace GBJAM7.Scripts
                     // if selected another unit, show UI for actions
                     
                     // if selected terrain, then check for movement
+
+                    var selectedUnitPosition = selectedUnit.transform.position / 8;
+                    var selectorPosition = selector.transform.position / 8;
+
+                    var distance = Mathf.RoundToInt(Mathf.Abs(selectedUnitPosition.x - selectorPosition.x) +
+                                                    Mathf.Abs(selectedUnitPosition.y - selectorPosition.y));
+                    if (distance <= selectedUnit.movementDistance)
+                    {
+                        selectedUnit.transform.position = selector.transform.position;
+                        selectedUnit.movementsLeft = 0;
+                        DeselectUnit();
+                    }
                     
                     // here we wait for movement and confirmation
 
