@@ -22,6 +22,7 @@ namespace GBJAM7.Scripts
         public int hp;
         public int dmg;
 
-        public int spawnUnitsLeft = 1;
+        public int totalActions = 1;
+        public int currentActions = 1;
     }
 }

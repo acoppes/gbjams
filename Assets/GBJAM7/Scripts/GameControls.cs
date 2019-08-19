@@ -256,7 +256,11 @@ namespace GBJAM7.Scripts
 
         public void EndCurrentPlayerTurn()
         {
-            FindObjectsOfType<Unit>().ToList().ForEach(u => u.currentMovements = u.totalMovements);
+            FindObjectsOfType<Unit>().ToList().ForEach(u =>
+            {
+                u.currentMovements = u.totalMovements;
+                u.currentActions = u.totalActions;
+            });
         }
 
         public void SelectUnit(Unit unit)
@@ -268,18 +272,34 @@ namespace GBJAM7.Scripts
             if (unit.unitType == Unit.UnitType.Unit)
             {
                 if (unit.currentMovements > 0)
+                {
                     movementArea.Show(unit);
+                }
+                else
+                {
+                    // we should show menu for unit actions at some point
+                    DeselectUnit();
+                }
             } else if (unit.unitType == Unit.UnitType.Spawner)
             {
-                // TODO: get player actions from player?
-                buildActions.Show(new List<Option>()
+                // only show unit actions if available
+                if (unit.currentActions > 0)
                 {
-                    new Option { name = "Ranger 20" },
-                    new Option { name = "Sniper 50" },
-                    new Option { name = "Guardian 90" },
-                }, OnBuildOptionSelected, CancelMenuAction);
-                waitingForAction = true;
-                
+                    // TODO: get player actions from player?
+                    buildActions.Show(new List<Option>()
+                    {
+                        new Option {name = "Ranger 20"},
+                        new Option {name = "Sniper 50"},
+                        new Option {name = "Guardian 90"},
+                    }, OnBuildOptionSelected, CancelMenuAction);
+                    waitingForAction = true;
+                }
+                else
+                {
+                    // in the case of factories that cant move, we just avoid selecting them again if you can't build
+                    // I suppose.
+                    DeselectUnit();
+                }
                 
 //                buildMenu.Show(unit);
             }
@@ -290,6 +310,7 @@ namespace GBJAM7.Scripts
             if (optionIndex == 0)
             {
                 // build ranger
+                // consume money
             }
             
             if (optionIndex == 1)
@@ -301,7 +322,8 @@ namespace GBJAM7.Scripts
             {
                 // build ranger
             }
-            
+
+            selectedUnit.currentActions--;
             CompleteMenuAction();
         }
 
