@@ -7,8 +7,11 @@ namespace GBJAM7.Scripts
         public enum UnitType
         {
             Unit,
-            Spawner
+            Spawner,
+            MainBase
         }
+
+        public int player;
         
         public string name;
 
@@ -24,5 +27,7 @@ namespace GBJAM7.Scripts
 
         public int totalActions = 1;
         public int currentActions = 1;
+
+        public int resources;
     }
 }

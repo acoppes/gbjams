@@ -5,6 +5,20 @@ using UnityEngine;
 
 namespace GBJAM7.Scripts
 {
+    [Serializable]
+    public struct BuildOption
+    {
+        public int cost;
+        public string name;
+    }
+
+    [Serializable]
+    public class PlayerData
+    {
+        public int resources;
+        public List<BuildOption> buildOptions;
+    }
+    
     public class GameController : MonoBehaviour
     {
         public UnitSelector selector;
@@ -35,6 +49,9 @@ namespace GBJAM7.Scripts
         
         public KeyCode startKeyCode;
         public KeyCode selectKeyCode;
+
+        public int currentPlayer;
+        public List<PlayerData> players;
         
 //        private enum State
 //        {
@@ -256,15 +273,27 @@ namespace GBJAM7.Scripts
 
         public void EndCurrentPlayerTurn()
         {
-            FindObjectsOfType<Unit>().ToList().ForEach(u =>
+            currentPlayer = (currentPlayer + 1) % players.Count;
+            var player = players[currentPlayer];
+            
+            var playerUnits = FindObjectsOfType<Unit>().Where(u => u.player == currentPlayer).ToList();
+            playerUnits.ForEach(u =>
             {
                 u.currentMovements = u.totalMovements;
                 u.currentActions = u.totalActions;
+                player.resources += u.resources;
             });
+
+//            playerUnits.ForEach(u =>
+//            {
+//                player.resources += u.resources;
+//            });
         }
 
         public void SelectUnit(Unit unit)
         {
+            var player = players[currentPlayer];
+            
             if (unit == null)
                 return;
             DeselectUnit();
@@ -285,14 +314,11 @@ namespace GBJAM7.Scripts
                 // only show unit actions if available
                 if (unit.currentActions > 0)
                 {
-                    // TODO: get player actions from player?
-                    buildActions.title = "Build 120";
-                    buildActions.Show(new List<Option>()
-                    {
-                        new Option {name = "Ranger 20"},
-                        new Option {name = "Sniper 50"},
-                        new Option {name = "Guardian 90"},
-                    }, OnBuildOptionSelected, CancelMenuAction);
+                    buildActions.title = $"Build {player.resources}";
+                    buildActions.Show(player.buildOptions
+                        .Select(o => new Option { name = $"{o.name} {o.cost}" }).ToList(), 
+                        OnBuildOptionSelected, 
+                        CancelMenuAction);
                     waitingForAction = true;
                 }
                 else
@@ -308,20 +334,25 @@ namespace GBJAM7.Scripts
 
         private void OnBuildOptionSelected(int optionIndex, Option option)
         {
+            var player = players[currentPlayer];
+            
             if (optionIndex == 0)
             {
                 // build ranger
                 // consume money
+                player.resources -= player.buildOptions[optionIndex].cost;
             }
             
             if (optionIndex == 1)
             {
                 // build ranger
+                player.resources -= player.buildOptions[optionIndex].cost;
             }
             
             if (optionIndex == 2)
             {
                 // build ranger
+                player.resources -= player.buildOptions[optionIndex].cost;
             }
 
             selectedUnit.currentActions--;
