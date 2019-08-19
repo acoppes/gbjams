@@ -19,6 +19,8 @@ namespace GBJAM7.Scripts
         public UnitInfo unitInfo;
 
         public PlayerActions playerActions;
+
+        public BuildActions buildActions;
         
         // TODO: scroll camera if moving outside world bounds
 
@@ -43,26 +45,45 @@ namespace GBJAM7.Scripts
 
         private Unit selectedUnit;
 
-        private bool showingPlayerActions;
+        private bool showingMenu;
 
         public float movementRepeatDelay = 0.5f;
         private float movementRepeatCooldown = 0.0f;
 
+        [NonSerialized]
+        public bool leftPressed;
+        
+        [NonSerialized]
+        public bool rightPressed;
+
+        [NonSerialized]
+        public bool upPressed;
+
+        [NonSerialized]
+        public bool downPressed;
+        
+        [NonSerialized]
+        public bool button1Pressed;
+        
+        [NonSerialized]
+        public bool button2Pressed;
+        
         private void Start()
         {
             playerActions.Hide();
             unitInfo.Hide();
+            buildActions.Hide();
         }
 
         public void Update()
         {
             // TODO: controls state, like "if in selection mode, then allow movement"
 
-            var leftPressed = Input.GetKey(leftKey);
-            var rightPressed = Input.GetKey(rigthKey);
+            leftPressed = Input.GetKey(leftKey);
+            rightPressed = Input.GetKey(rigthKey);
             
-            var upPressed = Input.GetKey(upKey);
-            var downPressed = Input.GetKey(downKey);
+            upPressed = Input.GetKey(upKey);
+            downPressed = Input.GetKey(downKey);
             
             var movement = new Vector2Int(0, 0);
 
@@ -72,29 +93,30 @@ namespace GBJAM7.Scripts
             movement.y += upPressed ? 1 : 0;
             movement.y += downPressed ? -1 : 0;
             
-            var button1Pressed = Input.GetKeyDown(button1KeyCode);
-            var button2Pressed = Input.GetKeyDown(button2KeyCode);
+            button1Pressed = Input.GetKeyUp(button1KeyCode);
+            button2Pressed = Input.GetKeyUp(button2KeyCode);
             
-            if (showingPlayerActions)
+            // if showing a any menu and waiting for action..
+            if (showingMenu)
             {
                 // do stuff here
                 
                 // with up/down we move between actions
 
-                if (button1Pressed)
-                {
-                    // confirm selected action
-                    // for now we only have end turn...
-                    EndCurrentPlayerTurn();
-                    playerActions.Hide();
-                    showingPlayerActions = false;
-                }
-
-                if (button2Pressed)
-                {
-                    playerActions.Hide();
-                    showingPlayerActions = false;
-                }
+//                if (button1Pressed)
+//                {
+//                    // confirm selected action
+//                    // for now we only have end turn...
+//                    EndCurrentPlayerTurn();
+//                    playerActions.Hide();
+//                    showingMenu = false;
+//                }
+//
+//                if (button2Pressed)
+//                {
+//                    playerActions.Hide();
+//                    showingMenu = false;
+//                }
                 
                 return;
             }
@@ -136,9 +158,7 @@ namespace GBJAM7.Scripts
                 if (selectedUnit == null)
                 {
                     var unit = FindObjectsOfType<Unit>()
-                        .FirstOrDefault(u => u.movementsLeft > 0 &&
-                                             Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
-                    
+                        .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
                     SelectUnit(unit);
                 }
                 else
@@ -159,7 +179,7 @@ namespace GBJAM7.Scripts
                     if (distance <= selectedUnit.movementDistance)
                     {
                         selectedUnit.transform.position = selector.transform.position;
-                        selectedUnit.movementsLeft = 0;
+                        selectedUnit.currentMovements = 0;
                         DeselectUnit();
                     }
                     
@@ -184,7 +204,7 @@ namespace GBJAM7.Scripts
                 else
                 {
                     playerActions.Show();
-                    showingPlayerActions = true;
+                    showingMenu = true;
                 }
             }
 
@@ -201,7 +221,7 @@ namespace GBJAM7.Scripts
 
         private void EndCurrentPlayerTurn()
         {
-            FindObjectsOfType<Unit>().ToList().ForEach(u => u.movementsLeft = 1);
+            FindObjectsOfType<Unit>().ToList().ForEach(u => u.currentMovements = u.totalMovements);
         }
 
         public void SelectUnit(Unit unit)
@@ -210,7 +230,16 @@ namespace GBJAM7.Scripts
                 return;
             DeselectUnit();
             selectedUnit = unit;
-            movementArea.Show(unit);
+            if (unit.unitType == Unit.UnitType.Unit)
+            {
+                if (unit.currentMovements > 0)
+                    movementArea.Show(unit);
+            } else if (unit.unitType == Unit.UnitType.Spawner)
+            {
+                buildActions.Show();
+                showingMenu = true;
+//                buildMenu.Show(unit);
+            }
         }
 
         public void DeselectUnit()
@@ -221,6 +250,11 @@ namespace GBJAM7.Scripts
             movementArea.Hide();
             // hide UI probably too here
             selectedUnit = null;
+        }
+
+        public void CancelMenuAction()
+        {
+            showingMenu = false;
         }
     }
 }
