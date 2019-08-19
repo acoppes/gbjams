@@ -39,6 +39,10 @@ Main structure
 - You lose if they destroy yours
 - Main structure gives some resources by default
 
+Transitions & Tweens
+- Tween selector position
+- Tween camera position
+
 ## Attack view
 
 - UI to show unit health

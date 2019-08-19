@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace GBJAM7.Scripts
 
         public UnitInfo unitInfo;
 
-        public PlayerActions playerActions;
+        public OptionsMenu playerActions;
 
         public BuildActions buildActions;
         
@@ -178,16 +179,19 @@ namespace GBJAM7.Scripts
                     
                     // if selected terrain, then check for movement
 
-                    var selectedUnitPosition = selectedUnit.transform.position / 1;
-                    var selectorPosition = selector.transform.position / 1;
-
-                    var distance = Mathf.RoundToInt(Mathf.Abs(selectedUnitPosition.x - selectorPosition.x) +
-                                                    Mathf.Abs(selectedUnitPosition.y - selectorPosition.y));
-                    if (distance <= selectedUnit.movementDistance)
+                    if (selectedUnit.currentMovements > 0)
                     {
-                        selectedUnit.transform.position = selector.transform.position;
-                        selectedUnit.currentMovements = 0;
-                        DeselectUnit();
+                        var selectedUnitPosition = selectedUnit.transform.position / 1;
+                        var selectorPosition = selector.transform.position / 1;
+
+                        var distance = Mathf.RoundToInt(Mathf.Abs(selectedUnitPosition.x - selectorPosition.x) +
+                                                        Mathf.Abs(selectedUnitPosition.y - selectorPosition.y));
+                        if (distance <= selectedUnit.movementDistance)
+                        {
+                            selectedUnit.transform.position = selector.transform.position;
+                            selectedUnit.currentMovements = 0;
+                            DeselectUnit();
+                        }
                     }
                     
                     // here we wait for movement and confirmation
@@ -210,7 +214,18 @@ namespace GBJAM7.Scripts
                 }
                 else
                 {
-                    playerActions.Show();
+                    playerActions.Show(new List<Option>()
+                    {
+                        new Option()
+                        {
+                            name = "End turn"
+                        },
+                        new Option()
+                        {
+                            name = "Cancel"
+                        }
+                    }, OnPlayerActionsMenuOptionSelected, CancelMenuAction);
+                    // playerActions.Show();
                     waitingForAction = true;
                 }
             }
@@ -224,6 +239,19 @@ namespace GBJAM7.Scripts
                 unitInfo.Hide();
             }
             
+        }
+
+        private void OnPlayerActionsMenuOptionSelected(int optionIndex, Option option)
+        {
+            if (optionIndex == 0)
+            {
+                EndCurrentPlayerTurn();
+                CompleteMenuAction();
+            }
+            else
+            {
+                CancelMenuAction();
+            }
         }
 
         public void EndCurrentPlayerTurn()
@@ -268,5 +296,6 @@ namespace GBJAM7.Scripts
         {
             waitingForAction = false;
         }
+
     }
 }
