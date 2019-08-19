@@ -20,6 +20,9 @@ namespace GBJAM7.Scripts
         [SerializeField]
         private Text movementsText;
         
+        [SerializeField]
+        private GameObject moneyContainer;
+        
         public void Preview(Unit unit)
         {
             canvasGroup.alpha = 1;
@@ -27,6 +30,9 @@ namespace GBJAM7.Scripts
             hpText.text = $"{unit.hp}";
             dmgText.text = $"{unit.dmg}";
             movementsText.text = $"{unit.currentMovements}";
+
+            moneyContainer.SetActive(unit.resources > 0);
+            moneyContainer.GetComponentInChildren<Text>().text = $"{unit.resources}";
         }
 
         public void Hide()

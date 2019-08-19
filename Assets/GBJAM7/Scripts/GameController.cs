@@ -188,6 +188,9 @@ namespace GBJAM7.Scripts
                 }
                 else
                 {
+                    var enemyUnit = FindObjectsOfType<Unit>()
+                        .FirstOrDefault(u => u.player != currentPlayer && Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+                    
                     // cant select new unit while other selected for now...
                     
                     // if selected same unit, then show UI for actions
@@ -196,18 +199,27 @@ namespace GBJAM7.Scripts
                     
                     // if selected terrain, then check for movement
 
-                    if (selectedUnit.currentMovements > 0)
+                    // TODO: check range range
+                    if (enemyUnit != null)
                     {
-                        var selectedUnitPosition = selectedUnit.transform.position / 1;
-                        var selectorPosition = selector.transform.position / 1;
-
-                        var distance = Mathf.RoundToInt(Mathf.Abs(selectedUnitPosition.x - selectorPosition.x) +
-                                                        Mathf.Abs(selectedUnitPosition.y - selectorPosition.y));
-                        if (distance <= selectedUnit.movementDistance)
+                        // show attack menu
+                        
+                        
+                    } else
+                    {
+                        if (selectedUnit.currentMovements > 0)
                         {
-                            selectedUnit.transform.position = selector.transform.position;
-                            selectedUnit.currentMovements = 0;
-                            DeselectUnit();
+                            var selectedUnitPosition = selectedUnit.transform.position / 1;
+                            var selectorPosition = selector.transform.position / 1;
+
+                            var distance = Mathf.RoundToInt(Mathf.Abs(selectedUnitPosition.x - selectorPosition.x) +
+                                                            Mathf.Abs(selectedUnitPosition.y - selectorPosition.y));
+                            if (distance <= selectedUnit.movementDistance)
+                            {
+                                selectedUnit.transform.position = selector.transform.position;
+                                selectedUnit.currentMovements = 0;
+                                DeselectUnit();
+                            }
                         }
                     }
                     
