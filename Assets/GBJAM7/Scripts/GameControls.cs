@@ -47,8 +47,11 @@ namespace GBJAM7.Scripts
 
         private bool showingMenu;
 
-        public float movementRepeatDelay = 0.5f;
-        private float movementRepeatCooldown = 0.0f;
+//        public float movementRepeatDelay = 0.5f;
+//        private float movementRepeatCooldown = 0.0f;
+//
+//        [NonSerialized]
+//        public bool keyReady;
 
         [NonSerialized]
         public bool leftPressed;
@@ -79,11 +82,11 @@ namespace GBJAM7.Scripts
         {
             // TODO: controls state, like "if in selection mode, then allow movement"
 
-            leftPressed = Input.GetKey(leftKey);
-            rightPressed = Input.GetKey(rigthKey);
+            leftPressed = Input.GetKeyDown(leftKey);
+            rightPressed = Input.GetKeyDown(rigthKey);
             
-            upPressed = Input.GetKey(upKey);
-            downPressed = Input.GetKey(downKey);
+            upPressed = Input.GetKeyDown(upKey);
+            downPressed = Input.GetKeyDown(downKey);
             
             var movement = new Vector2Int(0, 0);
 
@@ -93,8 +96,21 @@ namespace GBJAM7.Scripts
             movement.y += upPressed ? 1 : 0;
             movement.y += downPressed ? -1 : 0;
             
-            button1Pressed = Input.GetKeyUp(button1KeyCode);
-            button2Pressed = Input.GetKeyUp(button2KeyCode);
+            button1Pressed = Input.GetKeyDown(button1KeyCode);
+            button2Pressed = Input.GetKeyDown(button2KeyCode);
+            
+//            movementRepeatCooldown -= Time.deltaTime;
+//            
+//            if (movementRepeatCooldown <= 0 && (movement.x != 0 || movement.y != 0))
+//            {
+//                movementRepeatCooldown = movementRepeatDelay;
+//                keyReady = true;
+//            }
+//            else if (movement.x == 0 && movement.y == 0)
+//            {
+//                keyReady = true;
+//                movementRepeatCooldown = 0;
+//            }
             
             // if showing a any menu and waiting for action..
             if (showingMenu)
@@ -124,17 +140,8 @@ namespace GBJAM7.Scripts
             var selectorOverUnit = FindObjectsOfType<Unit>()
                 .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
 
-            movementRepeatCooldown -= Time.deltaTime;
-            
-            if (movementRepeatCooldown <= 0 && (movement.x != 0 || movement.y != 0))
-            {
-                selector.Move(movement);
-                movementRepeatCooldown = movementRepeatDelay;
-            }
-            else if (movement.x == 0 && movement.y == 0)
-            {
-                movementRepeatCooldown = 0;
-            }
+//            if (keyReady)
+            selector.Move(movement);
             
             // if not in world limits already then pan the camera
             while (Mathf.Abs(worldCamera.transform.position.x - selector.transform.position.x) > cameraBounds.size.x)
@@ -219,7 +226,7 @@ namespace GBJAM7.Scripts
             
         }
 
-        private void EndCurrentPlayerTurn()
+        public void EndCurrentPlayerTurn()
         {
             FindObjectsOfType<Unit>().ToList().ForEach(u => u.currentMovements = u.totalMovements);
         }

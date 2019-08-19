@@ -45,6 +45,9 @@ namespace GBJAM7.Scripts
                 return;
             }
 
+//            if (!gameControls.keyReady)
+//                return;
+            
             if (gameControls.upPressed)
             {
                 currentOptionIndex--;
@@ -65,6 +68,9 @@ namespace GBJAM7.Scripts
             if (gameControls.button1Pressed)
             {
                 // execute action in game controls!
+                // TODO: perform proper action
+                gameControls.EndCurrentPlayerTurn();
+                Hide();
             }
 
             if (gameControls.button2Pressed)
