@@ -21,7 +21,7 @@ namespace GBJAM7.Scripts
 
         public OptionsMenu playerActions;
 
-        public BuildActions buildActions;
+        public OptionsMenu buildActions;
         
         // TODO: scroll camera if moving outside world bounds
 
@@ -271,10 +271,38 @@ namespace GBJAM7.Scripts
                     movementArea.Show(unit);
             } else if (unit.unitType == Unit.UnitType.Spawner)
             {
-                buildActions.Show();
+                // TODO: get player actions from player?
+                buildActions.Show(new List<Option>()
+                {
+                    new Option { name = "Ranger 20" },
+                    new Option { name = "Sniper 50" },
+                    new Option { name = "Guardian 90" },
+                }, OnBuildOptionSelected, CancelMenuAction);
                 waitingForAction = true;
+                
+                
 //                buildMenu.Show(unit);
             }
+        }
+
+        private void OnBuildOptionSelected(int optionIndex, Option option)
+        {
+            if (optionIndex == 0)
+            {
+                // build ranger
+            }
+            
+            if (optionIndex == 1)
+            {
+                // build ranger
+            }
+            
+            if (optionIndex == 2)
+            {
+                // build ranger
+            }
+            
+            CompleteMenuAction();
         }
 
         public void DeselectUnit()
@@ -290,11 +318,13 @@ namespace GBJAM7.Scripts
         public void CancelMenuAction()
         {
             waitingForAction = false;
+            DeselectUnit();
         }
 
         public void CompleteMenuAction()
         {
             waitingForAction = false;
+            DeselectUnit();
         }
 
     }
