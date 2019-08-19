@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GBJAM7.Scripts
 {
@@ -27,6 +28,11 @@ namespace GBJAM7.Scripts
 
         private Action<int, Option> _optionSelectedCallback;
         private Action _cancelMenu;
+
+        public string title;
+
+        public GameObject titleObject;
+        public Text titleText;
         
         public void Show(List<Option> options, Action<int, Option> optionSelectedCallback, Action cancelMenu)
         {
@@ -117,6 +123,9 @@ namespace GBJAM7.Scripts
 
         private void LateUpdate()
         {
+            titleText.text = title;
+            titleObject.SetActive(!string.IsNullOrEmpty(title));
+
             for (var i = 0; i < menuOptions.Count; i++)
             {
                 menuOptions[i].selected = i == currentOptionIndex;

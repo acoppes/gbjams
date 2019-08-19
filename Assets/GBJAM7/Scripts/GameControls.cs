@@ -286,6 +286,7 @@ namespace GBJAM7.Scripts
                 if (unit.currentActions > 0)
                 {
                     // TODO: get player actions from player?
+                    buildActions.title = "Build 120";
                     buildActions.Show(new List<Option>()
                     {
                         new Option {name = "Ranger 20"},
