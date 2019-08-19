@@ -45,7 +45,7 @@ namespace GBJAM7.Scripts
 
         private Unit selectedUnit;
 
-        private bool showingMenu;
+        private bool waitingForAction;
 
 //        public float movementRepeatDelay = 0.5f;
 //        private float movementRepeatCooldown = 0.0f;
@@ -113,7 +113,7 @@ namespace GBJAM7.Scripts
 //            }
             
             // if showing a any menu and waiting for action..
-            if (showingMenu)
+            if (waitingForAction)
             {
                 // do stuff here
                 
@@ -211,7 +211,7 @@ namespace GBJAM7.Scripts
                 else
                 {
                     playerActions.Show();
-                    showingMenu = true;
+                    waitingForAction = true;
                 }
             }
 
@@ -244,7 +244,7 @@ namespace GBJAM7.Scripts
             } else if (unit.unitType == Unit.UnitType.Spawner)
             {
                 buildActions.Show();
-                showingMenu = true;
+                waitingForAction = true;
 //                buildMenu.Show(unit);
             }
         }
@@ -261,7 +261,12 @@ namespace GBJAM7.Scripts
 
         public void CancelMenuAction()
         {
-            showingMenu = false;
+            waitingForAction = false;
+        }
+
+        public void CompleteMenuAction()
+        {
+            waitingForAction = false;
         }
     }
 }

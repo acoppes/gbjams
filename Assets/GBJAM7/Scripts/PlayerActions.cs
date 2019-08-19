@@ -70,6 +70,7 @@ namespace GBJAM7.Scripts
                 // execute action in game controls!
                 // TODO: perform proper action
                 gameControls.EndCurrentPlayerTurn();
+                gameControls.CompleteMenuAction();
                 Hide();
             }
 
