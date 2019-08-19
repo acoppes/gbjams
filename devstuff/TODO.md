@@ -22,9 +22,10 @@ Unit info
 - unit info shows different info for different unit types
 
 Build units
-- Build units menu 
-- Select on barracks to build
+- ~~Build units menu~~ 
+- ~~Select on barracks to build~~
 - Barracks consume action after build
+- Units are built over barracks
 
 Resources
 - Capture neutral structures for money

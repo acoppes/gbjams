@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GBJAM7.Scripts
 {
-    public class GameControls : MonoBehaviour
+    public class GameController : MonoBehaviour
     {
         public UnitSelector selector;
 

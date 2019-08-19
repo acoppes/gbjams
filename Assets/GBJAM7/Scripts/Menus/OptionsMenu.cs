@@ -11,7 +11,7 @@ namespace GBJAM7.Scripts
         [SerializeField]
         private CanvasGroup _canvasGroup;
 
-        public GameControls gameControls;
+        public GameController gameControls;
 
         [SerializeField]
         private GameObject menuOptionPrefab;
