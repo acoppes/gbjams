@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,6 +35,7 @@ namespace GBJAM7.Scripts
         
         public UnitMovementArea attackArea;
 
+        public GameInfo gameInfo;
         public UnitInfo unitInfo;
 
         public OptionsMenu playerActions;
@@ -55,6 +57,8 @@ namespace GBJAM7.Scripts
         public KeyCode startKeyCode;
         public KeyCode selectKeyCode;
 
+        public int currentTurn;
+        
         public int currentPlayer;
         public List<PlayerData> players;
         
@@ -123,6 +127,8 @@ namespace GBJAM7.Scripts
             
             button1Pressed = Input.GetKeyDown(button1KeyCode);
             button2Pressed = Input.GetKeyDown(button2KeyCode);
+            
+            gameInfo.UpdateGameInfo(currentPlayer, currentTurn);
             
 //            movementRepeatCooldown -= Time.deltaTime;
 //            
@@ -397,10 +403,22 @@ namespace GBJAM7.Scripts
                 player.resources += u.resources;
             });
 
-//            playerUnits.ForEach(u =>
-//            {
-//                player.resources += u.resources;
-//            });
+            if (currentPlayer == 0)
+            {
+                currentTurn++;
+            }
+
+            StartCoroutine(ShowChangeTurnUI());
+            // TODO: show turn change UI
+        }
+
+        private IEnumerator ShowChangeTurnUI()
+        {
+            // Hide all menues
+            // block game input
+            // set the change turn ui and show it
+            // once completed, turn back everything
+            yield return null;
         }
 
         private void ShowPlayerActions()
