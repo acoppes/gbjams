@@ -425,8 +425,9 @@ namespace GBJAM7.Scripts
                 Instantiate(player.buildOptions[optionIndex].prefab, selectedUnit.transform.position, Quaternion.identity);
                 
             var newUnit = newUnitObject.GetComponentInChildren<Unit>();
-            newUnit.totalActions = 0;
-            newUnit.totalMovements = 0;
+            newUnit.currentActions = 0;
+            newUnit.currentMovements = 0;
+            newUnit.player = currentPlayer;
             
             // consume money
             player.resources -= player.buildOptions[optionIndex].cost;
