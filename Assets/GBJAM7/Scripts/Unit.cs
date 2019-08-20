@@ -35,11 +35,15 @@ namespace GBJAM7.Scripts
 
         public int resources;
 
-        public Animator animator;
+        public Vector3 moveDirection = new Vector3(1, 0, 0);
 
+        [SerializeField]
+        private SpriteRenderer spriteRenderer;
+        
         private void LateUpdate()
         {
-            animator.SetInteger("player", player);
+            spriteRenderer.flipX = player != 0;
+//            spriteRenderer.flipX = moveDirection.x < 0;
         }
     }
 }

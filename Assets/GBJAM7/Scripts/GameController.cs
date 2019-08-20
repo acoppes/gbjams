@@ -240,9 +240,6 @@ namespace GBJAM7.Scripts
                 return;
             }
             
-
-
-//            if (keyReady)
             selector.Move(movement);
             AdjustCameraToSelector();
             
@@ -272,12 +269,12 @@ namespace GBJAM7.Scripts
                     // TODO: check range range
                     if (enemyUnit != null)
                     {
-                        // show attack menu
-                        
-                        
+                        // if enemy unit inside range (movement + attack range)
+                        // show attack menu, and if clicked, then move to nearest position and attack...
                     } else
                     {
-                        if (selectedUnit.currentMovements > 0)
+                        // can't move over our structures
+                        if (selectedUnit.currentMovements > 0 && selectorOverUnit == null)
                         {
                             var p0 = selectedUnit.transform.position / 1;
                             var p1 = selector.transform.position / 1;
@@ -286,6 +283,8 @@ namespace GBJAM7.Scripts
                             {
                                 selectedUnit.transform.position = selector.transform.position;
                                 selectedUnit.currentMovements = 0;
+
+                                selectedUnit.moveDirection = p1 - p0;
 
                                 if (selectedUnit.currentActions > 0)
                                 {
