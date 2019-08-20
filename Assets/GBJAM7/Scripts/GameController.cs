@@ -10,6 +10,7 @@ namespace GBJAM7.Scripts
     {
         public int cost;
         public string name;
+        public GameObject prefab;
     }
 
     [Serializable]
@@ -36,6 +37,8 @@ namespace GBJAM7.Scripts
         public OptionsMenu playerActions;
 
         public OptionsMenu buildActions;
+        
+        public OptionsMenu unitActions;
         
         // TODO: scroll camera if moving outside world bounds
 
@@ -184,6 +187,7 @@ namespace GBJAM7.Scripts
                 {
                     var unit = FindObjectsOfType<Unit>()
                         .FirstOrDefault(u => u.player == currentPlayer && Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+                    
                     SelectUnit(unit);
                 }
                 else
@@ -243,19 +247,19 @@ namespace GBJAM7.Scripts
                 }
                 else
                 {
-                    playerActions.Show(new List<Option>()
+                    // if we are over a unit, then show unit's menu
+                    // otherwise show general menu
+
+                    if (selectorOverUnit != null && selectorOverUnit.player == currentPlayer &&
+                        selectorOverUnit.currentActions > 0 && selectorOverUnit.unitType == Unit.UnitType.Unit)
                     {
-                        new Option()
-                        {
-                            name = "End turn"
-                        },
-                        new Option()
-                        {
-                            name = "Cancel"
-                        }
-                    }, OnPlayerActionsMenuOptionSelected, CancelMenuAction);
-                    // playerActions.Show();
-                    waitingForAction = true;
+                        selectedUnit = selectorOverUnit;
+                        ShowUnitActions();
+                    }
+                    else
+                    {
+                        ShowPlayerActions();
+                    }
                 }
             }
 
@@ -302,6 +306,36 @@ namespace GBJAM7.Scripts
 //            });
         }
 
+        private void ShowPlayerActions()
+        {
+            playerActions.Show(new List<Option>()
+            {
+                new Option()
+                {
+                    name = "End turn"
+                },
+                new Option()
+                {
+                    name = "Cancel"
+                }
+            }, OnPlayerActionsMenuOptionSelected, CancelMenuAction);
+            waitingForAction = true;
+        }
+
+        private void ShowUnitActions()
+        {
+            unitActions.title = "";
+            // TODO: show only possible actions given the unit location and other units
+            // or show actions but disabled
+            unitActions.Show(new List<Option>()
+            {
+                new Option {name = "Attack"},
+                new Option {name = "Capture"},
+                new Option {name = "Cancel"},
+            }, OnUnitActionSelected, CancelMenuAction);
+            waitingForAction = true;
+        }
+        
         public void SelectUnit(Unit unit)
         {
             var player = players[currentPlayer];
@@ -312,15 +346,21 @@ namespace GBJAM7.Scripts
             selectedUnit = unit;
             if (unit.unitType == Unit.UnitType.Unit)
             {
+                if (unit.currentMovements == 0 || unit.currentActions == 0)
+                {
+                    DeselectUnit();
+                    return;
+                }
+                
                 if (unit.currentMovements > 0)
                 {
                     movementArea.Show(unit);
                 }
                 else
                 {
-                    // we should show menu for unit actions at some point
-                    DeselectUnit();
+                    ShowUnitActions();
                 }
+                
             } else if (unit.unitType == Unit.UnitType.Spawner)
             {
                 // only show unit actions if available
@@ -341,32 +381,56 @@ namespace GBJAM7.Scripts
                 }
                 
 //                buildMenu.Show(unit);
+            } else if (unit.unitType == Unit.UnitType.MainBase)
+            {
+                // we can't do anything with the main base
+                DeselectUnit();
             }
+        }
+
+        private void OnUnitActionSelected(int optionIndex, Option option)
+        {
+            if (option.name.Equals("Attack"))
+            {
+                // TODO: show attack range + possible targets 
+                // change game state to be waiting for target selection
+                Debug.Log("Attack!");
+                selectedUnit.currentActions--;
+            }
+            
+            if (option.name.Equals("Capture"))
+            {
+                // TODO: show capture range
+                // change game state to be waiting for target selection
+                Debug.Log("Capture!!");
+                selectedUnit.currentActions--;
+            }
+            
+            if (option.name.Equals("Cancel"))
+            {
+                CancelMenuAction();
+            }
+            
+            CompleteMenuAction();
         }
 
         private void OnBuildOptionSelected(int optionIndex, Option option)
         {
             var player = players[currentPlayer];
             
-            if (optionIndex == 0)
-            {
-                // build ranger
-                // consume money
-                player.resources -= player.buildOptions[optionIndex].cost;
-            }
+            // TODO: show spawn area, wait for selection, can be cancelled
             
-            if (optionIndex == 1)
-            {
-                // build ranger
-                player.resources -= player.buildOptions[optionIndex].cost;
-            }
+            // for now, spawn new unit in same unit location
+            var newUnitObject = 
+                Instantiate(player.buildOptions[optionIndex].prefab, selectedUnit.transform.position, Quaternion.identity);
+                
+            var newUnit = newUnitObject.GetComponentInChildren<Unit>();
+            newUnit.totalActions = 0;
+            newUnit.totalMovements = 0;
             
-            if (optionIndex == 2)
-            {
-                // build ranger
-                player.resources -= player.buildOptions[optionIndex].cost;
-            }
-
+            // consume money
+            player.resources -= player.buildOptions[optionIndex].cost;
+            
             selectedUnit.currentActions--;
             CompleteMenuAction();
         }
