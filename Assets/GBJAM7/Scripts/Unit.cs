@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GBJAM7.Scripts
 {
@@ -29,5 +30,12 @@ namespace GBJAM7.Scripts
         public int currentActions = 1;
 
         public int resources;
+
+        public Animator animator;
+
+        private void LateUpdate()
+        {
+            animator.SetInteger("player", player);
+        }
     }
 }
