@@ -290,6 +290,8 @@ namespace GBJAM7.Scripts
                                 if (selectedUnit.currentActions > 0)
                                 {
                                     movementArea.Hide();
+                                    attackArea.Hide();
+                                    
 //                                    movementArea.Show(selectedUnit.transform.position, selectedUnit.actionDistance);
                                     ShowUnitActions();
                                 } else
@@ -469,7 +471,8 @@ namespace GBJAM7.Scripts
                 
                 if (unit.currentMovements > 0)
                 {
-                    movementArea.Show(unit.transform.position, unit.movementDistance);
+                    movementArea.Show(unit.transform.position, 0, unit.movementDistance);
+                    attackArea.Show(unit.transform.position, unit.movementDistance + 1, unit.movementDistance + unit.attackDistance);
                 }
                 else
                 {
@@ -510,7 +513,7 @@ namespace GBJAM7.Scripts
                 waitingForAction = false;
                 waitingForAttackTarget = true;
                 unitActions.Hide();
-                attackArea.Show(selectedUnit.transform.position, selectedUnit.attackDistance);
+                attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
                 return;
             }
             
@@ -567,6 +570,7 @@ namespace GBJAM7.Scripts
                 return;
             
             movementArea.Hide();
+            attackArea.Hide();
             // hide UI probably too here
             selectedUnit = null;
         }
