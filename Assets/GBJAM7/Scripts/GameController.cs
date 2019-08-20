@@ -31,6 +31,8 @@ namespace GBJAM7.Scripts
         public Camera worldCamera;
 
         public UnitMovementArea movementArea;
+        
+        public UnitMovementArea attackArea;
 
         public UnitInfo unitInfo;
 
@@ -67,6 +69,8 @@ namespace GBJAM7.Scripts
         private Unit selectedUnit;
 
         private bool waitingForAction;
+
+        private bool waitingForAttackTarget;
 
 //        public float movementRepeatDelay = 0.5f;
 //        private float movementRepeatCooldown = 0.0f;
@@ -134,32 +138,69 @@ namespace GBJAM7.Scripts
 //            }
             
             // if showing a any menu and waiting for action..
+            var selectorOverUnit = FindObjectsOfType<Unit>()
+                .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+            
             if (waitingForAction)
             {
-                // do stuff here
-                
-                // with up/down we move between actions
-
-//                if (button1Pressed)
-//                {
-//                    // confirm selected action
-//                    // for now we only have end turn...
-//                    EndCurrentPlayerTurn();
-//                    playerActions.Hide();
-//                    showingMenu = false;
-//                }
-//
-//                if (button2Pressed)
-//                {
-//                    playerActions.Hide();
-//                    showingMenu = false;
-//                }
+                if (button2Pressed)
+                {
+                    buildActions.Hide();
+                    playerActions.Hide();
+                    unitActions.Hide();
+                    waitingForAction = false;
+                    DeselectUnit();
+                }
                 
                 return;
             }
+
+            if (waitingForAttackTarget)
+            {
+                // we want to allow moving the selector while targeting a unit
+                selector.Move(movement);
+                
+                if (button1Pressed)
+                {
+                    // if inside attack area and there is an enemy there, attack enemy
+                    
+                    // consume attack
+                    
+                    // show attack sequence...
+                    
+                    // TODO: show attack range + possible targets 
+                    // change game state to be waiting for target selection
+                    Debug.Log("Attack!");
+                    
+                    selectedUnit.currentActions--;
+                    // we consume movement after attack too
+                    if (selectedUnit.currentMovements > 0)
+                        selectedUnit.currentMovements--;
+                    
+                    waitingForAttackTarget = false;
+                    attackArea.Hide();
+                    
+                    DeselectUnit();
+                }
+                
+                // is button 2 pressed, cancel
+                if (button2Pressed)
+                {
+                    // go back to unit actions menu
+                    attackArea.Hide();
+                    ShowUnitActions();
+                    waitingForAttackTarget = false;
+                    
+//                    DeselectUnit();
+//                    waitingForAttackTarget = false;
+
+                    // show menu again?
+                }
+
+                return;
+            }
             
-            var selectorOverUnit = FindObjectsOfType<Unit>()
-                .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+
 
 //            if (keyReady)
             selector.Move(movement);
@@ -222,7 +263,16 @@ namespace GBJAM7.Scripts
                             {
                                 selectedUnit.transform.position = selector.transform.position;
                                 selectedUnit.currentMovements = 0;
-                                DeselectUnit();
+
+                                if (selectedUnit.currentActions > 0)
+                                {
+                                    movementArea.Hide();
+//                                    movementArea.Show(selectedUnit.transform.position, selectedUnit.actionDistance);
+                                    ShowUnitActions();
+                                } else
+                                {
+                                    DeselectUnit();
+                                }
                             }
                         }
                     }
@@ -286,7 +336,7 @@ namespace GBJAM7.Scripts
                 CancelMenuAction();
             }
             
-            buildActions.Hide();
+            playerActions.Hide();
         }
 
         public void EndCurrentPlayerTurn()
@@ -356,7 +406,7 @@ namespace GBJAM7.Scripts
                 
                 if (unit.currentMovements > 0)
                 {
-                    movementArea.Show(unit);
+                    movementArea.Show(unit.transform.position, unit.movementDistance);
                 }
                 else
                 {
@@ -394,10 +444,11 @@ namespace GBJAM7.Scripts
         {
             if (option.name.Equals("Attack"))
             {
-                // TODO: show attack range + possible targets 
-                // change game state to be waiting for target selection
-                Debug.Log("Attack!");
-                selectedUnit.currentActions--;
+                waitingForAction = false;
+                waitingForAttackTarget = true;
+                unitActions.Hide();
+                attackArea.Show(selectedUnit.transform.position, selectedUnit.actionDistance);
+                return;
             }
             
             if (option.name.Equals("Capture"))

@@ -19,6 +19,7 @@ namespace GBJAM7.Scripts
         public UnitType unitType;
         
         public int movementDistance;
+        public int actionDistance;
 
         public int totalMovements = 1;
         public int currentMovements = 1;

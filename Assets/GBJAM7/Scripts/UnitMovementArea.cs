@@ -11,20 +11,18 @@ namespace GBJAM7.Scripts
         [SerializeField]
         private Transform areaContainer;
         
-        public void Show(Unit unit)
+        public void Show(Vector3 position, int distance)
         {
-            var d = unit.movementDistance;
-            
-            var p = new Vector2Int(-d, -d);
-            for (var i = p.x; i <= d; i++)
+            var p = new Vector2Int(-distance, -distance);
+            for (var i = p.x; i <= distance; i++)
             {
-                for (var j = p.y; j <= d; j++)
+                for (var j = p.y; j <= distance; j++)
                 {
                     var totalDistance = Mathf.Abs(i) + Mathf.Abs(j);
-                    if (totalDistance <= d)
+                    if (totalDistance <= distance)
                     {
                         var offset = new Vector3(i * 1, j * 1, 0);
-                        Instantiate(areaPrefab, unit.transform.position + offset, Quaternion.identity, areaContainer);
+                        Instantiate(areaPrefab, position + offset, Quaternion.identity, areaContainer);
                     }
                 }
             }
