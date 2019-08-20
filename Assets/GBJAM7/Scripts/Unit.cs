@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GBJAM7.Scripts
 {
@@ -19,12 +20,14 @@ namespace GBJAM7.Scripts
         public UnitType unitType;
         
         public int movementDistance;
-        public int actionDistance;
+        [FormerlySerializedAs("actionDistance")] public int attackDistance;
 
         public int totalMovements = 1;
         public int currentMovements = 1;
+
+        public float totalHP;
+        public float currentHP;
         
-        public int hp;
         public int dmg;
 
         public int totalActions = 1;

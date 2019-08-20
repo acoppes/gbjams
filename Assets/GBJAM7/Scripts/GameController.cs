@@ -159,28 +159,62 @@ namespace GBJAM7.Scripts
             {
                 // we want to allow moving the selector while targeting a unit
                 selector.Move(movement);
+                AdjustCameraToSelector();
                 
                 if (button1Pressed)
                 {
                     // if inside attack area and there is an enemy there, attack enemy
+
+                    var target = selectorOverUnit;
+                    var source = selectedUnit;
                     
-                    // consume attack
+                    if (target != null && target.player != currentPlayer &&
+                        IsInDistance(source.transform.position, target.transform.position, 
+                            source.attackDistance))
+                    {
+                        // do damage to target
+                        // do damage back from target to unit
+                        
+                        var sourceDmg = source.dmg * (source.currentHP / source.totalHP);
+                        
+                        target.currentHP -= sourceDmg;
+                        Debug.Log($"{target.name} received {sourceDmg} dmg");
+                        if (target.currentHP > 0)
+                        {
+                            var targetDmg = target.dmg * (target.currentHP / target.totalHP);
+                            source.currentHP -= targetDmg;
+                            Debug.Log($"{source.name} received {targetDmg} dmg");
+                        }
+
+                        // show attack sequence...
                     
-                    // show attack sequence...
+                        // TODO: show attack range + possible targets 
+                        // change game state to be waiting for target selection
+                        Debug.Log("Attack!");
+                        
+                        // consume attack
+
+                        source.currentActions--;
+                        // we consume movement after attack too
+                        if (source.currentMovements > 0)
+                            source.currentMovements--;
                     
-                    // TODO: show attack range + possible targets 
-                    // change game state to be waiting for target selection
-                    Debug.Log("Attack!");
+                        waitingForAttackTarget = false;
+                        attackArea.Hide();
                     
-                    selectedUnit.currentActions--;
-                    // we consume movement after attack too
-                    if (selectedUnit.currentMovements > 0)
-                        selectedUnit.currentMovements--;
-                    
-                    waitingForAttackTarget = false;
-                    attackArea.Hide();
-                    
-                    DeselectUnit();
+                        DeselectUnit();
+                        
+                        if (Mathf.RoundToInt(target.currentHP) <= 0)
+                        {
+                            Destroy(target.gameObject);
+                        }
+
+                        if (Mathf.RoundToInt(source.currentHP) <= 0)
+                        {
+                            Destroy(source.gameObject);
+                        }
+                    }
+
                 }
                 
                 // is button 2 pressed, cancel
@@ -204,22 +238,7 @@ namespace GBJAM7.Scripts
 
 //            if (keyReady)
             selector.Move(movement);
-            
-            // if not in world limits already then pan the camera
-            while (Mathf.Abs(worldCamera.transform.position.x - selector.transform.position.x) > cameraBounds.size.x)
-            {
-                var direction = selector.transform.position.x - worldCamera.transform.position.x;
-                var d = direction / Mathf.Abs(direction);
-                worldCamera.transform.position += new Vector3(d, 0,0);
-            }
-            
-            while (Mathf.Abs(worldCamera.transform.position.y - selector.transform.position.y) > cameraBounds.size.y)
-            {
-                var direction = selector.transform.position.y - worldCamera.transform.position.y;
-                var d = direction / Mathf.Abs(direction);
-                worldCamera.transform.position += new Vector3(0, d,0);
-            }
-            
+            AdjustCameraToSelector();
             
             if (button1Pressed)
             {
@@ -254,12 +273,10 @@ namespace GBJAM7.Scripts
                     {
                         if (selectedUnit.currentMovements > 0)
                         {
-                            var selectedUnitPosition = selectedUnit.transform.position / 1;
-                            var selectorPosition = selector.transform.position / 1;
-
-                            var distance = Mathf.RoundToInt(Mathf.Abs(selectedUnitPosition.x - selectorPosition.x) +
-                                                            Mathf.Abs(selectedUnitPosition.y - selectorPosition.y));
-                            if (distance <= selectedUnit.movementDistance)
+                            var p0 = selectedUnit.transform.position / 1;
+                            var p1 = selector.transform.position / 1;
+                            
+                            if (IsInDistance(p0, p1, selectedUnit.movementDistance))
                             {
                                 selectedUnit.transform.position = selector.transform.position;
                                 selectedUnit.currentMovements = 0;
@@ -322,6 +339,34 @@ namespace GBJAM7.Scripts
                 unitInfo.Hide();
             }
             
+        }
+
+        private void AdjustCameraToSelector()
+        {
+            while (Mathf.Abs(worldCamera.transform.position.x - selector.transform.position.x) > cameraBounds.size.x)
+            {
+                var direction = selector.transform.position.x - worldCamera.transform.position.x;
+                var d = direction / Mathf.Abs(direction);
+                worldCamera.transform.position += new Vector3(d, 0,0);
+            }
+            
+            while (Mathf.Abs(worldCamera.transform.position.y - selector.transform.position.y) > cameraBounds.size.y)
+            {
+                var direction = selector.transform.position.y - worldCamera.transform.position.y;
+                var d = direction / Mathf.Abs(direction);
+                worldCamera.transform.position += new Vector3(0, d,0);
+            }
+        }
+
+        public int GetDistance(Vector2 a, Vector2 b)
+        {
+            return Mathf.RoundToInt(Mathf.Abs(a.x - b.x) +
+                                            Mathf.Abs(a.y - b.y));
+        }
+
+        public bool IsInDistance(Vector2 a, Vector2 b, int distance)
+        {
+            return GetDistance(a, b) <= distance;
         }
 
         private void OnPlayerActionSelected(int optionIndex, Option option)
@@ -447,7 +492,7 @@ namespace GBJAM7.Scripts
                 waitingForAction = false;
                 waitingForAttackTarget = true;
                 unitActions.Hide();
-                attackArea.Show(selectedUnit.transform.position, selectedUnit.actionDistance);
+                attackArea.Show(selectedUnit.transform.position, selectedUnit.attackDistance);
                 return;
             }
             
