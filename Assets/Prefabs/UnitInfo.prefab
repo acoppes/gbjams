@@ -355,12 +355,12 @@ GameObject:
   - component: {fileID: 543612499119143121}
   - component: {fileID: 6549041008570785307}
   m_Layer: 5
-  m_Name: movs
+  m_Name: player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7519784654569389132
 RectTransform:
   m_ObjectHideFlags: 0
@@ -377,7 +377,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.75, y: -1.25}
+  m_AnchoredPosition: {x: 0.5, y: -0.75}
   m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3106366770911899513
@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.50980395, g: 0.50980395, b: 0.61960787, a: 1}
+  m_Color: {r: 0.3529412, g: 0.2392157, b: 0.30980393, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -421,7 +421,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: P1
 --- !u!114 &6549041008570785307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,7 +775,7 @@ MonoBehaviour:
   nameText: {fileID: 4120266703979263192}
   hpText: {fileID: 333462596290357000}
   dmgText: {fileID: 3019006263623545645}
-  movementsText: {fileID: 543612499119143121}
+  playerText: {fileID: 543612499119143121}
   moneyContainer: {fileID: 4625960604028756118}
 --- !u!1 &4625960604028756118
 GameObject:

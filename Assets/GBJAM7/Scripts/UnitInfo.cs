@@ -18,7 +18,7 @@ namespace GBJAM7.Scripts
         private Text dmgText;
         
         [SerializeField]
-        private Text movementsText;
+        private Text playerText;
         
         [SerializeField]
         private GameObject moneyContainer;
@@ -29,7 +29,7 @@ namespace GBJAM7.Scripts
             nameText.text = $"{unit.name}";
             hpText.text = $"{unit.hp}";
             dmgText.text = $"{unit.dmg}";
-            movementsText.text = $"{unit.currentMovements}";
+            playerText.text = $"P{unit.player + 1}";
 
             moneyContainer.SetActive(unit.resources > 0);
             moneyContainer.GetComponentInChildren<Text>().text = $"{unit.resources}";
