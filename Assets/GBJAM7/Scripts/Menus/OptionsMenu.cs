@@ -110,14 +110,14 @@ namespace GBJAM7.Scripts
             {
                 // execute action in game controls!
                 _optionSelectedCallback(currentOptionIndex, menuOptions[currentOptionIndex].option);
-                Hide();
+                // Hide();
             }
 
             if (gameControls.button2Pressed)
             {
                 // hide menu 
                 _cancelMenu();
-                Hide();
+                // Hide();
             }
         }
 

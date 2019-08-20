@@ -274,7 +274,7 @@ namespace GBJAM7.Scripts
             
         }
 
-        private void OnPlayerActionsMenuOptionSelected(int optionIndex, Option option)
+        private void OnPlayerActionSelected(int optionIndex, Option option)
         {
             if (optionIndex == 0)
             {
@@ -285,6 +285,8 @@ namespace GBJAM7.Scripts
             {
                 CancelMenuAction();
             }
+            
+            buildActions.Hide();
         }
 
         public void EndCurrentPlayerTurn()
@@ -318,7 +320,7 @@ namespace GBJAM7.Scripts
                 {
                     name = "Cancel"
                 }
-            }, OnPlayerActionsMenuOptionSelected, CancelMenuAction);
+            }, OnPlayerActionSelected, CancelMenuAction);
             waitingForAction = true;
         }
 
@@ -412,6 +414,8 @@ namespace GBJAM7.Scripts
             }
             
             CompleteMenuAction();
+            
+            unitActions.Hide();
         }
 
         private void OnBuildOptionSelected(int optionIndex, Option option)
@@ -421,8 +425,13 @@ namespace GBJAM7.Scripts
             // TODO: show spawn area, wait for selection, can be cancelled
             
             // for now, spawn new unit in same unit location
+            var buildOption = player.buildOptions[optionIndex];
+
+            if (player.resources < buildOption.cost)
+                return;
+            
             var newUnitObject = 
-                Instantiate(player.buildOptions[optionIndex].prefab, selectedUnit.transform.position, Quaternion.identity);
+                Instantiate(buildOption.prefab, selectedUnit.transform.position, Quaternion.identity);
                 
             var newUnit = newUnitObject.GetComponentInChildren<Unit>();
             newUnit.currentActions = 0;
@@ -430,10 +439,12 @@ namespace GBJAM7.Scripts
             newUnit.player = currentPlayer;
             
             // consume money
-            player.resources -= player.buildOptions[optionIndex].cost;
+            player.resources -= buildOption.cost;
             
             selectedUnit.currentActions--;
             CompleteMenuAction();
+            
+            buildActions.Hide();
         }
 
         public void DeselectUnit()
