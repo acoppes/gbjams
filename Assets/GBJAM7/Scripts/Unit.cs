@@ -37,6 +37,9 @@ namespace GBJAM7.Scripts
 
         public Vector3 moveDirection = new Vector3(1, 0, 0);
 
+        [Tooltip("The prefab to use for the attack sequence")]
+        public GameObject attackSequenceUnitPrefab;
+
         [SerializeField]
         private SpriteRenderer spriteRenderer;
         

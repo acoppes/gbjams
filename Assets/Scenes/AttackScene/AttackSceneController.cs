@@ -1,18 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using GBJAM7.Scripts;
 using UnityEngine;
 
-public class AttackSceneController : MonoBehaviour
+namespace Scenes.AttackScene
 {
-    // Start is called before the first frame update
-    void Start()
+    public class AttackSceneController : MonoBehaviour
     {
-        
-    }
+        public AttackSequence attackSequence;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public AttackSequenceData[] testAttackDatas;
+
+        // Update is called once per frame
+        public void Update()
+        {
+            var codes = new []
+            {
+                KeyCode.Alpha1,
+                KeyCode.Alpha2,
+                KeyCode.Alpha3,
+                KeyCode.Alpha4,
+                KeyCode.Alpha5,
+                KeyCode.Alpha6,
+                KeyCode.Alpha7,
+                KeyCode.Alpha8,
+                KeyCode.Alpha9
+            };
+
+            for (var i = 0; i < testAttackDatas.Length; i++)
+            {
+                if (Input.GetKeyUp(codes[i]))
+                {
+                    attackSequence.Show(testAttackDatas[i]);
+                }
+            }
+        }
     }
 }

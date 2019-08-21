@@ -1,8 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace GBJAM7.Scripts
 {
+    [Serializable]
+    public struct AttackSequenceData
+    {
+        public int player1Units;
+        public int player2Units;
+
+        public int player1Killed;
+        public int player2Killed;
+
+        public int playerAttacking;
+
+        public bool counterAttack;
+        
+        // public GameObject player1UnitPrefab;
+        // public GameObject player2UnitPrefab;
+    }
+    
     public class AttackSequence : MonoBehaviour
     {
         [SerializeField]
@@ -10,6 +28,22 @@ namespace GBJAM7.Scripts
 
         [SerializeField]
         private float attackTime = 1;
+
+        [SerializeField]
+        private Transform[] player1UnitPositions;
+        
+        public void Show(AttackSequenceData attackData)
+        {
+            // destroy previous units
+            
+            // instantiate new units
+            
+            // start
+            
+            animator.SetBool("Player1AttackReady", false);
+            animator.SetBool("Player2AttackReady", false);
+            animator.Play("ToPosition1", -1, 0);
+        }
 
         public void OnCameraInPosition1()
         {
