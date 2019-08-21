@@ -303,6 +303,11 @@ namespace GBJAM7.Scripts
                                 }
                             }
                         }
+                        
+//                        if (selectorOverUnit == selectedUnit)
+//                        {
+//                            ShowUnitActions();
+//                        }
                     }
                     
                     // here we wait for movement and confirmation
