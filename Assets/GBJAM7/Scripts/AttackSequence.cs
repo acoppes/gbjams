@@ -21,6 +21,8 @@ namespace GBJAM7.Scripts
         // public GameObject player2UnitPrefab;
     }
     
+    // TODO: use a class to identify units in the hierarchy so we can easily remove them
+    
     public class AttackSequence : MonoBehaviour
     {
         [SerializeField]
@@ -31,6 +33,9 @@ namespace GBJAM7.Scripts
 
         [SerializeField]
         private Transform[] player1UnitPositions;
+        
+        [SerializeField]
+        private Transform[] player2UnitPositions;
         
         public void Show(AttackSequenceData attackData)
         {
