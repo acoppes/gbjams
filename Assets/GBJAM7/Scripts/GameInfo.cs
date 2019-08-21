@@ -13,7 +13,7 @@ namespace GBJAM7.Scripts
         public void UpdateGameInfo(int player, int turn)
         {
             playerText.text = $"P{player + 1}";
-            turnText.text = $"{turn + 1}";
+            turnText.text = $"{turn + 1:00}";
         }
     }
 }

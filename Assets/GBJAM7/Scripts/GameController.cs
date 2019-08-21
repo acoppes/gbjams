@@ -17,6 +17,7 @@ namespace GBJAM7.Scripts
     [Serializable]
     public class PlayerData
     {
+        public string name;
         public int resources;
         public List<BuildOption> buildOptions;
     }
@@ -419,7 +420,7 @@ namespace GBJAM7.Scripts
         private IEnumerator ShowChangeTurnUI()
         {
             gameHud.Hide();
-            changeTurnSequence.Show(currentPlayer, currentTurn);
+            changeTurnSequence.Show(players[currentPlayer], currentPlayer, currentTurn);
             waitingForAction = true;
             
             // Hide all menues

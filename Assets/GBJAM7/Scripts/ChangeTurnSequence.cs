@@ -19,13 +19,14 @@ namespace GBJAM7.Scripts
         
         public bool completed;
 
-        public void Show(int player, int turn)
+        public void Show(PlayerData playerData, int player, int turn)
         {
             // set player and turn data
             gameObject.SetActive(true);
             
-            playerText.text = $"Player {player+1}";
-            turnText.text = $"{turn + 1}";
+//            playerText.text = $"Player {player+1}";
+            playerText.text = $"{playerData.name}";
+            turnText.text = $"{turn + 1:00}";
             
             completed = false;
         }
