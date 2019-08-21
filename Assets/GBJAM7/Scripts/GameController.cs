@@ -38,6 +38,9 @@ namespace GBJAM7.Scripts
         public GameInfo gameInfo;
         public UnitInfo unitInfo;
 
+        public GameHud gameHud;
+        public ChangeTurnSequence changeTurnSequence;
+        
         public OptionsMenu playerActions;
 
         public OptionsMenu buildActions;
@@ -415,11 +418,18 @@ namespace GBJAM7.Scripts
 
         private IEnumerator ShowChangeTurnUI()
         {
+            gameHud.Hide();
+            changeTurnSequence.Show(currentPlayer, currentTurn);
+            waitingForAction = true;
+            
             // Hide all menues
             // block game input
             // set the change turn ui and show it
             // once completed, turn back everything
-            yield return null;
+            yield return new WaitUntil(() => changeTurnSequence.completed);
+
+            gameHud.Show();
+            waitingForAction = false;
         }
 
         private void ShowPlayerActions()
