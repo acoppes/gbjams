@@ -230,6 +230,12 @@ namespace GBJAM7.Scripts
             animator.SetBool("Completed", true);
         }
 
+        public void ForceComplete()
+        {
+            animator.Play("Completed", -1, 0);
+            animator.SetBool("Completed", true);
+        }
+
         public void OnSequenceCompleted()
         {
             completed = true;

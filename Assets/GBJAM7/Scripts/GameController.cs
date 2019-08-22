@@ -81,6 +81,8 @@ namespace GBJAM7.Scripts
 
         private bool waitingForAttackTarget;
 
+        private bool showingAttackSequence;
+
 //        public float movementRepeatDelay = 0.5f;
 //        private float movementRepeatCooldown = 0.0f;
 //
@@ -147,7 +149,16 @@ namespace GBJAM7.Scripts
 //                keyReady = true;
 //                movementRepeatCooldown = 0;
 //            }
-            
+
+            if (showingAttackSequence)
+            {
+                if (button2Pressed)
+                {
+                    attackSequence.ForceComplete();
+                }
+                return;
+            }
+
             // if showing a any menu and waiting for action..
             var selectorOverUnit = FindObjectsOfType<Unit>()
                 .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
@@ -377,6 +388,8 @@ namespace GBJAM7.Scripts
             // dont show attack sequence if attacking a structure
             if (source.attackSequenceUnitPrefab != null && target.attackSequenceUnitPrefab != null)
             {
+                showingAttackSequence = true;
+                
                 var localPosition = attackSequence.transform.localPosition;
                 attackSequence.transform.localPosition = new Vector3(0, 0, localPosition.z);
 
@@ -386,6 +399,8 @@ namespace GBJAM7.Scripts
 
                 attackSequence.transform.localPosition = localPosition;
 
+                showingAttackSequence = false;
+                
                 // TODO: center camera in unit position
             }
             
