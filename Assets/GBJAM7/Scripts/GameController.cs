@@ -501,6 +501,11 @@ namespace GBJAM7.Scripts
                 u.currentMovements = u.totalMovements;
                 u.currentActions = u.totalActions;
                 player.resources += u.resources;
+
+                if (u.regenHP > 0)
+                {
+                    u.currentHP = Mathf.Min(u.totalHP, u.currentHP + u.regenHP);
+                }
             });
 
             if (currentPlayer == 0)

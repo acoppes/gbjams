@@ -40,6 +40,8 @@ namespace GBJAM7.Scripts
 
         public bool canCapture;
 
+        public int regenHP = 0;
+
         public Vector3 moveDirection = new Vector3(1, 0, 0);
 
         [Tooltip("The prefab to use for the attack sequence")]

@@ -33,7 +33,8 @@ namespace GBJAM7.Scripts
         {
             canvasGroup.alpha = 1;
             nameText.text = $"{unit.name}";
-            hpText.text = $"{Mathf.RoundToInt(10 * unit.currentHP / unit.totalHP)}";
+            hpText.text = $"{Mathf.RoundToInt(unit.currentHP)}";
+//            hpText.text = $"{Mathf.RoundToInt(10 * unit.currentHP / unit.totalHP)}";
             dmgText.text = $"{unit.dmg}";
             playerText.text = $"P{unit.player + 1}";
 
