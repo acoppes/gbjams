@@ -15,5 +15,10 @@ namespace GBJAM7.Scripts
         {
             animator.SetBool("Attacking", false);
         }
+
+        public void Death()
+        {
+            animator.SetBool("Dead", true);
+        }
     }
 }

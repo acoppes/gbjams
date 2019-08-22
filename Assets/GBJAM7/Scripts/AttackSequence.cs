@@ -152,13 +152,19 @@ namespace GBJAM7.Scripts
             for (var i = 0; i < attackData.player2Killed; i++)
             {
                 if (i < player2Units.Count)
-                    Destroy(player2Units[i].gameObject);
+                { 
+                        player2Units[i].Death();
+
+                        yield return new WaitForSeconds(1);
+
+                        Destroy(player2Units[i].gameObject);
+                }
             }
             // kill enemies
           
             // if enemies can't attack back, then go to exit state
 
-            if (attackData.player2Killed == attackData.player2Units || !attackData.counterAttack)
+            if (attackData.player2Killed >= attackData.player2Units || !attackData.counterAttack)
             {
                 animator.SetBool("Completed", true);
                 yield break;
