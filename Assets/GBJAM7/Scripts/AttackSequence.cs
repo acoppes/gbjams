@@ -53,6 +53,8 @@ namespace GBJAM7.Scripts
 
         public void Show(AttackSequenceData attackData)
         {
+            completed = false;
+
             this.attackData = attackData;
 
             flipTransforms.ToList().ForEach(t => t.localScale = new Vector3(attackData.playerAttacking == 0 ? 1 : -1, 1, 1));
@@ -66,6 +68,7 @@ namespace GBJAM7.Scripts
                 {
                     Destroy(player1UnitPositions[i].GetChild(j).gameObject);
                 }
+                
                 var unitObject = Instantiate(attackData.player1UnitPrefab, player1UnitPositions[i]);
                 player1Units.Add(unitObject.GetComponentInChildren<UnitBig>());
             }

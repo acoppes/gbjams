@@ -41,6 +41,7 @@ namespace GBJAM7.Scripts
 
         public GameHud gameHud;
         public ChangeTurnSequence changeTurnSequence;
+        public AttackSequence attackSequence;
         
         public OptionsMenu playerActions;
 
@@ -184,7 +185,17 @@ namespace GBJAM7.Scripts
                     {
                         // do damage to target
                         // do damage back from target to unit
-                        
+
+                        var attackSequenceData = new AttackSequenceData()
+                        {
+                            player1UnitPrefab = source.attackSequenceUnitPrefab,
+                            player2UnitPrefab = target.attackSequenceUnitPrefab,
+                            playerAttacking = currentPlayer,
+                            counterAttack = true,
+                            player1Units = Mathf.RoundToInt(3 * source.currentHP / source.totalHP),
+                            player2Units = Mathf.RoundToInt(3 * target.currentHP / target.totalHP)
+                        };
+
                         var sourceDmg = source.dmg * (source.currentHP / source.totalHP);
                         
                         target.currentHP -= sourceDmg;
@@ -195,6 +206,9 @@ namespace GBJAM7.Scripts
                             source.currentHP -= targetDmg;
                             Debug.Log($"{source.name} received {targetDmg} dmg");
                         }
+
+                        attackSequenceData.player1Killed = 3 - Mathf.RoundToInt(3 * source.currentHP / source.totalHP);
+                        attackSequenceData.player2Killed = 3 - Mathf.RoundToInt(3 * target.currentHP / target.totalHP);
 
                         // show attack sequence...
                     
@@ -213,16 +227,8 @@ namespace GBJAM7.Scripts
                         attackArea.Hide();
                     
                         DeselectUnit();
-                        
-                        if (Mathf.RoundToInt(target.currentHP) <= 0)
-                        {
-                            Destroy(target.gameObject);
-                        }
 
-                        if (Mathf.RoundToInt(source.currentHP) <= 0)
-                        {
-                            Destroy(source.gameObject);
-                        }
+                        StartCoroutine(routine: StartAttackSequence(attackSequenceData, source, target));
                     }
 
                 }
@@ -355,6 +361,30 @@ namespace GBJAM7.Scripts
                 unitInfo.Hide();
             }
             
+        }
+
+        private IEnumerator StartAttackSequence(AttackSequenceData attackSequenceData, Unit source, Unit target)
+        {
+            // hide menues!!
+
+            var localPosition = attackSequence.transform.localPosition;
+            attackSequence.transform.localPosition = new Vector3(0, 0, localPosition.z);
+
+            attackSequence.Show(attackSequenceData);
+
+            yield return new WaitUntil(() => attackSequence.completed);
+
+            attackSequence.transform.localPosition = localPosition;
+
+            if (Mathf.RoundToInt(target.currentHP) <= 0)
+            {
+                Destroy(target.gameObject);
+            }
+
+            if (Mathf.RoundToInt(source.currentHP) <= 0)
+            {
+                Destroy(source.gameObject);
+            }
         }
 
         private void AdjustCameraToSelector()
