@@ -62,23 +62,30 @@ namespace GBJAM7.Scripts
             player1Units.Clear();
             player2Units.Clear();
             
-            for (var i = 0; i < attackData.player1Units; i++)
+            for (var i = 0; i < player1UnitPositions.Length; i++)
             {
                 for (var  j = 0; j < player1UnitPositions[i].childCount; j++)
                 {
                     Destroy(player1UnitPositions[i].GetChild(j).gameObject);
                 }
-                
-                var unitObject = Instantiate(attackData.player1UnitPrefab, player1UnitPositions[i]);
-                player1Units.Add(unitObject.GetComponentInChildren<UnitBig>());
             }
             
-            for (var i = 0; i < attackData.player2Units; i++)
+            for (var i = 0; i < player2UnitPositions.Length; i++)
             {
                 for (var  j = 0; j < player2UnitPositions[i].childCount; j++)
                 {
                     Destroy(player2UnitPositions[i].GetChild(j).gameObject);
                 }
+            }
+            
+            for (var i = 0; i < attackData.player1Units; i++)
+            {
+                var unitObject = Instantiate(attackData.player1UnitPrefab, player1UnitPositions[i]);
+                player1Units.Add(unitObject.GetComponentInChildren<UnitBig>());
+            }
+
+            for (var i = 0; i < attackData.player2Units; i++)
+            {
                 var unitObject = Instantiate(attackData.player2UnitPrefab, player2UnitPositions[i]);
                 player2Units.Add(unitObject.GetComponentInChildren<UnitBig>());
             }

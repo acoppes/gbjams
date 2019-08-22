@@ -185,15 +185,15 @@ namespace GBJAM7.Scripts
                     {
                         // do damage to target
                         // do damage back from target to unit
-
+                        
                         var attackSequenceData = new AttackSequenceData()
                         {
                             player1UnitPrefab = source.attackSequenceUnitPrefab,
                             player2UnitPrefab = target.attackSequenceUnitPrefab,
                             playerAttacking = currentPlayer,
                             counterAttack = true,
-                            player1Units = Mathf.RoundToInt(3 * source.currentHP / source.totalHP),
-                            player2Units = Mathf.RoundToInt(3 * target.currentHP / target.totalHP)
+                            player1Units = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP),
+                            player2Units = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP)
                         };
 
                         var sourceDmg = source.dmg * (source.currentHP / source.totalHP);
@@ -207,9 +207,12 @@ namespace GBJAM7.Scripts
                             Debug.Log($"{source.name} received {targetDmg} dmg");
                         }
 
-                        attackSequenceData.player1Killed = 3 - Mathf.RoundToInt(3 * source.currentHP / source.totalHP);
-                        attackSequenceData.player2Killed = 3 - Mathf.RoundToInt(3 * target.currentHP / target.totalHP);
-
+                        var p1CurrentUnits = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP);
+                        var p2CurrentUnits = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP);
+                        
+                        attackSequenceData.player1Killed = attackSequenceData.player1Units - p1CurrentUnits;
+                        attackSequenceData.player2Killed = attackSequenceData.player2Units - p2CurrentUnits;
+                        
                         // show attack sequence...
                     
                         // TODO: show attack range + possible targets 
@@ -375,14 +378,18 @@ namespace GBJAM7.Scripts
             yield return new WaitUntil(() => attackSequence.completed);
 
             attackSequence.transform.localPosition = localPosition;
+            
+            // TODO: center camera in unit position
 
             if (Mathf.RoundToInt(target.currentHP) <= 0)
             {
+                // TODO: show explosions for units killed
                 Destroy(target.gameObject);
             }
 
             if (Mathf.RoundToInt(source.currentHP) <= 0)
             {
+                // TODO: show explosions for units killed
                 Destroy(source.gameObject);
             }
         }

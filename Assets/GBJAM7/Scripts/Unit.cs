@@ -14,6 +14,8 @@ namespace GBJAM7.Scripts
         }
 
         public int player;
+
+        public int squadSize = 3;
         
         public string name;
 
