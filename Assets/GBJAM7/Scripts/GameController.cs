@@ -193,7 +193,9 @@ namespace GBJAM7.Scripts
                             playerAttacking = currentPlayer,
                             counterAttack = true,
                             player1Units = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP),
-                            player2Units = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP)
+                            player2Units = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP),
+                            player1Data = players[source.player],
+                            player2Data = players[target.player]
                         };
 
                         var sourceDmg = source.dmg * (source.currentHP / source.totalHP);

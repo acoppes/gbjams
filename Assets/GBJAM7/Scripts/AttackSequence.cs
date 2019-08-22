@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GBJAM7.Scripts
 {
@@ -21,6 +23,9 @@ namespace GBJAM7.Scripts
         
         public GameObject player1UnitPrefab;
         public GameObject player2UnitPrefab;
+
+        public PlayerData player1Data;
+        public PlayerData player2Data;
     }
     
     // TODO: use a class to identify units in the hierarchy so we can easily remove them
@@ -51,10 +56,16 @@ namespace GBJAM7.Scripts
 
         public Transform[] flipTransforms;
 
+        public Text player1Info;
+        public Text player2Info;
+
         public void Show(AttackSequenceData attackData)
         {
             completed = false;
 
+            player1Info.text = attackData.player1Data.name;
+            player2Info.text = attackData.player2Data.name;
+            
             this.attackData = attackData;
 
             flipTransforms.ToList().ForEach(t => t.localScale = new Vector3(attackData.playerAttacking == 0 ? 1 : -1, 1, 1));
