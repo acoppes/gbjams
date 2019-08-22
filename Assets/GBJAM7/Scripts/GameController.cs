@@ -33,8 +33,8 @@ namespace GBJAM7.Scripts
         public Camera worldCamera;
 
         public UnitMovementArea movementArea;
-        
         public UnitMovementArea attackArea;
+//        public UnitMovementArea captureArea;
 
         public GameInfo gameInfo;
         public UnitInfo unitInfo;
@@ -80,6 +80,7 @@ namespace GBJAM7.Scripts
         private bool waitingForAction;
 
         private bool waitingForAttackTarget;
+//        private bool waitingForCaptureTarget;
 
         private bool showingAttackSequence;
 
@@ -176,6 +177,55 @@ namespace GBJAM7.Scripts
                 
                 return;
             }
+            
+//            if (waitingForCaptureTarget)
+//            {
+//                // we want to allow moving the selector while targeting a unit
+//                selector.Move(movement);
+//                AdjustCameraToSelector();
+//                
+//                if (button1Pressed)
+//                {
+//                    // if inside attack area and there is an enemy there, attack enemy
+//
+//                    var target = selectorOverUnit;
+//                    var source = selectedUnit;
+//
+//                    // not captured
+//                    if (target != null && target.player == -1 &&
+//                        IsInDistance(source.transform.position, target.transform.position, 
+//                            source.captureDistance))
+//                    {
+//                        target.player = source.player;
+//                        // we always capture 
+//                        target.currentHP = Mathf.CeilToInt(source.currentHP / 2);
+//                        
+//                        // consume action
+//
+//                        source.currentActions--;
+//                        // we consume movement after attack too
+//                        if (source.currentMovements > 0)
+//                            source.currentMovements--;
+//                    
+//                        waitingForCaptureTarget = false;
+//                        captureArea.Hide();
+//                    
+//                        DeselectUnit();
+//                    }
+//
+//                }
+//                
+//                // is button 2 pressed, cancel
+//                if (button2Pressed)
+//                {
+//                    // go back to unit actions menu
+//                    captureArea.Hide();
+//                    ShowUnitActions();
+//                    waitingForCaptureTarget = false;
+//                }
+//
+//                return;
+//            }
 
             if (waitingForAttackTarget)
             {
@@ -207,8 +257,6 @@ namespace GBJAM7.Scripts
                             counterAttack = distance <= 1,
                             player1Units = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP),
                             player2Units = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP),
-                            player1Data = players[source.player],
-                            player2Data = players[target.player]
                         };
 
                         var sourceDmg = source.dmg * (source.currentHP / source.totalHP);
@@ -386,8 +434,12 @@ namespace GBJAM7.Scripts
             // hide menues!!
 
             // dont show attack sequence if attacking a structure
-            if (source.attackSequenceUnitPrefab != null && target.attackSequenceUnitPrefab != null)
+            if (source.attackSequenceUnitPrefab != null && target.attackSequenceUnitPrefab != null 
+                                                        && target.unitType == Unit.UnitType.Unit)
             {
+                attackSequenceData.player1Data = players[source.player];
+                attackSequenceData.player2Data = players[target.player];
+                    
                 showingAttackSequence = true;
                 
                 var localPosition = attackSequence.transform.localPosition;
@@ -403,17 +455,36 @@ namespace GBJAM7.Scripts
                 
                 // TODO: center camera in unit position
             }
-            
-            if (Mathf.RoundToInt(target.currentHP) <= 0)
-            {
-                // TODO: show explosions for units killed
-                Destroy(target.gameObject);
-            }
 
             if (Mathf.RoundToInt(source.currentHP) <= 0)
             {
                 // TODO: show explosions for units killed
                 Destroy(source.gameObject);
+            }
+            
+            if (Mathf.RoundToInt(target.currentHP) <= 0)
+            {
+                if (target.unitType == Unit.UnitType.Unit)
+                {
+                    // TODO: show explosions for units killed
+                    Destroy(target.gameObject);
+                }
+                else
+                {
+                    if (source == null)
+                    {
+                        target.player = -1;
+                        target.currentHP = 1;
+                    }
+                    else
+                    {
+                        Debug.Log($"{target.name} captured by player {source.player}");
+                        target.player = source.player;
+                        var percentage = source.currentHP * 0.5f / source.totalHP;
+                        target.currentHP = Mathf.CeilToInt(target.totalHP * percentage);
+                        Debug.Log($"{target.name} captured by player {source.player} with {percentage * 100}% health");
+                    }
+                }
             }
         }
 
@@ -522,7 +593,7 @@ namespace GBJAM7.Scripts
             unitActions.Show(new List<Option>()
             {
                 new Option {name = "Attack"},
-                new Option {name = "Capture"},
+//                new Option {name = "Capture"},
                 new Option {name = "Cancel"},
             }, OnUnitActionSelected, CancelMenuAction);
             waitingForAction = true;
@@ -592,14 +663,15 @@ namespace GBJAM7.Scripts
                 return;
             }
             
-            if (option.name.Equals("Capture"))
-            {
-                // TODO: show capture range
-                // change game state to be waiting for target selection
-                Debug.Log("Capture!!");
-                selectedUnit.currentActions--;
-            }
-            
+//            if (option.name.Equals("Capture"))
+//            {
+//                waitingForAction = false;
+//                waitingForCaptureTarget = true;
+//                unitActions.Hide();
+//                captureArea.Show(selectedUnit.transform.position, 0, selectedUnit.captureDistance);
+//                return;
+//            }
+//            
             if (option.name.Equals("Cancel"))
             {
                 CancelMenuAction();

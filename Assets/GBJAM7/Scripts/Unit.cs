@@ -22,7 +22,9 @@ namespace GBJAM7.Scripts
         public UnitType unitType;
         
         public int movementDistance;
-        [FormerlySerializedAs("actionDistance")] public int attackDistance;
+        [FormerlySerializedAs("actionDistance")] 
+        public int attackDistance;
+//        public int captureDistance = 1;
 
         public int totalMovements = 1;
         public int currentMovements = 1;
