@@ -44,7 +44,13 @@ namespace GBJAM7.Scripts
 
         [SerializeField]
         private SpriteRenderer spriteRenderer;
-        
+
+        private void Start()
+        {
+            var p = transform.position;
+            transform.position = new Vector3(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y), Mathf.RoundToInt(p.z));
+        }
+
         private void LateUpdate()
         {
             spriteRenderer.flipX = player != 0;

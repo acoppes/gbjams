@@ -7,6 +7,9 @@ To keep it simple we are going 1v1 for now and then if we have time add some bas
 General actions
  - have that menu appear on the far side of the screen compared to cursor
 
+- Attack structures (no animation sequence)
+- Capture structures
+
 Units
 - Animate walk (now it teleports)
 - Pathfinding
