@@ -24,7 +24,6 @@ namespace GBJAM7.Scripts
         public int movementDistance;
         [FormerlySerializedAs("actionDistance")] 
         public int attackDistance;
-//        public int captureDistance = 1;
 
         public int totalMovements = 1;
         public int currentMovements = 1;
@@ -38,6 +37,8 @@ namespace GBJAM7.Scripts
         public int currentActions = 1;
 
         public int resources;
+
+        public bool canCapture;
 
         public Vector3 moveDirection = new Vector3(1, 0, 0);
 

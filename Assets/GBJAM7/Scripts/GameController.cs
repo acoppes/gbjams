@@ -177,55 +177,6 @@ namespace GBJAM7.Scripts
                 
                 return;
             }
-            
-//            if (waitingForCaptureTarget)
-//            {
-//                // we want to allow moving the selector while targeting a unit
-//                selector.Move(movement);
-//                AdjustCameraToSelector();
-//                
-//                if (button1Pressed)
-//                {
-//                    // if inside attack area and there is an enemy there, attack enemy
-//
-//                    var target = selectorOverUnit;
-//                    var source = selectedUnit;
-//
-//                    // not captured
-//                    if (target != null && target.player == -1 &&
-//                        IsInDistance(source.transform.position, target.transform.position, 
-//                            source.captureDistance))
-//                    {
-//                        target.player = source.player;
-//                        // we always capture 
-//                        target.currentHP = Mathf.CeilToInt(source.currentHP / 2);
-//                        
-//                        // consume action
-//
-//                        source.currentActions--;
-//                        // we consume movement after attack too
-//                        if (source.currentMovements > 0)
-//                            source.currentMovements--;
-//                    
-//                        waitingForCaptureTarget = false;
-//                        captureArea.Hide();
-//                    
-//                        DeselectUnit();
-//                    }
-//
-//                }
-//                
-//                // is button 2 pressed, cancel
-//                if (button2Pressed)
-//                {
-//                    // go back to unit actions menu
-//                    captureArea.Hide();
-//                    ShowUnitActions();
-//                    waitingForCaptureTarget = false;
-//                }
-//
-//                return;
-//            }
 
             if (waitingForAttackTarget)
             {
@@ -420,7 +371,7 @@ namespace GBJAM7.Scripts
 
             if (selectorOverUnit != null && selectedUnit == null)
             {
-                unitInfo.Preview(selectorOverUnit);
+                unitInfo.Preview(currentPlayer, selectorOverUnit);
             }
             else
             {
@@ -471,14 +422,17 @@ namespace GBJAM7.Scripts
                 }
                 else
                 {
-                    if (source == null)
+                    // can't capture if unit dies during capture (if counter attack)
+                    // or if unit cant capture or if too far away
+                    if (source == null || !source.canCapture || GetDistance(source, target) > 1)
                     {
                         target.player = -1;
-                        target.currentHP = 1;
+                        // leave it in 10% so you have to attack it a bit to capture it again next time
+                        target.currentHP = Mathf.CeilToInt(target.totalHP * 0.05f);
+                        Debug.Log($"{target.name} lost capture but couldn't be captured by distance or unit can't capture.");
                     }
                     else
                     {
-                        Debug.Log($"{target.name} captured by player {source.player}");
                         target.player = source.player;
                         var percentage = source.currentHP * 0.5f / source.totalHP;
                         target.currentHP = Mathf.CeilToInt(target.totalHP * percentage);
@@ -503,6 +457,11 @@ namespace GBJAM7.Scripts
                 var d = direction / Mathf.Abs(direction);
                 worldCamera.transform.position += new Vector3(0, d,0);
             }
+        }
+        
+        public int GetDistance(Unit a, Unit b)
+        {
+            return GetDistance(a.transform.position, b.transform.position);
         }
 
         public int GetDistance(Vector2 a, Vector2 b)

@@ -29,7 +29,7 @@ namespace GBJAM7.Scripts
         [SerializeField]
         private GameObject moneyContainer;
         
-        public void Preview(Unit unit)
+        public void Preview(int currentPlayer, Unit unit)
         {
             canvasGroup.alpha = 1;
             nameText.text = $"{unit.name}";
@@ -37,8 +37,21 @@ namespace GBJAM7.Scripts
             dmgText.text = $"{unit.dmg}";
             playerText.text = $"P{unit.player + 1}";
 
-            movementsLeftText.text = $"M:{unit.currentMovements}";
-            actionsLeftText.text = $"A:{unit.currentActions}";
+            if (unit.player == -1)
+            {
+                playerText.text = $"-";
+            }
+
+            if (currentPlayer == unit.player)
+            {
+                movementsLeftText.text = $"M:{unit.currentMovements}";
+                actionsLeftText.text = $"A:{unit.currentActions}";
+            }
+            else
+            {
+                movementsLeftText.text = "";
+                actionsLeftText.text = "";                
+            }
             
             moneyContainer.SetActive(unit.resources > 0);
             moneyContainer.GetComponentInChildren<Text>().text = $"{unit.resources}";
