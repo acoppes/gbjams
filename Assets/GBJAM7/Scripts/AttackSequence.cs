@@ -217,7 +217,13 @@ namespace GBJAM7.Scripts
             for (var i = 0; i < attackData.player1Killed; i++)
             {
                 if (i < player1Units.Count)
+                {
+                    player1Units[i].Death();
+
+                    yield return new WaitForSeconds(1);
+
                     Destroy(player1Units[i].gameObject);
+                }
             }
             
             // complete sequence
