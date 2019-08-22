@@ -185,7 +185,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 7}
-  m_SizeDelta: {x: 15, y: 5}
+  m_SizeDelta: {x: 50, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &185505531
 MonoBehaviour:
@@ -290,7 +290,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -7}
-  m_SizeDelta: {x: 15, y: 5}
+  m_SizeDelta: {x: 50, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &391510726
 MonoBehaviour:
@@ -675,9 +675,39 @@ MonoBehaviour:
   - player1Units: 1
     player2Units: 2
     player1Killed: 1
+    player2Killed: 1
+    playerAttacking: 0
+    counterAttack: 1
+    player1UnitPrefab: {fileID: 7235014674813201219, guid: c6e21b24c64432140b065eaf49ce5816,
+      type: 3}
+    player2UnitPrefab: {fileID: 3153164447306893186, guid: 7934392846f54d24496a1fe7f6cab6eb,
+      type: 3}
+  - player1Units: 3
+    player2Units: 3
+    player1Killed: 1
+    player2Killed: 1
+    playerAttacking: 0
+    counterAttack: 1
+    player1UnitPrefab: {fileID: 7235014674813201219, guid: c6e21b24c64432140b065eaf49ce5816,
+      type: 3}
+    player2UnitPrefab: {fileID: 3153164447306893186, guid: 7934392846f54d24496a1fe7f6cab6eb,
+      type: 3}
+  - player1Units: 3
+    player2Units: 2
+    player1Killed: 0
     player2Killed: 2
     playerAttacking: 0
     counterAttack: 1
+    player1UnitPrefab: {fileID: 7235014674813201219, guid: c6e21b24c64432140b065eaf49ce5816,
+      type: 3}
+    player2UnitPrefab: {fileID: 3153164447306893186, guid: 7934392846f54d24496a1fe7f6cab6eb,
+      type: 3}
+  - player1Units: 3
+    player2Units: 3
+    player1Killed: 0
+    player2Killed: 1
+    playerAttacking: 0
+    counterAttack: 0
     player1UnitPrefab: {fileID: 7235014674813201219, guid: c6e21b24c64432140b065eaf49ce5816,
       type: 3}
     player2UnitPrefab: {fileID: 3153164447306893186, guid: 7934392846f54d24496a1fe7f6cab6eb,
@@ -1608,6 +1638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4204089194176591053}
   attackTime: 1
+  hitsTime: 1
   player1UnitPositions:
   - {fileID: 5123369738462642155}
   - {fileID: 5123369738400387285}
@@ -1616,3 +1647,4 @@ MonoBehaviour:
   - {fileID: 1718557157}
   - {fileID: 289644710}
   - {fileID: 95470752}
+  completed: 0

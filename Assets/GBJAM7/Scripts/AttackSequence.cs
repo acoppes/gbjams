@@ -31,6 +31,9 @@ namespace GBJAM7.Scripts
 
         [SerializeField]
         private float attackTime = 1;
+        
+        [SerializeField]
+        private float hitsTime = 1;
 
         [SerializeField]
         private Transform[] player1UnitPositions;
@@ -43,14 +46,15 @@ namespace GBJAM7.Scripts
 
         private AttackSequenceData attackData;
 
+        public bool completed;
+
         public void Show(AttackSequenceData attackData)
         {
             this.attackData = attackData;
             
-            // destroy previous units
+            player1Units.Clear();
+            player2Units.Clear();
             
-            // instantiate new units
-
             for (var i = 0; i < attackData.player1Units; i++)
             {
                 for (var  j = 0; j < player1UnitPositions[i].childCount; j++)
@@ -73,6 +77,7 @@ namespace GBJAM7.Scripts
             
             // start
             
+            animator.SetBool("Completed", false);
             animator.SetBool("Player1AttackReady", false);
             animator.SetBool("Player2AttackReady", false);
             animator.Play("ToPosition1", -1, 0);
@@ -109,11 +114,29 @@ namespace GBJAM7.Scripts
 
         public void OnCameraInPosition2()
         {
+            StartCoroutine(Player2HitSequence());
+        }
+
+        private IEnumerator Player2HitSequence()
+        {
             // play hit particles on enemies
+
+            yield return new WaitForSeconds(hitsTime);
             
+            for (var i = 0; i < attackData.player2Killed; i++)
+            {
+                if (i < player2Units.Count)
+                    Destroy(player2Units[i].gameObject);
+            }
             // kill enemies
           
             // if enemies can't attack back, then go to exit state
+
+            if (attackData.player2Killed == attackData.player2Units || !attackData.counterAttack)
+            {
+                animator.SetBool("Completed", true);
+                yield break;
+            }
             
             // otherwise, attack back
             
@@ -128,14 +151,16 @@ namespace GBJAM7.Scripts
             
             foreach (var unit in player2Units)
             {
+                if (unit == null || unit.gameObject == null)
+                    continue;
                 unit.StartAttacking();
                 yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.2f));
             }
-
-            yield return new WaitForSeconds(attackTime);
             
             foreach (var unit in player2Units)
             {
+                if (unit == null || unit.gameObject == null)
+                    continue;
                 unit.StopAttacking();
             }
             
@@ -146,11 +171,30 @@ namespace GBJAM7.Scripts
         
         public void OnCameraInPosition3()
         {
+            StartCoroutine(Player1HitSequence());
+        }
+
+        private IEnumerator Player1HitSequence()
+        {
             // play hit particles on units
             
             // kill units
+
+            yield return new WaitForSeconds(hitsTime);
+            
+            for (var i = 0; i < attackData.player1Killed; i++)
+            {
+                if (i < player1Units.Count)
+                    Destroy(player1Units[i].gameObject);
+            }
             
             // complete sequence
+            animator.SetBool("Completed", true);
+        }
+
+        public void OnSequenceCompleted()
+        {
+            completed = true;
         }
     }
 }
