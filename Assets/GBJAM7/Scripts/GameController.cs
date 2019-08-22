@@ -178,7 +178,9 @@ namespace GBJAM7.Scripts
 
                     var target = selectorOverUnit;
                     var source = selectedUnit;
-                    
+
+                    var distance = GetDistance(source.transform.position, target.transform.position);
+
                     if (target != null && target.player != currentPlayer &&
                         IsInDistance(source.transform.position, target.transform.position, 
                             source.attackDistance))
@@ -191,7 +193,7 @@ namespace GBJAM7.Scripts
                             player1UnitPrefab = source.attackSequenceUnitPrefab,
                             player2UnitPrefab = target.attackSequenceUnitPrefab,
                             playerAttacking = currentPlayer,
-                            counterAttack = true,
+                            counterAttack = distance <= 1,
                             player1Units = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP),
                             player2Units = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP),
                             player1Data = players[source.player],
@@ -372,17 +374,21 @@ namespace GBJAM7.Scripts
         {
             // hide menues!!
 
-            var localPosition = attackSequence.transform.localPosition;
-            attackSequence.transform.localPosition = new Vector3(0, 0, localPosition.z);
+            // dont show attack sequence if attacking a structure
+            if (source.attackSequenceUnitPrefab != null && target.attackSequenceUnitPrefab != null)
+            {
+                var localPosition = attackSequence.transform.localPosition;
+                attackSequence.transform.localPosition = new Vector3(0, 0, localPosition.z);
 
-            attackSequence.Show(attackSequenceData);
+                attackSequence.Show(attackSequenceData);
 
-            yield return new WaitUntil(() => attackSequence.completed);
+                yield return new WaitUntil(() => attackSequence.completed);
 
-            attackSequence.transform.localPosition = localPosition;
+                attackSequence.transform.localPosition = localPosition;
+
+                // TODO: center camera in unit position
+            }
             
-            // TODO: center camera in unit position
-
             if (Mathf.RoundToInt(target.currentHP) <= 0)
             {
                 // TODO: show explosions for units killed
