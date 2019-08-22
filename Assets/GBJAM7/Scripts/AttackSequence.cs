@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GBJAM7.Scripts
@@ -48,10 +49,14 @@ namespace GBJAM7.Scripts
 
         public bool completed;
 
+        public Transform[] flipTransforms;
+
         public void Show(AttackSequenceData attackData)
         {
             this.attackData = attackData;
-            
+
+            flipTransforms.ToList().ForEach(t => t.localScale = new Vector3(attackData.playerAttacking == 0 ? 1 : -1, 1, 1));
+
             player1Units.Clear();
             player2Units.Clear();
             
