@@ -283,6 +283,11 @@ namespace GBJAM7.Scripts
                                     DeselectUnit();
                                 }
                             }
+                        } else if (selectorOverUnit == selectedUnit)
+                        {
+                            movementArea.Hide();
+                            attackArea.Hide();
+                            ShowUnitActions();
                         }
                         
 //                        if (selectorOverUnit == selectedUnit)

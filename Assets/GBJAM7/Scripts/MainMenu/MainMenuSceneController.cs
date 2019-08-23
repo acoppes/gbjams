@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace GBJAM7.Scripts.MainMenu
@@ -22,6 +21,9 @@ namespace GBJAM7.Scripts.MainMenu
             } else {
                 if (keyMapAsset.AnyButtonPressed())
                 {
+                    // TODO: HIDE PRESS START
+                    
+                    showingOptions = true;
                     options.Show(new List<Option>()
                     {
                         new Option { name = "New Game"},
@@ -35,11 +37,18 @@ namespace GBJAM7.Scripts.MainMenu
         {
             options.Hide();
             showingOptions = false;
+            
+            // TODO: SHOW PRESS START
         }
 
         private void OnOptionSelected(int arg1, Option option)
         {
             if ("New Game".Equals(option.name))
+            {
+                
+            }
+            
+            if ("Credits".Equals(option.name))
             {
                 
             }
