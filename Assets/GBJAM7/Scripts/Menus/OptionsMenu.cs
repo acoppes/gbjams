@@ -37,6 +37,8 @@ namespace GBJAM7.Scripts
         public void Show(List<Option> options, Action<int, Option> optionSelectedCallback, Action cancelMenu)
         {
             _canvasGroup.alpha = 1;
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
 
             _cancelMenu = cancelMenu;
             _optionSelectedCallback = optionSelectedCallback;
@@ -59,6 +61,8 @@ namespace GBJAM7.Scripts
         public void Hide()
         {
             _canvasGroup.alpha = 0;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
             
             var toDestroy = new List<Transform>();
             for (var i = 0; i < menuOptionsContainer.childCount; i++)

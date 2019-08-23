@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GBJAM7.Scripts
 {
@@ -43,10 +44,9 @@ namespace GBJAM7.Scripts
         public AttackSequence attackSequence;
         
         public OptionsMenu playerActions;
-
         public OptionsMenu buildActions;
-        
         public OptionsMenu unitActions;
+        public OptionsMenu generalOptionsMenu;
         
         // TODO: scroll camera if moving outside world bounds
 
@@ -66,14 +66,6 @@ namespace GBJAM7.Scripts
         public int currentPlayer;
         public List<PlayerData> players;
         
-//        private enum State
-//        {
-//            None,
-//            UnitSelected
-//        }
-//
-//        private State state;
-
         private Unit selectedUnit;
 
         private bool waitingForAction;
@@ -106,6 +98,8 @@ namespace GBJAM7.Scripts
         
         [NonSerialized]
         public bool button2Pressed;
+
+        public bool startPressed;
         
         private void Start()
         {
@@ -123,6 +117,8 @@ namespace GBJAM7.Scripts
             
             upPressed = Input.GetKeyDown(upKey);
             downPressed = Input.GetKeyDown(downKey);
+
+            startPressed = Input.GetKeyDown(startKeyCode);
             
             var movement = new Vector2Int(0, 0);
 
@@ -355,16 +351,18 @@ namespace GBJAM7.Scripts
                     // if we are over a unit, then show unit's menu
                     // otherwise show general menu
 
-                    if (selectorOverUnit != null && selectorOverUnit.player == currentPlayer &&
-                        selectorOverUnit.currentActions > 0 && selectorOverUnit.unitType == Unit.UnitType.Unit)
-                    {
-                        selectedUnit = selectorOverUnit;
-                        ShowUnitActions();
-                    }
-                    else
-                    {
-                        ShowPlayerActions();
-                    }
+//                    if (selectorOverUnit != null && selectorOverUnit.player == currentPlayer &&
+//                        selectorOverUnit.currentActions > 0 && selectorOverUnit.unitType == Unit.UnitType.Unit)
+//                    {
+//                        selectedUnit = selectorOverUnit;
+//                        ShowUnitActions();
+//                    }
+//                    else
+//                    {
+//                        
+//                    }
+                    
+                    ShowPlayerActions();
                 }
             }
 
@@ -375,6 +373,43 @@ namespace GBJAM7.Scripts
             else
             {
                 unitInfo.Hide();
+            }
+
+            if (startPressed)
+            {
+                gameHud.Hide();
+                waitingForAction = true;
+                
+                // show options menu and wait for options
+                generalOptionsMenu.Show(new List<Option>()
+                {
+                    new Option { name = "Continue" },
+                    new Option { name = "Restart" },
+                    new Option { name = "Main menu" },
+                }, OnGeneralMenuOptionSelected, OnGeneralMenuCanceled);
+            }
+            
+        }
+
+        private void OnGeneralMenuCanceled()
+        {
+            generalOptionsMenu.Hide();
+            gameHud.Show();
+            waitingForAction = false;
+        }
+
+        private void OnGeneralMenuOptionSelected(int i, Option option)
+        {
+            if ("Continue".Equals(option.name))
+            {
+                generalOptionsMenu.Hide();
+                gameHud.Show();
+                waitingForAction = false;
+            }
+            
+            if ("Restart".Equals(option.name))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             
         }
@@ -590,7 +625,7 @@ namespace GBJAM7.Scripts
             selectedUnit = unit;
             if (unit.unitType == Unit.UnitType.Unit)
             {
-                if (unit.currentMovements == 0 || unit.currentActions == 0)
+                if (unit.currentMovements == 0 && unit.currentActions == 0)
                 {
                     DeselectUnit();
                     return;
