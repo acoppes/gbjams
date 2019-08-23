@@ -492,7 +492,6 @@ namespace GBJAM7.Scripts
         public void EndCurrentPlayerTurn()
         {
             currentPlayer = (currentPlayer + 1) % players.Count;
-            var player = players[currentPlayer];
             
             var playerUnits = FindObjectsOfType<Unit>().Where(u => u.player == currentPlayer).ToList();
             playerUnits.ForEach(u =>
@@ -520,12 +519,22 @@ namespace GBJAM7.Scripts
             }
 
             StartCoroutine(ShowChangeTurnUI());
-            // TODO: show turn change UI
         }
 
         private IEnumerator ShowChangeTurnUI()
         {
             gameHud.Hide();
+            
+            // tween camera
+            var heroUnit = FindObjectsOfType<Unit>().FirstOrDefault(u => u.player == currentPlayer 
+                                                                         && u.unitType == Unit.UnitType.Unit && u.isHero);
+            if (heroUnit != null)
+            {
+                selector.transform.position = heroUnit.transform.position;
+                AdjustCameraToSelector();
+                // TODO: tween camera to selector!!
+            }
+            
             changeTurnSequence.Show(players[currentPlayer], currentPlayer, currentTurn);
             waitingForAction = true;
             
@@ -534,6 +543,8 @@ namespace GBJAM7.Scripts
             // set the change turn ui and show it
             // once completed, turn back everything
             yield return new WaitUntil(() => changeTurnSequence.completed);
+            
+
 
             gameHud.Show();
             waitingForAction = false;

@@ -19,7 +19,8 @@ namespace GBJAM7.Scripts
         
         public string name;
         public int cost;
-        
+
+        public bool isHero;
         public UnitType unitType;
         
         public int movementDistance;
