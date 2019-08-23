@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GBJAM7.Scripts.MainMenu
 {
@@ -21,14 +22,15 @@ namespace GBJAM7.Scripts.MainMenu
             } else {
                 if (keyMapAsset.AnyButtonPressed())
                 {
-                    // TODO: HIDE PRESS START
-                    
-                    showingOptions = true;
-                    options.Show(new List<Option>()
-                    {
-                        new Option { name = "New Game"},
-                        new Option { name = "Credits"}
-                    }, OnOptionSelected, OnCancel);
+                    SceneManager.LoadScene("GameScene");
+//                    // TODO: HIDE PRESS START
+//                    
+//                    showingOptions = true;
+//                    options.Show(new List<Option>()
+//                    {
+//                        new Option { name = "New Game"},
+//                        new Option { name = "Credits"}
+//                    }, OnOptionSelected, OnCancel);
                 }
             }
         }

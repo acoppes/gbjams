@@ -353,7 +353,7 @@ namespace GBJAM7.Scripts
                 {
                     new Option { name = "Continue" },
                     new Option { name = "Restart" },
-                    new Option { name = "Main menu" },
+                    new Option { name = "Main Menu" },
                 }, OnGeneralMenuOptionSelected, OnGeneralMenuCanceled);
             }
             
@@ -380,6 +380,10 @@ namespace GBJAM7.Scripts
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             
+            if ("Main Menu".Equals(option.name))
+            {
+                SceneManager.LoadScene("MainMenuScene");
+            }
         }
 
         private IEnumerator StartAttackSequence(AttackSequenceData attackSequenceData, Unit source, Unit target)
@@ -646,16 +650,7 @@ namespace GBJAM7.Scripts
                 attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
                 return;
             }
-            
-//            if (option.name.Equals("Capture"))
-//            {
-//                waitingForAction = false;
-//                waitingForCaptureTarget = true;
-//                unitActions.Hide();
-//                captureArea.Show(selectedUnit.transform.position, 0, selectedUnit.captureDistance);
-//                return;
-//            }
-//            
+
             if (option.name.Equals("Cancel"))
             {
                 CancelMenuAction();
