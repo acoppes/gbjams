@@ -367,8 +367,24 @@ namespace GBJAM7.Scripts
 
             if (selectorOverUnit != null && selectedUnit == null)
             {
+                previewArea.Hide();
+                
                 unitInfo.Preview(currentPlayer, selectorOverUnit);
-                previewArea.Show(selectorOverUnit.transform.position, 0, selectorOverUnit.movementDistance + selectorOverUnit.attackDistance);
+                
+                if (selectorOverUnit.player == currentPlayer &&
+                    (selectorOverUnit.currentMovements > 0 || selectorOverUnit.currentActions > 0))
+                {
+                    var distance = 0;
+                    distance += selectorOverUnit.currentMovements > 0 ? selectorOverUnit.movementDistance : 0;
+                    distance += selectorOverUnit.currentActions > 0 ? selectorOverUnit.attackDistance : 0;
+
+                    previewArea.Show(selectorOverUnit.transform.position, 0, distance);
+                } else if (selectorOverUnit.player != currentPlayer)
+                {
+                    previewArea.Show(selectorOverUnit.transform.position, 0,
+                        selectorOverUnit.movementDistance + selectorOverUnit.attackDistance);               
+                }
+                
             }
             else
             {
