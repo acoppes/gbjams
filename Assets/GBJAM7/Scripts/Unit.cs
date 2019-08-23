@@ -18,7 +18,8 @@ namespace GBJAM7.Scripts
         public int squadSize = 3;
         
         public string name;
-
+        public int cost;
+        
         public UnitType unitType;
         
         public int movementDistance;

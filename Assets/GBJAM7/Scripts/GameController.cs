@@ -9,9 +9,8 @@ namespace GBJAM7.Scripts
     [Serializable]
     public struct BuildOption
     {
-        public int cost;
         public string name;
-        public GameObject prefab;
+        public Unit unitPrefab;
     }
 
     [Serializable]
@@ -191,15 +190,15 @@ namespace GBJAM7.Scripts
                     var target = selectorOverUnit;
                     var source = selectedUnit;
 
-                    var distance = GetDistance(source.transform.position, target.transform.position);
-
+                  
                     if (target != null && target.player != currentPlayer &&
                         IsInDistance(source.transform.position, target.transform.position, 
                             source.attackDistance))
                     {
                         // do damage to target
                         // do damage back from target to unit
-                        
+                        var distance = GetDistance(source.transform.position, target.transform.position);
+      
                         var attackSequenceData = new AttackSequenceData()
                         {
                             player1UnitPrefab = source.attackSequenceUnitPrefab,
@@ -500,17 +499,24 @@ namespace GBJAM7.Scripts
             {
                 u.currentMovements = u.totalMovements;
                 u.currentActions = u.totalActions;
-                player.resources += u.resources;
-
-                if (u.regenHP > 0)
-                {
-                    u.currentHP = Mathf.Min(u.totalHP, u.currentHP + u.regenHP);
-                }
             });
 
             if (currentPlayer == 0)
             {
                 currentTurn++;
+                // regen money for everyone
+                
+                FindObjectsOfType<Unit>().ToList().ForEach(u =>
+                {
+                    if (u.player >= 0)
+                        players[u.player].resources += u.resources;
+                    
+                    if (u.regenHP > 0)
+                    {
+                        u.currentHP = Mathf.Min(u.totalHP, u.currentHP + u.regenHP);
+                    }
+                });
+                
             }
 
             StartCoroutine(ShowChangeTurnUI());
@@ -596,7 +602,7 @@ namespace GBJAM7.Scripts
                 {
                     buildActions.title = $"Build {player.resources}";
                     buildActions.Show(player.buildOptions
-                        .Select(o => new Option { name = $"{o.name} {o.cost}" }).ToList(), 
+                        .Select(o => new Option { name = $"{o.name} {o.unitPrefab.cost}" }).ToList(), 
                         OnBuildOptionSelected, 
                         CancelMenuAction);
                     waitingForAction = true;
@@ -655,11 +661,11 @@ namespace GBJAM7.Scripts
             // for now, spawn new unit in same unit location
             var buildOption = player.buildOptions[optionIndex];
 
-            if (player.resources < buildOption.cost)
+            if (player.resources < buildOption.unitPrefab.cost)
                 return;
             
             var newUnitObject = 
-                Instantiate(buildOption.prefab, selectedUnit.transform.position, Quaternion.identity);
+                Instantiate(buildOption.unitPrefab.gameObject, selectedUnit.transform.position, Quaternion.identity);
                 
             var newUnit = newUnitObject.GetComponentInChildren<Unit>();
             newUnit.currentActions = 0;
@@ -667,7 +673,7 @@ namespace GBJAM7.Scripts
             newUnit.player = currentPlayer;
             
             // consume money
-            player.resources -= buildOption.cost;
+            player.resources -= buildOption.unitPrefab.cost;
             
             selectedUnit.currentActions--;
             CompleteMenuAction();
