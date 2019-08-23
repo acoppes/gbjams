@@ -236,8 +236,15 @@ namespace GBJAM7.Scripts
                 {
                     var unit = FindObjectsOfType<Unit>()
                         .FirstOrDefault(u => u.player == currentPlayer && Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
-                    
-                    SelectUnit(unit);
+
+                    if (unit == null)
+                    {
+                        ShowPlayerActions();
+                    }
+                    else
+                    {
+                        SelectUnit(unit);    
+                    }
                 }
                 else
                 {
@@ -313,28 +320,49 @@ namespace GBJAM7.Scripts
 
             if (keyMapAsset.button2Pressed)
             {
-                if (selectedUnit != null)
-                {
-                    DeselectUnit();
-                }
-                else
-                {
-                    // if we are over a unit, then show unit's menu
-                    // otherwise show general menu
+                var playerUnits = FindObjectsOfType<Unit>().Where(u =>
+                    u.player == currentPlayer && (u.currentMovements > 0 || u.currentActions > 0)).ToList();
 
-//                    if (selectorOverUnit != null && selectorOverUnit.player == currentPlayer &&
-//                        selectorOverUnit.currentActions > 0 && selectorOverUnit.unitType == Unit.UnitType.Unit)
-//                    {
-//                        selectedUnit = selectorOverUnit;
-//                        ShowUnitActions();
-//                    }
-//                    else
-//                    {
-//                        
-//                    }
-                    
-                    ShowPlayerActions();
+                var index = 0;
+                
+                if (selectorOverUnit != null)
+                {
+                    index = playerUnits.IndexOf(selectorOverUnit);
+                    index++;
                 }
+
+                if (playerUnits.Count > 0)
+                {
+                    index %= playerUnits.Count;
+                    // index = Mathf.Clamp(index, 0, playerUnits.Count - 1);
+                    var unit = playerUnits[index];
+                    selector.transform.position = unit.transform.position;
+                    AdjustCameraToSelector();
+//                    SelectUnit(unit);
+                }
+                
+//                if (selectedUnit != null)
+//                {
+//                    DeselectUnit();
+//                }
+//                else
+//                {
+//                    // if we are over a unit, then show unit's menu
+//                    // otherwise show general menu
+//
+////                    if (selectorOverUnit != null && selectorOverUnit.player == currentPlayer &&
+////                        selectorOverUnit.currentActions > 0 && selectorOverUnit.unitType == Unit.UnitType.Unit)
+////                    {
+////                        selectedUnit = selectorOverUnit;
+////                        ShowUnitActions();
+////                    }
+////                    else
+////                    {
+////                        
+////                    }
+//                    
+//                    ShowPlayerActions();
+//                }
             }
 
             if (selectorOverUnit != null && selectedUnit == null)
