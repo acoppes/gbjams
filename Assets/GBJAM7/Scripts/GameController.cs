@@ -35,7 +35,7 @@ namespace GBJAM7.Scripts
 
         public UnitMovementArea movementArea;
         public UnitMovementArea attackArea;
-//        public UnitMovementArea captureArea;
+        public UnitMovementArea previewArea;
 
         public GameInfo gameInfo;
         public UnitInfo unitInfo;
@@ -368,10 +368,12 @@ namespace GBJAM7.Scripts
             if (selectorOverUnit != null && selectedUnit == null)
             {
                 unitInfo.Preview(currentPlayer, selectorOverUnit);
+                previewArea.Show(selectorOverUnit.transform.position, 0, selectorOverUnit.movementDistance + selectorOverUnit.attackDistance);
             }
             else
             {
                 unitInfo.Hide();
+                previewArea.Hide();
             }
 
             if (keyMapAsset.startPressed)

@@ -13,6 +13,9 @@ namespace GBJAM7.Scripts
         
         public void Show(Vector3 position, int minDistance, int maxDistance)
         {
+            if (minDistance == 0 && maxDistance == 0)
+                return;
+            
             var p = new Vector2Int(-maxDistance, -maxDistance);
             for (var i = p.x; i <= maxDistance; i++)
             {
