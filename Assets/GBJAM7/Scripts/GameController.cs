@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GBJAM7.Scripts.MainMenu;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -50,16 +51,7 @@ namespace GBJAM7.Scripts
         
         // TODO: scroll camera if moving outside world bounds
 
-        public KeyCode leftKey;
-        public KeyCode rigthKey;
-        public KeyCode upKey;
-        public KeyCode downKey;
-
-        public KeyCode button1KeyCode;
-        public KeyCode button2KeyCode;
-        
-        public KeyCode startKeyCode;
-        public KeyCode selectKeyCode;
+        public GameboyButtonKeyMapAsset keyMapAsset;
 
         public int currentTurn;
         
@@ -81,26 +73,6 @@ namespace GBJAM7.Scripts
 //        [NonSerialized]
 //        public bool keyReady;
 
-        [NonSerialized]
-        public bool leftPressed;
-        
-        [NonSerialized]
-        public bool rightPressed;
-
-        [NonSerialized]
-        public bool upPressed;
-
-        [NonSerialized]
-        public bool downPressed;
-        
-        [NonSerialized]
-        public bool button1Pressed;
-        
-        [NonSerialized]
-        public bool button2Pressed;
-
-        public bool startPressed;
-        
         private void Start()
         {
             playerActions.Hide();
@@ -112,24 +84,15 @@ namespace GBJAM7.Scripts
         {
             // TODO: controls state, like "if in selection mode, then allow movement"
 
-            leftPressed = Input.GetKeyDown(leftKey);
-            rightPressed = Input.GetKeyDown(rigthKey);
-            
-            upPressed = Input.GetKeyDown(upKey);
-            downPressed = Input.GetKeyDown(downKey);
-
-            startPressed = Input.GetKeyDown(startKeyCode);
+            keyMapAsset.UpdateControlState();
             
             var movement = new Vector2Int(0, 0);
 
-            movement.x += leftPressed ? -1 : 0;
-            movement.x += rightPressed ? 1 : 0;
+            movement.x += keyMapAsset.leftPressed ? -1 : 0;
+            movement.x += keyMapAsset.rightPressed ? 1 : 0;
             
-            movement.y += upPressed ? 1 : 0;
-            movement.y += downPressed ? -1 : 0;
-            
-            button1Pressed = Input.GetKeyDown(button1KeyCode);
-            button2Pressed = Input.GetKeyDown(button2KeyCode);
+            movement.y += keyMapAsset.upPressed ? 1 : 0;
+            movement.y += keyMapAsset.downPressed ? -1 : 0;
             
             gameInfo.UpdateGameInfo(currentPlayer, currentTurn);
             
@@ -148,7 +111,7 @@ namespace GBJAM7.Scripts
 
             if (showingAttackSequence)
             {
-                if (button2Pressed)
+                if (keyMapAsset.button2Pressed)
                 {
                     attackSequence.ForceComplete();
                 }
@@ -161,7 +124,7 @@ namespace GBJAM7.Scripts
             
             if (waitingForAction)
             {
-                if (button2Pressed)
+                if (keyMapAsset.button2Pressed)
                 {
                     buildActions.Hide();
                     playerActions.Hide();
@@ -179,7 +142,7 @@ namespace GBJAM7.Scripts
                 selector.Move(movement);
                 AdjustCameraToSelector();
                 
-                if (button1Pressed)
+                if (keyMapAsset.button1Pressed)
                 {
                     // if inside attack area and there is an enemy there, attack enemy
 
@@ -246,7 +209,7 @@ namespace GBJAM7.Scripts
                 }
                 
                 // is button 2 pressed, cancel
-                if (button2Pressed)
+                if (keyMapAsset.button2Pressed)
                 {
                     // go back to unit actions menu
                     attackArea.Hide();
@@ -265,7 +228,7 @@ namespace GBJAM7.Scripts
             selector.Move(movement);
             AdjustCameraToSelector();
             
-            if (button1Pressed)
+            if (keyMapAsset.button1Pressed)
             {
                 // search for unit in location
                 if (selectedUnit == null)
@@ -340,7 +303,7 @@ namespace GBJAM7.Scripts
 
             }
 
-            if (button2Pressed)
+            if (keyMapAsset.button2Pressed)
             {
                 if (selectedUnit != null)
                 {
@@ -375,7 +338,7 @@ namespace GBJAM7.Scripts
                 unitInfo.Hide();
             }
 
-            if (startPressed)
+            if (keyMapAsset.startPressed)
             {
                 gameHud.Hide();
                 waitingForAction = true;

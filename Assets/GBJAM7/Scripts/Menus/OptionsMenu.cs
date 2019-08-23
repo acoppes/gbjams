@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GBJAM7.Scripts.MainMenu;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace GBJAM7.Scripts
         [SerializeField]
         private CanvasGroup _canvasGroup;
 
-        public GameController gameControls;
+        public GameboyButtonKeyMapAsset keyMapAsset;
 
         [SerializeField]
         private GameObject menuOptionPrefab;
@@ -93,7 +94,7 @@ namespace GBJAM7.Scripts
 //            if (!gameControls.keyReady)
 //                return;
             
-            if (gameControls.upPressed)
+            if (keyMapAsset.upPressed)
             {
                 currentOptionIndex--;
                 if (currentOptionIndex < 0)
@@ -101,7 +102,7 @@ namespace GBJAM7.Scripts
                 // move to previous option
             }
 
-            if (gameControls.downPressed)
+            if (keyMapAsset.downPressed)
             {
                 currentOptionIndex++;
                 if (currentOptionIndex >= menuOptions.Count)
@@ -110,14 +111,14 @@ namespace GBJAM7.Scripts
                 }
             }
 
-            if (gameControls.button1Pressed)
+            if (keyMapAsset.button1Pressed)
             {
                 // execute action in game controls!
                 _optionSelectedCallback(currentOptionIndex, menuOptions[currentOptionIndex].option);
                 // Hide();
             }
 
-            if (gameControls.button2Pressed)
+            if (keyMapAsset.button2Pressed)
             {
                 // hide menu 
                 _cancelMenu();
