@@ -163,7 +163,7 @@ namespace GBJAM7.Scripts
                             player1UnitPrefab = source.attackSequenceUnitPrefab,
                             player2UnitPrefab = target.attackSequenceUnitPrefab,
                             playerAttacking = currentPlayer,
-                            counterAttack = distance <= 1,
+                            counterAttack = distance <= target.attackDistance,
                             player1Units = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP),
                             player2Units = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP),
                         };
@@ -213,7 +213,8 @@ namespace GBJAM7.Scripts
                 {
                     // go back to unit actions menu
                     attackArea.Hide();
-                    ShowUnitActions();
+                    DeselectUnit();
+//                    ShowUnitActions();
                     waitingForAttackTarget = false;
                     
 //                    DeselectUnit();
@@ -276,8 +277,10 @@ namespace GBJAM7.Scripts
                                     movementArea.Hide();
                                     attackArea.Hide();
                                     
+                                    StartWaitingForAttackTarget();
+                                    
 //                                    movementArea.Show(selectedUnit.transform.position, selectedUnit.actionDistance);
-                                    ShowUnitActions();
+//                                    ShowUnitActions();
                                 } else
                                 {
                                     DeselectUnit();
@@ -443,6 +446,10 @@ namespace GBJAM7.Scripts
                         var percentage = source.currentHP * 0.5f / source.totalHP;
                         target.currentHP = Mathf.CeilToInt(target.totalHP * percentage);
                         Debug.Log($"{target.name} captured by player {source.player} with {percentage * 100}% health");
+                        
+                        // captured structures don't have action in this turn
+                        target.currentActions = 0;
+                        target.currentMovements = 0;
                     }
                 }
             }
@@ -610,7 +617,8 @@ namespace GBJAM7.Scripts
                 }
                 else
                 {
-                    ShowUnitActions();
+                    StartWaitingForAttackTarget();
+//                    ShowUnitActions();
                 }
                 
             } else if (unit.unitType == Unit.UnitType.Spawner)
@@ -640,14 +648,19 @@ namespace GBJAM7.Scripts
             }
         }
 
+        private void StartWaitingForAttackTarget()
+        {
+            waitingForAction = false;
+            waitingForAttackTarget = true;
+            unitActions.Hide();
+            attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
+        }
+
         private void OnUnitActionSelected(int optionIndex, Option option)
         {
             if (option.name.Equals("Attack"))
             {
-                waitingForAction = false;
-                waitingForAttackTarget = true;
-                unitActions.Hide();
-                attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
+                StartWaitingForAttackTarget();
                 return;
             }
 
