@@ -26,9 +26,12 @@ namespace GBJAM7.Scripts.MainMenu
 
             var startLocation = GameObject.Find("~StartLocation");
 
-            var gameController = GameObject.FindObjectOfType<GameController>();
-            gameController.StartShowChangeTurnUI(startLocation.transform.position);
+            if (startLocation != null)
+            {
+                var gameController = GameObject.FindObjectOfType<GameController>();
+                gameController.StartShowChangeTurnUI(startLocation.transform.position);
+            }
+            
         }
-
     }
 }
