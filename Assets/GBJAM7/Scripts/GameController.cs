@@ -123,7 +123,7 @@ namespace GBJAM7.Scripts
 
             // if showing a any menu and waiting for action..
             var selectorOverUnit = FindObjectsOfType<Unit>()
-                .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+                .FirstOrDefault(u => Vector2.Distance(selector.position, u.transform.position) < 0.5f);
             
             if (waitingForMenuAction)
             {
@@ -240,11 +240,11 @@ namespace GBJAM7.Scripts
                     if (selectedUnit.currentMovements > 0 && selectorOverUnit == null)
                     {
                         var p0 = selectedUnit.transform.position / 1;
-                        var p1 = selector.transform.position / 1;
+                        var p1 = selector.position / 1;
                             
                         if (IsInDistance(p0, p1, selectedUnit.movementDistance))
                         {
-                            selectedUnit.transform.position = selector.transform.position;
+                            selectedUnit.transform.position = selector.position;
                             selectedUnit.currentMovements = 0;
 
                             selectedUnit.moveDirection = p1 - p0;
@@ -295,7 +295,7 @@ namespace GBJAM7.Scripts
                 if (selectedUnit == null)
                 {
                     var unit = FindObjectsOfType<Unit>()
-                        .FirstOrDefault(u => u.player == currentPlayer && Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+                        .FirstOrDefault(u => u.player == currentPlayer && Vector2.Distance(selector.position, u.transform.position) < 0.5f);
 
                     if (unit == null)
                     {
@@ -330,7 +330,7 @@ namespace GBJAM7.Scripts
                     index %= playerUnits.Count;
                     // index = Mathf.Clamp(index, 0, playerUnits.Count - 1);
                     var unit = playerUnits[index];
-                    selector.transform.position = unit.transform.position;
+                    selector.position = unit.transform.position;
                     AdjustCameraToSelector();
                 }
             }
@@ -473,16 +473,16 @@ namespace GBJAM7.Scripts
 
         private void AdjustCameraToSelector()
         {
-            while (Mathf.Abs(worldCamera.transform.position.x - selector.transform.position.x) > cameraBounds.size.x)
+            while (Mathf.Abs(worldCamera.transform.position.x - selector.position.x) > cameraBounds.size.x)
             {
-                var direction = selector.transform.position.x - worldCamera.transform.position.x;
+                var direction = selector.position.x - worldCamera.transform.position.x;
                 var d = direction / Mathf.Abs(direction);
                 worldCamera.transform.position += new Vector3(d, 0,0);
             }
             
-            while (Mathf.Abs(worldCamera.transform.position.y - selector.transform.position.y) > cameraBounds.size.y)
+            while (Mathf.Abs(worldCamera.transform.position.y - selector.position.y) > cameraBounds.size.y)
             {
-                var direction = selector.transform.position.y - worldCamera.transform.position.y;
+                var direction = selector.position.y - worldCamera.transform.position.y;
                 var d = direction / Mathf.Abs(direction);
                 worldCamera.transform.position += new Vector3(0, d,0);
             }
@@ -560,7 +560,7 @@ namespace GBJAM7.Scripts
                                                                          && u.unitType == Unit.UnitType.Unit && u.isHero);
             if (heroUnit != null)
             {
-                selector.transform.position = heroUnit.transform.position;
+                selector.position = heroUnit.transform.position;
                 AdjustCameraToSelector();
                 // TODO: tween camera to selector!!
             }
