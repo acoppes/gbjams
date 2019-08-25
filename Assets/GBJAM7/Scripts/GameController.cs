@@ -390,21 +390,24 @@ namespace GBJAM7.Scripts
                 {
                     var distance = 0;
                     distance += selectorOverUnit.currentMovements > 0 ? selectorOverUnit.movementDistance : 0;
-//                    distance += selectorOverUnit.currentActions > 0 ? selectorOverUnit.attackDistance : 0;
+                    distance += selectorOverUnit.currentActions > 0 ? selectorOverUnit.attackDistance : 0;
 
-                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
-                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
+//                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
+//                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
+
+                    previewArea.Show(selectorOverUnit.transform.position, 0,
+                        distance);    
                     
                 } else if (selectorOverUnit.player != currentPlayer)
                 {
-                    var distance = selectorOverUnit.movementDistance;
-//                    var distance = selectorOverUnit.movementDistance + selectorOverUnit.attackDistance;
+//                    var distance = selectorOverUnit.movementDistance;
+                    var distance = selectorOverUnit.movementDistance + selectorOverUnit.attackDistance;
                     
-                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
-                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
+//                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
+//                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
                     
-//                    previewArea.Show(selectorOverUnit.transform.position, 0,
-//                        selectorOverUnit.movementDistance + selectorOverUnit.attackDistance);               
+                    previewArea.Show(selectorOverUnit.transform.position, 0,
+                        distance);               
                 }
                 
             }
