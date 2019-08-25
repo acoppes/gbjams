@@ -177,12 +177,17 @@ namespace GBJAM7.Scripts
                         
                         target.currentHP -= sourceDmg;
                         Debug.Log($"{target.name} received {sourceDmg} dmg");
+                        
                         if (target.currentHP > 0)
                         {
                             var targetDmg = target.dmg * (target.currentHP / target.totalHP);
                             source.currentHP -= targetDmg;
                             Debug.Log($"{source.name} received {targetDmg} dmg");
                         }
+//                        else
+//                        {
+//                            attackSequenceData.counterAttack = false;
+//                        }
 
                         var p1CurrentUnits = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP);
                         var p2CurrentUnits = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP);
@@ -434,13 +439,15 @@ namespace GBJAM7.Scripts
                 // TODO: center camera in unit position
             }
 
-            if (Mathf.RoundToInt(source.currentHP) <= 0)
+            const float minHealthToDestroy = 0.01f;
+
+            if (source.currentHP <= minHealthToDestroy)
             {
                 // TODO: show explosions for units killed
                 Destroy(source.gameObject);
             }
             
-            if (Mathf.RoundToInt(target.currentHP) <= 0)
+            if (target.currentHP <= minHealthToDestroy)
             {
                 if (target.unitType == Unit.UnitType.Unit)
                 {
