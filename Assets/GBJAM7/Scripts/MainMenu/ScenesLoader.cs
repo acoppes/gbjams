@@ -21,7 +21,12 @@ namespace GBJAM7.Scripts.MainMenu
             // do stuff
             GameObject.Instantiate(pendingLevelLoad.levelPrefab);
             GameObject.Instantiate(pendingLevelLoad.balancePrefab);
+
             SceneManager.sceneLoaded -= OnGameSceneLoaded;
+
+            var gameController = GameObject.FindObjectOfType<GameController>();
+            if (gameController != null)
+                gameController.StartShowChangeTurnUI();
         }
 
     }

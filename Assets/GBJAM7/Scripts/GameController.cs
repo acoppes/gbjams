@@ -33,7 +33,7 @@ namespace GBJAM7.Scripts
         
 //        public Camera worldCamera;
 
-        public Transform cameraPositionReference;
+        public GameCamera gameCamera;
 
         public UnitMovementArea movementArea;
         public UnitMovementArea attackArea;
@@ -475,7 +475,7 @@ namespace GBJAM7.Scripts
 
         private void AdjustCameraToSelector()
         {
-            var t = cameraPositionReference.transform;
+            var t = gameCamera;
             
             while (Mathf.Abs(t.position.x - selector.position.x) > cameraBounds.size.x)
             {
@@ -552,11 +552,19 @@ namespace GBJAM7.Scripts
                 
             }
 
+            StartShowChangeTurnUI();
+        }
+
+        public void StartShowChangeTurnUI()
+        {
             StartCoroutine(ShowChangeTurnUI());
         }
 
         private IEnumerator ShowChangeTurnUI()
         {
+            // just wait one frame
+//            yield return null;
+            
             gameHud.Hide();
             
             // tween camera
@@ -565,8 +573,8 @@ namespace GBJAM7.Scripts
             if (heroUnit != null)
             {
                 selector.position = heroUnit.transform.position;
-                AdjustCameraToSelector();
-                // TODO: tween camera to selector!!
+                gameCamera.position = heroUnit.transform.position;
+//                AdjustCameraToSelector();
             }
             
             changeTurnSequence.Show(players[currentPlayer], currentPlayer, currentTurn);
@@ -577,8 +585,6 @@ namespace GBJAM7.Scripts
             // set the change turn ui and show it
             // once completed, turn back everything
             yield return new WaitUntil(() => changeTurnSequence.completed);
-            
-
 
             gameHud.Show();
             waitingForMenuAction = false;

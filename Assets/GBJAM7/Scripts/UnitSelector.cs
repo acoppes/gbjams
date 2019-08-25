@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace GBJAM7.Scripts
 {
+    [ExecuteInEditMode]
     public class UnitSelector : MonoBehaviour
     {
         public Vector3Int movement = new Vector3Int(1, 1, 0);
@@ -16,10 +17,7 @@ namespace GBJAM7.Scripts
 
         public void Start()
         {
-            position = transform.position;
-            
             transform.position = Vector3.zero;
-            spriteTransform.transform.position = position;
         }
         
         public void Move(Vector2Int direction)
@@ -29,8 +27,16 @@ namespace GBJAM7.Scripts
 
         public void LateUpdate()
         {
-            spriteTransform.transform.position = Vector3.Lerp(spriteTransform.transform.position, position,
-                moveSpeed * Time.deltaTime);
+            if (Application.isPlaying)
+            {
+                spriteTransform.transform.position = Vector3.Lerp(spriteTransform.transform.position, position,
+                    moveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                position = transform.position;
+                spriteTransform.transform.position = position;
+            }
         }
     }
 }
