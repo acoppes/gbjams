@@ -10,12 +10,16 @@ namespace GBJAM7.Scripts
         [NonSerialized]
         public Vector3 position;
 
+        public float moveSpeed = 1.0f;
+        
         public Transform spriteTransform;
 
         public void Start()
         {
             position = transform.position;
+            
             transform.position = Vector3.zero;
+            spriteTransform.transform.position = position;
         }
         
         public void Move(Vector2Int direction)
@@ -25,7 +29,8 @@ namespace GBJAM7.Scripts
 
         public void LateUpdate()
         {
-            spriteTransform.transform.position = position;
+            spriteTransform.transform.position = Vector3.Lerp(spriteTransform.transform.position, position,
+                moveSpeed * Time.deltaTime);
         }
     }
 }
