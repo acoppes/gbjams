@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace GBJAM7.Scripts
@@ -47,5 +48,8 @@ namespace GBJAM7.Scripts
 
         [Tooltip("The prefab to use for the attack sequence")]
         public GameObject attackSequenceUnitPrefab;
+
+        [NonSerialized]
+        public int enemiesInRange;
     }
 }

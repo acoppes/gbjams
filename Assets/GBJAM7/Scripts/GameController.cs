@@ -97,6 +97,8 @@ namespace GBJAM7.Scripts
         public void Update()
         {
             // TODO: controls state, like "if in selection mode, then allow movement"
+            
+            Utils.UpdateEnemiesInRange();
 
             keyMapAsset.UpdateControlState();
             
@@ -165,12 +167,12 @@ namespace GBJAM7.Scripts
 
                   
                     if (target != null && target.player != currentPlayer &&
-                        IsInDistance(source.transform.position, target.transform.position, 
+                        Utils.IsInDistance(source.transform.position, target.transform.position, 
                             source.attackDistance))
                     {
                         // do damage to target
                         // do damage back from target to unit
-                        var distance = GetDistance(source.transform.position, target.transform.position);
+                        var distance = Utils.GetDistance(source.transform.position, target.transform.position);
       
                         var attackSequenceData = new AttackSequenceData()
                         {
@@ -258,7 +260,7 @@ namespace GBJAM7.Scripts
                         var p0 = selectedUnit.transform.position / 1;
                         var p1 = selector.position / 1;
                             
-                        if (IsInDistance(p0, p1, selectedUnit.movementDistance))
+                        if (Utils.IsInDistance(p0, p1, selectedUnit.movementDistance))
                         {
                             selectedUnit.transform.position = selector.position;
                             selectedUnit.currentMovements = 0;
@@ -334,7 +336,20 @@ namespace GBJAM7.Scripts
             if (keyMapAsset.button2Pressed)
             {
                 var playerUnits = FindObjectsOfType<Unit>().Where(u =>
-                    u.player == currentPlayer && (u.currentMovements > 0 || u.currentActions > 0)).ToList();
+                {
+                    if (u.player != currentPlayer)
+                        return false;
+                    if (u.currentMovements == 0 && u.currentActions == 0)
+                        return false;
+
+                    // if unit and can only attack and no enemies in range..
+                    if (u.currentMovements == 0 && u.unitType == Unit.UnitType.Unit)
+                    {
+                        return u.enemiesInRange > 0;
+                    }
+                    
+                    return true;
+                }).ToList();
 
                 var index = 0;
                 
@@ -398,7 +413,7 @@ namespace GBJAM7.Scripts
                     new Option { name = "Main Menu" },
                 }, OnGeneralMenuOptionSelected, OnGeneralMenuCanceled);
             }
-            
+
         }
 
         private void OnGeneralMenuCanceled()
@@ -472,7 +487,7 @@ namespace GBJAM7.Scripts
                 {
                     // can't capture if unit dies during capture (if counter attack)
                     // or if unit cant capture or if too far away
-                    if (source == null || !source.canCapture || GetDistance(source, target) > 1)
+                    if (source == null || !source.canCapture || Utils.GetDistance(source, target) > 1)
                     {
                         target.player = -1;
                         // leave it in 10% so you have to attack it a bit to capture it again next time
@@ -551,21 +566,7 @@ namespace GBJAM7.Scripts
             }
         }
         
-        public int GetDistance(Unit a, Unit b)
-        {
-            return GetDistance(a.transform.position, b.transform.position);
-        }
 
-        public int GetDistance(Vector2 a, Vector2 b)
-        {
-            return Mathf.RoundToInt(Mathf.Abs(a.x - b.x) +
-                                            Mathf.Abs(a.y - b.y));
-        }
-
-        public bool IsInDistance(Vector2 a, Vector2 b, int distance)
-        {
-            return GetDistance(a, b) <= distance;
-        }
 
         private void OnPlayerActionSelected(int optionIndex, Option option)
         {
