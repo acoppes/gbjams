@@ -436,8 +436,8 @@ namespace GBJAM7.Scripts
             if (source.attackSequenceUnitPrefab != null && target.attackSequenceUnitPrefab != null 
                                                         && target.unitType == Unit.UnitType.Unit)
             {
-                attackSequenceData.player1Data = players[source.player];
-                attackSequenceData.player2Data = players[target.player];
+                attackSequenceData.player1Data = players[0];
+                attackSequenceData.player2Data = players[1];
                     
                 showingAttackSequence = true;
                 
