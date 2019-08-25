@@ -7,6 +7,9 @@ namespace GBJAM7.Scripts
     {
         public bool player1Defeated;
         public bool player2Defeated;
+
+        public PlayerData player1;
+        public PlayerData player2;
     }
 
     // we are probably having a game over sequence class too to be called from game over controller
@@ -25,7 +28,8 @@ namespace GBJAM7.Scripts
         {
             controller.HideMenus();
             controller.BlockPlayerActions();
-
+            
+            sequence.SetGameOverData(gameOverData);
             sequence.StartSequence();
             
             yield return new WaitUntil(() => sequence.completed);

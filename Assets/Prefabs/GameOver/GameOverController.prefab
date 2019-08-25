@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 9205820281379868474}
   - component: {fileID: 2599440373964313991}
   m_Layer: 5
-  m_Name: playertext
+  m_Name: text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 6792127376724603665}
   - component: {fileID: 8186873028387864805}
   m_Layer: 5
-  m_Name: playertext
+  m_Name: text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -394,7 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3667531011314149496}
   m_Layer: 5
-  m_Name: turn (4)
+  m_Name: defeat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5347236479654304295}
   m_Layer: 5
-  m_Name: turn (2)
+  m_Name: victory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,7 +466,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7665391811825607293}
   m_Layer: 5
-  m_Name: turn (3)
+  m_Name: player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,7 +522,7 @@ RectTransform:
   - {fileID: 7483947905202241339}
   - {fileID: 2898010685913750951}
   m_Father: {fileID: 2982536784214488728}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -616,7 +616,7 @@ GameObject:
   - component: {fileID: 5187711231321877072}
   - component: {fileID: 4098440563996212349}
   m_Layer: 5
-  m_Name: playertext
+  m_Name: text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -693,7 +693,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2090738600427361341}
   m_Layer: 5
-  m_Name: turn
+  m_Name: player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -712,7 +712,7 @@ RectTransform:
   m_Children:
   - {fileID: 1805325883557329270}
   m_Father: {fileID: 2982536784214488728}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -893,6 +893,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6192678130026018553}
+  victoryPlayerText: {fileID: 2599440373964313991}
+  defeatPlayerText: {fileID: 2460594023170712511}
 --- !u!95 &6192678130026018553
 Animator:
   serializedVersion: 3
@@ -1074,7 +1076,7 @@ GameObject:
   - component: {fileID: 6849689900595117047}
   - component: {fileID: 2460594023170712511}
   m_Layer: 5
-  m_Name: playertext
+  m_Name: text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1169,8 +1171,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6453334559816806733}
-  - {fileID: 2090738600427361341}
   - {fileID: 3544981107324664769}
+  - {fileID: 2090738600427361341}
   - {fileID: 5347236479654304295}
   m_Father: {fileID: 8682665565337947402}
   m_RootOrder: 1

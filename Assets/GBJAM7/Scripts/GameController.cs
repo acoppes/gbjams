@@ -498,10 +498,12 @@ namespace GBJAM7.Scripts
             if (!player1Defeated && !player2Defeated)
                 return;
             
-            gameOverController.StartSequence(this, new GameOverData()
+            gameOverController.StartSequence(this, new GameOverData
             {
                 player1Defeated = player1Defeated,
-                player2Defeated = player2Defeated
+                player2Defeated = player2Defeated,
+                player1 = players[0],
+                player2 = players[1]
             });
         }
 

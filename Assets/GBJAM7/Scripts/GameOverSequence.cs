@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace GBJAM7.Scripts
 {
@@ -9,6 +11,20 @@ namespace GBJAM7.Scripts
         public bool completed;
 
         public Animator animator;
+
+        public Text victoryPlayerText;
+        public Text defeatPlayerText;
+
+        public void SetGameOverData(GameOverData gameOverData)
+        {
+            // TODO: set the proper player name given victory or defeat
+            
+            victoryPlayerText.text = gameOverData.player1.name;
+            defeatPlayerText.text = gameOverData.player2.name;
+            
+            // TODO: check victory player and flip, configure everything to show
+            // inverted
+        }
 
         public void StartSequence()
         {
@@ -22,7 +38,7 @@ namespace GBJAM7.Scripts
 
         public void ForceComplete()
         {
-            // TODO: set animator forced state
+            animator.Play("Idle", -1, 0);
             completed = true;
         }
     }
