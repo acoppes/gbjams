@@ -45,6 +45,7 @@ namespace GBJAM7.Scripts
         public GameHud gameHud;
         public ChangeTurnSequence changeTurnSequence;
         public AttackSequence attackSequence;
+        public GameOverController gameOverController;
         
         public OptionsMenu playerActions;
         public OptionsMenu buildActions;
@@ -68,8 +69,8 @@ namespace GBJAM7.Scripts
 
         private bool waitingForMovement;
         
-//        private bool waitingForCaptureTarget;
-
+        const float minHealthToDestroy = 0.01f;
+        
         private bool showingAttackSequence;
 
 //        public float movementRepeatDelay = 0.5f;
@@ -439,7 +440,7 @@ namespace GBJAM7.Scripts
                 // TODO: center camera in unit position
             }
 
-            const float minHealthToDestroy = 0.01f;
+     
 
             if (source.currentHP <= minHealthToDestroy)
             {
@@ -478,6 +479,43 @@ namespace GBJAM7.Scripts
                     }
                 }
             }
+            
+            // Check victory condition...
+            CheckVictoryCondition();
+            
+        }
+
+        private void CheckVictoryCondition()
+        {
+            
+            // if hero is dead or no more refineries, then victory for some player
+            
+            // check first current player and then next player
+            
+            var player1Defeated = IsPlayerDefeated(0);
+            var player2Defeated = IsPlayerDefeated(1);
+
+            if (!player1Defeated && !player2Defeated)
+                return;
+            
+            gameOverController.StartSequence(this, new GameOverData()
+            {
+                player1Defeated = player1Defeated,
+                player2Defeated = player2Defeated
+            });
+        }
+
+        private bool IsPlayerDefeated(int player)
+        {
+            var playerDefeated = false;
+            var units = FindObjectsOfType<Unit>().Where(u => u.player == player);
+
+            playerDefeated = playerDefeated || units.Count(u => u.isHero && u.currentHP >= minHealthToDestroy) == 0;
+            playerDefeated = playerDefeated ||
+                                    units.Count(u =>
+                                        u.unitType == Unit.UnitType.MainBase && u.currentHP >= minHealthToDestroy) == 0;
+
+            return playerDefeated;
         }
 
         private void AdjustCameraToSelector()
@@ -770,5 +808,14 @@ namespace GBJAM7.Scripts
             DeselectUnit();
         }
 
+        public void BlockPlayerActions()
+        {
+            waitingForMenuAction = true;
+        }
+
+        public void HideMenus()
+        {
+            gameHud.Hide();
+        }
     }
 }
