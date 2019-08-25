@@ -73,6 +73,7 @@ namespace GBJAM7.Scripts
         const float minHealthToDestroy = 0.01f;
         
         private bool showingAttackSequence;
+        private bool showingChangeTurnSequence;
 
 //        public float movementRepeatDelay = 0.5f;
 //        private float movementRepeatCooldown = 0.0f;
@@ -139,10 +140,21 @@ namespace GBJAM7.Scripts
                 }
                 return;
             }
+            
+            if (showingChangeTurnSequence)
+            {
+                if (keyMapAsset.button2Pressed)
+                {
+//                    changeTurnSequence.ForceComplete();
+                }
+                return;
+            }
 
             // if showing a any menu and waiting for action..
             var selectorOverUnit = FindObjectsOfType<Unit>()
                 .FirstOrDefault(u => Vector2.Distance(selector.position, u.transform.position) < 0.5f);
+
+
             
             if (waitingForMenuAction)
             {
@@ -265,8 +277,10 @@ namespace GBJAM7.Scripts
                     {
                         var p0 = selectedUnit.transform.position / 1;
                         var p1 = selector.position / 1;
-                            
-                        if (Utils.IsInDistance(p0, p1, selectedUnit.movementDistance))
+
+                        var obstacle = obstacles.FirstOrDefault(o => o.position == Vector2Int.RoundToInt(selector.position));
+
+                        if (Utils.IsInDistance(p0, p1, selectedUnit.movementDistance) && obstacle == null)
                         {
                             selectedUnit.transform.position = selector.position;
                             selectedUnit.currentMovements = 0;
@@ -658,7 +672,7 @@ namespace GBJAM7.Scripts
             gameCamera.position = centerPosition;
             
             changeTurnSequence.Show(players[currentPlayer], currentPlayer, currentTurn);
-            waitingForMenuAction = true;
+            showingChangeTurnSequence = true;
             
             // Hide all menues
             // block game input
@@ -667,7 +681,7 @@ namespace GBJAM7.Scripts
             yield return new WaitUntil(() => changeTurnSequence.completed);
 
             gameHud.Show();
-            waitingForMenuAction = false;
+            showingChangeTurnSequence = false;
         }
 
         private void ShowPlayerActions()
