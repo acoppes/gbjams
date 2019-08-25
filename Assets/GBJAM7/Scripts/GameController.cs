@@ -31,7 +31,9 @@ namespace GBJAM7.Scripts
         
         public BoundsInt cameraBounds;
         
-        public Camera worldCamera;
+//        public Camera worldCamera;
+
+        public Transform cameraPositionReference;
 
         public UnitMovementArea movementArea;
         public UnitMovementArea attackArea;
@@ -473,18 +475,20 @@ namespace GBJAM7.Scripts
 
         private void AdjustCameraToSelector()
         {
-            while (Mathf.Abs(worldCamera.transform.position.x - selector.position.x) > cameraBounds.size.x)
+            var t = cameraPositionReference.transform;
+            
+            while (Mathf.Abs(t.position.x - selector.position.x) > cameraBounds.size.x)
             {
-                var direction = selector.position.x - worldCamera.transform.position.x;
+                var direction = selector.position.x - t.position.x;
                 var d = direction / Mathf.Abs(direction);
-                worldCamera.transform.position += new Vector3(d, 0,0);
+                t.position += new Vector3(d, 0,0);
             }
             
-            while (Mathf.Abs(worldCamera.transform.position.y - selector.position.y) > cameraBounds.size.y)
+            while (Mathf.Abs(t.position.y - selector.position.y) > cameraBounds.size.y)
             {
-                var direction = selector.position.y - worldCamera.transform.position.y;
+                var direction = selector.position.y - t.position.y;
                 var d = direction / Mathf.Abs(direction);
-                worldCamera.transform.position += new Vector3(0, d,0);
+                t.position += new Vector3(0, d,0);
             }
         }
         

@@ -1065,6 +1065,7 @@ GameObject:
   - component: {fileID: 552429842}
   - component: {fileID: 552429841}
   - component: {fileID: 552429844}
+  - component: {fileID: 552429845}
   m_Layer: 0
   m_Name: WorldCamera
   m_TagString: MainCamera
@@ -1162,6 +1163,21 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &552429845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552429840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de57a4b8b69456e9b81cb64da611818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 25
+  target: {fileID: 552429843}
+  reference: {fileID: 5849745739273286476}
 --- !u!1 &658159459
 GameObject:
   m_ObjectHideFlags: 0
@@ -3178,8 +3194,24 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 7886979906546221343, guid: cb6589207fbee7c4c8820cf0c300ca37,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886979906546221343, guid: cb6589207fbee7c4c8820cf0c300ca37,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb6589207fbee7c4c8820cf0c300ca37, type: 3}
+--- !u!4 &5849745739273286476 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7886979906546221343, guid: cb6589207fbee7c4c8820cf0c300ca37,
+    type: 3}
+  m_PrefabInstance: {fileID: 5849745739273286475}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6028826985707213185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4385167768157731518, guid: 23aab80031254704a8efd5d6d131c68d,
