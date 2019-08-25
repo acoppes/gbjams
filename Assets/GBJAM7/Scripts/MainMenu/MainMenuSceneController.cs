@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace GBJAM7.Scripts.MainMenu
 {
-    [Serializable]
-    public class Level
-    {
-        public string name;
-        public string sceneName;
-    }
-    
     public class MainMenuSceneController : MonoBehaviour
     {
         public OptionsMenu options;
@@ -20,7 +11,7 @@ namespace GBJAM7.Scripts.MainMenu
 
         private bool showingOptions;
 
-        public Level[] levels;
+        public LevelDefinitionAsset[] levels;
 
         public MainMenuIntro mainMenuIntro;
 
@@ -69,8 +60,6 @@ namespace GBJAM7.Scripts.MainMenu
         {
             options.Hide();
             showingOptions = false;
-            
-            // TODO: SHOW PRESS START
         }
 
         private void OnOptionSelected(int arg1, Option option)
@@ -79,9 +68,11 @@ namespace GBJAM7.Scripts.MainMenu
             {
                 if (level.name.Equals(option.name))
                 {
-                    SceneManager.LoadScene(level.sceneName);
+                    ScenesLoader.LoadLevel(level);
                 }
             }
+            
+            // TODO: maybe add a help button here??
 
 //            if ("New Game".Equals(option.name))
 //            {
