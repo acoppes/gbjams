@@ -552,30 +552,33 @@ namespace GBJAM7.Scripts
                 
             }
 
-            StartShowChangeTurnUI();
+            var centerPosition = selector.position;
+            
+            var heroUnit = FindObjectsOfType<Unit>().FirstOrDefault(u => u.player == currentPlayer 
+                                                                         && u.unitType == Unit.UnitType.Unit && u.isHero);
+            if (heroUnit != null)
+            {
+                centerPosition = heroUnit.transform.position;
+            }
+
+            StartShowChangeTurnUI(centerPosition);
         }
 
-        public void StartShowChangeTurnUI()
+        public void StartShowChangeTurnUI(Vector2 centerPosition)
         {
-            StartCoroutine(ShowChangeTurnUI());
+            StartCoroutine(ShowChangeTurnUI(centerPosition));
         }
 
-        private IEnumerator ShowChangeTurnUI()
+        private IEnumerator ShowChangeTurnUI(Vector2 centerPosition)
         {
             // just wait one frame
 //            yield return null;
             
             gameHud.Hide();
             
-            // tween camera
-            var heroUnit = FindObjectsOfType<Unit>().FirstOrDefault(u => u.player == currentPlayer 
-                                                                         && u.unitType == Unit.UnitType.Unit && u.isHero);
-            if (heroUnit != null)
-            {
-                selector.position = heroUnit.transform.position;
-                gameCamera.position = heroUnit.transform.position;
-//                AdjustCameraToSelector();
-            }
+            // center new turn in specified position
+            selector.position = centerPosition;
+            gameCamera.position = centerPosition;
             
             changeTurnSequence.Show(players[currentPlayer], currentPlayer, currentTurn);
             waitingForMenuAction = true;
