@@ -13,8 +13,7 @@ namespace Scenes.GameOverScene
             {
                 gameOverController.StartSequence(null, new GameOverData
                 {
-                    player1Defeated = false,
-                    player2Defeated = true,
+                    defeatedPlayer = 0,
                     player1 = new PlayerData
                     {
                         name = "Player1"
@@ -30,8 +29,7 @@ namespace Scenes.GameOverScene
             {
                 gameOverController.StartSequence(null, new GameOverData
                 {
-                    player1Defeated = true,
-                    player2Defeated = false,
+                    defeatedPlayer = 1,
                     player1 = new PlayerData
                     {
                         name = "Player1"

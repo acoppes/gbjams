@@ -1,12 +1,12 @@
 using System.Collections;
+using GBJAM7.Scripts.MainMenu;
 using UnityEngine;
 
 namespace GBJAM7.Scripts
 {
     public struct GameOverData
     {
-        public bool player1Defeated;
-        public bool player2Defeated;
+        public int defeatedPlayer;
 
         public PlayerData player1;
         public PlayerData player2;
@@ -15,6 +15,10 @@ namespace GBJAM7.Scripts
     public class GameOverController : MonoBehaviour
     {
         public GameOverSequence sequence;
+        
+        public GameboyButtonKeyMapAsset keyMapAsset;
+
+        public bool inputEnabled;
         
         public void StartSequence(GameController controller, GameOverData gameOverData)
         {
@@ -31,13 +35,33 @@ namespace GBJAM7.Scripts
             
             sequence.SetGameOverData(gameOverData);
             sequence.StartSequence();
+
+            yield return null;
+            
+            inputEnabled = true;
             
             yield return new WaitUntil(() => sequence.completed);
+        }
 
-            // unlock player actions, if key pressed go to main menu
-            // or show menu with restart or main menu
-            
-//            controller.UnblockPlayerActions)();
+        private void Update()
+        {
+            if (!inputEnabled)
+                return;
+
+            if (sequence.completed)
+            {
+                if (keyMapAsset.AnyButtonPressed())
+                {
+                    ScenesLoader.ReturnToMainMenu();
+                }
+            }
+            else
+            {
+                if (keyMapAsset.AnyButtonPressed())
+                {
+                    sequence.ForceComplete();
+                }
+            }
         }
     }
 }

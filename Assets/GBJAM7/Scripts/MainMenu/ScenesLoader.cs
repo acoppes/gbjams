@@ -6,8 +6,14 @@ namespace GBJAM7.Scripts.MainMenu
     public class ScenesLoader
     {
         private const string GameSceneName = "GameScene";
+        private const string MainMenuSceneName = "MainMenuScene";
 
         private static LevelDefinitionAsset pendingLevelLoad;
+
+        public static void ReturnToMainMenu()
+        {
+            SceneManager.LoadScene(MainMenuSceneName, LoadSceneMode.Single);
+        }
         
         public static void LoadLevel(LevelDefinitionAsset level)
         {

@@ -454,9 +454,7 @@ namespace GBJAM7.Scripts
                 
                 // TODO: center camera in unit position
             }
-
-     
-
+            
             if (source.currentHP <= minHealthToDestroy)
             {
                 // TODO: show explosions for units killed
@@ -515,8 +513,7 @@ namespace GBJAM7.Scripts
             
             gameOverController.StartSequence(this, new GameOverData
             {
-                player1Defeated = player1Defeated,
-                player2Defeated = player2Defeated,
+                defeatedPlayer = player1Defeated ? 0 : 1,
                 player1 = players[0],
                 player2 = players[1]
             });
