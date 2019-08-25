@@ -426,7 +426,7 @@ namespace GBJAM7.Scripts
                 generalOptionsMenu.Show(new List<Option>()
                 {
                     new Option { name = "Continue" },
-                    new Option { name = "Restart" },
+//                    new Option { name = "Restart" },
                     new Option { name = "Main Menu" },
                 }, OnGeneralMenuOptionSelected, OnGeneralMenuCanceled);
             }
@@ -449,10 +449,10 @@ namespace GBJAM7.Scripts
                 waitingForMenuAction = false;
             }
             
-            if ("Restart".Equals(option.name))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
+//            if ("Restart".Equals(option.name))
+//            {
+//                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+//            }
             
             if ("Main Menu".Equals(option.name))
             {
