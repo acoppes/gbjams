@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GBJAM7.Scripts.MainMenu;
+using Scenes.PathFindingScene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +24,7 @@ namespace GBJAM7.Scripts
         public List<BuildOption> buildOptions;
     }
     
-    public class GameController : MonoBehaviour
+    public class GameController : MonoBehaviour, MovementCalculationCanMove
     {
         public UnitSelector selector;
 
@@ -79,11 +80,15 @@ namespace GBJAM7.Scripts
 //        [NonSerialized]
 //        public bool keyReady;
 
+        private MovementCalculation movementCalculation;
+
         private void Start()
         {
             playerActions.Hide();
             unitInfo.Hide();
             buildActions.Hide();
+            
+            movementCalculation = new MovementCalculation(this);
             
             var startLocation = GameObject.Find("~StartLocation");
 
@@ -99,6 +104,7 @@ namespace GBJAM7.Scripts
             // TODO: controls state, like "if in selection mode, then allow movement"
             
             Utils.UpdateEnemiesInRange();
+            UpdateObstacles();
 
             keyMapAsset.UpdateControlState();
             
@@ -384,13 +390,21 @@ namespace GBJAM7.Scripts
                 {
                     var distance = 0;
                     distance += selectorOverUnit.currentMovements > 0 ? selectorOverUnit.movementDistance : 0;
-                    distance += selectorOverUnit.currentActions > 0 ? selectorOverUnit.attackDistance : 0;
+//                    distance += selectorOverUnit.currentActions > 0 ? selectorOverUnit.attackDistance : 0;
 
-                    previewArea.Show(selectorOverUnit.transform.position, 0, distance);
+                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
+                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
+                    
                 } else if (selectorOverUnit.player != currentPlayer)
                 {
-                    previewArea.Show(selectorOverUnit.transform.position, 0,
-                        selectorOverUnit.movementDistance + selectorOverUnit.attackDistance);               
+                    var distance = selectorOverUnit.movementDistance;
+//                    var distance = selectorOverUnit.movementDistance + selectorOverUnit.attackDistance;
+                    
+                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
+                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
+                    
+//                    previewArea.Show(selectorOverUnit.transform.position, 0,
+//                        selectorOverUnit.movementDistance + selectorOverUnit.attackDistance);               
                 }
                 
             }
@@ -831,6 +845,23 @@ namespace GBJAM7.Scripts
         public void HideMenus()
         {
             gameHud.Hide();
+        }
+        
+        private List<MovementObstacle> obstacles = new List<MovementObstacle>();
+
+        private void UpdateObstacles()
+        {
+            obstacles = FindObjectsOfType<MovementObstacle>().ToList();    
+        }
+        
+        public bool CanMove(Vector2Int position)
+        {
+            var obstaclesCount = obstacles.Count(o => o.position.Equals(position));
+
+            if (obstaclesCount == 0)
+                return true;
+            
+            return false;
         }
     }
 }
