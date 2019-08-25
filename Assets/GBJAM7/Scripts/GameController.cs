@@ -315,7 +315,14 @@ namespace GBJAM7.Scripts
 
                     if (unit == null)
                     {
-                        ShowPlayerActions();
+                        if (selectorOverUnit == null)
+                        {
+                            ShowPlayerActions();
+                        }
+                        else
+                        {
+                            // play error selection sound
+                        }
                     }
                     else
                     {
