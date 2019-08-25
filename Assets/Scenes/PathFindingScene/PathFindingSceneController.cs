@@ -23,7 +23,7 @@ namespace Scenes.PathFindingScene
         {
             if (obj is MovementNode node)
             {
-                return node.position == position;
+                return node.position.Equals(position);
             }
             return base.Equals(obj);
         }
@@ -50,9 +50,10 @@ namespace Scenes.PathFindingScene
 
             var visitedNodes = new List<MovementNode>();
             
-            while (nodesToVisit.Count > 0 && distance > 0)
+            while (nodesToVisit.Count > 0)
             {
                 var node = nodesToVisit[0];
+                
                 visitedNodes.Add(node);
                 nodesToVisit.Remove(node);
 
@@ -72,11 +73,14 @@ namespace Scenes.PathFindingScene
                 
                 neighbours.ForEach(n =>
                 {
-                    if (!visitedNodes.Contains(n)) 
-                        nodesToVisit.Add(n);
+                    if (visitedNodes.Contains(n) || nodesToVisit.Contains(n))
+                        return;
+
+                    if (n.GetDistance(position) > distance)
+                        return; 
+                    
+                    nodesToVisit.Add(n);
                 });
-                
-                distance--;
             }
             
             return area;
