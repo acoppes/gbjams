@@ -10,6 +10,8 @@ namespace GBJAM7.Scripts.MainMenu
         [NonSerialized]
         public bool completed;
 
+        public GameObject pressStartObject;
+        
         public void OnCompleted()
         {
             completed = true;
@@ -19,6 +21,16 @@ namespace GBJAM7.Scripts.MainMenu
         {
             completed = true;
             animator.Play("Idle", -1, 0);
+        }
+
+        public void HideStart()
+        {
+            pressStartObject.SetActive(false);
+        }
+
+        public void ShowStart()
+        {
+            pressStartObject.SetActive(true);
         }
     }
 }

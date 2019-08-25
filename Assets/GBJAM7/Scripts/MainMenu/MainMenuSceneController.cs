@@ -39,9 +39,8 @@ namespace GBJAM7.Scripts.MainMenu
             } else {
                 if (keyMapAsset.AnyButtonPressed())
                 {
-//                    SceneManager.LoadScene("GameScene");
-//                    // TODO: HIDE PRESS START
-//                    
+                    mainMenuIntro.HideStart();
+                    
                     showingOptions = true;
                     var optionsList = new List<Option>();
                     foreach (var level in levels)
@@ -60,6 +59,7 @@ namespace GBJAM7.Scripts.MainMenu
         {
             options.Hide();
             showingOptions = false;
+            mainMenuIntro.ShowStart();
         }
 
         private void OnOptionSelected(int arg1, Option option)
