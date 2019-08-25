@@ -84,6 +84,14 @@ namespace GBJAM7.Scripts
             playerActions.Hide();
             unitInfo.Hide();
             buildActions.Hide();
+            
+            var startLocation = GameObject.Find("~StartLocation");
+
+            if (startLocation != null)
+            {
+                StartShowChangeTurnUI(startLocation.transform.position);
+            }
+
         }
 
         public void Update()
