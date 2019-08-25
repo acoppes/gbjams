@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 686358940391588468}
   - component: {fileID: 622106253250903353}
   - component: {fileID: 9108091545082556906}
+  - component: {fileID: 3250254835471348263}
+  - component: {fileID: 1855456403796898575}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -65,7 +67,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+  squadSize: 3
   name: Generic
+  cost: 0
+  isHero: 0
   unitType: 0
   movementDistance: 2
   attackDistance: 1
@@ -77,9 +82,37 @@ MonoBehaviour:
   totalActions: 1
   currentActions: 1
   resources: 0
+  canCapture: 0
+  regenHP: 0
   moveDirection: {x: 1, y: 0, z: 0}
   attackSequenceUnitPrefab: {fileID: 7235014674813201219, guid: c6e21b24c64432140b065eaf49ce5816,
     type: 3}
+--- !u!114 &3250254835471348263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686358940391588469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4733ebf34d5b40f9a57dd53b34b143ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1855456403796898575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686358940391588469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f596ef326a8b4b6bbaeaf7da9ff8902e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 622106253250903353}
+  unit: {fileID: 9108091545082556906}
   spriteRenderer: {fileID: 686358940601080572}
 --- !u!1 &686358940601080573
 GameObject:
