@@ -12,8 +12,6 @@ namespace GBJAM7.Scripts
         public PlayerData player2;
     }
 
-    // we are probably having a game over sequence class too to be called from game over controller
-    
     public class GameOverController : MonoBehaviour
     {
         public GameOverSequence sequence;
@@ -23,11 +21,13 @@ namespace GBJAM7.Scripts
             StartCoroutine(GameOverSequence(controller, gameOverData));
         }
         
-        // TODO: sequence
         private IEnumerator GameOverSequence(GameController controller, GameOverData gameOverData)
         {
-            controller.HideMenus();
-            controller.BlockPlayerActions();
+            if (controller != null)
+            {
+                controller.HideMenus();
+                controller.BlockPlayerActions();
+            }
             
             sequence.SetGameOverData(gameOverData);
             sequence.StartSequence();

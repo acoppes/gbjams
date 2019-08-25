@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -15,19 +16,35 @@ namespace GBJAM7.Scripts
         public Text victoryPlayerText;
         public Text defeatPlayerText;
 
+        public Transform[] elementsToInvert;
+
         public void SetGameOverData(GameOverData gameOverData)
         {
-            // TODO: set the proper player name given victory or defeat
+            if (gameOverData.player2Defeated)
+            {
+                victoryPlayerText.text = gameOverData.player1.name;
+                defeatPlayerText.text = gameOverData.player2.name;
+                elementsToInvert.ToList().ForEach(t =>
+                {
+                    t.localScale = new Vector3(1, 1, 1);
+                });
+            }
+            else
+            {
+                // TODO: invert all containers!!
+                victoryPlayerText.text = gameOverData.player2.name;
+                defeatPlayerText.text = gameOverData.player1.name;
+                elementsToInvert.ToList().ForEach(t =>
+                {
+                    t.localScale = new Vector3(-1, 1, 1);
+                });
+            }
             
-            victoryPlayerText.text = gameOverData.player1.name;
-            defeatPlayerText.text = gameOverData.player2.name;
-            
-            // TODO: check victory player and flip, configure everything to show
-            // inverted
         }
 
         public void StartSequence()
         {
+            completed = false;
             animator.SetTrigger("gameOver");
         }
 
