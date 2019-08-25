@@ -60,9 +60,12 @@ namespace GBJAM7.Scripts
         
         private Unit selectedUnit;
 
-        private bool waitingForAction;
+        private bool waitingForMenuAction;
 
         private bool waitingForAttackTarget;
+
+        private bool waitingForMovement;
+        
 //        private bool waitingForCaptureTarget;
 
         private bool showingAttackSequence;
@@ -122,14 +125,14 @@ namespace GBJAM7.Scripts
             var selectorOverUnit = FindObjectsOfType<Unit>()
                 .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
             
-            if (waitingForAction)
+            if (waitingForMenuAction)
             {
                 if (keyMapAsset.button2Pressed)
                 {
                     buildActions.Hide();
                     playerActions.Hide();
                     unitActions.Hide();
-                    waitingForAction = false;
+                    waitingForMenuAction = false;
                     DeselectUnit();
                 }
                 
@@ -225,10 +228,67 @@ namespace GBJAM7.Scripts
 
                 return;
             }
+
+            if (waitingForMovement)
+            {
+                selector.Move(movement);
+                AdjustCameraToSelector();
+
+                if (keyMapAsset.button1Pressed)
+                {
+                    // can't move over our structures
+                    if (selectedUnit.currentMovements > 0 && selectorOverUnit == null)
+                    {
+                        var p0 = selectedUnit.transform.position / 1;
+                        var p1 = selector.transform.position / 1;
+                            
+                        if (IsInDistance(p0, p1, selectedUnit.movementDistance))
+                        {
+                            selectedUnit.transform.position = selector.transform.position;
+                            selectedUnit.currentMovements = 0;
+
+                            selectedUnit.moveDirection = p1 - p0;
+
+                            waitingForMovement = false;
+
+                            if (selectedUnit.currentActions > 0)
+                            {
+                                movementArea.Hide();
+                                attackArea.Hide();
+                                    
+                                StartWaitingForAttackTarget();
+                            } else
+                            {
+                                DeselectUnit();
+                            }
+                        }
+                    } else if (selectorOverUnit == selectedUnit)
+                    {
+                        movementArea.Hide();
+                        attackArea.Hide();
+                        waitingForMovement = false;
+                        ShowUnitActions();
+                    }
+                }
+
+                // is button 2 pressed, cancel
+                if (keyMapAsset.button2Pressed)
+                {
+                    movementArea.Hide();
+                    attackArea.Hide();
+                    DeselectUnit();
+                    waitingForMovement = false;
+                }
+
+                return;
+            }
+
+            
+            // if waiting for any action { 
             
             selector.Move(movement);
             AdjustCameraToSelector();
-            
+
             if (keyMapAsset.button1Pressed)
             {
                 // search for unit in location
@@ -246,76 +306,6 @@ namespace GBJAM7.Scripts
                         SelectUnit(unit);    
                     }
                 }
-                else
-                {
-                    var enemyUnit = FindObjectsOfType<Unit>()
-                        .FirstOrDefault(u => u.player != currentPlayer && Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
-                    
-                    // cant select new unit while other selected for now...
-                    
-                    // if selected same unit, then show UI for actions
-                    
-                    // if selected another unit, show UI for actions
-                    
-                    // if selected terrain, then check for movement
-
-                    // TODO: check range range
-                    if (enemyUnit != null)
-                    {
-                        // if enemy unit inside range (movement + attack range)
-                        // show attack menu, and if clicked, then move to nearest position and attack...
-                    } else
-                    {
-                        // can't move over our structures
-                        if (selectedUnit.currentMovements > 0 && selectorOverUnit == null)
-                        {
-                            var p0 = selectedUnit.transform.position / 1;
-                            var p1 = selector.transform.position / 1;
-                            
-                            if (IsInDistance(p0, p1, selectedUnit.movementDistance))
-                            {
-                                selectedUnit.transform.position = selector.transform.position;
-                                selectedUnit.currentMovements = 0;
-
-                                selectedUnit.moveDirection = p1 - p0;
-
-                                if (selectedUnit.currentActions > 0)
-                                {
-                                    movementArea.Hide();
-                                    attackArea.Hide();
-                                    
-                                    StartWaitingForAttackTarget();
-                                    
-//                                    movementArea.Show(selectedUnit.transform.position, selectedUnit.actionDistance);
-//                                    ShowUnitActions();
-                                } else
-                                {
-                                    DeselectUnit();
-                                }
-                            }
-                        } else if (selectorOverUnit == selectedUnit)
-                        {
-                            movementArea.Hide();
-                            attackArea.Hide();
-                            ShowUnitActions();
-                        }
-                        
-//                        if (selectorOverUnit == selectedUnit)
-//                        {
-//                            ShowUnitActions();
-//                        }
-                    }
-                    
-                    // here we wait for movement and confirmation
-
-//                    if (IsValidMovement())
-//                    {
-//                        MoveUnit();
-//                        ConsumeUnitMovement();
-//                        deselect the unit
-//                    }
-                }
-
             }
 
             if (keyMapAsset.button2Pressed)
@@ -333,36 +323,16 @@ namespace GBJAM7.Scripts
 
                 if (playerUnits.Count > 0)
                 {
+                    // TODO: consider only units with possible actions, so if no targets in range
+                    // for attack, then don't consider that unit. Or maybe just consider units with movement or 
+                    // spawners with action.
+                    
                     index %= playerUnits.Count;
                     // index = Mathf.Clamp(index, 0, playerUnits.Count - 1);
                     var unit = playerUnits[index];
                     selector.transform.position = unit.transform.position;
                     AdjustCameraToSelector();
-//                    SelectUnit(unit);
                 }
-                
-//                if (selectedUnit != null)
-//                {
-//                    DeselectUnit();
-//                }
-//                else
-//                {
-//                    // if we are over a unit, then show unit's menu
-//                    // otherwise show general menu
-//
-////                    if (selectorOverUnit != null && selectorOverUnit.player == currentPlayer &&
-////                        selectorOverUnit.currentActions > 0 && selectorOverUnit.unitType == Unit.UnitType.Unit)
-////                    {
-////                        selectedUnit = selectorOverUnit;
-////                        ShowUnitActions();
-////                    }
-////                    else
-////                    {
-////                        
-////                    }
-//                    
-//                    ShowPlayerActions();
-//                }
             }
 
             if (selectorOverUnit != null && selectedUnit == null)
@@ -395,7 +365,7 @@ namespace GBJAM7.Scripts
             if (keyMapAsset.startPressed)
             {
                 gameHud.Hide();
-                waitingForAction = true;
+                waitingForMenuAction = true;
                 
                 // show options menu and wait for options
                 generalOptionsMenu.Show(new List<Option>()
@@ -412,7 +382,7 @@ namespace GBJAM7.Scripts
         {
             generalOptionsMenu.Hide();
             gameHud.Show();
-            waitingForAction = false;
+            waitingForMenuAction = false;
         }
 
         private void OnGeneralMenuOptionSelected(int i, Option option)
@@ -421,7 +391,7 @@ namespace GBJAM7.Scripts
             {
                 generalOptionsMenu.Hide();
                 gameHud.Show();
-                waitingForAction = false;
+                waitingForMenuAction = false;
             }
             
             if ("Restart".Equals(option.name))
@@ -596,7 +566,7 @@ namespace GBJAM7.Scripts
             }
             
             changeTurnSequence.Show(players[currentPlayer], currentPlayer, currentTurn);
-            waitingForAction = true;
+            waitingForMenuAction = true;
             
             // Hide all menues
             // block game input
@@ -607,7 +577,7 @@ namespace GBJAM7.Scripts
 
 
             gameHud.Show();
-            waitingForAction = false;
+            waitingForMenuAction = false;
         }
 
         private void ShowPlayerActions()
@@ -623,7 +593,7 @@ namespace GBJAM7.Scripts
                     name = "Cancel"
                 }
             }, OnPlayerActionSelected, CancelMenuAction);
-            waitingForAction = true;
+            waitingForMenuAction = true;
         }
 
         private void ShowUnitActions()
@@ -637,7 +607,7 @@ namespace GBJAM7.Scripts
 //                new Option {name = "Capture"},
                 new Option {name = "Cancel"},
             }, OnUnitActionSelected, CancelMenuAction);
-            waitingForAction = true;
+            waitingForMenuAction = true;
         }
         
         public void SelectUnit(Unit unit)
@@ -658,13 +628,11 @@ namespace GBJAM7.Scripts
                 
                 if (unit.currentMovements > 0)
                 {
-                    movementArea.Show(unit.transform.position, 0, unit.movementDistance);
-                    attackArea.Show(unit.transform.position, unit.movementDistance + 1, unit.movementDistance + unit.attackDistance);
+                    StartWaitingForMovement();
                 }
                 else
                 {
                     StartWaitingForAttackTarget();
-//                    ShowUnitActions();
                 }
                 
             } else if (unit.unitType == Unit.UnitType.Spawner)
@@ -677,7 +645,7 @@ namespace GBJAM7.Scripts
                         .Select(o => new Option { name = $"{o.name} {o.unitPrefab.cost}" }).ToList(), 
                         OnBuildOptionSelected, 
                         CancelMenuAction);
-                    waitingForAction = true;
+                    waitingForMenuAction = true;
                 }
                 else
                 {
@@ -693,10 +661,20 @@ namespace GBJAM7.Scripts
                 DeselectUnit();
             }
         }
+        
+        private void StartWaitingForMovement()
+        {
+            waitingForMenuAction = false;
+            waitingForMovement = true;
+            unitActions.Hide();
+            movementArea.Show(selectedUnit.transform.position, 0, selectedUnit.movementDistance);
+            attackArea.Show(selectedUnit.transform.position, selectedUnit.movementDistance + 1, 
+                selectedUnit.movementDistance + selectedUnit.attackDistance);
+        }
 
         private void StartWaitingForAttackTarget()
         {
-            waitingForAction = false;
+            waitingForMenuAction = false;
             waitingForAttackTarget = true;
             unitActions.Hide();
             attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
@@ -762,13 +740,13 @@ namespace GBJAM7.Scripts
 
         public void CancelMenuAction()
         {
-            waitingForAction = false;
+            waitingForMenuAction = false;
             DeselectUnit();
         }
 
         public void CompleteMenuAction()
         {
-            waitingForAction = false;
+            waitingForMenuAction = false;
             DeselectUnit();
         }
 
