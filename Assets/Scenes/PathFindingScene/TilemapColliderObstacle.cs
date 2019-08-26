@@ -8,6 +8,8 @@ namespace Scenes.PathFindingScene
     {
         public Tilemap tilemap;
 
+        public Vector2Int offset;
+
         private void Start()
         {
             tilemap.GetComponentInChildren<TilemapRenderer>().enabled = false;
@@ -15,6 +17,7 @@ namespace Scenes.PathFindingScene
 
         public override bool IsBlocked(Vector2Int position)
         {
+            position += offset;
             var v3 = new Vector3Int(position.x, position.y, 0);
             var tile = tilemap.GetTile(v3);
             return tile != null && tile.name.Equals("blocked");
