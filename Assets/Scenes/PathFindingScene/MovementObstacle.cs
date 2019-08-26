@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Scenes.PathFindingScene
 {
     [ExecuteInEditMode]
-    public class MovementObstacle : MonoBehaviour
+    public class MovementObstacle : MovementObstacleBase
     {
         [NonSerialized]
         public Vector2Int position;
@@ -17,6 +17,11 @@ namespace Scenes.PathFindingScene
         private void LateUpdate()
         {
             position = Vector2Int.RoundToInt(transform.position);
+        }
+
+        public override bool IsBlocked(Vector2Int position)
+        {
+            return this.position.Equals(position);
         }
 
         private void OnDrawGizmos()

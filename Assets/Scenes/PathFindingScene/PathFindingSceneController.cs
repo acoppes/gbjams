@@ -105,7 +105,7 @@ namespace Scenes.PathFindingScene
 
         public UnitMovementArea unitMovementArea;
 
-        private List<MovementObstacle> cachedMovementObstacles;
+        private List<MovementObstacleBase> cachedMovementObstacles;
         
         // Update is called once per frame
         private void Update()
@@ -117,7 +117,7 @@ namespace Scenes.PathFindingScene
                 // calculate movement area for one point
                 var position = Vector2Int.RoundToInt(testTransform.position);
                 
-                cachedMovementObstacles = FindObjectsOfType<MovementObstacle>().ToList();
+                cachedMovementObstacles = FindObjectsOfType<MovementObstacleBase>().ToList();
                 
                 var movementArea = new MovementCalculation(this).GetMovementNodes(position, distance);
                 
@@ -129,7 +129,7 @@ namespace Scenes.PathFindingScene
 
         public bool CanMove(Vector2Int position)
         {
-            var obstaclesCount = cachedMovementObstacles.Count(o => o.position.Equals(position));
+            var obstaclesCount = cachedMovementObstacles.Count(o => o.IsBlocked(position));
 
             if (obstaclesCount == 0)
                 return true;

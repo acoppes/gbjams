@@ -278,7 +278,7 @@ namespace GBJAM7.Scripts
                         var p0 = selectedUnit.transform.position / 1;
                         var p1 = selector.position / 1;
 
-                        var obstacle = obstacles.FirstOrDefault(o => o.position == Vector2Int.RoundToInt(selector.position));
+                        var obstacle = obstacles.FirstOrDefault(o => o.IsBlocked(Vector2Int.RoundToInt(selector.position)));
 
                         if (Utils.IsInDistance(p0, p1, selectedUnit.movementDistance) && obstacle == null)
                         {
@@ -864,16 +864,16 @@ namespace GBJAM7.Scripts
             gameHud.Hide();
         }
         
-        private List<MovementObstacle> obstacles = new List<MovementObstacle>();
+        private List<MovementObstacleBase> obstacles = new List<MovementObstacleBase>();
 
         private void UpdateObstacles()
         {
-            obstacles = FindObjectsOfType<MovementObstacle>().ToList();    
+            obstacles = FindObjectsOfType<MovementObstacleBase>().ToList();    
         }
         
         public bool CanMove(Vector2Int position)
         {
-            var obstaclesCount = obstacles.Count(o => o.position.Equals(position));
+            var obstaclesCount = obstacles.Count(o => o.IsBlocked(position));
 
             if (obstaclesCount == 0)
                 return true;
