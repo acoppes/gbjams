@@ -11,6 +11,7 @@ namespace GBJAM7.Scripts
         private void LateUpdate()
         {
             animator.SetBool("captured", unit.player != -1);
+            animator.SetInteger("player", unit.player);
             spriteRenderer.flipX = unit.player == 1;
         }
     }
