@@ -43,5 +43,14 @@ namespace GBJAM7.Scripts
             areaContainer.DetachChildren();
             areas.ForEach(a => Destroy(a.gameObject));
         }
+
+        public void Show(List<Vector2Int> nodes)
+        {
+            foreach (var node in nodes)
+            {
+                var p = new Vector3(node.x, node.y, 0);
+                Instantiate(areaPrefab, p, Quaternion.identity, areaContainer);
+            }
+        }
     }
 }

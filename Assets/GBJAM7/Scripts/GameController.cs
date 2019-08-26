@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GBJAM7.Scripts.MainMenu;
+using Scenes.PathFindingScene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +24,7 @@ namespace GBJAM7.Scripts
         public List<BuildOption> buildOptions;
     }
     
-    public class GameController : MonoBehaviour
+    public class GameController : MonoBehaviour, MovementCalculationCanMove
     {
         public UnitSelector selector;
 
@@ -31,7 +32,9 @@ namespace GBJAM7.Scripts
         
         public BoundsInt cameraBounds;
         
-        public Camera worldCamera;
+//        public Camera worldCamera;
+
+        public GameCamera gameCamera;
 
         public UnitMovementArea movementArea;
         public UnitMovementArea attackArea;
@@ -43,6 +46,7 @@ namespace GBJAM7.Scripts
         public GameHud gameHud;
         public ChangeTurnSequence changeTurnSequence;
         public AttackSequence attackSequence;
+        public GameOverController gameOverController;
         
         public OptionsMenu playerActions;
         public OptionsMenu buildActions;
@@ -60,12 +64,16 @@ namespace GBJAM7.Scripts
         
         private Unit selectedUnit;
 
-        private bool waitingForAction;
+        private bool waitingForMenuAction;
 
         private bool waitingForAttackTarget;
-//        private bool waitingForCaptureTarget;
 
+        private bool waitingForMovement;
+        
+        const float minHealthToDestroy = 0.01f;
+        
         private bool showingAttackSequence;
+        private bool showingChangeTurnSequence;
 
 //        public float movementRepeatDelay = 0.5f;
 //        private float movementRepeatCooldown = 0.0f;
@@ -73,16 +81,31 @@ namespace GBJAM7.Scripts
 //        [NonSerialized]
 //        public bool keyReady;
 
+        private MovementCalculation movementCalculation;
+
         private void Start()
         {
             playerActions.Hide();
             unitInfo.Hide();
             buildActions.Hide();
+            
+            movementCalculation = new MovementCalculation(this);
+            
+            var startLocation = GameObject.Find("~StartLocation");
+
+            if (startLocation != null)
+            {
+                StartShowChangeTurnUI(startLocation.transform.position);
+            }
+
         }
 
         public void Update()
         {
             // TODO: controls state, like "if in selection mode, then allow movement"
+            
+            Utils.UpdateEnemiesInRange();
+            UpdateObstacles();
 
             keyMapAsset.UpdateControlState();
             
@@ -117,19 +140,30 @@ namespace GBJAM7.Scripts
                 }
                 return;
             }
+            
+            if (showingChangeTurnSequence)
+            {
+                if (keyMapAsset.button2Pressed)
+                {
+//                    changeTurnSequence.ForceComplete();
+                }
+                return;
+            }
 
             // if showing a any menu and waiting for action..
             var selectorOverUnit = FindObjectsOfType<Unit>()
-                .FirstOrDefault(u => Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+                .FirstOrDefault(u => Vector2.Distance(selector.position, u.transform.position) < 0.5f);
+
+
             
-            if (waitingForAction)
+            if (waitingForMenuAction)
             {
                 if (keyMapAsset.button2Pressed)
                 {
                     buildActions.Hide();
                     playerActions.Hide();
                     unitActions.Hide();
-                    waitingForAction = false;
+                    waitingForMenuAction = false;
                     DeselectUnit();
                 }
                 
@@ -151,12 +185,12 @@ namespace GBJAM7.Scripts
 
                   
                     if (target != null && target.player != currentPlayer &&
-                        IsInDistance(source.transform.position, target.transform.position, 
+                        Utils.IsInDistance(source.transform.position, target.transform.position, 
                             source.attackDistance))
                     {
                         // do damage to target
                         // do damage back from target to unit
-                        var distance = GetDistance(source.transform.position, target.transform.position);
+                        var distance = Utils.GetDistance(source.transform.position, target.transform.position);
       
                         var attackSequenceData = new AttackSequenceData()
                         {
@@ -172,12 +206,17 @@ namespace GBJAM7.Scripts
                         
                         target.currentHP -= sourceDmg;
                         Debug.Log($"{target.name} received {sourceDmg} dmg");
+                        
                         if (target.currentHP > 0)
                         {
                             var targetDmg = target.dmg * (target.currentHP / target.totalHP);
                             source.currentHP -= targetDmg;
                             Debug.Log($"{source.name} received {targetDmg} dmg");
                         }
+//                        else
+//                        {
+//                            attackSequenceData.counterAttack = false;
+//                        }
 
                         var p1CurrentUnits = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP);
                         var p2CurrentUnits = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP);
@@ -225,103 +264,112 @@ namespace GBJAM7.Scripts
 
                 return;
             }
+
+            if (waitingForMovement)
+            {
+                selector.Move(movement);
+                AdjustCameraToSelector();
+
+                if (keyMapAsset.button1Pressed)
+                {
+                    // can't move over our structures
+                    if (selectedUnit.currentMovements > 0 && selectorOverUnit == null)
+                    {
+                        var p0 = selectedUnit.transform.position / 1;
+                        var p1 = selector.position / 1;
+
+                        var obstacle = obstacles.FirstOrDefault(o => o.IsBlocked(Vector2Int.RoundToInt(selector.position)));
+
+                        if (Utils.IsInDistance(p0, p1, selectedUnit.movementDistance) && obstacle == null)
+                        {
+                            selectedUnit.transform.position = selector.position;
+                            selectedUnit.currentMovements = 0;
+
+                            selectedUnit.moveDirection = p1 - p0;
+
+                            waitingForMovement = false;
+
+                            if (selectedUnit.currentActions > 0)
+                            {
+                                movementArea.Hide();
+                                attackArea.Hide();
+                                    
+                                StartWaitingForAttackTarget();
+                            } else
+                            {
+                                DeselectUnit();
+                            }
+                        }
+                    } else if (selectorOverUnit == selectedUnit)
+                    {
+                        movementArea.Hide();
+                        attackArea.Hide();
+                        waitingForMovement = false;
+                        ShowUnitActions();
+                    }
+                }
+
+                // is button 2 pressed, cancel
+                if (keyMapAsset.button2Pressed)
+                {
+                    movementArea.Hide();
+                    attackArea.Hide();
+                    DeselectUnit();
+                    waitingForMovement = false;
+                }
+
+                return;
+            }
+
+            
+            // if waiting for any action { 
             
             selector.Move(movement);
             AdjustCameraToSelector();
-            
+
             if (keyMapAsset.button1Pressed)
             {
                 // search for unit in location
                 if (selectedUnit == null)
                 {
                     var unit = FindObjectsOfType<Unit>()
-                        .FirstOrDefault(u => u.player == currentPlayer && Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
+                        .FirstOrDefault(u => u.player == currentPlayer && Vector2.Distance(selector.position, u.transform.position) < 0.5f);
 
                     if (unit == null)
                     {
-                        ShowPlayerActions();
+                        if (selectorOverUnit == null)
+                        {
+                            ShowPlayerActions();
+                        }
+                        else
+                        {
+                            // play error selection sound
+                        }
                     }
                     else
                     {
                         SelectUnit(unit);    
                     }
                 }
-                else
-                {
-                    var enemyUnit = FindObjectsOfType<Unit>()
-                        .FirstOrDefault(u => u.player != currentPlayer && Vector2.Distance(selector.transform.position, u.transform.position) < 0.5f);
-                    
-                    // cant select new unit while other selected for now...
-                    
-                    // if selected same unit, then show UI for actions
-                    
-                    // if selected another unit, show UI for actions
-                    
-                    // if selected terrain, then check for movement
-
-                    // TODO: check range range
-                    if (enemyUnit != null)
-                    {
-                        // if enemy unit inside range (movement + attack range)
-                        // show attack menu, and if clicked, then move to nearest position and attack...
-                    } else
-                    {
-                        // can't move over our structures
-                        if (selectedUnit.currentMovements > 0 && selectorOverUnit == null)
-                        {
-                            var p0 = selectedUnit.transform.position / 1;
-                            var p1 = selector.transform.position / 1;
-                            
-                            if (IsInDistance(p0, p1, selectedUnit.movementDistance))
-                            {
-                                selectedUnit.transform.position = selector.transform.position;
-                                selectedUnit.currentMovements = 0;
-
-                                selectedUnit.moveDirection = p1 - p0;
-
-                                if (selectedUnit.currentActions > 0)
-                                {
-                                    movementArea.Hide();
-                                    attackArea.Hide();
-                                    
-                                    StartWaitingForAttackTarget();
-                                    
-//                                    movementArea.Show(selectedUnit.transform.position, selectedUnit.actionDistance);
-//                                    ShowUnitActions();
-                                } else
-                                {
-                                    DeselectUnit();
-                                }
-                            }
-                        } else if (selectorOverUnit == selectedUnit)
-                        {
-                            movementArea.Hide();
-                            attackArea.Hide();
-                            ShowUnitActions();
-                        }
-                        
-//                        if (selectorOverUnit == selectedUnit)
-//                        {
-//                            ShowUnitActions();
-//                        }
-                    }
-                    
-                    // here we wait for movement and confirmation
-
-//                    if (IsValidMovement())
-//                    {
-//                        MoveUnit();
-//                        ConsumeUnitMovement();
-//                        deselect the unit
-//                    }
-                }
-
             }
 
             if (keyMapAsset.button2Pressed)
             {
                 var playerUnits = FindObjectsOfType<Unit>().Where(u =>
-                    u.player == currentPlayer && (u.currentMovements > 0 || u.currentActions > 0)).ToList();
+                {
+                    if (u.player != currentPlayer)
+                        return false;
+                    if (u.currentMovements == 0 && u.currentActions == 0)
+                        return false;
+
+                    // if unit and can only attack and no enemies in range..
+                    if (u.currentMovements == 0 && u.unitType == Unit.UnitType.Unit)
+                    {
+                        return u.enemiesInRange > 0;
+                    }
+                    
+                    return true;
+                }).ToList();
 
                 var index = 0;
                 
@@ -333,36 +381,16 @@ namespace GBJAM7.Scripts
 
                 if (playerUnits.Count > 0)
                 {
+                    // TODO: consider only units with possible actions, so if no targets in range
+                    // for attack, then don't consider that unit. Or maybe just consider units with movement or 
+                    // spawners with action.
+                    
                     index %= playerUnits.Count;
                     // index = Mathf.Clamp(index, 0, playerUnits.Count - 1);
                     var unit = playerUnits[index];
-                    selector.transform.position = unit.transform.position;
+                    selector.position = unit.transform.position;
                     AdjustCameraToSelector();
-//                    SelectUnit(unit);
                 }
-                
-//                if (selectedUnit != null)
-//                {
-//                    DeselectUnit();
-//                }
-//                else
-//                {
-//                    // if we are over a unit, then show unit's menu
-//                    // otherwise show general menu
-//
-////                    if (selectorOverUnit != null && selectorOverUnit.player == currentPlayer &&
-////                        selectorOverUnit.currentActions > 0 && selectorOverUnit.unitType == Unit.UnitType.Unit)
-////                    {
-////                        selectedUnit = selectorOverUnit;
-////                        ShowUnitActions();
-////                    }
-////                    else
-////                    {
-////                        
-////                    }
-//                    
-//                    ShowPlayerActions();
-//                }
             }
 
             if (selectorOverUnit != null && selectedUnit == null)
@@ -378,11 +406,22 @@ namespace GBJAM7.Scripts
                     distance += selectorOverUnit.currentMovements > 0 ? selectorOverUnit.movementDistance : 0;
                     distance += selectorOverUnit.currentActions > 0 ? selectorOverUnit.attackDistance : 0;
 
-                    previewArea.Show(selectorOverUnit.transform.position, 0, distance);
+//                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
+//                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
+
+                    previewArea.Show(selectorOverUnit.transform.position, 0,
+                        distance);    
+                    
                 } else if (selectorOverUnit.player != currentPlayer)
                 {
+//                    var distance = selectorOverUnit.movementDistance;
+                    var distance = selectorOverUnit.movementDistance + selectorOverUnit.attackDistance;
+                    
+//                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
+//                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
+                    
                     previewArea.Show(selectorOverUnit.transform.position, 0,
-                        selectorOverUnit.movementDistance + selectorOverUnit.attackDistance);               
+                        distance);               
                 }
                 
             }
@@ -395,24 +434,24 @@ namespace GBJAM7.Scripts
             if (keyMapAsset.startPressed)
             {
                 gameHud.Hide();
-                waitingForAction = true;
+                waitingForMenuAction = true;
                 
                 // show options menu and wait for options
                 generalOptionsMenu.Show(new List<Option>()
                 {
                     new Option { name = "Continue" },
-                    new Option { name = "Restart" },
+//                    new Option { name = "Restart" },
                     new Option { name = "Main Menu" },
                 }, OnGeneralMenuOptionSelected, OnGeneralMenuCanceled);
             }
-            
+
         }
 
         private void OnGeneralMenuCanceled()
         {
             generalOptionsMenu.Hide();
             gameHud.Show();
-            waitingForAction = false;
+            waitingForMenuAction = false;
         }
 
         private void OnGeneralMenuOptionSelected(int i, Option option)
@@ -421,13 +460,13 @@ namespace GBJAM7.Scripts
             {
                 generalOptionsMenu.Hide();
                 gameHud.Show();
-                waitingForAction = false;
+                waitingForMenuAction = false;
             }
             
-            if ("Restart".Equals(option.name))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
+//            if ("Restart".Equals(option.name))
+//            {
+//                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+//            }
             
             if ("Main Menu".Equals(option.name))
             {
@@ -443,8 +482,8 @@ namespace GBJAM7.Scripts
             if (source.attackSequenceUnitPrefab != null && target.attackSequenceUnitPrefab != null 
                                                         && target.unitType == Unit.UnitType.Unit)
             {
-                attackSequenceData.player1Data = players[source.player];
-                attackSequenceData.player2Data = players[target.player];
+                attackSequenceData.player1Data = players[0];
+                attackSequenceData.player2Data = players[1];
                     
                 showingAttackSequence = true;
                 
@@ -461,14 +500,14 @@ namespace GBJAM7.Scripts
                 
                 // TODO: center camera in unit position
             }
-
-            if (Mathf.RoundToInt(source.currentHP) <= 0)
+            
+            if (source.currentHP <= minHealthToDestroy)
             {
                 // TODO: show explosions for units killed
                 Destroy(source.gameObject);
             }
             
-            if (Mathf.RoundToInt(target.currentHP) <= 0)
+            if (target.currentHP <= minHealthToDestroy)
             {
                 if (target.unitType == Unit.UnitType.Unit)
                 {
@@ -479,7 +518,7 @@ namespace GBJAM7.Scripts
                 {
                     // can't capture if unit dies during capture (if counter attack)
                     // or if unit cant capture or if too far away
-                    if (source == null || !source.canCapture || GetDistance(source, target) > 1)
+                    if (source == null || !source.canCapture || Utils.GetDistance(source, target) > 1)
                     {
                         target.player = -1;
                         // leave it in 10% so you have to attack it a bit to capture it again next time
@@ -499,40 +538,66 @@ namespace GBJAM7.Scripts
                     }
                 }
             }
+            
+            // Check victory condition...
+            CheckVictoryCondition();
+            
+        }
+
+        private void CheckVictoryCondition()
+        {
+            
+            // if hero is dead or no more refineries, then victory for some player
+            
+            // check first current player and then next player
+            
+            var player1Defeated = IsPlayerDefeated(0);
+            var player2Defeated = IsPlayerDefeated(1);
+
+            if (!player1Defeated && !player2Defeated)
+                return;
+            
+            gameOverController.StartSequence(this, new GameOverData
+            {
+                defeatedPlayer = player1Defeated ? 0 : 1,
+                player1 = players[0],
+                player2 = players[1]
+            });
+        }
+
+        private bool IsPlayerDefeated(int player)
+        {
+            var playerDefeated = false;
+            var units = FindObjectsOfType<Unit>().Where(u => u.player == player);
+
+            playerDefeated = playerDefeated || units.Count(u => u.isHero && u.currentHP >= minHealthToDestroy) == 0;
+            playerDefeated = playerDefeated ||
+                                    units.Count(u =>
+                                        u.unitType == Unit.UnitType.MainBase && u.currentHP >= minHealthToDestroy) == 0;
+
+            return playerDefeated;
         }
 
         private void AdjustCameraToSelector()
         {
-            while (Mathf.Abs(worldCamera.transform.position.x - selector.transform.position.x) > cameraBounds.size.x)
+            var t = gameCamera;
+            
+            while (Mathf.Abs(t.position.x - selector.position.x) > cameraBounds.size.x)
             {
-                var direction = selector.transform.position.x - worldCamera.transform.position.x;
+                var direction = selector.position.x - t.position.x;
                 var d = direction / Mathf.Abs(direction);
-                worldCamera.transform.position += new Vector3(d, 0,0);
+                t.position += new Vector3(d, 0,0);
             }
             
-            while (Mathf.Abs(worldCamera.transform.position.y - selector.transform.position.y) > cameraBounds.size.y)
+            while (Mathf.Abs(t.position.y - selector.position.y) > cameraBounds.size.y)
             {
-                var direction = selector.transform.position.y - worldCamera.transform.position.y;
+                var direction = selector.position.y - t.position.y;
                 var d = direction / Mathf.Abs(direction);
-                worldCamera.transform.position += new Vector3(0, d,0);
+                t.position += new Vector3(0, d,0);
             }
         }
         
-        public int GetDistance(Unit a, Unit b)
-        {
-            return GetDistance(a.transform.position, b.transform.position);
-        }
 
-        public int GetDistance(Vector2 a, Vector2 b)
-        {
-            return Mathf.RoundToInt(Mathf.Abs(a.x - b.x) +
-                                            Mathf.Abs(a.y - b.y));
-        }
-
-        public bool IsInDistance(Vector2 a, Vector2 b, int distance)
-        {
-            return GetDistance(a, b) <= distance;
-        }
 
         private void OnPlayerActionSelected(int optionIndex, Option option)
         {
@@ -578,36 +643,45 @@ namespace GBJAM7.Scripts
                 
             }
 
-            StartCoroutine(ShowChangeTurnUI());
-        }
-
-        private IEnumerator ShowChangeTurnUI()
-        {
-            gameHud.Hide();
+            var centerPosition = selector.position;
             
-            // tween camera
             var heroUnit = FindObjectsOfType<Unit>().FirstOrDefault(u => u.player == currentPlayer 
                                                                          && u.unitType == Unit.UnitType.Unit && u.isHero);
             if (heroUnit != null)
             {
-                selector.transform.position = heroUnit.transform.position;
-                AdjustCameraToSelector();
-                // TODO: tween camera to selector!!
+                centerPosition = heroUnit.transform.position;
             }
+
+            StartShowChangeTurnUI(centerPosition);
+        }
+
+        public void StartShowChangeTurnUI(Vector2 centerPosition)
+        {
+            StartCoroutine(ShowChangeTurnUI(centerPosition));
+        }
+
+        private IEnumerator ShowChangeTurnUI(Vector2 centerPosition)
+        {
+            // just wait one frame
+//            yield return null;
+            
+            gameHud.Hide();
+            
+            // center new turn in specified position
+            selector.position = centerPosition;
+            gameCamera.position = centerPosition;
             
             changeTurnSequence.Show(players[currentPlayer], currentPlayer, currentTurn);
-            waitingForAction = true;
+            showingChangeTurnSequence = true;
             
             // Hide all menues
             // block game input
             // set the change turn ui and show it
             // once completed, turn back everything
             yield return new WaitUntil(() => changeTurnSequence.completed);
-            
-
 
             gameHud.Show();
-            waitingForAction = false;
+            showingChangeTurnSequence = false;
         }
 
         private void ShowPlayerActions()
@@ -623,7 +697,7 @@ namespace GBJAM7.Scripts
                     name = "Cancel"
                 }
             }, OnPlayerActionSelected, CancelMenuAction);
-            waitingForAction = true;
+            waitingForMenuAction = true;
         }
 
         private void ShowUnitActions()
@@ -637,7 +711,7 @@ namespace GBJAM7.Scripts
 //                new Option {name = "Capture"},
                 new Option {name = "Cancel"},
             }, OnUnitActionSelected, CancelMenuAction);
-            waitingForAction = true;
+            waitingForMenuAction = true;
         }
         
         public void SelectUnit(Unit unit)
@@ -658,13 +732,11 @@ namespace GBJAM7.Scripts
                 
                 if (unit.currentMovements > 0)
                 {
-                    movementArea.Show(unit.transform.position, 0, unit.movementDistance);
-                    attackArea.Show(unit.transform.position, unit.movementDistance + 1, unit.movementDistance + unit.attackDistance);
+                    StartWaitingForMovement();
                 }
                 else
                 {
                     StartWaitingForAttackTarget();
-//                    ShowUnitActions();
                 }
                 
             } else if (unit.unitType == Unit.UnitType.Spawner)
@@ -677,7 +749,7 @@ namespace GBJAM7.Scripts
                         .Select(o => new Option { name = $"{o.name} {o.unitPrefab.cost}" }).ToList(), 
                         OnBuildOptionSelected, 
                         CancelMenuAction);
-                    waitingForAction = true;
+                    waitingForMenuAction = true;
                 }
                 else
                 {
@@ -693,10 +765,20 @@ namespace GBJAM7.Scripts
                 DeselectUnit();
             }
         }
+        
+        private void StartWaitingForMovement()
+        {
+            waitingForMenuAction = false;
+            waitingForMovement = true;
+            unitActions.Hide();
+            movementArea.Show(selectedUnit.transform.position, 0, selectedUnit.movementDistance);
+            attackArea.Show(selectedUnit.transform.position, selectedUnit.movementDistance + 1, 
+                selectedUnit.movementDistance + selectedUnit.attackDistance);
+        }
 
         private void StartWaitingForAttackTarget()
         {
-            waitingForAction = false;
+            waitingForMenuAction = false;
             waitingForAttackTarget = true;
             unitActions.Hide();
             attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
@@ -762,15 +844,41 @@ namespace GBJAM7.Scripts
 
         public void CancelMenuAction()
         {
-            waitingForAction = false;
+            waitingForMenuAction = false;
             DeselectUnit();
         }
 
         public void CompleteMenuAction()
         {
-            waitingForAction = false;
+            waitingForMenuAction = false;
             DeselectUnit();
         }
 
+        public void BlockPlayerActions()
+        {
+            waitingForMenuAction = true;
+        }
+
+        public void HideMenus()
+        {
+            gameHud.Hide();
+        }
+        
+        private List<MovementObstacleBase> obstacles = new List<MovementObstacleBase>();
+
+        private void UpdateObstacles()
+        {
+            obstacles = FindObjectsOfType<MovementObstacleBase>().ToList();    
+        }
+        
+        public bool CanMove(Vector2Int position)
+        {
+            var obstaclesCount = obstacles.Count(o => o.IsBlocked(position));
+
+            if (obstaclesCount == 0)
+                return true;
+            
+            return false;
+        }
     }
 }

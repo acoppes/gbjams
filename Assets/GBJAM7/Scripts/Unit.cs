@@ -49,19 +49,7 @@ namespace GBJAM7.Scripts
         [Tooltip("The prefab to use for the attack sequence")]
         public GameObject attackSequenceUnitPrefab;
 
-        [SerializeField]
-        private SpriteRenderer spriteRenderer;
-
-        private void Start()
-        {
-            var p = transform.position;
-            transform.position = new Vector3(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y), Mathf.RoundToInt(p.z));
-        }
-
-        private void LateUpdate()
-        {
-            spriteRenderer.flipX = player != 0;
-//            spriteRenderer.flipX = moveDirection.x < 0;
-        }
+        [NonSerialized]
+        public int enemiesInRange;
     }
 }
