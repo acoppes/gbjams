@@ -504,6 +504,8 @@ namespace GBJAM7.Scripts
             if (source.currentHP <= minHealthToDestroy)
             {
                 // TODO: show explosions for units killed
+                //source.Death();
+                yield return new WaitForSeconds(1);
                 Destroy(source.gameObject);
             }
             
@@ -512,6 +514,8 @@ namespace GBJAM7.Scripts
                 if (target.unitType == Unit.UnitType.Unit)
                 {
                     // TODO: show explosions for units killed
+                    //target.Death();
+                    yield return new WaitForSeconds(1);
                     Destroy(target.gameObject);
                 }
                 else
