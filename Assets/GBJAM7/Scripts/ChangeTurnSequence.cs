@@ -36,5 +36,11 @@ namespace GBJAM7.Scripts
             completed = true;
             gameObject.SetActive(false);
         }
+        
+        public void ForceComplete()
+        {
+            completed = true;
+            gameObject.SetActive(false);
+        }
     }
 }

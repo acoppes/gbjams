@@ -143,7 +143,7 @@ namespace GBJAM7.Scripts
             {
                 if (keyMapAsset.button2Pressed)
                 {
-//                    changeTurnSequence.ForceComplete();
+                    changeTurnSequence.ForceComplete();
                 }
                 return;
             }
