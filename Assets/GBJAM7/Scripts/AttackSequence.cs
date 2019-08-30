@@ -39,7 +39,10 @@ namespace GBJAM7.Scripts
         private float attackTime = 1;
         
         [SerializeField]
-        private float hitsTime = 1;
+        private float hitTime = 0.1f;
+        
+        [SerializeField]
+        private int hitsPerUnit;
 
         [SerializeField]
         private Transform[] player1UnitPositions;
@@ -145,19 +148,26 @@ namespace GBJAM7.Scripts
 
         private IEnumerator Player2HitSequence()
         {
-            // play hit particles on enemies
-
-            yield return new WaitForSeconds(hitsTime);
+            // hit particles
             
+            for (var i = 0; i < hitsPerUnit; i++)
+            {
+                foreach (var unit in player2Units)
+                {
+                    unit.ShowHitParticle();
+                    yield return new WaitForSeconds(hitTime);
+                }
+            }
+
             for (var i = 0; i < attackData.player2Killed; i++)
             {
                 if (i < player2Units.Count)
                 { 
-                        player2Units[i].Death();
+                    player2Units[i].Death();
 
-                        yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(1);
 
-                        Destroy(player2Units[i].gameObject);
+                    Destroy(player2Units[i].gameObject);
                 }
             }
             // kill enemies
@@ -208,12 +218,17 @@ namespace GBJAM7.Scripts
 
         private IEnumerator Player1HitSequence()
         {
-            // play hit particles on units
+            // hit particles
+            for (var i = 0; i < hitsPerUnit; i++)
+            {
+                foreach (var unit in player1Units)
+                {
+                    unit.ShowHitParticle();
+                    yield return new WaitForSeconds(hitTime);
+                }
+            }
             
-            // kill units
-
-            yield return new WaitForSeconds(hitsTime);
-            
+            // kill
             for (var i = 0; i < attackData.player1Killed; i++)
             {
                 if (i < player1Units.Count)
