@@ -520,7 +520,7 @@ namespace GBJAM7.Scripts
                 {
                     // can't capture if unit dies during capture (if counter attack)
                     // or if unit cant capture or if too far away
-                    if (source == null || !source.canCapture || Utils.GetDistance(source, target) > 1)
+                    if (source == null || !source.canCapture)
                     {
                         target.player = -1;
                         // leave it in 10% so you have to attack it a bit to capture it again next time
