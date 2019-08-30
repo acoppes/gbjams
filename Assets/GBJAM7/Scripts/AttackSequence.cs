@@ -39,7 +39,7 @@ namespace GBJAM7.Scripts
         private float attackTime = 1;
         
         [SerializeField]
-        private float hitTime = 0.1f;
+        private float hitTime = 0.05f;
         
         [SerializeField]
         private int hitsPerUnit;
