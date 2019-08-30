@@ -46,10 +46,17 @@ namespace GBJAM7.Scripts
 
         public Vector3 moveDirection = new Vector3(1, 0, 0);
 
+        public Animator animator;
+
         [Tooltip("The prefab to use for the attack sequence")]
         public GameObject attackSequenceUnitPrefab;
 
         [NonSerialized]
         public int enemiesInRange;
+
+        public void Death()
+        {
+            animator.SetBool("dead", true);
+        }
     }
 }
