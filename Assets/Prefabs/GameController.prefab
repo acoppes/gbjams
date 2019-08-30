@@ -141,12 +141,15 @@ MonoBehaviour:
   gameHud: {fileID: 0}
   changeTurnSequence: {fileID: 0}
   attackSequence: {fileID: 0}
+  gameOverController: {fileID: 0}
   playerActions: {fileID: 0}
   buildActions: {fileID: 0}
   unitActions: {fileID: 0}
   generalOptionsMenu: {fileID: 0}
   keyMapAsset: {fileID: 11400000, guid: bbafa666798757640a20929a5c3b7dcc, type: 2}
   currentTurn: 0
+  unitDeathPrefab: {fileID: 686358940391588469, guid: f7cc1aafb1fa38d48b3f4330433657ab,
+    type: 3}
   currentPlayer: 0
   players:
   - name: Earth Empire
@@ -294,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4733ebf34d5b40f9a57dd53b34b143ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  executeWhilePlaying: 0
 --- !u!114 &2131608822971794024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,7 +310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e56ef2fd3474c00857f049711f3c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
 --- !u!1 &7156776034706588547
 GameObject:
   m_ObjectHideFlags: 0

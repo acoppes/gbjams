@@ -59,9 +59,11 @@ namespace GBJAM7.Scripts
 
         public int currentTurn;
         
+        public GameObject unitDeathPrefab;
+        
         public int currentPlayer;
         public List<PlayerData> players;
-        
+
         private Unit selectedUnit;
 
         private bool waitingForMenuAction;
@@ -503,9 +505,7 @@ namespace GBJAM7.Scripts
             
             if (source.currentHP <= minHealthToDestroy)
             {
-                // TODO: show explosions for units killed
-                //source.Death();
-                yield return new WaitForSeconds(1);
+                GameObject.Instantiate(unitDeathPrefab, source.transform.position, Quaternion.identity);
                 Destroy(source.gameObject);
             }
             
@@ -513,9 +513,7 @@ namespace GBJAM7.Scripts
             {
                 if (target.unitType == Unit.UnitType.Unit)
                 {
-                    // TODO: show explosions for units killed
-                    //target.Death();
-                    yield return new WaitForSeconds(1);
+                    GameObject.Instantiate(unitDeathPrefab, target.transform.position, Quaternion.identity);
                     Destroy(target.gameObject);
                 }
                 else
