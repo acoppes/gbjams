@@ -52,7 +52,10 @@ namespace GBJAM7.Scripts.MainMenu
                 selectKeyCode
             };
         }
-
+        
+        public float keyRepeatCooldown = 0.5f;
+        private float keyRepeatCurrent = 1000.0f;
+        
         public bool AnyButtonPressed()
         {
             return leftPressed || rightPressed || upPressed || downPressed ||
@@ -61,16 +64,46 @@ namespace GBJAM7.Scripts.MainMenu
 
         public void UpdateControlState()
         {
-            leftPressed = Input.GetKeyDown(leftKey);
-            rightPressed = Input.GetKeyDown(rigthKey);
+            keyRepeatCurrent += Time.deltaTime;
             
-            upPressed = Input.GetKeyDown(upKey);
-            downPressed = Input.GetKeyDown(downKey);
+            leftPressed = false;
+            rightPressed = false;
+            
+            upPressed = false;
+            downPressed = false;
 
-            startPressed = Input.GetKeyDown(startKeyCode);
+            startPressed = false;
 
-            button1Pressed = Input.GetKeyDown(button1KeyCode);
-            button2Pressed = Input.GetKeyDown(button2KeyCode);
+            button1Pressed = false;
+            button2Pressed = false;
+            
+            if (keyRepeatCurrent > keyRepeatCooldown)
+            {
+                leftPressed = Input.GetKey(leftKey);
+                rightPressed = Input.GetKey(rigthKey);
+
+                upPressed = Input.GetKey(upKey);
+                downPressed = Input.GetKey(downKey);
+
+                startPressed = Input.GetKey(startKeyCode);
+
+                button1Pressed = Input.GetKey(button1KeyCode);
+                button2Pressed = Input.GetKey(button2KeyCode);
+
+                if (AnyButtonPressed())
+                {
+                    keyRepeatCurrent = 0;
+                }
+            }
+
+            foreach (var keyCode in GetAllKeyCodes())
+            {
+                if (Input.GetKeyUp(keyCode))
+                {
+                    keyRepeatCurrent = 1000;
+                }
+            }
+
         }
         
         
