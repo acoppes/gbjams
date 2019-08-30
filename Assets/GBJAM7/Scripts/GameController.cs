@@ -27,10 +27,10 @@ namespace GBJAM7.Scripts
     public class GameController : MonoBehaviour, MovementCalculationCanMove
     {
         public UnitSelector selector;
-
-        public BoundsInt worldBounds;
         
         public BoundsInt cameraBounds;
+
+        private WorldBounds worldBounds;
         
 //        public Camera worldCamera;
 
@@ -77,16 +77,12 @@ namespace GBJAM7.Scripts
         private bool showingAttackSequence;
         private bool showingChangeTurnSequence;
 
-//        public float movementRepeatDelay = 0.5f;
-//        private float movementRepeatCooldown = 0.0f;
-//
-//        [NonSerialized]
-//        public bool keyReady;
-
         private MovementCalculation movementCalculation;
 
         private void Start()
         {
+            worldBounds = FindObjectOfType<WorldBounds>();
+            
             playerActions.Hide();
             unitInfo.Hide();
             buildActions.Hide();
@@ -584,6 +580,19 @@ namespace GBJAM7.Scripts
         {
             var t = gameCamera;
             
+            if (worldBounds != null)
+            {
+                // do adjust back
+                var bounds = worldBounds.GetBounds();
+
+                var p = Vector3Int.RoundToInt(selector.position);
+
+                p.x = Mathf.Clamp(p.x, -bounds.xMax + 1, bounds.xMax);
+                p.y = Mathf.Clamp(p.y, -bounds.yMax + 1, bounds.yMax);
+
+                selector.position = p;
+            }
+            
             while (Mathf.Abs(t.position.x - selector.position.x) > cameraBounds.size.x)
             {
                 var direction = selector.position.x - t.position.x;
@@ -597,9 +606,8 @@ namespace GBJAM7.Scripts
                 var d = direction / Mathf.Abs(direction);
                 t.position += new Vector3(0, d,0);
             }
-        }
-        
 
+        }
 
         private void OnPlayerActionSelected(int optionIndex, Option option)
         {
