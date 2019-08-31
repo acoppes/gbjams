@@ -77,6 +77,11 @@ namespace GBJAM7.Scripts.MainMenu
             button1Pressed = false;
             button2Pressed = false;
             
+            startPressed = Input.GetKeyDown(startKeyCode);
+
+            button1Pressed = Input.GetKeyDown(button1KeyCode);
+            button2Pressed = Input.GetKeyDown(button2KeyCode);
+            
             if (keyRepeatCurrent > keyRepeatCooldown)
             {
                 leftPressed = Input.GetKey(leftKey);
@@ -84,11 +89,6 @@ namespace GBJAM7.Scripts.MainMenu
 
                 upPressed = Input.GetKey(upKey);
                 downPressed = Input.GetKey(downKey);
-
-                startPressed = Input.GetKey(startKeyCode);
-
-                button1Pressed = Input.GetKey(button1KeyCode);
-                button2Pressed = Input.GetKey(button2KeyCode);
 
                 if (AnyButtonPressed())
                 {
