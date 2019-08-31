@@ -63,6 +63,9 @@ namespace GBJAM7.Scripts
         [SerializeField]
         private AudioSource _invalidActionSfx;
         
+        [SerializeField]
+        private AudioSource _unitAttackStructureSfx;
+        
         public int currentTurn;
         
         public GameObject unitDeathPrefab;
@@ -521,6 +524,14 @@ namespace GBJAM7.Scripts
                 Destroy(source.gameObject);
             }
             
+            if (target.unitType != Unit.UnitType.Unit)
+            {
+                if (_unitAttackStructureSfx != null)
+                {
+                    _unitAttackStructureSfx.Play();
+                }
+            }
+
             if (target.currentHP <= minHealthToDestroy)
             {
                 if (target.unitType == Unit.UnitType.Unit)
@@ -550,9 +561,11 @@ namespace GBJAM7.Scripts
                         target.currentActions = 0;
                         target.currentMovements = 0;
                     }
+
                 }
             }
-            
+
+
             // Check victory condition...
             CheckVictoryCondition();
             
