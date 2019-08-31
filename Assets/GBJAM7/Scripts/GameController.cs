@@ -59,7 +59,10 @@ namespace GBJAM7.Scripts
 
         [SerializeField]
         private AudioSource _unitDeploySfx;
-
+        
+        [SerializeField]
+        private AudioSource _invalidActionSfx;
+        
         public int currentTurn;
         
         public GameObject unitDeathPrefab;
@@ -120,19 +123,6 @@ namespace GBJAM7.Scripts
             
             gameInfo.UpdateGameInfo(currentPlayer, currentTurn);
             
-//            movementRepeatCooldown -= Time.deltaTime;
-//            
-//            if (movementRepeatCooldown <= 0 && (movement.x != 0 || movement.y != 0))
-//            {
-//                movementRepeatCooldown = movementRepeatDelay;
-//                keyReady = true;
-//            }
-//            else if (movement.x == 0 && movement.y == 0)
-//            {
-//                keyReady = true;
-//                movementRepeatCooldown = 0;
-//            }
-
             if (showingAttackSequence)
             {
                 if (keyMapAsset.button2Pressed)
@@ -183,8 +173,7 @@ namespace GBJAM7.Scripts
 
                     var target = selectorOverUnit;
                     var source = selectedUnit;
-
-                  
+                    
                     if (target != null && target.player != currentPlayer &&
                         Utils.IsInDistance(source.transform.position, target.transform.position, 
                             source.attackDistance))
@@ -245,6 +234,13 @@ namespace GBJAM7.Scripts
 
                         StartCoroutine(routine: StartAttackSequence(attackSequenceData, source, target));
                     }
+                    else
+                    {
+                        if (_invalidActionSfx != null)
+                        {
+                            _invalidActionSfx.Play();
+                        }
+                    }
 
                 }
                 
@@ -301,12 +297,27 @@ namespace GBJAM7.Scripts
                                 DeselectUnit();
                             }
                         }
+                        else
+                        {
+                            if (_invalidActionSfx != null)
+                            {
+                                _invalidActionSfx.Play();
+                            }
+                        }
+                        
                     } else if (selectorOverUnit == selectedUnit)
                     {
                         movementArea.Hide();
                         attackArea.Hide();
                         waitingForMovement = false;
                         ShowUnitActions();
+                    }
+                    else
+                    {
+                        if (_invalidActionSfx != null)
+                        {
+                            _invalidActionSfx.Play();
+                        }
                     }
                 }
 
