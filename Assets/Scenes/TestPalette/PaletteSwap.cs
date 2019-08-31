@@ -6,11 +6,12 @@ public class PaletteSwap : MonoBehaviour
 {
     public PaletteSelectionAsset paletteSelection;
 
+    public Shader shader;
+    
     private Material _mat;
 
     private void OnEnable()
     {
-        var shader = Shader.Find("Hidden/PaletteSwapLookup");
         if (_mat == null)
             _mat = new Material(shader);
     }
