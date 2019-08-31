@@ -466,7 +466,7 @@ namespace GBJAM7.Scripts
             waitingForMenuAction = false;
         }
 
-        private void OnGeneralMenuOptionSelected(int i, Option option)
+        private bool OnGeneralMenuOptionSelected(int i, Option option)
         {
             if ("Continue".Equals(option.name))
             {
@@ -484,6 +484,8 @@ namespace GBJAM7.Scripts
             {
                 SceneManager.LoadScene("MainMenuScene");
             }
+
+            return true;
         }
 
         private IEnumerator StartAttackSequence(AttackSequenceData attackSequenceData, Unit source, Unit target)
@@ -623,7 +625,7 @@ namespace GBJAM7.Scripts
 
         }
 
-        private void OnPlayerActionSelected(int optionIndex, Option option)
+        private bool OnPlayerActionSelected(int optionIndex, Option option)
         {
             if (optionIndex == 0)
             {
@@ -636,6 +638,8 @@ namespace GBJAM7.Scripts
             }
             
             playerActions.Hide();
+
+            return true;
         }
 
         public void EndCurrentPlayerTurn()
@@ -808,12 +812,12 @@ namespace GBJAM7.Scripts
             attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
         }
 
-        private void OnUnitActionSelected(int optionIndex, Option option)
+        private bool OnUnitActionSelected(int optionIndex, Option option)
         {
             if (option.name.Equals("Attack"))
             {
                 StartWaitingForAttackTarget();
-                return;
+                return true;
             }
 
             if (option.name.Equals("Cancel"))
@@ -824,9 +828,11 @@ namespace GBJAM7.Scripts
             CompleteMenuAction();
             
             unitActions.Hide();
+
+            return false;
         }
 
-        private void OnBuildOptionSelected(int optionIndex, Option option)
+        private bool OnBuildOptionSelected(int optionIndex, Option option)
         {
             var player = players[currentPlayer];
             
@@ -836,7 +842,9 @@ namespace GBJAM7.Scripts
             var buildOption = player.buildOptions[optionIndex];
 
             if (player.resources < buildOption.unitPrefab.cost)
-                return;
+            {
+                return false;
+            }
             
             var newUnitObject = 
                 Instantiate(buildOption.unitPrefab.gameObject, selectedUnit.transform.position, Quaternion.identity);
@@ -858,6 +866,8 @@ namespace GBJAM7.Scripts
             CompleteMenuAction();
             
             buildActions.Hide();
+
+            return true;
         }
 
         public void DeselectUnit()

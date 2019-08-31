@@ -27,7 +27,7 @@ namespace GBJAM7.Scripts
         [SerializeField]
         private Transform menuOptionsContainer;
 
-        private Action<int, Option> _optionSelectedCallback;
+        private Func<int, Option, bool> _optionSelectedCallback;
         private Action _cancelMenu;
 
         public string title;
@@ -41,7 +41,10 @@ namespace GBJAM7.Scripts
         [SerializeField]
         private AudioSource _selectOptionSfx;
 
-        public void Show(List<Option> options, Action<int, Option> optionSelectedCallback, Action cancelMenu)
+        [SerializeField]
+        private AudioSource _selectOptionFailedSfx;
+        
+        public void Show(List<Option> options, Func<int, Option, bool> optionSelectedCallback, Action cancelMenu)
         {
             _canvasGroup.alpha = 1;
             _canvasGroup.interactable = true;
@@ -125,12 +128,23 @@ namespace GBJAM7.Scripts
             if (keyMapAsset.button1Pressed)
             {
                 // execute action in game controls!
-                if (_selectOptionSfx != null)
+                var result = _optionSelectedCallback(currentOptionIndex, menuOptions[currentOptionIndex].option);
+
+                if (result)
                 {
-                    _selectOptionSfx.Play();
+                    if (_selectOptionSfx != null)
+                    {
+                        _selectOptionSfx.Play();
+                    }
+                }
+                else
+                {
+                    if (_selectOptionFailedSfx != null)
+                    {
+                        _selectOptionFailedSfx.Play();
+                    }
                 }
                 
-                _optionSelectedCallback(currentOptionIndex, menuOptions[currentOptionIndex].option);
                 // Hide();
             }
 

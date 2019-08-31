@@ -62,7 +62,7 @@ namespace GBJAM7.Scripts.MainMenu
             mainMenuIntro.ShowStart();
         }
 
-        private void OnOptionSelected(int arg1, Option option)
+        private bool OnOptionSelected(int arg1, Option option)
         {
             foreach (var level in levels)
             {
@@ -83,6 +83,8 @@ namespace GBJAM7.Scripts.MainMenu
 //            {
 //                
 //            }
+
+            return true;
         }
     }
 }
