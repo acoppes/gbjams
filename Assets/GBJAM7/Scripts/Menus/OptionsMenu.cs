@@ -34,7 +34,13 @@ namespace GBJAM7.Scripts
 
         public GameObject titleObject;
         public Text titleText;
-        
+
+        [SerializeField]
+        private AudioSource _changeOptionSfx;
+
+        [SerializeField]
+        private AudioSource _selectOptionSfx;
+
         public void Show(List<Option> options, Action<int, Option> optionSelectedCallback, Action cancelMenu)
         {
             _canvasGroup.alpha = 1;
@@ -86,6 +92,8 @@ namespace GBJAM7.Scripts
 
         public void Update()
         {
+            var optionChanged = false;
+            
             if (_canvasGroup.alpha <= 0.01f || !updateLogic)
             {
                 return;
@@ -99,6 +107,7 @@ namespace GBJAM7.Scripts
                 currentOptionIndex--;
                 if (currentOptionIndex < 0)
                     currentOptionIndex = menuOptions.Count - 1;
+                optionChanged = true;
                 // move to previous option
             }
 
@@ -109,11 +118,18 @@ namespace GBJAM7.Scripts
                 {
                     currentOptionIndex = 0;
                 }
+                
+                optionChanged = true;
             }
 
             if (keyMapAsset.button1Pressed)
             {
                 // execute action in game controls!
+                if (_selectOptionSfx != null)
+                {
+                    _selectOptionSfx.Play();
+                }
+                
                 _optionSelectedCallback(currentOptionIndex, menuOptions[currentOptionIndex].option);
                 // Hide();
             }
@@ -123,6 +139,11 @@ namespace GBJAM7.Scripts
                 // hide menu 
                 _cancelMenu();
                 // Hide();
+            }
+
+            if (optionChanged && _changeOptionSfx != null)
+            {
+                _changeOptionSfx.Play();
             }
         }
 
