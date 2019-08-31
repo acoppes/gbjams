@@ -57,6 +57,9 @@ namespace GBJAM7.Scripts
 
         public GameboyButtonKeyMapAsset keyMapAsset;
 
+        [SerializeField]
+        private AudioSource _unitDeploySfx;
+
         public int currentTurn;
         
         public GameObject unitDeathPrefab;
@@ -826,6 +829,11 @@ namespace GBJAM7.Scripts
             
             var newUnitObject = 
                 Instantiate(buildOption.unitPrefab.gameObject, selectedUnit.transform.position, Quaternion.identity);
+
+            if (_unitDeploySfx != null)
+            {
+                _unitDeploySfx.Play();
+            }
                 
             var newUnit = newUnitObject.GetComponentInChildren<Unit>();
             newUnit.currentActions = 0;
