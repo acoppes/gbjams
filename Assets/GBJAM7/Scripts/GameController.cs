@@ -32,13 +32,7 @@ namespace GBJAM7.Scripts
 
         private WorldBounds worldBounds;
         
-//        public Camera worldCamera;
-
         public GameCamera gameCamera;
-
-//        public UnitMovementArea movementArea;
-//        public UnitMovementArea attackArea;
-       // public UnitMovementArea previewArea;
 
         public UnitActionsArea unitActionsArea;
         public UnitActionsArea unitActionsPreviewArea;       
@@ -428,30 +422,11 @@ namespace GBJAM7.Scripts
                 if (selectorOverUnit.player == currentPlayer &&
                     (selectorOverUnit.currentMovements > 0 || selectorOverUnit.currentActions > 0))
                 {
-//                    var distance = 0;
-//                    distance += selectorOverUnit.currentMovements > 0 ? selectorOverUnit.movementDistance : 0;
-//                    distance += selectorOverUnit.currentActions > 0 ? selectorOverUnit.attackDistance : 0;
-
-//                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
-//                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
-
-                    unitActionsPreviewArea.Show(selectorOverUnit);
-                    
-//                    previewArea.Show(selectorOverUnit.transform.position, 0,
-//                        distance);    
-                    
+                    unitActionsPreviewArea.Show(selectorOverUnit, selectorOverUnit.currentMovements > 0, 
+                        selectorOverUnit.currentActions > 0);
                 } else if (selectorOverUnit.player != currentPlayer)
                 {
-//                    var distance = selectorOverUnit.movementDistance;
-//                    var distance = selectorOverUnit.movementDistance + selectorOverUnit.attackDistance;
-                    
-//                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
-//                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
-                    
                     unitActionsPreviewArea.Show(selectorOverUnit);
-                    
-//                    previewArea.Show(selectorOverUnit.transform.position, 0,
-//                        distance);               
                 }
                 
             }
