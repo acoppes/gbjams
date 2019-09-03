@@ -36,10 +36,13 @@ namespace GBJAM7.Scripts
 
         public GameCamera gameCamera;
 
-        public UnitMovementArea movementArea;
-        public UnitMovementArea attackArea;
-        public UnitMovementArea previewArea;
+//        public UnitMovementArea movementArea;
+//        public UnitMovementArea attackArea;
+       // public UnitMovementArea previewArea;
 
+        public UnitActionsArea unitActionsArea;
+        public UnitActionsArea unitActionsPreviewArea;       
+       
         public GameInfo gameInfo;
         public UnitInfo unitInfo;
 
@@ -231,7 +234,9 @@ namespace GBJAM7.Scripts
                             source.currentMovements--;
                     
                         waitingForAttackTarget = false;
-                        attackArea.Hide();
+                        
+                        unitActionsArea.Hide();
+//                        attackArea.Hide();
                     
                         DeselectUnit();
 
@@ -251,7 +256,9 @@ namespace GBJAM7.Scripts
                 if (keyMapAsset.button2Pressed)
                 {
                     // go back to unit actions menu
-                    attackArea.Hide();
+//                    attackArea.Hide();
+                    unitActionsArea.Hide();
+
                     DeselectUnit();
 //                    ShowUnitActions();
                     waitingForAttackTarget = false;
@@ -291,8 +298,9 @@ namespace GBJAM7.Scripts
 
                             if (selectedUnit.currentActions > 0)
                             {
-                                movementArea.Hide();
-                                attackArea.Hide();
+                                unitActionsArea.Hide();
+//                                movementArea.Hide();
+//                                attackArea.Hide();
                                     
                                 StartWaitingForAttackTarget();
                             } else
@@ -310,8 +318,9 @@ namespace GBJAM7.Scripts
                         
                     } else if (selectorOverUnit == selectedUnit)
                     {
-                        movementArea.Hide();
-                        attackArea.Hide();
+                        unitActionsArea.Hide();
+//                        movementArea.Hide();
+//                        attackArea.Hide();
                         waitingForMovement = false;
                         ShowUnitActions();
                     }
@@ -327,8 +336,9 @@ namespace GBJAM7.Scripts
                 // is button 2 pressed, cancel
                 if (keyMapAsset.button2Pressed)
                 {
-                    movementArea.Hide();
-                    attackArea.Hide();
+                    unitActionsArea.Hide();
+//                        movementArea.Hide();
+//                        attackArea.Hide();
                     DeselectUnit();
                     waitingForMovement = false;
                 }
@@ -410,40 +420,46 @@ namespace GBJAM7.Scripts
 
             if (selectorOverUnit != null && selectedUnit == null)
             {
-                previewArea.Hide();
+                unitActionsPreviewArea.Hide();
+//                previewArea.Hide();
                 
                 unitInfo.Preview(currentPlayer, selectorOverUnit);
                 
                 if (selectorOverUnit.player == currentPlayer &&
                     (selectorOverUnit.currentMovements > 0 || selectorOverUnit.currentActions > 0))
                 {
-                    var distance = 0;
-                    distance += selectorOverUnit.currentMovements > 0 ? selectorOverUnit.movementDistance : 0;
-                    distance += selectorOverUnit.currentActions > 0 ? selectorOverUnit.attackDistance : 0;
+//                    var distance = 0;
+//                    distance += selectorOverUnit.currentMovements > 0 ? selectorOverUnit.movementDistance : 0;
+//                    distance += selectorOverUnit.currentActions > 0 ? selectorOverUnit.attackDistance : 0;
 
 //                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
 //                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
 
-                    previewArea.Show(selectorOverUnit.transform.position, 0,
-                        distance);    
+                    unitActionsPreviewArea.Show(selectorOverUnit);
+                    
+//                    previewArea.Show(selectorOverUnit.transform.position, 0,
+//                        distance);    
                     
                 } else if (selectorOverUnit.player != currentPlayer)
                 {
 //                    var distance = selectorOverUnit.movementDistance;
-                    var distance = selectorOverUnit.movementDistance + selectorOverUnit.attackDistance;
+//                    var distance = selectorOverUnit.movementDistance + selectorOverUnit.attackDistance;
                     
 //                    var moveNodes = movementCalculation.GetMovementNodes(Vector2Int.RoundToInt(selectorOverUnit.transform.position), distance);
 //                    previewArea.Show(moveNodes.nodes.Select(n=> n.position).ToList());
                     
-                    previewArea.Show(selectorOverUnit.transform.position, 0,
-                        distance);               
+                    unitActionsPreviewArea.Show(selectorOverUnit);
+                    
+//                    previewArea.Show(selectorOverUnit.transform.position, 0,
+//                        distance);               
                 }
                 
             }
             else
             {
                 unitInfo.Hide();
-                previewArea.Hide();
+                unitActionsPreviewArea.Hide();
+//                previewArea.Hide();
             }
 
             if (keyMapAsset.startPressed)
@@ -812,9 +828,12 @@ namespace GBJAM7.Scripts
             waitingForMenuAction = false;
             waitingForMovement = true;
             unitActions.Hide();
-            movementArea.Show(selectedUnit.transform.position, 0, selectedUnit.movementDistance);
-            attackArea.Show(selectedUnit.transform.position, selectedUnit.movementDistance + 1, 
-                selectedUnit.movementDistance + selectedUnit.attackDistance);
+            
+            unitActionsArea.Show(selectedUnit);
+
+//            movementArea.Show(selectedUnit.transform.position, 0, selectedUnit.movementDistance);
+//            attackArea.Show(selectedUnit.transform.position, selectedUnit.movementDistance + 1, 
+//                selectedUnit.movementDistance + selectedUnit.attackDistance);
         }
 
         private void StartWaitingForAttackTarget()
@@ -822,7 +841,8 @@ namespace GBJAM7.Scripts
             waitingForMenuAction = false;
             waitingForAttackTarget = true;
             unitActions.Hide();
-            attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
+            unitActionsArea.Show(selectedUnit, false);
+//            attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
         }
 
         private bool OnUnitActionSelected(int optionIndex, Option option)
@@ -888,8 +908,9 @@ namespace GBJAM7.Scripts
             if (selectedUnit == null) 
                 return;
             
-            movementArea.Hide();
-            attackArea.Hide();
+            unitActionsArea.Hide();
+//            movementArea.Hide();
+//            attackArea.Hide();
             // hide UI probably too here
             selectedUnit = null;
         }
