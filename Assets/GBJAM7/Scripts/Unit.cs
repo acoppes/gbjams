@@ -33,7 +33,10 @@ namespace GBJAM7.Scripts
         public float totalHP;
         public float currentHP;
         
-        public int dmg;
+        public int rangedDmg;
+        public int meleeDmg;
+        public int critChance;
+        public int critMult;
 
         public int totalActions = 1;
         public int currentActions = 1;
@@ -48,7 +51,7 @@ namespace GBJAM7.Scripts
 
         public Animator animator;
 
-        [Tooltip("The prefab to use for the attack sequence")]
+        [Tooltip("The prefab to use for the ranged attack sequence")]
         public GameObject attackSequenceUnitPrefab;
 
         [NonSerialized]

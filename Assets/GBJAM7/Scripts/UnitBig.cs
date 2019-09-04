@@ -10,6 +10,8 @@ namespace GBJAM7.Scripts
         public Transform[] hitPositions;
         public GameObject hitParticlePrefab;
 
+        public bool attackingRanged = false;
+        public bool criticalHit = false;
         private int currentHitIndex = 0;
 
         private void Awake()
@@ -20,11 +22,14 @@ namespace GBJAM7.Scripts
         public void StartAttacking()
         {
             animator.SetBool("Attacking", true);
+            animator.SetBool("Ranged", attackingRanged);
+            animator.SetBool("CriticalHit", criticalHit);
         }
 
         public void StopAttacking()
         {
             animator.SetBool("Attacking", false);
+            attackingRanged = false;
         }
 
         public void Death()

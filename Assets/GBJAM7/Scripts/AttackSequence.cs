@@ -20,12 +20,16 @@ namespace GBJAM7.Scripts
         public int playerAttacking;
 
         public bool counterAttack;
+        public int distance;
         
         public GameObject player1UnitPrefab;
         public GameObject player2UnitPrefab;
 
         public PlayerData player1Data;
         public PlayerData player2Data;
+
+        public bool p1Crit;
+        public bool p2Crit;
     }
     
     // TODO: use a class to identify units in the hierarchy so we can easily remove them
@@ -61,6 +65,8 @@ namespace GBJAM7.Scripts
 
         public Text player1Info;
         public Text player2Info;
+
+
 
         public void Show(AttackSequenceData attackData)
         {
@@ -127,6 +133,8 @@ namespace GBJAM7.Scripts
 
             foreach (var unit in player1Units)
             {
+                unit.attackingRanged = attackData.distance > 1;
+                unit.criticalHit = attackData.p1Crit;
                 unit.StartAttacking();
                 yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.2f));
             }
@@ -195,6 +203,8 @@ namespace GBJAM7.Scripts
             {
                 if (unit == null || unit.gameObject == null)
                     continue;
+                unit.attackingRanged = attackData.distance > 1;
+                unit.criticalHit = attackData.p2Crit;
                 unit.StartAttacking();
                 yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.2f));
             }
