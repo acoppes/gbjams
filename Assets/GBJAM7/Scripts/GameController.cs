@@ -172,14 +172,16 @@ namespace GBJAM7.Scripts
 
                     var target = selectorOverUnit;
                     var source = selectedUnit;
-                    var P1critCheck = UnityEngine.Random.Range(0, 100) < source.critChance;
-                    var P2critCheck = UnityEngine.Random.Range(0, 100) < target.critChance;
+
                     var activeDmg = "";
 
                     if (target != null && target.player != currentPlayer &&
                         Utils.IsInDistance(source.transform.position, target.transform.position, 
                             source.attackDistance))
                     {
+                        var sourceCritical = UnityEngine.Random.Range(0, 100) < source.critChance;
+                        var targetCritical = UnityEngine.Random.Range(0, 100) < target.critChance;
+                        
                         // do damage to target
                         // do damage back from target to unit
                         var distance = Utils.GetDistance(source.transform.position, target.transform.position);
@@ -193,8 +195,8 @@ namespace GBJAM7.Scripts
                             distance = distance,
                             player1Units = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP),
                             player2Units = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP),
-                            p1Crit = P1critCheck,
-                            p2Crit = P2critCheck,
+                            p1Crit = sourceCritical,
+                            p2Crit = targetCritical,
                         };
 
                         if(distance == 1)
@@ -209,13 +211,13 @@ namespace GBJAM7.Scripts
                         var sourceDmg = (int)source.GetType().GetField(activeDmg).GetValue(source) * (source.currentHP / source.totalHP);
 
                         
-                        target.currentHP -= sourceDmg + (sourceDmg * source.critMult * (P1critCheck ? 1 : 0));
+                        target.currentHP -= sourceDmg + (sourceDmg * source.critMult * (sourceCritical ? 1 : 0));
                         Debug.Log($"{target.name} received {sourceDmg} dmg");
                         
                         if (target.currentHP > 0 && attackSequenceData.counterAttack == true)
                         {
                             var targetDmg = (int)target.GetType().GetField(activeDmg).GetValue(target) * (target.currentHP / target.totalHP);
-                            source.currentHP -= targetDmg + (targetDmg * target.critMult * (P2critCheck ? 1 : 0));
+                            source.currentHP -= targetDmg + (targetDmg * target.critMult * (targetCritical ? 1 : 0));
                             Debug.Log($"{source.name} received {targetDmg} dmg");
                         }
 //                        else
