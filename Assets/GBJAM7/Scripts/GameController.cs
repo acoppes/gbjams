@@ -172,7 +172,8 @@ namespace GBJAM7.Scripts
 
                     var target = selectorOverUnit;
                     var source = selectedUnit;
-                    
+                    var activeDmg = "";
+
                     if (target != null && target.player != currentPlayer &&
                         Utils.IsInDistance(source.transform.position, target.transform.position, 
                             source.attackDistance))
@@ -187,18 +188,28 @@ namespace GBJAM7.Scripts
                             player2UnitPrefab = target.attackSequenceUnitPrefab,
                             playerAttacking = currentPlayer,
                             counterAttack = distance <= target.attackDistance,
+                            distance = distance,
                             player1Units = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP),
                             player2Units = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP),
                         };
 
-                        var sourceDmg = source.dmg * (source.currentHP / source.totalHP);
+                        if(distance == 1)
+                        {
+                            activeDmg = "meleeDmg";
+                        }
+                        else
+                        {
+                            activeDmg = "rangedDmg";
+                        }
+
+                        var sourceDmg = (int)source.GetType().GetField(activeDmg).GetValue(source) * (source.currentHP / source.totalHP);
                         
                         target.currentHP -= sourceDmg;
                         Debug.Log($"{target.name} received {sourceDmg} dmg");
                         
-                        if (target.currentHP > 0)
+                        if (target.currentHP > 0 && attackSequenceData.counterAttack == true)
                         {
-                            var targetDmg = target.dmg * (target.currentHP / target.totalHP);
+                            var targetDmg = (int)target.GetType().GetField(activeDmg).GetValue(target) * (target.currentHP / target.totalHP);
                             source.currentHP -= targetDmg;
                             Debug.Log($"{source.name} received {targetDmg} dmg");
                         }

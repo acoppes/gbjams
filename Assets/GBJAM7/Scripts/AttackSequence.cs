@@ -20,6 +20,7 @@ namespace GBJAM7.Scripts
         public int playerAttacking;
 
         public bool counterAttack;
+        public int distance;
         
         public GameObject player1UnitPrefab;
         public GameObject player2UnitPrefab;
@@ -61,6 +62,7 @@ namespace GBJAM7.Scripts
 
         public Text player1Info;
         public Text player2Info;
+
 
         public void Show(AttackSequenceData attackData)
         {
@@ -127,6 +129,7 @@ namespace GBJAM7.Scripts
 
             foreach (var unit in player1Units)
             {
+                unit.attackingRanged = attackData.distance > 1;
                 unit.StartAttacking();
                 yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.2f));
             }
@@ -195,6 +198,7 @@ namespace GBJAM7.Scripts
             {
                 if (unit == null || unit.gameObject == null)
                     continue;
+                unit.attackingRanged = attackData.distance > 1;
                 unit.StartAttacking();
                 yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.2f));
             }

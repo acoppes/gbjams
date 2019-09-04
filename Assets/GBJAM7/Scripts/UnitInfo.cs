@@ -28,14 +28,24 @@ namespace GBJAM7.Scripts
         
         [SerializeField]
         private GameObject moneyContainer;
+
+        private int activeDmg;
         
         public void Preview(int currentPlayer, Unit unit)
         {
+            if (unit.rangedDmg >= unit.meleeDmg)
+            {
+                activeDmg = unit.rangedDmg;
+            }
+            else
+            {
+                activeDmg = unit.meleeDmg;
+            }
             canvasGroup.alpha = 1;
             nameText.text = $"{unit.name}";
             hpText.text = $"{Mathf.CeilToInt(unit.currentHP)}";
 //            hpText.text = $"{Mathf.RoundToInt(10 * unit.currentHP / unit.totalHP)}";
-            dmgText.text = $"{unit.dmg}";
+            dmgText.text = $"{activeDmg}";
             playerText.text = $"P{unit.player + 1}";
 
             if (unit.player == -1)
