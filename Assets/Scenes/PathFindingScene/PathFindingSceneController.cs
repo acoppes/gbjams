@@ -98,6 +98,13 @@ namespace Scenes.PathFindingScene
         }
     }
     
+    // PathFinding class
+    // getMovementArea(p0, d) : movementArea
+    
+    // Movement area class
+    // m.GetAttackArea(d) : node[]
+    // m.CanMove(p1) : bool
+    
     public class PathFindingSceneController : MonoBehaviour, MovementCalculationCanMove
     {
         public Transform testTransform;
