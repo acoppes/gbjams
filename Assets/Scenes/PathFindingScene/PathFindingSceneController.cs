@@ -4,6 +4,7 @@ using System.Linq;
 using GBJAM7.Scripts;
 using GBJAM7.Scripts.MainMenu;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scenes.PathFindingScene
 {
@@ -17,10 +18,13 @@ namespace Scenes.PathFindingScene
     public class PathFindingSceneController : MonoBehaviour, IMovementCalculationCanMove
     {
         public Unit unit;
-        public int distance;
-
+        
+        [FormerlySerializedAs("distance")] public int movementDistance;
+        public int attackDistance = 2;
+        
         public UnitMovementArea unitMovementArea;
-
+        public UnitMovementArea attackArea;
+        
         public UnitSelector unitSelector;
 
         private List<MovementObstacleBase> cachedMovementObstacles;
@@ -29,19 +33,21 @@ namespace Scenes.PathFindingScene
         private GameboyButtonKeyMapAsset keyAsset;
 
         private MovementArea movementArea;
-
+        
         private void RecalculateMovementArea()
         {
             var p0 = Vector2Int.RoundToInt(unit.transform.position);
             cachedMovementObstacles = FindObjectsOfType<MovementObstacleBase>().ToList();
-            movementArea = new PathFinding(this).GetMovementArea(p0, distance);
+            movementArea = new PathFinding(this).GetMovementArea(p0, movementDistance);
         }
 
         private void Start()
         {
             RecalculateMovementArea();
             unitMovementArea.Hide();
-            unitMovementArea.Show(movementArea.nodes.Select(n=> n.position).ToList());
+            attackArea.Hide();
+            unitMovementArea.Show(movementArea.GetPositions());
+            attackArea.Show(movementArea.GetExtraNodes(0, attackDistance));
         }
 
         // Update is called once per frame
@@ -58,12 +64,6 @@ namespace Scenes.PathFindingScene
             movement.y += keyAsset.downPressed ? -1 : 0;
             
             unitSelector.Move(movement);
-            
-            if (Input.GetKeyUp(KeyCode.Alpha1))
-            {
-
-                // show that path in mov area
-            }
 
             if (keyAsset.button1Pressed && movementArea != null)
             {
@@ -73,7 +73,9 @@ namespace Scenes.PathFindingScene
                     // recalculate
                     RecalculateMovementArea();
                     unitMovementArea.Hide();
-                    unitMovementArea.Show(movementArea.nodes.Select(n=> n.position).ToList());
+                    attackArea.Hide();
+                    unitMovementArea.Show(movementArea.GetPositions());
+                    attackArea.Show(movementArea.GetExtraNodes(0, attackDistance));
                 }
             }
         }
