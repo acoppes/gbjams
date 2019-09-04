@@ -540,7 +540,7 @@ namespace GBJAM7.Scripts
             
             if (source.currentHP <= minHealthToDestroy)
             {
-                GameObject.Instantiate(unitDeathPrefab, source.transform.position, Quaternion.identity);
+                Instantiate(unitDeathPrefab, source.transform.position, Quaternion.identity);
                 Destroy(source.gameObject);
             }
             
@@ -556,7 +556,7 @@ namespace GBJAM7.Scripts
             {
                 if (target.unitType == Unit.UnitType.Unit)
                 {
-                    GameObject.Instantiate(unitDeathPrefab, target.transform.position, Quaternion.identity);
+                    Instantiate(unitDeathPrefab, target.transform.position, Quaternion.identity);
                     Destroy(target.gameObject);
                 }
                 else
@@ -585,10 +585,8 @@ namespace GBJAM7.Scripts
                 }
             }
 
-
             // Check victory condition...
             CheckVictoryCondition();
-            
         }
 
         private void CheckVictoryCondition()
