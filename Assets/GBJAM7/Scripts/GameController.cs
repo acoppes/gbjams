@@ -209,13 +209,13 @@ namespace GBJAM7.Scripts
                         var sourceDmg = (int)source.GetType().GetField(activeDmg).GetValue(source) * (source.currentHP / source.totalHP);
 
                         
-                        target.currentHP -= sourceDmg + (sourceDmg * 2 * (P1critCheck ? 1 : 0));
+                        target.currentHP -= sourceDmg + (sourceDmg * source.critMult * (P1critCheck ? 1 : 0));
                         Debug.Log($"{target.name} received {sourceDmg} dmg");
                         
                         if (target.currentHP > 0 && attackSequenceData.counterAttack == true)
                         {
                             var targetDmg = (int)target.GetType().GetField(activeDmg).GetValue(target) * (target.currentHP / target.totalHP);
-                            source.currentHP -= targetDmg + (targetDmg * 2 * (P2critCheck ? 1 : 0));
+                            source.currentHP -= targetDmg + (targetDmg * target.critMult * (P2critCheck ? 1 : 0));
                             Debug.Log($"{source.name} received {targetDmg} dmg");
                         }
 //                        else
