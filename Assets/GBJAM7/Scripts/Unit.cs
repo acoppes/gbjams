@@ -35,6 +35,7 @@ namespace GBJAM7.Scripts
         
         public int rangedDmg;
         public int meleeDmg;
+        public int critChance;
 
         public int totalActions = 1;
         public int currentActions = 1;
