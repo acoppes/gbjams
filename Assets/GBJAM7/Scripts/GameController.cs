@@ -821,10 +821,6 @@ namespace GBJAM7.Scripts
             
             unitActionsArea.ShowMovement(movementArea.GetPositions());
             unitActionsArea.ShowAttack(movementArea.GetExtraNodes(selectedUnit.attackDistance));
-            
-//            movementArea.Show(selectedUnit.transform.position, 0, selectedUnit.movementDistance);
-//            attackArea.Show(selectedUnit.transform.position, selectedUnit.movementDistance + 1, 
-//                selectedUnit.movementDistance + selectedUnit.attackDistance);
         }
 
         private void StartWaitingForAttackTarget()
@@ -834,11 +830,9 @@ namespace GBJAM7.Scripts
             unitActions.Hide();
             
             movementArea = pathFinding.GetMovementArea(Vector2Int.RoundToInt(selectedUnit.transform.position), 
-                selectedUnit.currentMovements > 0 ? selectedUnit.movementDistance : 0);
+                0);
             
             unitActionsArea.ShowAttack(movementArea.GetExtraNodes(selectedUnit.attackDistance));
-//            unitActionsArea.Show(selectedUnit, false);
-//            attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
         }
 
         private bool OnUnitActionSelected(int optionIndex, Option option)
