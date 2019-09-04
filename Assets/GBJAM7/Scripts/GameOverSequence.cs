@@ -20,7 +20,7 @@ namespace GBJAM7.Scripts
 
         public void SetGameOverData(GameOverData gameOverData)
         {
-            if (gameOverData.defeatedPlayer == 0)
+            if (gameOverData.defeatedPlayer == 1)
             {
                 victoryPlayerText.text = gameOverData.player1.name;
                 defeatPlayerText.text = gameOverData.player2.name;

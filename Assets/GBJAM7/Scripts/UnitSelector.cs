@@ -15,6 +15,9 @@ namespace GBJAM7.Scripts
         
         public Transform spriteTransform;
 
+        [SerializeField]
+        private AudioSource _selectorMoveSfx;
+
         public void Start()
         {
             transform.position = Vector3.zero;
@@ -23,6 +26,13 @@ namespace GBJAM7.Scripts
         public void Move(Vector2Int direction)
         {
             position += new Vector3(movement.x * direction.x, movement.y * direction.y, 0);
+            if (Mathf.Abs(direction.x) > 0 || Mathf.Abs(direction.y) > 0)
+            {
+                if (_selectorMoveSfx != null)
+                {
+                    _selectorMoveSfx.Play();
+                }
+            }
         }
 
         public void LateUpdate()
