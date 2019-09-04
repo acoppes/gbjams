@@ -1,103 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GBJAM7.Scripts;
+using GBJAM7.Scripts.MainMenu;
 using UnityEngine;
 
 namespace Scenes.PathFindingScene
 {
-    public class MovementNode
-    {
-        public int distance;
-        public Vector2Int position;
-
-        public MovementNode(Vector2Int position, int distance)
-        {
-            this.position = position;
-            this.distance = distance;
-        }
-
-        public int GetDistance(Vector2Int position)
-        {
-            return Utils.GetDistance(this.position, position);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj is MovementNode node)
-            {
-                return node.position.Equals(position);
-            }
-            return base.Equals(obj);
-        }
-    }
-
-    public class MovementArea
-    {
-        public List<MovementNode> nodes = new List<MovementNode>(); 
-    }
-
-    public interface MovementCalculationCanMove
-    {
-        bool CanMove(Vector2Int position);
-    }
-
-    public class MovementCalculation
-    {
-        private MovementCalculationCanMove canMove;
-
-        public MovementCalculation(MovementCalculationCanMove canMove)
-        {
-            this.canMove = canMove;
-        }
-        
-        public MovementArea GetMovementNodes(Vector2Int position, int distance)
-        {
-            var area = new MovementArea();
-
-            var nodesToVisit = new List<MovementNode>();
-            nodesToVisit.Add(new MovementNode(position, distance));
-
-            var visitedNodes = new List<MovementNode>();
-            
-            while (nodesToVisit.Count > 0)
-            {
-                var node = nodesToVisit[0];
-                visitedNodes.Add(node);
-                
-                nodesToVisit.Remove(node);
-
-                // if node in range to position and valid, add to area
-                if (node.distance < distance && !canMove.CanMove(node.position))
-                {
-                    continue;
-                }
-
-                area.nodes.Add(node);
-
-                var neighbours = new List<MovementNode>()
-                {
-                    new MovementNode(node.position + new Vector2Int(1, 0), node.distance - 1),
-                    new MovementNode(node.position + new Vector2Int(0, 1), node.distance - 1),
-                    new MovementNode(node.position + new Vector2Int(-1, 0), node.distance - 1),
-                    new MovementNode(node.position + new Vector2Int(0, -1), node.distance - 1)
-                };
-                
-                neighbours.ForEach(n =>
-                {
-                    if (visitedNodes.Contains(n))
-                        return;
-
-                    if (n.distance < 0)
-                        return; 
-                    
-                    nodesToVisit.Add(n);
-                });
-            }
-            
-            return area;
-        }
-    }
-    
     // PathFinding class
     // getMovementArea(p0, d) : movementArea
     
@@ -105,34 +14,69 @@ namespace Scenes.PathFindingScene
     // m.GetAttackArea(d) : node[]
     // m.CanMove(p1) : bool
     
-    public class PathFindingSceneController : MonoBehaviour, MovementCalculationCanMove
+    public class PathFindingSceneController : MonoBehaviour, IMovementCalculationCanMove
     {
-        public Transform testTransform;
+        public Unit unit;
         public int distance;
 
         public UnitMovementArea unitMovementArea;
 
+        public UnitSelector unitSelector;
+
         private List<MovementObstacleBase> cachedMovementObstacles;
-        
+
+        [SerializeField]
+        private GameboyButtonKeyMapAsset keyAsset;
+
+        private MovementArea movementArea;
+
+        private void RecalculateMovementArea()
+        {
+            var p0 = Vector2Int.RoundToInt(unit.transform.position);
+            cachedMovementObstacles = FindObjectsOfType<MovementObstacleBase>().ToList();
+            movementArea = new PathFinding(this).GetMovementArea(p0, distance);
+        }
+
+        private void Start()
+        {
+            RecalculateMovementArea();
+            unitMovementArea.Hide();
+            unitMovementArea.Show(movementArea.nodes.Select(n=> n.position).ToList());
+        }
+
         // Update is called once per frame
         private void Update()
         {
+            keyAsset.UpdateControlState();
+            
+            var movement = new Vector2Int(0, 0);
+
+            movement.x += keyAsset.leftPressed ? -1 : 0;
+            movement.x += keyAsset.rightPressed ? 1 : 0;
+            
+            movement.y += keyAsset.upPressed ? 1 : 0;
+            movement.y += keyAsset.downPressed ? -1 : 0;
+            
+            unitSelector.Move(movement);
+            
             if (Input.GetKeyUp(KeyCode.Alpha1))
             {
-                unitMovementArea.Hide();
-                
-                // calculate movement area for one point
-                var position = Vector2Int.RoundToInt(testTransform.position);
-                
-                cachedMovementObstacles = FindObjectsOfType<MovementObstacleBase>().ToList();
-                
-                var movementArea = new MovementCalculation(this).GetMovementNodes(position, distance);
-                
-                unitMovementArea.Show(movementArea.nodes.Select(n=> n.position).ToList());
+
                 // show that path in mov area
             }
-        }
 
+            if (keyAsset.button1Pressed && movementArea != null)
+            {
+                if (movementArea.CanMove(Vector2Int.RoundToInt(unitSelector.position)))
+                {
+                    unit.transform.position = unitSelector.position;
+                    // recalculate
+                    RecalculateMovementArea();
+                    unitMovementArea.Hide();
+                    unitMovementArea.Show(movementArea.nodes.Select(n=> n.position).ToList());
+                }
+            }
+        }
 
         public bool CanMove(Vector2Int position)
         {

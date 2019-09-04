@@ -24,7 +24,7 @@ namespace GBJAM7.Scripts
         public List<BuildOption> buildOptions;
     }
     
-    public class GameController : MonoBehaviour, MovementCalculationCanMove
+    public class GameController : MonoBehaviour, IMovementCalculationCanMove
     {
         public UnitSelector selector;
         
@@ -83,7 +83,7 @@ namespace GBJAM7.Scripts
         private bool showingAttackSequence;
         private bool showingChangeTurnSequence;
 
-        private MovementCalculation movementCalculation;
+        private PathFinding pathFinding;
 
         private void Start()
         {
@@ -93,7 +93,7 @@ namespace GBJAM7.Scripts
             unitInfo.Hide();
             buildActions.Hide();
             
-            movementCalculation = new MovementCalculation(this);
+            pathFinding = new PathFinding(this);
             
             var startLocation = GameObject.Find("~StartLocation");
 
