@@ -84,6 +84,7 @@ namespace GBJAM7.Scripts
         private bool showingChangeTurnSequence;
 
         private PathFinding pathFinding;
+        private MovementArea movementArea;
 
         private void Start()
         {
@@ -145,8 +146,6 @@ namespace GBJAM7.Scripts
             var selectorOverUnit = FindObjectsOfType<Unit>()
                 .FirstOrDefault(u => Vector2.Distance(selector.position, u.transform.position) < 0.5f);
 
-
-            
             if (waitingForMenuAction)
             {
                 if (keyMapAsset.button2Pressed)
@@ -230,7 +229,6 @@ namespace GBJAM7.Scripts
                         waitingForAttackTarget = false;
                         
                         unitActionsArea.Hide();
-//                        attackArea.Hide();
                     
                         DeselectUnit();
 
@@ -279,10 +277,12 @@ namespace GBJAM7.Scripts
                         var p0 = selectedUnit.transform.position / 1;
                         var p1 = selector.position / 1;
 
-                        var obstacle = obstacles.FirstOrDefault(o => o.IsBlocked(Vector2Int.RoundToInt(selector.position)));
+//                        var obstacle = obstacles.FirstOrDefault(o => o.IsBlocked(Vector2Int.RoundToInt(selector.position)));
 
-                        if (Utils.IsInDistance(p0, p1, selectedUnit.movementDistance) && obstacle == null)
+                        if (movementArea.CanMove(Vector2Int.RoundToInt(p1))) 
                         {
+//                        if (Utils.IsInDistance(p0, p1, selectedUnit.movementDistance) && obstacle == null)
+//                        {
                             selectedUnit.transform.position = selector.position;
                             selectedUnit.currentMovements = 0;
 
@@ -293,9 +293,6 @@ namespace GBJAM7.Scripts
                             if (selectedUnit.currentActions > 0)
                             {
                                 unitActionsArea.Hide();
-//                                movementArea.Hide();
-//                                attackArea.Hide();
-                                    
                                 StartWaitingForAttackTarget();
                             } else
                             {
@@ -313,8 +310,6 @@ namespace GBJAM7.Scripts
                     } else if (selectorOverUnit == selectedUnit)
                     {
                         unitActionsArea.Hide();
-//                        movementArea.Hide();
-//                        attackArea.Hide();
                         waitingForMovement = false;
                         ShowUnitActions();
                     }
@@ -418,15 +413,31 @@ namespace GBJAM7.Scripts
 //                previewArea.Hide();
                 
                 unitInfo.Preview(currentPlayer, selectorOverUnit);
+
+
                 
                 if (selectorOverUnit.player == currentPlayer &&
                     (selectorOverUnit.currentMovements > 0 || selectorOverUnit.currentActions > 0))
                 {
-                    unitActionsPreviewArea.Show(selectorOverUnit, selectorOverUnit.currentMovements > 0, 
-                        selectorOverUnit.currentActions > 0);
+                    movementArea = pathFinding.GetMovementArea(Vector2Int.RoundToInt(selectorOverUnit.transform.position), 
+                        selectorOverUnit.currentMovements > 0 ? selectorOverUnit.movementDistance : 0);
+                    
+                    if (selectorOverUnit.currentMovements > 0)
+                        unitActionsPreviewArea.ShowMovement(movementArea.GetPositions());
+                    
+                    if (selectorOverUnit.currentActions > 0)
+                        unitActionsPreviewArea.ShowAttack(movementArea.GetExtraNodes(selectorOverUnit.attackDistance));
+                    
+//                    unitActionsPreviewArea.Show(selectorOverUnit, selectorOverUnit.currentMovements > 0, 
+//                        selectorOverUnit.currentActions > 0);
                 } else if (selectorOverUnit.player != currentPlayer)
                 {
-                    unitActionsPreviewArea.Show(selectorOverUnit);
+                    movementArea = pathFinding.GetMovementArea(Vector2Int.RoundToInt(selectorOverUnit.transform.position), 
+                        selectorOverUnit.movementDistance);
+                    
+                    unitActionsPreviewArea.ShowMovement(movementArea.GetPositions());
+                    unitActionsPreviewArea.ShowAttack(movementArea.GetExtraNodes(selectorOverUnit.attackDistance));
+//                    unitActionsPreviewArea.Show(selectorOverUnit);
                 }
                 
             }
@@ -754,6 +765,10 @@ namespace GBJAM7.Scripts
                 return;
             DeselectUnit();
             selectedUnit = unit;
+
+            movementArea = pathFinding.GetMovementArea(Vector2Int.RoundToInt(selectedUnit.transform.position),
+                unit.currentMovements > 0 ? unit.movementDistance : 0);
+            
             if (unit.unitType == Unit.UnitType.Unit)
             {
                 if (unit.currentMovements == 0 && unit.currentActions == 0)
@@ -804,8 +819,9 @@ namespace GBJAM7.Scripts
             waitingForMovement = true;
             unitActions.Hide();
             
-            unitActionsArea.Show(selectedUnit);
-
+            unitActionsArea.ShowMovement(movementArea.GetPositions());
+            unitActionsArea.ShowAttack(movementArea.GetExtraNodes(selectedUnit.attackDistance));
+            
 //            movementArea.Show(selectedUnit.transform.position, 0, selectedUnit.movementDistance);
 //            attackArea.Show(selectedUnit.transform.position, selectedUnit.movementDistance + 1, 
 //                selectedUnit.movementDistance + selectedUnit.attackDistance);
@@ -816,7 +832,12 @@ namespace GBJAM7.Scripts
             waitingForMenuAction = false;
             waitingForAttackTarget = true;
             unitActions.Hide();
-            unitActionsArea.Show(selectedUnit, false);
+            
+            movementArea = pathFinding.GetMovementArea(Vector2Int.RoundToInt(selectedUnit.transform.position), 
+                selectedUnit.currentMovements > 0 ? selectedUnit.movementDistance : 0);
+            
+            unitActionsArea.ShowAttack(movementArea.GetExtraNodes(selectedUnit.attackDistance));
+//            unitActionsArea.Show(selectedUnit, false);
 //            attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
         }
 

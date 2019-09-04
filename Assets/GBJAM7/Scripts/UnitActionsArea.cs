@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GBJAM7.Scripts
@@ -7,26 +8,31 @@ namespace GBJAM7.Scripts
         public UnitMovementArea movementArea;
         public UnitMovementArea attackArea;
 
-        public void Show(Unit unit, bool movement = true, bool attack = true)
+        public void ShowMovement(List<Vector2Int> movementNodes)
         {
-//            var distance = 0;
-//            
-//            distance += unit.currentMovements > 0 ? unit.movementDistance : 0;
-//            distance += unit.currentActions > 0 ? unit.attackDistance : 0;
-
-            if (movement)
-            {
-                movementArea.Show(unit.transform.position, 0, unit.movementDistance);
-                if (attack)
-                {
-                    attackArea.Show(unit.transform.position, unit.movementDistance + 1, 
-                        unit.movementDistance + unit.attackDistance);
-                }
-            } else if (attack)
-            {
-                attackArea.Show(unit.transform.position, 0, unit.attackDistance);
-            }
+            movementArea.Show(movementNodes);
         }
+        
+        public void ShowAttack(List<Vector2Int> attackNodes)
+        {
+            attackArea.Show(attackNodes);
+        }
+
+//        public void Show(Unit unit, bool movement = true, bool attack = true)
+//        {
+//            if (movement)
+//            {
+//                movementArea.Show(unit.transform.position, 0, unit.movementDistance);
+//                if (attack)
+//                {
+//                    attackArea.Show(unit.transform.position, unit.movementDistance + 1, 
+//                        unit.movementDistance + unit.attackDistance);
+//                }
+//            } else if (attack)
+//            {
+//                attackArea.Show(unit.transform.position, 0, unit.attackDistance);
+//            }
+//        }
         
         public void Hide()
         {

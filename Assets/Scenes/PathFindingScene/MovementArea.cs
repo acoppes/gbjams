@@ -18,8 +18,9 @@ namespace Scenes.PathFindingScene
             return nodes.Select(n => n.position).ToList();
         }
 
-        public List<Vector2Int> GetExtraNodes(int minDistance, int maxDistance)
+        public List<Vector2Int> GetExtraNodes(int maxDistance)
         {
+            var minDistance = 0;
             var attackNodes = new HashSet<MovementNode>();
             
             nodes.ForEach(n =>

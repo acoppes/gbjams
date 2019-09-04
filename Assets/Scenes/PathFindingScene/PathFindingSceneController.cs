@@ -47,7 +47,7 @@ namespace Scenes.PathFindingScene
             unitMovementArea.Hide();
             attackArea.Hide();
             unitMovementArea.Show(movementArea.GetPositions());
-            attackArea.Show(movementArea.GetExtraNodes(0, attackDistance));
+            attackArea.Show(movementArea.GetExtraNodes(attackDistance));
         }
 
         // Update is called once per frame
@@ -75,7 +75,7 @@ namespace Scenes.PathFindingScene
                     unitMovementArea.Hide();
                     attackArea.Hide();
                     unitMovementArea.Show(movementArea.GetPositions());
-                    attackArea.Show(movementArea.GetExtraNodes(0, attackDistance));
+                    attackArea.Show(movementArea.GetExtraNodes(attackDistance));
                 }
             }
         }
