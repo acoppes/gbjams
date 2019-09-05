@@ -173,7 +173,7 @@ namespace GBJAM7.Scripts
                     var target = selectorOverUnit;
                     var source = selectedUnit;
 
-                    var activeDmg = "";
+//                    var activeDmg = "";
 
                     if (target != null && target.player != currentPlayer &&
                         Utils.IsInDistance(source.transform.position, target.transform.position, 
@@ -199,24 +199,25 @@ namespace GBJAM7.Scripts
                             p2Crit = targetCritical,
                         };
 
-                        if(distance == 1)
-                        {
-                            activeDmg = "meleeDmg";
-                        }
-                        else
-                        {
-                            activeDmg = "rangedDmg";
-                        }
+//                        var soruceDamage = source.rangedDmg;
 
-                        var sourceDmg = (int)source.GetType().GetField(activeDmg).GetValue(source) * (source.currentHP / source.totalHP);
+//                        var sourceDmg = source.rangedDmg;
+//                        
+//                        if(distance == 1)
+//                        {
+//                            sourceDmg = source.meleeDmg;
+//                        }
+//
+//                        var sourceDmg = (int)source.GetType().GetField(activeDmg).GetValue(source) * (source.currentHP / source.totalHP);
 
+                        var sourceDamage = source.rangedDmg * (source.currentHP / source.totalHP);
                         
-                        target.currentHP -= sourceDmg + (sourceDmg * source.critMult * (sourceCritical ? 1 : 0));
-                        Debug.Log($"{target.name} received {sourceDmg} dmg");
+                        target.currentHP -= sourceDamage + (sourceDamage * source.critMult * (sourceCritical ? 1 : 0));
+                        Debug.Log($"{target.name} received {sourceDamage} dmg");
                         
                         if (target.currentHP > 0 && attackSequenceData.counterAttack == true)
                         {
-                            var targetDmg = (int)target.GetType().GetField(activeDmg).GetValue(target) * (target.currentHP / target.totalHP);
+                            var targetDmg = target.rangedDmg * (target.currentHP / target.totalHP);
                             source.currentHP -= targetDmg + (targetDmg * target.critMult * (targetCritical ? 1 : 0));
                             Debug.Log($"{source.name} received {targetDmg} dmg");
                         }

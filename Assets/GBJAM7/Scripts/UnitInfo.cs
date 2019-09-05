@@ -33,19 +33,24 @@ namespace GBJAM7.Scripts
         
         public void Preview(int currentPlayer, Unit unit)
         {
-            if (unit.rangedDmg >= unit.meleeDmg)
-            {
-                activeDmg = unit.rangedDmg;
-            }
-            else
-            {
-                activeDmg = unit.meleeDmg;
-            }
+//            if (unit.rangedDmg >= unit.meleeDmg)
+//            {
+//                activeDmg = unit.rangedDmg;
+//            }
+//            else
+//            {
+//                activeDmg = unit.meleeDmg;
+//            }
+            
+            var damage = Mathf.RoundToInt(unit.rangedDmg * (unit.currentHP / unit.totalHP));
+            if (damage == 0)
+                damage = 1;
+
             canvasGroup.alpha = 1;
             nameText.text = $"{unit.name}";
             hpText.text = $"{Mathf.CeilToInt(unit.currentHP)}";
 //            hpText.text = $"{Mathf.RoundToInt(10 * unit.currentHP / unit.totalHP)}";
-            dmgText.text = $"{activeDmg}";
+            dmgText.text = $"{damage}";
             playerText.text = $"P{unit.player + 1}";
 
             if (unit.player == -1)
