@@ -546,10 +546,11 @@ namespace GBJAM7.Scripts
             
             if (target.unitType != Unit.UnitType.Unit)
             {
-                if (_unitAttackStructureSfx != null)
-                {
-                    _unitAttackStructureSfx.Play();
-                }
+                Instantiate(unitDeathPrefab, target.transform.position, Quaternion.identity);
+//                if (_unitAttackStructureSfx != null)
+//                {
+//                    _unitAttackStructureSfx.Play();
+//                }
             }
 
             if (target.currentHP <= minHealthToDestroy)
@@ -561,6 +562,8 @@ namespace GBJAM7.Scripts
                 }
                 else
                 {
+                   
+                    
                     // can't capture if unit dies during capture (if counter attack)
                     // or if unit cant capture or if too far away
                     if (source == null || !source.canCapture)
