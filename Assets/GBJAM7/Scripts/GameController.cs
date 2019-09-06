@@ -172,14 +172,16 @@ namespace GBJAM7.Scripts
 
                     var target = selectorOverUnit;
                     var source = selectedUnit;
-                    var P1critCheck = UnityEngine.Random.Range(0, 100) < source.critChance;
-                    var P2critCheck = UnityEngine.Random.Range(0, 100) < target.critChance;
-                    var activeDmg = "";
+
+//                    var activeDmg = "";
 
                     if (target != null && target.player != currentPlayer &&
                         Utils.IsInDistance(source.transform.position, target.transform.position, 
                             source.attackDistance))
                     {
+                        var sourceCritical = UnityEngine.Random.Range(0, 100) < source.critChance;
+                        var targetCritical = UnityEngine.Random.Range(0, 100) < target.critChance;
+                        
                         // do damage to target
                         // do damage back from target to unit
                         var distance = Utils.GetDistance(source.transform.position, target.transform.position);
@@ -193,29 +195,30 @@ namespace GBJAM7.Scripts
                             distance = distance,
                             player1Units = Mathf.CeilToInt(source.squadSize * source.currentHP / source.totalHP),
                             player2Units = Mathf.CeilToInt(target.squadSize * target.currentHP / target.totalHP),
-                            p1Crit = P1critCheck,
-                            p2Crit = P2critCheck,
+                            p1Crit = sourceCritical,
+                            p2Crit = targetCritical,
                         };
 
-                        if(distance == 1)
-                        {
-                            activeDmg = "meleeDmg";
-                        }
-                        else
-                        {
-                            activeDmg = "rangedDmg";
-                        }
+//                        var soruceDamage = source.rangedDmg;
 
-                        var sourceDmg = (int)source.GetType().GetField(activeDmg).GetValue(source) * (source.currentHP / source.totalHP);
+//                        var sourceDmg = source.rangedDmg;
+//                        
+//                        if(distance == 1)
+//                        {
+//                            sourceDmg = source.meleeDmg;
+//                        }
+//
+//                        var sourceDmg = (int)source.GetType().GetField(activeDmg).GetValue(source) * (source.currentHP / source.totalHP);
 
+                        var sourceDamage = source.rangedDmg * (source.currentHP / source.totalHP);
                         
-                        target.currentHP -= sourceDmg + (sourceDmg * source.critMult * (P1critCheck ? 1 : 0));
-                        Debug.Log($"{target.name} received {sourceDmg} dmg");
+                        target.currentHP -= sourceDamage + (sourceDamage * source.critMult * (sourceCritical ? 1 : 0));
+                        Debug.Log($"{target.name} received {sourceDamage} dmg");
                         
                         if (target.currentHP > 0 && attackSequenceData.counterAttack == true)
                         {
-                            var targetDmg = (int)target.GetType().GetField(activeDmg).GetValue(target) * (target.currentHP / target.totalHP);
-                            source.currentHP -= targetDmg + (targetDmg * target.critMult * (P2critCheck ? 1 : 0));
+                            var targetDmg = target.rangedDmg * (target.currentHP / target.totalHP);
+                            source.currentHP -= targetDmg + (targetDmg * target.critMult * (targetCritical ? 1 : 0));
                             Debug.Log($"{source.name} received {targetDmg} dmg");
                         }
 //                        else
@@ -538,27 +541,30 @@ namespace GBJAM7.Scripts
             
             if (source.currentHP <= minHealthToDestroy)
             {
-                GameObject.Instantiate(unitDeathPrefab, source.transform.position, Quaternion.identity);
+                Instantiate(unitDeathPrefab, source.transform.position, Quaternion.identity);
                 Destroy(source.gameObject);
             }
             
             if (target.unitType != Unit.UnitType.Unit)
             {
-                if (_unitAttackStructureSfx != null)
-                {
-                    _unitAttackStructureSfx.Play();
-                }
+                Instantiate(unitDeathPrefab, target.transform.position, Quaternion.identity);
+//                if (_unitAttackStructureSfx != null)
+//                {
+//                    _unitAttackStructureSfx.Play();
+//                }
             }
 
             if (target.currentHP <= minHealthToDestroy)
             {
                 if (target.unitType == Unit.UnitType.Unit)
                 {
-                    GameObject.Instantiate(unitDeathPrefab, target.transform.position, Quaternion.identity);
+                    Instantiate(unitDeathPrefab, target.transform.position, Quaternion.identity);
                     Destroy(target.gameObject);
                 }
                 else
                 {
+                   
+                    
                     // can't capture if unit dies during capture (if counter attack)
                     // or if unit cant capture or if too far away
                     if (source == null || !source.canCapture)
@@ -583,10 +589,8 @@ namespace GBJAM7.Scripts
                 }
             }
 
-
             // Check victory condition...
             CheckVictoryCondition();
-            
         }
 
         private void CheckVictoryCondition()
@@ -837,10 +841,6 @@ namespace GBJAM7.Scripts
             
             unitActionsArea.ShowMovement(movementArea.GetPositions());
             unitActionsArea.ShowAttack(movementArea.GetExtraNodes(selectedUnit.attackDistance));
-            
-//            movementArea.Show(selectedUnit.transform.position, 0, selectedUnit.movementDistance);
-//            attackArea.Show(selectedUnit.transform.position, selectedUnit.movementDistance + 1, 
-//                selectedUnit.movementDistance + selectedUnit.attackDistance);
         }
 
         private void StartWaitingForAttackTarget()
@@ -850,11 +850,9 @@ namespace GBJAM7.Scripts
             unitActions.Hide();
             
             movementArea = pathFinding.GetMovementArea(Vector2Int.RoundToInt(selectedUnit.transform.position), 
-                selectedUnit.currentMovements > 0 ? selectedUnit.movementDistance : 0);
+                0);
             
             unitActionsArea.ShowAttack(movementArea.GetExtraNodes(selectedUnit.attackDistance));
-//            unitActionsArea.Show(selectedUnit, false);
-//            attackArea.Show(selectedUnit.transform.position, 0, selectedUnit.attackDistance);
         }
 
         private bool OnUnitActionSelected(int optionIndex, Option option)

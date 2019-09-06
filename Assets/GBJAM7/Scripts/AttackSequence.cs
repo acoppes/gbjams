@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GBJAM7.Scripts.MainMenu;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -66,7 +67,21 @@ namespace GBJAM7.Scripts
         public Text player1Info;
         public Text player2Info;
 
-
+//        private GameboyButtonKeyMapAsset keyAsset;
+//
+//        private void Update()
+//        {
+//            if (keyAsset.)
+//            if (Input.GetKeyDown(KeyCode.T))
+//            {
+//                Time.timeScale = 2;
+//            }
+//            
+//            if (Input.GetKeyUp(KeyCode.T))
+//            {
+//                Time.timeScale = 1;
+//            }
+//        }
 
         public void Show(AttackSequenceData attackData)
         {
@@ -81,7 +96,7 @@ namespace GBJAM7.Scripts
 
             player1Units.Clear();
             player2Units.Clear();
-            
+
             for (var i = 0; i < player1UnitPositions.Length; i++)
             {
                 for (var  j = 0; j < player1UnitPositions[i].childCount; j++)
