@@ -256,6 +256,12 @@ namespace GBJAM7.Scripts
 
                         StartCoroutine(routine: StartAttackSequence(attackSequenceData, source, target));
                     }
+                    else if (selectorOverUnit != null && selectorOverUnit.player == selectedUnit.player)
+                    {
+                        DeselectUnit();
+                        waitingForAttackTarget = false;
+                        SelectUnit(selectorOverUnit);
+                    }
                     else
                     {
                         if (_invalidActionSfx != null)
