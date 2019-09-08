@@ -14,6 +14,9 @@ namespace GBJAM7.Scripts
         public bool criticalHit = false;
         private int currentHitIndex = 0;
 
+        [SerializeField]
+        private AudioSource shootSfx;
+
         private void Awake()
         {
             currentHitIndex = UnityEngine.Random.Range(0, hitPositions.Length);
@@ -43,6 +46,12 @@ namespace GBJAM7.Scripts
                 return;
             Instantiate(hitParticlePrefab, hitPositions[currentHitIndex], false);
             currentHitIndex = (currentHitIndex + 1) % hitPositions.Length;
+        }
+
+        public void PlayShootSfx()
+        {
+            if (shootSfx != null)
+                shootSfx.Play();
         }
     }
 }
