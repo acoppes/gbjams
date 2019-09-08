@@ -65,7 +65,10 @@ namespace GBJAM7.Scripts
 
         [SerializeField] 
         private AudioSource _endTurnSfx;
-        
+
+        [SerializeField] 
+        private AudioSource _selectUnitSfx;
+
         public int currentTurn;
         
         public GameObject unitDeathPrefab;
@@ -823,6 +826,8 @@ namespace GBJAM7.Scripts
                     StartWaitingForAttackTarget();
                 }
                 
+                _selectUnitSfx.Play();
+                
             } else if (unit.unitType == Unit.UnitType.Spawner)
             {
                 // only show unit actions if available
@@ -834,6 +839,8 @@ namespace GBJAM7.Scripts
                         OnBuildOptionSelected, 
                         CancelMenuAction);
                     waitingForMenuAction = true;
+                    
+                    _selectUnitSfx.Play();
                 }
                 else
                 {
