@@ -420,6 +420,12 @@ namespace GBJAM7.Scripts
                         return u.enemiesInRange > 0;
                     }
                     
+                    // if unit is deploy, avoid it 
+                    if (u.unitType == Unit.UnitType.Spawner)
+                    {
+                        return players[u.player].resources > 0;
+                    }
+                    
                     return true;
                 }).ToList();
 
