@@ -15,6 +15,9 @@ namespace GBJAM7.Scripts.MainMenu
 
         public MainMenuIntro mainMenuIntro;
 
+        [SerializeField]
+        private AudioSource startButtonSfx;
+
         private void Start()
         {
             options.title = "Pick stage";
@@ -39,6 +42,11 @@ namespace GBJAM7.Scripts.MainMenu
             } else {
                 if (keyMapAsset.AnyButtonPressed())
                 {
+                    if (startButtonSfx != null)
+                    {
+                        startButtonSfx.Play();
+                    }
+                    
                     mainMenuIntro.HideStart();
                     
                     showingOptions = true;
