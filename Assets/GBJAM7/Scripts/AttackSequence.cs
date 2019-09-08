@@ -148,8 +148,10 @@ namespace GBJAM7.Scripts
 
             foreach (var unit in player1Units)
             {
-                unit.attackingRanged = attackData.distance > 1;
-                unit.criticalHit = attackData.p1Crit;
+                unit.attackingRanged = true;
+//                unit.attackingRanged = attackData.distance > 1;
+//                unit.criticalHit = attackData.p1Crit;
+                unit.criticalHit = false;
                 unit.StartAttacking();
                 yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.2f));
             }
