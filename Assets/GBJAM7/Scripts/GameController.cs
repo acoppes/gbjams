@@ -60,8 +60,11 @@ namespace GBJAM7.Scripts
         [SerializeField]
         private AudioSource _invalidActionSfx;
         
-        [SerializeField]
-        private AudioSource _unitAttackStructureSfx;
+//        [SerializeField]
+//        private AudioSource _unitAttackStructureSfx;
+
+        [SerializeField] 
+        private AudioSource _endTurnSfx;
         
         public int currentTurn;
         
@@ -664,6 +667,7 @@ namespace GBJAM7.Scripts
         {
             if (optionIndex == 0)
             {
+                _endTurnSfx.Play();
                 EndCurrentPlayerTurn();
                 CompleteMenuAction();
             }

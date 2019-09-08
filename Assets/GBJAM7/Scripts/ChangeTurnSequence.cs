@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace GBJAM7.Scripts
@@ -17,6 +18,7 @@ namespace GBJAM7.Scripts
         [SerializeField]
         private Text turnText;
         
+        [NonSerialized]
         public bool completed;
 
         public void Show(PlayerData playerData, int player, int turn)
@@ -42,5 +44,6 @@ namespace GBJAM7.Scripts
             completed = true;
             gameObject.SetActive(false);
         }
+
     }
 }
