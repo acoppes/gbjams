@@ -336,6 +336,12 @@ namespace GBJAM7.Scripts
                         waitingForMovement = false;
                         ShowUnitActions();
                     }
+                    else if (selectorOverUnit != null && selectorOverUnit.player == selectedUnit.player)
+                    {
+                        DeselectUnit();
+                        waitingForMovement = false;
+                        SelectUnit(selectorOverUnit);
+                    }
                     else
                     {
                         if (_invalidActionSfx != null)
