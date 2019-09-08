@@ -57,9 +57,28 @@ namespace GBJAM7.Scripts
         [NonSerialized]
         public int enemiesInRange;
 
+        [SerializeField]
+        private AudioSource moveSfx;
+
         public void Death()
         {
             animator.SetBool("dead", true);
+        }
+
+        public void Move(Vector3 position)
+        {
+            var p0 = transform.position;
+            var p1 = position;
+            
+            transform.position = p1;
+            currentMovements--;
+            
+            moveDirection = p1 - p0;
+
+            if (moveSfx != null)
+            {
+                moveSfx.Play();
+            }
         }
     }
 }

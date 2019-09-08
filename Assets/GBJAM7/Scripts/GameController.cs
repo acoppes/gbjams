@@ -305,10 +305,11 @@ namespace GBJAM7.Scripts
                         {
 //                        if (Utils.IsInDistance(p0, p1, selectedUnit.movementDistance) && obstacle == null)
 //                        {
-                            selectedUnit.transform.position = selector.position;
-                            selectedUnit.currentMovements = 0;
-
-                            selectedUnit.moveDirection = p1 - p0;
+                            selectedUnit.Move(selector.position);
+                            
+//                            selectedUnit.transform.position = selector.position;
+//                            selectedUnit.currentMovements = 0;
+//                            selectedUnit.moveDirection = p1 - p0;
 
                             waitingForMovement = false;
 
