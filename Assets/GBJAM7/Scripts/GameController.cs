@@ -839,7 +839,7 @@ namespace GBJAM7.Scripts
                 // only show unit actions if available
                 if (unit.currentActions > 0)
                 {
-                    buildActions.title = $"Build {player.resources}";
+                    buildActions.title = $"Money: {player.resources}";
                     buildActions.Show(player.buildOptions
                         .Select(o => new Option { name = $"{o.name} {o.unitPrefab.cost}" }).ToList(), 
                         OnBuildOptionSelected, 
