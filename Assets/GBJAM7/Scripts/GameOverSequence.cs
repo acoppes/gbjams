@@ -16,6 +16,8 @@ namespace GBJAM7.Scripts
         public Text victoryPlayerText;
         public Text defeatPlayerText;
 
+        public AudioSource _gameOverSfx;
+
         public Transform[] elementsToInvert;
 
         public void SetGameOverData(GameOverData gameOverData)
@@ -46,6 +48,8 @@ namespace GBJAM7.Scripts
         {
             completed = false;
             animator.SetTrigger("gameOver");
+            
+            _gameOverSfx.Play();
         }
 
         public void OnComplete()
