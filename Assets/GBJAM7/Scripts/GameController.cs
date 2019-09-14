@@ -68,6 +68,9 @@ namespace GBJAM7.Scripts
 
         [SerializeField] 
         private AudioSource _selectUnitSfx;
+        
+        [SerializeField] 
+        private AudioSource _switchUnitSfx;
 
         public int currentTurn;
         
@@ -430,10 +433,12 @@ namespace GBJAM7.Scripts
                 }).ToList();
 
                 var index = 0;
+                var previousIndex = 0;
                 
                 if (selectorOverUnit != null)
                 {
                     index = playerUnits.IndexOf(selectorOverUnit);
+                    previousIndex = index;
                     index++;
                 }
 
@@ -448,6 +453,11 @@ namespace GBJAM7.Scripts
                     var unit = playerUnits[index];
                     selector.position = unit.transform.position;
                     AdjustCameraToSelector();
+                    
+                    if (index != previousIndex)
+                    {
+                        _switchUnitSfx.Play();
+                    }
                 }
             }
 
