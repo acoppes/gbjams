@@ -44,6 +44,8 @@ namespace GBJAM7.Editor
                 false, "Play From Scene", true);
             window.minSize = new Vector2(100, 100);
         }
+
+        private Vector2 scroll;
         
         private void OnGUI()
         {
@@ -51,21 +53,37 @@ namespace GBJAM7.Editor
             var ignoreGuids = AssetDatabase.FindAssets("t:scene l:Ignore").ToList();
 
             guids.RemoveAll(g => ignoreGuids.Contains(g));
+
+            scroll = EditorGUILayout.BeginScrollView(scroll);
             
             foreach (var sceneGuid in guids)
             {
                 // TODO: could search using a tag to avoid scenes
                 var scenePath = AssetDatabase.GUIDToAssetPath(sceneGuid);
                 var name = Path.GetFileName(scenePath);
+
+                EditorGUILayout.BeginVertical();
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField(name);
                 
-                if (GUILayout.Button(name))
+                if (GUILayout.Button("Open"))
+                {
+                    EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+                }
+                
+                if (GUILayout.Button("Play"))
                 {
                     var playFromSceneObject = new GameObject("~PlayFromSceneData");
                     var playFromSceneData = playFromSceneObject.AddComponent<PlayFromSceneData>();
                     playFromSceneData.scenePath = scenePath;
                     EditorApplication.EnterPlaymode();
                 }
+                
+                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.EndVertical();
             }
+            
+            EditorGUILayout.EndScrollView();
 
         }
     }
