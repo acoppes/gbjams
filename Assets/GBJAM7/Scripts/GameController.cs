@@ -459,6 +459,10 @@ namespace GBJAM7.Scripts
                         _switchUnitSfx.Play();
                     }
                 }
+                else
+                {
+                    ShowPlayerActions();
+                }
             }
 
             if (selectorOverUnit != null && selectedUnit == null)
@@ -468,8 +472,6 @@ namespace GBJAM7.Scripts
                 
                 unitInfo.Preview(currentPlayer, selectorOverUnit);
 
-
-                
                 if (selectorOverUnit.player == currentPlayer &&
                     (selectorOverUnit.currentMovements > 0 || selectorOverUnit.currentActions > 0))
                 {
