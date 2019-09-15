@@ -71,6 +71,11 @@ namespace GBJAM7.Editor
                     EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
                 }
                 
+                if (GUILayout.Button("Add"))
+                {
+                    EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Additive);
+                }
+                
                 if (GUILayout.Button("Play"))
                 {
                     var playFromSceneObject = new GameObject("~PlayFromSceneData");
