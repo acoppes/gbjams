@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -46,7 +47,11 @@ namespace GBJAM7.Editor
         
         private void OnGUI()
         {
-            var guids = AssetDatabase.FindAssets("t:scene");
+            var guids = AssetDatabase.FindAssets("t:scene").ToList();
+            var ignoreGuids = AssetDatabase.FindAssets("t:scene l:Ignore").ToList();
+
+            guids.RemoveAll(g => ignoreGuids.Contains(g));
+            
             foreach (var sceneGuid in guids)
             {
                 // TODO: could search using a tag to avoid scenes
