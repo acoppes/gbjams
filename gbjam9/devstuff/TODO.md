@@ -5,4 +5,4 @@ Stuff to extract from the other project
 * Palette shader + configurations.
 * UI scripts
 * UI prefabs + assets (images + sfx)
-
+* Fonts
