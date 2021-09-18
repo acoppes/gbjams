@@ -5,7 +5,7 @@ using GBJAM7.Scripts.MainMenu;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GBJAM7.Scripts
+namespace GBJAM.Commons.Menus
 {
     public class OptionsMenu : MonoBehaviour
     {

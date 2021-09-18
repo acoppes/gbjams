@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GBJAM.Commons.Menus;
 using GBJAM7.Scripts.MainMenu;
 using Scenes.PathFindingScene;
 using UnityEngine;

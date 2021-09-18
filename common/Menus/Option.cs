@@ -1,4 +1,4 @@
-namespace GBJAM7.Scripts
+namespace GBJAM.Commons.Menus
 {
     public class Option
     {
