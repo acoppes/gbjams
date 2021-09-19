@@ -9,6 +9,12 @@ namespace GBJAM.Commons.Transitions
 
         [SerializeField]
         protected string openState  = "open";
+
+        private readonly int openStateHash = Animator.StringToHash("Open");
+        private readonly int closeStateHash = Animator.StringToHash("Close");
+        
+        public bool isOpen => animator.GetCurrentAnimatorStateInfo(0).shortNameHash == openStateHash;
+        public bool isClosed => animator.GetCurrentAnimatorStateInfo(0).shortNameHash == closeStateHash;
     
         public void Open()
         {
@@ -19,5 +25,6 @@ namespace GBJAM.Commons.Transitions
         {
             animator.SetBool(openState, false);
         }
+
     }
 }

@@ -24,5 +24,13 @@ public class TestTransitionSceneController : MonoBehaviour
         {
             transition.Close();
         }    
+        
+        if (transition.isOpen)
+        {
+            Debug.Log($"Transition open");
+        } else if (transition.isClosed)
+        {
+            Debug.Log($"Transition closed");
+        }
     }
 }
