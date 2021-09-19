@@ -30,6 +30,15 @@ namespace GBJAM7.Scripts
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+
+            if (paletteSelectionAsset == null)
+            {
+                var paletteSwap = FindObjectOfType<PaletteSwap>();
+                if (paletteSwap != null)
+                {
+                    paletteSelectionAsset = paletteSwap.paletteSelection;
+                }
+            }
         }
 
         private void Update()
