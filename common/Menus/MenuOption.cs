@@ -17,7 +17,10 @@ namespace GBJAM.Commons.Menus
 
         private void LateUpdate()
         {
-            nameText.text = option.name;
+            if (option != null)
+            {
+                nameText.text = option.name;
+            }
             selector.enabled = selected;
         }
     }
