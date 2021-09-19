@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GBJAM.Commons.Transitions;
 using UnityEngine;
 
 public class TestTransitionSceneController : MonoBehaviour
