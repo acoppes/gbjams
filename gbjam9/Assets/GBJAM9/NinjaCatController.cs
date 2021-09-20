@@ -81,7 +81,7 @@ namespace GBJAM9
             
             unitModel.lookingDirection = unitMovement.lookingDirection;
 
-            if (unitInput.fireKunai && kunaiPrefab != null)
+            if (unitInput.attack && kunaiPrefab != null)
             {
                 // fire kunai!!
                 var kunaiObject = GameObject.Instantiate(kunaiPrefab);
