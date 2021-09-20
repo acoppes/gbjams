@@ -796,6 +796,7 @@ GameObject:
   - component: {fileID: 707958882}
   - component: {fileID: 707958883}
   - component: {fileID: 707958880}
+  - component: {fileID: 707958884}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -853,8 +854,7 @@ MonoBehaviour:
   gameboyKeyMap: {fileID: 11400000, guid: f9f0f69da9c5adf40abcdfea8df67486, type: 2}
   speed: 4
   perspective: {x: 1, y: 0.75}
-  animator: {fileID: 707958880}
-  model: {fileID: 313825924}
+  unitModel: {fileID: 707958884}
 --- !u!114 &707958883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,6 +869,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform: {fileID: 707958881}
   cameraTransform: {fileID: 110047876}
+--- !u!114 &707958884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707958879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d77b95a4dc5448dcbe3d19ec567a5f8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 707958880}
+  model: {fileID: 313825924}
 --- !u!1 &815709410
 GameObject:
   m_ObjectHideFlags: 0
