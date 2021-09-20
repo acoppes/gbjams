@@ -7,7 +7,14 @@ TODO
 Unit Movement
 
 * Dash
-  - detect direction
-  - move logic to movement 
-  - particle effect
+  - change to second button action in moving direction
+
+* Attack
+  - basic attack
+
+* Hit detection
+  - kill enemy multiple attacks
+
+* Weapon configurations
+  - damage
   - cooldown 
