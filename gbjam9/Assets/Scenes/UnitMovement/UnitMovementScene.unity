@@ -545,6 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 313825923}
   - component: {fileID: 313825924}
+  - component: {fileID: 313825925}
   m_Layer: 0
   m_Name: model
   m_TagString: Untagged
@@ -618,6 +619,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &313825925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313825922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d77b95a4dc5448dcbe3d19ec567a5f8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 707958880}
+  model: {fileID: 313825924}
 --- !u!1 &463739568
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,7 +811,6 @@ GameObject:
   - component: {fileID: 707958882}
   - component: {fileID: 707958883}
   - component: {fileID: 707958880}
-  - component: {fileID: 707958884}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -835,6 +849,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 313825923}
+  - {fileID: 1958611569}
   m_Father: {fileID: 1700511834}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -851,10 +866,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transform: {fileID: 707958881}
-  gameboyKeyMap: {fileID: 11400000, guid: f9f0f69da9c5adf40abcdfea8df67486, type: 2}
+  unitInput: {fileID: 1958611570}
   speed: 4
   perspective: {x: 1, y: 0.75}
-  unitModel: {fileID: 707958884}
+  unitModel: {fileID: 313825925}
 --- !u!114 &707958883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,20 +884,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform: {fileID: 707958881}
   cameraTransform: {fileID: 110047876}
---- !u!114 &707958884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 707958879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77b95a4dc5448dcbe3d19ec567a5f8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 707958880}
-  model: {fileID: 313825924}
 --- !u!1 &815709410
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,6 +1520,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1958611568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1958611569}
+  - component: {fileID: 1958611570}
+  m_Layer: 0
+  m_Name: input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1958611569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958611568}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 707958881}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1958611570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958611568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00340c71687a47ecb28a3e359621a196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameboyKeyMap: {fileID: 11400000, guid: f9f0f69da9c5adf40abcdfea8df67486, type: 2}
 --- !u!1 &1961931454
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,16 +1,14 @@
-using System;
-using GBJAM.Commons;
 using UnityEngine;
 
 namespace GBJAM9
 {
-    public class FreeUnitMovement : MonoBehaviour
+    public class UnitController : MonoBehaviour
     {
         [SerializeField]
         protected Transform transform;
 
         [SerializeField]
-        protected GameboyButtonKeyMapAsset gameboyKeyMap;
+        protected UnitInput unitInput;
 
         [SerializeField]
         protected float speed;
@@ -25,7 +23,7 @@ namespace GBJAM9
         private void Update()
         {
             var myPosition = transform.localPosition;
-            var velocity = gameboyKeyMap.direction * speed * Time.deltaTime;
+            var velocity = unitInput.movementDirection * speed * Time.deltaTime;
 
             myPosition.x += velocity.x * perspective.x;
             myPosition.y += velocity.y * perspective.y;
