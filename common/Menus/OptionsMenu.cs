@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using GBJAM7.Scripts.MainMenu;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GBJAM7.Scripts.MainMenu
+namespace GBJAM.Commons
 {
     [CreateAssetMenu(menuName = "GameboyKeyMap")]
     public class GameboyButtonKeyMapAsset : ScriptableObject
@@ -38,6 +38,9 @@ namespace GBJAM7.Scripts.MainMenu
         [NonSerialized]
         public bool startPressed;
 
+        [NonSerialized]
+        public Vector2 direction;
+
         public KeyCode[] GetAllKeyCodes()
         {
             return new[]
@@ -64,6 +67,8 @@ namespace GBJAM7.Scripts.MainMenu
 
         public void UpdateControlState()
         {
+            direction = Vector2.zero;
+            
             keyRepeatCurrent += Time.deltaTime;
             
             leftPressed = false;
@@ -89,6 +94,11 @@ namespace GBJAM7.Scripts.MainMenu
 
                 upPressed = Input.GetKey(upKey);
                 downPressed = Input.GetKey(downKey);
+
+                direction.x += leftPressed ? -1 : 0;
+                direction.x += rightPressed ? 1 : 0;
+                direction.y += downPressed ? -1 : 0;
+                direction.y += upPressed ? 1 : 0;
 
                 if (AnyButtonPressed())
                 {

@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
+using GBJAM.Commons;
 using GBJAM.Commons.Menus;
-using GBJAM7.Scripts.MainMenu;
 using UnityEngine;
 
 public class TestMenuSceneController : MonoBehaviour
