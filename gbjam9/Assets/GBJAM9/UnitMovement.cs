@@ -16,11 +16,14 @@ namespace GBJAM9
 
         [NonSerialized]
         public Vector2 velocity;
-    
-        public void Move(Vector2 direction)
+
+        [NonSerialized]
+        public Vector2 lookingDirection = new Vector2(1, 0);
+        
+        public void Move()
         {
             var myPosition = transform.localPosition;
-            velocity = direction * speed * Time.deltaTime;
+            velocity = lookingDirection * speed * Time.deltaTime;
 
             myPosition.x += velocity.x * perspective.x;
             myPosition.y += velocity.y * perspective.y;

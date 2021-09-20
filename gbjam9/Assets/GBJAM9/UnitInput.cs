@@ -11,10 +11,14 @@ namespace GBJAM9
 
         [NonSerialized]
         public Vector2 movementDirection;
+
+        [NonSerialized]
+        public bool fireKunai;
         
         private void Update()
         {
             movementDirection = gameboyKeyMap.direction;
+            fireKunai = gameboyKeyMap.button2Pressed;
         }
     }
 }

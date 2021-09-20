@@ -14,18 +14,28 @@ namespace GBJAM9
         private readonly int walkingStateHash = Animator.StringToHash("walking");
 
         [NonSerialized]
-        public Vector2 velocity;
+        public Vector2 lookingDirection = new Vector2(1, 0);
+
+        public bool rotateToDirection = false;
 
         private void LateUpdate()
         {
             if (animator != null)
             {
-                animator.SetBool(walkingStateHash, velocity.SqrMagnitude() > 0);
+                animator.SetBool(walkingStateHash, lookingDirection.SqrMagnitude() > 0);
             }
 
-            if (model != null && Mathf.Abs(velocity.x) > 0)
+            if (!rotateToDirection)
             {
-                model.flipX = velocity.x < 0;
+                if (Mathf.Abs(lookingDirection.x) > 0)
+                {
+                    model.flipX = lookingDirection.x < 0;
+                }
+            }
+            else
+            {
+                var angle = Mathf.Atan2(lookingDirection.y, lookingDirection.x) * Mathf.Rad2Deg;
+                model.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             }
         }
     }
