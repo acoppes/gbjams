@@ -6,5 +6,8 @@ TODO
 
 Unit Movement
 
-* Fire kunai
 * Dash
+  - detect direction
+  - move logic to movement 
+  - particle effect
+  - cooldown 
