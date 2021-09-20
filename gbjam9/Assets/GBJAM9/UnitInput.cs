@@ -20,19 +20,6 @@ namespace GBJAM9
         
         [NonSerialized]
         public Vector2 dashDirection;
-        
-        // public float doubleTapDelay = 1;
-
-        // private ButtonDoubleTapDetection[] doubleTapDetections;
-        
-        // private void Awake()
-        // {
-        //     doubleTapDetections = new ButtonDoubleTapDetection[4];
-        //     for (var i = 0; i < doubleTapDetections.Length; i++)
-        //     {
-        //         doubleTapDetections[i] = new ButtonDoubleTapDetection() {delay = doubleTapDelay};
-        //     }
-        // }
 
         private void Update()
         {
@@ -44,35 +31,6 @@ namespace GBJAM9
             dash = gameboyKeyMap.button2Pressed;
 
             dashDirection = movementDirection;
-
-            // var pressed = new bool[]
-            // {
-            //     gameboyKeyMap.rightPressed,
-            //     gameboyKeyMap.leftPressed,
-            //     gameboyKeyMap.downPressed,
-            //     gameboyKeyMap.upPressed
-            // };
-            //
-            // var directions = new Vector2[]
-            // {
-            //     new Vector2(1, 0),
-            //     new Vector2(-1, 0),
-            //     new Vector2(0, -1),
-            //     new Vector2(0, 1),
-            // };
-            //
-            //
-            //
-            // for (var i = 0; i < doubleTapDetections.Length; i++)
-            // {
-            //     doubleTapDetections[i].Track(pressed[i], Time.deltaTime);
-            //     if (doubleTapDetections[i].isDoubleTap)
-            //     {
-            //         dash = true;
-            //         dashDirection += directions[i];
-            //     }
-            // }
-
         }
     }
 }
