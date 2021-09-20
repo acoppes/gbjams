@@ -12,6 +12,9 @@ namespace GBJAM9
 
         private void LateUpdate()
         {
+            if (cameraTransform == null)
+                return;
+            
             var p = cameraTransform.transform.position;
             p.x = transform.position.x;
             p.y = transform.position.y;

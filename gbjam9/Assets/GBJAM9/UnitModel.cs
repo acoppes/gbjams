@@ -17,12 +17,15 @@ namespace GBJAM9
         public Vector2 lookingDirection = new Vector2(1, 0);
 
         public bool rotateToDirection = false;
+        
+        [NonSerialized]
+        public Vector2 velocity;
 
         private void LateUpdate()
         {
             if (animator != null)
             {
-                animator.SetBool(walkingStateHash, lookingDirection.SqrMagnitude() > 0);
+                animator.SetBool(walkingStateHash, velocity.SqrMagnitude() > 0);
             }
 
             if (!rotateToDirection)

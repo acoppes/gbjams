@@ -35,12 +35,16 @@ namespace GBJAM9
         // Update is called once per frame
         private void Update()
         {
+            unitModel.velocity = Vector2.zero;
+
             if (dashingCurrentTime > 0)
             {
                 dashingCurrentTime -= Time.deltaTime;
                 dashMovement.lookingDirection = dashDirection;
                 dashMovement.Move();
 
+                unitModel.velocity = dashMovement.velocity;
+                    
                 if (dashingCurrentTime <= 0)
                 {
                     dashCooldownCurrentTime = dashCooldown;
@@ -71,10 +75,12 @@ namespace GBJAM9
             {
                 unitMovement.lookingDirection = unitInput.movementDirection;
                 unitMovement.Move();
+                
+                unitModel.velocity = unitMovement.velocity;
             }
             
             unitModel.lookingDirection = unitMovement.lookingDirection;
-            
+
             if (unitInput.fireKunai && kunaiPrefab != null)
             {
                 // fire kunai!!
