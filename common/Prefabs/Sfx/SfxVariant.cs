@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace GBJAM.Commons
@@ -11,12 +12,16 @@ namespace GBJAM.Commons
         protected AudioClip[] variants;
 
         private int current;
-        
+
+        private void Awake()
+        {
+            current = UnityEngine.Random.Range(0, variants.Length);
+        }
+
         public void Play()
         {
             if (variants.Length == 0)
                 return;
-            
             audioSource.PlayOneShot(variants[current]);
             current = (current + 1) % variants.Length;
         }
