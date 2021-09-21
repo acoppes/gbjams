@@ -36,14 +36,14 @@ namespace GBJAM9
             model.lookingDirection = movement.velocity;
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            Debug.Log("collision");
-        }
+        // private void OnCollisionEnter2D(Collision2D other)
+        // {
+        //     Debug.Log("collision");
+        // }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("trigger");
+            // Debug.Log("trigger");
 
             var unit = other.GetComponent<Unit>();
             if (unit != null)
@@ -55,6 +55,13 @@ namespace GBJAM9
                     if (health != null)
                     {
                         health.damages += projectile.damage;
+                    }
+
+                    // autodamage on hit
+                    var myHealth = this.unit.GetComponent<Health>();
+                    if (myHealth != null)
+                    {
+                        myHealth.damages += projectile.damage;
                     }
                 }
                 // check for unit player
