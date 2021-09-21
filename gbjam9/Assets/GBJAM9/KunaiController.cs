@@ -1,6 +1,7 @@
 using System;
 using GBJAM.Commons;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GBJAM9
 {
@@ -16,17 +17,20 @@ namespace GBJAM9
         [SerializeField]
         protected UnitModel model;
 
-        [SerializeField]
-        protected SfxVariant sfx;
+        [FormerlySerializedAs("sfx")] [SerializeField]
+        protected SfxVariant fireSfx;
 
+        [SerializeField]
+        protected GameObject hitSfxPrefab;
+        
         public void Fire(Vector3 position, Vector2 direction)
         {
             transform.position = position;
             movement.lookingDirection = direction;
 
-            if (sfx != null)
+            if (fireSfx != null)
             {
-                sfx.Play();
+                fireSfx.Play();
             }
         }
 
@@ -62,6 +66,11 @@ namespace GBJAM9
                     if (myHealth != null)
                     {
                         myHealth.damages += projectile.damage;
+                    }
+
+                    if (hitSfxPrefab != null)
+                    {
+                        Instantiate(hitSfxPrefab, transform.position, Quaternion.identity);
                     }
                 }
                 // check for unit player

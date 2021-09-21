@@ -12,6 +12,8 @@ namespace GBJAM.Commons
         protected AudioClip[] variants;
 
         private int current;
+        
+        public bool isPlaying => audioSource.isPlaying;
 
         private void Awake()
         {

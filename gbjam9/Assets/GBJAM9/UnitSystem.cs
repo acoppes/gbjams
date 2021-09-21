@@ -31,8 +31,20 @@ namespace GBJAM9
                 }
                 
                 // TODO: blink animation state
-                
-                
+
+                var soundEffect = unit.GetComponent<SoundEffect>();
+                if (soundEffect != null)
+                {
+                    if (!soundEffect.started)
+                    {
+                        soundEffect.sfx.Play();
+                        soundEffect.started = true;
+                    }
+                    else if (!soundEffect.sfx.isPlaying)
+                    {
+                        toDestroyUnits.Add(unit);
+                    }
+                }
                 
                 if (health != null)
                 {
