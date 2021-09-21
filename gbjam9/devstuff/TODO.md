@@ -6,6 +6,8 @@ TODO
 
 Unit Movement
 
+* Collisions with borders
+
 * Dash
   - ignore hits while dashing
 
