@@ -108,7 +108,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5663437888090784845}
+  - component: {fileID: 4053003939819769015}
+  - component: {fileID: 1086138826032393262}
   - component: {fileID: 5663437888090784847}
+  - component: {fileID: 6049982162116683298}
   m_Layer: 0
   m_Name: Projectile_Kunai
   m_TagString: Untagged
@@ -124,7 +127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5663437888090784844}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5663437888082835737}
@@ -133,6 +136,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4053003939819769015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663437888090784844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 163df662cbfb45f79e54ac5c858d3a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: 0
+--- !u!114 &1086138826032393262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663437888090784844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae4d6302fd0842b8af4e77afabb7943e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
 --- !u!114 &5663437888090784847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,9 +174,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7729023064a548e9b69af4c9e8bcc436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unit: {fileID: 4053003939819769015}
+  projectile: {fileID: 1086138826032393262}
   movement: {fileID: 5663437888481318344}
   model: {fileID: 5663437888082835738}
   sfx: {fileID: 1689547559005331204}
+--- !u!58 &6049982162116683298
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663437888090784844}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
 --- !u!1 &5663437888481318350
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +241,7 @@ MonoBehaviour:
   transform: {fileID: 5663437888090784845}
   speed: 15
   perspective: {x: 1, y: 0.75}
-  detectCollisions: 1
+  detectCollisions: 0
 --- !u!1001 &7676572500552196547
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,6 +5,8 @@ namespace GBJAM9
 {
     public class NinjaCatController : MonoBehaviour
     {
+        public Unit unit;
+        
         [SerializeField]
         protected UnitInput unitInput;
 
@@ -97,6 +99,7 @@ namespace GBJAM9
                 var kunaiObject = GameObject.Instantiate(kunaiPrefab);
                 var kunai = kunaiObject.GetComponent<KunaiController>();
                 kunai.Fire(transform.position, unitMovement.lookingDirection);
+                kunai.unit.player = unit.player;
             }
         }
     }

@@ -188,6 +188,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5348039951541316738}
+  - component: {fileID: 8793871774876110060}
+  - component: {fileID: 6271978410121133927}
   - component: {fileID: 2901987642424220449}
   - component: {fileID: 3273482090561136065}
   m_Layer: 0
@@ -215,6 +217,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8793871774876110060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 163df662cbfb45f79e54ac5c858d3a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: 0
+--- !u!114 &6271978410121133927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c472cfe2b744199afc68b12ef24fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  total: 10
+  current: 10
 --- !u!114 &2901987642424220449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,7 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b860427b8aae24186879503445b17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitInput: {fileID: 7380059883405643941}
+  unit: {fileID: 8793871774876110060}
+  unitInput: {fileID: 2937384472320121754}
   unitMovement: {fileID: 8711684023405265429}
   dashMovement: {fileID: 4146655895831246447}
   unitModel: {fileID: 3076985607197457555}
@@ -311,7 +341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2436880516823606182}
-  - component: {fileID: 7380059883405643941}
+  - component: {fileID: 2937384472320121754}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -333,7 +363,7 @@ Transform:
   m_Father: {fileID: 5348039951541316738}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7380059883405643941
+--- !u!114 &2937384472320121754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,7 +372,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8724684615000090178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00340c71687a47ecb28a3e359621a196, type: 3}
+  m_Script: {fileID: 11500000, guid: 9de1c43d55884fbfbd9eebe6260da059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameboyKeyMap: {fileID: 11400000, guid: f9f0f69da9c5adf40abcdfea8df67486, type: 2}
