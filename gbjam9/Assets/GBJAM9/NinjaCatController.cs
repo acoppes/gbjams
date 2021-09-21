@@ -17,7 +17,7 @@ namespace GBJAM9
         protected UnitMovement dashMovement;
         
         [SerializeField]
-        protected UnitModel unitModel;
+        UnitModel unitModel;
 
         [SerializeField]
         protected GameObject kunaiPrefab;
@@ -27,7 +27,7 @@ namespace GBJAM9
 
         [SerializeField]
         protected float dashCooldown = 1.0f;
-        
+
         private float dashingCurrentTime;
         private float dashCooldownCurrentTime;
         private Vector2 dashDirection;
@@ -90,7 +90,7 @@ namespace GBJAM9
                 
                 unitModel.velocity = unitMovement.velocity;
             }
-            
+
             unitModel.lookingDirection = unitMovement.lookingDirection;
 
             if (unitInput.attack && kunaiPrefab != null)
