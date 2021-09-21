@@ -32,6 +32,9 @@ namespace GBJAM9
         [SerializeField]
         protected ParticleSystem dashParticles;
 
+        [SerializeField]
+        protected AudioSource dashSfx;
+
         // Update is called once per frame
         private void Update()
         {
@@ -68,6 +71,12 @@ namespace GBJAM9
                 {
                     dashParticles.Play();
                 }
+
+                if (dashSfx != null)
+                {
+                    dashSfx.Play();
+                }
+                
                 return;
             }
             

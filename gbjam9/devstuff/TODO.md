@@ -7,7 +7,7 @@ TODO
 Unit Movement
 
 * Dash
-  - change to second button action in moving direction
+  - ignore hits while dashing
 
 * Attack
   - basic attack
@@ -18,3 +18,4 @@ Unit Movement
 * Weapon configurations
   - damage
   - cooldown 
+  - separate weapon from unit
