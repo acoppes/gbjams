@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UnitMovementSceneController : MonoBehaviour
 {
-    public UnitModel model;
+    public UnitState unitState;
     
     // Start is called before the first frame update
     void Start()
@@ -18,9 +18,9 @@ public class UnitMovementSceneController : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            if (model != null)
+            if (unitState != null)
             {
-                model.hit = true;
+                unitState.hit = !unitState.hit;
             }
         }
     }

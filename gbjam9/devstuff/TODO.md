@@ -16,6 +16,7 @@ Unit Movement
 
 * Hit detection
   - kill enemy multiple attacks
+  - on hit show blink effect
 
 * Weapon configurations
   - damage
@@ -25,3 +26,4 @@ Unit Movement
 
 * Kunai
   - autodestroy logic (ttl)
+  - kunai blocks movement because of collision detection

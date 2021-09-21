@@ -5,12 +5,16 @@ namespace GBJAM9
 {
     public class UnitState : MonoBehaviour
     {
-        public enum State
-        {
-            Idle, Walking, Dashing, Death
-        }
+        [NonSerialized]
+        public bool walking;
 
         [NonSerialized]
-        public State state = State.Idle;
+        public bool kunaiAttacking;
+
+        [NonSerialized]
+        public bool dashing;
+        
+        [NonSerialized]
+        public bool hit;
     }
 }

@@ -6,6 +6,8 @@ namespace GBJAM9
     public class NinjaCatController : MonoBehaviour
     {
         public Unit unit;
+
+        public UnitState unitState;
         
         [SerializeField]
         protected UnitInput unitInput;
@@ -41,10 +43,17 @@ namespace GBJAM9
         // Update is called once per frame
         private void Update()
         {
+            unitState.walking = false;
+            unitState.kunaiAttacking = false;
+            
+            unitModel.unitState = unitState;
+            
             unitModel.velocity = Vector2.zero;
 
             if (dashingCurrentTime > 0)
             {
+                unitState.dashing = true;
+                
                 dashingCurrentTime -= Time.deltaTime;
                 dashMovement.lookingDirection = dashDirection;
                 dashMovement.Move();
@@ -54,7 +63,9 @@ namespace GBJAM9
                 if (dashingCurrentTime <= 0)
                 {
                     dashCooldownCurrentTime = dashCooldown;
+                    unitState.dashing = false;
                 }
+
                 return;
             }
             
@@ -79,6 +90,8 @@ namespace GBJAM9
                 {
                     dashSfx.Play();
                 }
+
+                unitState.dashing = true;
                 
                 return;
             }
@@ -89,6 +102,8 @@ namespace GBJAM9
                 unitMovement.Move();
                 
                 unitModel.velocity = unitMovement.velocity;
+
+                unitState.walking = true;
             }
 
             unitModel.lookingDirection = unitMovement.lookingDirection;
@@ -100,6 +115,8 @@ namespace GBJAM9
                 var kunai = kunaiObject.GetComponent<KunaiController>();
                 kunai.Fire(transform.position, unitMovement.lookingDirection);
                 kunai.unit.player = unit.player;
+
+                unitState.kunaiAttacking = true;
             }
         }
     }
