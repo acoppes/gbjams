@@ -19,6 +19,8 @@ namespace GBJAM9
 
         [NonSerialized]
         public Vector2 lookingDirection = new Vector2(1, 0);
+
+        public bool detectCollisions = true;
         
         public void Move()
         {
@@ -28,8 +30,15 @@ namespace GBJAM9
             newPosition.x += velocity.x * perspective.x;
             newPosition.y += velocity.y * perspective.y;
 
-            var collider = Physics2D.OverlapPoint( newPosition);
-            if (collider == null)
+            var collisionDetected = false;
+            
+            if (detectCollisions)
+            {
+                var collider = Physics2D.OverlapPoint(newPosition);
+                collisionDetected = collider != null;
+            }
+            
+            if (!collisionDetected)
             {
                 transform.localPosition = newPosition;
             }

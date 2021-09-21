@@ -1,3 +1,4 @@
+using GBJAM.Commons;
 using UnityEngine;
 
 namespace GBJAM9
@@ -33,7 +34,7 @@ namespace GBJAM9
         protected ParticleSystem dashParticles;
 
         [SerializeField]
-        protected AudioSource dashSfx;
+        protected SfxVariant dashSfx;
 
         // Update is called once per frame
         private void Update()

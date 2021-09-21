@@ -21,3 +21,7 @@ Unit Movement
   - damage
   - cooldown 
   - separate weapon from unit
+
+
+* Kunai
+  - autodestroy logic (ttl)

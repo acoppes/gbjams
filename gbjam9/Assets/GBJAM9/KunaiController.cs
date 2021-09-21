@@ -1,3 +1,4 @@
+using GBJAM.Commons;
 using UnityEngine;
 
 namespace GBJAM9
@@ -9,11 +10,19 @@ namespace GBJAM9
 
         [SerializeField]
         protected UnitModel model;
+
+        [SerializeField]
+        protected SfxVariant sfx;
         
         public void Fire(Vector3 position, Vector2 direction)
         {
             transform.position = position;
             movement.lookingDirection = direction;
+
+            if (sfx != null)
+            {
+                sfx.Play();
+            }
         }
 
         private void Update()
