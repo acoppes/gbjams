@@ -16,6 +16,8 @@ namespace GBJAM9
         private readonly int dashingStateHash = Animator.StringToHash("dash");
 
         private readonly int hurtStateHash = Animator.StringToHash("hurt");
+        
+        private readonly int hitStateHash = Animator.StringToHash("hit");
 
         [NonSerialized]
         public Vector2 lookingDirection = new Vector2(1, 0);
@@ -25,12 +27,20 @@ namespace GBJAM9
         [NonSerialized]
         public Vector2 velocity;
 
+        // [NonSerialized]
+        // public UnitState unitState;
+
+        public bool hit;
+        
         private void LateUpdate()
         {
             if (animator != null)
             {
                 animator.SetBool(walkingStateHash, velocity.SqrMagnitude() > 0);
                 //animator.SetBool(dashingStateHash, dashingCurrentTime > 0);
+                
+                animator.SetBool(hitStateHash, hit);
+                hit = false;
             }
 
             if (!rotateToDirection)
