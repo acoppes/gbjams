@@ -22,13 +22,17 @@ namespace GBJAM9
         
         public void Move()
         {
-            var myPosition = transform.localPosition;
+            var newPosition = transform.localPosition;
             velocity = lookingDirection * speed * Time.deltaTime;
 
-            myPosition.x += velocity.x * perspective.x;
-            myPosition.y += velocity.y * perspective.y;
+            newPosition.x += velocity.x * perspective.x;
+            newPosition.y += velocity.y * perspective.y;
 
-            transform.localPosition = myPosition;
+            var collider = Physics2D.OverlapPoint( newPosition);
+            if (collider == null)
+            {
+                transform.localPosition = newPosition;
+            }
         }
     }
 }
