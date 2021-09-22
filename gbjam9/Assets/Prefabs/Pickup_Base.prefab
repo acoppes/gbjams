@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 2bab00c6d4a2c63479f60bd6ddbea156, type: 3}
+  m_Sprite: {fileID: -3480276046484772967, guid: abcaa48152d824036bd9b0935a3b1c4e, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,8 +93,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5348039951541316738}
   - component: {fileID: 8793871774876110060}
+  - component: {fileID: 135671628572209119}
   - component: {fileID: 7887395766929354268}
   - component: {fileID: 7838095990060948422}
+  - component: {fileID: 8859169174121970440}
   - component: {fileID: 4391817125124591681}
   m_Layer: 10
   m_Name: Pickup_Base
@@ -131,6 +133,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+--- !u!114 &135671628572209119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713b8ea7c14d49f282315a9a66497885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7887395766929354268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,10 +157,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d77b95a4dc5448dcbe3d19ec567a5f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 8859169174121970440}
   model: {fileID: 2604852180642369831}
   rotateToDirection: 0
-  unitState: {fileID: 0}
+  unitState: {fileID: 135671628572209119}
 --- !u!114 &7838095990060948422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +173,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e515346dc11d4a5d91b8d35772b8c111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &8859169174121970440
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 928e23464eae1b44e9d8268f5c263d26, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!58 &4391817125124591681
 CircleCollider2D:
   m_ObjectHideFlags: 0
