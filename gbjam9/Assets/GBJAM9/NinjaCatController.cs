@@ -45,10 +45,6 @@ namespace GBJAM9
         {
             unitState.walking = false;
             unitState.kunaiAttacking = false;
-            
-            unitModel.unitState = unitState;
-            
-            unitModel.velocity = Vector2.zero;
 
             if (dashingCurrentTime > 0)
             {
@@ -58,8 +54,6 @@ namespace GBJAM9
                 dashMovement.lookingDirection = dashDirection;
                 dashMovement.Move();
 
-                unitModel.velocity = dashMovement.velocity;
-                    
                 if (dashingCurrentTime <= 0)
                 {
                     dashCooldownCurrentTime = dashCooldown;
@@ -100,8 +94,6 @@ namespace GBJAM9
             {
                 unitMovement.lookingDirection = unitInput.movementDirection;
                 unitMovement.Move();
-                
-                unitModel.velocity = unitMovement.velocity;
 
                 unitState.walking = true;
             }

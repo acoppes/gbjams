@@ -1,14 +1,13 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GBJAM9
 {
     public class CameraFollow : MonoBehaviour
     {
-        [SerializeField]
-        protected Transform transform;
-
-        [SerializeField]
-        protected Transform cameraTransform;
+        [FormerlySerializedAs("transform")] 
+        public Transform followTransform;
+        public Transform cameraTransform;
 
         private void LateUpdate()
         {
@@ -16,8 +15,8 @@ namespace GBJAM9
                 return;
             
             var p = cameraTransform.transform.position;
-            p.x = transform.position.x;
-            p.y = transform.position.y;
+            p.x = followTransform.position.x;
+            p.y = followTransform.position.y;
             cameraTransform.transform.position = p;
 
         }

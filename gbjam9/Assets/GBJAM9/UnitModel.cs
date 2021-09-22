@@ -26,10 +26,6 @@ namespace GBJAM9
 
         public bool rotateToDirection = false;
         
-        [NonSerialized]
-        public Vector2 velocity;
-
-        [NonSerialized]
         public UnitState unitState;
 
         private void LateUpdate()
