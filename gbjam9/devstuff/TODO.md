@@ -7,6 +7,7 @@ TODO
 Unit Movement
 
 * Collisions with borders
+  - Collider in main unit to detect collision
 
 * Dash
   - ignore hits while dashing
