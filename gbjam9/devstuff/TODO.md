@@ -6,15 +6,24 @@ TODO
 
 Unit Movement
 
+* Collisions with borders
+
 * Dash
-  - change to second button action in moving direction
+  - ignore hits while dashing
 
 * Attack
   - basic attack
 
 * Hit detection
   - kill enemy multiple attacks
+  - on hit show blink effect
 
 * Weapon configurations
   - damage
   - cooldown 
+  - separate weapon from unit
+
+
+* Kunai
+  - autodestroy logic (ttl)
+  - kunai blocks movement because of collision detection

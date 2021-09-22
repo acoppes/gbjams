@@ -13,6 +13,14 @@ namespace GBJAM9
 
         private readonly int walkingStateHash = Animator.StringToHash("walking");
 
+        private readonly int dashingStateHash = Animator.StringToHash("dashing");
+
+        private readonly int kunaiAttackStateHash = Animator.StringToHash("kunai_attack");
+        
+        private readonly int swordAttackStateHash = Animator.StringToHash("sword_attack");
+        
+        private readonly int hitStateHash = Animator.StringToHash("hit");
+
         [NonSerialized]
         public Vector2 lookingDirection = new Vector2(1, 0);
 
@@ -21,11 +29,18 @@ namespace GBJAM9
         [NonSerialized]
         public Vector2 velocity;
 
+        [NonSerialized]
+        public UnitState unitState;
+
         private void LateUpdate()
         {
             if (animator != null)
             {
-                animator.SetBool(walkingStateHash, velocity.SqrMagnitude() > 0);
+                animator.SetBool(walkingStateHash, unitState.walking);
+                animator.SetBool(kunaiAttackStateHash, unitState.kunaiAttacking);
+                animator.SetBool(dashingStateHash, unitState.dashing);
+                // animator.SetBool(swordAttackStateHash, unitState.state == UnitState.State.SwordAttack);
+                animator.SetBool(hitStateHash, unitState.hit);
             }
 
             if (!rotateToDirection)

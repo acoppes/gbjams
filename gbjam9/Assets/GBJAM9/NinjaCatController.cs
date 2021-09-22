@@ -1,9 +1,14 @@
+using GBJAM.Commons;
 using UnityEngine;
 
 namespace GBJAM9
 {
     public class NinjaCatController : MonoBehaviour
     {
+        public Unit unit;
+
+        public UnitState unitState;
+        
         [SerializeField]
         protected UnitInput unitInput;
 
@@ -14,7 +19,7 @@ namespace GBJAM9
         protected UnitMovement dashMovement;
         
         [SerializeField]
-        protected UnitModel unitModel;
+        UnitModel unitModel;
 
         [SerializeField]
         protected GameObject kunaiPrefab;
@@ -24,7 +29,7 @@ namespace GBJAM9
 
         [SerializeField]
         protected float dashCooldown = 1.0f;
-        
+
         private float dashingCurrentTime;
         private float dashCooldownCurrentTime;
         private Vector2 dashDirection;
@@ -32,13 +37,23 @@ namespace GBJAM9
         [SerializeField]
         protected ParticleSystem dashParticles;
 
+        [SerializeField]
+        protected SfxVariant dashSfx;
+
         // Update is called once per frame
         private void Update()
         {
+            unitState.walking = false;
+            unitState.kunaiAttacking = false;
+            
+            unitModel.unitState = unitState;
+            
             unitModel.velocity = Vector2.zero;
 
             if (dashingCurrentTime > 0)
             {
+                unitState.dashing = true;
+                
                 dashingCurrentTime -= Time.deltaTime;
                 dashMovement.lookingDirection = dashDirection;
                 dashMovement.Move();
@@ -48,7 +63,9 @@ namespace GBJAM9
                 if (dashingCurrentTime <= 0)
                 {
                     dashCooldownCurrentTime = dashCooldown;
+                    unitState.dashing = false;
                 }
+
                 return;
             }
             
@@ -68,6 +85,14 @@ namespace GBJAM9
                 {
                     dashParticles.Play();
                 }
+
+                if (dashSfx != null)
+                {
+                    dashSfx.Play();
+                }
+
+                unitState.dashing = true;
+                
                 return;
             }
             
@@ -77,8 +102,10 @@ namespace GBJAM9
                 unitMovement.Move();
                 
                 unitModel.velocity = unitMovement.velocity;
+
+                unitState.walking = true;
             }
-            
+
             unitModel.lookingDirection = unitMovement.lookingDirection;
 
             if (unitInput.attack && kunaiPrefab != null)
@@ -87,6 +114,9 @@ namespace GBJAM9
                 var kunaiObject = GameObject.Instantiate(kunaiPrefab);
                 var kunai = kunaiObject.GetComponent<KunaiController>();
                 kunai.Fire(transform.position, unitMovement.lookingDirection);
+                kunai.unit.player = unit.player;
+
+                unitState.kunaiAttacking = true;
             }
         }
     }
