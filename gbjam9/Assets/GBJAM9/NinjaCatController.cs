@@ -7,7 +7,8 @@ namespace GBJAM9
 {
     public class NinjaCatController : MonoBehaviour
     {
-        [FormerlySerializedAs("unit")] public UnitComponent unitComponent;
+        [FormerlySerializedAs("unit")] 
+        public UnitComponent unitComponent;
 
         public UnitState unitState;
         
@@ -72,7 +73,7 @@ namespace GBJAM9
 
             dashCooldownCurrentTime -= Time.deltaTime;
             
-            if (dashMovement != null && unitInput.dash && dashCooldownCurrentTime <= 0)
+            if (unitInput.enabled && dashMovement != null && unitInput.dash && dashCooldownCurrentTime <= 0)
             {
                 dashingCurrentTime = dashingTime;
                 dashDirection = unitInput.dashDirection;
@@ -92,7 +93,7 @@ namespace GBJAM9
                 return;
             }
             
-            if (unitInput.movementDirection.SqrMagnitude() > 0)
+            if (unitInput.enabled && unitInput.movementDirection.SqrMagnitude() > 0)
             {
                 unitMovement.lookingDirection = unitInput.movementDirection;
                 unitMovement.Move();
@@ -102,7 +103,7 @@ namespace GBJAM9
 
             unitModel.lookingDirection = unitMovement.lookingDirection;
 
-            if (unitInput.attack && kunaiPrefab != null)
+            if (unitInput.enabled && unitInput.attack && kunaiPrefab != null)
             {
                 // fire kunai!!
                 var kunaiObject = GameObject.Instantiate(kunaiPrefab);

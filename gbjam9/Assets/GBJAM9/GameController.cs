@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GBJAM.Commons;
 using GBJAM.Commons.Transitions;
 using GBJAM9.Components;
 using UnityEngine;
@@ -47,6 +48,8 @@ namespace GBJAM9
 
         public EntityManager entityManager;
 
+        public GameboyButtonsUpdater inputUpdater;
+
         public float delayBetweenRooms = 0.5f;
         
         // TODO: more stuff
@@ -59,12 +62,13 @@ namespace GBJAM9
             backgroundMusicAudioSource.clip = idleMusics[0];
             backgroundMusicAudioSource.Play();
 
-            StartCoroutine(RestartGame());
+            StartCoroutine(RestartGame(true));
         }
 
-        private IEnumerator RestartGame()
+        private IEnumerator RestartGame(bool firstTime)
         {
             gameState = GameState.Restarting;
+
             yield return null;
 
             if (mainPlayerUnitComponent != null)
@@ -94,6 +98,8 @@ namespace GBJAM9
         private IEnumerator StartTransitionToNextRoom(RoomExitComponent roomExit)
         {
             gameState = GameState.TransitioningNextRoom;
+            mainPlayerUnitComponent.GetComponentInChildren<UnitInput>().enabled = false;
+
             yield return null;
 
             var transitionObject = GameObject.Instantiate(transitionPrefab);
@@ -129,9 +135,11 @@ namespace GBJAM9
             
             GameObject.Destroy(transition.gameObject);
 
-            gameState = GameState.Idle;
+            gameState = GameState.Fighting;
             
             RegenerateRoomExits();
+            
+            mainPlayerUnitComponent.GetComponentInChildren<UnitInput>().enabled = true;
         }
 
         private void RegenerateRoomExits()
