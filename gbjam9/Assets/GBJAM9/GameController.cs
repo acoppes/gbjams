@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GBJAM9
@@ -17,11 +18,17 @@ namespace GBJAM9
         [NonSerialized]
         public Room currentRoom;
         
+        public List<GameObject> roomPrefabs;
+
+        public GameObject roomExitUnitPrefab;
+
+        private List<Unit> roomExitUnits = new List<Unit>();
+        
         // TODO: more stuff
 
         public void Start()
         {
-            // Start game sequence...
+            // Start game sequence as coroutine?
         }
 
         public void Update()
@@ -41,6 +48,20 @@ namespace GBJAM9
                 currentRoom = roomObject.GetComponent<Room>();
 
                 mainPlayerUnit.transform.position = currentRoom.roomStart.transform.position;
+            }
+            
+            // if no enemies in the room
+            // create room exits
+
+            if (roomExitUnits.Count == 0)
+            {
+                foreach (var roomExit in currentRoom.roomExits)
+                {
+                    var roomExitObject = GameObject.Instantiate(roomExitUnitPrefab);
+                    roomExitObject.transform.position = roomExit.transform.position;
+                    var roomExitUnit = roomExitObject.GetComponentInChildren<Unit>();
+                    roomExitUnits.Add(roomExitUnit);
+                }
             }
         }
         
