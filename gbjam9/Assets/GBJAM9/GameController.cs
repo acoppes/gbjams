@@ -5,6 +5,7 @@ using GBJAM.Commons;
 using GBJAM.Commons.Transitions;
 using GBJAM9.Components;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GBJAM9
 {
@@ -46,7 +47,7 @@ namespace GBJAM9
 
         public GameObject transitionPrefab;
 
-        public EntityManager entityManager;
+        [FormerlySerializedAs("entityManager")] public World world;
 
         public GameboyButtonsUpdater inputUpdater;
 
@@ -173,7 +174,7 @@ namespace GBJAM9
             }
 
             // check if one room exit is pressed
-            var roomExitList = entityManager.GetEntityList<RoomExitComponent>();
+            var roomExitList = world.GetEntityList<RoomExitComponent>();
             foreach (var roomExit in roomExitList)
             {
                 if (roomExit.mainUnitCollision)

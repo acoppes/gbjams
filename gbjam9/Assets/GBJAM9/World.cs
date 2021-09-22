@@ -6,10 +6,12 @@ using UnityEngine;
 
 namespace GBJAM9
 {
-    public class EntityManager : MonoBehaviour
+    public class World : MonoBehaviour
     {
         [NonSerialized]
         public readonly List<UnitComponent> units = new List<UnitComponent>();
+
+        private int vfxDoneHash = Animator.StringToHash("Done");
 
         public List<T> GetEntityList<T>() where T : IGameComponent
         {
@@ -61,7 +63,8 @@ namespace GBJAM9
                 {
                     if (health.current <= 0)
                     {
-                        toDestroyUnits.Add(unit);
+                        // TODO: spawn death unit
+                        unit.destroyed = true;
                     }
                 }
 
@@ -79,6 +82,19 @@ namespace GBJAM9
                         }
                     }
                 }
+
+                if (unit.visualEffectComponent != null && unit.unitModel != null)
+                {
+                    unit.destroyed =
+                        unit.unitModel.animator.GetCurrentAnimatorStateInfo(0).shortNameHash == vfxDoneHash;
+                }
+
+                if (unit.destroyed)
+                {
+                    toDestroyUnits.Add(unit);
+                }
+                
+                
             }
 
             foreach (var unit in toDestroyUnits)

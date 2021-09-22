@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using GBJAM9;
+using GBJAM9.Components;
 using UnityEngine;
 
 public class UnitMovementSceneController : MonoBehaviour
 {
-    public UnitState unitState;
+    public UnitStateComponent unitState;
     
     // Start is called before the first frame update
     void Start()

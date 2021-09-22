@@ -16,7 +16,7 @@ namespace GBJAM9
         protected UnitMovement movement;
 
         [SerializeField]
-        protected UnitModel model;
+        protected UnitModelComponent model;
 
         [FormerlySerializedAs("sfx")] [SerializeField]
         protected SfxVariant fireSfx;

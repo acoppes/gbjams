@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace GBJAM9.Components
@@ -6,26 +7,56 @@ namespace GBJAM9.Components
     {
         public int player;
 
-        private EntityManager entityManager;
+        public bool destroyed;
+
+        private World world;
+
+        [NonSerialized]
+        public UnitStateComponent unitState;
+
+        [NonSerialized]
+        public ProjectileComponent projectileComponent;
+        
+        [NonSerialized]
+        public PickupComponent pickupComponent;
+        
+        [NonSerialized]
+        public VisualEffectComponent visualEffectComponent;
+
+        [NonSerialized]
+        public UnitModelComponent unitModel;
+        
+        [NonSerialized]
+        public HealthComponent health;
+
+        [NonSerialized]
+        public SoundEffectComponent sfxComponent;
         
         private void Awake()
         {
-            entityManager = FindObjectOfType<EntityManager>();
+            world = FindObjectOfType<World>();
+            unitState = GetComponent<UnitStateComponent>();
+            projectileComponent = GetComponent<ProjectileComponent>();
+            pickupComponent = GetComponent<PickupComponent>();
+            visualEffectComponent = GetComponent<VisualEffectComponent>();
+            unitModel = GetComponent<UnitModelComponent>();
+            health = GetComponent<HealthComponent>();
+            sfxComponent = GetComponent<SoundEffectComponent>();
         }
 
         private void OnEnable()
         {
-            if (entityManager != null)
+            if (world != null)
             {
-                entityManager.units.Add(this);
+                world.units.Add(this);
             }
         }
 
         private void OnDisable()
         {
-            if (entityManager != null)
+            if (world != null)
             {
-                entityManager.units.Remove(this);
+                world.units.Remove(this);
             }
         }
     }

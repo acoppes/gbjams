@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace GBJAM9
+namespace GBJAM9.Components
 {
-    public class UnitState : MonoBehaviour
+    public class UnitStateComponent : MonoBehaviour, IGameComponent
     {
         [NonSerialized]
         public bool walking;

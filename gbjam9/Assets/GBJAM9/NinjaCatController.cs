@@ -7,11 +7,9 @@ namespace GBJAM9
 {
     public class NinjaCatController : MonoBehaviour
     {
-        [FormerlySerializedAs("unit")] 
-        public UnitComponent unitComponent;
+        [FormerlySerializedAs("unitComponent")] 
+        public UnitComponent unit;
 
-        public UnitState unitState;
-        
         [SerializeField]
         protected UnitInput unitInput;
 
@@ -21,9 +19,6 @@ namespace GBJAM9
         [SerializeField]
         protected UnitMovement dashMovement;
         
-        [SerializeField]
-        UnitModel unitModel;
-
         [SerializeField]
         protected GameObject kunaiPrefab;
 
@@ -46,12 +41,12 @@ namespace GBJAM9
         // Update is called once per frame
         private void Update()
         {
-            unitState.walking = false;
-            unitState.kunaiAttacking = false;
+            unit.unitState.walking = false;
+            unit.unitState.kunaiAttacking = false;
 
             if (dashingCurrentTime > 0)
             {
-                unitState.dashing = true;
+                unit.unitState.dashing = true;
                 
                 dashingCurrentTime -= Time.deltaTime;
                 dashMovement.lookingDirection = dashDirection;
@@ -60,7 +55,7 @@ namespace GBJAM9
                 if (dashingCurrentTime <= 0)
                 {
                     dashCooldownCurrentTime = dashCooldown;
-                    unitState.dashing = false;
+                    unit.unitState.dashing = false;
                 }
 
                 return;
@@ -88,7 +83,7 @@ namespace GBJAM9
                     dashSfx.Play();
                 }
 
-                unitState.dashing = true;
+                unit.unitState.dashing = true;
                 
                 return;
             }
@@ -98,10 +93,10 @@ namespace GBJAM9
                 unitMovement.lookingDirection = unitInput.movementDirection;
                 unitMovement.Move();
 
-                unitState.walking = true;
+                unit.unitState.walking = true;
             }
 
-            unitModel.lookingDirection = unitMovement.lookingDirection;
+            unit.unitModel.lookingDirection = unitMovement.lookingDirection;
 
             if (unitInput.enabled && unitInput.attack && kunaiPrefab != null)
             {
@@ -109,9 +104,9 @@ namespace GBJAM9
                 var kunaiObject = GameObject.Instantiate(kunaiPrefab);
                 var kunai = kunaiObject.GetComponent<KunaiController>();
                 kunai.Fire(transform.position, unitMovement.lookingDirection);
-                kunai.unitComponent.player = unitComponent.player;
+                kunai.unitComponent.player = unit.player;
 
-                unitState.kunaiAttacking = true;
+                unit.unitState.kunaiAttacking = true;
             }
         }
     }

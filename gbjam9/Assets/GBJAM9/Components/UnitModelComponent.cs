@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-namespace GBJAM9
+namespace GBJAM9.Components
 {
-    public class UnitModel : MonoBehaviour
+    public class UnitModelComponent : MonoBehaviour, IGameComponent
     {
         [SerializeField]
-        protected Animator animator;
+        public Animator animator;
 
         [SerializeField]
         protected SpriteRenderer model;
@@ -26,7 +26,7 @@ namespace GBJAM9
 
         public bool rotateToDirection = false;
         
-        public UnitState unitState;
+        public UnitStateComponent unitState;
 
         private void LateUpdate()
         {
