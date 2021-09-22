@@ -30,7 +30,7 @@ namespace GBJAM9
 
         private void LateUpdate()
         {
-            if (animator != null)
+            if (animator != null && unitState != null)
             {
                 animator.SetBool(walkingStateHash, unitState.walking);
                 animator.SetBool(kunaiAttackStateHash, unitState.kunaiAttacking);
