@@ -12,13 +12,10 @@ namespace GBJAM9
         private void Update()
         {
             dash = false;
-            dashDirection = Vector2.zero;
             
             movementDirection = gameboyKeyMap.direction;
             attack = gameboyKeyMap.button1Pressed;
             dash = gameboyKeyMap.button2Pressed;
-
-            dashDirection = movementDirection;
         }
     }
 }

@@ -13,8 +13,5 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public bool dash;
-        
-        [NonSerialized]
-        public Vector2 dashDirection;
     }
 }

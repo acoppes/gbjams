@@ -76,7 +76,7 @@ namespace GBJAM9
             if (unitInput.enabled && dashMovement != null && unitInput.dash && dashCooldownCurrentTime <= 0)
             {
                 dashingCurrentTime = dashingTime;
-                dashDirection = unitInput.dashDirection;
+                dashDirection = unitMovement.lookingDirection;
                 
                 if (dashParticles != null)
                 {
