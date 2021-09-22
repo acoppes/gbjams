@@ -9,6 +9,7 @@ TODO
 
 * Dash
   - ignore hits while dashing
+  - ignore enemy collision while dashing (move through enemies)
 
 * Sword attack
 
