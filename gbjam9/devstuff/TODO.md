@@ -1,23 +1,21 @@
 TODO
 
+* Kunai Enemy
+* Sword Enemy
+
 * Room layout + editor or something
-  - Easy to make rooms by other devs
   - Auto load possible rooms from folder (asset)
-
-Unit Movement
-
-* Collisions with borders
-  - Collider in main unit to detect collision
+  - Enemy spots (to spawn)
 
 * Dash
   - ignore hits while dashing
 
-* Attack
-  - basic attack
+* Sword attack
 
-* Hit detection
-  - kill enemy multiple attacks
+* Enemy Hit detection
   - on hit show blink effect
+
+* On hit become invulnerable
 
 * Weapon configurations
   - damage
