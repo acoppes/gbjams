@@ -6,6 +6,13 @@ namespace GBJAM9
 {
     public class GameController : MonoBehaviour
     {
+        public enum GameState
+        {
+            Idle,
+            Fighting,
+            TransitioningNextRoom
+        }
+        
         public CameraFollow cameraFollow;
 
         public GameObject mainPlayerUnitPrefab;
@@ -23,12 +30,22 @@ namespace GBJAM9
         public GameObject roomExitUnitPrefab;
 
         private List<Unit> roomExitUnits = new List<Unit>();
-        
+
+        public AudioSource backgroundMusicAudioSource;
+
+        public AudioClip[] idleMusics;
+
+        public AudioClip[] combatMusics;
+
         // TODO: more stuff
 
         public void Start()
         {
             // Start game sequence as coroutine?
+
+            backgroundMusicAudioSource.loop = true;
+            backgroundMusicAudioSource.clip = idleMusics[0];
+            backgroundMusicAudioSource.Play();
         }
 
         public void Update()
