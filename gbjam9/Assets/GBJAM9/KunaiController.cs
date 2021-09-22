@@ -23,10 +23,13 @@ namespace GBJAM9
 
         [SerializeField]
         protected GameObject hitSfxPrefab;
+
+        public float startOffset = 0.4f;
         
         public void Fire(Vector3 position, Vector2 direction)
         {
-            transform.position = position;
+            var offset = direction.normalized * startOffset;
+            transform.position = position + new Vector3(offset.x, offset.y, 0);
             movement.lookingDirection = direction;
 
             if (fireSfx != null)
@@ -41,19 +44,14 @@ namespace GBJAM9
             model.lookingDirection = movement.velocity;
         }
 
-        // private void OnCollisionEnter2D(Collision2D other)
-        // {
-        //     Debug.Log("collision");
-        // }
-
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            // Debug.Log("trigger");
-
-            var unit = other.GetComponent<UnitComponent>();
+            Debug.Log("collision");
+            
+            var unit = other.collider.GetComponent<UnitComponent>();
             if (unit != null)
             {
-                if (unit.player != this.unitComponent.player)
+                if (unit.player != unitComponent.player)
                 {
                     // perform damage!
                     var health = unit.GetComponent<HealthComponent>();
@@ -61,21 +59,28 @@ namespace GBJAM9
                     {
                         health.damages += projectileComponent.damage;
                     }
-
-                    // autodamage on hit
-                    var myHealth = this.unitComponent.GetComponent<HealthComponent>();
-                    if (myHealth != null)
-                    {
-                        myHealth.damages += projectileComponent.damage;
-                    }
-
-                    if (hitSfxPrefab != null)
-                    {
-                        Instantiate(hitSfxPrefab, transform.position, Quaternion.identity);
-                    }
                 }
-                // check for unit player
             }
+            
+            // autodamage on hit
+            var myHealth = unitComponent.GetComponent<HealthComponent>();
+            if (myHealth != null)
+            {
+                myHealth.damages += projectileComponent.damage;
+            }
+
+            if (hitSfxPrefab != null)
+            {
+                Instantiate(hitSfxPrefab, transform.position, Quaternion.identity);
+            }
+            // check for unit player
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            // Debug.Log("trigger");
+
+
         }
     }
 }

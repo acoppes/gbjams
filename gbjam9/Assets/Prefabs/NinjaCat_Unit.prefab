@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2619207964169994137}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6363326546073318961}
   - component: {fileID: 4146655895831246447}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Movement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ MonoBehaviour:
   transform: {fileID: 5348039951541316738}
   speed: 15
   perspective: {x: 1, y: 0.75}
-  detectCollisions: 1
+  detectCollisions: 0
 --- !u!1 &3868054665621011566
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 4357272472651075481}
   - component: {fileID: 2604852180642369831}
   - component: {fileID: 3076985607197457555}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,9 @@ GameObject:
   - component: {fileID: 6271978410121133927}
   - component: {fileID: 2901987642424220449}
   - component: {fileID: 3273482090561136065}
-  m_Layer: 0
+  - component: {fileID: 4391817125124591681}
+  - component: {fileID: 2625025126926979205}
+  m_Layer: 6
   m_Name: NinjaCat_Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b860427b8aae24186879503445b17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 8793871774876110060}
+  unitComponent: {fileID: 8793871774876110060}
   unitState: {fileID: 2846385692937050290}
   unitInput: {fileID: 2937384472320121754}
   unitMovement: {fileID: 8711684023405265429}
@@ -313,6 +315,43 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &4391817125124591681
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.35
+--- !u!50 &2625025126926979205
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8516945640494613468
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5710583305298453559}
   - component: {fileID: 8711684023405265429}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Movement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +398,7 @@ MonoBehaviour:
   transform: {fileID: 5348039951541316738}
   speed: 5
   perspective: {x: 1, y: 0.75}
-  detectCollisions: 1
+  detectCollisions: 0
 --- !u!1 &8724684615000090178
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2436880516823606182}
   - component: {fileID: 2937384472320121754}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,6 +498,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dash_Particles
       objectReference: {fileID: 0}
+    - target: {fileID: 1878523748438577911, guid: acb4d67fa1b0fac4ba6100945cadd6be, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acb4d67fa1b0fac4ba6100945cadd6be, type: 3}
 --- !u!4 &831456227538247801 stripped
@@ -478,6 +521,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2619207964169994137}
     m_Modifications:
+    - target: {fileID: 619423589983357829, guid: 81d8b7f952b81f44a924a3015214b49f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2876659939674835912, guid: 81d8b7f952b81f44a924a3015214b49f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -525,6 +572,10 @@ PrefabInstance:
     - target: {fileID: 5451162665360476635, guid: 81d8b7f952b81f44a924a3015214b49f, type: 3}
       propertyPath: m_Name
       value: SfxVariant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451162665360476635, guid: 81d8b7f952b81f44a924a3015214b49f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9077797290014817991, guid: 81d8b7f952b81f44a924a3015214b49f, type: 3}
       propertyPath: variants.Array.size
