@@ -1,11 +1,13 @@
 using GBJAM.Commons;
+using GBJAM9.Components;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GBJAM9
 {
     public class NinjaCatController : MonoBehaviour
     {
-        public Unit unit;
+        [FormerlySerializedAs("unit")] public UnitComponent unitComponent;
 
         public UnitState unitState;
         
@@ -106,7 +108,7 @@ namespace GBJAM9
                 var kunaiObject = GameObject.Instantiate(kunaiPrefab);
                 var kunai = kunaiObject.GetComponent<KunaiController>();
                 kunai.Fire(transform.position, unitMovement.lookingDirection);
-                kunai.unit.player = unit.player;
+                kunai.unitComponent.player = unitComponent.player;
 
                 unitState.kunaiAttacking = true;
             }

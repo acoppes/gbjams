@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace GBJAM9
+namespace GBJAM9.Components
 {
-    public class Health : MonoBehaviour
+    public class HealthComponent : MonoBehaviour, IGameComponent
     {
         public int total;
         public int current;

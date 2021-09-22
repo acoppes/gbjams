@@ -2,9 +2,9 @@ using System;
 using GBJAM.Commons;
 using UnityEngine;
 
-namespace GBJAM9
+namespace GBJAM9.Components
 {
-    public class SoundEffect : MonoBehaviour
+    public class SoundEffectComponent : MonoBehaviour, IGameComponent
     {
         public SfxVariant sfx;
      

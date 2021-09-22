@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using GBJAM.Commons.Transitions;
+using GBJAM9.Components;
 using UnityEngine;
 
 namespace GBJAM9
@@ -10,7 +13,8 @@ namespace GBJAM9
         {
             Idle,
             Fighting,
-            TransitioningNextRoom
+            TransitioningNextRoom,
+            Restarting
         }
         
         public CameraFollow cameraFollow;
@@ -18,7 +22,7 @@ namespace GBJAM9
         public GameObject mainPlayerUnitPrefab;
 
         [NonSerialized]
-        public Unit mainPlayerUnit;
+        public UnitComponent mainPlayerUnitComponent;
 
         public GameObject mainMenuRoomPrefab;
 
@@ -29,7 +33,7 @@ namespace GBJAM9
 
         public GameObject roomExitUnitPrefab;
 
-        private List<Unit> roomExitUnits = new List<Unit>();
+        private List<UnitComponent> roomExitUnits = new List<UnitComponent>();
 
         public AudioSource backgroundMusicAudioSource;
 
@@ -37,6 +41,14 @@ namespace GBJAM9
 
         public AudioClip[] combatMusics;
 
+        private GameState gameState = GameState.Idle;
+
+        public GameObject transitionPrefab;
+
+        public EntityManager entityManager;
+
+        public float delayBetweenRooms = 0.5f;
+        
         // TODO: more stuff
 
         public void Start()
@@ -46,40 +58,123 @@ namespace GBJAM9
             backgroundMusicAudioSource.loop = true;
             backgroundMusicAudioSource.clip = idleMusics[0];
             backgroundMusicAudioSource.Play();
+
+            StartCoroutine(RestartGame());
         }
 
-        public void Update()
+        private IEnumerator RestartGame()
         {
-            // or use a state machine for the game??
+            gameState = GameState.Restarting;
+            yield return null;
 
-            if (mainPlayerUnit == null)
+            if (mainPlayerUnitComponent != null)
             {
-                var unitObject = GameObject.Instantiate(mainPlayerUnitPrefab);
-                mainPlayerUnit = unitObject.GetComponent<Unit>();
-                cameraFollow.followTransform = mainPlayerUnit.transform;
-            }
-
-            if (currentRoom == null)
-            {
-                var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
-                currentRoom = roomObject.GetComponent<Room>();
-
-                mainPlayerUnit.transform.position = currentRoom.roomStart.transform.position;
+                GameObject.Destroy(mainPlayerUnitComponent.gameObject);
+                mainPlayerUnitComponent = null;
             }
             
-            // if no enemies in the room
-            // create room exits
-
-            if (roomExitUnits.Count == 0)
+            var unitObject = GameObject.Instantiate(mainPlayerUnitPrefab);
+            mainPlayerUnitComponent = unitObject.GetComponent<UnitComponent>();
+            cameraFollow.followTransform = mainPlayerUnitComponent.transform;
+            
+            if (currentRoom != null)
             {
-                foreach (var roomExit in currentRoom.roomExits)
+                GameObject.Destroy(currentRoom);
+            }
+
+            var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
+            currentRoom = roomObject.GetComponent<Room>();
+            mainPlayerUnitComponent.transform.position = currentRoom.roomStart.transform.position;
+
+            RegenerateRoomExits();
+
+            gameState = GameState.Fighting;
+        }
+
+        private IEnumerator StartTransitionToNextRoom(RoomExitComponent roomExit)
+        {
+            gameState = GameState.TransitioningNextRoom;
+            yield return null;
+
+            var transitionObject = GameObject.Instantiate(transitionPrefab);
+            // var transitionPosition = cameraFollow.cameraTransform.position;
+            // transitionPosition.z = 0;
+            transitionObject.transform.position = roomExit.transform.position;
+
+            var transition = transitionObject.GetComponent<Transition>();
+            transition.Open();
+
+            yield return new WaitWhile(delegate
+            {
+                return !transition.isOpen;
+            });
+
+            yield return new WaitForSeconds(delayBetweenRooms);
+            
+            GameObject.Destroy(currentRoom.gameObject);
+
+            var nextRoomPrefab = roomPrefabs[UnityEngine.Random.Range(0, roomPrefabs.Count)];
+            var roomObject = GameObject.Instantiate(nextRoomPrefab);
+            currentRoom = roomObject.GetComponent<Room>();
+            mainPlayerUnitComponent.transform.position = currentRoom.roomStart.transform.position;
+            
+            transitionObject.transform.position = currentRoom.roomStart.transform.position;
+            
+            transition.Close();
+            
+            yield return new WaitWhile(delegate
+            {
+                return !transition.isClosed;
+            });
+            
+            GameObject.Destroy(transition.gameObject);
+
+            gameState = GameState.Idle;
+            
+            RegenerateRoomExits();
+        }
+
+        private void RegenerateRoomExits()
+        {
+            foreach (var roomExitUnit in roomExitUnits)
+            {
+                GameObject.Destroy(roomExitUnit.gameObject);
+            }
+            
+            roomExitUnits.Clear();
+            
+            foreach (var roomExit in currentRoom.roomExits)
+            {
+                var roomExitObject = GameObject.Instantiate(roomExitUnitPrefab);
+                roomExitObject.transform.position = roomExit.transform.position;
+                var roomExitUnit = roomExitObject.GetComponentInChildren<UnitComponent>();
+                roomExitUnits.Add(roomExitUnit);
+            }
+        }
+        
+        public void Update()
+        {
+            if (gameState == GameState.TransitioningNextRoom)
+            {
+                return;
+            }
+        
+            if (gameState == GameState.Restarting)
+            {
+                return;
+            }
+
+            // check if one room exit is pressed
+            var roomExitList = entityManager.GetEntityList<RoomExitComponent>();
+            foreach (var roomExit in roomExitList)
+            {
+                if (roomExit.mainUnitCollision)
                 {
-                    var roomExitObject = GameObject.Instantiate(roomExitUnitPrefab);
-                    roomExitObject.transform.position = roomExit.transform.position;
-                    var roomExitUnit = roomExitObject.GetComponentInChildren<Unit>();
-                    roomExitUnits.Add(roomExitUnit);
+                    // TODO: more room data and logic..
+                    StartCoroutine(StartTransitionToNextRoom(roomExit));
                 }
             }
+            
         }
         
     }

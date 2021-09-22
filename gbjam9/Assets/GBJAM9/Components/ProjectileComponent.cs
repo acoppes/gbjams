@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace GBJAM9
+namespace GBJAM9.Components
 {
-    public class Projectile : MonoBehaviour
+    public class ProjectileComponent : MonoBehaviour, IGameComponent
     {
         public int damage;
         

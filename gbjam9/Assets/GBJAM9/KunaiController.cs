@@ -1,5 +1,6 @@
 using System;
 using GBJAM.Commons;
+using GBJAM9.Components;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,9 +8,9 @@ namespace GBJAM9
 {
     public class KunaiController : MonoBehaviour
     {
-        public Unit unit;
+        [FormerlySerializedAs("unit")] public UnitComponent unitComponent;
 
-        public Projectile projectile;
+        [FormerlySerializedAs("projectile")] public ProjectileComponent projectileComponent;
         
         [SerializeField]
         protected UnitMovement movement;
@@ -49,23 +50,23 @@ namespace GBJAM9
         {
             // Debug.Log("trigger");
 
-            var unit = other.GetComponent<Unit>();
+            var unit = other.GetComponent<UnitComponent>();
             if (unit != null)
             {
-                if (unit.player != this.unit.player)
+                if (unit.player != this.unitComponent.player)
                 {
                     // perform damage!
-                    var health = unit.GetComponent<Health>();
+                    var health = unit.GetComponent<HealthComponent>();
                     if (health != null)
                     {
-                        health.damages += projectile.damage;
+                        health.damages += projectileComponent.damage;
                     }
 
                     // autodamage on hit
-                    var myHealth = this.unit.GetComponent<Health>();
+                    var myHealth = this.unitComponent.GetComponent<HealthComponent>();
                     if (myHealth != null)
                     {
-                        myHealth.damages += projectile.damage;
+                        myHealth.damages += projectileComponent.damage;
                     }
 
                     if (hitSfxPrefab != null)
