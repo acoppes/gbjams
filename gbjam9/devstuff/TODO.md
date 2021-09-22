@@ -23,8 +23,3 @@ Unit Movement
   - damage
   - cooldown 
   - separate weapon from unit
-
-
-* Kunai
-  - autodestroy logic (ttl)
-  - kunai blocks movement because of collision detection
