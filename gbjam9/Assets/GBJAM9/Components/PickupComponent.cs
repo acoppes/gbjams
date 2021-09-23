@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace GBJAM9.Components
