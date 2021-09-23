@@ -19,7 +19,7 @@ namespace GBJAM9
                 .Select(u => u.GetComponent<T>()).ToList();
         }
         
-        public void FixedUpdate()
+        public void Update()
         {
             // perform general logics in order
             var toDestroy = new List<EntityComponent>();
