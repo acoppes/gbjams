@@ -22,6 +22,7 @@ TODO
   - ignore enemy collision while dashing (move through enemies)
 
 * Sword attack
+  - collider should flip with model
 
 * Kiunai attack
   - cooldown
