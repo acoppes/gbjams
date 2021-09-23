@@ -8,9 +8,10 @@ namespace GBJAM9
 {
     public class KunaiController : MonoBehaviour
     {
+        [FormerlySerializedAs("entityComponent")]
         [FormerlySerializedAs("unitComponent")] 
         [FormerlySerializedAs("unit")] 
-        public EntityComponent entityComponent;
+        public Entity entity;
 
         [FormerlySerializedAs("sfx")] [SerializeField]
         protected SfxVariant fireSfx;
@@ -26,7 +27,7 @@ namespace GBJAM9
             transform.position = position + new Vector3(offset.x, offset.y, 0);
             
             // entityComponent.movement.lookingDirection = direction;
-            entityComponent.movement.movingDirection = direction;
+            entity.movement.movingDirection = direction;
 
             if (fireSfx != null)
             {
@@ -36,31 +37,31 @@ namespace GBJAM9
 
         private void Update()
         {
-            entityComponent.model.lookingDirection = entityComponent.movement.velocity;
+            entity.model.lookingDirection = entity.movement.velocity;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
             Debug.Log("collision");
             
-            var otherEntity = other.collider.GetComponent<EntityComponent>();
+            var otherEntity = other.collider.GetComponent<Entity>();
             if (otherEntity != null)
             {
-                if (otherEntity.player.player == entityComponent.player.player)
+                if (otherEntity.player.player == entity.player.player)
                     return;
                 
                 var health = otherEntity.GetComponent<HealthComponent>();
                 if (health != null)
                 {
-                    health.damages += entityComponent.projectileComponent.damage;
+                    health.damages += entity.projectileComponent.damage;
                 }
             }
             
             // autodamage on hit
-            var myHealth = entityComponent.GetComponent<HealthComponent>();
+            var myHealth = entity.GetComponent<HealthComponent>();
             if (myHealth != null)
             {
-                myHealth.damages += entityComponent.projectileComponent.damage;
+                myHealth.damages += entity.projectileComponent.damage;
             }
 
             if (hitSfxPrefab != null)

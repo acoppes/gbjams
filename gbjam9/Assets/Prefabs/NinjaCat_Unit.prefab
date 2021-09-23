@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 5911691695106074106}
   - component: {fileID: 3156954425568041864}
   - component: {fileID: 368041403601598413}
+  - component: {fileID: 3061214437332157355}
   m_Layer: 6
   m_Name: NinjaCat_Unit
   m_TagString: Untagged
@@ -238,7 +239,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 8793871774876110060}
-  kunaiPrefab: {fileID: 5663437888090784844, guid: 7e62e2f2037cbfa4d91033b7a876052d, type: 3}
   dashingTime: 0.1
   dashCooldown: 0.65
   dashParticles: {fileID: 831456227538247803}
@@ -381,6 +381,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameboyKeyMap: {fileID: 11400000, guid: f9f0f69da9c5adf40abcdfea8df67486, type: 2}
+--- !u!114 &3061214437332157355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e73b53f0d344ca1b68d86f9a9c47d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackType: kunai
+  projectilePrefab: {fileID: 5663437888090784844, guid: 7e62e2f2037cbfa4d91033b7a876052d, type: 3}
 --- !u!1001 &1267823140497863311
 PrefabInstance:
   m_ObjectHideFlags: 0

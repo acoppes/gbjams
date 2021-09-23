@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class EntityComponent : MonoBehaviour, IGameComponent
+    public class Entity : MonoBehaviour, IGameComponent
     {
         [NonSerialized]
         public bool destroyed;
@@ -50,6 +50,9 @@ namespace GBJAM9.Components
         [NonSerialized]
         public UnitInputGameBoyControllerComponent gameboyControllerComponent;
 
+        [NonSerialized]
+        public AttackComponent attackComponent;
+
         private void Awake()
         {
             world = FindObjectOfType<World>();
@@ -66,6 +69,7 @@ namespace GBJAM9.Components
             input = GetComponent<UnitInput>();
             movement = GetComponent<UnitMovement>();
             gameboyControllerComponent = GetComponent<UnitInputGameBoyControllerComponent>();
+            attackComponent = GetComponent<AttackComponent>();
         }
 
         private void OnEnable()

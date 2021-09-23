@@ -9,7 +9,7 @@ namespace GBJAM9
     public class World : MonoBehaviour
     {
         [NonSerialized]
-        public readonly List<EntityComponent> entities = new List<EntityComponent>();
+        public readonly List<Entity> entities = new List<Entity>();
 
         private int vfxDoneHash = Animator.StringToHash("Done");
 
@@ -22,12 +22,12 @@ namespace GBJAM9
         public void Update()
         {
             // perform general logics in order
-            var toDestroy = new List<EntityComponent>();
+            var toDestroy = new List<Entity>();
 
             var mainUnits = entities.Where(u => u.GetComponent<MainUnitComponent>() != null)
                 .Select(u => u.GetComponent<MainUnitComponent>()).ToList();
 
-            var iterationList = new List<EntityComponent>(entities);
+            var iterationList = new List<Entity>(entities);
             
             foreach (var e in iterationList)
             {
@@ -116,6 +116,24 @@ namespace GBJAM9
                     }
                 }
                 
+                if (e.attackComponent != null)
+                {
+                    e.state.swordAttacking = false;
+                    e.state.kunaiAttacking = false;
+                    
+                    var projectilePrefab = e.attackComponent.projectilePrefab;
+                    if (e.input.enabled && e.input.attack && projectilePrefab != null)
+                    {
+                        var projectileObject = GameObject.Instantiate(projectilePrefab);
+                        var projectile = projectileObject.GetComponent<KunaiController>();
+                        projectile.Fire(transform.position, e.movement.lookingDirection);
+                        projectile.entity.player.player = e.player.player;
+
+                        e.state.kunaiAttacking = e.attackComponent.attackType.Equals("kunai");
+                        e.state.swordAttacking = e.attackComponent.attackType.Equals("sword");
+                    } 
+                }
+                
                 if (e.model != null && e.movement != null)
                 {
                     e.model.lookingDirection = e.movement.lookingDirection;
@@ -143,7 +161,7 @@ namespace GBJAM9
                         var contactsList = new List<ContactPoint2D>();
                         if (e.colliderComponent.collider.GetContacts(contactsList) > 0)
                         {
-                            var contactUnit = contactsList[0].collider.GetComponent<EntityComponent>();
+                            var contactUnit = contactsList[0].collider.GetComponent<Entity>();
                             
                             if (e.pickupComponent.pickupVfxPrefab != null)
                             {
@@ -175,6 +193,42 @@ namespace GBJAM9
             foreach (var unit in toDestroy)
             {
                 Destroy(unit.gameObject);
+            }
+        }
+
+        private void LateUpdate()
+        {
+            var iterationList = new List<Entity>(entities);
+
+            foreach (var e in iterationList)
+            {
+                if (e.model != null)
+                {
+                    var animator = e.model.animator;
+                    var unitState = e.state;
+                    
+                    if (animator != null && unitState != null)
+                    {
+                        animator.SetBool(UnitStateComponent.walkingStateHash, unitState.walking);
+                        animator.SetBool(UnitStateComponent.kunaiAttackStateHash, unitState.kunaiAttacking);
+                        animator.SetBool(UnitStateComponent.swordAttackStateHash, unitState.swordAttacking);
+                        animator.SetBool(UnitStateComponent.dashingStateHash, unitState.dashing);
+                        animator.SetBool(UnitStateComponent.hitStateHash, unitState.hit);
+                    }
+
+                    if (!e.model.rotateToDirection)
+                    {
+                        if (Mathf.Abs(e.model.lookingDirection.x) > 0)
+                        {
+                            e.model.model.flipX = e.model.lookingDirection.x < 0;
+                        }
+                    }
+                    else
+                    {
+                        var angle = Mathf.Atan2(e.model.lookingDirection.y, e.model.lookingDirection.x) * Mathf.Rad2Deg;
+                        e.model.model.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                    }
+                }
             }
         }
     }

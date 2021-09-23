@@ -5,7 +5,7 @@ namespace GBJAM9.Controllers
 {
     public class PickupController : MonoBehaviour
     {
-        public void OnPickup(EntityComponent entity)
+        public void OnPickup(Entity entity)
         {
             var pickup = GetComponent<PickupComponent>();
 

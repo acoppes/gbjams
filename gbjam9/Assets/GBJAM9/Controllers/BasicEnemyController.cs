@@ -15,7 +15,7 @@ namespace GBJAM9.Controllers
             ReturningToWander
         }
         
-        private EntityComponent entity;
+        private Entity entity;
 
         private State state;
 
@@ -23,7 +23,7 @@ namespace GBJAM9.Controllers
 
         public void Start()
         {
-            entity = GetComponent<EntityComponent>();
+            entity = GetComponent<Entity>();
             state = State.Idle;
             wanderCenter = transform.position;
         }

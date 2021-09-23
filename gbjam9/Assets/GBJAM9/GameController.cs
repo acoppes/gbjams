@@ -24,7 +24,7 @@ namespace GBJAM9
         public GameObject mainPlayerUnitPrefab;
 
         [NonSerialized]
-        public EntityComponent mainPlayerEntityComponent;
+        public Entity mainPlayerEntity;
 
         public GameObject mainMenuRoomPrefab;
 
@@ -35,7 +35,7 @@ namespace GBJAM9
         
         public GameObject roomExitUnitPrefab;
 
-        private List<EntityComponent> roomExitUnits = new List<EntityComponent>();
+        private List<Entity> roomExitUnits = new List<Entity>();
 
         public AudioSource backgroundMusicAudioSource;
 
@@ -72,15 +72,15 @@ namespace GBJAM9
 
             yield return null;
 
-            if (mainPlayerEntityComponent != null)
+            if (mainPlayerEntity != null)
             {
-                GameObject.Destroy(mainPlayerEntityComponent.gameObject);
-                mainPlayerEntityComponent = null;
+                GameObject.Destroy(mainPlayerEntity.gameObject);
+                mainPlayerEntity = null;
             }
             
             var unitObject = GameObject.Instantiate(mainPlayerUnitPrefab);
-            mainPlayerEntityComponent = unitObject.GetComponent<EntityComponent>();
-            cameraFollow.followTransform = mainPlayerEntityComponent.transform;
+            mainPlayerEntity = unitObject.GetComponent<Entity>();
+            cameraFollow.followTransform = mainPlayerEntity.transform;
             
             if (currentRoom != null)
             {
@@ -89,7 +89,7 @@ namespace GBJAM9
 
             var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
             currentRoom = roomObject.GetComponent<Room>();
-            mainPlayerEntityComponent.transform.position = currentRoom.roomStart.transform.position;
+            mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
 
             RegenerateRoomExits();
 
@@ -99,7 +99,7 @@ namespace GBJAM9
         private IEnumerator StartTransitionToNextRoom(RoomExitComponent roomExit)
         {
             gameState = GameState.TransitioningNextRoom;
-            mainPlayerEntityComponent.GetComponentInChildren<UnitInput>().enabled = false;
+            mainPlayerEntity.GetComponentInChildren<UnitInput>().enabled = false;
 
             yield return null;
 
@@ -123,7 +123,7 @@ namespace GBJAM9
             var nextRoomPrefab = rooms.roomPrefabs[UnityEngine.Random.Range(0, rooms.roomPrefabs.Count)];
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
             currentRoom = roomObject.GetComponent<Room>();
-            mainPlayerEntityComponent.transform.position = currentRoom.roomStart.transform.position;
+            mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
             
             transitionObject.transform.position = currentRoom.roomStart.transform.position;
             
@@ -140,7 +140,7 @@ namespace GBJAM9
             
             RegenerateRoomExits();
             
-            mainPlayerEntityComponent.GetComponentInChildren<UnitInput>().enabled = true;
+            mainPlayerEntity.GetComponentInChildren<UnitInput>().enabled = true;
         }
 
         private void RegenerateRoomExits()
@@ -156,7 +156,7 @@ namespace GBJAM9
             {
                 var roomExitObject = GameObject.Instantiate(roomExitUnitPrefab);
                 roomExitObject.transform.position = roomExit.transform.position;
-                var roomExitUnit = roomExitObject.GetComponentInChildren<EntityComponent>();
+                var roomExitUnit = roomExitObject.GetComponentInChildren<Entity>();
                 roomExitUnits.Add(roomExitUnit);
             }
         }
