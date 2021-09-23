@@ -22,7 +22,7 @@ TODO
   - ignore enemy collision while dashing (move through enemies)
 
 * Sword attack
-  - support for multiple targets hit
+  - avoid multiple collision detection if same entity
 
 * Kiunai attack
   - cooldown

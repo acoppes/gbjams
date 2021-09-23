@@ -159,6 +159,7 @@ namespace GBJAM9
                 
                 if (e.colliderComponent != null)
                 {
+                    e.colliderComponent.contactsList.Clear();
                     e.colliderComponent.inCollision = 
                         e.colliderComponent.collider.GetContacts(e.colliderComponent.contactsList) > 0;
                 }
@@ -180,6 +181,36 @@ namespace GBJAM9
                             e.SendMessage("OnPickup", contactUnit, SendMessageOptions.DontRequireReceiver);
 
                             e.destroyed = true;
+                        }
+                    }
+                }
+
+                if (e.projectile != null && e.colliderComponent != null)
+                {
+                    if (e.colliderComponent.inCollision)
+                    {
+                        foreach (var contact in e.colliderComponent.contactsList)
+                        {
+                            var otherEntity = contact.collider.GetComponent<Entity>();
+                            
+                            if (otherEntity != null && e.projectile.totalTargets > 0)
+                            {
+                                if (otherEntity.player.player == e.player.player)
+                                    continue;
+                
+                                if (otherEntity.health != null)
+                                {
+                                    otherEntity.health.damages += e.projectile.damage;
+                                    e.projectile.totalTargets--;
+                                }
+                            }
+                        }
+                        
+                        e.destroyed = true;
+
+                        if (e.projectile.hitSfxPrefab != null)
+                        {
+                            Instantiate(e.projectile.hitSfxPrefab, transform.position, Quaternion.identity);
                         }
                     }
                 }
