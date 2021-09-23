@@ -94,14 +94,16 @@ namespace GBJAM9
                 if (e.movement != null && e.input != null)
                 {
                     var speed = e.movement.speed;
+                    var direction = e.input.movementDirection;
 
                     if (e.state != null && e.state.dashing)
                     {
                         speed = e.movement.dashSpeed;
+                        direction = e.movement.lookingDirection;
                     }
                     
                     var newPosition = e.transform.localPosition;
-                    e.movement.velocity = e.input.movementDirection * speed * Time.deltaTime;
+                    e.movement.velocity = direction * speed * Time.deltaTime;
 
                     newPosition.x += e.movement.velocity.x * e.movement.perspective.x;
                     newPosition.y += e.movement.velocity.y * e.movement.perspective.y;

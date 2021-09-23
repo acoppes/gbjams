@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5663437888082835737}
   - component: {fileID: 5663437888082835739}
-  - component: {fileID: 5663437888082835738}
   m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
@@ -84,22 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5663437888082835738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5663437888082835736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77b95a4dc5448dcbe3d19ec567a5f8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  model: {fileID: 5663437888082835739}
-  rotateToDirection: 1
-  unitState: {fileID: 0}
 --- !u!1 &5663437888090784844
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +98,8 @@ GameObject:
   - component: {fileID: 5663437888090784847}
   - component: {fileID: 6049982162116683298}
   - component: {fileID: 7935343458684443676}
+  - component: {fileID: 2626611528215815474}
+  - component: {fileID: 7408120043853429546}
   m_Layer: 8
   m_Name: Projectile_Kunai
   m_TagString: Untagged
@@ -134,7 +119,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5663437888082835737}
-  - {fileID: 5663437888481318351}
   - {fileID: 5576398607400593931}
   - {fileID: 183136735458905034}
   m_Father: {fileID: 0}
@@ -152,7 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163df662cbfb45f79e54ac5c858d3a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 0
 --- !u!114 &2558386911260097306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,10 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7729023064a548e9b69af4c9e8bcc436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitComponent: {fileID: 4053003939819769015}
-  projectileComponent: {fileID: 1086138826032393262}
-  movement: {fileID: 5663437888481318344}
-  model: {fileID: 5663437888082835738}
+  entityComponent: {fileID: 4053003939819769015}
   fireSfx: {fileID: 1689547559005331204}
   hitSfxPrefab: {fileID: 5663437888090784844, guid: 5586736bd6dd838459a05cba0180dafd, type: 3}
   startOffset: 0
@@ -236,53 +216,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1 &5663437888481318350
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5663437888481318351}
-  - component: {fileID: 5663437888481318344}
-  m_Layer: 8
-  m_Name: Movement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5663437888481318351
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5663437888481318350}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5663437888090784845}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5663437888481318344
+--- !u!114 &2626611528215815474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5663437888481318350}
+  m_GameObject: {fileID: 5663437888090784844}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9916831584f648748070e34fb6f59305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transform: {fileID: 5663437888090784845}
   speed: 13
+  dashSpeed: 0
   perspective: {x: 1, y: 0.75}
-  detectCollisions: 0
+--- !u!114 &7408120043853429546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663437888090784844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d77b95a4dc5448dcbe3d19ec567a5f8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  model: {fileID: 5663437888082835739}
+  rotateToDirection: 1
+  unitState: {fileID: 0}
 --- !u!1001 &1773145596552239420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -292,7 +256,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1878523748438577910, guid: cdad97de88fe34b3cbd4a9c4ace397b6, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1878523748438577910, guid: cdad97de88fe34b3cbd4a9c4ace397b6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -362,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2876659939674835912, guid: 81d8b7f952b81f44a924a3015214b49f, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2876659939674835912, guid: 81d8b7f952b81f44a924a3015214b49f, type: 3}
       propertyPath: m_LocalPosition.x
