@@ -235,15 +235,21 @@ namespace GBJAM9
 
                     if (!e.model.rotateToDirection)
                     {
+                        var scale = e.model.transform.localScale;
+
                         if (Mathf.Abs(e.model.lookingDirection.x) > 0)
                         {
-                            e.model.model.flipX = e.model.lookingDirection.x < 0;
+                            // e.model.model.flipX = e.model.lookingDirection.x < 0;
+                            scale.x = e.model.lookingDirection.x < 0 ? -1 : 1;
                         }
 
                         if (e.model.verticalFlip && Mathf.Abs(e.model.lookingDirection.y) > 0)
                         {
-                            e.model.model.flipY = e.model.lookingDirection.y > 0;
+                            // e.model.model.flipY = e.model.lookingDirection.y > 0;
+                            scale.y = e.model.lookingDirection.y > 0 ? -1 : 1;
                         }
+
+                        e.model.transform.localScale = scale;
                     }
                     else
                     {
