@@ -181,6 +181,8 @@ GameObject:
   - component: {fileID: 4391817125124591681}
   - component: {fileID: 2625025126926979205}
   - component: {fileID: 2230714311038632556}
+  - component: {fileID: 1425004037423573326}
+  - component: {fileID: 6535273477990419683}
   m_Layer: 6
   m_Name: NinjaCat_Unit
   m_TagString: Untagged
@@ -231,6 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+  destroyed: 0
+  inventoryComponent: {fileID: 0}
 --- !u!114 &2846385692937050290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,12 +273,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b860427b8aae24186879503445b17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitComponent: {fileID: 8793871774876110060}
-  unitState: {fileID: 2846385692937050290}
+  unit: {fileID: 8793871774876110060}
   unitInput: {fileID: 2937384472320121754}
   unitMovement: {fileID: 8711684023405265429}
   dashMovement: {fileID: 4146655895831246447}
-  unitModel: {fileID: 0}
   kunaiPrefab: {fileID: 5663437888090784844, guid: 7e62e2f2037cbfa4d91033b7a876052d, type: 3}
   dashingTime: 0.1
   dashCooldown: 0.65
@@ -352,6 +354,32 @@ MonoBehaviour:
   model: {fileID: 2604852180642369831}
   rotateToDirection: 0
   unitState: {fileID: 2846385692937050290}
+--- !u!114 &1425004037423573326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298effba73954d289af1433a7eed2438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 4391817125124591681}
+--- !u!114 &6535273477990419683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed414b356404776897b570254af2fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coins: 0
 --- !u!1 &8516945640494613468
 GameObject:
   m_ObjectHideFlags: 0

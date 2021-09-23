@@ -29,11 +29,11 @@ namespace GBJAM9
 
             var iterationList = new List<UnitComponent>(units);
             
-            foreach (var unit in iterationList)
+            foreach (var u in iterationList)
             {
                 var receivedDamage = false;
                 
-                var health = unit.GetComponent<HealthComponent>();
+                var health = u.GetComponent<HealthComponent>();
                 if (health != null)
                 {
                     receivedDamage = health.damages > 0;
@@ -47,7 +47,7 @@ namespace GBJAM9
                 
                 // TODO: blink animation state
 
-                var soundEffect = unit.GetComponent<SoundEffectComponent>();
+                var soundEffect = u.GetComponent<SoundEffectComponent>();
                 if (soundEffect != null)
                 {
                     if (!soundEffect.started)
@@ -57,7 +57,7 @@ namespace GBJAM9
                     }
                     else if (!soundEffect.sfx.isPlaying)
                     {
-                        toDestroyUnits.Add(unit);
+                        toDestroyUnits.Add(u);
                     }
                 }
                 
@@ -66,11 +66,11 @@ namespace GBJAM9
                     if (health.current <= 0)
                     {
                         // TODO: spawn death unit
-                        unit.destroyed = true;
+                        u.destroyed = true;
                     }
                 }
 
-                var roomEnd = unit.GetComponentInChildren<RoomExitComponent>();
+                var roomEnd = u.GetComponentInChildren<RoomExitComponent>();
                 if (roomEnd != null)
                 {
                     roomEnd.mainUnitCollision = false;
@@ -85,32 +85,37 @@ namespace GBJAM9
                     }
                 }
 
-                if (unit.pickupComponent != null)
+                if (u.pickupComponent != null)
                 {
-                    if (unit.colliderComponent != null)
+                    if (u.colliderComponent != null)
                     {
                         var contactsList = new List<ContactPoint2D>();
-                        if (unit.colliderComponent.collider.GetContacts(contactsList) > 0)
+                        if (u.colliderComponent.collider.GetContacts(contactsList) > 0)
                         {
-                            if (unit.pickupComponent.pickupVfxPrefab != null)
+                            var contactUnit = contactsList[0].collider.GetComponent<UnitComponent>();
+                            
+                            if (u.pickupComponent.pickupVfxPrefab != null)
                             {
-                                var pickupVfx = GameObject.Instantiate(unit.pickupComponent.pickupVfxPrefab);
-                                pickupVfx.transform.position = unit.transform.position;
+                                var pickupVfx = GameObject.Instantiate(u.pickupComponent.pickupVfxPrefab);
+                                pickupVfx.transform.position = u.transform.position;
                             }
-                            unit.destroyed = true;
+                            
+                            u.SendMessage("OnPickup", contactUnit, SendMessageOptions.DontRequireReceiver);
+
+                            u.destroyed = true;
                         }
                     }
                 }
 
-                if (unit.visualEffectComponent != null && unit.unitModel != null)
+                if (u.visualEffectComponent != null && u.unitModel != null)
                 {
-                    unit.destroyed =
-                        unit.unitModel.animator.GetCurrentAnimatorStateInfo(0).shortNameHash == vfxDoneHash;
+                    u.destroyed =
+                        u.unitModel.animator.GetCurrentAnimatorStateInfo(0).shortNameHash == vfxDoneHash;
                 }
 
-                if (unit.destroyed)
+                if (u.destroyed)
                 {
-                    toDestroyUnits.Add(unit);
+                    toDestroyUnits.Add(u);
                 }
                 
                 
