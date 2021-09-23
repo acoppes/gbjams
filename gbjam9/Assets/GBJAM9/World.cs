@@ -186,7 +186,10 @@ namespace GBJAM9
 
                 if (e.vfx != null && !e.vfx.sfxSpawned)
                 {
-                    e.vfx.sfxVariant.Play();
+                    if (e.vfx.sfxVariant != null)
+                    {
+                        e.vfx.sfxVariant.Play();
+                    }
                     e.vfx.sfxSpawned = true;
                 }
 
@@ -235,6 +238,11 @@ namespace GBJAM9
                         if (Mathf.Abs(e.model.lookingDirection.x) > 0)
                         {
                             e.model.model.flipX = e.model.lookingDirection.x < 0;
+                        }
+
+                        if (e.model.verticalFlip && Mathf.Abs(e.model.lookingDirection.y) > 0)
+                        {
+                            e.model.model.flipY = e.model.lookingDirection.y > 0;
                         }
                     }
                     else
