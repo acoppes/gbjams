@@ -176,6 +176,12 @@ namespace GBJAM9
                     }
                 }
 
+                if (e.visualEffectComponent != null && !e.visualEffectComponent.sfxSpawned)
+                {
+                    e.visualEffectComponent.sfxVariant.Play();
+                    e.visualEffectComponent.sfxSpawned = true;
+                }
+
                 if (e.visualEffectComponent != null && e.model != null)
                 {
                     e.destroyed =
