@@ -11,14 +11,19 @@ namespace GBJAM9.Components
         [NonSerialized]
         public Vector2 lookingDirection = new Vector2(1, 0);
 
-        public bool rotateToDirection = false;
+        public bool rotateToDirection;
 
-        public bool verticalFlip = false;
+        public bool verticalFlip;
 
         private void Awake()
         {
             if (animator == null)
                 animator = GetComponent<Animator>();
+
+            if (animator != null)
+            {
+                animator.logWarnings = false;
+            }
         }
     }
 }

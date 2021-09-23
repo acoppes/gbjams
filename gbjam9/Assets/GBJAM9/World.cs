@@ -19,7 +19,7 @@ namespace GBJAM9
             return entities.Where(u => u.GetComponent<T>() != null)
                 .Select(u => u.GetComponent<T>()).ToList();
         }
-        
+
         public void Update()
         {
             // perform general logics in order
@@ -43,6 +43,11 @@ namespace GBJAM9
                     {
                         health.current -= health.damages;
                         health.damages = 0;
+                    }
+
+                    if (e.state != null)
+                    {
+                        e.state.hit = receivedDamage;
                     }
                 }
                 
@@ -261,15 +266,15 @@ namespace GBJAM9
                 if (e.model != null)
                 {
                     var animator = e.model.animator;
-                    var unitState = e.state;
+                    var state = e.state;
                     
-                    if (animator != null && unitState != null)
+                    if (animator != null && state != null)
                     {
-                        animator.SetBool(UnitStateComponent.walkingStateHash, unitState.walking);
-                        animator.SetBool(UnitStateComponent.kunaiAttackStateHash, unitState.kunaiAttacking);
-                        animator.SetBool(UnitStateComponent.swordAttackStateHash, unitState.swordAttacking);
-                        animator.SetBool(UnitStateComponent.dashingStateHash, unitState.dashing);
-                        animator.SetBool(UnitStateComponent.hitStateHash, unitState.hit);
+                        animator.SetBool(UnitStateComponent.walkingStateHash, state.walking);
+                        animator.SetBool(UnitStateComponent.kunaiAttackStateHash, state.kunaiAttacking);
+                        animator.SetBool(UnitStateComponent.swordAttackStateHash, state.swordAttacking);
+                        animator.SetBool(UnitStateComponent.dashingStateHash, state.dashing);
+                        animator.SetBool(UnitStateComponent.hitStateHash, state.hit);
                     }
 
                     if (!e.model.rotateToDirection)

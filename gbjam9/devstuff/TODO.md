@@ -21,14 +21,10 @@ TODO
   - ignore hits while dashing
   - ignore enemy collision while dashing (move through enemies)
 
-* Sword attack
-  - avoid multiple collision detection if same entity
-
-* Kiunai attack
+* Attacks
   - cooldown
 
-* Enemy Hit detection
-  - on hit show blink effect
+* WHITE Flash shader (all pixels same color)
 
 * On hit become invulnerable
 
