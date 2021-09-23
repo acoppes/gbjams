@@ -31,6 +31,9 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public SoundEffectComponent sfxComponent;
+
+        [NonSerialized]
+        public ColliderComponent colliderComponent;
         
         private void Awake()
         {
@@ -42,6 +45,7 @@ namespace GBJAM9.Components
             unitModel = GetComponent<UnitModelComponent>();
             health = GetComponent<HealthComponent>();
             sfxComponent = GetComponent<SoundEffectComponent>();
+            colliderComponent = GetComponent<ColliderComponent>();
         }
 
         private void OnEnable()

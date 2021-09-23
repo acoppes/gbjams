@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 8793871774876110060}
   - component: {fileID: 135671628572209119}
   - component: {fileID: 7887395766929354268}
+  - component: {fileID: 5516215080466262386}
   - component: {fileID: 8859169174121970440}
-  - component: {fileID: 4391817125124591681}
   m_Layer: 10
   m_Name: Pickup_Vfx
   m_TagString: Untagged
@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+  destroyed: 0
 --- !u!114 &135671628572209119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +161,18 @@ MonoBehaviour:
   model: {fileID: 2604852180642369831}
   rotateToDirection: 0
   unitState: {fileID: 135671628572209119}
+--- !u!114 &5516215080466262386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57ab4f58d9a401e85e9c5506b61a953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &8859169174121970440
 Animator:
   serializedVersion: 3
@@ -179,19 +192,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!58 &4391817125124591681
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6537197837099432043}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.35

@@ -27,7 +27,9 @@ namespace GBJAM9
             var mainUnits = units.Where(u => u.GetComponent<MainUnitComponent>() != null)
                 .Select(u => u.GetComponent<MainUnitComponent>()).ToList();
 
-            foreach (var unit in units)
+            var iterationList = new List<UnitComponent>(units);
+            
+            foreach (var unit in iterationList)
             {
                 var receivedDamage = false;
                 
@@ -79,6 +81,23 @@ namespace GBJAM9
                         {
                             roomEnd.mainUnitCollision = true;
                             break;
+                        }
+                    }
+                }
+
+                if (unit.pickupComponent != null)
+                {
+                    if (unit.colliderComponent != null)
+                    {
+                        var contactsList = new List<ContactPoint2D>();
+                        if (unit.colliderComponent.collider.GetContacts(contactsList) > 0)
+                        {
+                            if (unit.pickupComponent.pickupVfxPrefab != null)
+                            {
+                                var pickupVfx = GameObject.Instantiate(unit.pickupComponent.pickupVfxPrefab);
+                                pickupVfx.transform.position = unit.transform.position;
+                            }
+                            unit.destroyed = true;
                         }
                     }
                 }

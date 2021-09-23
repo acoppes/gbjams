@@ -1,5 +1,13 @@
 TODO
 
+* Agarrar pickups
+  - Sushi te suma vida
+  - Espada te cambia el arma
+  - Kunai te cambia el arma
+  - Coin te suma monedas
+
+* Que se levanten los rooms automáticamente desde folder (logica de object list)
+
 * Kunai Enemy
 * Sword Enemy
 
