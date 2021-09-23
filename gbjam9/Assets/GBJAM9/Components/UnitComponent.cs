@@ -31,7 +31,12 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public SoundEffectComponent sfxComponent;
-        
+
+        [NonSerialized]
+        public ColliderComponent colliderComponent;
+
+        public InventoryComponent inventoryComponent;
+
         private void Awake()
         {
             world = FindObjectOfType<World>();
@@ -42,6 +47,8 @@ namespace GBJAM9.Components
             unitModel = GetComponent<UnitModelComponent>();
             health = GetComponent<HealthComponent>();
             sfxComponent = GetComponent<SoundEffectComponent>();
+            colliderComponent = GetComponent<ColliderComponent>();
+            inventoryComponent = GetComponent<InventoryComponent>();
         }
 
         private void OnEnable()

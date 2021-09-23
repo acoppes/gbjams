@@ -27,11 +27,13 @@ namespace GBJAM9
             var mainUnits = units.Where(u => u.GetComponent<MainUnitComponent>() != null)
                 .Select(u => u.GetComponent<MainUnitComponent>()).ToList();
 
-            foreach (var unit in units)
+            var iterationList = new List<UnitComponent>(units);
+            
+            foreach (var u in iterationList)
             {
                 var receivedDamage = false;
                 
-                var health = unit.GetComponent<HealthComponent>();
+                var health = u.GetComponent<HealthComponent>();
                 if (health != null)
                 {
                     receivedDamage = health.damages > 0;
@@ -45,7 +47,7 @@ namespace GBJAM9
                 
                 // TODO: blink animation state
 
-                var soundEffect = unit.GetComponent<SoundEffectComponent>();
+                var soundEffect = u.GetComponent<SoundEffectComponent>();
                 if (soundEffect != null)
                 {
                     if (!soundEffect.started)
@@ -55,7 +57,7 @@ namespace GBJAM9
                     }
                     else if (!soundEffect.sfx.isPlaying)
                     {
-                        toDestroyUnits.Add(unit);
+                        toDestroyUnits.Add(u);
                     }
                 }
                 
@@ -64,11 +66,11 @@ namespace GBJAM9
                     if (health.current <= 0)
                     {
                         // TODO: spawn death unit
-                        unit.destroyed = true;
+                        u.destroyed = true;
                     }
                 }
 
-                var roomEnd = unit.GetComponentInChildren<RoomExitComponent>();
+                var roomEnd = u.GetComponentInChildren<RoomExitComponent>();
                 if (roomEnd != null)
                 {
                     roomEnd.mainUnitCollision = false;
@@ -83,15 +85,37 @@ namespace GBJAM9
                     }
                 }
 
-                if (unit.visualEffectComponent != null && unit.unitModel != null)
+                if (u.pickupComponent != null)
                 {
-                    unit.destroyed =
-                        unit.unitModel.animator.GetCurrentAnimatorStateInfo(0).shortNameHash == vfxDoneHash;
+                    if (u.colliderComponent != null)
+                    {
+                        var contactsList = new List<ContactPoint2D>();
+                        if (u.colliderComponent.collider.GetContacts(contactsList) > 0)
+                        {
+                            var contactUnit = contactsList[0].collider.GetComponent<UnitComponent>();
+                            
+                            if (u.pickupComponent.pickupVfxPrefab != null)
+                            {
+                                var pickupVfx = GameObject.Instantiate(u.pickupComponent.pickupVfxPrefab);
+                                pickupVfx.transform.position = u.transform.position;
+                            }
+                            
+                            u.SendMessage("OnPickup", contactUnit, SendMessageOptions.DontRequireReceiver);
+
+                            u.destroyed = true;
+                        }
+                    }
                 }
 
-                if (unit.destroyed)
+                if (u.visualEffectComponent != null && u.unitModel != null)
                 {
-                    toDestroyUnits.Add(unit);
+                    u.destroyed =
+                        u.unitModel.animator.GetCurrentAnimatorStateInfo(0).shortNameHash == vfxDoneHash;
+                }
+
+                if (u.destroyed)
+                {
+                    toDestroyUnits.Add(u);
                 }
                 
                 

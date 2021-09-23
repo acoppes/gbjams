@@ -30,9 +30,9 @@ namespace GBJAM9
 
         [NonSerialized]
         public Room currentRoom;
-        
-        public List<GameObject> roomPrefabs;
 
+        public RoomDataAsset rooms;
+        
         public GameObject roomExitUnitPrefab;
 
         private List<UnitComponent> roomExitUnits = new List<UnitComponent>();
@@ -120,7 +120,7 @@ namespace GBJAM9
             
             GameObject.Destroy(currentRoom.gameObject);
 
-            var nextRoomPrefab = roomPrefabs[UnityEngine.Random.Range(0, roomPrefabs.Count)];
+            var nextRoomPrefab = rooms.roomPrefabs[UnityEngine.Random.Range(0, rooms.roomPrefabs.Count)];
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
             currentRoom = roomObject.GetComponent<Room>();
             mainPlayerUnitComponent.transform.position = currentRoom.roomStart.transform.position;
