@@ -9,31 +9,31 @@ namespace GBJAM9
     public class World : MonoBehaviour
     {
         [NonSerialized]
-        public readonly List<UnitComponent> units = new List<UnitComponent>();
+        public readonly List<EntityComponent> entities = new List<EntityComponent>();
 
         private int vfxDoneHash = Animator.StringToHash("Done");
 
         public List<T> GetEntityList<T>() where T : IGameComponent
         {
-            return units.Where(u => u.GetComponent<T>() != null)
+            return entities.Where(u => u.GetComponent<T>() != null)
                 .Select(u => u.GetComponent<T>()).ToList();
         }
         
         public void FixedUpdate()
         {
             // perform general logics in order
-            var toDestroyUnits = new List<UnitComponent>();
+            var toDestroy = new List<EntityComponent>();
 
-            var mainUnits = units.Where(u => u.GetComponent<MainUnitComponent>() != null)
+            var mainUnits = entities.Where(u => u.GetComponent<MainUnitComponent>() != null)
                 .Select(u => u.GetComponent<MainUnitComponent>()).ToList();
 
-            var iterationList = new List<UnitComponent>(units);
+            var iterationList = new List<EntityComponent>(entities);
             
-            foreach (var u in iterationList)
+            foreach (var e in iterationList)
             {
                 var receivedDamage = false;
                 
-                var health = u.GetComponent<HealthComponent>();
+                var health = e.GetComponent<HealthComponent>();
                 if (health != null)
                 {
                     receivedDamage = health.damages > 0;
@@ -47,7 +47,7 @@ namespace GBJAM9
                 
                 // TODO: blink animation state
 
-                var soundEffect = u.GetComponent<SoundEffectComponent>();
+                var soundEffect = e.GetComponent<SoundEffectComponent>();
                 if (soundEffect != null)
                 {
                     if (!soundEffect.started)
@@ -57,7 +57,7 @@ namespace GBJAM9
                     }
                     else if (!soundEffect.sfx.isPlaying)
                     {
-                        toDestroyUnits.Add(u);
+                        toDestroy.Add(e);
                     }
                 }
                 
@@ -66,11 +66,55 @@ namespace GBJAM9
                     if (health.current <= 0)
                     {
                         // TODO: spawn death unit
-                        u.destroyed = true;
+                        e.destroyed = true;
                     }
                 }
 
-                var roomEnd = u.GetComponentInChildren<RoomExitComponent>();
+                if (e.input != null && e.gameboyControllerComponent != null)
+                {
+                    var gameboyKeyMap = e.gameboyControllerComponent.gameboyKeyMap;
+                    e.input.movementDirection = gameboyKeyMap.direction;
+                    e.input.attack = gameboyKeyMap.button1Pressed;
+                    e.input.dash = gameboyKeyMap.button2Pressed;
+                }
+                
+                if (e.input != null)
+                {
+                    if (e.movement != null && e.input.enabled && e.input.movementDirection.SqrMagnitude() > 0)
+                    {
+                        e.movement.lookingDirection = e.input.movementDirection;
+                    }
+                    
+                    if (e.state != null)
+                    {
+                        e.state.walking = e.input.enabled && e.input.movementDirection.SqrMagnitude() > 0;
+                    }
+                }
+
+                if (e.movement != null && e.input != null)
+                {
+                    var speed = e.movement.speed;
+
+                    if (e.state != null && e.state.dashing)
+                    {
+                        speed = e.movement.dashSpeed;
+                    }
+                    
+                    var newPosition = e.transform.localPosition;
+                    e.movement.velocity = e.input.movementDirection * speed * Time.deltaTime;
+
+                    newPosition.x += e.movement.velocity.x * e.movement.perspective.x;
+                    newPosition.y += e.movement.velocity.y * e.movement.perspective.y;
+
+                    e.transform.localPosition = newPosition;
+                }
+                
+                if (e.model != null && e.movement != null)
+                {
+                    e.model.lookingDirection = e.movement.lookingDirection;
+                }
+                
+                var roomEnd = e.GetComponentInChildren<RoomExitComponent>();
                 if (roomEnd != null)
                 {
                     roomEnd.mainUnitCollision = false;
@@ -85,43 +129,43 @@ namespace GBJAM9
                     }
                 }
 
-                if (u.pickupComponent != null)
+                if (e.pickupComponent != null)
                 {
-                    if (u.colliderComponent != null)
+                    if (e.colliderComponent != null)
                     {
                         var contactsList = new List<ContactPoint2D>();
-                        if (u.colliderComponent.collider.GetContacts(contactsList) > 0)
+                        if (e.colliderComponent.collider.GetContacts(contactsList) > 0)
                         {
-                            var contactUnit = contactsList[0].collider.GetComponent<UnitComponent>();
+                            var contactUnit = contactsList[0].collider.GetComponent<EntityComponent>();
                             
-                            if (u.pickupComponent.pickupVfxPrefab != null)
+                            if (e.pickupComponent.pickupVfxPrefab != null)
                             {
-                                var pickupVfx = GameObject.Instantiate(u.pickupComponent.pickupVfxPrefab);
-                                pickupVfx.transform.position = u.transform.position;
+                                var pickupVfx = GameObject.Instantiate(e.pickupComponent.pickupVfxPrefab);
+                                pickupVfx.transform.position = e.transform.position;
                             }
                             
-                            u.SendMessage("OnPickup", contactUnit, SendMessageOptions.DontRequireReceiver);
+                            e.SendMessage("OnPickup", contactUnit, SendMessageOptions.DontRequireReceiver);
 
-                            u.destroyed = true;
+                            e.destroyed = true;
                         }
                     }
                 }
 
-                if (u.visualEffectComponent != null && u.unitModel != null)
+                if (e.visualEffectComponent != null && e.model != null)
                 {
-                    u.destroyed =
-                        u.unitModel.animator.GetCurrentAnimatorStateInfo(0).shortNameHash == vfxDoneHash;
+                    e.destroyed =
+                        e.model.animator.GetCurrentAnimatorStateInfo(0).shortNameHash == vfxDoneHash;
                 }
 
-                if (u.destroyed)
+                if (e.destroyed)
                 {
-                    toDestroyUnits.Add(u);
+                    toDestroy.Add(e);
                 }
                 
                 
             }
 
-            foreach (var unit in toDestroyUnits)
+            foreach (var unit in toDestroy)
             {
                 Destroy(unit.gameObject);
             }

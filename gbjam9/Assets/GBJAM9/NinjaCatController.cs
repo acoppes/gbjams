@@ -7,17 +7,8 @@ namespace GBJAM9
 {
     public class NinjaCatController : MonoBehaviour
     {
-        [FormerlySerializedAs("unitComponent")] 
-        public UnitComponent unit;
-
-        [SerializeField]
-        protected UnitInput unitInput;
-
-        [SerializeField]
-        protected UnitMovement unitMovement;
-        
-        [SerializeField]
-        protected UnitMovement dashMovement;
+        [FormerlySerializedAs("unit")] [FormerlySerializedAs("unitComponent")] 
+        public EntityComponent entity;
         
         [SerializeField]
         protected GameObject kunaiPrefab;
@@ -41,21 +32,25 @@ namespace GBJAM9
         // Update is called once per frame
         private void Update()
         {
-            unit.unitState.walking = false;
-            unit.unitState.kunaiAttacking = false;
+            // entity.state.walking = false;
+            
+            entity.state.kunaiAttacking = false;
 
             if (dashingCurrentTime > 0)
             {
-                unit.unitState.dashing = true;
+                entity.state.dashing = true;
                 
                 dashingCurrentTime -= Time.deltaTime;
-                dashMovement.lookingDirection = dashDirection;
-                dashMovement.Move();
+                entity.movement.lookingDirection = dashDirection;
+                
+                // dashMovement.lookingDirection = dashDirection;
+
+                // dashMovement.Move();
 
                 if (dashingCurrentTime <= 0)
                 {
                     dashCooldownCurrentTime = dashCooldown;
-                    unit.unitState.dashing = false;
+                    entity.state.dashing = false;
                 }
 
                 return;
@@ -68,10 +63,10 @@ namespace GBJAM9
 
             dashCooldownCurrentTime -= Time.deltaTime;
             
-            if (unitInput.enabled && dashMovement != null && unitInput.dash && dashCooldownCurrentTime <= 0)
+            if (entity.input.enabled && entity.input.dash && dashCooldownCurrentTime <= 0)
             {
                 dashingCurrentTime = dashingTime;
-                dashDirection = unitMovement.lookingDirection;
+                dashDirection = entity.movement.lookingDirection;
                 
                 if (dashParticles != null)
                 {
@@ -83,30 +78,22 @@ namespace GBJAM9
                     dashSfx.Play();
                 }
 
-                unit.unitState.dashing = true;
+                entity.state.dashing = true;
                 
                 return;
             }
-            
-            if (unitInput.enabled && unitInput.movementDirection.SqrMagnitude() > 0)
-            {
-                unitMovement.lookingDirection = unitInput.movementDirection;
-                unitMovement.Move();
 
-                unit.unitState.walking = true;
-            }
+            // entity.model.lookingDirection = unitMovement.lookingDirection;
 
-            unit.unitModel.lookingDirection = unitMovement.lookingDirection;
-
-            if (unitInput.enabled && unitInput.attack && kunaiPrefab != null)
+            if (entity.input.enabled && entity.input.attack && kunaiPrefab != null)
             {
                 // fire kunai!!
                 var kunaiObject = GameObject.Instantiate(kunaiPrefab);
                 var kunai = kunaiObject.GetComponent<KunaiController>();
-                kunai.Fire(transform.position, unitMovement.lookingDirection);
-                kunai.unitComponent.player = unit.player;
+                kunai.Fire(transform.position, entity.movement.lookingDirection);
+                kunai.entityComponent.player = entity.player;
 
-                unit.unitState.kunaiAttacking = true;
+                entity.state.kunaiAttacking = true;
             }
         }
     }

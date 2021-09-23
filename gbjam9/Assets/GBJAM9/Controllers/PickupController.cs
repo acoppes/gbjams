@@ -5,7 +5,7 @@ namespace GBJAM9.Controllers
 {
     public class PickupController : MonoBehaviour
     {
-        public void OnPickup(UnitComponent unit)
+        public void OnPickup(EntityComponent entity)
         {
             var pickup = GetComponent<PickupComponent>();
 
@@ -17,15 +17,15 @@ namespace GBJAM9.Controllers
                 // swap attack to kunai
             } else if (pickup.pickupType.Equals("coin"))
             {
-                unit.inventoryComponent.coins += pickup.count;
+                entity.inventoryComponent.coins += pickup.count;
             } else if (pickup.pickupType.Equals("sushi"))
             {
-                unit.health.current += pickup.count;
-                if (unit.health.current > unit.health.total)
-                    unit.health.current = unit.health.total;
+                entity.health.current += pickup.count;
+                if (entity.health.current > entity.health.total)
+                    entity.health.current = entity.health.total;
             } else if (pickup.pickupType.Equals("trap"))
             {
-                unit.health.current -= pickup.count;
+                entity.health.current -= pickup.count;
             }
         }
     }

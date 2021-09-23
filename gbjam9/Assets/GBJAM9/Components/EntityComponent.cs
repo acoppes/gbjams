@@ -3,16 +3,19 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class UnitComponent : MonoBehaviour, IGameComponent
+    public class EntityComponent : MonoBehaviour, IGameComponent
     {
-        public int player;
-
+        [NonSerialized]
         public bool destroyed;
 
-        private World world;
+        [NonSerialized]
+        public World world;
 
         [NonSerialized]
-        public UnitStateComponent unitState;
+        public PlayerComponent player;
+        
+        [NonSerialized]
+        public UnitStateComponent state;
 
         [NonSerialized]
         public ProjectileComponent projectileComponent;
@@ -24,7 +27,7 @@ namespace GBJAM9.Components
         public VisualEffectComponent visualEffectComponent;
 
         [NonSerialized]
-        public UnitModelComponent unitModel;
+        public UnitModelComponent model;
         
         [NonSerialized]
         public HealthComponent health;
@@ -35,27 +38,41 @@ namespace GBJAM9.Components
         [NonSerialized]
         public ColliderComponent colliderComponent;
 
+        [NonSerialized]
         public InventoryComponent inventoryComponent;
+
+        [NonSerialized] 
+        public UnitInput input;
+
+        [NonSerialized]
+        public UnitMovement movement;
+
+        [NonSerialized]
+        public UnitInputGameBoyControllerComponent gameboyControllerComponent;
 
         private void Awake()
         {
             world = FindObjectOfType<World>();
-            unitState = GetComponent<UnitStateComponent>();
+            player = GetComponent<PlayerComponent>();
+            state = GetComponent<UnitStateComponent>();
             projectileComponent = GetComponent<ProjectileComponent>();
             pickupComponent = GetComponent<PickupComponent>();
             visualEffectComponent = GetComponent<VisualEffectComponent>();
-            unitModel = GetComponent<UnitModelComponent>();
+            model = GetComponent<UnitModelComponent>();
             health = GetComponent<HealthComponent>();
             sfxComponent = GetComponent<SoundEffectComponent>();
             colliderComponent = GetComponent<ColliderComponent>();
             inventoryComponent = GetComponent<InventoryComponent>();
+            input = GetComponent<UnitInput>();
+            movement = GetComponent<UnitMovement>();
+            gameboyControllerComponent = GetComponent<UnitInputGameBoyControllerComponent>();
         }
 
         private void OnEnable()
         {
             if (world != null)
             {
-                world.units.Add(this);
+                world.entities.Add(this);
             }
         }
 
@@ -63,7 +80,7 @@ namespace GBJAM9.Components
         {
             if (world != null)
             {
-                world.units.Remove(this);
+                world.entities.Remove(this);
             }
         }
     }
