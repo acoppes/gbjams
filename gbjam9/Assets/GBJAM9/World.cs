@@ -160,8 +160,17 @@ namespace GBJAM9
                 if (e.colliderComponent != null)
                 {
                     e.colliderComponent.contactsList.Clear();
+                    e.colliderComponent.collidingEntities.Clear();
+                    
                     e.colliderComponent.inCollision = 
                         e.colliderComponent.collider.GetContacts(e.colliderComponent.contactsList) > 0;
+                    
+                    // filter duplicates?
+                    e.colliderComponent.collidingEntities = e.colliderComponent.contactsList
+                            .Where(c => c.collider.GetComponent<Entity>() != null)
+                            .Select(c => c.collider.GetComponent<Entity>())
+                            .Distinct()
+                            .ToList();
                 }
 
                 if (e.pickup != null)
@@ -185,14 +194,12 @@ namespace GBJAM9
                     }
                 }
 
-                if (e.projectile != null && e.colliderComponent != null)
+                if (e.projectile != null && e.colliderComponent != null && !e.projectile.damagePerformed)
                 {
                     if (e.colliderComponent.inCollision)
                     {
-                        foreach (var contact in e.colliderComponent.contactsList)
+                        foreach (var otherEntity in e.colliderComponent.collidingEntities)
                         {
-                            var otherEntity = contact.collider.GetComponent<Entity>();
-                            
                             if (otherEntity != null && e.projectile.totalTargets > 0)
                             {
                                 if (otherEntity.player.player == e.player.player)
@@ -207,6 +214,7 @@ namespace GBJAM9
                         }
                         
                         e.destroyed = true;
+                        e.projectile.damagePerformed = true;
 
                         if (e.projectile.hitSfxPrefab != null)
                         {

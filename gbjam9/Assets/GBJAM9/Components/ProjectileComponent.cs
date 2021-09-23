@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace GBJAM9.Components
@@ -7,6 +8,9 @@ namespace GBJAM9.Components
         public int totalTargets = 1;
         
         public int damage;
+
+        [NonSerialized]
+        public bool damagePerformed;
         
         public GameObject hitSfxPrefab;
     }

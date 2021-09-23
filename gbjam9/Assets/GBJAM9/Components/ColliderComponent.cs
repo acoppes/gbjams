@@ -10,6 +10,9 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public List<ContactPoint2D> contactsList = new List<ContactPoint2D>();
+        
+        [NonSerialized]
+        public List<Entity> collidingEntities = new List<Entity>();
 
         [NonSerialized]
         public bool inCollision;
