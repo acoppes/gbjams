@@ -9,14 +9,10 @@ namespace GBJAM9.Controllers
         {
             var pickup = GetComponent<PickupComponent>();
 
-            if (pickup.pickupType.Equals("sword"))
+            if (pickup.pickupType.Equals("weapon"))
             {
                 // swap unit to sword attack
-                entity.attack.attackType = "sword";
-            } else if (pickup.pickupType.Equals("kunai"))
-            {
-                // swap attack to kunai
-                entity.attack.attackType = "sword";
+                entity.attack.weaponData = pickup.pickupData as WeaponData;
             } else if (pickup.pickupType.Equals("coin"))
             {
                 entity.inventory.coins += pickup.count;

@@ -3,7 +3,7 @@ using GBJAM9.Components;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace GBJAM9
+namespace GBJAM9.Controllers
 {
     public class NinjaCatController : MonoBehaviour
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GBJAM9.Components;
+using GBJAM9.Controllers;
 using UnityEngine;
 
 namespace GBJAM9
@@ -120,17 +121,19 @@ namespace GBJAM9
                 {
                     e.state.swordAttacking = false;
                     e.state.kunaiAttacking = false;
+
+                    var weaponData = e.attack.weaponData;
                     
-                    var projectilePrefab = e.attack.projectilePrefab;
+                    var projectilePrefab = weaponData.projectilePrefab;
                     if (e.input.enabled && e.input.attack && projectilePrefab != null)
                     {
                         var projectileObject = GameObject.Instantiate(projectilePrefab);
-                        var projectile = projectileObject.GetComponent<KunaiController>();
+                        var projectile = projectileObject.GetComponent<ProjectileController>();
                         projectile.Fire(e.transform.position, e.movement.lookingDirection);
                         projectile.entity.player.player = e.player.player;
 
-                        e.state.kunaiAttacking = e.attack.attackType.Equals("kunai");
-                        e.state.swordAttacking = e.attack.attackType.Equals("sword");
+                        e.state.kunaiAttacking = weaponData.attackType.Equals("kunai");
+                        e.state.swordAttacking = weaponData.attackType.Equals("sword");
                     } 
                 }
                 

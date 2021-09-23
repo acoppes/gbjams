@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9
 {
-    [CreateAssetMenu(menuName = "Create RoomDataAsset", fileName = "RoomDataAsset", order = 0)]
+    [CreateAssetMenu(menuName = "GBJAM9/RoomList", fileName = "RoomDataAsset", order = 0)]
     public class RoomDataAsset : ScriptableObject
     {
         public string roomAssetsPath;

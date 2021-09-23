@@ -1,12 +1,11 @@
-using System;
 using GBJAM.Commons;
 using GBJAM9.Components;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace GBJAM9
+namespace GBJAM9.Controllers
 {
-    public class KunaiController : MonoBehaviour
+    public class ProjectileController : MonoBehaviour
     {
         [FormerlySerializedAs("entityComponent")]
         [FormerlySerializedAs("unitComponent")] 
