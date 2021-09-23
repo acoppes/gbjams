@@ -17,6 +17,9 @@ TODO
 
 * Sword attack
 
+* Kiunai attack
+  - cooldown
+
 * Enemy Hit detection
   - on hit show blink effect
 

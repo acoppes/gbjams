@@ -70,9 +70,9 @@ namespace GBJAM9
                     }
                 }
 
-                if (e.input != null && e.gameboyControllerComponent != null)
+                if (e.input != null && e.gameboyController != null)
                 {
-                    var gameboyKeyMap = e.gameboyControllerComponent.gameboyKeyMap;
+                    var gameboyKeyMap = e.gameboyController.gameboyKeyMap;
                     e.input.movementDirection = gameboyKeyMap.direction;
                     e.input.attack = gameboyKeyMap.button1Pressed;
                     e.input.dash = gameboyKeyMap.button2Pressed;
@@ -116,12 +116,12 @@ namespace GBJAM9
                     }
                 }
                 
-                if (e.attackComponent != null)
+                if (e.attack != null)
                 {
                     e.state.swordAttacking = false;
                     e.state.kunaiAttacking = false;
                     
-                    var projectilePrefab = e.attackComponent.projectilePrefab;
+                    var projectilePrefab = e.attack.projectilePrefab;
                     if (e.input.enabled && e.input.attack && projectilePrefab != null)
                     {
                         var projectileObject = GameObject.Instantiate(projectilePrefab);
@@ -129,8 +129,8 @@ namespace GBJAM9
                         projectile.Fire(e.transform.position, e.movement.lookingDirection);
                         projectile.entity.player.player = e.player.player;
 
-                        e.state.kunaiAttacking = e.attackComponent.attackType.Equals("kunai");
-                        e.state.swordAttacking = e.attackComponent.attackType.Equals("sword");
+                        e.state.kunaiAttacking = e.attack.attackType.Equals("kunai");
+                        e.state.swordAttacking = e.attack.attackType.Equals("sword");
                     } 
                 }
                 
@@ -160,7 +160,7 @@ namespace GBJAM9
                         e.colliderComponent.collider.GetContacts(e.colliderComponent.contactsList) > 0;
                 }
 
-                if (e.pickupComponent != null)
+                if (e.pickup != null)
                 {
                     if (e.colliderComponent != null)
                     {
@@ -168,9 +168,9 @@ namespace GBJAM9
                         {
                             var contactUnit = e.colliderComponent.contactsList[0].collider.GetComponent<Entity>();
                             
-                            if (e.pickupComponent.pickupVfxPrefab != null)
+                            if (e.pickup.pickupVfxPrefab != null)
                             {
-                                var pickupVfx = GameObject.Instantiate(e.pickupComponent.pickupVfxPrefab);
+                                var pickupVfx = GameObject.Instantiate(e.pickup.pickupVfxPrefab);
                                 pickupVfx.transform.position = e.transform.position;
                             }
                             
@@ -181,13 +181,13 @@ namespace GBJAM9
                     }
                 }
 
-                if (e.visualEffectComponent != null && !e.visualEffectComponent.sfxSpawned)
+                if (e.vfx != null && !e.vfx.sfxSpawned)
                 {
-                    e.visualEffectComponent.sfxVariant.Play();
-                    e.visualEffectComponent.sfxSpawned = true;
+                    e.vfx.sfxVariant.Play();
+                    e.vfx.sfxSpawned = true;
                 }
 
-                if (e.visualEffectComponent != null && e.model != null)
+                if (e.vfx != null && e.model != null)
                 {
                     e.destroyed =
                         e.model.animator.GetCurrentAnimatorStateInfo(0).shortNameHash == vfxDoneHash;

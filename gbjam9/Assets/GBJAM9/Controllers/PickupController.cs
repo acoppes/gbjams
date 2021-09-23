@@ -12,12 +12,14 @@ namespace GBJAM9.Controllers
             if (pickup.pickupType.Equals("sword"))
             {
                 // swap unit to sword attack
+                entity.attack.attackType = "sword";
             } else if (pickup.pickupType.Equals("kunai"))
             {
                 // swap attack to kunai
+                entity.attack.attackType = "sword";
             } else if (pickup.pickupType.Equals("coin"))
             {
-                entity.inventoryComponent.coins += pickup.count;
+                entity.inventory.coins += pickup.count;
             } else if (pickup.pickupType.Equals("sushi"))
             {
                 entity.health.current += pickup.count;

@@ -53,7 +53,7 @@ namespace GBJAM9
                 var health = otherEntity.GetComponent<HealthComponent>();
                 if (health != null)
                 {
-                    health.damages += entity.projectileComponent.damage;
+                    health.damages += entity.projectile.damage;
                 }
             }
             
@@ -61,7 +61,7 @@ namespace GBJAM9
             var myHealth = entity.GetComponent<HealthComponent>();
             if (myHealth != null)
             {
-                myHealth.damages += entity.projectileComponent.damage;
+                myHealth.damages += entity.projectile.damage;
             }
 
             if (hitSfxPrefab != null)
