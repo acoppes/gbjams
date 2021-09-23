@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5663437888090784845}
   - component: {fileID: 4053003939819769015}
+  - component: {fileID: 2009709765335677052}
   - component: {fileID: 2558386911260097306}
   - component: {fileID: 1086138826032393262}
   - component: {fileID: 5663437888090784847}
@@ -100,6 +101,7 @@ GameObject:
   - component: {fileID: 7935343458684443676}
   - component: {fileID: 2626611528215815474}
   - component: {fileID: 7408120043853429546}
+  - component: {fileID: 4204357238948099831}
   m_Layer: 8
   m_Name: Projectile_Kunai
   m_TagString: Untagged
@@ -136,6 +138,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163df662cbfb45f79e54ac5c858d3a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2009709765335677052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663437888090784844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5919783f311c4fbd8278fe8466f5b1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: 0
 --- !u!114 &2558386911260097306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +262,19 @@ MonoBehaviour:
   model: {fileID: 5663437888082835739}
   rotateToDirection: 1
   unitState: {fileID: 0}
+--- !u!114 &4204357238948099831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663437888090784844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298effba73954d289af1433a7eed2438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 6049982162116683298}
 --- !u!1001 &1773145596552239420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -301,6 +329,10 @@ PrefabInstance:
     - target: {fileID: 1878523748438577911, guid: cdad97de88fe34b3cbd4a9c4ace397b6, type: 3}
       propertyPath: m_Name
       value: Projectile_Kunai_Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878523748438577911, guid: cdad97de88fe34b3cbd4a9c4ace397b6, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1878523748438577911, guid: cdad97de88fe34b3cbd4a9c4ace397b6, type: 3}
       propertyPath: m_IsActive

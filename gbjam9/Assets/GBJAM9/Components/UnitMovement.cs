@@ -16,5 +16,8 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public Vector2 lookingDirection = new Vector2(1, 0);
+        
+        [NonSerialized]
+        public Vector2 movingDirection = new Vector2(0, 0);
     }
 }

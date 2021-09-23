@@ -24,7 +24,9 @@ namespace GBJAM9
         {
             var offset = direction.normalized * startOffset;
             transform.position = position + new Vector3(offset.x, offset.y, 0);
-            entityComponent.movement.lookingDirection = direction;
+            
+            // entityComponent.movement.lookingDirection = direction;
+            entityComponent.movement.movingDirection = direction;
 
             if (fireSfx != null)
             {
@@ -41,17 +43,16 @@ namespace GBJAM9
         {
             Debug.Log("collision");
             
-            var unit = other.collider.GetComponent<EntityComponent>();
-            if (unit != null)
+            var otherEntity = other.collider.GetComponent<EntityComponent>();
+            if (otherEntity != null)
             {
-                if (unit.player != entityComponent.player)
+                if (otherEntity.player.player == entityComponent.player.player)
+                    return;
+                
+                var health = otherEntity.GetComponent<HealthComponent>();
+                if (health != null)
                 {
-                    // perform damage!
-                    var health = unit.GetComponent<HealthComponent>();
-                    if (health != null)
-                    {
-                        health.damages += entityComponent.projectileComponent.damage;
-                    }
+                    health.damages += entityComponent.projectileComponent.damage;
                 }
             }
             

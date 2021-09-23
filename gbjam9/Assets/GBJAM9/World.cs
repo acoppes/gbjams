@@ -80,9 +80,9 @@ namespace GBJAM9
                 
                 if (e.input != null)
                 {
-                    if (e.movement != null && e.input.enabled && e.input.movementDirection.SqrMagnitude() > 0)
+                    if (e.movement != null && e.input.enabled)
                     {
-                        e.movement.lookingDirection = e.input.movementDirection;
+                        e.movement.movingDirection = e.input.movementDirection;
                     }
                     
                     if (e.state != null)
@@ -91,10 +91,10 @@ namespace GBJAM9
                     }
                 }
 
-                if (e.movement != null && e.input != null)
+                if (e.movement != null)
                 {
                     var speed = e.movement.speed;
-                    var direction = e.input.movementDirection;
+                    var direction = e.movement.movingDirection;
 
                     if (e.state != null && e.state.dashing)
                     {
@@ -109,6 +109,11 @@ namespace GBJAM9
                     newPosition.y += e.movement.velocity.y * e.movement.perspective.y;
 
                     e.transform.localPosition = newPosition;
+
+                    if (e.movement.velocity.SqrMagnitude() > 0)
+                    {
+                        e.movement.lookingDirection = e.movement.velocity.normalized;
+                    }
                 }
                 
                 if (e.model != null && e.movement != null)

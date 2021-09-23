@@ -91,7 +91,7 @@ namespace GBJAM9
                 var kunaiObject = GameObject.Instantiate(kunaiPrefab);
                 var kunai = kunaiObject.GetComponent<KunaiController>();
                 kunai.Fire(transform.position, entity.movement.lookingDirection);
-                kunai.entityComponent.player = entity.player;
+                kunai.entityComponent.player.player = entity.player.player;
 
                 entity.state.kunaiAttacking = true;
             }
