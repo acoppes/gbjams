@@ -59,9 +59,12 @@ namespace GBJAM9
         {
             // Start game sequence as coroutine?
 
-            backgroundMusicAudioSource.loop = true;
-            backgroundMusicAudioSource.clip = idleMusics[0];
-            backgroundMusicAudioSource.Play();
+            if (backgroundMusicAudioSource != null)
+            {
+                backgroundMusicAudioSource.loop = true;
+                backgroundMusicAudioSource.clip = idleMusics[0];
+                backgroundMusicAudioSource.Play();
+            }
 
             StartCoroutine(RestartGame(true));
         }
