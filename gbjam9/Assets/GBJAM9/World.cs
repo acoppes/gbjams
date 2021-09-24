@@ -134,7 +134,7 @@ namespace GBJAM9
                     {
                         var projectileObject = GameObject.Instantiate(projectilePrefab);
                         var projectile = projectileObject.GetComponent<ProjectileController>();
-                        projectile.Fire(e.transform.position, e.movement.lookingDirection);
+                        projectile.Fire(e.transform.position + e.attack.attackAttachPoint.localPosition, e.movement.lookingDirection);
                         projectile.entity.player.player = e.player.player;
 
                         e.state.kunaiAttacking = weaponData.attackType.Equals("kunai");
