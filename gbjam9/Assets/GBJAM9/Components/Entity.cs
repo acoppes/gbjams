@@ -1,4 +1,5 @@
 using System;
+using GBJAM9.Controllers;
 using UnityEngine;
 
 namespace GBJAM9.Components
@@ -53,6 +54,9 @@ namespace GBJAM9.Components
         [NonSerialized]
         public AttackComponent attack;
 
+        [NonSerialized]
+        public ControllerComponent controller;
+        
         private void Awake()
         {
             world = FindObjectOfType<World>();
@@ -70,6 +74,7 @@ namespace GBJAM9.Components
             movement = GetComponent<UnitMovement>();
             gameboyController = GetComponent<UnitInputGameBoyControllerComponent>();
             attack = GetComponent<AttackComponent>();
+            controller = GetComponent<ControllerComponent>();
         }
 
         private void OnEnable()

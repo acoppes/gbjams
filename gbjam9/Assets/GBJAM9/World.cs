@@ -58,6 +58,23 @@ namespace GBJAM9
                     e.player.enemyLayerMask = LayerMask.GetMask(e.player.player == 0 ? "Enemy" : "Player");
                 }
 
+                if (e.controller != null)
+                {
+                    var controllerObject = e.controller.controllerObject as MonoBehaviour;
+                    
+                    if (controllerObject != null)
+                    {
+
+                        if (!e.controller.initialized)
+                        {
+                            controllerObject.SendMessage("OnEnterWorld", this);
+                            e.controller.initialized = true;
+                        }
+                        
+                        controllerObject.SendMessage("OnWorldUpdate", this);
+                    }
+                }
+
                 if (e.model != null && e.model.optionalStartLookAt != null)
                 {
                     e.model.lookingDirection = e.model.optionalStartLookAt.localPosition.normalized;
