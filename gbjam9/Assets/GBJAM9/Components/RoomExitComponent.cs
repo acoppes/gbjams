@@ -7,5 +7,12 @@ namespace GBJAM9.Components
     {
         [NonSerialized]
         public bool mainUnitCollision;
+
+        public float distance;
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireSphere(transform.position, distance);
+        }
     }
 }

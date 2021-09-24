@@ -227,7 +227,7 @@ namespace GBJAM9
 
                     foreach (var mainUnit in mainUnits)
                     {
-                        if (Vector2.Distance(mainUnit.transform.position, roomEnd.transform.position) < 0.5f)
+                        if (Vector2.Distance(mainUnit.transform.position, roomEnd.transform.position) < roomEnd.distance)
                         {
                             roomEnd.mainUnitCollision = true;
                             break;
