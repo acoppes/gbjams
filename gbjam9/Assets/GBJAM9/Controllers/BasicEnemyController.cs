@@ -40,12 +40,26 @@ namespace GBJAM9.Controllers
             // TODO: configure mask in player component
 
             var playerMask = entity.player.enemyLayerMask;
-            
-            var hit = Physics2D.Raycast(transform.position, entity.input.movementDirection, 
-                7, playerMask);
 
-            var playerDetected = hit.collider != null && hit.distance > 0;
+            var distance = 4;
+            var directions = new Vector2[] { Vector2.right, Vector2.left, Vector2.down, Vector2.up };
+
+            var attackDirection = new Vector2();
+
+            var playerDetected = false;
             
+            foreach (var direction in directions)
+            {
+                var hit = Physics2D.Raycast(transform.position, direction,
+                    distance, playerMask);
+                playerDetected = hit.collider != null && hit.distance > 0;
+                if (playerDetected)
+                {
+                    attackDirection = direction;
+                    break;
+                }
+            }
+
             entity.input.attack = false;
             
             if (state == State.Wander)
@@ -67,11 +81,12 @@ namespace GBJAM9.Controllers
             
             if (state == State.AttackingPlayer)
             {
-                entity.input.movementDirection = Vector2.zero;
+                entity.input.movementDirection = attackDirection;
                 
                 if (playerDetected)
                 {
                     entity.input.attack = true;
+                    // entity.input.movementDirection = 
                     attackingPlayerCooldown = 0.3f;
                 }
 

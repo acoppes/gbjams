@@ -1,19 +1,17 @@
 TODO
 
-* Kunai Enemy
 * Sword Enemy
 
-* player layer and stuff cached in player component
+* enemy deaths + blood effect
 
 * change kunai and sword to attack1 and attack2 in animator
 
-* separate attack direction from movement direction, normally the same
+* separate attack direction from movement direction, normally the same so frog can attack in other directions.
 
 * hold to dash and release to stop, and have max distance
 
 * Room layout + editor or something
   - Auto load possible rooms from folder (asset)
-  - Enemy spots (to spawn)
 
 * Dash
   - ignore hits while dashing
