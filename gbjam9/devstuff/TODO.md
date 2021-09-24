@@ -22,3 +22,6 @@ TODO
 * On hit become invulnerable
 
 * Sword hit effect move with unit
+
+* Dummy
+  - always look at player

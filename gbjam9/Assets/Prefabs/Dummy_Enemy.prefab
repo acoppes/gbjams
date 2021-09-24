@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 1976085487757626777, guid: de8def0c008c96f4faf311c867c0d6ba, type: 3}
   m_Color: {r: 0.986, g: 0.986, b: 0.986, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -83,6 +83,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5806035810119971641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7222761893008485252}
+  m_Layer: 7
+  m_Name: Start_LookAt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7222761893008485252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5806035810119971641}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7782671430812760591}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8971555985727958758
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +129,6 @@ GameObject:
   - component: {fileID: 6943001453892241477}
   - component: {fileID: 4088741647390734878}
   - component: {fileID: 2670264086055349840}
-  - component: {fileID: 4207330904484125216}
   - component: {fileID: 4938479693121317840}
   m_Layer: 7
   m_Name: Dummy_Enemy
@@ -117,9 +146,10 @@ Transform:
   m_GameObject: {fileID: 8971555985727958758}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.67, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1891987196533004564}
+  - {fileID: 7222761893008485252}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -219,6 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6943001453892241477}
   model: {fileID: 153086307299248042}
+  optionalStartLookAt: {fileID: 7222761893008485252}
   rotateToDirection: 0
   verticalFlip: 0
 --- !u!114 &2670264086055349840
@@ -234,27 +265,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
-  layer: 0
-  enemyLayer: 0
-  projectileLayer: 0
-  layerMask: 0
-  enemyLayerMask: 0
---- !u!114 &4207330904484125216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8971555985727958758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77b95a4dc5448dcbe3d19ec567a5f8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 6943001453892241477}
-  model: {fileID: 153086307299248042}
-  rotateToDirection: 0
-  verticalFlip: 0
 --- !u!114 &4938479693121317840
 MonoBehaviour:
   m_ObjectHideFlags: 0

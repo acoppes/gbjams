@@ -8,6 +8,8 @@ namespace GBJAM9.Components
         public Animator animator;
         public SpriteRenderer model;
 
+        public Transform optionalStartLookAt;
+
         [NonSerialized]
         public Vector2 lookingDirection = new Vector2(1, 0);
 

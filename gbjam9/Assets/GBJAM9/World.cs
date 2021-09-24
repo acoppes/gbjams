@@ -57,6 +57,14 @@ namespace GBJAM9
                     e.player.layerMask = LayerMask.GetMask(e.player.player == 0 ? "Player" : "Enemy");
                     e.player.enemyLayerMask = LayerMask.GetMask(e.player.player == 0 ? "Enemy" : "Player");
                 }
+
+                if (e.model != null && e.model.optionalStartLookAt != null)
+                {
+                    e.model.lookingDirection = e.model.optionalStartLookAt.localPosition.normalized;
+                    
+                    Destroy(e.model.optionalStartLookAt.gameObject);
+                    e.model.optionalStartLookAt = null;
+                }
                 
                 var health = e.health;
                 if (health != null)
