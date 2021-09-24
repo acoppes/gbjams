@@ -1,4 +1,3 @@
-using System;
 using GBJAM9.Components;
 using UnityEngine;
 
@@ -41,9 +40,20 @@ namespace GBJAM9.Controllers
             }
         }
 
+        private void OnRoomStart(World world)
+        {
+            // get main player, remove default weapon...
+
+            var mainUnitList = world.GetEntityList<MainUnitComponent>();
+            foreach (var mainUnit in mainUnitList)
+            {
+                var attack = mainUnit.GetComponent<AttackComponent>();
+                attack.weaponData = null;
+            }
+        }
+
         private void OnPickup(Entity pickupEntity)
         {
-            Debug.Log("ON PICKUP");
             if (pickupEntity == swordPickup && kunaiPickup == null)
             {
                 var kunaiObject = GameObject.Instantiate(kunaiPickupPrefab, kunaiPosition, Quaternion.identity);
@@ -52,6 +62,11 @@ namespace GBJAM9.Controllers
             {
                 var swordObject = GameObject.Instantiate(swordPickupPrefab, swordPosition, Quaternion.identity);
                 swordPickup = swordObject.GetComponent<Entity>();
+            }
+
+            if (pickupEntity.pickup.pickupType.Equals("weapon"))
+            {
+                // activate exits
             }
         }
     }

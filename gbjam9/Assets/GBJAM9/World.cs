@@ -140,19 +140,23 @@ namespace GBJAM9
 
                     var weaponData = e.attack.weaponData;
                     
-                    var projectilePrefab = weaponData.projectilePrefab;
-                    if (e.input.enabled && e.input.attack && projectilePrefab != null && e.attack.cooldown < 0)
+                    if (weaponData != null)
                     {
-                        var projectileObject = GameObject.Instantiate(projectilePrefab);
-                        var projectile = projectileObject.GetComponent<ProjectileController>();
-                        projectile.Fire(e.transform.position + e.attack.attackAttachPoint.localPosition, e.movement.lookingDirection);
-                        projectile.entity.player.player = e.player.player;
+                        var projectilePrefab = weaponData.projectilePrefab;
+                        if (e.input.enabled && e.input.attack && projectilePrefab != null && e.attack.cooldown < 0)
+                        {
+                            var projectileObject = GameObject.Instantiate(projectilePrefab);
+                            var projectile = projectileObject.GetComponent<ProjectileController>();
+                            projectile.Fire(e.transform.position + e.attack.attackAttachPoint.localPosition,
+                                e.movement.lookingDirection);
+                            projectile.entity.player.player = e.player.player;
 
-                        e.state.kunaiAttacking = weaponData.attackType.Equals("kunai");
-                        e.state.swordAttacking = weaponData.attackType.Equals("sword");
+                            e.state.kunaiAttacking = weaponData.attackType.Equals("kunai");
+                            e.state.swordAttacking = weaponData.attackType.Equals("sword");
 
-                        e.attack.cooldown = weaponData.cooldown;
-                    } 
+                            e.attack.cooldown = weaponData.cooldown;
+                        }
+                    }
                 }
                 
                 if (e.model != null && e.movement != null)

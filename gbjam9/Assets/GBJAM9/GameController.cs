@@ -90,6 +90,8 @@ namespace GBJAM9
             var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
             currentRoom = roomObject.GetComponent<Room>();
             mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
+            
+            roomObject.SendMessage("OnRoomStart", world);
 
             RegenerateRoomExits();
 
