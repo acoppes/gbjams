@@ -38,8 +38,9 @@ namespace GBJAM9.Controllers
         private void FixedUpdate()
         {
             // TODO: configure mask in player component
+
+            var playerMask = entity.player.enemyLayerMask;
             
-            var playerMask = LayerMask.GetMask("Player");
             var hit = Physics2D.Raycast(transform.position, entity.input.movementDirection, 
                 7, playerMask);
 

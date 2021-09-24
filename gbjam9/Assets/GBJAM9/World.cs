@@ -15,6 +15,9 @@ namespace GBJAM9
         private readonly int vfxDoneHash = Animator.StringToHash("Done");
 
         public Action<Entity> onPickup;
+        
+        private int playerLayer;
+        private int enemyLayer;
 
         private int playerProjectilesLayer;
         private int enemyProjectilesLayer;
@@ -27,6 +30,8 @@ namespace GBJAM9
 
         private void Awake()
         {
+            playerLayer = LayerMask.NameToLayer("Player");
+            enemyLayer = LayerMask.NameToLayer("Enemy");
             playerProjectilesLayer = LayerMask.NameToLayer("Player_Attack");
             enemyProjectilesLayer = LayerMask.NameToLayer("Enemy_Attack");
         }
@@ -43,12 +48,20 @@ namespace GBJAM9
             
             foreach (var e in iterationList)
             {
-                var receivedDamage = false;
+                if (e.player != null)
+                {
+                    e.player.layer = e.player.player == 0 ? playerLayer : enemyLayer;
+                    e.player.enemyLayer = e.player.player == 0 ? enemyLayer : playerLayer;
+                    e.player.projectileLayer = e.player.player == 0 ? playerProjectilesLayer : enemyProjectilesLayer;
+
+                    e.player.layerMask = LayerMask.GetMask(e.player.player == 0 ? "Player" : "Enemy");
+                    e.player.enemyLayerMask = LayerMask.GetMask(e.player.player == 0 ? "Enemy" : "Player");
+                }
                 
-                var health = e.GetComponent<HealthComponent>();
+                var health = e.health;
                 if (health != null)
                 {
-                    receivedDamage = health.damages > 0;
+                    var receivedDamage = health.damages > 0;
                     
                     if (receivedDamage)
                     {
