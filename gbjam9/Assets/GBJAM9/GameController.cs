@@ -183,13 +183,17 @@ namespace GBJAM9
             }
             
             roomExitUnits.Clear();
+
+            var roomExits = new List<RoomExitSpawn>(currentRoom.roomExits);
             
-            foreach (var roomExit in currentRoom.roomExits)
+            foreach (var roomExit in roomExits)
             {
                 var roomExitObject = GameObject.Instantiate(roomExitUnitPrefab);
                 roomExitObject.transform.position = roomExit.transform.position;
                 var roomExitUnit = roomExitObject.GetComponentInChildren<Entity>();
                 roomExitUnits.Add(roomExitUnit);
+                
+                GameObject.Destroy(roomExit.gameObject);
             }
         }
         
