@@ -29,6 +29,4 @@ TODO
 * On hit become invulnerable
 
 * Weapon configurations
-  - damage
   - cooldown 
-  - separate weapon from unit

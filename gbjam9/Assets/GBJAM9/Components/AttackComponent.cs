@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace GBJAM9.Components
@@ -6,5 +7,8 @@ namespace GBJAM9.Components
     {
         public WeaponData weaponData;
         public Transform attackAttachPoint;
+        
+        [NonSerialized]
+        public float cooldown;
     }
 }

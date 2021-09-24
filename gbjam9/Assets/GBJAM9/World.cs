@@ -124,13 +124,15 @@ namespace GBJAM9
                 
                 if (e.attack != null)
                 {
+                    e.attack.cooldown -= Time.deltaTime;
+
                     e.state.swordAttacking = false;
                     e.state.kunaiAttacking = false;
 
                     var weaponData = e.attack.weaponData;
                     
                     var projectilePrefab = weaponData.projectilePrefab;
-                    if (e.input.enabled && e.input.attack && projectilePrefab != null)
+                    if (e.input.enabled && e.input.attack && projectilePrefab != null && e.attack.cooldown < 0)
                     {
                         var projectileObject = GameObject.Instantiate(projectilePrefab);
                         var projectile = projectileObject.GetComponent<ProjectileController>();
@@ -139,6 +141,8 @@ namespace GBJAM9
 
                         e.state.kunaiAttacking = weaponData.attackType.Equals("kunai");
                         e.state.swordAttacking = weaponData.attackType.Equals("sword");
+
+                        e.attack.cooldown = weaponData.cooldown;
                     } 
                 }
                 
