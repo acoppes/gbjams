@@ -5,10 +5,14 @@ using UnityEngine;
 
 namespace GBJAM9
 {
-    public class Room : MonoBehaviour, IGameComponent
+    public class RoomComponent : MonoBehaviour, IGameComponent
     {
         public RoomStart roomStart => GetComponentInChildren<RoomStart>();
 
         public List<RoomExit> roomExits => GetComponentsInChildren<RoomExit>().ToList();
+
+        public AudioClip completedMusic;
+        
+        public AudioClip fightMusic;
     }
 }

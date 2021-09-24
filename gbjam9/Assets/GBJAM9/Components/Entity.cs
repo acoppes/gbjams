@@ -60,6 +60,9 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public DecoComponent decoComponent;
+
+        [NonSerialized]
+        public RoomComponent roomComponent;
         
         private void Awake()
         {
@@ -74,22 +77,6 @@ namespace GBJAM9.Components
                     fieldInfo.SetValue(this, GetComponent(fieldInfo.FieldType));
                 }
             }
-            // player = GetComponent<PlayerComponent>();
-            // state = GetComponent<UnitStateComponent>();
-            // projectile = GetComponent<ProjectileComponent>();
-            // pickup = GetComponent<PickupComponent>();
-            // vfx = GetComponent<VisualEffectComponent>();
-            // model = GetComponent<UnitModelComponent>();
-            // health = GetComponent<HealthComponent>();
-            // sfx = GetComponent<SoundEffectComponent>();
-            // colliderComponent = GetComponent<ColliderComponent>();
-            // inventory = GetComponent<InventoryComponent>();
-            // input = GetComponent<UnitInput>();
-            // movement = GetComponent<UnitMovement>();
-            // gameboyController = GetComponent<UnitInputGameBoyControllerComponent>();
-            // attack = GetComponent<AttackComponent>();
-            // controller = GetComponent<ControllerComponent>();
-            // decoComponent = GetComponent<DecoComponent>();
         }
 
         private void OnEnable()

@@ -29,7 +29,7 @@ namespace GBJAM9
         public GameObject mainMenuRoomPrefab;
 
         [NonSerialized]
-        public Room currentRoom;
+        public RoomComponent currentRoom;
 
         public RoomDataAsset rooms;
         
@@ -38,11 +38,7 @@ namespace GBJAM9
         private List<Entity> roomExitUnits = new List<Entity>();
 
         public AudioSource backgroundMusicAudioSource;
-
-        public AudioClip[] idleMusics;
-
-        public AudioClip[] combatMusics;
-
+        
         private GameState gameState = GameState.Idle;
 
         public GameObject transitionPrefab;
@@ -58,14 +54,6 @@ namespace GBJAM9
         public void Start()
         {
             // Start game sequence as coroutine?
-
-            if (backgroundMusicAudioSource != null)
-            {
-                backgroundMusicAudioSource.loop = true;
-                backgroundMusicAudioSource.clip = idleMusics[0];
-                backgroundMusicAudioSource.Play();
-            }
-
             StartCoroutine(RestartGame(true));
         }
 
@@ -91,7 +79,7 @@ namespace GBJAM9
             }
 
             var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
-            currentRoom = roomObject.GetComponent<Room>();
+            currentRoom = roomObject.GetComponent<RoomComponent>();
             mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
             
             roomObject.SendMessage("OnRoomStart", world);
@@ -99,6 +87,25 @@ namespace GBJAM9
             RegenerateRoomExits();
 
             gameState = GameState.Fighting;
+            
+            RestartMusic(currentRoom.fightMusic);
+        }
+
+        private void RestartMusic(AudioClip music)
+        {
+            if (backgroundMusicAudioSource != null)
+            {
+                backgroundMusicAudioSource.loop = true;
+
+                if (backgroundMusicAudioSource.clip == music 
+                    && backgroundMusicAudioSource.isPlaying)
+                {
+                    return;
+                }
+                
+                backgroundMusicAudioSource.clip = music;
+                backgroundMusicAudioSource.Play();
+            }
         }
 
         private IEnumerator StartTransitionToNextRoom(RoomExitComponent roomExit)
@@ -127,8 +134,10 @@ namespace GBJAM9
 
             var nextRoomPrefab = rooms.roomPrefabs[UnityEngine.Random.Range(0, rooms.roomPrefabs.Count)];
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
-            currentRoom = roomObject.GetComponent<Room>();
+            currentRoom = roomObject.GetComponent<RoomComponent>();
             mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
+            
+            RestartMusic(currentRoom.fightMusic);
             
             transitionObject.transform.position = currentRoom.roomStart.transform.position;
             
