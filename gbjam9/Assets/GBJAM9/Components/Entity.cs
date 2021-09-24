@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using GBJAM9.Controllers;
 using UnityEngine;
 
@@ -56,25 +57,39 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public ControllerComponent controller;
+
+        [NonSerialized]
+        public DecoComponent decoComponent;
         
         private void Awake()
         {
             world = FindObjectOfType<World>();
-            player = GetComponent<PlayerComponent>();
-            state = GetComponent<UnitStateComponent>();
-            projectile = GetComponent<ProjectileComponent>();
-            pickup = GetComponent<PickupComponent>();
-            vfx = GetComponent<VisualEffectComponent>();
-            model = GetComponent<UnitModelComponent>();
-            health = GetComponent<HealthComponent>();
-            sfx = GetComponent<SoundEffectComponent>();
-            colliderComponent = GetComponent<ColliderComponent>();
-            inventory = GetComponent<InventoryComponent>();
-            input = GetComponent<UnitInput>();
-            movement = GetComponent<UnitMovement>();
-            gameboyController = GetComponent<UnitInputGameBoyControllerComponent>();
-            attack = GetComponent<AttackComponent>();
-            controller = GetComponent<ControllerComponent>();
+
+            var fields = GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var fieldInfo in fields)
+            {
+                var fieldType = fieldInfo.FieldType;
+                if (typeof(IGameComponent).IsAssignableFrom(fieldType))
+                {
+                    fieldInfo.SetValue(this, GetComponent(fieldInfo.FieldType));
+                }
+            }
+            // player = GetComponent<PlayerComponent>();
+            // state = GetComponent<UnitStateComponent>();
+            // projectile = GetComponent<ProjectileComponent>();
+            // pickup = GetComponent<PickupComponent>();
+            // vfx = GetComponent<VisualEffectComponent>();
+            // model = GetComponent<UnitModelComponent>();
+            // health = GetComponent<HealthComponent>();
+            // sfx = GetComponent<SoundEffectComponent>();
+            // colliderComponent = GetComponent<ColliderComponent>();
+            // inventory = GetComponent<InventoryComponent>();
+            // input = GetComponent<UnitInput>();
+            // movement = GetComponent<UnitMovement>();
+            // gameboyController = GetComponent<UnitInputGameBoyControllerComponent>();
+            // attack = GetComponent<AttackComponent>();
+            // controller = GetComponent<ControllerComponent>();
+            // decoComponent = GetComponent<DecoComponent>();
         }
 
         private void OnEnable()

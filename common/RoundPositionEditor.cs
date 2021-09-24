@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GBJAM7.Scripts
+namespace GBJAM.Commons
 {
     [ExecuteInEditMode]
     public class RoundPositionEditor : MonoBehaviour

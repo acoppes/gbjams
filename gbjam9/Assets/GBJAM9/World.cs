@@ -321,6 +321,12 @@ namespace GBJAM9
                         e.model.animator.GetCurrentAnimatorStateInfo(0).shortNameHash == vfxDoneHash;
                 }
 
+                if (e.decoComponent != null)
+                {
+                    // round positions to pixel perfect...
+                    // e.transform.position.
+                }
+
                 if (e.destroyed)
                 {
                     toDestroy.Add(e);
