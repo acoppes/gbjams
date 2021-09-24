@@ -14,6 +14,9 @@ namespace GBJAM9.Components
         public World world;
 
         [NonSerialized]
+        public MainUnitComponent mainUnit;
+
+        [NonSerialized]
         public PlayerComponent player;
         
         [NonSerialized]

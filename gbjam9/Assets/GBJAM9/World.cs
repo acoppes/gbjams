@@ -60,18 +60,16 @@ namespace GBJAM9
 
                 if (e.controller != null)
                 {
-                    var controllerObject = e.controller.controllerObject as MonoBehaviour;
-                    
-                    if (controllerObject != null)
+                    if (e.controller.controllerObject is EntityController controllerObject)
                     {
-
                         if (!e.controller.initialized)
                         {
-                            controllerObject.SendMessage("OnEnterWorld", this);
+                            controllerObject.entity = e;
+                            controllerObject.OnInit(this);
                             e.controller.initialized = true;
                         }
-                        
-                        controllerObject.SendMessage("OnWorldUpdate", this);
+
+                        controllerObject.OnWorldUpdate(this);
                     }
                 }
 
@@ -358,9 +356,7 @@ namespace GBJAM9
                         animator.SetBool(UnitStateComponent.kunaiAttackStateHash, state.kunaiAttacking);
                         animator.SetBool(UnitStateComponent.swordAttackStateHash, state.swordAttacking);
                         animator.SetBool(UnitStateComponent.dashingStateHash, state.dashing);
-                        
-                        // animator.SetBool(UnitStateComponent.hitStateHash, state.hit);
-                        
+
                         if (state.hit)
                         {
                             animator.SetTrigger(UnitStateComponent.hittedStateHash);

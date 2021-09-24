@@ -24,7 +24,6 @@ namespace GBJAM9.Components
         public static readonly int dashingStateHash = Animator.StringToHash("dashing");
         public static readonly int kunaiAttackStateHash = Animator.StringToHash("kunai_attack");
         public static readonly int swordAttackStateHash = Animator.StringToHash("sword_attack");
-        public static readonly int hitStateHash = Animator.StringToHash("hit");
         
         public static readonly int hittedStateHash = Animator.StringToHash("hitted");
     }
