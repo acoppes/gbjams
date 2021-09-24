@@ -14,6 +14,8 @@ namespace GBJAM9
 
         private int vfxDoneHash = Animator.StringToHash("Done");
 
+        public Action<Entity> onPickup;
+
         public List<T> GetEntityList<T>() where T : IGameComponent
         {
             return entities.Where(u => u.GetComponent<T>() != null)
@@ -206,6 +208,8 @@ namespace GBJAM9
                             e.SendMessage("OnPickup", contactUnit, SendMessageOptions.DontRequireReceiver);
 
                             e.destroyed = true;
+
+                            onPickup?.Invoke(e);
                         }
                     }
                 }
