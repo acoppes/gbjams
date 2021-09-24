@@ -28,6 +28,8 @@ namespace GBJAM9
 
         public GameObject mainMenuRoomPrefab;
 
+        public GameObject nekoSamaRoomPrefab;
+                
         [NonSerialized]
         public RoomComponent currentRoom;
 
@@ -43,11 +45,17 @@ namespace GBJAM9
 
         public GameObject transitionPrefab;
 
-        [FormerlySerializedAs("entityManager")] public World world;
+        [FormerlySerializedAs("entityManager")] 
+        public World world;
 
         public GameboyButtonsUpdater inputUpdater;
 
         public float delayBetweenRooms = 0.5f;
+
+        public int minRooms, maxRooms;
+
+        [NonSerialized]
+        public int totalRooms;
         
         // TODO: more stuff
 
@@ -89,6 +97,8 @@ namespace GBJAM9
             gameState = GameState.Fighting;
             
             RestartMusic(currentRoom.fightMusic);
+
+            totalRooms = UnityEngine.Random.Range(minRooms, maxRooms);
         }
 
         private void RestartMusic(AudioClip music)
@@ -133,6 +143,12 @@ namespace GBJAM9
             GameObject.Destroy(currentRoom.gameObject);
 
             var nextRoomPrefab = rooms.roomPrefabs[UnityEngine.Random.Range(0, rooms.roomPrefabs.Count)];
+
+            if (totalRooms == 0)
+            {
+                nextRoomPrefab = nekoSamaRoomPrefab;
+            }
+            
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
             mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
@@ -155,6 +171,8 @@ namespace GBJAM9
             RegenerateRoomExits();
             
             mainPlayerEntity.GetComponentInChildren<UnitInput>().enabled = true;
+
+            totalRooms--;
         }
 
         private void RegenerateRoomExits()
