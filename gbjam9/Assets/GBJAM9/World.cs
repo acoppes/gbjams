@@ -282,6 +282,9 @@ namespace GBJAM9
                         {
                             if (otherEntity != null && e.projectile.totalTargets > 0)
                             {
+                                if (otherEntity.player == null)
+                                    continue;
+                                
                                 if (otherEntity.player.player == e.player.player)
                                     continue;
                 
