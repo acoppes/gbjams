@@ -86,9 +86,16 @@ namespace GBJAM9
                 
                 if (e.input != null)
                 {
-                    if (e.movement != null && e.input.enabled)
+                    if (e.movement != null)
                     {
-                        e.movement.movingDirection = e.input.movementDirection;
+                        if (e.input.enabled)
+                        {
+                            e.movement.movingDirection = e.input.movementDirection;
+                        }
+                        else
+                        {
+                            e.movement.movingDirection = Vector2.zero;
+                        }
                     }
                     
                     if (e.state != null)

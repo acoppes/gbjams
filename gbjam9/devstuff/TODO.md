@@ -21,12 +21,8 @@ TODO
   - ignore hits while dashing
   - ignore enemy collision while dashing (move through enemies)
 
-* Attacks
-  - cooldown
-
 * WHITE Flash shader (all pixels same color)
 
 * On hit become invulnerable
 
-* Weapon configurations
-  - cooldown 
+* Sword hit effect move with unit
