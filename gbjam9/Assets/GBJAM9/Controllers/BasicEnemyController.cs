@@ -1,7 +1,5 @@
-using System;
 using GBJAM9.Components;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GBJAM9.Controllers
 {

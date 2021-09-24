@@ -12,7 +12,7 @@ namespace GBJAM9
         [NonSerialized]
         public readonly List<Entity> entities = new List<Entity>();
 
-        private int vfxDoneHash = Animator.StringToHash("Done");
+        private readonly int vfxDoneHash = Animator.StringToHash("Done");
 
         public Action<Entity> onPickup;
 

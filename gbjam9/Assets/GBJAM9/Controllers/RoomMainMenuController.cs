@@ -5,6 +5,8 @@ namespace GBJAM9.Controllers
 {
     public class RoomMainMenuController : MonoBehaviour
     {
+        public Entity entity;
+        
         public GameObject swordPickupPrefab;
         public GameObject kunaiPickupPrefab;
 
@@ -13,30 +15,26 @@ namespace GBJAM9.Controllers
 
         private Vector2 swordPosition;
         private Vector2 kunaiPosition;
-        
-        private World world;
-        
+
         private void Awake()
         {
-            world = FindObjectOfType<World>();
-
             swordPosition = swordPickup.transform.position;
             kunaiPosition = kunaiPickup.transform.position;
         }
 
         private void OnEnable()
         {
-            if (world != null)
+            if (entity.world != null)
             {
-                world.onPickup += OnPickup;
+                entity.world.onPickup += OnPickup;
             }
         }
 
         private void OnDisable()
         {
-            if (world != null)
+            if (entity.world != null)
             {
-                world.onPickup -= OnPickup;
+                entity.world.onPickup -= OnPickup;
             }
         }
 

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using GBJAM9.Components;
 using UnityEngine;
 
 namespace GBJAM9
 {
-    public class Room : MonoBehaviour
+    public class Room : MonoBehaviour, IGameComponent
     {
         public RoomStart roomStart => GetComponentInChildren<RoomStart>();
 
