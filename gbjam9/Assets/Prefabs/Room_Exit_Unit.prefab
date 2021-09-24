@@ -112,6 +112,9 @@ GameObject:
   - component: {fileID: 7782671430812760591}
   - component: {fileID: 8971555985727958755}
   - component: {fileID: 3608453706576640438}
+  - component: {fileID: 8911388482838541627}
+  - component: {fileID: 3489574403678179163}
+  - component: {fileID: 2456442280642414840}
   m_Layer: 0
   m_Name: Room_Exit_Unit
   m_TagString: Untagged
@@ -159,3 +162,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 0.75
+--- !u!114 &8911388482838541627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971555985727958758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713b8ea7c14d49f282315a9a66497885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3489574403678179163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971555985727958758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d77b95a4dc5448dcbe3d19ec567a5f8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2456442280642414840}
+  model: {fileID: 153086307299248042}
+  optionalStartLookAt: {fileID: 0}
+  rotateToDirection: 0
+  verticalFlip: 0
+--- !u!95 &2456442280642414840
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971555985727958758}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: e2fb17f727b8bca48a53eccd1c2f359c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

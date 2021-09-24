@@ -1,5 +1,9 @@
 TODO
 
+* Different door states, open when room completed
+
+* Death animations (neko, enemies, etc)
+
 * Sword Enemy
 
 * enemy deaths + blood effect
