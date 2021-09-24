@@ -3,6 +3,8 @@ TODO
 * Kunai Enemy
 * Sword Enemy
 
+* player layer and stuff cached in player component
+
 * change kunai and sword to attack1 and attack2 in animator
 
 * separate attack direction from movement direction, normally the same

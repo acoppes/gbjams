@@ -8,6 +8,7 @@ namespace GBJAM9.Controllers
         public enum State
         {
             Wander,
+            AttackingPlayer,
             FollowingPlayer,
             ReturningToWander
         }
@@ -21,6 +22,8 @@ namespace GBJAM9.Controllers
         public Vector2 startingWanderDirection;
 
         private float wanderSwitchDirectionCooldown;
+
+        private float attackingPlayerCooldown;
         
         // TODO: use spawn parameters for this, like the spawn point or something
         // or use variants
@@ -34,9 +37,16 @@ namespace GBJAM9.Controllers
 
         private void FixedUpdate()
         {
-            // decide stuff
+            // TODO: configure mask in player component
             
-            // entity.world.GetEntityList<>()
+            var playerMask = LayerMask.GetMask("Player");
+            var hit = Physics2D.Raycast(transform.position, entity.input.movementDirection, 
+                7, playerMask);
+
+            var playerDetected = hit.collider != null && hit.distance > 0;
+            
+            entity.input.attack = false;
+            
             if (state == State.Wander)
             {
                 wanderSwitchDirectionCooldown -= Time.deltaTime;
@@ -47,19 +57,29 @@ namespace GBJAM9.Controllers
                     startingWanderDirection *= -1;
                     wanderSwitchDirectionCooldown = 0.2f;
                 }
-            }
 
-            // var playerLayer = LayerMask.NameToLayer("Player");
-            var playerMask = LayerMask.GetMask("Player");
-            // var playerLayerMask = Physics2D.GetLayerCollisionMask(playerLayer);
-
-            var hit = Physics2D.Raycast(transform.position, entity.input.movementDirection, 
-                7, playerMask);
-            entity.input.attack = false;
-            if (hit.collider != null && hit.distance > 0)
+                if (playerDetected)
+                {
+                    state = State.AttackingPlayer;
+                }
+            } 
+            
+            if (state == State.AttackingPlayer)
             {
-                // hit.collider.GetComponent<>()
-                entity.input.attack = true;
+                entity.input.movementDirection = Vector2.zero;
+                
+                if (playerDetected)
+                {
+                    entity.input.attack = true;
+                    attackingPlayerCooldown = 0.3f;
+                }
+
+                attackingPlayerCooldown -= Time.deltaTime;
+
+                if (attackingPlayerCooldown < 0)
+                {
+                    state = State.Wander;
+                }
             }
 
         }
