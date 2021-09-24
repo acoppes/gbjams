@@ -48,7 +48,20 @@ namespace GBJAM9.Controllers
                     wanderSwitchDirectionCooldown = 0.2f;
                 }
             }
-           
+
+            // var playerLayer = LayerMask.NameToLayer("Player");
+            var playerMask = LayerMask.GetMask("Player");
+            // var playerLayerMask = Physics2D.GetLayerCollisionMask(playerLayer);
+
+            var hit = Physics2D.Raycast(transform.position, entity.input.movementDirection, 
+                7, playerMask);
+            entity.input.attack = false;
+            if (hit.collider != null && hit.distance > 0)
+            {
+                // hit.collider.GetComponent<>()
+                entity.input.attack = true;
+            }
+
         }
     }
 }

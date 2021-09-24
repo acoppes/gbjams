@@ -16,10 +16,19 @@ namespace GBJAM9
 
         public Action<Entity> onPickup;
 
+        private int playerProjectilesLayer;
+        private int enemyProjectilesLayer;
+
         public List<T> GetEntityList<T>() where T : IGameComponent
         {
             return entities.Where(u => u.GetComponent<T>() != null)
                 .Select(u => u.GetComponent<T>()).ToList();
+        }
+
+        private void Awake()
+        {
+            playerProjectilesLayer = LayerMask.NameToLayer("Player_Attack");
+            enemyProjectilesLayer = LayerMask.NameToLayer("Enemy_Attack");
         }
 
         public void Update()
@@ -150,6 +159,15 @@ namespace GBJAM9
                             projectile.Fire(e.transform.position + e.attack.attackAttachPoint.localPosition,
                                 e.movement.lookingDirection);
                             projectile.entity.player.player = e.player.player;
+
+                            if (e.player.player == 0)
+                            {
+                                projectile.gameObject.layer = playerProjectilesLayer;
+                            }
+                            else
+                            {
+                                projectile.gameObject.layer = enemyProjectilesLayer;
+                            }
 
                             e.state.kunaiAttacking = weaponData.attackType.Equals("kunai");
                             e.state.swordAttacking = weaponData.attackType.Equals("sword");
