@@ -81,11 +81,16 @@ namespace GBJAM9.Controllers
             
             if (state == State.AttackingPlayer)
             {
-                entity.input.movementDirection = attackDirection;
+                entity.input.movementDirection = Vector2.zero;
                 
                 if (playerDetected)
                 {
-                    entity.input.attack = true;
+                    if (entity.attack.cooldown <= 0)
+                    {
+                        entity.input.movementDirection = attackDirection;
+                        entity.input.attack = true;
+                    }
+                    
                     // entity.input.movementDirection = 
                     attackingPlayerCooldown = 0.3f;
                 }

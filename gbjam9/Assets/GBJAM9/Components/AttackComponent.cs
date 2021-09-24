@@ -10,5 +10,6 @@ namespace GBJAM9.Components
         
         [NonSerialized]
         public float cooldown;
+
     }
 }
