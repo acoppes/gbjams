@@ -92,6 +92,8 @@ namespace GBJAM9
             currentRoom = roomObject.GetComponent<RoomComponent>();
             mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
             
+            totalRooms = UnityEngine.Random.Range(minRooms, maxRooms);
+            
             // roomObject.SendMessage("OnRoomStart", world);
 
             RegenerateRoomExits();
@@ -99,8 +101,6 @@ namespace GBJAM9
             gameState = GameState.Fighting;
             
             RestartMusic(currentRoom.fightMusic);
-
-            totalRooms = UnityEngine.Random.Range(minRooms, maxRooms);
         }
 
         private void RestartMusic(AudioClip music)
@@ -152,10 +152,12 @@ namespace GBJAM9
             {
                 nextRoomPrefab = nekoSamaRoomPrefab;
             }
-            
+
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
             mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
+            
+            totalRooms--;
 
             currentRoom.rewardType = nextRoomRewardType;
             
@@ -177,8 +179,6 @@ namespace GBJAM9
             RegenerateRoomExits();
             
             mainPlayerEntity.GetComponentInChildren<UnitInput>().enabled = true;
-
-            totalRooms--;
         }
 
         private void RegenerateRoomExits()
@@ -202,6 +202,7 @@ namespace GBJAM9
                 var roomExitUnit = roomExitObject.GetComponentInChildren<Entity>();
                 roomExitUnits.Add(roomExitUnit);
 
+                // if no more rooms, avoid generating next room reward
                 if (newRoomRewardTypes.Count > 0)
                 {
                     if (i >= newRoomRewardTypes.Count)
@@ -210,6 +211,11 @@ namespace GBJAM9
                     }
                     var rewardType = newRoomRewardTypes[i];
                     roomExitUnit.roomExit.rewardType = rewardType.name;
+                }
+
+                if (totalRooms <= 0)
+                {
+                    roomExitUnit.roomExit.rewardType = "unknown";
                 }
 
                 GameObject.Destroy(roomExit.gameObject);

@@ -25,8 +25,6 @@ namespace GBJAM9.Controllers
             // get all enemy spawners
             
             // on all enemies destroyed, spawn reward near last enemy
-            
-            // on pick reward, open doors
 
             entity.room.state = RoomComponent.State.WaitingReward;
             
