@@ -25,6 +25,7 @@ namespace GBJAM9.Controllers
 
             if (Vector2.Distance(nekonin.transform.position, nekosama.transform.position) < 2)
             {
+                // TODO: internal state with cinematic or something, and then victory
                 game.game.state = GameComponent.State.Victory;
                 nekonin.input.enabled = false;
             }

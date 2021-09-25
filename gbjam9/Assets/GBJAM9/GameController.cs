@@ -17,22 +17,14 @@ namespace GBJAM9
 
         public GameObject mainPlayerUnitPrefab;
 
-        [NonSerialized]
-        public Entity mainPlayerEntity;
-
         public GameObject mainMenuRoomPrefab;
 
         public GameObject nekoSamaRoomPrefab;
-                
-        [NonSerialized]
-        public RoomComponent currentRoom;
-
+        
         public RoomDataAsset rooms;
         
         public GameObject roomExitUnitPrefab;
-
-        private List<Entity> roomExitUnits = new List<Entity>();
-
+        
         public AudioSource backgroundMusicAudioSource;
         
         public GameObject transitionPrefab;
@@ -46,16 +38,17 @@ namespace GBJAM9
 
         public int minRooms, maxRooms;
 
-        [NonSerialized]
-        public int totalRooms;
-        
+        private int totalRooms;
+        private Entity nekoninEntity;
+        private RoomComponent currentRoom;
+        private List<Entity> roomExitUnits = new List<Entity>();
         private Entity gameEntity;
         
         public void Start()
         {
             gameEntity = world.GetSingleton("Game");
             
-            // TODO: this could be an entity too...
+            // This controller could be an entity too...
 
             // Start game sequence as coroutine?
             StartCoroutine(RestartGame(true));
@@ -92,15 +85,15 @@ namespace GBJAM9
 
             yield return null;
 
-            if (mainPlayerEntity != null)
+            if (nekoninEntity != null)
             {
-                GameObject.Destroy(mainPlayerEntity.gameObject);
-                mainPlayerEntity = null;
+                GameObject.Destroy(nekoninEntity.gameObject);
+                nekoninEntity = null;
             }
             
             var unitObject = GameObject.Instantiate(mainPlayerUnitPrefab);
-            mainPlayerEntity = unitObject.GetComponent<Entity>();
-            cameraFollow.followTransform = mainPlayerEntity.transform;
+            nekoninEntity = unitObject.GetComponent<Entity>();
+            cameraFollow.followTransform = nekoninEntity.transform;
             
             if (currentRoom != null)
             {
@@ -109,7 +102,7 @@ namespace GBJAM9
 
             var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
-            mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
+            nekoninEntity.transform.position = currentRoom.roomStart.transform.position;
             
             totalRooms = UnityEngine.Random.Range(minRooms, maxRooms);
             
@@ -127,7 +120,7 @@ namespace GBJAM9
         {
             gameEntity.game.state = GameComponent.State.TransitioninToNextRoom;
             
-            mainPlayerEntity.GetComponentInChildren<UnitInput>().enabled = false;
+            nekoninEntity.GetComponentInChildren<UnitInput>().enabled = false;
 
             yield return null;
 
@@ -159,7 +152,7 @@ namespace GBJAM9
 
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
-            mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
+            nekoninEntity.transform.position = currentRoom.roomStart.transform.position;
             
             totalRooms--;
 
@@ -182,7 +175,7 @@ namespace GBJAM9
 
             RegenerateRoomExits();
             
-            mainPlayerEntity.GetComponentInChildren<UnitInput>().enabled = true;
+            nekoninEntity.GetComponentInChildren<UnitInput>().enabled = true;
         }
 
         private void RegenerateRoomExits()

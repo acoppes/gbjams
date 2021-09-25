@@ -3,12 +3,17 @@ TODO
 * Restart game in main menu on player dead
 * victory on nekosama pickup
 
-* user interface
+* Death animations - nekonin (instead of destroying the object)
+
+* User interface (mainly the neko life)
 
 * camera could be an entity with components
   - we could center camera on nekosama for the room victory secuence
 
-* Death animations (neko, enemies, etc)
+* Victory transition (default for now, then a nice one)
+* Victory cinematic (on nekosama room, some dialogue, etc)
+
+* Death animations - enemies
 
 * Sword Enemy
 
