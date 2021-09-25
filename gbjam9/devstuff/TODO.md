@@ -1,6 +1,7 @@
 TODO
 
 * User interface (mainly the neko life)
+  - logic to show info
 
 * camera could be an entity with components
   - we could center camera on nekosama for the room victory secuence
