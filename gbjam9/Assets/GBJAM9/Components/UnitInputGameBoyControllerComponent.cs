@@ -1,10 +1,9 @@
 using GBJAM.Commons;
-using GBJAM9.Components;
 using UnityEngine;
 
-namespace GBJAM9
+namespace GBJAM9.Components
 {
-    public class UnitInputGameBoyControllerComponent : MonoBehaviour, IGameComponent
+    public class UnitInputGameBoyControllerComponent : MonoBehaviour, IEntityComponent
     {
         public GameboyButtonKeyMapAsset gameboyKeyMap;
     }

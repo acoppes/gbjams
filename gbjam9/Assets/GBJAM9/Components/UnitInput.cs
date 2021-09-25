@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class UnitInput : MonoBehaviour, IGameComponent
+    public class UnitInput : MonoBehaviour, IEntityComponent
     {
         [NonSerialized]
         public Vector2 movementDirection;

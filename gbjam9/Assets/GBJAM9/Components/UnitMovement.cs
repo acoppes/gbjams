@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class UnitMovement : MonoBehaviour, IGameComponent
+    public class UnitMovement : MonoBehaviour, IEntityComponent
     {
         public float speed;
 

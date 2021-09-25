@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class RoomExitComponent : MonoBehaviour, IGameComponent
+    public class RoomExitComponent : MonoBehaviour, IEntityComponent
     {
         [NonSerialized]
         public bool playerInExit;

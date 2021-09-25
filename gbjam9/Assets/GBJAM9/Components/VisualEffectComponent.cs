@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class VisualEffectComponent : MonoBehaviour, IGameComponent
+    public class VisualEffectComponent : MonoBehaviour, IEntityComponent
     {
         public SfxVariant sfxVariant;
 

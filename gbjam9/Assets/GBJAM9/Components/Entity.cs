@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class Entity : MonoBehaviour, IGameComponent
+    public class Entity : MonoBehaviour, IEntityComponent
     {
         [NonSerialized]
         public bool destroyed;
@@ -78,7 +78,7 @@ namespace GBJAM9.Components
             foreach (var fieldInfo in fields)
             {
                 var fieldType = fieldInfo.FieldType;
-                if (typeof(IGameComponent).IsAssignableFrom(fieldType))
+                if (typeof(IEntityComponent).IsAssignableFrom(fieldType))
                 {
                     fieldInfo.SetValue(this, GetComponent(fieldInfo.FieldType));
                 }

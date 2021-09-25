@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class AttackComponent : MonoBehaviour, IGameComponent
+    public class AttackComponent : MonoBehaviour, IEntityComponent
     {
         public WeaponData weaponData;
         public Transform attackAttachPoint;

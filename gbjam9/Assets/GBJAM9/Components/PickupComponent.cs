@@ -4,7 +4,7 @@ using Object = UnityEngine.Object;
 
 namespace GBJAM9.Components
 {
-    public class PickupComponent : MonoBehaviour, IGameComponent
+    public class PickupComponent : MonoBehaviour, IEntityComponent
     {
         public GameObject pickupVfxPrefab;
         

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class ColliderComponent : MonoBehaviour, IGameComponent
+    public class ColliderComponent : MonoBehaviour, IEntityComponent
     {
         public Collider2D collider;
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class InventoryComponent : MonoBehaviour, IGameComponent
+    public class InventoryComponent : MonoBehaviour, IEntityComponent
     {
         public int coins;
     }

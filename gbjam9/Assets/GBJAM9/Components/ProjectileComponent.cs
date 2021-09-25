@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class ProjectileComponent : MonoBehaviour, IGameComponent
+    public class ProjectileComponent : MonoBehaviour, IEntityComponent
     {
         public int totalTargets = 1;
         

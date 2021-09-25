@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class UnitStateComponent : MonoBehaviour, IGameComponent
+    public class UnitStateComponent : MonoBehaviour, IEntityComponent
     {
         [NonSerialized]
         public bool walking;

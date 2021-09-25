@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class HealthComponent : MonoBehaviour, IGameComponent
+    public class HealthComponent : MonoBehaviour, IEntityComponent
     {
         public int total;
         public int current;

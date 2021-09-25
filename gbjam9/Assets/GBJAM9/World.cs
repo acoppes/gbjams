@@ -22,7 +22,7 @@ namespace GBJAM9
         private int playerProjectilesLayer;
         private int enemyProjectilesLayer;
 
-        public List<T> GetEntityList<T>() where T : IGameComponent
+        public List<T> GetEntityList<T>() where T : IEntityComponent
         {
             return entities.Where(u => u.GetComponent<T>() != null)
                 .Select(u => u.GetComponent<T>()).ToList();

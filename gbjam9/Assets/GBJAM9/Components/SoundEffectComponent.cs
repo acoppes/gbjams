@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class SoundEffectComponent : MonoBehaviour, IGameComponent
+    public class SoundEffectComponent : MonoBehaviour, IEntityComponent
     {
         public SfxVariant sfx;
      

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9.Components
 {
-    public class UnitModelComponent : MonoBehaviour, IGameComponent
+    public class UnitModelComponent : MonoBehaviour, IEntityComponent
     {
         public Animator animator;
         public SpriteRenderer model;
