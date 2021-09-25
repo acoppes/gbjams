@@ -86,11 +86,12 @@ namespace GBJAM9
                 {
                     var receivedDamage = health.damages > 0;
                     
-                    if (receivedDamage)
+                    if (receivedDamage && !health.immortal)
                     {
                         health.current -= health.damages;
-                        health.damages = 0;
                     }
+                    
+                    health.damages = 0;
 
                     if (e.state != null)
                     {
