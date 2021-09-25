@@ -217,7 +217,7 @@ namespace GBJAM9
                 {
                     e.model.lookingDirection = e.movement.lookingDirection;
                 }
-                
+
                 if (e.roomExit != null)
                 {
                     e.roomExit.playerInExit = false;
@@ -240,7 +240,7 @@ namespace GBJAM9
                         e.state.dead = e.roomExit.open;
                     }
                 }
-                
+
                 if (e.colliderComponent != null)
                 {
                     e.colliderComponent.contactsList.Clear();

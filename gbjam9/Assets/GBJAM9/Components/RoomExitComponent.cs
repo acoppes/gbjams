@@ -13,6 +13,9 @@ namespace GBJAM9.Components
         [NonSerialized]
         public bool open;
 
+        [NonSerialized]
+        public string rewardType;
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(transform.position, distance);

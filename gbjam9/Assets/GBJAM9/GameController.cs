@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using GBJAM.Commons;
 using GBJAM.Commons.Transitions;
 using GBJAM9.Components;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace GBJAM9
 {
@@ -130,6 +132,8 @@ namespace GBJAM9
             // transitionPosition.z = 0;
             transitionObject.transform.position = roomExit.transform.position;
 
+            var nextRoomRewardType = roomExit.rewardType;
+
             var transition = transitionObject.GetComponent<Transition>();
             transition.Open();
 
@@ -152,6 +156,8 @@ namespace GBJAM9
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
             mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
+
+            currentRoom.rewardType = nextRoomRewardType;
             
             RestartMusic(currentRoom.fightMusic);
             
@@ -185,14 +191,27 @@ namespace GBJAM9
             roomExitUnits.Clear();
 
             var roomExits = new List<RoomExitSpawn>(currentRoom.roomExits);
-            
-            foreach (var roomExit in roomExits)
+
+            var newRoomRewardTypes = rooms.rewardTypes.OrderBy(s => Random.value).ToList();
+
+            for (var i = 0; i < roomExits.Count; i++)
             {
+                var roomExit = roomExits[i];
                 var roomExitObject = GameObject.Instantiate(roomExitUnitPrefab);
                 roomExitObject.transform.position = roomExit.transform.position;
                 var roomExitUnit = roomExitObject.GetComponentInChildren<Entity>();
                 roomExitUnits.Add(roomExitUnit);
-                
+
+                if (newRoomRewardTypes.Count > 0)
+                {
+                    if (i >= newRoomRewardTypes.Count)
+                    {
+                        i = 0;
+                    }
+                    var rewardType = newRoomRewardTypes[i];
+                    roomExitUnit.roomExit.rewardType = rewardType.name;
+                }
+
                 GameObject.Destroy(roomExit.gameObject);
             }
         }

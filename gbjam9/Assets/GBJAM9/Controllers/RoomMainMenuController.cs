@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using GBJAM9.Components;
 using UnityEngine;
@@ -61,6 +60,9 @@ namespace GBJAM9.Controllers
 
             if (pickupEntity.pickup.pickupType.Equals("weapon"))
             {
+                // complete room after picking the weapon
+                entity.room.state = RoomComponent.State.Completed;
+                
                 // if we get at least one weapon, then activate the exits
                 var roomList = entity.world.entities.Where(e => e.roomExit != null).ToList();
                 foreach (var e in roomList)

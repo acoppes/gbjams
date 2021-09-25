@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using GBJAM9.Components;
@@ -7,6 +8,13 @@ namespace GBJAM9
 {
     public class RoomComponent : MonoBehaviour, IGameComponent
     {
+        public enum State
+        {
+            Fighting = 0,
+            WaitingReward = 1,
+            Completed
+        }
+        
         public RoomStart roomStart => GetComponentInChildren<RoomStart>();
 
         public List<RoomExitSpawn> roomExits => GetComponentsInChildren<RoomExitSpawn>().ToList();
@@ -14,5 +22,11 @@ namespace GBJAM9
         public AudioClip completedMusic;
         
         public AudioClip fightMusic;
+
+        [NonSerialized]
+        public State state = State.Fighting;
+
+        [NonSerialized]
+        public string rewardType;
     }
 }
