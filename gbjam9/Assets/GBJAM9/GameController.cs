@@ -250,6 +250,18 @@ namespace GBJAM9
                 GameObject.Destroy(roomExit.gameObject);
             }
         }
+        
+        private IEnumerator VictorySequence()
+        {
+            gameEntity.game.state = GameComponent.State.TransitionToRoom;
+            nekoninEntity.input.enabled = false;
+
+            // TODO: show custom defeat screen, wait a bit, then go to restart game.
+            
+            yield return new WaitForSeconds(2.0f);
+
+            StartCoroutine(RestartGame(false));
+        }
 
           private IEnumerator DefeatSequence()
         {
@@ -260,7 +272,9 @@ namespace GBJAM9
             
             yield return new WaitForSeconds(2.0f);
 
-            yield return StartCoroutine(RestartGame(false));
+            StartCoroutine(RestartGame(false));
+            
+            // yield return ;
         }
           
         public void Update()
@@ -278,14 +292,15 @@ namespace GBJAM9
             if (gameEntity.game.state == GameComponent.State.Victory)
             {
                 // TODO: start another sequence first (transition, stuff), then restart
-                StartCoroutine(RestartGame(false));
+                StartCoroutine(VictorySequence());
                 return;
             }
             
             if (gameEntity.game.state == GameComponent.State.Defeat)
             {
                 // TODO: start another sequence first (transition, stuff), then restart
-                StartCoroutine(RestartGame(false));
+                // StartCoroutine(RestartGame(false));
+                StartCoroutine(DefeatSequence());
                 return;
             }
 
@@ -293,7 +308,8 @@ namespace GBJAM9
             {
                 if (!nekoninEntity.health.alive)
                 {
-                    StartCoroutine(DefeatSequence());
+                    gameEntity.game.state = GameComponent.State.Defeat;
+                    // StartCoroutine(DefeatSequence());
                     return;
                 }
             }
