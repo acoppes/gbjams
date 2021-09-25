@@ -1,9 +1,9 @@
 TODO
 
-* Restart game in main menu on player dead
-* victory on nekosama pickup
+* Defeat (on nekonin killed)
 
-* Death animations - nekonin (instead of destroying the object)
+* Death
+  - disable colliders and input
 
 * User interface (mainly the neko life)
 
@@ -12,8 +12,6 @@ TODO
 
 * Victory transition (default for now, then a nice one)
 * Victory cinematic (on nekosama room, some dialogue, etc)
-
-* Death animations - enemies
 
 * Sword Enemy
 
