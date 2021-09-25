@@ -28,6 +28,12 @@ namespace GBJAM9
                 .Select(u => u.GetComponent<T>()).ToList();
         }
 
+        public Entity GetSingleton(string name)
+        {
+            return entities
+                .FirstOrDefault(e => e.singleton != null && e.singleton.name.Equals(name));
+        }
+
         private void Awake()
         {
             playerLayer = LayerMask.NameToLayer("Player");

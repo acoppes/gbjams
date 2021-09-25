@@ -69,6 +69,12 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public RoomExitComponent roomExit;
+
+        [NonSerialized]
+        public SingletonComponent singleton;
+
+        [NonSerialized]
+        public GameComponent game;
         
         private void Awake()
         {

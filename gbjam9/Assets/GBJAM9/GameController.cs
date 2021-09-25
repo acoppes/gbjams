@@ -59,16 +59,20 @@ namespace GBJAM9
         [NonSerialized]
         public int totalRooms;
         
-        // TODO: more stuff
-
+        public Entity gameEntity;
+        
         public void Start()
         {
+            // TODO: this could be an entity too...
+
             // Start game sequence as coroutine?
             StartCoroutine(RestartGame(true));
         }
 
         private IEnumerator RestartGame(bool firstTime)
         {
+            gameEntity.game.state = GameComponent.State.Restarting;
+            
             gameState = GameState.Restarting;
 
             yield return null;
@@ -101,6 +105,8 @@ namespace GBJAM9
             gameState = GameState.Fighting;
             
             RestartMusic(currentRoom.fightMusic);
+            
+            gameEntity.game.state = GameComponent.State.Playing;
         }
 
         private void RestartMusic(AudioClip music)
