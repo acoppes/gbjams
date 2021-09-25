@@ -47,6 +47,12 @@ namespace GBJAM9.Controllers
             var rewardType = entity.room.rewardType;
             var rewardData = roomDataAsset.rewardTypes.FirstOrDefault(r => r.name.Equals(rewardType));
 
+            if (string.IsNullOrEmpty(rewardType))
+            {
+                OnRewardPickup();
+                return;
+            }
+            
             if (rewardType.Equals("unknown"))
             {
                 // pick random reward if reward is unkown
@@ -70,8 +76,7 @@ namespace GBJAM9.Controllers
             {
                 if (rewardEntity == null || rewardEntity.pickup.picked)
                 {
-                    entity.room.state = RoomComponent.State.Completed;
-                    OpenAllExits();
+                    OnRewardPickup();
                 }
             } else if (entity.room.state == RoomComponent.State.Fighting)
             {
@@ -83,8 +88,9 @@ namespace GBJAM9.Controllers
             }
         }
 
-        private void OpenAllExits()
+        private void OnRewardPickup()
         {
+            entity.room.state = RoomComponent.State.Completed;
             var roomList = entity.world.entities.Where(e => e.roomExit != null).ToList();
             foreach (var e in roomList)
             {

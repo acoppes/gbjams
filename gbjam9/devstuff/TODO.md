@@ -1,10 +1,9 @@
 TODO
 
+* Restart game in main menu on player dead
 * victory on nekosama pickup
-* restart the game from the beginning 
-* restart if dead
-* spawn enemies in combat rooms with state after all enemies killed
-* spawned stuff should be spawned inside room so it is destroyed
+* bug: door alive while until next room loade
+  - load it as sub unit of the room
 
 * Death animations (neko, enemies, etc)
 
