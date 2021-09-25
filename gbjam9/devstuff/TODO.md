@@ -1,10 +1,10 @@
 TODO
 
 * victory on nekosama pickup
-* special reward level design location
 * restart the game from the beginning 
 * restart if dead
 * spawn enemies in combat rooms with state after all enemies killed
+* spawned stuff should be spawned inside room so it is destroyed
 
 * Death animations (neko, enemies, etc)
 

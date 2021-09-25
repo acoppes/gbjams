@@ -26,6 +26,22 @@ namespace GBJAM9.Controllers
             
             // on all enemies destroyed, spawn reward near last enemy
 
+            entity.room.state = RoomComponent.State.Fighting;
+            foreach (var roomRoomSpawner in entity.room.roomSpawners)
+            {
+                var enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
+                if (enemyPrefab != null)
+                {
+                    var enemyObject = 
+                        GameObject.Instantiate(enemyPrefab, roomRoomSpawner.transform.position, Quaternion.identity);
+                    var enemyEntity = enemyObject.GetComponent<Entity>();
+                    enemyEntity.player.player = enemyPlayer;
+                }
+            }
+        }
+
+        private void OnEnemiesDefeated()
+        {
             entity.room.state = RoomComponent.State.WaitingReward;
             
             var rewardType = entity.room.rewardType;
@@ -47,7 +63,7 @@ namespace GBJAM9.Controllers
                 rewardEntity = rewardObject.GetComponent<Entity>();
             }
         }
-
+        
         public override void OnWorldUpdate(World world)
         {
             if (entity.room.state == RoomComponent.State.WaitingReward)
@@ -56,6 +72,13 @@ namespace GBJAM9.Controllers
                 {
                     entity.room.state = RoomComponent.State.Completed;
                     OpenAllExits();
+                }
+            } else if (entity.room.state == RoomComponent.State.Fighting)
+            {
+                var enemyEntities = world.entities.Where(e => e.player != null && e.player.player == enemyPlayer).ToList();
+                if (enemyEntities.Count == 0)
+                {
+                    OnEnemiesDefeated();
                 }
             }
         }

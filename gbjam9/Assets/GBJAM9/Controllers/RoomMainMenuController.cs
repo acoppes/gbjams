@@ -50,11 +50,13 @@ namespace GBJAM9.Controllers
         {
             if (pickupEntity == swordPickup && kunaiPickup == null)
             {
-                var kunaiObject = GameObject.Instantiate(kunaiPickupPrefab, kunaiPosition, Quaternion.identity);
+                var kunaiObject = GameObject.Instantiate(kunaiPickupPrefab, kunaiPosition, 
+                    Quaternion.identity, entity.transform);
                 kunaiPickup = kunaiObject.GetComponent<Entity>();
             } else if (pickupEntity == kunaiPickup && swordPickup == null)
             {
-                var swordObject = GameObject.Instantiate(swordPickupPrefab, swordPosition, Quaternion.identity);
+                var swordObject = GameObject.Instantiate(swordPickupPrefab, swordPosition, 
+                    Quaternion.identity, entity.transform);
                 swordPickup = swordObject.GetComponent<Entity>();
             }
 
