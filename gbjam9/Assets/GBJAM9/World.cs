@@ -102,22 +102,37 @@ namespace GBJAM9
                     Destroy(e.model.optionalStartLookAt.gameObject);
                     e.model.optionalStartLookAt = null;
                 }
+
+                if (e.state != null)
+                {
+                    // reset the hit state
+                    e.state.hit = false;
+                    e.state.dead = false;
+                }
                 
                 var health = e.health;
                 if (health != null)
                 {
-                    var receivedDamage = health.damages > 0;
-                    
-                    if (receivedDamage && !health.immortal)
+                    if (health.current > 0)
                     {
-                        health.current -= health.damages;
-                    }
-                    
-                    health.damages = 0;
+                        var receivedDamage = health.damages > 0;
 
-                    if (e.state != null)
-                    {
-                        e.state.hit = receivedDamage;
+                        if (receivedDamage && !health.immortal)
+                        {
+                            health.current -= health.damages;
+                        }
+
+                        health.damages = 0;
+
+                        if (e.state != null)
+                        {
+                            e.state.hit = receivedDamage;
+
+                            if (health.current <= 0)
+                            {
+                                e.state.dead = true;
+                            }
+                        }
                     }
                 }
                 
@@ -136,15 +151,16 @@ namespace GBJAM9
                         toDestroy.Add(e);
                     }
                 }
-                
-                if (health != null)
-                {
-                    if (health.current <= 0)
-                    {
-                        // TODO: spawn death unit
-                        e.destroyed = true;
-                    }
-                }
+
+                // dont destroy on death
+                // if (health != null)
+                // {
+                //     if (health.current <= 0)
+                //     {
+                //         // TODO: spawn death unit
+                //         e.destroyed = true;
+                //     }
+                // }
 
                 if (e.input != null && e.gameboyController != null)
                 {
@@ -390,11 +406,17 @@ namespace GBJAM9
                         animator.SetBool(UnitStateComponent.kunaiAttackStateHash, state.kunaiAttacking);
                         animator.SetBool(UnitStateComponent.swordAttackStateHash, state.swordAttacking);
                         animator.SetBool(UnitStateComponent.dashingStateHash, state.dashing);
-                        animator.SetBool(UnitStateComponent.deadStateHash, state.dead);
+                        
+                        // animator.SetBool(UnitStateComponent.deadStateHash, state.dead);
                         
                         if (state.hit)
                         {
                             animator.SetTrigger(UnitStateComponent.hittedStateHash);
+                        }
+
+                        if (state.dead)
+                        {
+                            animator.SetTrigger(UnitStateComponent.deadStateHash);
                         }
                     }
 

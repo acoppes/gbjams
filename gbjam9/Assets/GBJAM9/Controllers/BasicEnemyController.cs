@@ -1,3 +1,4 @@
+using GBJAM9.Components;
 using UnityEngine;
 
 namespace GBJAM9.Controllers
@@ -33,7 +34,6 @@ namespace GBJAM9.Controllers
 
         public override void OnWorldUpdate(World world)
         {
-
             var playerMask = entity.player.enemyLayerMask;
 
             var distance = 4;
@@ -47,7 +47,13 @@ namespace GBJAM9.Controllers
             {
                 var hit = Physics2D.Raycast(transform.position, direction,
                     distance, playerMask);
-                playerDetected = hit.collider != null && hit.distance > 0;
+
+                if (hit.collider != null)
+                {
+                    var health = hit.collider.GetComponent<HealthComponent>();
+                    playerDetected = health != null && health.current > 0 && hit.distance > 0;    
+                }
+                
                 if (playerDetected)
                 {
                     attackDirection = direction;
