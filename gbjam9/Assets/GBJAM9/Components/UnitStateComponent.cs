@@ -16,6 +16,9 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public bool dashing;
+
+        [NonSerialized]
+        public bool dead;
         
         [NonSerialized]
         public bool hit;
@@ -24,6 +27,8 @@ namespace GBJAM9.Components
         public static readonly int dashingStateHash = Animator.StringToHash("dashing");
         public static readonly int kunaiAttackStateHash = Animator.StringToHash("kunai_attack");
         public static readonly int swordAttackStateHash = Animator.StringToHash("sword_attack");
+        
+        public static readonly int deadStateHash = Animator.StringToHash("dead");
         
         public static readonly int hittedStateHash = Animator.StringToHash("hitted");
     }

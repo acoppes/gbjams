@@ -1,12 +1,12 @@
+using System;
+using System.Linq;
 using GBJAM9.Components;
 using UnityEngine;
 
 namespace GBJAM9.Controllers
 {
-    public class RoomMainMenuController : MonoBehaviour
+    public class RoomMainMenuController : EntityController
     {
-        public Entity entity;
-        
         public GameObject swordPickupPrefab;
         public GameObject kunaiPickupPrefab;
 
@@ -22,31 +22,28 @@ namespace GBJAM9.Controllers
             kunaiPosition = kunaiPickup.transform.position;
         }
 
-        private void OnEnable()
+        public override void OnInit(World world)
         {
+            base.OnInit(world);
+            
+            var mainUnitList = world.GetEntityList<MainUnitComponent>();
+            foreach (var mainUnit in mainUnitList)
+            {
+                var attack = mainUnit.GetComponent<AttackComponent>();
+                attack.weaponData = null;
+            }
+            
             if (entity.world != null)
             {
                 entity.world.onPickup += OnPickup;
             }
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             if (entity.world != null)
             {
                 entity.world.onPickup -= OnPickup;
-            }
-        }
-
-        private void OnRoomStart(World world)
-        {
-            // get main player, remove default weapon...
-
-            var mainUnitList = world.GetEntityList<MainUnitComponent>();
-            foreach (var mainUnit in mainUnitList)
-            {
-                var attack = mainUnit.GetComponent<AttackComponent>();
-                attack.weaponData = null;
             }
         }
 
@@ -64,7 +61,12 @@ namespace GBJAM9.Controllers
 
             if (pickupEntity.pickup.pickupType.Equals("weapon"))
             {
-                // activate exits
+                // if we get at least one weapon, then activate the exits
+                var roomList = entity.world.entities.Where(e => e.roomExit != null).ToList();
+                foreach (var e in roomList)
+                {
+                    e.roomExit.open = true;
+                }
             }
         }
     }

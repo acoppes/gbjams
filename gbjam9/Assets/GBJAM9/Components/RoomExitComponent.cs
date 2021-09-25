@@ -6,9 +6,12 @@ namespace GBJAM9.Components
     public class RoomExitComponent : MonoBehaviour, IGameComponent
     {
         [NonSerialized]
-        public bool mainUnitCollision;
+        public bool playerInExit;
 
         public float distance;
+
+        [NonSerialized]
+        public bool open;
 
         private void OnDrawGizmosSelected()
         {

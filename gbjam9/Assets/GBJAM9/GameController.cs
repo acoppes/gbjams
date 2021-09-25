@@ -90,7 +90,7 @@ namespace GBJAM9
             currentRoom = roomObject.GetComponent<RoomComponent>();
             mainPlayerEntity.transform.position = currentRoom.roomStart.transform.position;
             
-            roomObject.SendMessage("OnRoomStart", world);
+            // roomObject.SendMessage("OnRoomStart", world);
 
             RegenerateRoomExits();
 
@@ -213,7 +213,7 @@ namespace GBJAM9
             var roomExitList = world.GetEntityList<RoomExitComponent>();
             foreach (var roomExit in roomExitList)
             {
-                if (roomExit.mainUnitCollision)
+                if (roomExit.playerInExit)
                 {
                     // TODO: more room data and logic..
                     StartCoroutine(StartTransitionToNextRoom(roomExit));

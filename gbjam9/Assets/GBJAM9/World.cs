@@ -218,18 +218,26 @@ namespace GBJAM9
                     e.model.lookingDirection = e.movement.lookingDirection;
                 }
                 
-                var roomEnd = e.GetComponentInChildren<RoomExitComponent>();
-                if (roomEnd != null)
+                if (e.roomExit != null)
                 {
-                    roomEnd.mainUnitCollision = false;
+                    e.roomExit.playerInExit = false;
 
-                    foreach (var mainUnit in mainUnits)
+                    if (e.roomExit.open)
                     {
-                        if (Vector2.Distance(mainUnit.transform.position, roomEnd.transform.position) < roomEnd.distance)
+                        foreach (var mainUnit in mainUnits)
                         {
-                            roomEnd.mainUnitCollision = true;
-                            break;
+                            if (Vector2.Distance(mainUnit.transform.position, e.roomExit.transform.position) <
+                                e.roomExit.distance)
+                            {
+                                e.roomExit.playerInExit = true;
+                                break;
+                            }
                         }
+                    }
+                    
+                    if (e.state != null)
+                    {
+                        e.state.dead = e.roomExit.open;
                     }
                 }
                 
@@ -356,7 +364,8 @@ namespace GBJAM9
                         animator.SetBool(UnitStateComponent.kunaiAttackStateHash, state.kunaiAttacking);
                         animator.SetBool(UnitStateComponent.swordAttackStateHash, state.swordAttacking);
                         animator.SetBool(UnitStateComponent.dashingStateHash, state.dashing);
-
+                        animator.SetBool(UnitStateComponent.deadStateHash, state.dead);
+                        
                         if (state.hit)
                         {
                             animator.SetTrigger(UnitStateComponent.hittedStateHash);
