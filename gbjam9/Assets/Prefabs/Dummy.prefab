@@ -83,6 +83,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5380729445419470949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5064500324335123267}
+  m_Layer: 7
+  m_Name: AttachPoint_DeathVfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5064500324335123267
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5380729445419470949}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7782671430812760591}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5806035810119971641
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +162,7 @@ GameObject:
   - component: {fileID: 4938479693121317840}
   - component: {fileID: 231315731383213901}
   - component: {fileID: 8169899776314504941}
+  - component: {fileID: 4093363787885661519}
   m_Layer: 7
   m_Name: Dummy
   m_TagString: Untagged
@@ -152,6 +183,7 @@ Transform:
   m_Children:
   - {fileID: 1891987196533004564}
   - {fileID: 7222761893008485252}
+  - {fileID: 5064500324335123267}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -182,6 +214,8 @@ MonoBehaviour:
   total: 9999999
   current: 9999999
   immortal: 1
+  vfxPrefab: {fileID: 6537197837099432043, guid: 38e3510533cb02a4daf00b0faf31f420, type: 3}
+  vfxAttachPoint: {fileID: 5064500324335123267}
 --- !u!58 &8971555985727958753
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -305,3 +339,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerObject: {fileID: 231315731383213901}
+--- !u!114 &4093363787885661519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971555985727958758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298effba73954d289af1433a7eed2438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 8971555985727958753}
+  rigidbody: {fileID: 8971555985727958754}

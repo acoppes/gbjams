@@ -1,8 +1,5 @@
 TODO
 
-* Death
-  - disable colliders and input
-
 * User interface (mainly the neko life)
 
 * camera could be an entity with components

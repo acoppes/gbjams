@@ -15,5 +15,9 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public bool alive;
+
+        public GameObject vfxPrefab;
+
+        public Transform vfxAttachPoint;
     }
 }

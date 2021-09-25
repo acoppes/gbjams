@@ -132,6 +132,12 @@ namespace GBJAM9
                             if (!health.alive)
                             {
                                 e.state.dead = true;
+
+                                if (health.vfxPrefab != null)
+                                {
+                                    var vfxObject = GameObject.Instantiate(e.health.vfxPrefab);
+                                    vfxObject.transform.position = e.health.vfxAttachPoint.position;
+                                }
                             }
                         }
                     }
