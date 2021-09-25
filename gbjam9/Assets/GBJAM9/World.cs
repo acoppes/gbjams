@@ -173,6 +173,11 @@ namespace GBJAM9
                 
                 if (e.input != null)
                 {
+                    if (e.health != null && !e.health.alive)
+                    {
+                        e.input.enabled = false;
+                    }
+                    
                     if (e.movement != null)
                     {
                         if (e.input.enabled)
