@@ -41,7 +41,7 @@ namespace GBJAM9.Components
         public SoundEffectComponent sfx;
 
         [NonSerialized]
-        public ColliderComponent colliderComponent;
+        public ColliderComponent collider;
 
         [NonSerialized]
         public InventoryComponent inventory;

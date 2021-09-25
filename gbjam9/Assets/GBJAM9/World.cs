@@ -282,29 +282,52 @@ namespace GBJAM9
                     }
                 }
 
-                if (e.colliderComponent != null)
+                if (e.collider != null)
                 {
-                    e.colliderComponent.contactsList.Clear();
-                    e.colliderComponent.collidingEntities.Clear();
+                    e.collider.contactsList.Clear();
+                    e.collider.collidingEntities.Clear();
+
+                    e.collider.inCollision = false;
                     
-                    e.colliderComponent.inCollision = 
-                        e.colliderComponent.collider.GetContacts(e.colliderComponent.contactsList) > 0;
+                    var updateCollider = true;
                     
-                    // filter duplicates?
-                    e.colliderComponent.collidingEntities = e.colliderComponent.contactsList
+                    if (e.health != null && !e.health.alive)
+                    {
+                        updateCollider = false;
+                        
+                        if (e.collider.rigidbody != null)
+                        {
+                            e.collider.rigidbody.bodyType = RigidbodyType2D.Kinematic;
+                        }
+
+                        if (e.collider.collider != null)
+                        {
+                            e.collider.collider.enabled = false;
+                        }
+                        // turn off collider and rigid body too
+                    }
+                    
+                    if (updateCollider)
+                    {
+                        e.collider.inCollision =
+                            e.collider.collider.GetContacts(e.collider.contactsList) > 0;
+
+                        // filter duplicates?
+                        e.collider.collidingEntities = e.collider.contactsList
                             .Where(c => c.collider.GetComponent<Entity>() != null)
                             .Select(c => c.collider.GetComponent<Entity>())
                             .Distinct()
                             .ToList();
+                    }
                 }
 
                 if (e.pickup != null)
                 {
-                    if (e.colliderComponent != null)
+                    if (e.collider != null)
                     {
-                        if (e.colliderComponent.inCollision)
+                        if (e.collider.inCollision)
                         {
-                            var contactUnit = e.colliderComponent.contactsList[0].collider.GetComponent<Entity>();
+                            var contactUnit = e.collider.contactsList[0].collider.GetComponent<Entity>();
                             
                             if (e.pickup.pickupVfxPrefab != null)
                             {
@@ -323,11 +346,11 @@ namespace GBJAM9
                     }
                 }
 
-                if (e.projectile != null && e.colliderComponent != null && !e.projectile.damagePerformed)
+                if (e.projectile != null && e.collider != null && !e.projectile.damagePerformed)
                 {
-                    if (e.colliderComponent.inCollision)
+                    if (e.collider.inCollision)
                     {
-                        foreach (var otherEntity in e.colliderComponent.collidingEntities)
+                        foreach (var otherEntity in e.collider.collidingEntities)
                         {
                             if (otherEntity != null && e.projectile.totalTargets > 0)
                             {

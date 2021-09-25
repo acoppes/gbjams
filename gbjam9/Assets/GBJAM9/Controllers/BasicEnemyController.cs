@@ -73,7 +73,7 @@ namespace GBJAM9.Controllers
                 wanderSwitchDirectionCooldown -= Time.deltaTime;
                 
                 entity.input.movementDirection = startingWanderDirection;
-                if (entity.colliderComponent.inCollision && wanderSwitchDirectionCooldown < 0)
+                if (entity.collider.inCollision && wanderSwitchDirectionCooldown < 0)
                 {
                     startingWanderDirection *= -1;
                     wanderSwitchDirectionCooldown = 0.2f;
