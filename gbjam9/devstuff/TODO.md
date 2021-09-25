@@ -2,8 +2,8 @@ TODO
 
 * Restart game in main menu on player dead
 * victory on nekosama pickup
-* bug: door alive while until next room loade
-  - load it as sub unit of the room
+
+* user interface
 
 * Death animations (neko, enemies, etc)
 

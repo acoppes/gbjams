@@ -183,10 +183,14 @@ namespace GBJAM9
 
         private void RegenerateRoomExits()
         {
-            foreach (var roomExitUnit in roomExitUnits)
-            {
-                GameObject.Destroy(roomExitUnit.gameObject);
-            }
+            // foreach (var roomExitUnit in roomExitUnits)
+            // {
+            //     // now is autodestroyed 
+            //     if (roomExitUnit != null)
+            //     {
+            //         GameObject.Destroy(roomExitUnit.gameObject);
+            //     }
+            // }
             
             roomExitUnits.Clear();
 
@@ -197,8 +201,9 @@ namespace GBJAM9
             for (var i = 0; i < roomExits.Count; i++)
             {
                 var roomExit = roomExits[i];
-                var roomExitObject = GameObject.Instantiate(roomExitUnitPrefab);
-                roomExitObject.transform.position = roomExit.transform.position;
+                var roomExitObject = GameObject.Instantiate(roomExitUnitPrefab, roomExit.transform.position, 
+                    Quaternion.identity, currentRoom.transform);
+                // roomExitObject.transform.position = roomExit.transform.position;
                 var roomExitUnit = roomExitObject.GetComponentInChildren<Entity>();
                 roomExitUnits.Add(roomExitUnit);
 
