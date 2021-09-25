@@ -32,8 +32,10 @@ namespace GBJAM9.Controllers
                 var enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
                 if (enemyPrefab != null)
                 {
+                    // spawn enemies as children of room
                     var enemyObject = 
-                        GameObject.Instantiate(enemyPrefab, roomRoomSpawner.transform.position, Quaternion.identity);
+                        GameObject.Instantiate(enemyPrefab, roomRoomSpawner.transform.position, Quaternion.identity, 
+                            entity.transform);
                     var enemyEntity = enemyObject.GetComponent<Entity>();
                     enemyEntity.player.player = enemyPlayer;
                 }

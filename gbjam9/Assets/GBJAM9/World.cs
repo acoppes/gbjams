@@ -123,12 +123,13 @@ namespace GBJAM9
                         }
 
                         health.damages = 0;
+                        health.alive = health.current > 0;
 
                         if (e.state != null)
                         {
                             e.state.hit = receivedDamage;
 
-                            if (health.current <= 0)
+                            if (!health.alive)
                             {
                                 e.state.dead = true;
                             }

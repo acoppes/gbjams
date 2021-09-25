@@ -250,6 +250,15 @@ namespace GBJAM9
                 return;
             }
 
+            if (gameEntity.game.state == GameComponent.State.Fighting)
+            {
+                if (!nekoninEntity.health.alive)
+                {
+                    StartCoroutine(RestartGame(false));
+                    return;
+                }
+            }
+
                 // check if one room exit is pressed
             var roomExitList = world.GetComponentList<RoomExitComponent>();
             foreach (var roomExit in roomExitList)

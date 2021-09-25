@@ -12,5 +12,8 @@ namespace GBJAM9.Components
         
         [NonSerialized]
         public int damages;
+
+        [NonSerialized]
+        public bool alive;
     }
 }
