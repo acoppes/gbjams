@@ -83,7 +83,23 @@ namespace GBJAM9
         {
             gameEntity.game.state = GameComponent.State.Restarting;
 
-            yield return null;
+            GameObject transitionObject = null;
+            
+            if (!firstTime)
+            {
+                transitionObject = GameObject.Instantiate(transitionPrefab);
+                transitionObject.transform.position = nekoninEntity.transform.position;
+
+                var transition = transitionObject.GetComponent<Transition>();
+                transition.Open();
+
+                yield return new WaitWhile(delegate
+                {
+                    return !transition.isOpen;
+                });
+
+                yield return new WaitForSeconds(delayBetweenRooms);
+            }
 
             if (nekoninEntity != null)
             {
@@ -103,22 +119,34 @@ namespace GBJAM9
             var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
             nekoninEntity.transform.position = currentRoom.roomStart.transform.position;
+
+            if (!firstTime)
+            {
+                transitionObject.transform.position = currentRoom.roomStart.transform.position;
+                var transition = transitionObject.GetComponent<Transition>();
+                
+                transition.Close();
+            
+                yield return new WaitWhile(delegate
+                {
+                    return !transition.isClosed;
+                });
+            
+                GameObject.Destroy(transition.gameObject);
+            }
             
             totalRooms = UnityEngine.Random.Range(minRooms, maxRooms);
-            
-            // roomObject.SendMessage("OnRoomStart", world);
+
+            gameEntity.game.state = GameComponent.State.Fighting;
 
             RegenerateRoomExits();
-            
-            gameEntity.game.state = GameComponent.State.Fighting;
-            
             RestartMusic();
         }
 
 
         private IEnumerator StartTransitionToNextRoom(RoomExitComponent roomExit)
         {
-            gameEntity.game.state = GameComponent.State.TransitioninToNextRoom;
+            gameEntity.game.state = GameComponent.State.TransitionToRoom;
             
             nekoninEntity.GetComponentInChildren<UnitInput>().enabled = false;
 
@@ -163,7 +191,6 @@ namespace GBJAM9
             RestartMusic();
 
             transitionObject.transform.position = currentRoom.roomStart.transform.position;
-            
             transition.Close();
             
             yield return new WaitWhile(delegate
@@ -224,9 +251,21 @@ namespace GBJAM9
             }
         }
 
+          private IEnumerator DefeatSequence()
+        {
+            gameEntity.game.state = GameComponent.State.TransitionToRoom;
+            nekoninEntity.input.enabled = false;
+            
+            // TODO: show custom defeat screen, wait a bit, then go to restart game.
+            
+            yield return new WaitForSeconds(2.0f);
+
+            yield return StartCoroutine(RestartGame(false));
+        }
+          
         public void Update()
         {
-            if (gameEntity.game.state == GameComponent.State.TransitioninToNextRoom)
+            if (gameEntity.game.state == GameComponent.State.TransitionToRoom)
             {
                 return;
             }
@@ -254,7 +293,7 @@ namespace GBJAM9
             {
                 if (!nekoninEntity.health.alive)
                 {
-                    StartCoroutine(RestartGame(false));
+                    StartCoroutine(DefeatSequence());
                     return;
                 }
             }

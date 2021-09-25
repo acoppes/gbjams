@@ -10,12 +10,11 @@ namespace GBJAM9.Components
             Restarting,
             Fighting,
             WaitingReward,
-            TransitioninToNextRoom,
+            TransitionToRoom,
             Victory,
             Defeat
         }
 
-        [NonSerialized]
         public State state;
     }
 }

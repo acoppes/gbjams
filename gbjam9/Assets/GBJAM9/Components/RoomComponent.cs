@@ -26,7 +26,6 @@ namespace GBJAM9.Components
         
         public AudioClip fightMusic;
 
-        [NonSerialized]
         public State state = State.Fighting;
 
         [NonSerialized]

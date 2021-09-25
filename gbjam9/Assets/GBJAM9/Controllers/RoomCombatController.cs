@@ -18,7 +18,7 @@ namespace GBJAM9.Controllers
         {
             // get main player reference for later use
 
-            var mainUnit = world.entities.FirstOrDefault(e => e.mainUnit != null);
+            var mainUnit = world.GetSingleton("Nekonin");
             
             // get all exits 
             
@@ -87,17 +87,19 @@ namespace GBJAM9.Controllers
                 {
                     OnEnemiesDefeated();
                 }
+            } else if (entity.room.state == RoomComponent.State.Completed)
+            {
+                var exits = entity.world.entities.Where(e => e.roomExit != null).ToList();
+                foreach (var e in exits)
+                {
+                    e.roomExit.open = true;
+                }
             }
         }
 
         private void OnRewardPickup()
         {
             entity.room.state = RoomComponent.State.Completed;
-            var roomList = entity.world.entities.Where(e => e.roomExit != null).ToList();
-            foreach (var e in roomList)
-            {
-                e.roomExit.open = true;
-            }
         }
     }
 }
