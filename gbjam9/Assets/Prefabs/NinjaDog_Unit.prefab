@@ -100,11 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 1
-  layer: 0
-  enemyLayer: 0
-  projectileLayer: 0
-  layerMask: 0
-  enemyLayerMask: 0
 --- !u!114 &6896168147887263156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +126,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   total: 10
   current: 10
+  immortal: 0
+  vfxPrefab: {fileID: 6537197837099432043, guid: 38e3510533cb02a4daf00b0faf31f420, type: 3}
+  vfxAttachPoint: {fileID: 3918750382345560865}
 --- !u!95 &6896168147887263158
 Animator:
   serializedVersion: 3
@@ -141,7 +139,7 @@ Animator:
   m_GameObject: {fileID: 6896168147887263118}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 43bf9bb8707fc344cafb4a21fb7418ee, type: 2}
+  m_Controller: {fileID: 22100000, guid: eb9df1b9a3dc93e4c97a98db4b43a924, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -201,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6896168147887263158}
   model: {fileID: 6896168148341639124}
+  optionalStartLookAt: {fileID: 0}
   rotateToDirection: 0
   verticalFlip: 0
 --- !u!114 &6896168147887263114
@@ -216,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 6896168147887263113}
+  rigidbody: {fileID: 0}
 --- !u!114 &6896168147887263117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,7 +342,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2320546547849950000, guid: 0359a85706e28c64cbc662f8b1f3e103, type: 3}
+  m_Sprite: {fileID: -8733994174075754054, guid: c71454c3c2987ba48908c32ae996b5b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
