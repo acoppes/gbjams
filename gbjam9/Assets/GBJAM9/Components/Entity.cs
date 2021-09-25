@@ -75,6 +75,9 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public GameComponent game;
+
+        [NonSerialized]
+        public HudComponent hud;
         
         private void Awake()
         {
