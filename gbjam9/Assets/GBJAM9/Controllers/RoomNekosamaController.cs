@@ -1,21 +1,33 @@
 using GBJAM9.Components;
+using UnityEngine;
 
 namespace GBJAM9.Controllers
 {
     public class RoomNekosamaController : EntityController
     {
-        private Entity nekosama;
+        public Entity nekosama;
 
         public override void OnInit(World world)
         {
-            // on nekosama pickup
             
-            // game.victory = true
         }
         
         public override void OnWorldUpdate(World world)
         {
+            var nekonin = world.GetSingleton("Nekonin");
 
+            if (nekonin == null)
+            {
+                return;
+            }
+            
+            var game = world.GetSingleton("Game");
+
+            if (Vector2.Distance(nekonin.transform.position, nekosama.transform.position) < 2)
+            {
+                game.game.state = GameComponent.State.Victory;
+                nekonin.input.enabled = false;
+            }
         }
         
     }

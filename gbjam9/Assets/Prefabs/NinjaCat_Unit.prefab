@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 3156954425568041864}
   - component: {fileID: 368041403601598413}
   - component: {fileID: 3061214437332157355}
+  - component: {fileID: 2779268702314943616}
   m_Layer: 6
   m_Name: NinjaCat_Unit
   m_TagString: Untagged
@@ -176,11 +177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
-  layer: 0
-  enemyLayer: 0
-  projectileLayer: 0
-  layerMask: 0
-  enemyLayerMask: 0
 --- !u!114 &7572422885822370084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   total: 10
   current: 10
+  immortal: 0
 --- !u!114 &2901987642424220449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3273482090561136065}
   model: {fileID: 2604852180642369831}
+  optionalStartLookAt: {fileID: 0}
   rotateToDirection: 0
   verticalFlip: 0
 --- !u!114 &1425004037423573326
@@ -400,6 +398,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 9ae0054589b6b5a4fae0522297503d8c, type: 2}
   attackAttachPoint: {fileID: 4968269233994410240}
+--- !u!114 &2779268702314943616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a3f6760f6d4134891f9e730c038d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueName: Nekonin
 --- !u!1001 &1267823140497863311
 PrefabInstance:
   m_ObjectHideFlags: 0

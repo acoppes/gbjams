@@ -31,7 +31,7 @@ namespace GBJAM9
         public Entity GetSingleton(string name)
         {
             return entities
-                .FirstOrDefault(e => e.singleton != null && e.singleton.name.Equals(name));
+                .FirstOrDefault(e => e.singleton != null && e.singleton.uniqueName.Equals(name));
         }
 
         private void Awake()
@@ -231,6 +231,7 @@ namespace GBJAM9
 
                     if (e.roomExit.open)
                     {
+                        // TODO: change to collider
                         foreach (var mainUnit in mainUnits)
                         {
                             if (Vector2.Distance(mainUnit.transform.position, e.roomExit.transform.position) <

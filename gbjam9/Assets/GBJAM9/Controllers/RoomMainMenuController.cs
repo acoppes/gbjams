@@ -24,14 +24,14 @@ namespace GBJAM9.Controllers
         public override void OnInit(World world)
         {
             base.OnInit(world);
-            
-            var mainUnitList = world.GetEntityList<MainUnitComponent>();
-            foreach (var mainUnit in mainUnitList)
+
+            var nekonin = world.GetSingleton("Nekonin");
+
+            if (nekonin != null)
             {
-                var attack = mainUnit.GetComponent<AttackComponent>();
-                attack.weaponData = null;
+                nekonin.attack.weaponData = null;
             }
-            
+
             if (entity.world != null)
             {
                 entity.world.onPickup += OnPickup;

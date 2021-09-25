@@ -5,6 +5,9 @@ TODO
 
 * user interface
 
+* camera could be an entity with components
+  - we could center camera on nekosama for the room victory secuence
+
 * Death animations (neko, enemies, etc)
 
 * Sword Enemy
