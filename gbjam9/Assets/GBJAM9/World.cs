@@ -22,10 +22,26 @@ namespace GBJAM9
         private int playerProjectilesLayer;
         private int enemyProjectilesLayer;
 
-        public List<T> GetEntityList<T>() where T : IEntityComponent
+        public List<T> GetComponentList<T>() where T : IEntityComponent
         {
             return entities.Where(u => u.GetComponent<T>() != null)
                 .Select(u => u.GetComponent<T>()).ToList();
+        }
+        
+        public List<Entity> GetEntitiesWith<T>() where T : IEntityComponent
+        {
+            return entities.Where(e => e.GetComponent<T>() != null)
+                .ToList();
+        }
+        
+        public List<Entity> GetEntitiesWith<T1, T2>() 
+            where T1 : IEntityComponent 
+            where T2 : IEntityComponent
+        {
+            return entities
+                .Where(e => e.GetComponent<T1>() != null)
+                .Where(e => e.GetComponent<T2>() != null)
+                .ToList();
         }
 
         public Entity GetSingleton(string name)

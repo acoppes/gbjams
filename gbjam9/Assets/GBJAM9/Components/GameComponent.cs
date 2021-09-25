@@ -8,7 +8,9 @@ namespace GBJAM9.Components
         public enum State
         {
             Restarting,
-            Playing, 
+            Fighting,
+            WaitingReward,
+            TransitioninToNextRoom,
             Victory,
             Defeat
         }

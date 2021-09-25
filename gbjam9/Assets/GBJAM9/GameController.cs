@@ -13,14 +13,6 @@ namespace GBJAM9
 {
     public class GameController : MonoBehaviour
     {
-        public enum GameState
-        {
-            Idle,
-            Fighting,
-            TransitioningNextRoom,
-            Restarting
-        }
-        
         public CameraFollow cameraFollow;
 
         public GameObject mainPlayerUnitPrefab;
@@ -43,8 +35,6 @@ namespace GBJAM9
 
         public AudioSource backgroundMusicAudioSource;
         
-        private GameState gameState = GameState.Idle;
-
         public GameObject transitionPrefab;
 
         [FormerlySerializedAs("entityManager")] 
@@ -59,21 +49,46 @@ namespace GBJAM9
         [NonSerialized]
         public int totalRooms;
         
-        public Entity gameEntity;
+        private Entity gameEntity;
         
         public void Start()
         {
+            gameEntity = world.GetSingleton("Game");
+            
             // TODO: this could be an entity too...
 
             // Start game sequence as coroutine?
             StartCoroutine(RestartGame(true));
         }
+        
+        
+        private void RestartMusic()
+        {
+            var musicClip = currentRoom.completedMusic;
+            
+            if (gameEntity.game.state == GameComponent.State.Fighting)
+            {
+                musicClip = currentRoom.fightMusic;
+            }
+            
+            if (backgroundMusicAudioSource != null)
+            {
+                backgroundMusicAudioSource.loop = true;
+
+                if (backgroundMusicAudioSource.clip == musicClip 
+                    && backgroundMusicAudioSource.isPlaying)
+                {
+                    return;
+                }
+                
+                backgroundMusicAudioSource.clip = musicClip;
+                backgroundMusicAudioSource.Play();
+            }
+        }
 
         private IEnumerator RestartGame(bool firstTime)
         {
             gameEntity.game.state = GameComponent.State.Restarting;
-            
-            gameState = GameState.Restarting;
 
             yield return null;
 
@@ -89,7 +104,7 @@ namespace GBJAM9
             
             if (currentRoom != null)
             {
-                GameObject.Destroy(currentRoom);
+                GameObject.Destroy(currentRoom.gameObject);
             }
 
             var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
@@ -101,34 +116,17 @@ namespace GBJAM9
             // roomObject.SendMessage("OnRoomStart", world);
 
             RegenerateRoomExits();
-
-            gameState = GameState.Fighting;
             
-            RestartMusic(currentRoom.fightMusic);
+            gameEntity.game.state = GameComponent.State.Fighting;
             
-            gameEntity.game.state = GameComponent.State.Playing;
+            RestartMusic();
         }
 
-        private void RestartMusic(AudioClip music)
-        {
-            if (backgroundMusicAudioSource != null)
-            {
-                backgroundMusicAudioSource.loop = true;
-
-                if (backgroundMusicAudioSource.clip == music 
-                    && backgroundMusicAudioSource.isPlaying)
-                {
-                    return;
-                }
-                
-                backgroundMusicAudioSource.clip = music;
-                backgroundMusicAudioSource.Play();
-            }
-        }
 
         private IEnumerator StartTransitionToNextRoom(RoomExitComponent roomExit)
         {
-            gameState = GameState.TransitioningNextRoom;
+            gameEntity.game.state = GameComponent.State.TransitioninToNextRoom;
+            
             mainPlayerEntity.GetComponentInChildren<UnitInput>().enabled = false;
 
             yield return null;
@@ -167,8 +165,10 @@ namespace GBJAM9
 
             currentRoom.rewardType = nextRoomRewardType;
             
-            RestartMusic(currentRoom.fightMusic);
-            
+            gameEntity.game.state = GameComponent.State.Fighting;
+
+            RestartMusic();
+
             transitionObject.transform.position = currentRoom.roomStart.transform.position;
             
             transition.Close();
@@ -180,8 +180,6 @@ namespace GBJAM9
             
             GameObject.Destroy(transition.gameObject);
 
-            gameState = GameState.Fighting;
-            
             RegenerateRoomExits();
             
             mainPlayerEntity.GetComponentInChildren<UnitInput>().enabled = true;
@@ -232,21 +230,35 @@ namespace GBJAM9
                 GameObject.Destroy(roomExit.gameObject);
             }
         }
-        
+
         public void Update()
         {
-            if (gameState == GameState.TransitioningNextRoom)
-            {
-                return;
-            }
-        
-            if (gameState == GameState.Restarting)
+            if (gameEntity.game.state == GameComponent.State.TransitioninToNextRoom)
             {
                 return;
             }
 
-            // check if one room exit is pressed
-            var roomExitList = world.GetEntityList<RoomExitComponent>();
+            if (gameEntity.game.state == GameComponent.State.Restarting)
+            {
+                return;
+            }
+
+            if (gameEntity.game.state == GameComponent.State.Victory)
+            {
+                // TODO: start another sequence first (transition, stuff), then restart
+                StartCoroutine(RestartGame(false));
+                return;
+            }
+            
+            if (gameEntity.game.state == GameComponent.State.Defeat)
+            {
+                // TODO: start another sequence first (transition, stuff), then restart
+                StartCoroutine(RestartGame(false));
+                return;
+            }
+
+                // check if one room exit is pressed
+            var roomExitList = world.GetComponentList<RoomExitComponent>();
             foreach (var roomExit in roomExitList)
             {
                 if (roomExit.playerInExit)
