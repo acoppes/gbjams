@@ -270,6 +270,8 @@ namespace GBJAM9
                                 var pickupVfx = GameObject.Instantiate(e.pickup.pickupVfxPrefab);
                                 pickupVfx.transform.position = e.transform.position;
                             }
+
+                            e.pickup.picked = true;
                             
                             e.SendMessage("OnPickup", contactUnit, SendMessageOptions.DontRequireReceiver);
 

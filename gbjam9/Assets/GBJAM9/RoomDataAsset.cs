@@ -8,7 +8,7 @@ namespace GBJAM9
     public class RoomDataAsset : ScriptableObject
     {
         [Serializable]
-        public struct RoomRewardType
+        public class RoomRewardType
         {
             public string name;
             public GameObject prefab;

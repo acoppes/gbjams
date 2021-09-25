@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace GBJAM9.Components
 {
@@ -10,5 +12,8 @@ namespace GBJAM9.Components
         public Object pickupData;
         
         public int count;
+        
+        [NonSerialized]
+        public bool picked;
     }
 }
