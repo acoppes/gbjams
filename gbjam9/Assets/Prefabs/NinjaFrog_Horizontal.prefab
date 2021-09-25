@@ -52,8 +52,9 @@ GameObject:
   - component: {fileID: 6896168147887263116}
   - component: {fileID: 6896168147887263119}
   - component: {fileID: 6829169894458382546}
+  - component: {fileID: 8050908907392869839}
   m_Layer: 7
-  m_Name: NinjaFrog_Unit
+  m_Name: NinjaFrog_Horizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,11 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 1
-  layer: 0
-  enemyLayer: 0
-  projectileLayer: 0
-  layerMask: 0
-  enemyLayerMask: 0
 --- !u!114 &6896168147887263156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6896168147887263158}
   model: {fileID: 6896168148341639124}
+  optionalStartLookAt: {fileID: 0}
   rotateToDirection: 0
   verticalFlip: 0
 --- !u!114 &6896168147887263114
@@ -270,6 +267,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 06695b76a4a6b9e4f813e69542f45aa7, type: 2}
   attackAttachPoint: {fileID: 3918750382345560865}
+--- !u!114 &8050908907392869839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896168147887263118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f36017abf7641b2a8d5b1e5346ecdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerObject: {fileID: 6896168147887263117}
 --- !u!1 &6896168148341639127
 GameObject:
   m_ObjectHideFlags: 0

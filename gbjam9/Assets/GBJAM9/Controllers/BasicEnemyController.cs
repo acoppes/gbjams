@@ -1,9 +1,8 @@
-using GBJAM9.Components;
 using UnityEngine;
 
 namespace GBJAM9.Controllers
 {
-    public class BasicEnemyController : MonoBehaviour
+    public class BasicEnemyController : EntityController
     {
         public enum State
         {
@@ -12,8 +11,6 @@ namespace GBJAM9.Controllers
             FollowingPlayer,
             ReturningToWander
         }
-        
-        private Entity entity;
 
         private State state;
 
@@ -28,16 +25,14 @@ namespace GBJAM9.Controllers
         // TODO: use spawn parameters for this, like the spawn point or something
         // or use variants
 
-        public void Start()
+        public override void OnInit(World world)
         {
-            entity = GetComponent<Entity>();
             state = State.Wander;
             wanderCenter = transform.position;
         }
 
-        private void FixedUpdate()
+        public override void OnWorldUpdate(World world)
         {
-            // TODO: configure mask in player component
 
             var playerMask = entity.player.enemyLayerMask;
 
@@ -102,7 +97,6 @@ namespace GBJAM9.Controllers
                     state = State.Wander;
                 }
             }
-
         }
     }
 }

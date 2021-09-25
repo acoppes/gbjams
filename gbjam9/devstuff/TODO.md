@@ -1,6 +1,10 @@
 TODO
 
-* Different door states, open when room completed
+* victory on nekosama pickup
+* special reward level design location
+* restart the game from the beginning 
+* restart if dead
+* spawn enemies in combat rooms with state after all enemies killed
 
 * Death animations (neko, enemies, etc)
 
@@ -14,18 +18,9 @@ TODO
 
 * hold to dash and release to stop, and have max distance
 
-* Room layout + editor or something
-  - Auto load possible rooms from folder (asset)
-
 * Dash
   - ignore hits while dashing
   - ignore enemy collision while dashing (move through enemies)
-
-* WHITE Flash shader (all pixels same color)
+  - bug: move through walls
 
 * On hit become invulnerable
-
-* Sword hit effect move with unit
-
-* Dummy
-  - always look at player

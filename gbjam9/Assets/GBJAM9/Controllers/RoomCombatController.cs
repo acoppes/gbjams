@@ -38,9 +38,11 @@ namespace GBJAM9.Controllers
                 rewardData = notNullRewards[UnityEngine.Random.Range(0, notNullRewards.Count)];
             }
             
-            if (rewardData != null)
+            var rewardSpawn = entity.room.roomRewardSpawn;
+
+            if (rewardData != null && rewardSpawn != null)
             {
-                var rewardObject = GameObject.Instantiate(rewardData.prefab, mainUnit.transform.position + new Vector3(2, 0, 0), 
+                var rewardObject = GameObject.Instantiate(rewardData.prefab, rewardSpawn.transform.position, 
                     Quaternion.identity);
                 rewardEntity = rewardObject.GetComponent<Entity>();
             }

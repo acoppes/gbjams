@@ -18,6 +18,8 @@ namespace GBJAM9
         public RoomStart roomStart => GetComponentInChildren<RoomStart>();
 
         public List<RoomExitSpawn> roomExits => GetComponentsInChildren<RoomExitSpawn>().ToList();
+        
+        public RoomRewardSpawn roomRewardSpawn => GetComponentInChildren<RoomRewardSpawn>();
 
         public AudioClip completedMusic;
         
