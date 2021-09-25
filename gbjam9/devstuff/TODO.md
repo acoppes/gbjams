@@ -1,7 +1,5 @@
 TODO
 
-* Defeat (on nekonin killed)
-
 * Death
   - disable colliders and input
 

@@ -34,6 +34,11 @@ namespace GBJAM9.Controllers
 
         public override void OnWorldUpdate(World world)
         {
+            if (!entity.health.alive)
+            {
+                return;
+            }
+                
             var playerMask = entity.player.enemyLayerMask;
 
             var distance = 4;
