@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 368041403601598413}
   - component: {fileID: 3061214437332157355}
   - component: {fileID: 2779268702314943616}
+  - component: {fileID: 7997533237927411999}
   m_Layer: 6
   m_Name: NinjaCat_Unit
   m_TagString: Untagged
@@ -243,8 +244,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 8793871774876110060}
-  dashingTime: 0.1
-  dashCooldown: 0.65
   dashParticles: {fileID: 831456227538247803}
   dashSfx: {fileID: 251624819310552550}
 --- !u!95 &3273482090561136065
@@ -414,6 +413,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueName: Nekonin
+--- !u!114 &7997533237927411999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6bd881a30ba45b6a0c6328999d25df3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.1
+  cooldown: 0.65
 --- !u!1001 &1267823140497863311
 PrefabInstance:
   m_ObjectHideFlags: 0

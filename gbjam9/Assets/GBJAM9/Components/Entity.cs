@@ -78,6 +78,9 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public HudComponent hud;
+
+        [NonSerialized]
+        public DashComponent dash;
         
         private void Awake()
         {

@@ -10,16 +10,6 @@ namespace GBJAM9.Controllers
         [FormerlySerializedAs("unit")] 
         [FormerlySerializedAs("unitComponent")] 
         public Entity entity;
-        
-        [SerializeField]
-        protected float dashingTime = 0.15f;
-
-        [SerializeField]
-        protected float dashCooldown = 1.0f;
-
-        private float dashingCurrentTime;
-        private float dashCooldownCurrentTime;
-        private Vector2 dashDirection;
 
         [SerializeField]
         protected ParticleSystem dashParticles;
@@ -30,20 +20,18 @@ namespace GBJAM9.Controllers
         // Update is called once per frame
         private void Update()
         {
-            if (dashingCurrentTime > 0)
+            var dash = entity.dash;
+            
+            if (dash.dashingCurrentTime > 0)
             {
                 entity.state.dashing = true;
                 
-                dashingCurrentTime -= Time.deltaTime;
-                entity.movement.lookingDirection = dashDirection;
+                dash.dashingCurrentTime -= Time.deltaTime;
+                entity.movement.lookingDirection = dash.direction;
                 
-                // dashMovement.lookingDirection = dashDirection;
-
-                // dashMovement.Move();
-
-                if (dashingCurrentTime <= 0)
+                if (dash.dashingCurrentTime <= 0)
                 {
-                    dashCooldownCurrentTime = dashCooldown;
+                    dash.dashCooldownCurrentTime = dash.cooldown;
                     entity.state.dashing = false;
                 }
 
@@ -55,12 +43,12 @@ namespace GBJAM9.Controllers
                 dashParticles.Stop();
             }
 
-            dashCooldownCurrentTime -= Time.deltaTime;
+            dash.dashCooldownCurrentTime -= Time.deltaTime;
             
-            if (entity.input.enabled && entity.input.dash && dashCooldownCurrentTime <= 0)
+            if (entity.input.enabled && entity.input.dash && dash.dashCooldownCurrentTime <= 0)
             {
-                dashingCurrentTime = dashingTime;
-                dashDirection = entity.movement.lookingDirection;
+                dash.dashingCurrentTime = dash.duration;
+                dash.direction = entity.movement.lookingDirection;
                 
                 if (dashParticles != null)
                 {
