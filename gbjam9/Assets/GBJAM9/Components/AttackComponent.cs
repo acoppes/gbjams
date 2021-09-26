@@ -13,5 +13,8 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public int extraDamage;
+
+        [NonSerialized]
+        public Vector2 direction = Vector2.right;
     }
 }

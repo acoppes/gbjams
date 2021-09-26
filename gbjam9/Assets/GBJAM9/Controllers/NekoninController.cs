@@ -16,7 +16,6 @@ namespace GBJAM9.Controllers
                 entity.state.dashing = true;
                 
                 dash.durationCurrent -= Time.deltaTime;
-                entity.movement.lookingDirection = dash.direction;
                 
                 if (dash.durationCurrent <= 0)
                 {

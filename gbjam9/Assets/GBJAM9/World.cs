@@ -220,6 +220,7 @@ namespace GBJAM9
                     var newPosition = e.transform.localPosition;
                     e.movement.velocity = direction * speed * Time.deltaTime;
 
+                    // TODO: use physics engine for this to avoid problems with dash
                     newPosition.x += e.movement.velocity.x * e.movement.perspective.x;
                     newPosition.y += e.movement.velocity.y * e.movement.perspective.y;
 
@@ -227,7 +228,12 @@ namespace GBJAM9
 
                     if (e.movement.velocity.SqrMagnitude() > 0)
                     {
-                        e.movement.lookingDirection = e.movement.velocity.normalized;
+                        var movingDirection = e.movement.velocity.normalized;
+                        e.movement.lookingDirection = movingDirection;
+                        if (e.attack != null)
+                        {
+                            e.attack.direction = movingDirection;
+                        }
                     }
                 }
                 
@@ -249,7 +255,7 @@ namespace GBJAM9
                             var projectileEntity = projectileObject.GetComponent<Entity>();
                             var projectileController = projectileObject.GetComponent<ProjectileController>();
                             projectileController.Fire(e.transform.position + e.attack.attackAttachPoint.localPosition,
-                                e.movement.lookingDirection);
+                                e.attack.direction);
                             projectileController.entity.player.player = e.player.player;
                             
                             projectileEntity.projectile.damage = weaponData.damage + e.attack.extraDamage;
