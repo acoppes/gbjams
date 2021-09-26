@@ -467,7 +467,8 @@ namespace GBJAM9
                         animator.SetBool(UnitStateComponent.kunaiAttackStateHash, state.kunaiAttacking);
                         animator.SetBool(UnitStateComponent.swordAttackStateHash, state.swordAttacking);
                         animator.SetBool(UnitStateComponent.dashingStateHash, state.dashing);
-                        
+                        animator.SetBool(UnitStateComponent.chargeAttack1StateHash, state.chargeAttack1);
+
                         // animator.SetBool(UnitStateComponent.deadStateHash, state.dead);
                         
                         if (state.hit)
