@@ -1,3 +1,4 @@
+using GBJAM.Commons;
 using GBJAM9.Components;
 using UnityEngine;
 
@@ -9,14 +10,24 @@ namespace GBJAM9.Controllers
 
         private bool completed;
 
+        public SfxVariant victorySfx;
+
         public override void OnInit(World world)
         {
-            
+            if (victorySfx != null)
+            {
+                victorySfx.Play();
+            }
         }
         
         public override void OnWorldUpdate(World world)
         {
             if (completed)
+                return;
+
+            var game = world.GetSingleton("Game");
+
+            if (game == null)
                 return;
             
             var nekonin = world.GetSingleton("Nekonin");
@@ -25,11 +36,6 @@ namespace GBJAM9.Controllers
             {
                 return;
             }
-            
-            var game = world.GetSingleton("Game");
-
-            if (game == null)
-                return;
 
             if (Vector2.Distance(nekonin.transform.position, nekosama.transform.position) < 2)
             {

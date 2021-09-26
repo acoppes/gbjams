@@ -78,7 +78,7 @@ namespace GBJAM9
                 {
                     return;
                 }
-                
+
                 backgroundMusicAudioSource.clip = musicClip;
                 backgroundMusicAudioSource.Play();
             }
