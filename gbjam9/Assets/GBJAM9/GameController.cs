@@ -62,7 +62,7 @@ namespace GBJAM9
         }
         
         
-        private void RestartMusic()
+        private void RestartMusic(GameComponent.State nextState)
         {
             var musicClip = currentRoom.completedMusic;
             
@@ -153,7 +153,7 @@ namespace GBJAM9
             gameEntity.game.state = GameComponent.State.Fighting;
 
             RegenerateRoomExits();
-            RestartMusic();
+            RestartMusic(GameComponent.State.Fighting);
         }
 
 
@@ -201,9 +201,7 @@ namespace GBJAM9
 
             currentRoom.rewardType = nextRoomRewardType;
             
-            gameEntity.game.state = GameComponent.State.Fighting;
-
-            RestartMusic();
+            RestartMusic(GameComponent.State.Fighting);
 
             transitionObject.transform.position = currentRoom.roomStart.transform.position;
             transition.Close();
@@ -212,6 +210,8 @@ namespace GBJAM9
             {
                 return !transition.isClosed;
             });
+            
+            gameEntity.game.state = GameComponent.State.Fighting;
             
             GameObject.Destroy(transition.gameObject);
 

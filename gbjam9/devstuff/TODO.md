@@ -5,6 +5,12 @@ TODO
 
 * Enemies coinst on killed
 
+* Disable enemies ia while transitioning 
+
+* Room changes music on enemies killed
+
+* Music fade out/in
+
 * Samurainu
   - wander logic (just pick random position to walk)
 

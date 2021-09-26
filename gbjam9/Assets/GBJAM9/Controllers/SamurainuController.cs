@@ -39,8 +39,22 @@ namespace GBJAM9.Controllers
             {
                 return;
             }
+            
+            var gameEntity = world.GetSingleton("Game");
+            if (gameEntity != null)
+            {
+                if (gameEntity.game.state == GameComponent.State.TransitionToRoom)
+                {
+                    return;
+                }
+            }
 
             var nekonin = world.GetSingleton("Nekonin");
+
+            if (nekonin == null)
+            {
+                return;
+            }
             
             // raycast nekonin, if obstacle, ignore it, continue wandering
 

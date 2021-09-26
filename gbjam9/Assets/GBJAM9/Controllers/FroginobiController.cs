@@ -38,6 +38,15 @@ namespace GBJAM9.Controllers
             {
                 return;
             }
+
+            var gameEntity = world.GetSingleton("Game");
+            if (gameEntity != null)
+            {
+                if (gameEntity.game.state == GameComponent.State.TransitionToRoom)
+                {
+                    return;
+                }
+            }
                 
             var playerMask = entity.player.enemyLayerMask;
 
