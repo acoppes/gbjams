@@ -14,7 +14,7 @@ namespace GBJAM9.Components
         public int damages;
 
         [NonSerialized]
-        public bool alive;
+        public bool alive = true;
 
         public GameObject vfxPrefab;
 

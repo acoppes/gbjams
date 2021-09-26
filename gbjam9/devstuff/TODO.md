@@ -27,8 +27,8 @@ TODO
 * On hit become invulnerable
 
 * Bugs
-  - combat rooms are not unlocked after killing all enemies
   - sword attack direction when moving up/down is always to the right.
 
 * Others
+  - hud show coins
   - nekonin controller as an entity controller

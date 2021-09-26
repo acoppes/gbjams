@@ -82,7 +82,10 @@ namespace GBJAM9.Controllers
                 }
             } else if (entity.room.state == RoomComponent.State.Fighting)
             {
-                var enemyEntities = world.entities.Where(e => e.player != null && e.player.player == enemyPlayer && !e.health.immortal).ToList();
+                var enemyEntities = world.entities.Where(e => e.player != null && 
+                                                              e.player.player == enemyPlayer 
+                                                              && !e.health.immortal
+                                                              && e.health.alive).ToList();
                 if (enemyEntities.Count == 0)
                 {
                     OnEnemiesDefeated();
