@@ -1,24 +1,13 @@
-using GBJAM.Commons;
-using GBJAM9.Components;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GBJAM9.Controllers
 {
-    public class NinjaCatController : MonoBehaviour
+    public class NekoninController : EntityController
     {
-        [FormerlySerializedAs("unit")] 
-        [FormerlySerializedAs("unitComponent")] 
-        public Entity entity;
-
         [SerializeField]
         protected ParticleSystem dashParticles;
 
-        [SerializeField]
-        protected SfxVariant dashSfx;
-
-        // Update is called once per frame
-        private void Update()
+        public override void OnWorldUpdate(World world)
         {
             var dash = entity.dash;
             
@@ -55,16 +44,14 @@ namespace GBJAM9.Controllers
                     dashParticles.Play();
                 }
 
-                if (dashSfx != null)
+                if (dash.sfx != null)
                 {
-                    dashSfx.Play();
+                    dash.sfx.Play();
                 }
 
                 entity.state.dashing = true;
             }
-
-
-
         }
+
     }
 }

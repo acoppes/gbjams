@@ -1,4 +1,5 @@
 using System;
+using GBJAM.Commons;
 using UnityEngine;
 
 namespace GBJAM9.Components
@@ -9,6 +10,8 @@ namespace GBJAM9.Components
         public float duration = 0.15f;
         
         public float cooldown = 1.0f;
+
+        public SfxVariant sfx;
         
         [NonSerialized]
         public float durationCurrent;
@@ -18,6 +21,6 @@ namespace GBJAM9.Components
         
         [NonSerialized]
         public Vector2 direction;
-        
     }
+    
 }

@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 8793871774876110060}
   - component: {fileID: 2846385692937050290}
   - component: {fileID: 6271978410121133927}
+  - component: {fileID: 1764650724659260481}
   - component: {fileID: 2901987642424220449}
   - component: {fileID: 3273482090561136065}
   - component: {fileID: 4391817125124591681}
@@ -142,7 +143,7 @@ GameObject:
   - component: {fileID: 2779268702314943616}
   - component: {fileID: 7997533237927411999}
   m_Layer: 6
-  m_Name: NinjaCat_Unit
+  m_Name: Nekonin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,6 +232,19 @@ MonoBehaviour:
   immortal: 0
   vfxPrefab: {fileID: 6537197837099432043, guid: 38e3510533cb02a4daf00b0faf31f420, type: 3}
   vfxAttachPoint: {fileID: 4968269233994410240}
+--- !u!114 &1764650724659260481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537197837099432043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f36017abf7641b2a8d5b1e5346ecdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerObject: {fileID: 2901987642424220449}
 --- !u!114 &2901987642424220449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,9 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b860427b8aae24186879503445b17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 8793871774876110060}
   dashParticles: {fileID: 831456227538247803}
-  dashSfx: {fileID: 251624819310552550}
 --- !u!95 &3273482090561136065
 Animator:
   serializedVersion: 3
@@ -427,6 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0.1
   cooldown: 0.65
+  sfx: {fileID: 251624819310552550}
 --- !u!1001 &1267823140497863311
 PrefabInstance:
   m_ObjectHideFlags: 0

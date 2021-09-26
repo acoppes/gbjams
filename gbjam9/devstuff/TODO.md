@@ -1,5 +1,12 @@
 TODO
 
+* SFX
+  - walk
+  - death
+  - enemy falls
+  - victory sfx on nekosama room starts
+  - sfx on health 1 (after a hit)
+
 * Sword Enemy
 
 * dummy can be killed and respawns in center
@@ -9,8 +16,12 @@ TODO
   - we could center camera on nekosama for the room victory secuence
 
 * Victory transition (default for now, then a nice one)
-* Victory cinematic (on nekosama room, some dialogue, etc)
+  - custom victory screen, then credits, then restart the game
 
+* Victory cinematic (on nekosama room, some dialogue, etc)
+  - on enter room, remove hud (indicates we are not in a fight room), and remove weapon or disable weapon
+  - on near nekosama, dialogue
+  - on dialogue complete, show victory
 
 * change kunai and sword to attack1 and attack2 in animator
 
@@ -30,4 +41,3 @@ TODO
 
 * Others
   - hud show coins
-  - nekonin controller as an entity controller
