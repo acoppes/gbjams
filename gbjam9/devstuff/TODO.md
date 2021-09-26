@@ -1,7 +1,12 @@
 TODO
 
 * User interface (mainly the neko life)
-  - logic to show info
+  - weapon info
+  - dash info (separate dash component :S)
+  - hud fade in/out during transitions
+
+* dummy can be killed and respawns in center
+  - spawn animation (fade in)
 
 * camera could be an entity with components
   - we could center camera on nekosama for the room victory secuence
