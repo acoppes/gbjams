@@ -1,17 +1,16 @@
+using GBJAM9.UI;
+
 namespace GBJAM9.Controllers
 {
     public class HudController : EntityController
     {
-        // health 
+        public HealthUI healthUI;
         
         public override void OnWorldUpdate(World world)
         {
             var nekonin = world.GetSingleton("Nekonin");
 
-            // health.update(nekonin.health);
-            
-            
-
+            healthUI.SetHealth(nekonin.health);
         }
     }
 }
