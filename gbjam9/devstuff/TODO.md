@@ -2,7 +2,6 @@ TODO
 
 * SFX
   - walk
-  - enemy falls
   - sfx on health 1 (after a hit)
 
 * Sword Enemy
