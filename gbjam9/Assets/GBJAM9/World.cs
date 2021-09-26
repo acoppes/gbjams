@@ -140,6 +140,14 @@ namespace GBJAM9
                                 }
                             }
                         }
+
+                        if (receivedDamage && health.current == 1)
+                        {
+                            if (e.sfxContainer != null && e.sfxContainer.lowHealthSfx != null)
+                            {
+                                e.sfxContainer.lowHealthSfx.Play();
+                            }                            
+                        }
                     }
 
                     health.current = Mathf.Clamp(health.current, 0, health.total);
