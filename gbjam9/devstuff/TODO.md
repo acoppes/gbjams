@@ -1,5 +1,10 @@
 TODO
 
+* Add how to play to the game page + some gifs maybe
+* Publish the game + submit (even if it not finished)
+
+* Enemies coinst on killed
+
 * Samurainu
   - wander logic (just pick random position to walk)
 
@@ -26,7 +31,6 @@ TODO
 * Dash
   - ignore hits while dashing
   - ignore enemy collision while dashing (move through enemies)
-  - bug: move through walls
 
 * On hit become invulnerable
 

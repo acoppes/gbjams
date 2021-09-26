@@ -228,24 +228,18 @@ namespace GBJAM9
                     var newPosition = e.transform.localPosition;
 
                     var velocity = direction * speed;
-                    
-                    e.movement.velocity = velocity * Time.deltaTime;
 
-                    // TODO: use physics engine for this to avoid problems with dash
-                    // newPosition.x += e.movement.velocity.x * e.movement.perspective.x;
-                    // newPosition.y += e.movement.velocity.y * e.movement.perspective.y;
-
-                    var physicsVelocity = new Vector2(
+                    velocity = new Vector2(
                         velocity.x * e.movement.perspective.x, 
                         velocity.y * e.movement.perspective.y);
                     
-                    e.collider.rigidbody.velocity = physicsVelocity;
+                    e.collider.rigidbody.velocity = velocity;
 
                     e.transform.localPosition = newPosition;
 
-                    if (e.movement.velocity.SqrMagnitude() > 0)
+                    if (velocity.SqrMagnitude() > 0)
                     {
-                        var movingDirection = e.movement.velocity.normalized;
+                        var movingDirection = velocity.normalized;
                         e.movement.lookingDirection = movingDirection;
                         if (e.attack != null)
                         {
