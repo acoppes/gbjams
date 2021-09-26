@@ -242,6 +242,11 @@ namespace GBJAM9
                         {
                             e.attack.direction = movingDirection;
                         }
+                        
+                        if (e.sfxContainer != null && e.sfxContainer.walkSfx != null)
+                        {
+                            e.sfxContainer.walkSfx.Play();
+                        }    
                     }
                 }
                 

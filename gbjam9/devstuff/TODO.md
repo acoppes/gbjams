@@ -1,9 +1,5 @@
 TODO
 
-* SFX
-  - walk
-  - sfx on health 1 (after a hit)
-
 * Sword Enemy
 
 * dummy can be killed and respawns in center

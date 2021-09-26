@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace GBJAM.Commons
@@ -15,6 +14,8 @@ namespace GBJAM.Commons
         
         public bool isPlaying => audioSource.isPlaying;
 
+        public bool allowMultiple = false;
+
         private void Awake()
         {
             current = UnityEngine.Random.Range(0, variants.Length);
@@ -24,6 +25,12 @@ namespace GBJAM.Commons
         {
             if (variants.Length == 0)
                 return;
+
+            if (!allowMultiple && isPlaying)
+            {
+                return;
+            }
+            
             audioSource.PlayOneShot(variants[current]);
             current = (current + 1) % variants.Length;
         }
