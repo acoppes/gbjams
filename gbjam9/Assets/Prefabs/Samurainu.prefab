@@ -48,13 +48,14 @@ GameObject:
   - component: {fileID: 6896168147887263112}
   - component: {fileID: 6896168147887263115}
   - component: {fileID: 6896168147887263114}
-  - component: {fileID: 6896168147887263117}
   - component: {fileID: 6896168147887263116}
   - component: {fileID: 6896168147887263119}
   - component: {fileID: 6829169894458382546}
   - component: {fileID: 9052835001563509598}
+  - component: {fileID: 7519360486204897823}
+  - component: {fileID: 7016060960305916349}
   m_Layer: 7
-  m_Name: NinjaDog_Unit
+  m_Name: Samurainu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,19 +219,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 6896168147887263113}
   rigidbody: {fileID: 0}
---- !u!114 &6896168147887263117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6896168147887263118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ad0ecb3680848d986bb2863c62b3fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingWanderDirection: {x: 1, y: 0}
 --- !u!114 &6896168147887263116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +271,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7582204ee7b49b184376a1749f16682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkSfx: {fileID: 0}
+  lowHealthSfx: {fileID: 0}
   deathSfx: {fileID: 8086927325521010772}
+--- !u!114 &7519360486204897823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896168147887263118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f36017abf7641b2a8d5b1e5346ecdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerObject: {fileID: 7016060960305916349}
+--- !u!114 &7016060960305916349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896168147887263118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b4a764d52149cf830a52de8772c7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6896168148341639127
 GameObject:
   m_ObjectHideFlags: 0

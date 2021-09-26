@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GBJAM9.Controllers
 {
-    public class BasicEnemyController : EntityController
+    public class FroginobiController : EntityController
     {
         public enum State
         {

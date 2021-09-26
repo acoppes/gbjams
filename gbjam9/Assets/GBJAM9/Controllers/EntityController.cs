@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GBJAM9.Controllers
 {
+    [RequireComponent(typeof(ControllerComponent))]
     public abstract class EntityController : MonoBehaviour
     {
         [NonSerialized]
