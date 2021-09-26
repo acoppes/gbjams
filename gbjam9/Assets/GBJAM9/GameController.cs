@@ -49,6 +49,8 @@ namespace GBJAM9
         public int initialHealth = 2;
 
         public SfxVariant defeatSfx;
+
+        private int currentRun;
         
         public void Start()
         {
@@ -57,8 +59,10 @@ namespace GBJAM9
             
             // This controller could be an entity too...
 
+            currentRun = 0;
+
             // Start game sequence as coroutine?
-            StartCoroutine(RestartGame(true));
+            StartCoroutine(RestartGame(false));
         }
         
         
@@ -86,18 +90,24 @@ namespace GBJAM9
             }
         }
 
-        private IEnumerator RestartGame(bool firstTime)
+        private IEnumerator RestartGame(bool disableTransition)
         {
             gameEntity.game.state = GameComponent.State.Restarting;
 
             GameObject transitionObject = null;
 
             hud.hud.visible = false;
-            
-            if (!firstTime)
+
+            if (nekoninEntity != null)
+            {
+                GameObject.Destroy(nekoninEntity.gameObject);
+                nekoninEntity = null;
+            }
+
+            if (!disableTransition)
             {
                 transitionObject = GameObject.Instantiate(transitionPrefab);
-                transitionObject.transform.position = nekoninEntity.transform.position;
+                transitionObject.transform.position = nekoninEntity != null ? nekoninEntity.transform.position : Vector3.zero;
 
                 var transition = transitionObject.GetComponent<Transition>();
                 transition.Open();
@@ -109,19 +119,13 @@ namespace GBJAM9
 
                 yield return new WaitForSeconds(delayBetweenRooms);
             }
-
-            if (nekoninEntity != null)
-            {
-                GameObject.Destroy(nekoninEntity.gameObject);
-                nekoninEntity = null;
-            }
             
             var unitObject = GameObject.Instantiate(mainPlayerUnitPrefab);
             nekoninEntity = unitObject.GetComponent<Entity>();
             cameraFollow.followTransform = nekoninEntity.transform;
 
             nekoninEntity.health.total = initialHealth;
-            
+
             if (currentRoom != null)
             {
                 GameObject.Destroy(currentRoom.gameObject);
@@ -131,7 +135,7 @@ namespace GBJAM9
             currentRoom = roomObject.GetComponent<RoomComponent>();
             nekoninEntity.transform.position = currentRoom.roomStart.transform.position;
 
-            if (!firstTime)
+            if (!disableTransition)
             {
                 transitionObject.transform.position = currentRoom.roomStart.transform.position;
                 var transition = transitionObject.GetComponent<Transition>();
@@ -277,6 +281,8 @@ namespace GBJAM9
             
             yield return new WaitForSeconds(2.0f);
 
+            currentRun++;
+            
             StartCoroutine(RestartGame(false));
         }
 
@@ -288,6 +294,8 @@ namespace GBJAM9
             // TODO: show custom defeat screen, wait a bit, then go to restart game.
             
             yield return new WaitForSeconds(2.0f);
+
+            currentRun++;
 
             StartCoroutine(RestartGame(false));
             

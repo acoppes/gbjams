@@ -20,6 +20,11 @@ namespace GBJAM9.UI
 
         private void LateUpdate()
         {
+            if (entity == null)
+            {
+                return;
+            }
+            
             if (entity.attack.weaponData != null)
             {
                 var attackType = entity.attack.weaponData.attackType.ToLowerInvariant();

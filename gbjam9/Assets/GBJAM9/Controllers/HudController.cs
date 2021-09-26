@@ -16,15 +16,19 @@ namespace GBJAM9.Controllers
         public override void OnWorldUpdate(World world)
         {
             var nekonin = world.GetSingleton("Nekonin");
+            
+            if (nekonin != null)
+            {
 
-            healthUI.SetHealth(nekonin.health);
+                healthUI.SetHealth(nekonin.health);
 
-            // need weapon
-            // need attack and dash
+                // need weapon
+                // need attack and dash
 
-            skillsUI.entity = nekonin;
+                skillsUI.entity = nekonin;
+            }
 
-            animator.SetBool(visibleHash, entity.hud.visible);
+            animator.SetBool(visibleHash, entity.hud.visible && nekonin != null);
         }
     }
 }

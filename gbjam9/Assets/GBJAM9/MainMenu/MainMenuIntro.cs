@@ -14,6 +14,8 @@ namespace GBJAM7.Scripts.MainMenu
 
         public Font font;
 
+        public bool visible = true;
+
         private void Awake()
         {
             if (font != null)
@@ -42,6 +44,11 @@ namespace GBJAM7.Scripts.MainMenu
         public void ShowStart()
         {
             pressStartObject.SetActive(true);
+        }
+
+        private void LateUpdate()
+        {
+            animator.SetBool("visible", visible);
         }
     }
 }
