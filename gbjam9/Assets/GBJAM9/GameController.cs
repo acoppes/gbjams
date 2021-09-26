@@ -47,6 +47,8 @@ namespace GBJAM9
         private Entity hud;
         
         public int initialHealth = 2;
+
+        public SfxVariant defeatSfx;
         
         public void Start()
         {
@@ -324,6 +326,10 @@ namespace GBJAM9
                 if (!nekoninEntity.health.alive)
                 {
                     gameEntity.game.state = GameComponent.State.Defeat;
+                    if (defeatSfx != null)
+                    {
+                        defeatSfx.Play();
+                    }
                     // StartCoroutine(DefeatSequence());
                     return;
                 }

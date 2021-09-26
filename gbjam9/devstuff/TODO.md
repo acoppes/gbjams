@@ -2,9 +2,7 @@ TODO
 
 * SFX
   - walk
-  - death
   - enemy falls
-  - victory sfx on nekosama room starts
   - sfx on health 1 (after a hit)
 
 * Sword Enemy
