@@ -9,14 +9,23 @@ namespace GBJAM9.Controllers
         public enum State
         {
             Wander,
-            Attacking
+            Chasing,
+            Charging,
+            Attacking,
+            Recovering
         }
 
         private State state;
 
         private Vector2 attackDirection;
 
-        public float chargeAttackDistance = 2.0f; 
+        public float chargeAttackDistance = 2.0f;
+        
+        public float chargeDuration;
+        public float recoverDuration;
+
+        private float chargeTime;
+        private float recoverTime;
 
         public override void OnInit(World world)
         {
@@ -61,15 +70,17 @@ namespace GBJAM9.Controllers
 
             entity.input.attack = false;
             
+            entity.state.chargeAttack1 = false;
+            
             if (state == State.Wander)
             {
                 if (canAttack)
                 {
-                    state = State.Attacking;
+                    state = State.Chasing;
                 }
             } 
             
-            if (state == State.Attacking)
+            if (state == State.Chasing)
             {
                 entity.input.movementDirection = attackDirection.normalized;
 
@@ -79,15 +90,64 @@ namespace GBJAM9.Controllers
                     return;
                 }
 
-                entity.state.chargeAttack1 = false;
-                
                 if (nekoninDistance < chargeAttackDistance)
                 {
-                    entity.input.movementDirection = Vector2.zero;
-                    entity.state.chargeAttack1 = true;
+                    state = State.Charging;
+                    chargeTime = chargeDuration;
                 }
                 
                 // check if attack cooldown ready
+
+                // run at least one chase frame
+                return;
+            }
+
+            if (state == State.Charging)
+            {
+                entity.input.movementDirection = Vector2.zero;
+                
+                // if (!canAttack)
+                // {
+                //     state = State.Wander;
+                //     return;
+                // }
+
+                entity.state.chargeAttack1 = true;
+
+                chargeTime -= Time.deltaTime;
+
+                if (chargeTime <= 0)
+                {
+                    state = State.Attacking;
+                }
+
+                // if charge duration completed, attack
+            }
+
+            if (state == State.Attacking)
+            {
+                // press attack button
+                entity.input.attack = true;
+                state = State.Recovering;
+                recoverTime = recoverDuration;
+
+                // wait for next frame
+                return;
+            }
+
+            if (state == State.Recovering)
+            {
+                // wait idle for a while before doing any logic again...
+                entity.input.movementDirection = Vector2.zero;
+                entity.input.attack = false;
+                entity.input.dash = false;
+
+                recoverTime -= Time.deltaTime;
+
+                if (recoverTime < 0)
+                {
+                    state = State.Wander;
+                }
             }
         }
 

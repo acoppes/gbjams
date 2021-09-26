@@ -24,11 +24,41 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3367092107318704463}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.379, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6896168147887263152}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6611143097096892715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 110058511589419137}
+  m_Layer: 7
+  m_Name: AttachPoint_Hit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &110058511589419137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6611143097096892715}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6896168147887263152}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6896168147887263118
 GameObject:
@@ -75,6 +105,7 @@ Transform:
   - {fileID: 6896168148341639125}
   - {fileID: 3918750382345560865}
   - {fileID: 3038711484485473627}
+  - {fileID: 110058511589419137}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -131,7 +162,7 @@ MonoBehaviour:
   current: 6
   immortal: 0
   vfxPrefab: {fileID: 6537197837099432043, guid: 38e3510533cb02a4daf00b0faf31f420, type: 3}
-  vfxAttachPoint: {fileID: 3918750382345560865}
+  vfxAttachPoint: {fileID: 110058511589419137}
 --- !u!95 &6896168147887263158
 Animator:
   serializedVersion: 3
@@ -243,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9916831584f648748070e34fb6f59305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 3
   perspective: {x: 1, y: 0.75}
 --- !u!114 &6829169894458382546
 MonoBehaviour:
@@ -257,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e73b53f0d344ca1b68d86f9a9c47d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 06695b76a4a6b9e4f813e69542f45aa7, type: 2}
+  weaponData: {fileID: 11400000, guid: eb0535d1402d4c644b1fa4e9624add44, type: 2}
   attackAttachPoint: {fileID: 3918750382345560865}
 --- !u!114 &9052835001563509598
 MonoBehaviour:
@@ -299,6 +330,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b4a764d52149cf830a52de8772c7c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chargeAttackDistance: 0.75
+  chargeDuration: 1.5
+  recoverDuration: 2
 --- !u!1 &6896168148341639127
 GameObject:
   m_ObjectHideFlags: 0

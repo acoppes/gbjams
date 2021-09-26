@@ -1,6 +1,7 @@
 TODO
 
 * Sword Enemy
+  - change to use input and map skill/dash to animation/attack? 
 
 * dummy can be killed and respawns in center
   - spawn animation (fade in)
