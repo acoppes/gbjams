@@ -43,6 +43,8 @@ namespace GBJAM9
         private RoomComponent currentRoom;
         private List<Entity> roomExitUnits = new List<Entity>();
         private Entity gameEntity;
+
+        public int initialHealth = 2;
         
         public void Start()
         {
@@ -110,6 +112,8 @@ namespace GBJAM9
             var unitObject = GameObject.Instantiate(mainPlayerUnitPrefab);
             nekoninEntity = unitObject.GetComponent<Entity>();
             cameraFollow.followTransform = nekoninEntity.transform;
+
+            nekoninEntity.health.total = initialHealth;
             
             if (currentRoom != null)
             {

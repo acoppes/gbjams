@@ -141,6 +141,8 @@ namespace GBJAM9
                             }
                         }
                     }
+
+                    health.current = Mathf.Clamp(health.current, 0, health.total);
                 }
                 
                 // TODO: blink animation state
