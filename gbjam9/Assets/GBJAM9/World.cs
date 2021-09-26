@@ -465,6 +465,10 @@ namespace GBJAM9
                         if (state.dead)
                         {
                             animator.SetTrigger(UnitStateComponent.deadStateHash);
+                            if (e.sfxContainer != null && e.sfxContainer.deathSfx != null)
+                            {
+                                e.sfxContainer.deathSfx.Play();
+                            }
                         }
                     }
 

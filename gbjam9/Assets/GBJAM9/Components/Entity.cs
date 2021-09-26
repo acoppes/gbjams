@@ -81,6 +81,9 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public DashComponent dash;
+
+        [NonSerialized]
+        public SfxContainerComponent sfxContainer;
         
         private void Awake()
         {
