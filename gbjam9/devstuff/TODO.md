@@ -1,7 +1,5 @@
 TODO
 
-* upgrade pickup increases health total
-
 * Sword Enemy
 
 * dummy can be killed and respawns in center
