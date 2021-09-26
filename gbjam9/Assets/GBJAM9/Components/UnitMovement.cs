@@ -7,8 +7,6 @@ namespace GBJAM9.Components
     {
         public float speed;
 
-        public float dashSpeed;
-
         public Vector2 perspective = new Vector2(1.0f, 0.75f);
 
         [NonSerialized]

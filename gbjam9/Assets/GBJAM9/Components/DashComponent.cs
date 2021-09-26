@@ -11,6 +11,8 @@ namespace GBJAM9.Components
         
         public float cooldown = 1.0f;
 
+        public float speed;
+
         public SfxVariant sfx;
         
         [NonSerialized]

@@ -210,10 +210,11 @@ namespace GBJAM9
                     var speed = e.movement.speed;
                     var direction = e.movement.movingDirection;
 
-                    if (e.state != null && e.state.dashing)
+                    if (e.state != null && e.dash != null && e.state.dashing)
                     {
-                        speed = e.movement.dashSpeed;
-                        direction = e.movement.lookingDirection;
+                        speed = e.dash.speed;
+                        // direction = e.movement.lookingDirection;
+                        direction = e.dash.direction;
                     }
                     
                     var newPosition = e.transform.localPosition;
