@@ -245,18 +245,21 @@ namespace GBJAM9
                         if (e.input.enabled && e.input.attack && projectilePrefab != null && e.attack.cooldown < 0)
                         {
                             var projectileObject = GameObject.Instantiate(projectilePrefab);
-                            var projectile = projectileObject.GetComponent<ProjectileController>();
-                            projectile.Fire(e.transform.position + e.attack.attackAttachPoint.localPosition,
+                            var projectileEntity = projectileObject.GetComponent<Entity>();
+                            var projectileController = projectileObject.GetComponent<ProjectileController>();
+                            projectileController.Fire(e.transform.position + e.attack.attackAttachPoint.localPosition,
                                 e.movement.lookingDirection);
-                            projectile.entity.player.player = e.player.player;
-
+                            projectileController.entity.player.player = e.player.player;
+                            
+                            projectileEntity.projectile.damage = weaponData.damage + e.attack.extraDamage;
+                            
                             if (e.player.player == 0)
                             {
-                                projectile.gameObject.layer = playerProjectilesLayer;
+                                projectileController.gameObject.layer = playerProjectilesLayer;
                             }
                             else
                             {
-                                projectile.gameObject.layer = enemyProjectilesLayer;
+                                projectileController.gameObject.layer = enemyProjectilesLayer;
                             }
 
                             e.state.kunaiAttacking = weaponData.attackType.Equals("kunai");

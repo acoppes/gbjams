@@ -7,6 +7,7 @@ namespace GBJAM9
     {
         // for the animation
         public string attackType;
+        public int damage;
         public float cooldown;
         public GameObject projectilePrefab;
     }

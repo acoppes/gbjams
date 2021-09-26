@@ -1,9 +1,11 @@
 TODO
 
+* upgrade pickup increases health total
+
+* Sword Enemy
+
 * dummy can be killed and respawns in center
   - spawn animation (fade in)
-
-* upgrade pickup increases health total
 
 * camera could be an entity with components
   - we could center camera on nekosama for the room victory secuence
@@ -11,7 +13,6 @@ TODO
 * Victory transition (default for now, then a nice one)
 * Victory cinematic (on nekosama room, some dialogue, etc)
 
-* Sword Enemy
 
 * change kunai and sword to attack1 and attack2 in animator
 

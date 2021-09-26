@@ -11,5 +11,7 @@ namespace GBJAM9.Components
         [NonSerialized]
         public float cooldown;
 
+        [NonSerialized]
+        public int extraDamage;
     }
 }

@@ -24,6 +24,13 @@ namespace GBJAM9.Controllers
             } else if (pickup.pickupType.Equals("trap"))
             {
                 entity.health.current -= pickup.count;
+            } else if (pickup.pickupType.Equals("upgrade"))
+            {
+                entity.health.total++;
+                entity.health.current++;
+            } else if (pickup.pickupType.Equals("weaponUpgrade"))
+            {
+                entity.attack.extraDamage++;
             }
         }
     }

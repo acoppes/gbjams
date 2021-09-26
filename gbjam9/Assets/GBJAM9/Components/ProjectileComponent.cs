@@ -7,6 +7,7 @@ namespace GBJAM9.Components
     {
         public int totalTargets = 1;
         
+        [NonSerialized]
         public int damage;
 
         [NonSerialized]
