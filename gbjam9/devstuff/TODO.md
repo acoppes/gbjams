@@ -34,10 +34,6 @@ TODO
 
 * hold to dash and release to stop, and have max distance
 
-* Dash
-  - ignore hits while dashing
-  - ignore enemy collision while dashing (move through enemies)
-
 * On hit become invulnerable
 
 * Bugs

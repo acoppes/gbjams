@@ -21,6 +21,8 @@ namespace GBJAM9.Controllers
                 {
                     dash.cooldownCurrent = dash.cooldown;
                     entity.state.dashing = false;
+                    
+                    entity.gameObject.layer = LayerMask.NameToLayer("Player");
                 }
 
                 return;
@@ -49,6 +51,9 @@ namespace GBJAM9.Controllers
                 }
 
                 entity.state.dashing = true;
+
+                // change the collider layer while dashing...
+                entity.gameObject.layer = LayerMask.NameToLayer("IgnoreAttacks");
             }
         }
 
