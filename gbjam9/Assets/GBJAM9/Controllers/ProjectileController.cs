@@ -24,16 +24,17 @@ namespace GBJAM9.Controllers
             
             // entityComponent.movement.lookingDirection = direction;
             entity.movement.movingDirection = direction;
-
+            entity.model.lookingDirection = direction;
+            
             if (fireSfx != null)
             {
                 fireSfx.Play();
             }
         }
 
-        private void Update()
-        {
-            entity.model.lookingDirection = entity.movement.velocity;
-        }
+        // private void Update()
+        // {
+        //     entity.model.lookingDirection = entity.movement.velocity;
+        // }
     }
 }

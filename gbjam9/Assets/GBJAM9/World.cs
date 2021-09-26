@@ -489,6 +489,7 @@ namespace GBJAM9
                     else
                     {
                         var angle = Mathf.Atan2(e.model.lookingDirection.y, e.model.lookingDirection.x) * Mathf.Rad2Deg;
+                        // if angle > 180 < 270, flip model?
                         e.model.model.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
                     }
                 }
