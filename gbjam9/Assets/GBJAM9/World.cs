@@ -121,9 +121,9 @@ namespace GBJAM9
                         {
                             health.current -= health.damages;
                         }
-
-                        health.damages = 0;
+                        
                         health.alive = health.current > 0;
+                        health.damages = 0;
 
                         if (e.state != null)
                         {
@@ -143,6 +143,7 @@ namespace GBJAM9
                     }
 
                     health.current = Mathf.Clamp(health.current, 0, health.total);
+
                 }
                 
                 // TODO: blink animation state

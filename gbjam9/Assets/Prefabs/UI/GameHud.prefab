@@ -480,6 +480,8 @@ GameObject:
   - component: {fileID: 4719141740529091595}
   - component: {fileID: 1148097324405597840}
   - component: {fileID: 2711695202533168023}
+  - component: {fileID: 6334154453791311564}
+  - component: {fileID: 5949397376751826612}
   m_Layer: 0
   m_Name: GameHud
   m_TagString: Untagged
@@ -541,6 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthUI: {fileID: 8562492368668479763}
   skillsUI: {fileID: 7546074611190835459}
+  animator: {fileID: 6334154453791311564}
 --- !u!114 &2711695202533168023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +557,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerObject: {fileID: 1148097324405597840}
+--- !u!95 &6334154453791311564
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703730580542584517}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bd77f3c289ec3d9448101d4514f90898, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5949397376751826612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703730580542584517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a3f6760f6d4134891f9e730c038d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueName: GameHud
 --- !u!1 &3792481881518546704
 GameObject:
   m_ObjectHideFlags: 0

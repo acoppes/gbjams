@@ -44,11 +44,14 @@ namespace GBJAM9
         private List<Entity> roomExitUnits = new List<Entity>();
         private Entity gameEntity;
 
+        private Entity hud;
+        
         public int initialHealth = 2;
         
         public void Start()
         {
             gameEntity = world.GetSingleton("Game");
+            hud = world.GetSingleton("GameHud");
             
             // This controller could be an entity too...
 
@@ -86,6 +89,8 @@ namespace GBJAM9
             gameEntity.game.state = GameComponent.State.Restarting;
 
             GameObject transitionObject = null;
+
+            hud.hud.visible = false;
             
             if (!firstTime)
             {
@@ -139,6 +144,8 @@ namespace GBJAM9
                 GameObject.Destroy(transition.gameObject);
             }
             
+            hud.hud.visible = true;
+            
             totalRooms = UnityEngine.Random.Range(minRooms, maxRooms);
 
             gameEntity.game.state = GameComponent.State.Fighting;
@@ -150,6 +157,8 @@ namespace GBJAM9
 
         private IEnumerator StartTransitionToNextRoom(RoomExitComponent roomExit)
         {
+            hud.hud.visible = false;
+            
             gameEntity.game.state = GameComponent.State.TransitionToRoom;
             
             nekoninEntity.GetComponentInChildren<UnitInput>().enabled = false;
@@ -207,6 +216,8 @@ namespace GBJAM9
             RegenerateRoomExits();
             
             nekoninEntity.GetComponentInChildren<UnitInput>().enabled = true;
+            
+            hud.hud.visible = true;
         }
 
         private void RegenerateRoomExits()

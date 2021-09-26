@@ -1,8 +1,5 @@
 TODO
 
-* User interface
-  - hud fade in/out during transitions
-
 * dummy can be killed and respawns in center
   - spawn animation (fade in)
 
@@ -30,6 +27,7 @@ TODO
 * On hit become invulnerable
 
 * Bugs
+  - combat rooms are not unlocked after killing all enemies
   - sword attack direction when moving up/down is always to the right.
 
 * Others

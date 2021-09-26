@@ -1,4 +1,5 @@
 using GBJAM9.UI;
+using UnityEngine;
 
 namespace GBJAM9.Controllers
 {
@@ -7,6 +8,10 @@ namespace GBJAM9.Controllers
         public HealthUI healthUI;
 
         public SkillsUI skillsUI;
+
+        public Animator animator;
+        
+        private static readonly int visibleHash = Animator.StringToHash("visible");
         
         public override void OnWorldUpdate(World world)
         {
@@ -19,6 +24,7 @@ namespace GBJAM9.Controllers
 
             skillsUI.entity = nekonin;
 
+            animator.SetBool(visibleHash, entity.hud.visible);
         }
     }
 }
