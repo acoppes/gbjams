@@ -20,6 +20,7 @@ namespace GBJAM9.Controllers
         private Vector2 attackDirection;
 
         public float chargeAttackDistance = 2.0f;
+        public float chaseMaxDistance = 6.0f;
         
         public float chargeDuration;
         public float recoverDuration;
@@ -94,8 +95,12 @@ namespace GBJAM9.Controllers
                 {
                     state = State.Charging;
                     chargeTime = chargeDuration;
+                } else if (nekoninDistance > chaseMaxDistance)
+                {
+                    state = State.Wander;
+                    entity.input.movementDirection = Vector2.zero;
                 }
-                
+
                 // check if attack cooldown ready
 
                 // run at least one chase frame

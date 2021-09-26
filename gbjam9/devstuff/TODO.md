@@ -1,7 +1,7 @@
 TODO
 
-* Sword Enemy
-  - change to use input and map skill/dash to animation/attack? 
+* Samurainu
+  - wander logic (just pick random position to walk)
 
 * dummy can be killed and respawns in center
   - spawn animation (fade in)
@@ -35,3 +35,6 @@ TODO
 
 * Others
   - hud show coins
+
+* Sword Enemy
+  - change to use input and map skill/dash to animation/attack? 
