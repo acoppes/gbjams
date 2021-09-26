@@ -11,10 +11,10 @@ namespace GBJAM9.Components
         public float cooldown = 1.0f;
         
         [NonSerialized]
-        public float dashingCurrentTime;
+        public float durationCurrent;
         
         [NonSerialized]
-        public float dashCooldownCurrentTime;
+        public float cooldownCurrent;
         
         [NonSerialized]
         public Vector2 direction;

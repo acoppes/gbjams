@@ -22,16 +22,16 @@ namespace GBJAM9.Controllers
         {
             var dash = entity.dash;
             
-            if (dash.dashingCurrentTime > 0)
+            if (dash.durationCurrent > 0)
             {
                 entity.state.dashing = true;
                 
-                dash.dashingCurrentTime -= Time.deltaTime;
+                dash.durationCurrent -= Time.deltaTime;
                 entity.movement.lookingDirection = dash.direction;
                 
-                if (dash.dashingCurrentTime <= 0)
+                if (dash.durationCurrent <= 0)
                 {
-                    dash.dashCooldownCurrentTime = dash.cooldown;
+                    dash.cooldownCurrent = dash.cooldown;
                     entity.state.dashing = false;
                 }
 
@@ -43,11 +43,11 @@ namespace GBJAM9.Controllers
                 dashParticles.Stop();
             }
 
-            dash.dashCooldownCurrentTime -= Time.deltaTime;
+            dash.cooldownCurrent -= Time.deltaTime;
             
-            if (entity.input.enabled && entity.input.dash && dash.dashCooldownCurrentTime <= 0)
+            if (entity.input.enabled && entity.input.dash && dash.cooldownCurrent <= 0)
             {
-                dash.dashingCurrentTime = dash.duration;
+                dash.durationCurrent = dash.duration;
                 dash.direction = entity.movement.lookingDirection;
                 
                 if (dashParticles != null)

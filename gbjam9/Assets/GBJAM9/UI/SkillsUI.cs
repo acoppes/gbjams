@@ -39,6 +39,8 @@ namespace GBJAM9.UI
                 }
                 weaponCooldown.fillAmount = 0;
             }
+            
+            dashCooldown.fillAmount = entity.dash.cooldownCurrent / entity.dash.cooldown;
         }
     }
 }

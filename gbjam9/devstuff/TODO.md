@@ -1,12 +1,12 @@
 TODO
 
-* User interface (mainly the neko life)
-  - weapon info
-  - dash info (separate dash component :S)
+* User interface
   - hud fade in/out during transitions
 
 * dummy can be killed and respawns in center
   - spawn animation (fade in)
+
+* upgrade pickup increases health total
 
 * camera could be an entity with components
   - we could center camera on nekosama for the room victory secuence
@@ -28,3 +28,9 @@ TODO
   - bug: move through walls
 
 * On hit become invulnerable
+
+* Bugs
+  - sword attack direction when moving up/down is always to the right.
+
+* Others
+  - nekonin controller as an entity controller
