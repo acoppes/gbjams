@@ -246,15 +246,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 10
+  m_LinearDrag: 3
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &6943001453892241477
 Animator:
   serializedVersion: 3
@@ -367,6 +367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7582204ee7b49b184376a1749f16682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkSfx: {fileID: 0}
+  lowHealthSfx: {fileID: 0}
   deathSfx: {fileID: 5628855123273234626}
 --- !u!1001 &3740069481171420677
 PrefabInstance:
