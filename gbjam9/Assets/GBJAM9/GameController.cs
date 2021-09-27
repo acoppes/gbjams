@@ -36,7 +36,10 @@ namespace GBJAM9
 
         public float delayBetweenRooms = 0.5f;
 
+        public int roomIncrementPerVictory = 3;
+        
         public int minRooms, maxRooms;
+        private int extraRooms;
 
         private int totalRooms;
         private Entity nekoninEntity;
@@ -152,7 +155,7 @@ namespace GBJAM9
             
             hud.hud.visible = true;
             
-            totalRooms = UnityEngine.Random.Range(minRooms, maxRooms);
+            totalRooms = UnityEngine.Random.Range(minRooms, maxRooms) + extraRooms;
 
             gameEntity.game.state = GameComponent.State.Fighting;
 
@@ -281,6 +284,7 @@ namespace GBJAM9
             
             yield return new WaitForSeconds(2.0f);
 
+            extraRooms += roomIncrementPerVictory;
             currentRun++;
             
             StartCoroutine(RestartGame(false));
