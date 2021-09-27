@@ -60,14 +60,14 @@ namespace GBJAM9.Controllers
 
             var canAttack = false;
             
-            attackDirection = nekonin.transform.position - entity.transform.position;
+            var currentAttackDirection = nekonin.transform.position - entity.transform.position;
             var distance = 10;
 
             var myLayerMask = entity.player.layerMask;
             // all layers but mine
             var layerMask = Physics2D.AllLayers & ~myLayerMask;
             
-            var hit = Physics2D.Raycast(entity.transform.position, attackDirection,
+            var hit = Physics2D.Raycast(entity.transform.position, currentAttackDirection,
                 distance, layerMask);
 
             var nekoninDistance = 1000.0f;
@@ -84,7 +84,6 @@ namespace GBJAM9.Controllers
             }
 
             entity.input.attack = false;
-            
             entity.state.chargeAttack1 = false;
             
             if (state == State.Wander)
@@ -92,12 +91,14 @@ namespace GBJAM9.Controllers
                 if (canAttack)
                 {
                     state = State.Chasing;
+                    attackDirection = currentAttackDirection;
                 }
             } 
             
             if (state == State.Chasing)
             {
                 entity.input.movementDirection = attackDirection.normalized;
+                attackDirection = currentAttackDirection;
 
                 if (!canAttack)
                 {
@@ -123,6 +124,7 @@ namespace GBJAM9.Controllers
 
             if (state == State.Charging)
             {
+                entity.input.attackDirection = attackDirection;
                 entity.input.movementDirection = Vector2.zero;
                 
                 // if (!canAttack)
@@ -146,6 +148,8 @@ namespace GBJAM9.Controllers
             if (state == State.Attacking)
             {
                 // press attack button
+                
+                entity.input.attackDirection = attackDirection;
                 entity.input.attack = true;
                 state = State.Recovering;
                 recoverTime = recoverDuration;
