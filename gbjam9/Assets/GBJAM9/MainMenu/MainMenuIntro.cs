@@ -12,18 +12,7 @@ namespace GBJAM7.Scripts.MainMenu
 
         public GameObject pressStartObject;
 
-        public Font font;
-
         public bool visible = true;
-
-        private void Awake()
-        {
-            if (font != null)
-            {
-                var texture = font.material.mainTexture;
-                texture.filterMode = FilterMode.Point;
-            }
-        }
 
         public void OnCompleted()
         {

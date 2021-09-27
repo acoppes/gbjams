@@ -6,9 +6,6 @@ TODO
 
 * Music fade out/in
 
-* Froginobi
-  - charge attack
-
 * Samurainu
   - wander logic (just pick random position to walk)
 
