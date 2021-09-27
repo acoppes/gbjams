@@ -43,6 +43,8 @@ namespace GBJAM9.Controllers
                 game.game.state = GameComponent.State.Victory;
                 nekonin.input.enabled = false;
                 completed = true;
+
+                nekosama.state.chargeAttack1 = true;
             }
         }
         

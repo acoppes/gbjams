@@ -7,6 +7,9 @@ namespace GBJAM9.Components
     {
         [NonSerialized]
         public Vector2 movementDirection;
+        
+        [NonSerialized]
+        public Vector2 attackDirection;
 
         [NonSerialized]
         public bool attack;

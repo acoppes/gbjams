@@ -184,6 +184,10 @@ namespace GBJAM9
                 {
                     var gameboyKeyMap = e.gameboyController.gameboyKeyMap;
                     e.input.movementDirection = gameboyKeyMap.direction;
+                    if (gameboyKeyMap.direction.SqrMagnitude() > 0)
+                    {
+                        e.input.attackDirection = gameboyKeyMap.direction;
+                    }
                     e.input.attack = gameboyKeyMap.button1Pressed;
                     e.input.dash = gameboyKeyMap.button2Pressed;
                 }
@@ -204,6 +208,14 @@ namespace GBJAM9
                         else
                         {
                             e.movement.movingDirection = Vector2.zero;
+                        }
+                    }
+                    
+                    if (e.attack != null)
+                    {
+                        if (e.input.enabled)
+                        {
+                            e.attack.direction = e.input.attackDirection;
                         }
                     }
                     
@@ -241,10 +253,11 @@ namespace GBJAM9
                     {
                         var movingDirection = velocity.normalized;
                         e.movement.lookingDirection = movingDirection;
-                        if (e.attack != null)
-                        {
-                            e.attack.direction = movingDirection;
-                        }
+                        
+                        // if (e.attack != null)
+                        // {
+                        //     e.attack.direction = movingDirection;
+                        // }
                         
                         if (e.sfxContainer != null && e.sfxContainer.walkSfx != null)
                         {
@@ -293,9 +306,18 @@ namespace GBJAM9
                     }
                 }
                 
-                if (e.model != null && e.movement != null)
+                if (e.model != null)
                 {
-                    e.model.lookingDirection = e.movement.lookingDirection;
+                    if (e.movement != null)
+                    {
+                        e.model.lookingDirection = e.movement.lookingDirection;
+                    }
+                    
+                    if (e.attack != null && e.state != null && (e.state.chargeAttack1 || e.state.chargeAttack2 || e.state.kunaiAttacking ||
+                        e.state.swordAttacking))
+                    {
+                        e.model.lookingDirection = e.attack.direction;
+                    }
                 }
 
                 if (e.roomExit != null)
@@ -471,7 +493,8 @@ namespace GBJAM9
                         animator.SetBool(UnitStateComponent.swordAttackStateHash, state.swordAttacking);
                         animator.SetBool(UnitStateComponent.dashingStateHash, state.dashing);
                         animator.SetBool(UnitStateComponent.chargeAttack1StateHash, state.chargeAttack1);
-
+                        animator.SetBool(UnitStateComponent.chargeAttack2StateHash, state.chargeAttack2);
+                        
                         // animator.SetBool(UnitStateComponent.deadStateHash, state.dead);
                         
                         if (state.hit)

@@ -1,8 +1,5 @@
 TODO
 
-* Add how to play to the game page + some gifs maybe
-* Publish the game + submit (even if it not finished)
-
 * Enemies coinst on killed
 
 * Room changes music on enemies killed
