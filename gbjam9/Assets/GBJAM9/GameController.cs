@@ -60,6 +60,8 @@ namespace GBJAM9
         public SfxVariant defeatSfx;
 
         private int currentRun;
+
+        public VictorySequence victorySequence;
         
         public void Start()
         {
@@ -301,16 +303,29 @@ namespace GBJAM9
         {
             gameEntity.game.state = GameComponent.State.TransitionToRoom;
             nekoninEntity.input.enabled = false;
+            hud.hud.visible = false;
 
-            // TODO: show custom defeat screen, wait a bit, then go to restart game.
-            
             yield return new WaitForSeconds(2.0f);
 
             extraRooms += roomIncrementPerVictory;
             currentRun++;
             extraEnemies += enemiesIncrementPerRun;
+
+            victorySequence.transform.position = nekoninEntity.transform.position;
+            victorySequence.Restart();
+
+            yield return new WaitUntil(delegate
+            {
+                return victorySequence.done;
+            });
             
-            StartCoroutine(RestartGame(false, true));
+            // TODO: show custom animation
+            
+            // once finished, restart game...
+            
+            yield return StartCoroutine(RestartGame(false, true));
+            
+            // hide victory sequence...
         }
 
           private IEnumerator DefeatSequence()
