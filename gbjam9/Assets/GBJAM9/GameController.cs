@@ -65,7 +65,7 @@ namespace GBJAM9
             currentRun = 0;
 
             // Start game sequence as coroutine?
-            StartCoroutine(RestartGame(false));
+            StartCoroutine(RestartGame(false, false));
         }
         
         
@@ -93,7 +93,7 @@ namespace GBJAM9
             }
         }
 
-        private IEnumerator RestartGame(bool disableTransition)
+        private IEnumerator RestartGame(bool disableTransition, bool victory)
         {
             gameEntity.game.state = GameComponent.State.Restarting;
 
@@ -101,10 +101,13 @@ namespace GBJAM9
 
             hud.hud.visible = false;
 
-            if (nekoninEntity != null)
+            if (!victory)
             {
-                GameObject.Destroy(nekoninEntity.gameObject);
-                nekoninEntity = null;
+                if (nekoninEntity != null)
+                {
+                    GameObject.Destroy(nekoninEntity.gameObject);
+                    nekoninEntity = null;
+                }
             }
 
             if (!disableTransition)
@@ -123,11 +126,13 @@ namespace GBJAM9
                 yield return new WaitForSeconds(delayBetweenRooms);
             }
             
-            var unitObject = GameObject.Instantiate(mainPlayerUnitPrefab);
-            nekoninEntity = unitObject.GetComponent<Entity>();
-            cameraFollow.followTransform = nekoninEntity.transform;
-
-            nekoninEntity.health.total = initialHealth;
+            if (nekoninEntity == null)
+            {
+                var unitObject = GameObject.Instantiate(mainPlayerUnitPrefab);
+                nekoninEntity = unitObject.GetComponent<Entity>();
+                cameraFollow.followTransform = nekoninEntity.transform;
+                nekoninEntity.health.total = initialHealth;
+            }
 
             if (currentRoom != null)
             {
@@ -153,10 +158,10 @@ namespace GBJAM9
                 GameObject.Destroy(transition.gameObject);
             }
             
-            hud.hud.visible = true;
+            nekoninEntity.input.enabled = true;
             
+            hud.hud.visible = true;
             totalRooms = UnityEngine.Random.Range(minRooms, maxRooms) + extraRooms;
-
             gameEntity.game.state = GameComponent.State.Fighting;
 
             RegenerateRoomExits();
@@ -287,7 +292,7 @@ namespace GBJAM9
             extraRooms += roomIncrementPerVictory;
             currentRun++;
             
-            StartCoroutine(RestartGame(false));
+            StartCoroutine(RestartGame(false, true));
         }
 
           private IEnumerator DefeatSequence()
@@ -299,9 +304,10 @@ namespace GBJAM9
             
             yield return new WaitForSeconds(2.0f);
 
+            extraRooms = 0;
             currentRun++;
 
-            StartCoroutine(RestartGame(false));
+            StartCoroutine(RestartGame(false, false));
             
             // yield return ;
         }
