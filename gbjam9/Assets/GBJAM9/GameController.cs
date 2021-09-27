@@ -145,7 +145,6 @@ namespace GBJAM9
             {
                 var unitObject = GameObject.Instantiate(mainPlayerUnitPrefab);
                 nekoninEntity = unitObject.GetComponent<Entity>();
-                cameraFollow.followTransform = nekoninEntity.transform;
                 nekoninEntity.health.total = initialHealth;
             }
 
@@ -157,6 +156,8 @@ namespace GBJAM9
             var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
             nekoninEntity.transform.position = currentRoom.roomStart.transform.position;
+            
+            cameraFollow.followTransform = nekoninEntity.transform;
 
             if (!disableTransition)
             {
@@ -316,15 +317,21 @@ namespace GBJAM9
 
             yield return new WaitUntil(delegate
             {
-                return victorySequence.done;
+                return victorySequence.completed;
             });
             
-            // TODO: show custom animation
+            cameraFollow.followTransform = null;
+            var cameraPosition = cameraFollow.transform.position;
+            cameraFollow.transform.position = new Vector3(1000, 1000, cameraPosition.z);
             
-            // once finished, restart game...
+            victorySequence.Complete();
+
+            var coroutine = StartCoroutine(RestartGame(false, true));
             
-            yield return StartCoroutine(RestartGame(false, true));
+            yield return coroutine;
             
+            // victorySequence.transform.position = nekoninEntity.transform.position;
+
             // hide victory sequence...
         }
 
