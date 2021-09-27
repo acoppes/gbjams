@@ -113,13 +113,18 @@ namespace GBJAM9
                 var health = e.health;
                 if (health != null)
                 {
+                    health.disableDamageCurrentTime -= Time.deltaTime;
+                    
                     if (health.current > 0)
                     {
-                        var receivedDamage = health.damages > 0;
+                        var damageDisabled = health.disableDamageCurrentTime > 0;
+                        
+                        var receivedDamage = health.damages > 0 && !damageDisabled;
 
                         if (receivedDamage && !health.immortal)
                         {
                             health.current -= health.damages;
+                            health.disableDamageCurrentTime = health.disableDamageAfterHitDuration;
                         }
                         
                         health.alive = health.current > 0;

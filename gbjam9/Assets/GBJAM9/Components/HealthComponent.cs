@@ -9,6 +9,11 @@ namespace GBJAM9.Components
         public int current;
 
         public bool immortal;
+
+        public float disableDamageAfterHitDuration;
+
+        [NonSerialized]
+        public float disableDamageCurrentTime;
         
         [NonSerialized]
         public int damages;
