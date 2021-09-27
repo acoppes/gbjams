@@ -101,6 +101,13 @@ namespace GBJAM9
 
             hud.hud.visible = false;
 
+            var transitionPosition = Vector2.zero;
+
+            if (nekoninEntity != null)
+            {
+                transitionPosition = nekoninEntity.transform.position;
+            }
+
             if (!victory)
             {
                 if (nekoninEntity != null)
@@ -113,7 +120,7 @@ namespace GBJAM9
             if (!disableTransition)
             {
                 transitionObject = GameObject.Instantiate(transitionPrefab);
-                transitionObject.transform.position = nekoninEntity != null ? nekoninEntity.transform.position : Vector3.zero;
+                transitionObject.transform.position = transitionPosition;
 
                 var transition = transitionObject.GetComponent<Transition>();
                 transition.Open();

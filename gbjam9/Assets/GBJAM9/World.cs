@@ -170,16 +170,6 @@ namespace GBJAM9
                     }
                 }
 
-                // dont destroy on death
-                // if (health != null)
-                // {
-                //     if (health.current <= 0)
-                //     {
-                //         // TODO: spawn death unit
-                //         e.destroyed = true;
-                //     }
-                // }
-
                 if (e.input != null && e.gameboyController != null)
                 {
                     var gameboyKeyMap = e.gameboyController.gameboyKeyMap;
