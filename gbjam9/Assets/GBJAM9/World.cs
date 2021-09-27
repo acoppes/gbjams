@@ -184,7 +184,10 @@ namespace GBJAM9
                 {
                     var gameboyKeyMap = e.gameboyController.gameboyKeyMap;
                     e.input.movementDirection = gameboyKeyMap.direction;
-                    e.input.attackDirection = gameboyKeyMap.direction;
+                    if (gameboyKeyMap.direction.SqrMagnitude() > 0)
+                    {
+                        e.input.attackDirection = gameboyKeyMap.direction;
+                    }
                     e.input.attack = gameboyKeyMap.button1Pressed;
                     e.input.dash = gameboyKeyMap.button2Pressed;
                 }
@@ -303,9 +306,18 @@ namespace GBJAM9
                     }
                 }
                 
-                if (e.model != null && e.movement != null)
+                if (e.model != null)
                 {
-                    e.model.lookingDirection = e.movement.lookingDirection;
+                    if (e.movement != null)
+                    {
+                        e.model.lookingDirection = e.movement.lookingDirection;
+                    }
+                    
+                    if (e.attack != null && e.state != null && (e.state.chargeAttack1 || e.state.chargeAttack2 || e.state.kunaiAttacking ||
+                        e.state.swordAttacking))
+                    {
+                        e.model.lookingDirection = e.attack.direction;
+                    }
                 }
 
                 if (e.roomExit != null)
