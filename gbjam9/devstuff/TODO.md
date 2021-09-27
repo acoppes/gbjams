@@ -1,7 +1,5 @@
 TODO
 
-* Publish the game + submit (even if it not finished)
-
 * Enemies coinst on killed
 
 * Room changes music on enemies killed
