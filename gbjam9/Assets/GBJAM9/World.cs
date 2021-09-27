@@ -184,6 +184,7 @@ namespace GBJAM9
                 {
                     var gameboyKeyMap = e.gameboyController.gameboyKeyMap;
                     e.input.movementDirection = gameboyKeyMap.direction;
+                    e.input.attackDirection = gameboyKeyMap.direction;
                     e.input.attack = gameboyKeyMap.button1Pressed;
                     e.input.dash = gameboyKeyMap.button2Pressed;
                 }
@@ -204,6 +205,14 @@ namespace GBJAM9
                         else
                         {
                             e.movement.movingDirection = Vector2.zero;
+                        }
+                    }
+                    
+                    if (e.attack != null)
+                    {
+                        if (e.input.enabled)
+                        {
+                            e.attack.direction = e.input.attackDirection;
                         }
                     }
                     
@@ -241,10 +250,11 @@ namespace GBJAM9
                     {
                         var movingDirection = velocity.normalized;
                         e.movement.lookingDirection = movingDirection;
-                        if (e.attack != null)
-                        {
-                            e.attack.direction = movingDirection;
-                        }
+                        
+                        // if (e.attack != null)
+                        // {
+                        //     e.attack.direction = movingDirection;
+                        // }
                         
                         if (e.sfxContainer != null && e.sfxContainer.walkSfx != null)
                         {
@@ -471,7 +481,8 @@ namespace GBJAM9
                         animator.SetBool(UnitStateComponent.swordAttackStateHash, state.swordAttacking);
                         animator.SetBool(UnitStateComponent.dashingStateHash, state.dashing);
                         animator.SetBool(UnitStateComponent.chargeAttack1StateHash, state.chargeAttack1);
-
+                        animator.SetBool(UnitStateComponent.chargeAttack2StateHash, state.chargeAttack2);
+                        
                         // animator.SetBool(UnitStateComponent.deadStateHash, state.dead);
                         
                         if (state.hit)

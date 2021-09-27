@@ -12,6 +12,9 @@ namespace GBJAM9.Components
         public bool chargeAttack1;
         
         [NonSerialized]
+        public bool chargeAttack2;
+        
+        [NonSerialized]
         public bool kunaiAttacking;
         
         [NonSerialized]
@@ -30,6 +33,7 @@ namespace GBJAM9.Components
         public static readonly int dashingStateHash = Animator.StringToHash("dashing");
         public static readonly int kunaiAttackStateHash = Animator.StringToHash("kunai_attack");
         public static readonly int chargeAttack1StateHash = Animator.StringToHash("charge_attack1");
+        public static readonly int chargeAttack2StateHash = Animator.StringToHash("charge_attack2");
         public static readonly int swordAttackStateHash = Animator.StringToHash("sword_attack");
         public static readonly int deadStateHash = Animator.StringToHash("dead");
         public static readonly int hittedStateHash = Animator.StringToHash("hitted");

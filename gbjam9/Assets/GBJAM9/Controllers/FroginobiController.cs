@@ -20,10 +20,13 @@ namespace GBJAM9.Controllers
         private float wanderSwitchDirectionCooldown;
 
         private float attackingPlayerCooldown;
-        
+
+        public float waitForWanderDuration = 2.0f;
+
         public float chargeDuration = 0.25f;
         public float recoverDuration = 0.5f;
 
+        private float waitForWanderTime;
         private float chargeTime;
         private float recoverTime;
 
@@ -80,20 +83,25 @@ namespace GBJAM9.Controllers
                 }
             }
 
-            entity.state.chargeAttack1 = false;
+            entity.state.chargeAttack2 = false;
             entity.input.attack = false;
             
             if (state == State.Wander)
             {
                 if (!canAttack)
                 {
-                    wanderSwitchDirectionCooldown -= Time.deltaTime;
-
-                    entity.input.movementDirection = startingWanderDirection;
-                    if (entity.collider.inCollision && wanderSwitchDirectionCooldown < 0)
+                    waitForWanderTime -= Time.deltaTime;
+                    
+                    if (waitForWanderTime < 0)
                     {
-                        startingWanderDirection *= -1;
-                        wanderSwitchDirectionCooldown = 0.2f;
+                        wanderSwitchDirectionCooldown -= Time.deltaTime;
+
+                        entity.input.movementDirection = startingWanderDirection;
+                        if (entity.collider.inCollision && wanderSwitchDirectionCooldown < 0)
+                        {
+                            startingWanderDirection *= -1;
+                            wanderSwitchDirectionCooldown = 0.2f;
+                        }
                     }
                 }
 
@@ -108,28 +116,26 @@ namespace GBJAM9.Controllers
             if (state == State.Charging)
             {
                 entity.input.movementDirection = Vector2.zero;
-                entity.state.chargeAttack1 = true;
+                entity.state.chargeAttack2 = true;
 
                 chargeTime -= Time.deltaTime;
 
                 if (chargeTime <= 0)
                 {
                     state = State.Attacking;
-                    entity.input.movementDirection = attackDirection;
                 }
-
-                return;
-
+                
                 // if charge duration completed, attack
             }
             
             if (state == State.Attacking)
             {
-                // entity.input.movementDirection = Vector2.zero;
+                entity.input.movementDirection = Vector2.zero;
                 
                 // press attack button
                 // entity.input.movementDirection = attackDirection;
                 
+                entity.input.attackDirection = attackDirection;
                 entity.input.attack = true;
                 state = State.Recovering;
                 recoverTime = recoverDuration;
@@ -168,6 +174,7 @@ namespace GBJAM9.Controllers
                 if (recoverTime < 0)
                 {
                     state = State.Wander;
+                    waitForWanderTime = waitForWanderDuration;
                 }
             }
         }
