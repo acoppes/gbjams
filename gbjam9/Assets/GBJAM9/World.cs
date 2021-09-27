@@ -267,12 +267,15 @@ namespace GBJAM9
                 {
                     e.attack.cooldown -= Time.deltaTime;
 
-                    e.state.swordAttacking = false;
-                    e.state.kunaiAttacking = false;
-
+                    if (e.state != null)
+                    {
+                        e.state.swordAttacking = false;
+                        e.state.kunaiAttacking = false;
+                    }
+                    
                     var weaponData = e.attack.weaponData;
                     
-                    if (weaponData != null)
+                    if (weaponData != null && e.input != null)
                     {
                         var projectilePrefab = weaponData.projectilePrefab;
                         if (e.input.enabled && e.input.attack && projectilePrefab != null && e.attack.cooldown < 0)
@@ -295,9 +298,12 @@ namespace GBJAM9
                                 projectileController.gameObject.layer = enemyProjectilesLayer;
                             }
 
-                            e.state.kunaiAttacking = weaponData.attackType.Equals("kunai");
-                            e.state.swordAttacking = weaponData.attackType.Equals("sword");
-
+                            if (e.state != null)
+                            {
+                                e.state.kunaiAttacking = weaponData.attackType.Equals("kunai");
+                                e.state.swordAttacking = weaponData.attackType.Equals("sword");
+                            }
+                            
                             e.attack.cooldown = weaponData.cooldown;
                         }
                     }

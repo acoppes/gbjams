@@ -60,6 +60,8 @@ namespace GBJAM9
         public SfxVariant defeatSfx;
 
         private int currentRun;
+
+        public VictorySequence victorySequence;
         
         public void Start()
         {
@@ -143,7 +145,6 @@ namespace GBJAM9
             {
                 var unitObject = GameObject.Instantiate(mainPlayerUnitPrefab);
                 nekoninEntity = unitObject.GetComponent<Entity>();
-                cameraFollow.followTransform = nekoninEntity.transform;
                 nekoninEntity.health.total = initialHealth;
             }
 
@@ -155,6 +156,8 @@ namespace GBJAM9
             var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
             nekoninEntity.transform.position = currentRoom.roomStart.transform.position;
+            
+            cameraFollow.followTransform = nekoninEntity.transform;
 
             if (!disableTransition)
             {
@@ -301,16 +304,35 @@ namespace GBJAM9
         {
             gameEntity.game.state = GameComponent.State.TransitionToRoom;
             nekoninEntity.input.enabled = false;
+            hud.hud.visible = false;
 
-            // TODO: show custom defeat screen, wait a bit, then go to restart game.
-            
             yield return new WaitForSeconds(2.0f);
 
             extraRooms += roomIncrementPerVictory;
             currentRun++;
             extraEnemies += enemiesIncrementPerRun;
+
+            victorySequence.transform.position = nekoninEntity.transform.position;
+            victorySequence.Restart();
+
+            yield return new WaitUntil(delegate
+            {
+                return victorySequence.completed;
+            });
             
-            StartCoroutine(RestartGame(false, true));
+            cameraFollow.followTransform = null;
+            var cameraPosition = cameraFollow.transform.position;
+            cameraFollow.transform.position = new Vector3(1000, 1000, cameraPosition.z);
+            
+            victorySequence.Complete();
+
+            var coroutine = StartCoroutine(RestartGame(false, true));
+            
+            yield return coroutine;
+            
+            // victorySequence.transform.position = nekoninEntity.transform.position;
+
+            // hide victory sequence...
         }
 
           private IEnumerator DefeatSequence()
