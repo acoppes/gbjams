@@ -39,6 +39,12 @@ namespace GBJAM9
         public int roomIncrementPerVictory = 3;
         
         public int minRooms, maxRooms;
+        
+        public int minEnemiesPerRoom, maxEnemiesPerRoom;
+        public int enemiesIncrementPerRun;
+        
+        private int extraEnemies;
+        
         private int extraRooms;
 
         private int totalRooms;
@@ -214,6 +220,10 @@ namespace GBJAM9
 
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
+
+            currentRoom.minEnemies = minEnemiesPerRoom + extraEnemies;
+            currentRoom.maxEnemies = maxEnemiesPerRoom + extraEnemies;
+            
             nekoninEntity.transform.position = currentRoom.roomStart.transform.position;
             
             totalRooms--;
@@ -298,6 +308,7 @@ namespace GBJAM9
 
             extraRooms += roomIncrementPerVictory;
             currentRun++;
+            extraEnemies += enemiesIncrementPerRun;
             
             StartCoroutine(RestartGame(false, true));
         }
@@ -312,6 +323,7 @@ namespace GBJAM9
             yield return new WaitForSeconds(2.0f);
 
             extraRooms = 0;
+            extraEnemies = 0;
             currentRun++;
 
             StartCoroutine(RestartGame(false, false));

@@ -30,5 +30,11 @@ namespace GBJAM9.Components
 
         [NonSerialized]
         public string rewardType;
+
+        [NonSerialized]
+        public int minEnemies;
+
+        [NonSerialized]
+        public int maxEnemies;
     }
 }
