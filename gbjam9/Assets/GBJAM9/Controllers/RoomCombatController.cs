@@ -27,8 +27,14 @@ namespace GBJAM9.Controllers
             // on all enemies destroyed, spawn reward near last enemy
 
             entity.room.state = RoomComponent.State.Fighting;
-            foreach (var roomRoomSpawner in entity.room.roomSpawners)
+
+            var totalEnemies = UnityEngine.Random.Range(entity.room.minEnemies, entity.room.maxEnemies);
+            
+            var randomSpawners = entity.room.roomSpawners.OrderBy( x => Random.value ).ToList( );
+
+            for (var i = 0; i < randomSpawners.Count; i++)
             {
+                var roomRoomSpawner = randomSpawners[i];
                 var enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
                 if (enemyPrefab != null)
                 {
@@ -39,7 +45,25 @@ namespace GBJAM9.Controllers
                     var enemyEntity = enemyObject.GetComponent<Entity>();
                     enemyEntity.player.player = enemyPlayer;
                 }
+                totalEnemies--;
+
+                if (totalEnemies <= 0)
+                    break;
             }
+
+            // foreach (var roomRoomSpawner in entity.room.roomSpawners)
+            // {
+            //     var enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
+            //     if (enemyPrefab != null)
+            //     {
+            //         // spawn enemies as children of room
+            //         var enemyObject = 
+            //             GameObject.Instantiate(enemyPrefab, roomRoomSpawner.transform.position, Quaternion.identity, 
+            //                 entity.transform);
+            //         var enemyEntity = enemyObject.GetComponent<Entity>();
+            //         enemyEntity.player.player = enemyPlayer;
+            //     }
+            // }
         }
 
         private void OnEnemiesDefeated()
