@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nekosama: {fileID: 5329960846531344141}
-  victorySfx: {fileID: 8548207593051736084}
+  victorySfx: {fileID: 0}
 --- !u!1 &6204360611176080096
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +493,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 7
-      m_TileSpriteIndex: 7
+      m_TileSpriteIndex: 24
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -1830,8 +1830,8 @@ Tilemap:
     m_Data: {fileID: 6890132614789111420, guid: 38e0fdd2d9c41b14d9598550fd5d254c, type: 3}
   - m_RefCount: 5
     m_Data: {fileID: -3674488152981146033, guid: 38e0fdd2d9c41b14d9598550fd5d254c, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 6135620616955304710, guid: 38e0fdd2d9c41b14d9598550fd5d254c, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 5
     m_Data: {fileID: -7269999083459214678, guid: 38e0fdd2d9c41b14d9598550fd5d254c, type: 3}
   - m_RefCount: 1
@@ -1864,8 +1864,8 @@ Tilemap:
     m_Data: {fileID: -6429854401008539508, guid: 38e0fdd2d9c41b14d9598550fd5d254c, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 3901070061093534576, guid: 38e0fdd2d9c41b14d9598550fd5d254c, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 6135620616955304710, guid: 38e0fdd2d9c41b14d9598550fd5d254c, type: 3}
   - m_RefCount: 9
     m_Data: {fileID: -6169119574546709078, guid: 38e0fdd2d9c41b14d9598550fd5d254c, type: 3}
   - m_RefCount: 3
@@ -2120,17 +2120,6 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 66812fcdd33d3a34bb9854dec961a3ef, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81d8b7f952b81f44a924a3015214b49f, type: 3}
---- !u!114 &8548207593051736084 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9077797290014817991, guid: 81d8b7f952b81f44a924a3015214b49f, type: 3}
-  m_PrefabInstance: {fileID: 818394035368720083}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f6032d936d36ea4cb8dd10078db34b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &959123618263495240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2540,11 +2529,11 @@ PrefabInstance:
     - target: {fileID: 2261657113176847010, guid: bf847fce7ae5b834ea06eedf143473c9, type: 3}
       propertyPath: fightMusic
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 66812fcdd33d3a34bb9854dec961a3ef, type: 3}
     - target: {fileID: 2261657113176847010, guid: bf847fce7ae5b834ea06eedf143473c9, type: 3}
       propertyPath: completedMusic
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 66812fcdd33d3a34bb9854dec961a3ef, type: 3}
     - target: {fileID: 4398836249930994798, guid: bf847fce7ae5b834ea06eedf143473c9, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2592,6 +2581,10 @@ PrefabInstance:
     - target: {fileID: 6549491940345104105, guid: bf847fce7ae5b834ea06eedf143473c9, type: 3}
       propertyPath: m_Name
       value: Room_Nekosama
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521150913444446460, guid: bf847fce7ae5b834ea06eedf143473c9, type: 3}
+      propertyPath: m_RootOrder
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8128981583643299415, guid: bf847fce7ae5b834ea06eedf143473c9, type: 3}
       propertyPath: controllerObject

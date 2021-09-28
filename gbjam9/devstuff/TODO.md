@@ -17,8 +17,6 @@ TODO
 
 * change kunai and sword to attack1 and attack2 in animator
 
-* separate attack direction from movement direction, normally the same so frog can attack in other directions.
-
 * hold to dash and release to stop, and have max distance
 
 * Bugs
