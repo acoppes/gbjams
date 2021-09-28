@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GBJAM7.Scripts.MainMenu
@@ -9,35 +10,51 @@ namespace GBJAM7.Scripts.MainMenu
         
         [NonSerialized]
         public bool completed;
+        
+        public SpriteRenderer spriteRenderer;
 
-        public GameObject pressStartObject;
+        private int currentSprite;
 
         public bool visible = true;
 
+        public List<Sprite> sprites;
+
+        public bool Next()
+        {
+            if (currentSprite >= sprites.Count)
+            {
+                completed = true;
+                animator.SetTrigger("Complete");
+                return false;
+            }
+            
+            animator.SetTrigger("Next");
+            return true;
+        }
+
+        public void OnNextCompleted()
+        {
+            // completed = true;
+            currentSprite++;
+            // spriteRenderer.sprite = sprites[currentSprite++];
+            Next();
+        }
+        
+        
         public void OnCompleted()
         {
             completed = true;
+            // Next();
         }
-
-        public void ForceComplete()
-        {
-            completed = true;
-            animator.Play("Idle", -1, 0);
-        }
-
-        public void HideStart()
-        {
-            pressStartObject.SetActive(false);
-        }
-
-        public void ShowStart()
-        {
-            pressStartObject.SetActive(true);
-        }
-
+        
         private void LateUpdate()
         {
             animator.SetBool("visible", visible);
+            
+            if (currentSprite < sprites.Count)
+            {
+                spriteRenderer.sprite = sprites[currentSprite];
+            }
         }
     }
 }

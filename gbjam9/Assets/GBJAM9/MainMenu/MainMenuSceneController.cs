@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using GBJAM.Commons;
 using UnityEngine;
@@ -16,7 +17,12 @@ namespace GBJAM7.Scripts.MainMenu
 
         private bool startedTransition = false;
 
-        private float transitionDuration = 0.4f;
+        public float transitionDuration = 4.0f;
+
+        private void Start()
+        {
+            mainMenuIntro.Next();
+        }
 
         public void Update()
         {
@@ -26,14 +32,20 @@ namespace GBJAM7.Scripts.MainMenu
             {
                 return;
             }
-            
+
             if (!mainMenuIntro.completed)
             {
                 if (keyMapAsset.AnyButtonPressed())
                 {
-                    mainMenuIntro.ForceComplete();
-                    mainMenuIntro.HideStart();
-                    StartCoroutine(SequenceToStartGame());
+                    mainMenuIntro.OnNextCompleted();
+                    // if (mainMenuIntro.OnNextCompleted())
+                    // {
+                    //     StartCoroutine(SequenceToStartGame());
+                    // }
+
+                    // mainMenuIntro.ForceComplete();
+                    // mainMenuIntro.HideStart();
+                    // StartCoroutine(SequenceToStartGame());
                 }
             }
             else
