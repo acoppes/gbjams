@@ -17,10 +17,6 @@ namespace GBJAM9
 
         public GameObject mainPlayerUnitPrefab;
 
-        public GameObject mainMenuRoomPrefab;
-
-        public GameObject nekoSamaRoomPrefab;
-        
         public RoomDataAsset rooms;
         
         public GameObject roomExitUnitPrefab;
@@ -153,7 +149,7 @@ namespace GBJAM9
                 GameObject.Destroy(currentRoom.gameObject);
             }
 
-            var roomObject = GameObject.Instantiate(mainMenuRoomPrefab);
+            var roomObject = GameObject.Instantiate(rooms.startingRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
             nekoninEntity.transform.position = currentRoom.roomStart.transform.position;
             
@@ -218,7 +214,7 @@ namespace GBJAM9
 
             if (totalRooms == 0)
             {
-                nextRoomPrefab = nekoSamaRoomPrefab;
+                nextRoomPrefab = rooms.endingRoomPrefab;
             }
 
             var roomObject = GameObject.Instantiate(nextRoomPrefab);

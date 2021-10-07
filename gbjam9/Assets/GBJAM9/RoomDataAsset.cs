@@ -13,9 +13,12 @@ namespace GBJAM9
             public string name;
             public GameObject prefab;
         }
-        
+
         public string roomAssetsPath;
         public List<GameObject> roomPrefabs;
+
+        public GameObject startingRoomPrefab;
+        public GameObject endingRoomPrefab;
 
         public List<RoomRewardType> rewardTypes;
     }
