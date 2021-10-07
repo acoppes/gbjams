@@ -207,15 +207,15 @@ namespace GBJAM9
             });
 
             yield return new WaitForSeconds(delayBetweenRooms);
-            
-            GameObject.Destroy(currentRoom.gameObject);
 
-            var nextRoomPrefab = rooms.roomPrefabs[UnityEngine.Random.Range(0, rooms.roomPrefabs.Count)];
+            var nextRoomPrefab = rooms.GetNextRoom(currentRoom);
 
             if (totalRooms == 0)
             {
                 nextRoomPrefab = rooms.endingRoomPrefab;
             }
+            
+            GameObject.Destroy(currentRoom.gameObject);
 
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();

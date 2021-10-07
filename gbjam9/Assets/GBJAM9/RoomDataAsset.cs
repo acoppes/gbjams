@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GBJAM9.Components;
 using UnityEngine;
 
 namespace GBJAM9
@@ -21,5 +22,10 @@ namespace GBJAM9
         public GameObject endingRoomPrefab;
 
         public List<RoomRewardType> rewardTypes;
+
+        public GameObject GetNextRoom(RoomComponent currentRoom)
+        {
+            return roomPrefabs[UnityEngine.Random.Range(0, roomPrefabs.Count)];
+        }
     }
 }
