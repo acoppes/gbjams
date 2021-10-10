@@ -16,6 +16,7 @@ namespace GBJAM9
         public RoomComponent currentRoom;
         public List<GameObject> generatedRooms;
         public int secretRooms;
+        public int totalRooms;
     }
     
     public class GameController : MonoBehaviour
@@ -45,12 +46,11 @@ namespace GBJAM9
         
         public int minEnemiesPerRoom, maxEnemiesPerRoom;
         public int enemiesIncrementPerRun;
-        
+
         private int extraEnemies;
         
         private int extraRooms;
 
-        private int totalRooms;
         private Entity nekoninEntity;
 
         private CurrentRunData runData = new CurrentRunData();
@@ -188,7 +188,7 @@ namespace GBJAM9
             nekoninEntity.input.enabled = true;
             
             hud.hud.visible = true;
-            totalRooms = UnityEngine.Random.Range(minRooms, maxRooms) + extraRooms;
+            runData.totalRooms = UnityEngine.Random.Range(minRooms, maxRooms) + extraRooms;
             gameEntity.game.state = GameComponent.State.Fighting;
 
             RegenerateRoomExits();
@@ -225,11 +225,6 @@ namespace GBJAM9
 
             var nextRoomPrefab = rooms.GetNextRoom(runData);
 
-            if (totalRooms == 0)
-            {
-                nextRoomPrefab = rooms.endingRoomPrefab;
-            }
-            
             GameObject.Destroy(currentRoom.gameObject);
 
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
@@ -246,7 +241,7 @@ namespace GBJAM9
             
             nekoninEntity.transform.position = currentRoom.roomStart.transform.position;
             
-            totalRooms--;
+            runData.totalRooms--;
 
             currentRoom.rewardType = nextRoomRewardType;
             
@@ -308,7 +303,7 @@ namespace GBJAM9
                     roomExitUnit.roomExit.rewardType = rewardType.name;
                 }
 
-                if (totalRooms <= 0)
+                if (runData.totalRooms <= 0)
                 {
                     roomExitUnit.roomExit.rewardType = "unknown";
                 }
