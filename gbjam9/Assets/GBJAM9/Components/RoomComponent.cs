@@ -22,6 +22,8 @@ namespace GBJAM9.Components
         
         public RoomRewardSpawn roomRewardSpawn => GetComponentInChildren<RoomRewardSpawn>();
 
+        public bool isSecretRoom => name.ToLowerInvariant().Contains("secret");
+
         public AudioClip completedMusic;
         
         public AudioClip fightMusic;

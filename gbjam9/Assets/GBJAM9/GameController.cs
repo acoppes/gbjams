@@ -11,6 +11,13 @@ using Random = UnityEngine.Random;
 
 namespace GBJAM9
 {
+    public class CurrentRunData
+    {
+        public RoomComponent currentRoom;
+        public List<GameObject> generatedRooms;
+        public int secretRooms;
+    }
+    
     public class GameController : MonoBehaviour
     {
         public CameraFollow cameraFollow;
@@ -45,7 +52,15 @@ namespace GBJAM9
 
         private int totalRooms;
         private Entity nekoninEntity;
-        private RoomComponent currentRoom;
+
+        private CurrentRunData runData = new CurrentRunData();
+
+        private RoomComponent currentRoom
+        {
+            get => runData.currentRoom;
+            set => runData.currentRoom = value;
+        }
+        
         private List<Entity> roomExitUnits = new List<Entity>();
         private Entity gameEntity;
 
@@ -208,7 +223,7 @@ namespace GBJAM9
 
             yield return new WaitForSeconds(delayBetweenRooms);
 
-            var nextRoomPrefab = rooms.GetNextRoom(currentRoom);
+            var nextRoomPrefab = rooms.GetNextRoom(runData);
 
             if (totalRooms == 0)
             {
@@ -219,6 +234,12 @@ namespace GBJAM9
 
             var roomObject = GameObject.Instantiate(nextRoomPrefab);
             currentRoom = roomObject.GetComponent<RoomComponent>();
+
+            if (currentRoom.isSecretRoom)
+            {
+                runData.secretRooms++;
+                runData.generatedRooms.Add(nextRoomPrefab);
+            }
 
             currentRoom.minEnemies = minEnemiesPerRoom + extraEnemies;
             currentRoom.maxEnemies = maxEnemiesPerRoom + extraEnemies;
