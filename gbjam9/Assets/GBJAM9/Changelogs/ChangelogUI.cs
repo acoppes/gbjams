@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using GBJAM.Commons;
 using UnityEngine;
@@ -12,8 +13,6 @@ namespace GBJAM9.Changelogs
         public Text changelogText;
 
         public GameObject nextPageObject;
-
-        public GameObject closeObject;
 
         public TextAsset changelogFile;
         
@@ -28,7 +27,16 @@ namespace GBJAM9.Changelogs
         private void Start()
         {
             // We assume first page is blank
-            changelogPages = changelogFile.text.Split('#').ToList();
+            var lines = changelogFile.text.Split(new string[]
+            {
+                "\r\n", "\r", "\n"
+            }, StringSplitOptions.None);
+
+            var removedCommentLines = lines.Where(l => !l.TrimStart().StartsWith("//")).ToList();
+            var newFile = string.Join("\n", removedCommentLines);
+
+            changelogPages = newFile.Split('#').ToList();
+            // changelogPages = changelogFile.text.Split('#').ToList();
             changelogPages.RemoveAt(0);
             
             changelogText.text = changelogPages[currentPage];
