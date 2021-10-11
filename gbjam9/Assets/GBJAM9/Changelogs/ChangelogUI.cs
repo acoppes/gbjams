@@ -20,6 +20,10 @@ namespace GBJAM9.Changelogs
         private int currentPage = 0;
 
         public GameboyButtonKeyMapAsset controls;
+
+        public event Action onClose;
+
+        private bool closed;
         
         private void Start()
         {
@@ -41,6 +45,11 @@ namespace GBJAM9.Changelogs
 
         private void Update()
         {
+            if (closed)
+            {
+                return;
+            }
+            
             nextPageObject.SetActive(currentPage + 1 < changelogPages.Count);
             
             if (controls.button1Pressed && nextPageObject.activeSelf)
@@ -49,9 +58,11 @@ namespace GBJAM9.Changelogs
                 changelogText.text = changelogPages[currentPage];
             }
 
-            if (controls.button2Pressed)
+            if (controls.button2Pressed || (controls.button1Pressed && !nextPageObject.activeSelf))
             {
                 // CloseWindow();
+                closed = true;
+                onClose?.Invoke();
             }
         }
     }

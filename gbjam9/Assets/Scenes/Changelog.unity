@@ -149,10 +149,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 551529320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81aca0f98dba4a87963e7b79ddbe6f10, type: 3}
+  m_Script: {fileID: 11500000, guid: 001c9121ee67ca94ca971cdf8a3f45bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameboyKeyMap: {fileID: 11400000, guid: f9f0f69da9c5adf40abcdfea8df67486, type: 2}
+  changelogUI: {fileID: 7320177912576329860}
+  nextSceneName: MainMenu
 --- !u!4 &551529322
 Transform:
   m_ObjectHideFlags: 0
@@ -163,10 +164,55 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 765457116}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &765457115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 765457116}
+  - component: {fileID: 765457117}
+  m_Layer: 0
+  m_Name: ~InputUpdater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &765457116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765457115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 551529322}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &765457117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765457115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81aca0f98dba4a87963e7b79ddbe6f10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameboyKeyMap: {fileID: 11400000, guid: f9f0f69da9c5adf40abcdfea8df67486, type: 2}
 --- !u!1 &830142274
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,3 +485,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41a7aa0c1f237b44c9babfadb7753b40, type: 3}
+--- !u!114 &7320177912576329860 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3596450713283748867, guid: 41a7aa0c1f237b44c9babfadb7753b40, type: 3}
+  m_PrefabInstance: {fileID: 7320177912576329859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0f6374278efea47a6ddade627667bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
