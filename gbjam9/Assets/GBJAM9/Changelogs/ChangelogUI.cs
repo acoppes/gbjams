@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using GBJAM.Commons;
 using UnityEngine;
@@ -16,8 +15,6 @@ namespace GBJAM9.Changelogs
 
         public TextAsset changelogFile;
         
-        // TODO: gb controls
-
         private List<string> changelogPages = new List<string>();
 
         private int currentPage = 0;
