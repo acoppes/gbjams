@@ -36,8 +36,6 @@ namespace GBJAM9
         [FormerlySerializedAs("entityManager")] 
         public World world;
 
-        public GameboyButtonsUpdater inputUpdater;
-
         public float delayBetweenRooms = 0.5f;
 
         public int roomIncrementPerVictory = 3;

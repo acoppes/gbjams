@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using GBJAM.Commons;
 using UnityEngine;
@@ -8,8 +7,6 @@ namespace GBJAM7.Scripts.MainMenu
 {
     public class MainMenuSceneController : MonoBehaviour
     {
-        public GameboyButtonKeyMapAsset keyMapAsset;
-        
         public MainMenuIntro mainMenuIntro;
 
         [SerializeField]
@@ -26,8 +23,6 @@ namespace GBJAM7.Scripts.MainMenu
 
         public void Update()
         {
-            keyMapAsset.UpdateControlState();
-
             if (startedTransition)
             {
                 return;
@@ -35,36 +30,15 @@ namespace GBJAM7.Scripts.MainMenu
 
             if (!mainMenuIntro.completed)
             {
-                if (keyMapAsset.AnyButtonPressed())
+                if (GameboyInput.Instance.current.AnyButtonPressed())
                 {
                     mainMenuIntro.OnNextCompleted();
-                    // if (mainMenuIntro.OnNextCompleted())
-                    // {
-                    //     StartCoroutine(SequenceToStartGame());
-                    // }
-
-                    // mainMenuIntro.ForceComplete();
-                    // mainMenuIntro.HideStart();
-                    // StartCoroutine(SequenceToStartGame());
                 }
             }
             else
             {
                 StartCoroutine(SequenceToStartGame());
             }
-
-            // if (keyMapAsset.AnyButtonPressed())
-            // {
-            //     if (startButtonSfx != null)
-            //     {
-            //         startButtonSfx.Play();
-            //     }
-            //         
-            //     // mainMenuIntro.HideStart();
-            //
-            //     SceneManager.LoadScene("Game");
-            //     // ScenesLoader.LoadLevel(level);
-            // }
         }
 
         private IEnumerator SequenceToStartGame()
@@ -80,7 +54,7 @@ namespace GBJAM7.Scripts.MainMenu
                 yield return null;
                 transitionDuration -= Time.deltaTime;
 
-                if (keyMapAsset.AnyButtonPressed())
+                if (GameboyInput.Instance.current.AnyButtonPressed())
                 {
                     transitionDuration = -1;
                 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GBJAM.Commons;
 using GBJAM9.Components;
 using GBJAM9.Controllers;
 using UnityEngine;
@@ -179,7 +180,8 @@ namespace GBJAM9
 
                 if (e.input != null && e.gameboyController != null)
                 {
-                    var gameboyKeyMap = e.gameboyController.gameboyKeyMap;
+                    var gameboyKeyMap = GameboyInput.Instance.current;
+                    
                     e.input.movementDirection = gameboyKeyMap.direction;
                     if (gameboyKeyMap.direction.SqrMagnitude() > 0)
                     {

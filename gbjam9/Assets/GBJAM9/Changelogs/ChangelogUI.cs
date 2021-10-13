@@ -19,8 +19,6 @@ namespace GBJAM9.Changelogs
 
         private int currentPage = 0;
 
-        public GameboyButtonKeyMapAsset controls;
-
         public event Action onClose;
 
         private bool closed;
@@ -51,6 +49,8 @@ namespace GBJAM9.Changelogs
             }
             
             nextPageObject.SetActive(currentPage + 1 < changelogPages.Count);
+
+            var controls = GameboyInput.Instance.current;
             
             if (controls.button1Pressed && nextPageObject.activeSelf)
             {
