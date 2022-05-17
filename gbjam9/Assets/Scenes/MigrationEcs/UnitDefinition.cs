@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UnitDefinition : MonoBehaviour, IEntityDefinition
 {
+    public float movementSpeed;
     public GameObject modelPrefab;
     
     public void Apply(World world, int entity)
@@ -23,5 +24,9 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
         {
             prefab = modelPrefab
         });
+
+        var movementComponent = UnitMovementComponent.Default;
+        movementComponent.speed = movementSpeed;
+        world.AddComponent(entity, movementComponent);
     }
 }
