@@ -1,6 +1,5 @@
 using GBJAM9.Ecs;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Extensions;
 using UnityEngine;
 
 public class UnitInstanceParameter : MonoBehaviour, IEntityInstanceParameter

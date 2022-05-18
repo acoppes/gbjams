@@ -9,13 +9,14 @@ namespace GBJAM9.Ecs
         public void Run(EcsSystems systems)
         {
             var inputs = world.GetComponents<UnitInputComponent>();
-            var movements = world.GetComponents<UnitMovementComponent>();
-            var positions = world.GetComponents<PositionComponent>();
+            var movementComponents = world.GetComponents<UnitMovementComponent>();
+            var positionComponents = world.GetComponents<PositionComponent>();
+            var lookingDirectionComponents = world.GetComponents<LookingDirection>();
 
             foreach (var entity in world.GetFilter<UnitInputComponent>().Inc<UnitMovementComponent>().End())
             {
                 ref var input = ref inputs.Get(entity);
-                ref var movement = ref movements.Get(entity);
+                ref var movement = ref movementComponents.Get(entity);
 
                 if (!input.disabled)
                 {
@@ -29,8 +30,8 @@ namespace GBJAM9.Ecs
 
             foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<PositionComponent>().End())
             {
-                ref var movement = ref movements.Get(entity);
-                ref var position = ref positions.Get(entity);
+                ref var movement = ref movementComponents.Get(entity);
+                ref var position = ref positionComponents.Get(entity);
 
                 var speed = movement.speed;
                 var direction = movement.movingDirection;
@@ -53,23 +54,36 @@ namespace GBJAM9.Ecs
                 // e.collider.rigidbody.velocity = velocity;
 
                 newPosition += velocity * Time.deltaTime;
-
+                
                 position.value = newPosition;
 
-                if (velocity.SqrMagnitude() > 0)
+                movement.currentVelocity = velocity;
+
+                // if (velocity.SqrMagnitude() > 0)
+                // {
+                //     // var movingDirection = velocity.normalized;
+                //     movement.lookingDirection = velocity.normalized;
+                //         
+                //     // if (e.attack != null)
+                //     // {
+                //     //     e.attack.direction = movingDirection;
+                //     // }
+                //         
+                //     // if (e.sfxContainer != null && e.sfxContainer.walkSfx != null)
+                //     // {
+                //     //     e.sfxContainer.walkSfx.Play();
+                //     // }    
+                // }
+            }
+            
+            foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<LookingDirection>().End())
+            {
+                var movement = movementComponents.Get(entity);
+                ref var lookingDirection = ref lookingDirectionComponents.Get(entity);
+
+                if (movement.currentVelocity.SqrMagnitude() > 0)
                 {
-                    // var movingDirection = velocity.normalized;
-                    movement.lookingDirection = velocity.normalized;
-                        
-                    // if (e.attack != null)
-                    // {
-                    //     e.attack.direction = movingDirection;
-                    // }
-                        
-                    // if (e.sfxContainer != null && e.sfxContainer.walkSfx != null)
-                    // {
-                    //     e.sfxContainer.walkSfx.Play();
-                    // }    
+                    lookingDirection.value = movement.currentVelocity.normalized;
                 }
             }
         }

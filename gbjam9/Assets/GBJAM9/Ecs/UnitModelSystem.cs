@@ -1,9 +1,10 @@
 using Gemserk.Leopotam.Ecs;
 using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace GBJAM9.Ecs
 {
-    public class ModelSystem : BaseSystem, IEcsRunSystem, IFixedUpdateSystem, IEcsInitSystem
+    public class UnitModelSystem : BaseSystem, IEcsRunSystem, IFixedUpdateSystem, IEcsInitSystem
     {
         public void Init(EcsSystems systems)
         {
@@ -39,25 +40,39 @@ namespace GBJAM9.Ecs
 
         public void Run(EcsSystems systems)
         {
-            var models = world.GetComponents<UnitModelComponent>();
-            var positions = world.GetComponents<PositionComponent>();
-
-            // foreach (var entity in world.GetFilter<UnitModelComponent>().End())
-            // {
-            //     ref var modelComponent = ref models.Get(entity);
-            //
-            //     if (modelComponent.prefab != null && modelComponent.instance == null)
-            //     {
-            //         modelComponent.instance = Instantiate(modelComponent.prefab);
-            //     }
-            // }
+            var modelComponents = world.GetComponents<UnitModelComponent>();
+            var positionComponents = world.GetComponents<PositionComponent>();
+            var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<PositionComponent>().End())
             {
-                ref var modelComponent = ref models.Get(entity);
-                ref var positionComponent = ref positions.Get(entity);
+                ref var modelComponent = ref modelComponents.Get(entity);
+                var positionComponent = positionComponents.Get(entity);
 
                 modelComponent.instance.transform.position = positionComponent.value;
+            }
+            
+            foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<LookingDirection>().End())
+            {
+                var modelComponent = modelComponents.Get(entity);
+                var lookingDirection = lookingDirectionComponents.Get(entity);
+
+                var modelInstance = modelComponent.instance;
+
+                var scale = modelInstance.transform.localScale;
+
+                if (Mathf.Abs(lookingDirection.value.x) > 0)
+                {
+                    scale.x = lookingDirection.value.x < 0 ? -1 : 1;
+                }
+
+                // if (e.model.verticalFlip && Mathf.Abs(e.model.lookingDirection.y) > 0)
+                // {
+                //     // e.model.model.flipY = e.model.lookingDirection.y > 0;
+                //     scale.y = e.model.lookingDirection.y > 0 ? -1 : 1;
+                // }
+
+                modelInstance.transform.localScale = scale;
             }
         }
 
