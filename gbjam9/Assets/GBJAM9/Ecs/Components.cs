@@ -17,13 +17,12 @@ namespace GBJAM9.Ecs
 
     public struct PlayerInputComponent : IEntityComponent
     {
+        public bool disabled;
         public GameboyButtonKeyMapAsset keyMap;
     }
     
     public struct UnitControlComponent : IEntityComponent
     {
-        public bool disabled;
-        
         public Vector2 direction;
         
         // public Vector2 attackDirection;

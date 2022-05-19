@@ -18,14 +18,16 @@ namespace GBJAM9.Ecs
                 ref var input = ref inputs.Get(entity);
                 ref var movement = ref movementComponents.Get(entity);
 
-                if (!input.disabled)
-                {
-                    movement.movingDirection = input.direction;
-                }
-                else
-                {
-                    movement.movingDirection = Vector2.zero;
-                }
+                movement.movingDirection = input.direction;
+                
+                // if (!input.disabled)
+                // {
+                //     movement.movingDirection = input.direction;
+                // }
+                // else
+                // {
+                //     movement.movingDirection = Vector2.zero;
+                // }
             }
 
             foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<PositionComponent>().End())

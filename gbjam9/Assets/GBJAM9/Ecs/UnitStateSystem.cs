@@ -18,8 +18,7 @@ namespace GBJAM9.Ecs
                 ref var unitStateComponent = ref states.Get(entity);
                 var inputComponent = inputs.Get(entity);
 
-                unitStateComponent.walking =
-                    !inputComponent.disabled && inputComponent.direction.sqrMagnitude > 0;
+                unitStateComponent.walking = inputComponent.direction.sqrMagnitude > 0;
             }
         }
     }

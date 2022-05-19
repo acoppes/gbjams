@@ -18,15 +18,18 @@ namespace GBJAM9.Ecs
                 ref var control = ref controlComponents.Get(entity);
                 var playerInputComponent = playerInputComponents.Get(entity);
 
-                control.direction = playerInputComponent.keyMap.direction;
-                
-                // if (playerInputComponent.keyMap.direction.SqrMagnitude() > 0)
-                // {
-                //     control.attackDirection = playerInputComponent.keyMap.direction;
-                // }
-                
-                control.mainAction = playerInputComponent.keyMap.button1Pressed;
-                control.secondaryAction = playerInputComponent.keyMap.button2Pressed;
+                if (!playerInputComponent.disabled)
+                {
+                    control.direction = playerInputComponent.keyMap.direction;
+
+                    // if (playerInputComponent.keyMap.direction.SqrMagnitude() > 0)
+                    // {
+                    //     control.attackDirection = playerInputComponent.keyMap.direction;
+                    // }
+
+                    control.mainAction = playerInputComponent.keyMap.button1Pressed;
+                    control.secondaryAction = playerInputComponent.keyMap.button2Pressed;
+                }
             }
         }
     }
