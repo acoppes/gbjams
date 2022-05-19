@@ -4,7 +4,7 @@ using Leopotam.EcsLite;
 
 namespace GBJAM9.Ecs
 {
-    public class InputSystem : BaseSystem, IEcsRunSystem, IFixedUpdateSystem
+    public class InputSystem : BaseSystem, IEcsRunSystem
     {
         public void Run(EcsSystems systems)
         {

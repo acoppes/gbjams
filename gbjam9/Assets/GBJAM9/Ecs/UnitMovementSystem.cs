@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GBJAM9.Ecs
 {
-    public class UnitMovementSystem : BaseSystem, IEcsRunSystem, IFixedUpdateSystem
+    public class UnitMovementSystem : BaseSystem, IEcsRunSystem
     {
         public void Run(EcsSystems systems)
         {
