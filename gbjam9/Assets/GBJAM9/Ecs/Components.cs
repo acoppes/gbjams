@@ -1,4 +1,5 @@
 using System;
+using GBJAM.Commons;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
 
@@ -13,18 +14,23 @@ namespace GBJAM9.Ecs
     {
         public Vector2 value;
     }
+
+    public struct PlayerInputComponent : IEntityComponent
+    {
+        public GameboyButtonKeyMapAsset keyMap;
+    }
     
-    public struct UnitInputComponent : IEntityComponent
+    public struct UnitControlComponent : IEntityComponent
     {
         public bool disabled;
         
-        public Vector2 movementDirection;
+        public Vector2 direction;
         
-        public Vector2 attackDirection;
+        // public Vector2 attackDirection;
 
-        public bool attack;
+        public bool mainAction;
 
-        public bool dash;
+        public bool secondaryAction;
     }
 
     public struct UnitModelComponent : IEntityComponent
