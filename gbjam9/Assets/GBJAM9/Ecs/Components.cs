@@ -49,4 +49,14 @@ namespace GBJAM9.Ecs
             movingDirection = new Vector2(0, 0)
         };
     }
+
+    public struct UnitStateComponent : IEntityComponent
+    {
+        public bool walking;
+    }
+
+    public struct AnimatorComponent : IEntityComponent
+    {
+        public Animator animator;
+    }
 }

@@ -75,7 +75,5 @@ namespace GBJAM9.Ecs
                 modelInstance.transform.localScale = scale;
             }
         }
-
-
     }
 }

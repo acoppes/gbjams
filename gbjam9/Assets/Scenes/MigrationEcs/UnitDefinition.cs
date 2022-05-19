@@ -12,7 +12,9 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
         world.AddComponent(entity, new PositionComponent());
         world.AddComponent(entity, new LookingDirection());
         world.AddComponent(entity, new UnitInputComponent());
-        
+        world.AddComponent(entity, new UnitStateComponent());
+        world.AddComponent(entity, new AnimatorComponent());
+
         world.AddComponent(entity, new UnitModelComponent
         {
             prefab = modelPrefab
@@ -21,5 +23,7 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
         var movementComponent = UnitMovementComponent.Default;
         movementComponent.speed = movementSpeed;
         world.AddComponent(entity, movementComponent);
+        
+        
     }
 }
