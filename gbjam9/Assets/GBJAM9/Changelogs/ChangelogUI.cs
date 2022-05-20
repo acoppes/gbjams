@@ -52,13 +52,13 @@ namespace GBJAM9.Changelogs
 
             var controls = GameboyInput.Instance.current;
             
-            if (controls.button1Pressed && nextPageObject.activeSelf)
+            if (controls.button1JustPressed && nextPageObject.activeSelf)
             {
                 currentPage++;
                 changelogText.text = changelogPages[currentPage];
             }
 
-            if (controls.button2Pressed || (controls.button1Pressed && !nextPageObject.activeSelf))
+            if (controls.button2JustPressed || (controls.button1JustPressed && !nextPageObject.activeSelf))
             {
                 // CloseWindow();
                 closed = true;

@@ -29,11 +29,18 @@ namespace GBJAM.Commons
         [NonSerialized]
         public bool downPressed;
         
-        [NonSerialized]
-        public bool button1Pressed;
         
         [NonSerialized]
+        public bool button1Pressed;
+
+        [NonSerialized] 
         public bool button2Pressed;
+            
+        [NonSerialized]
+        public bool button1JustPressed;
+        
+        [NonSerialized]
+        public bool button2JustPressed;
 
         [NonSerialized]
         public bool startPressed;
@@ -62,7 +69,7 @@ namespace GBJAM.Commons
         public bool AnyButtonPressed()
         {
             return leftPressed || rightPressed || upPressed || downPressed ||
-                   button1Pressed || button2Pressed || startPressed;
+                   button1JustPressed || button2JustPressed || startPressed;
         }
 
         public void UpdateControlState()
@@ -78,17 +85,23 @@ namespace GBJAM.Commons
             downPressed = false;
 
             startPressed = false;
+            
+            leftPressed = false;
+            rightPressed = false;
 
             button1Pressed = false;
             button2Pressed = false;
             
             startPressed = Input.GetKeyDown(startKeyCode);
 
-            button1Pressed = Input.GetKeyDown(button1KeyCode);
-            button2Pressed = Input.GetKeyDown(button2KeyCode);
+            button1JustPressed = Input.GetKeyDown(button1KeyCode);
+            button2JustPressed = Input.GetKeyDown(button2KeyCode);
             
             if (keyRepeatCurrent > keyRepeatCooldown)
             {
+                button1Pressed = Input.GetKey(button1KeyCode);
+                button2Pressed = Input.GetKey(button2KeyCode);
+                
                 leftPressed = Input.GetKey(leftKey);
                 rightPressed = Input.GetKey(rigthKey);
 

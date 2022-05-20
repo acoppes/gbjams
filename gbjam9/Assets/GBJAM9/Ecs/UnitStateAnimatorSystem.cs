@@ -51,6 +51,8 @@ namespace GBJAM9.Ecs
                 
                 animatorComponent.animator
                     .SetBool("walking", unitStateComponent.walking);
+                animatorComponent.animator
+                    .SetBool("dashing", unitStateComponent.dashing);
             }
             
         }

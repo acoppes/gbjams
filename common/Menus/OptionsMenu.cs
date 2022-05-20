@@ -124,7 +124,7 @@ namespace GBJAM.Commons.Menus
                 optionChanged = true;
             }
 
-            if (keyMapAsset.button1Pressed)
+            if (keyMapAsset.button1JustPressed)
             {
                 // execute action in game controls!
                 var result = _optionSelectedCallback(currentOptionIndex, menuOptions[currentOptionIndex].option);
@@ -147,7 +147,7 @@ namespace GBJAM.Commons.Menus
                 // Hide();
             }
 
-            if (keyMapAsset.button2Pressed)
+            if (keyMapAsset.button2JustPressed)
             {
                 // hide menu 
                 _cancelMenu();

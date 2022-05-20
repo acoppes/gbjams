@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using GBJAM.Commons;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
@@ -58,6 +60,24 @@ namespace GBJAM9.Ecs
     public struct UnitStateComponent : IEntityComponent
     {
         public bool walking;
+        public bool dashing;
+    }
+
+    [Serializable]
+    public class Ability
+    {
+        public string name;
+        public float duration;
+    }
+    
+    public struct AbilitiesComponent : IEntityComponent
+    {
+        public List<Ability> abilities;
+
+        public Ability Get(string name)
+        {
+            return abilities.FirstOrDefault(a => a.name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+        }
     }
 
     public struct AnimatorComponent : IEntityComponent

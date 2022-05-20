@@ -187,8 +187,8 @@ namespace GBJAM9
                     {
                         e.input.attackDirection = gameboyKeyMap.direction;
                     }
-                    e.input.attack = gameboyKeyMap.button1Pressed;
-                    e.input.dash = gameboyKeyMap.button2Pressed;
+                    e.input.attack = gameboyKeyMap.button1JustPressed;
+                    e.input.dash = gameboyKeyMap.button2JustPressed;
                 }
                 
                 if (e.input != null)
