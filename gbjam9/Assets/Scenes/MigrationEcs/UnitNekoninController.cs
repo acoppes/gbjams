@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class UnitNekoninController : MonoBehaviour, IController
 {
+    public float dashExtraSpeed;
+    
     public void OnInit(World world, int entity)
     {
         // get state component for entity
@@ -26,6 +28,8 @@ public class UnitNekoninController : MonoBehaviour, IController
         ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
         // playerInput.disabled = true;
         
+        ref var movementComponent = ref world.GetComponent<UnitMovementComponent>(entity);
+        
         ref var unitState = ref world.GetComponent<UnitStateComponent>(entity);
         
         ref var states = ref world.GetComponent<StatesComponent>(entity);
@@ -43,6 +47,8 @@ public class UnitNekoninController : MonoBehaviour, IController
                 states.ExitState("Dashing");
                 // model unset dashing
                 unitState.dashing = false;
+                
+                movementComponent.extraSpeed = 0;
             }    
         }
         else
@@ -57,6 +63,8 @@ public class UnitNekoninController : MonoBehaviour, IController
                 unitState.dashing = true;
 
                 control.direction = lookingDirection.value;
+
+                movementComponent.extraSpeed = dashExtraSpeed;
             }            
         }
 
