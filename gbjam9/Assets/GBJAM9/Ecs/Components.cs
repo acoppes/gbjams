@@ -44,6 +44,8 @@ namespace GBJAM9.Ecs
     {
         public float speed;
 
+        public float extraSpeed;
+
         public Vector2 perspective;
 
         public Vector2 currentVelocity;

@@ -35,7 +35,7 @@ namespace GBJAM9.Ecs
                 ref var movement = ref movementComponents.Get(entity);
                 ref var position = ref positionComponents.Get(entity);
 
-                var speed = movement.speed;
+                var speed = movement.speed + movement.extraSpeed;
                 var direction = movement.movingDirection;
 
                 // if (e.state != null && e.dash != null && e.state.dashing)

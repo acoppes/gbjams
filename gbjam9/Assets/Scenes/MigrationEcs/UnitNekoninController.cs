@@ -32,6 +32,8 @@ public class UnitNekoninController : MonoBehaviour, IController
         ref var control = ref world.GetComponent<UnitControlComponent>(entity);
 
         ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
+        
+        var lookingDirection = world.GetComponent<LookingDirection>(entity);
 
         if (states.HasState("Dashing"))
         {
@@ -53,7 +55,8 @@ public class UnitNekoninController : MonoBehaviour, IController
                 states.EnterState("Dashing", dash.duration);
                 playerInput.disabled = true;
                 unitState.dashing = true;
-                // model set dashing
+
+                control.direction = lookingDirection.value;
             }            
         }
 

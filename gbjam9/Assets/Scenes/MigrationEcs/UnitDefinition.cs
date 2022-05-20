@@ -16,7 +16,10 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     public void Apply(World world, int entity)
     {
         world.AddComponent(entity, new PositionComponent());
-        world.AddComponent(entity, new LookingDirection());
+        world.AddComponent(entity, new LookingDirection
+        {
+            value = Vector2.right
+        });
         world.AddComponent(entity, new UnitControlComponent());
         
         if (controllable)
