@@ -63,6 +63,7 @@ namespace GBJAM9.Ecs
     {
         public bool walking;
         public bool dashing;
+        public bool attacking1;
     }
 
     [Serializable]

@@ -4,15 +4,9 @@ using UnityEngine;
 
 namespace GBJAM9.Ecs
 {
-    public class UnitModelSystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
+    public class UnitModelSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
-        public void Init(EcsSystems systems)
-        {
-            world.onEntityCreated += OnEntityCreated;
-            world.onEntityDestroyed += OnEntityDestroyed;
-        }
-        
-        private void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, int entity)
         {
             // create model if model component
             var models = world.GetComponents<UnitModelComponent>();
@@ -23,7 +17,7 @@ namespace GBJAM9.Ecs
             }
         }
 
-        private void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, int entity)
         {
             // destroy model if model component
             var models = world.GetComponents<UnitModelComponent>();

@@ -65,6 +65,36 @@ public class UnitNekoninController : MonoBehaviour, IController
                 control.direction = lookingDirection.value;
 
                 movementComponent.extraSpeed = dashExtraSpeed;
+                
+                // states.EnterState("Dashing", dash.duration)
+                // {
+                //     onActivate =
+                //     {
+                //         
+                //     },
+                //     onDeactivate =
+                //     {
+                //         
+                //     }
+                // };
+            }            
+        }
+        
+        if (states.HasState("Attacking"))
+        {
+            if (!states.IsActive("Attacking"))
+            {
+                states.ExitState("Attacking");
+                unitState.attacking1 = false;
+            }    
+        }
+        else
+        {
+            if (control.mainAction)
+            {
+                var attack = abilities.Get("Attack");
+                states.EnterState("Attacking", attack.duration);
+                unitState.attacking1 = true;
             }            
         }
 

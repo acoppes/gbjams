@@ -4,15 +4,9 @@ using UnityEngine;
 
 namespace GBJAM9.Ecs
 {
-    public class UnitStateAnimatorSystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
+    public class UnitStateAnimatorSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
-        public void Init(EcsSystems systems)
-        {
-            world.onEntityCreated += OnEntityCreated;
-            world.onEntityDestroyed += OnEntityDestroyed;
-        }
-        
-        private void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, int entity)
         {
             var models = world.GetComponents<UnitModelComponent>();
             var animators = world.GetComponents<AnimatorComponent>();
@@ -25,7 +19,7 @@ namespace GBJAM9.Ecs
             }
         }
 
-        private void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, int entity)
         {
             var animators = world.GetComponents<AnimatorComponent>();
             
@@ -53,6 +47,8 @@ namespace GBJAM9.Ecs
                     .SetBool("walking", unitStateComponent.walking);
                 animatorComponent.animator
                     .SetBool("dashing", unitStateComponent.dashing);
+                animatorComponent.animator
+                    .SetBool("sword_attack", unitStateComponent.attacking1);
             }
             
         }
