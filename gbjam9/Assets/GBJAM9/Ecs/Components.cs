@@ -73,11 +73,12 @@ namespace GBJAM9.Ecs
         public bool attacking2;
     }
 
-    [Serializable]
     public class Ability
     {
         public string name;
         public float duration;
+        public float cooldown;
+        public float time;
     }
     
     public struct AbilitiesComponent : IEntityComponent

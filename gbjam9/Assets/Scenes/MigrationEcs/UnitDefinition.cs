@@ -11,8 +11,6 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     public float movementSpeed;
     public GameObject modelPrefab;
 
-    public List<Ability> abilities;
-
     public void Apply(World world, int entity)
     {
         world.AddComponent(entity, new PositionComponent());
@@ -36,6 +34,19 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
         {
             prefab = modelPrefab
         });
+
+        var abilityDefinitions = GetComponentsInChildren<AbilityDefinition>();
+        var abilities = new List<Ability>();
+
+        foreach (var abilityDefinition in abilityDefinitions)
+        {
+            abilities.Add(new Ability
+            {
+                name = abilityDefinition.gameObject.name,
+                duration = abilityDefinition.duration,
+                cooldown = abilityDefinition.cooldown
+            });
+        }
         
         world.AddComponent(entity, new AbilitiesComponent
         {

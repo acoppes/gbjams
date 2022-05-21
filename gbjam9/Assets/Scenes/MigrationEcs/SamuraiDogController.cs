@@ -85,8 +85,21 @@ public class SamuraiDogController : MonoBehaviour, IController
             }
             return;
         }
-
         
+        if (states.HasState("Attacking"))
+        {
+            var state = states.GetState("Attacking");
+            var attack = abilities.Get("Attack");
+            
+            if (state.time > attack.duration)
+            {
+                states.ExitState("Attacking");
+                unitState.attacking1 = false;
+            }
+
+            return;
+        }
+
         // secondary action is pressed
         if (control.secondaryAction)
         {
@@ -95,5 +108,12 @@ public class SamuraiDogController : MonoBehaviour, IController
             unitState.chargeAttack1 = true;
             return;
         }
+        
+        if (control.mainAction)
+        {
+            states.EnterState("Attacking");
+            unitState.attacking1 = true;
+            return;
+        } 
     }
 }
