@@ -19,32 +19,19 @@ namespace GBJAM9.Ecs
                 ref var movement = ref movementComponents.Get(entity);
 
                 movement.movingDirection = input.direction;
-                
-                // if (!input.disabled)
-                // {
-                //     movement.movingDirection = input.direction;
-                // }
-                // else
-                // {
-                //     movement.movingDirection = Vector2.zero;
-                // }
             }
 
             foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<PositionComponent>().End())
             {
                 ref var movement = ref movementComponents.Get(entity);
                 ref var position = ref positionComponents.Get(entity);
+                
+                if (movement.disabled)
+                    continue;
 
                 var speed = movement.speed + movement.extraSpeed;
                 var direction = movement.movingDirection;
 
-                // if (e.state != null && e.dash != null && e.state.dashing)
-                // {
-                //     speed = e.dash.speed;
-                //     // direction = e.movement.lookingDirection;
-                //     direction = e.dash.direction;
-                // }
-                    
                 var newPosition = position.value;
 
                 var velocity = direction * speed;
@@ -60,22 +47,6 @@ namespace GBJAM9.Ecs
                 position.value = newPosition;
 
                 movement.currentVelocity = velocity;
-
-                // if (velocity.SqrMagnitude() > 0)
-                // {
-                //     // var movingDirection = velocity.normalized;
-                //     movement.lookingDirection = velocity.normalized;
-                //         
-                //     // if (e.attack != null)
-                //     // {
-                //     //     e.attack.direction = movingDirection;
-                //     // }
-                //         
-                //     // if (e.sfxContainer != null && e.sfxContainer.walkSfx != null)
-                //     // {
-                //     //     e.sfxContainer.walkSfx.Play();
-                //     // }    
-                // }
             }
             
             foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<LookingDirection>().End())

@@ -49,6 +49,8 @@ namespace GBJAM9.Ecs
                     .SetBool("dashing", unitStateComponent.dashing);
                 animatorComponent.animator
                     .SetBool("sword_attack", unitStateComponent.attacking1);
+                animatorComponent.animator
+                    .SetBool("charge_attack1", unitStateComponent.chargeAttack1);
             }
             
         }

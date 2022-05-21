@@ -8,17 +8,20 @@ namespace GBJAM9.Ecs
         public void Run(EcsSystems systems)
         {
             var inputs = world.GetComponents<UnitControlComponent>();
+            var movements = world.GetComponents<UnitMovementComponent>();
             var states = world.GetComponents<UnitStateComponent>();
 
             foreach (var entity in world
                          .GetFilter<UnitStateComponent>()
                          .Inc<UnitControlComponent>()
+                         .Inc<UnitMovementComponent>()
                          .End())
             { 
                 ref var unitStateComponent = ref states.Get(entity);
                 var inputComponent = inputs.Get(entity);
-
-                unitStateComponent.walking = inputComponent.direction.sqrMagnitude > 0;
+                var movement = movements.Get(entity);
+                
+                unitStateComponent.walking = !movement.disabled && inputComponent.direction.sqrMagnitude > 0;
             }
         }
     }

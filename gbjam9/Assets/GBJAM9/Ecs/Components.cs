@@ -42,6 +42,8 @@ namespace GBJAM9.Ecs
     
     public struct UnitMovementComponent : IEntityComponent
     {
+        public bool disabled;
+        
         public float speed;
 
         public float extraSpeed;
@@ -63,7 +65,12 @@ namespace GBJAM9.Ecs
     {
         public bool walking;
         public bool dashing;
+
+        public bool chargeAttack1;
         public bool attacking1;
+
+        public bool chargeAttack2;
+        public bool attacking2;
     }
 
     [Serializable]
