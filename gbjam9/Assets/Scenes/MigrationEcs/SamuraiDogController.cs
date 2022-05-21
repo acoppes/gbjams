@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class SamuraiDogController : MonoBehaviour, IController
 {
+    // Read this kind of things from configuration
     public float specialAttackExtraSpeed;
+    public float specialAttackRecoveryTime;
     
-    public void OnInit(World world, int entity)
-    {
-
-    }
-
     public void OnUpdate(float dt, World world, int entity)
     {
         ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
@@ -26,6 +23,21 @@ public class SamuraiDogController : MonoBehaviour, IController
         ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
         
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
+        
+        if (states.HasState("SpecialAttackRecovery"))
+        {
+            var state = states.GetState("SpecialAttackRecovery");
+            
+            if (state.time > specialAttackRecoveryTime)
+            {
+                states.ExitState("SpecialAttackRecovery");
+                playerInput.disabled = false;
+                unitState.attacking1 = false;
+            }
+
+            return;
+        }
+        
 
         if (states.HasState("SpecialAttack"))
         {
@@ -35,10 +47,12 @@ public class SamuraiDogController : MonoBehaviour, IController
             if (state.time > specialAttack.duration)
             {
                 states.ExitState("SpecialAttack");
-                playerInput.disabled = false;
-                unitState.attacking1 = false;
-
+                
+                // unitState.attacking1 = false;
                 movementComponent.extraSpeed = 0;
+                control.direction = Vector2.zero;
+                
+                states.EnterState("SpecialAttackRecovery");
             }
 
             return;

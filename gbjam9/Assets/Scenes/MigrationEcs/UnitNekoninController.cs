@@ -5,20 +5,8 @@ using UnityEngine;
 
 public class UnitNekoninController : MonoBehaviour, IController
 {
+    // Read this kind of things from configuration
     public float dashExtraSpeed;
-    
-    public void OnInit(World world, int entity)
-    {
-        // get state component for entity
-        // register states
-        
-        // for example, dash logic
-        // on update, if (input.secondaryAction pressed) 
-        // then enter dashing for dash duration
-        
-        // on enter dashing, disable control, set visual state
-        // on exit dashing, enable control, unset visual state
-    }
 
     public void OnUpdate(float dt, World world, int entity)
     {
@@ -41,7 +29,10 @@ public class UnitNekoninController : MonoBehaviour, IController
 
         if (states.HasState("Dashing"))
         {
-            if (!states.IsActive("Dashing"))
+            var state = states.GetState("Dashing");
+            var dash = abilities.Get("Dash");
+            
+            if (state.time > dash.duration)
             {
                 playerInput.disabled = false;
                 states.ExitState("Dashing");
@@ -49,56 +40,53 @@ public class UnitNekoninController : MonoBehaviour, IController
                 unitState.dashing = false;
                 
                 movementComponent.extraSpeed = 0;
-            }    
-        }
-        else
-        {
-            // secondary action is pressed
-            if (control.secondaryAction)
-            {
-                var dash = abilities.Get("Dash");
-                
-                states.EnterState("Dashing", dash.duration);
-                playerInput.disabled = true;
-                unitState.dashing = true;
+            }
 
-                control.direction = lookingDirection.value;
-
-                movementComponent.extraSpeed = dashExtraSpeed;
-                
-                // states.EnterState("Dashing", dash.duration)
-                // {
-                //     onActivate =
-                //     {
-                //         
-                //     },
-                //     onDeactivate =
-                //     {
-                //         
-                //     }
-                // };
-            }            
+            return;
         }
-        
+
         if (states.HasState("Attacking"))
         {
-            if (!states.IsActive("Attacking"))
+            var state = states.GetState("Attacking");
+            var attack = abilities.Get("Attack");
+            
+            if (state.time > attack.duration)
             {
                 states.ExitState("Attacking");
                 unitState.attacking1 = false;
             }    
         }
-        else
-        {
-            if (control.mainAction)
-            {
-                var attack = abilities.Get("Attack");
-                states.EnterState("Attacking", attack.duration);
-                unitState.attacking1 = true;
-            }            
-        }
 
-        // ref var m = ref world.GetComponent<UnitMovementComponent>(entity);
-        // m.movingDirection = Vector2.one;
+        if (control.mainAction)
+        {
+            states.EnterState("Attacking");
+            unitState.attacking1 = true;
+            return;
+        } 
+        
+        if (control.secondaryAction)
+        {
+            states.EnterState("Dashing");
+            playerInput.disabled = true;
+            unitState.dashing = true;
+
+            control.direction = lookingDirection.value;
+
+            movementComponent.extraSpeed = dashExtraSpeed;
+                
+            // states.EnterState("Dashing", dash.duration)
+            // {
+            //     onActivate =
+            //     {
+            //         
+            //     },
+            //     onDeactivate =
+            //     {
+            //         
+            //     }
+            // };
+            
+            return;
+        }    
     }
 }
