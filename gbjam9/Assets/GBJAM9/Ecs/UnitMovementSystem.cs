@@ -27,7 +27,10 @@ namespace GBJAM9.Ecs
                 ref var position = ref positionComponents.Get(entity);
                 
                 if (movement.disabled)
+                {
+                    movement.currentVelocity = Vector2.zero;
                     continue;
+                }
 
                 var speed = movement.speed + movement.extraSpeed;
                 var direction = movement.movingDirection;

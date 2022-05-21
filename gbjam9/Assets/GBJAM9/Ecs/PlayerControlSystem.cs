@@ -12,6 +12,7 @@ namespace GBJAM9.Ecs
             
             var controlComponents = world.GetComponents<UnitControlComponent>();
             var playerInputComponents = world.GetComponents<PlayerInputComponent>();
+            var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             
             foreach (var entity in filter)
             {
@@ -29,6 +30,18 @@ namespace GBJAM9.Ecs
 
                     control.mainAction = playerInputComponent.keyMap.button1Pressed;
                     control.secondaryAction = playerInputComponent.keyMap.button2Pressed;
+                }
+            }
+            
+            // Update looking direction based on controls
+            foreach (var entity in world.GetFilter<UnitControlComponent>().Inc<LookingDirection>().End())
+            {
+                var control = controlComponents.Get(entity);
+                ref var lookingDirection = ref lookingDirectionComponents.Get(entity);
+
+                if (control.direction.sqrMagnitude > 0f)
+                {
+                    lookingDirection.value = control.direction.normalized;
                 }
             }
         }
