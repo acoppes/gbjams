@@ -1,3 +1,4 @@
+using System.Linq;
 using GBJAM9.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
@@ -7,6 +8,8 @@ public class UnitNekoninController : MonoBehaviour, IController
 {
     // Read this kind of things from configuration
     public float dashExtraSpeed;
+
+    private readonly StateFilter canDash = new StateFilter(null, "CantDashAgain");
 
     public void OnUpdate(float dt, World world, int entity)
     {
@@ -68,9 +71,14 @@ public class UnitNekoninController : MonoBehaviour, IController
             attack.StartRunning();
             
             return;
-        } 
+        }
+
+        if (!control.secondaryAction)
+        {
+            states.ExitState("CantDashAgain");
+        }
         
-        if (control.secondaryAction)
+        if (canDash.Match(states) && control.secondaryAction)
         {
             states.EnterState("Dashing");
             playerInput.disabled = true;
@@ -79,6 +87,8 @@ public class UnitNekoninController : MonoBehaviour, IController
             control.direction = lookingDirection.value;
 
             movementComponent.extraSpeed = dashExtraSpeed;
+            
+            states.EnterState("CantDashAgain");
                 
             // states.EnterState("Dashing", dash.duration)
             // {
