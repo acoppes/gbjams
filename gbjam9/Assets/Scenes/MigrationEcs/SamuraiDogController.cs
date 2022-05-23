@@ -24,6 +24,8 @@ public class SamuraiDogController : MonoBehaviour, IController
         
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
         
+        var attack = abilities.Get("Attack");
+        
         if (states.HasState("SpecialAttackRecovery"))
         {
             var state = states.GetState("SpecialAttackRecovery");
@@ -86,17 +88,48 @@ public class SamuraiDogController : MonoBehaviour, IController
             return;
         }
         
-        if (states.HasState("Attacking"))
+        // if (states.HasState("Attacking"))
+        // {
+        //     var state = states.GetState("Attacking");
+        //     
+        //     if (state.time > attack.duration)
+        //     {
+        //         states.ExitState("Attacking");
+        //         unitState.attacking1 = false;
+        //     }
+        //
+        //     return;
+        // }
+        
+        // if (states.HasState("Attacking"))
+        if (attack.isRunning)
         {
-            var state = states.GetState("Attacking");
-            var attack = abilities.Get("Attack");
+            // var state = states.GetState("Attacking");
             
-            if (state.time > attack.duration)
+            // if (state.time > attack.duration)
+            if (attack.isComplete) 
             {
-                states.ExitState("Attacking");
+                // states.ExitState("Attacking");
                 unitState.attacking1 = false;
-            }
 
+                attack.Complete();
+            }    
+        }
+
+        if (!control.mainAction)
+        {
+            states.ExitState("CantAttackAgain");
+        }
+
+        if (!states.HasState("CantAttackAgain") && control.mainAction && attack.isReady)
+        {
+            // states.EnterState("Attacking");
+            unitState.attacking1 = true;
+
+            attack.StartRunning();
+            
+            states.EnterState("CantAttackAgain");
+            
             return;
         }
 
@@ -109,11 +142,11 @@ public class SamuraiDogController : MonoBehaviour, IController
             return;
         }
         
-        if (control.mainAction)
-        {
-            states.EnterState("Attacking");
-            unitState.attacking1 = true;
-            return;
-        } 
+        // if (control.mainAction)
+        // {
+        //     states.EnterState("Attacking");
+        //     unitState.attacking1 = true;
+        //     return;
+        // } 
     }
 }

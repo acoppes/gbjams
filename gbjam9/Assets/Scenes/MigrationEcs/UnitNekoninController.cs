@@ -50,13 +50,15 @@ public class UnitNekoninController : MonoBehaviour, IController
             return;
         }
 
-        if (states.HasState("Attacking"))
+        // if (states.HasState("Attacking"))
+        if (attack.isRunning)
         {
-            var state = states.GetState("Attacking");
+            // var state = states.GetState("Attacking");
             
-            if (state.time > attack.duration)
+            // if (state.time > attack.duration)
+            if (attack.isComplete) 
             {
-                states.ExitState("Attacking");
+                // states.ExitState("Attacking");
                 unitState.attacking1 = false;
 
                 attack.Complete();
@@ -65,7 +67,7 @@ public class UnitNekoninController : MonoBehaviour, IController
 
         if (control.mainAction && attack.isReady)
         {
-            states.EnterState("Attacking");
+            // states.EnterState("Attacking");
             unitState.attacking1 = true;
 
             attack.StartRunning();
