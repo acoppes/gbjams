@@ -7,11 +7,6 @@ using UnityEngine;
 
 namespace GBJAM9.Ecs
 {
-    public struct PositionComponent : IEntityComponent
-    {
-        public Vector2 value;
-    }
-    
     public struct LookingDirection : IEntityComponent
     {
         public Vector2 value;
@@ -122,26 +117,4 @@ namespace GBJAM9.Ecs
         public Animator animator;
     }
 
-    public struct PlayerComponent : IEntityComponent
-    {
-        public int player;
-    }
-
-    public struct Target
-    {
-        public int entity;
-        public int player;
-        public Vector2 position;
-    }
-
-    // public struct TargetPosition
-    // {
-    //     public Target target;
-    // }
-
-    public struct TargetComponent : IEntityComponent
-    {
-        public Target target;
-    }
-    
 }
