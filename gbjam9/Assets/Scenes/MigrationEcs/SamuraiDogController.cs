@@ -3,6 +3,7 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using UnityEngine;
 
+
 public class SamuraiDogController : MonoBehaviour, IController
 {
     // Read this kind of things from configuration
