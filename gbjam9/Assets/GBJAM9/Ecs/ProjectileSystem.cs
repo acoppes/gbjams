@@ -12,7 +12,8 @@ namespace GBJAM9.Ecs
             var lookingDirections = world.GetComponents<LookingDirection>();
 
             var projectileComponents = world.GetComponents<ProjectileComponent>();
-
+            var unitControlComponents = world.GetComponents<UnitControlComponent>();
+            
             // update ability position
             foreach (var entity in world.GetFilter<ProjectileComponent>()
                          .Inc<PositionComponent>()
@@ -34,7 +35,14 @@ namespace GBJAM9.Ecs
                 projectileComponent.started = true;
             }
             
-            // TODO: control logic....
+            foreach (var entity in world.GetFilter<ProjectileComponent>()
+                         .Inc<UnitControlComponent>().End())
+            {
+                var projectileComponent = projectileComponents.Get(entity);
+                ref var unitControlComponent = ref unitControlComponents.Get(entity);
+
+                unitControlComponent.direction = projectileComponent.startDirection;
+            }
         }
     }
 }
