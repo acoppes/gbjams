@@ -50,7 +50,23 @@ public class SamuraiDogAIController : MonoBehaviour, IController
         {
             player = playerComponent.player,
             position = position.value,
-            range = chaseDistance
+            range = chaseDistance,
+            extraValidation = delegate(TargetingParameters parameters, Target target)
+            {
+                if (target.extra is not TargetExtra targetExtra)
+                {
+                    return false;
+                }
+                
+                var direction = (target.position - parameters.position).normalized;
+                
+                if (Vector2.Angle(targetExtra.lookingDirection, direction) > 45)
+                {
+                    return false;
+                }
+                
+                return true;
+            }
         });
         
         // it is performing the special attack or recovering from the attack

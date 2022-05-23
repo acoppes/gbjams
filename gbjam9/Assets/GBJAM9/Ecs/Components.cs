@@ -117,4 +117,9 @@ namespace GBJAM9.Ecs
         public Animator animator;
     }
 
+    public class TargetExtra
+    {
+        public Vector2 lookingDirection;
+    }
+
 }
