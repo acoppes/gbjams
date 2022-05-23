@@ -16,6 +16,11 @@ namespace GBJAM9.Ecs
     {
         public Vector2 value;
     }
+    
+    public struct LookingDirectionIndicator : IEntityComponent
+    {
+        public GameObject instance;
+    }
 
     public struct PlayerInputComponent : IEntityComponent
     {
@@ -76,9 +81,30 @@ namespace GBJAM9.Ecs
     public class Ability
     {
         public string name;
+        
         public float duration;
-        public float cooldown;
-        public float time;
+        
+        public float cooldownTotal;
+        public float cooldownCurrent;
+        
+        public float runningTime;
+        
+        public bool isReady => cooldownCurrent > cooldownTotal && !isRunning;
+        public bool isComplete => runningTime > duration;
+
+        public bool isRunning;
+
+        public void StartRunning()
+        {
+            runningTime = 0;
+            isRunning = true;
+        }
+
+        public void Complete()
+        {
+            cooldownCurrent = 0;
+            isRunning = false;
+        }
     }
     
     public struct AbilitiesComponent : IEntityComponent

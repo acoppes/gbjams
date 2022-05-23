@@ -26,7 +26,9 @@ public class UnitNekoninController : MonoBehaviour, IController
         ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
         
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
-
+        
+        var attack = abilities.Get("Attack");
+        
         if (states.HasState("Dashing"))
         {
             var state = states.GetState("Dashing");
@@ -48,19 +50,23 @@ public class UnitNekoninController : MonoBehaviour, IController
         if (states.HasState("Attacking"))
         {
             var state = states.GetState("Attacking");
-            var attack = abilities.Get("Attack");
             
             if (state.time > attack.duration)
             {
                 states.ExitState("Attacking");
                 unitState.attacking1 = false;
+
+                attack.Complete();
             }    
         }
 
-        if (control.mainAction)
+        if (control.mainAction && attack.isReady)
         {
             states.EnterState("Attacking");
             unitState.attacking1 = true;
+
+            attack.StartRunning();
+            
             return;
         } 
         

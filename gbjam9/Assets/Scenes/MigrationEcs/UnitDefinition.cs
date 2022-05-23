@@ -44,7 +44,7 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
             {
                 name = abilityDefinition.gameObject.name,
                 duration = abilityDefinition.duration,
-                cooldown = abilityDefinition.cooldown
+                cooldownTotal = abilityDefinition.cooldown
             });
         }
         
