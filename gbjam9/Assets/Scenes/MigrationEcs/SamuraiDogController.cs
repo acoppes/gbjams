@@ -36,6 +36,8 @@ public class SamuraiDogController : MonoBehaviour, IController
                 states.ExitState("SpecialAttackRecovery");
                 playerInput.disabled = false;
                 unitState.attacking1 = false;
+                
+                // control.directionLocked = false;
             }
 
             return;
@@ -84,6 +86,8 @@ public class SamuraiDogController : MonoBehaviour, IController
                     control.direction = lookingDirection.value;
 
                     movementComponent.extraSpeed = specialAttackExtraSpeed;
+                    
+                    // control.directionLocked = true;
                 }
             }
             return;

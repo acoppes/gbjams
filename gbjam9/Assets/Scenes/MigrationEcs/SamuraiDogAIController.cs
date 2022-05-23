@@ -14,6 +14,7 @@ public class SamuraiDogAIController : MonoBehaviour, IController
     {
         ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
         var position = world.GetComponent<PositionComponent>(entity);
+        var playerComponent = world.GetComponent<PlayerComponent>(entity);
         
         ref var movementComponent = ref world.GetComponent<UnitMovementComponent>(entity);
         
@@ -36,11 +37,22 @@ public class SamuraiDogAIController : MonoBehaviour, IController
         
         // if inside range, start charging attack
 
-        var mainCharacter = world.sharedData.singletonByNameEntities["Main_Character"];
-        var targetPosition = world.GetComponent<PositionComponent>(mainCharacter);
+        var specialAttackTargeting = new TargetingParameters
+        {
+            player = playerComponent.player,
+            position = position.value,
+            range = specialAttackDistance
+        };
 
-        var distanceToPlayer = Vector2.Distance(position.value, targetPosition.value);
+        // var targets = TargetingUtils.FindTargets(world, specialAttackTargeting);
 
+        var chaseTargets = TargetingUtils.FindTargets(world, new TargetingParameters
+        {
+            player = playerComponent.player,
+            position = position.value,
+            range = chaseDistance
+        });
+        
         // it is performing the special attack or recovering from the attack
         if (states.HasState("SpecialAttack") || states.HasState("SpecialAttackRecovery"))
         {
@@ -63,9 +75,17 @@ public class SamuraiDogAIController : MonoBehaviour, IController
         
         if (states.HasState("ChasingPlayer"))
         {
-            control.direction = (targetPosition.value - position.value).normalized;
+            if (chaseTargets.Count == 0)
+            {
+                states.ExitState("ChasingPlayer");
+                return;
+            }
 
-            if (distanceToPlayer < specialAttackDistance)
+            var chaseTarget = chaseTargets[0];
+            
+            control.direction = (chaseTarget.position - position.value).normalized;
+
+            if (TargetingUtils.ValidateTarget(specialAttackTargeting, chaseTarget))
             {
                 states.EnterState("ChargingSpecialAttack");
                 states.ExitState("ChasingPlayer");
@@ -78,12 +98,14 @@ public class SamuraiDogAIController : MonoBehaviour, IController
             return;
         }
         
-        if (!movementComponent.disabled && distanceToPlayer < chaseDistance)
+        if (chaseTargets.Count > 0)
         {
-            states.EnterState("ChasingPlayer");
-            return;
+            if (!movementComponent.disabled)
+            {
+                states.EnterState("ChasingPlayer");
+                return;
+            }
         }
-        
 
         // control.secondaryAction = true;
         // control.direction = new Vector2(-1, -1);

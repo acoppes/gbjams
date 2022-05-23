@@ -56,5 +56,7 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
         var movementComponent = UnitMovementComponent.Default;
         movementComponent.speed = movementSpeed;
         world.AddComponent(entity, movementComponent);
+        
+        world.AddComponent(entity, new TargetComponent());
     }
 }
