@@ -61,7 +61,7 @@ public class UnitNekoninController : MonoBehaviour, IController
                 // states.ExitState("Attacking");
                 unitState.attacking1 = false;
 
-                attack.Complete();
+                attack.Stop();
             }    
         }
 

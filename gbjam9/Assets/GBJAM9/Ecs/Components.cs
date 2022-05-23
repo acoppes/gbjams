@@ -10,6 +10,7 @@ namespace GBJAM9.Ecs
     public struct LookingDirection : IEntityComponent
     {
         public Vector2 value;
+        public bool disableIndicator;
     }
     
     public struct LookingDirectionIndicator : IEntityComponent
@@ -32,12 +33,15 @@ namespace GBJAM9.Ecs
         public bool mainAction;
 
         public bool secondaryAction;
+        public bool locked;
     }
 
     public struct UnitModelComponent : IEntityComponent
     {
         public GameObject prefab;
         public GameObject instance;
+
+        public bool rotateToDirection;
     }
     
     public struct UnitMovementComponent : IEntityComponent
@@ -48,17 +52,9 @@ namespace GBJAM9.Ecs
 
         public float extraSpeed;
 
-        public Vector2 perspective;
-
         public Vector2 currentVelocity;
 
         public Vector2 movingDirection;
-
-        public static UnitMovementComponent Default => new()
-        {
-            perspective = new Vector2(1.0f, 0.75f),
-            movingDirection = new Vector2(0, 0)
-        };
     }
 
     public struct UnitStateComponent : IEntityComponent
@@ -85,20 +81,33 @@ namespace GBJAM9.Ecs
         public float runningTime;
         
         public bool isReady => cooldownCurrent > cooldownTotal && !isRunning;
-        public bool isComplete => runningTime > duration;
+        public bool isComplete;
 
         public bool isRunning;
+
+        public Vector2 position;
+        public Vector2 direction;
+
+        public IEntityDefinition projectileDefinition;
 
         public void StartRunning()
         {
             runningTime = 0;
             isRunning = true;
+            // isComplete = false;
         }
 
-        public void Complete()
+        public void Stop()
         {
             cooldownCurrent = 0;
             isRunning = false;
+            // isComplete = false;
+        }
+
+        public void Cancel()
+        {
+            isRunning = false;
+            // isComplete = false;
         }
     }
     
@@ -115,6 +124,14 @@ namespace GBJAM9.Ecs
     public struct AnimatorComponent : IEntityComponent
     {
         public Animator animator;
+    }
+
+    public struct ProjectileComponent : IEntityComponent
+    {
+        public Vector2 startPosition;
+        public Vector2 startDirection;
+
+        public bool started;
     }
 
     public class TargetExtra

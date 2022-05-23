@@ -12,8 +12,6 @@ public class SamuraiDogController : MonoBehaviour, IController
     
     public void OnUpdate(float dt, World world, int entity)
     {
-        ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
-        
         ref var movementComponent = ref world.GetComponent<UnitMovementComponent>(entity);
         
         ref var unitState = ref world.GetComponent<UnitStateComponent>(entity);
@@ -26,6 +24,7 @@ public class SamuraiDogController : MonoBehaviour, IController
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
         
         var attack = abilities.Get("Attack");
+        var chargeSpecialAttack = abilities.Get("ChargeSpecialAttack");
         
         if (states.HasState("SpecialAttackRecovery"))
         {
@@ -34,7 +33,8 @@ public class SamuraiDogController : MonoBehaviour, IController
             if (state.time > specialAttackRecoveryTime)
             {
                 states.ExitState("SpecialAttackRecovery");
-                playerInput.disabled = false;
+                // playerInput.disabled = false;
+                control.locked = false;
                 unitState.attacking1 = false;
                 
                 // control.directionLocked = false;
@@ -66,7 +66,7 @@ public class SamuraiDogController : MonoBehaviour, IController
         if (states.HasState("ChargingAttack"))
         {
             var state = states.GetState("ChargingAttack");
-            var chargeSpecialAttack = abilities.Get("ChargeSpecialAttack");
+          
             
             if (!control.secondaryAction)
             {
@@ -74,15 +74,20 @@ public class SamuraiDogController : MonoBehaviour, IController
                 states.ExitState("ChargingAttack");
                 unitState.chargeAttack1 = false;
 
+                // chargeSpecialAttack.Stop(); // didnt execute, dont reset cooldown
+                chargeSpecialAttack.Cancel();
+                
                 if (state.time > chargeSpecialAttack.duration)
                 {
+                    chargeSpecialAttack.Stop();
+                    
                     // enter attacking state
                     states.EnterState("SpecialAttack");
                     // set speed and movement direction like a dash
                     
-                    playerInput.disabled = true;
                     unitState.attacking1 = true;
 
+                    control.locked = true;
                     control.direction = lookingDirection.value;
 
                     movementComponent.extraSpeed = specialAttackExtraSpeed;
@@ -117,7 +122,7 @@ public class SamuraiDogController : MonoBehaviour, IController
                 // states.ExitState("Attacking");
                 unitState.attacking1 = false;
 
-                attack.Complete();
+                attack.Stop();
             }    
         }
 
@@ -139,11 +144,12 @@ public class SamuraiDogController : MonoBehaviour, IController
         }
 
         // secondary action is pressed
-        if (control.secondaryAction)
+        if (control.secondaryAction && chargeSpecialAttack.isReady)
         {
             movementComponent.disabled = true;
             states.EnterState("ChargingAttack");
             unitState.chargeAttack1 = true;
+            chargeSpecialAttack.StartRunning();
             return;
         }
         

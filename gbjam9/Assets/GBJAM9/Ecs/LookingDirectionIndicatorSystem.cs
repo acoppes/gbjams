@@ -14,9 +14,14 @@ namespace GBJAM9.Ecs
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             if (lookingDirectionComponents.Has(entity))
             {
-                var indicators = world.GetComponents<LookingDirectionIndicator>();
-                ref var indicatorComponent = ref indicators.Add(entity);
-                indicatorComponent.instance = GameObject.Instantiate(indicatorPrefab);
+                var lookingDirection = lookingDirectionComponents.Get(entity);
+                
+                if (!lookingDirection.disableIndicator)
+                {
+                    var indicators = world.GetComponents<LookingDirectionIndicator>();
+                    ref var indicatorComponent = ref indicators.Add(entity);
+                    indicatorComponent.instance = GameObject.Instantiate(indicatorPrefab);
+                }
             }
         }
 

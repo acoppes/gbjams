@@ -55,18 +55,20 @@ namespace GBJAM9.Ecs
 
                 var scale = modelInstance.transform.localScale;
 
-                if (Mathf.Abs(lookingDirection.value.x) > 0)
+                if (!modelComponent.rotateToDirection)
                 {
-                    scale.x = lookingDirection.value.x < 0 ? -1 : 1;
+                    if (Mathf.Abs(lookingDirection.value.x) > 0)
+                    {
+                        scale.x = lookingDirection.value.x < 0 ? -1 : 1;
+                    }
+                    
+                    modelInstance.transform.localScale = scale;
                 }
-
-                // if (e.model.verticalFlip && Mathf.Abs(e.model.lookingDirection.y) > 0)
-                // {
-                //     // e.model.model.flipY = e.model.lookingDirection.y > 0;
-                //     scale.y = e.model.lookingDirection.y > 0 ? -1 : 1;
-                // }
-
-                modelInstance.transform.localScale = scale;
+                else
+                {
+                    var angle = Mathf.Atan2(lookingDirection.value.y, lookingDirection.value.x) * Mathf.Rad2Deg;
+                    modelInstance.transform.Find("Model").rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                }
             }
         }
     }

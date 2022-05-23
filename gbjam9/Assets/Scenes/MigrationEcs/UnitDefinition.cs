@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class UnitDefinition : MonoBehaviour, IEntityDefinition
 {
-    public bool controllable;
-    
     public float movementSpeed;
     public GameObject modelPrefab;
 
@@ -19,11 +17,7 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
             value = Vector2.right
         });
         world.AddComponent(entity, new UnitControlComponent());
-        
-        if (controllable)
-        {
-            world.AddComponent(entity, new PlayerInputComponent());
-        }
+        world.AddComponent(entity, new PlayerInputComponent());
         
         world.AddComponent(entity, new UnitStateComponent());
         world.AddComponent(entity, new AnimatorComponent());
@@ -40,11 +34,20 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
 
         foreach (var abilityDefinition in abilityDefinitions)
         {
+            IEntityDefinition projectileDefinition = null;
+
+            if (abilityDefinition.projectileDefinitionPrefab != null)
+            {
+                projectileDefinition = abilityDefinition.projectileDefinitionPrefab
+                    .GetComponentInChildren<IEntityDefinition>();
+            }
+            
             abilities.Add(new Ability
             {
                 name = abilityDefinition.gameObject.name,
                 duration = abilityDefinition.duration,
-                cooldownTotal = abilityDefinition.cooldown
+                cooldownTotal = abilityDefinition.cooldown,
+                projectileDefinition = projectileDefinition
             });
         }
         
@@ -53,9 +56,10 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
             abilities = abilities
         });
 
-        var movementComponent = UnitMovementComponent.Default;
-        movementComponent.speed = movementSpeed;
-        world.AddComponent(entity, movementComponent);
+        world.AddComponent(entity, new UnitMovementComponent()
+        {
+            speed = movementSpeed
+        });
         
         world.AddComponent(entity, new TargetComponent());
     }

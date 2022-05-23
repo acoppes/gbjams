@@ -19,7 +19,7 @@ namespace GBJAM9.Ecs
                 ref var control = ref controlComponents.Get(entity);
                 var playerInputComponent = playerInputComponents.Get(entity);
 
-                if (!playerInputComponent.disabled)
+                if (!playerInputComponent.disabled && !control.locked)
                 {
                     control.direction = playerInputComponent.keyMap.direction;
 

@@ -6,6 +6,8 @@ using UnityEngine;
 public class SamuraiDogAIController : MonoBehaviour, IController
 {
     public float chaseDistance;
+    
+    public float basicAttackDistance = 0.5f;
     public float specialAttackDistance;
 
     public float specialAttackChargeTime;
@@ -13,30 +15,26 @@ public class SamuraiDogAIController : MonoBehaviour, IController
     public void OnUpdate(float dt, World world, int entity)
     {
         ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
+        
         var position = world.GetComponent<PositionComponent>(entity);
         var playerComponent = world.GetComponent<PlayerComponent>(entity);
         
         ref var movementComponent = ref world.GetComponent<UnitMovementComponent>(entity);
-        
-        ref var unitState = ref world.GetComponent<UnitStateComponent>(entity);
-        
+
         ref var states = ref world.GetComponent<StatesComponent>(entity);
         ref var control = ref world.GetComponent<UnitControlComponent>(entity);
 
-        ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
+        // if controllable by player, disable AI.
+        if (!playerInput.disabled)
+            return;
         
-        var lookingDirection = world.GetComponent<LookingDirection>(entity);
+        var basicAttackTargeting = new TargetingParameters
+        {
+            player = playerComponent.player,
+            position = position.value,
+            range = basicAttackDistance
+        };
         
-        var attack = abilities.Get("Attack");
-
-        playerInput.disabled = true;
-        
-        // take control of the character...
-        
-        // find targets, if found and ability ready, start charging...
-        
-        // if inside range, start charging attack
-
         var specialAttackTargeting = new TargetingParameters
         {
             player = playerComponent.player,
@@ -46,29 +44,6 @@ public class SamuraiDogAIController : MonoBehaviour, IController
 
         // var targets = TargetingUtils.FindTargets(world, specialAttackTargeting);
 
-        var chaseTargets = TargetingUtils.FindTargets(world, new TargetingParameters
-        {
-            player = playerComponent.player,
-            position = position.value,
-            range = chaseDistance,
-            extraValidation = delegate(TargetingParameters parameters, Target target)
-            {
-                if (target.extra is not TargetExtra targetExtra)
-                {
-                    return false;
-                }
-                
-                var direction = (target.position - parameters.position).normalized;
-                
-                if (Vector2.Angle(targetExtra.lookingDirection, direction) > 45)
-                {
-                    return false;
-                }
-                
-                return true;
-            }
-        });
-        
         // it is performing the special attack or recovering from the attack
         if (states.HasState("SpecialAttack") || states.HasState("SpecialAttackRecovery"))
         {
@@ -88,6 +63,62 @@ public class SamuraiDogAIController : MonoBehaviour, IController
                 return;
             }
         }
+        
+        var basicAttackTargets = TargetingUtils.FindTargets(world, basicAttackTargeting);
+
+        // if (states.HasState("BasicAttack"))
+        // {
+        //     var chaseTarget = chaseTargets[0];
+        //     
+        //     control.direction = (chaseTarget.position - position.value).normalized;
+        //
+        //     if (TargetingUtils.ValidateTarget(specialAttackTargeting, chaseTarget))
+        //     {
+        //         states.EnterState("ChargingSpecialAttack");
+        //         states.ExitState("ChasingPlayer");
+        //
+        //         control.secondaryAction = true;
+        //
+        //         return;
+        //     }
+        //     
+        //     return;
+        // }
+
+        if (states.HasState("DelayAfterAttack"))
+        {
+            var state = states.GetState("DelayAfterAttack");
+            
+            control.direction = Vector2.zero;
+            control.mainAction = false;
+            
+            if (state.time > 1)
+            {
+                states.ExitState("DelayAfterAttack");
+            }
+
+            return;
+        }
+        
+        if (basicAttackTargets.Count > 0)
+        {
+            // states.EnterState("BasicAttack");
+            var basicAttackTarget = basicAttackTargets[0];
+            control.direction = (basicAttackTarget.position - position.value).normalized;
+            control.mainAction = true;
+            
+            // enter ai state recover from attack or delay attack or something? 
+            states.EnterState("DelayAfterAttack");
+            
+            return;
+        }
+        
+        var chaseTargets = TargetingUtils.FindTargets(world, new TargetingParameters
+        {
+            player = playerComponent.player,
+            position = position.value,
+            range = chaseDistance
+        });
         
         if (states.HasState("ChasingPlayer"))
         {

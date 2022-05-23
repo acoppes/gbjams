@@ -6,6 +6,8 @@ namespace GBJAM9.Ecs
 {
     public class UnitMovementSystem : BaseSystem, IEcsRunSystem
     {
+        private static Vector2 gamePerspective = new Vector2(1.0f, 0.75f);
+        
         public void Run(EcsSystems systems)
         {
             var inputs = world.GetComponents<UnitControlComponent>();
@@ -40,8 +42,8 @@ namespace GBJAM9.Ecs
                 var velocity = direction * speed;
 
                 velocity = new Vector2(
-                    velocity.x * movement.perspective.x, 
-                    velocity.y * movement.perspective.y);
+                    velocity.x * gamePerspective.x, 
+                    velocity.y * gamePerspective.y);
                     
                 // e.collider.rigidbody.velocity = velocity;
 
