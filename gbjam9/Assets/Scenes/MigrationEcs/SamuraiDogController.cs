@@ -23,8 +23,8 @@ public class SamuraiDogController : MonoBehaviour, IController
         
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
         
-        var attack = abilities.Get("Attack");
-        var chargeSpecialAttack = abilities.Get("ChargeSpecialAttack");
+        var attack = abilities.GetAbility("Attack");
+        var chargeSpecialAttack = abilities.GetAbility("ChargeSpecialAttack");
         
         if (states.HasState("SpecialAttackRecovery"))
         {
@@ -47,7 +47,7 @@ public class SamuraiDogController : MonoBehaviour, IController
         if (states.HasState("SpecialAttack"))
         {
             var state = states.GetState("SpecialAttack");
-            var specialAttack = abilities.Get("SpecialAttack");
+            var specialAttack = abilities.GetAbility("SpecialAttack");
             
             if (state.time > specialAttack.duration)
             {

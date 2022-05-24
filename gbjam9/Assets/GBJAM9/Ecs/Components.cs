@@ -86,7 +86,9 @@ namespace GBJAM9.Ecs
         
         public float runningTime;
         
-        public bool isReady => cooldownCurrent > cooldownTotal && !isRunning;
+        public bool isReady => isCooldownReady && !isRunning;
+        public bool isCooldownReady => cooldownCurrent > cooldownTotal;
+
         public bool isComplete;
 
         public bool isRunning;
@@ -118,14 +120,29 @@ namespace GBJAM9.Ecs
             // isComplete = false;
         }
     }
+
+    public class Targeting
+    {
+        public string name;
+
+        public TargetingParameters parameters;
+
+        public List<Target> targets = new ();
+    }
     
     public struct AbilitiesComponent : IEntityComponent
     {
         public List<Ability> abilities;
+        public List<Targeting> targetings;
 
-        public Ability Get(string name)
+        public Ability GetAbility(string name)
         {
             return abilities.FirstOrDefault(a => a.name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+        }
+        
+        public Targeting GetTargeting(string name)
+        {
+            return targetings.FirstOrDefault(a => a.name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 

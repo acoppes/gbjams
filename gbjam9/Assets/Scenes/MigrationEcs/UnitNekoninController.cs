@@ -30,12 +30,12 @@ public class UnitNekoninController : MonoBehaviour, IController
         
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
         
-        var attack = abilities.Get("Attack");
+        var attack = abilities.GetAbility("Attack");
         
         if (states.HasState("Dashing"))
         {
             var state = states.GetState("Dashing");
-            var dash = abilities.Get("Dash");
+            var dash = abilities.GetAbility("Dash");
             
             if (state.time > dash.duration)
             {

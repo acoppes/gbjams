@@ -10,6 +10,8 @@ public class AbilityDefinition : MonoBehaviour, IEntityDefinition
     public GameObject projectileDefinitionPrefab;
 
     public Ability.StartType startType;
+
+    public TargetingParameters targetingParameters;
     
     public void Apply(World world, int entity)
     {
@@ -30,6 +32,12 @@ public class AbilityDefinition : MonoBehaviour, IEntityDefinition
             cooldownTotal = cooldown,
             projectileDefinition = projectileDefinition,
             startType = startType
+        });
+        
+        abilitiesComponent.targetings.Add(new Targeting
+        {
+            name = gameObject.name,
+            parameters = targetingParameters
         });
     }
 }

@@ -34,6 +34,7 @@ Transform:
   - {fileID: 5604637773857428955}
   - {fileID: 1716379216866918536}
   - {fileID: 4545838844155997966}
+  - {fileID: 7237200743664504717}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -122,6 +123,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   duration: 0.25
+  projectileDefinitionPrefab: {fileID: 0}
+  startType: 0
+  targetingParameters:
+    range: 3
 --- !u!1 &4551420369769002896
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +172,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 5
-  duration: 0.3
+  duration: 1
+  projectileDefinitionPrefab: {fileID: 0}
+  startType: 0
+  targetingParameters:
+    range: 0
 --- !u!1 &5017544437398751780
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,3 +223,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0.25
   duration: 0.1
+  projectileDefinitionPrefab: {fileID: 0}
+  startType: 0
+  targetingParameters:
+    range: 0.5
+--- !u!1 &7613315262754970836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7237200743664504717}
+  - component: {fileID: 3480937741129145295}
+  m_Layer: 0
+  m_Name: Chase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7237200743664504717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7613315262754970836}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 478210605849480811}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3480937741129145295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7613315262754970836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39e43ec2f2a44514a97c2646bc8158d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 1
+  duration: 0
+  projectileDefinitionPrefab: {fileID: 0}
+  startType: 0
+  targetingParameters:
+    range: 11

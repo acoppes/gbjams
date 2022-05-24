@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GBJAM9.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
@@ -5,19 +6,11 @@ using UnityEngine;
 
 public class SamuraiDogAIController : MonoBehaviour, IController
 {
-    public float chaseDistance;
-    
-    public float basicAttackDistance = 0.5f;
-    public float specialAttackDistance;
-
-    public float specialAttackChargeTime;
-    
     public void OnUpdate(float dt, World world, int entity)
     {
         ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
         
         var position = world.GetComponent<PositionComponent>(entity);
-        var playerComponent = world.GetComponent<PlayerComponent>(entity);
         
         ref var movementComponent = ref world.GetComponent<UnitMovementComponent>(entity);
 
@@ -25,35 +18,16 @@ public class SamuraiDogAIController : MonoBehaviour, IController
         ref var control = ref world.GetComponent<UnitControlComponent>(entity);
 
         ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
-        var specialAttack = abilities.Get("SpecialAttack");
-        var chargeSpecialAttack = abilities.Get("ChargeSpecialAttack");
+        var specialAttack = abilities.GetAbility("SpecialAttack");
+        var chargeSpecialAttack = abilities.GetAbility("ChargeSpecialAttack");
         
         // if controllable by player, disable AI.
         if (!playerInput.disabled)
             return;
-        
-        var basicAttackTargeting = new TargetingParameters
-        {
-            player = playerComponent.player,
-            position = position.value,
-            range = basicAttackDistance
-        };
-        
-        var specialAttackTargeting = new TargetingParameters
-        {
-            player = playerComponent.player,
-            position = position.value,
-            range = specialAttackDistance
-        };
-                
-        var chaseTargets = TargetingUtils.FindTargets(world, new TargetingParameters
-        {
-            player = playerComponent.player,
-            position = position.value,
-            range = chaseDistance
-        });
 
         // var targets = TargetingUtils.FindTargets(world, specialAttackTargeting);
+
+        var chaseTargets = abilities.GetTargeting("Chase").targets;
 
         // it is performing the special attack or recovering from the attack
         if (states.HasState("SpecialAttack") || states.HasState("SpecialAttackRecovery"))
@@ -71,7 +45,7 @@ public class SamuraiDogAIController : MonoBehaviour, IController
                 control.direction = (chaseTarget.position - position.value).normalized;
             }
             
-            if (state.time > specialAttackChargeTime)
+            if (state.time > chargeSpecialAttack.duration)
             {
                 control.secondaryAction = false;
                 states.ExitState("ChargingSpecialAttack");
@@ -94,14 +68,12 @@ public class SamuraiDogAIController : MonoBehaviour, IController
 
             return;
         }
-
-        var basicAttackTargets = TargetingUtils.FindTargets(world, basicAttackTargeting);
-
+        
         if (chaseTargets.Count > 0 && chargeSpecialAttack.isReady)
         {
             var chaseTarget = chaseTargets[0];
             
-            if (TargetingUtils.ValidateTarget(specialAttackTargeting, chaseTarget))
+            if (TargetingUtils.ValidateTarget(abilities.GetTargeting("SpecialAttack").parameters, chaseTarget))
             {
                 states.EnterState("ChargingSpecialAttack");
                 states.ExitState("ChasingPlayer");
@@ -112,6 +84,8 @@ public class SamuraiDogAIController : MonoBehaviour, IController
                 return;
             }
         }
+
+        var basicAttackTargets = abilities.GetTargeting("Attack").targets;
 
         if (basicAttackTargets.Count > 0)
         {

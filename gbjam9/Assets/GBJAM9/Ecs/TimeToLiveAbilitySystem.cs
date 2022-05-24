@@ -15,7 +15,7 @@ namespace GBJAM9.Ecs
                 ref var healthComponent = ref healthComponents.Get(entity);
                 ref var abilitiesComponent = ref abilitiesComponents.Get(entity);
 
-                var timeToLive = abilitiesComponent.Get("TimeToLive");
+                var timeToLive = abilitiesComponent.GetAbility("TimeToLive");
 
                 if (timeToLive != null && timeToLive.isReady)
                 {

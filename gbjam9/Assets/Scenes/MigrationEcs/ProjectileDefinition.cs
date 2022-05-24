@@ -10,6 +10,7 @@ public class ProjectileDefinition : MonoBehaviour, IEntityDefinition
 
     public void Apply(World world, int entity)
     {
+        world.AddComponent(entity, new PlayerComponent());
         world.AddComponent(entity, new UnitControlComponent());
         
         world.AddComponent(entity, new ProjectileComponent());
@@ -22,7 +23,8 @@ public class ProjectileDefinition : MonoBehaviour, IEntityDefinition
         
         world.AddComponent(entity, new AbilitiesComponent
         {
-            abilities = new List<Ability>()
+            abilities = new List<Ability>(),
+            targetings = new List<Targeting>()
         });
         
         world.AddComponent(entity, new UnitModelComponent
