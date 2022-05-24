@@ -97,25 +97,6 @@ public class SamuraiDogAIController : MonoBehaviour, IController
 
         var basicAttackTargets = TargetingUtils.FindTargets(world, basicAttackTargeting);
 
-        // if (states.HasState("BasicAttack"))
-        // {
-        //     var chaseTarget = chaseTargets[0];
-        //     
-        //     control.direction = (chaseTarget.position - position.value).normalized;
-        //
-        //     if (TargetingUtils.ValidateTarget(specialAttackTargeting, chaseTarget))
-        //     {
-        //         states.EnterState("ChargingSpecialAttack");
-        //         states.ExitState("ChasingPlayer");
-        //
-        //         control.secondaryAction = true;
-        //
-        //         return;
-        //     }
-        //     
-        //     return;
-        // }
-
         if (chaseTargets.Count > 0 && chargeSpecialAttack.isReady)
         {
             var chaseTarget = chaseTargets[0];

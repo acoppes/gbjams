@@ -29,31 +29,9 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
             prefab = modelPrefab
         });
 
-        var abilityDefinitions = GetComponentsInChildren<AbilityDefinition>();
-        var abilities = new List<Ability>();
-
-        foreach (var abilityDefinition in abilityDefinitions)
-        {
-            IEntityDefinition projectileDefinition = null;
-
-            if (abilityDefinition.projectileDefinitionPrefab != null)
-            {
-                projectileDefinition = abilityDefinition.projectileDefinitionPrefab
-                    .GetComponentInChildren<IEntityDefinition>();
-            }
-            
-            abilities.Add(new Ability
-            {
-                name = abilityDefinition.gameObject.name,
-                duration = abilityDefinition.duration,
-                cooldownTotal = abilityDefinition.cooldown,
-                projectileDefinition = projectileDefinition
-            });
-        }
-        
         world.AddComponent(entity, new AbilitiesComponent
         {
-            abilities = abilities
+            abilities = new List<Ability>()
         });
 
         world.AddComponent(entity, new UnitMovementComponent()

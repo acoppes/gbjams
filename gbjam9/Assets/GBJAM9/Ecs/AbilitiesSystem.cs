@@ -17,6 +17,10 @@ namespace GBJAM9.Ecs
                     {
                         ability.cooldownCurrent = ability.cooldownTotal;
                     }
+                    else if (ability.startType == Ability.StartType.Unloaded)
+                    {
+                        ability.cooldownCurrent = 0;
+                    }
                 }
             }
         }

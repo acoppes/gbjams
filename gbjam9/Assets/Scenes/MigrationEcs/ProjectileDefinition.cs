@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GBJAM9.Ecs;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
@@ -19,6 +20,11 @@ public class ProjectileDefinition : MonoBehaviour, IEntityDefinition
             disableIndicator = true
         });
         
+        world.AddComponent(entity, new AbilitiesComponent
+        {
+            abilities = new List<Ability>()
+        });
+        
         world.AddComponent(entity, new UnitModelComponent
         {
             prefab = modelPrefab,
@@ -28,6 +34,17 @@ public class ProjectileDefinition : MonoBehaviour, IEntityDefinition
         world.AddComponent(entity, new UnitMovementComponent
         {
             speed = movementSpeed
+        });
+        
+        world.AddComponent(entity, new TargetEffectsComponent
+        {
+            targetEffects = new List<ITargetEffect>()
+        });
+        
+        world.AddComponent(entity, new HealthComponent
+        {
+            current = 1,
+            total = 1
         });
     }
 }

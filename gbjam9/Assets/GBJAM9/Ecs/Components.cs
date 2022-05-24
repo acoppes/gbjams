@@ -147,4 +147,25 @@ namespace GBJAM9.Ecs
         public Vector2 lookingDirection;
     }
 
+    public interface ITargetEffect
+    {
+        
+    }
+
+    public class DamageTargetEffect : ITargetEffect
+    {
+        public float damage;
+    }
+    
+    public struct TargetEffectsComponent : IEntityComponent
+    {
+        public List<ITargetEffect> targetEffects;
+    }
+
+    public struct HealthComponent : IEntityComponent
+    {
+        public float current;
+        public float total;
+    }
+
 }
