@@ -71,6 +71,12 @@ namespace GBJAM9.Ecs
 
     public class Ability
     {
+        public enum StartType
+        {
+            Loaded = 0,
+            Unloaded = 1
+        }
+        
         public string name;
         
         public float duration;
@@ -89,6 +95,8 @@ namespace GBJAM9.Ecs
         public Vector2 direction;
 
         public IEntityDefinition projectileDefinition;
+        
+        public Ability.StartType startType;
 
         public void StartRunning()
         {

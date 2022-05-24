@@ -4,8 +4,23 @@ using UnityEngine;
 
 namespace GBJAM9.Ecs
 {
-    public class AbilitiesSystem : BaseSystem, IEcsRunSystem
+    public class AbilitiesSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler
     {
+        public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, int entity)
+        {
+            if (world.HasComponent<AbilitiesComponent>(entity))
+            {
+                var abilitiesComponent = world.GetComponent<AbilitiesComponent>(entity);
+                foreach (var ability in abilitiesComponent.abilities)
+                {
+                    if (ability.startType == Ability.StartType.Loaded)
+                    {
+                        ability.cooldownCurrent = ability.cooldownTotal;
+                    }
+                }
+            }
+        }
+        
         public void Run(EcsSystems systems)
         {
             var filter = world.GetFilter<AbilitiesComponent>().End();
@@ -88,5 +103,7 @@ namespace GBJAM9.Ecs
                 }
             }
         }
+
+
     }
 }
