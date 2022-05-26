@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using GBJAM9.Components;
 using UnityEngine;
@@ -13,14 +12,15 @@ namespace GBJAM9.UI
 
         private List<HealthSlotUI> healthSlots = new List<HealthSlotUI>();
 
-        private int current;
-        
         public void SetHealth(HealthComponent health)
         {
-            current = health.current;
-            
+            SetHealth(health.current, health.total);
+        }
+        
+        public void SetHealth(float current, float total)
+        {
             // regenerate slots if different total
-            if (healthSlots.Count != health.total)
+            if (healthSlots.Count != total)
             {
                 // regenerate all sub 
 
@@ -31,7 +31,7 @@ namespace GBJAM9.UI
                 
                 healthSlots.Clear();
 
-                for (var i = 0; i < health.total; i++)
+                for (var i = 0; i < total; i++)
                 {
                     var healthSlotObject = Instantiate(healthSlotPrefab, container);
                     healthSlots.Add(healthSlotObject.GetComponent<HealthSlotUI>());

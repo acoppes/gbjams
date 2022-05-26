@@ -7,19 +7,31 @@ using UnityEngine;
 public class UnitDefinition : MonoBehaviour, IEntityDefinition
 {
     public float movementSpeed;
+    public float health;
+
+    public bool showLookingDirection = true;
+
+    public bool canBeControlled = true;
+    
     public GameObject modelPrefab;
 
     public void Apply(World world, int entity)
     {
         world.AddComponent(entity, new PlayerComponent());
         world.AddComponent(entity, new PositionComponent());
+        
         world.AddComponent(entity, new LookingDirection
         {
-            value = Vector2.right
+            value = Vector2.right, 
+            disableIndicator = !showLookingDirection
         });
-        world.AddComponent(entity, new UnitControlComponent());
-        world.AddComponent(entity, new PlayerInputComponent());
-        
+
+        if (canBeControlled)
+        {
+            world.AddComponent(entity, new PlayerInputComponent());
+            world.AddComponent(entity, new UnitControlComponent());
+        }
+
         world.AddComponent(entity, new UnitStateComponent());
         world.AddComponent(entity, new AnimatorComponent());
         
@@ -42,5 +54,14 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
         });
         
         world.AddComponent(entity, new TargetComponent());
+
+        if (health > 0)
+        {
+            world.AddComponent(entity, new HealthComponent
+            {
+                current = health,
+                total = health
+            });
+        }
     }
 }

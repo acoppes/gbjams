@@ -17,6 +17,7 @@ public class UnitNekoninController : MonoBehaviour, IController
         //     return;
         
         ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
+        ref var player = ref world.GetComponent<PlayerComponent>(entity);
         // playerInput.disabled = true;
         
         ref var movementComponent = ref world.GetComponent<UnitMovementComponent>(entity);
@@ -58,6 +59,18 @@ public class UnitNekoninController : MonoBehaviour, IController
             // if (state.time > attack.duration)
             if (attack.isComplete) 
             {
+                // FIRE KUNAI PROJECTILE! (depends on current weapon/etc)
+
+                var projectileEntity = ProjectileUtils.Fire(world, new ProjectileParameters
+                {
+                    definition = attack.projectileDefinition,
+                    position = attack.position, // attachpoints.Get("").position
+                    direction = attack.direction, // lookingdirection.value
+                    player = player.player
+                });
+                
+                // override something for that projectile?
+                
                 // states.ExitState("Attacking");
                 unitState.attacking1 = false;
 

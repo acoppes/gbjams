@@ -32,10 +32,20 @@ namespace GBJAM9.Ecs
 
     public struct UnitModelComponent : IEntityComponent
     {
+        public enum Visiblity
+        {
+            Visible = 0,
+            Hidden = 1
+        }
+        
         public GameObject prefab;
         public GameObject instance;
 
         public bool rotateToDirection;
+
+        public Visiblity visiblity;
+
+        public bool IsVisible => visiblity == Visiblity.Visible;
     }
     
     public struct UnitMovementComponent : IEntityComponent
