@@ -5,7 +5,7 @@ using Gemserk.Leopotam.Ecs.Controllers;
 using UnityEngine;
 using World = Gemserk.Leopotam.Ecs.World;
 
-public class TestEcsSceneController : MonoBehaviour, IController
+public class GameController : MonoBehaviour, IController
 {
     private bool initialized;
     
