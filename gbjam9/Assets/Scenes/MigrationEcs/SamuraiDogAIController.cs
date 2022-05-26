@@ -18,8 +18,8 @@ public class SamuraiDogAIController : MonoBehaviour, IController
         ref var control = ref world.GetComponent<UnitControlComponent>(entity);
 
         ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
-        var specialAttack = abilities.GetAbility("SpecialAttack");
-        var chargeSpecialAttack = abilities.GetAbility("ChargeSpecialAttack");
+        
+        var chargeSpecialAttack = abilities.GetAbility("SecondaryAbility");
         
         // if controllable by player, disable AI.
         if (!playerInput.disabled)
@@ -85,7 +85,7 @@ public class SamuraiDogAIController : MonoBehaviour, IController
             }
         }
 
-        var basicAttackTargets = abilities.GetTargeting("Attack").targets;
+        var basicAttackTargets = abilities.GetTargeting("MainAbility").targets;
 
         if (basicAttackTargets.Count > 0)
         {

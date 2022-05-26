@@ -62,6 +62,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3
   health: 5
+  showLookingDirection: 1
+  canBeControlled: 1
   modelPrefab: {fileID: 1644096927842248046, guid: cb506cdf0777af34d9410b5b6a192eb7, type: 3}
 --- !u!114 &-5211198163020410229
 MonoBehaviour:
@@ -87,7 +89,7 @@ GameObject:
   - component: {fileID: 7401153400255148397}
   - component: {fileID: 2625016977668829473}
   m_Layer: 0
-  m_Name: Dash
+  m_Name: SecondaryAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e43ec2f2a44514a97c2646bc8158d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 1
+  cooldown: 0.5
   duration: 0.25
   projectileDefinitionPrefab: {fileID: 0}
   startType: 0
@@ -137,7 +139,7 @@ GameObject:
   - component: {fileID: 4155008833266147918}
   - component: {fileID: 7756650505616963853}
   m_Layer: 0
-  m_Name: Attack
+  m_Name: MainAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

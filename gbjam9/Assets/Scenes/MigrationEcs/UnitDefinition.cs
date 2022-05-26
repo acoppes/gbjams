@@ -12,6 +12,7 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     public bool showLookingDirection = true;
 
     public bool canBeControlled = true;
+    public bool canBeTargeted = true;
     
     public GameObject modelPrefab;
 
@@ -53,8 +54,11 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
             speed = movementSpeed
         });
         
-        world.AddComponent(entity, new TargetComponent());
-
+        if (canBeTargeted)
+        {
+            world.AddComponent(entity, new TargetComponent());
+        }
+        
         if (health > 0)
         {
             world.AddComponent(entity, new HealthComponent

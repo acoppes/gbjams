@@ -23,8 +23,8 @@ public class SamuraiDogController : MonoBehaviour, IController
         
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
         
-        var attack = abilities.GetAbility("Attack");
-        var chargeSpecialAttack = abilities.GetAbility("ChargeSpecialAttack");
+        var attack = abilities.GetAbility("MainAbility");
+        var chargeSpecialAttack = abilities.GetAbility("SecondaryAbility");
         
         if (states.HasState("SpecialAttackRecovery"))
         {

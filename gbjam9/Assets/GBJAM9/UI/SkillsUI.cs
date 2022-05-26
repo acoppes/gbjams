@@ -47,5 +47,11 @@ namespace GBJAM9.UI
             
             dashCooldown.fillAmount = entity.dash.cooldownCurrent / entity.dash.cooldown;
         }
+
+        public void SetAbilities(float mainAbilityCooldown, float secondaryAbilityCooldown)
+        {
+            weaponCooldown.fillAmount = 1.0f - mainAbilityCooldown;
+            dashCooldown.fillAmount = 1.0f - secondaryAbilityCooldown;
+        }
     }
 }

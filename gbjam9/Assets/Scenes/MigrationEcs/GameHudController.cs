@@ -24,12 +24,21 @@ public class GameHudController : MonoBehaviour, IController
         }
         
         var healthComponent = world.GetComponent<HealthComponent>(mainCharacterEntity);
+        var abilitiesComponent = world.GetComponent<AbilitiesComponent>(mainCharacterEntity);
 
         var healthUI = instance.GetComponentInChildren<HealthUI>();
         
         if (healthUI != null)
         {
             healthUI.SetHealth(healthComponent.current, healthComponent.total);
+        }
+
+        var skillsUI = instance.GetComponentInChildren<SkillsUI>();
+
+        if (skillsUI != null)
+        {
+            skillsUI.SetAbilities(abilitiesComponent.GetAbility("MainAbility").CooldownFactor, 
+                abilitiesComponent.GetAbility("SecondaryAbility").CooldownFactor);
         }
         
         animator.SetBool(visibleHash, modelComponent.IsVisible);

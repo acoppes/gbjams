@@ -31,14 +31,14 @@ public class UnitNekoninController : MonoBehaviour, IController
         
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
         
-        var attack = abilities.GetAbility("Attack");
+        var attack = abilities.GetAbility("MainAbility");
+        var dash = abilities.GetAbility("SecondaryAbility");
         
-        if (states.HasState("Dashing"))
+        if (dash.isRunning)
         {
-            var state = states.GetState("Dashing");
-            var dash = abilities.GetAbility("Dash");
-            
-            if (state.time > dash.duration)
+            // var state = states.GetState("Dashing");
+
+            if (dash.isComplete)
             {
                 playerInput.disabled = false;
                 states.ExitState("Dashing");
@@ -46,6 +46,8 @@ public class UnitNekoninController : MonoBehaviour, IController
                 unitState.dashing = false;
                 
                 movementComponent.extraSpeed = 0;
+                
+                dash.Stop();
             }
 
             return;
@@ -93,9 +95,12 @@ public class UnitNekoninController : MonoBehaviour, IController
             states.ExitState("CantDashAgain");
         }
         
-        if (canDash.Match(states) && control.secondaryAction)
+        if (dash.isReady && canDash.Match(states) && control.secondaryAction)
         {
-            states.EnterState("Dashing");
+            // states.EnterState("Dashing");
+            
+            dash.StartRunning();
+            
             playerInput.disabled = true;
             unitState.dashing = true;
 
