@@ -19,7 +19,7 @@ namespace GBJAM9.Ecs
 
                 if (timeToLive != null && timeToLive.isReady)
                 {
-                    healthComponent.current = 0;
+                    healthComponent.deathRequest = true;
                 }
             }
         }

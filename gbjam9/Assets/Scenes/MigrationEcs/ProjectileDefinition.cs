@@ -48,7 +48,8 @@ public class ProjectileDefinition : MonoBehaviour, IEntityDefinition
         world.AddComponent(entity, new HealthComponent
         {
             current = 1,
-            total = 1
+            total = 1,
+            autoDestroyOnDeath = true
         });
 
         if (colliderRadius > 0)

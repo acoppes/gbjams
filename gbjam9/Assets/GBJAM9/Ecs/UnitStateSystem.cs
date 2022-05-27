@@ -10,6 +10,7 @@ namespace GBJAM9.Ecs
             var inputs = world.GetComponents<UnitControlComponent>();
             var movements = world.GetComponents<UnitMovementComponent>();
             var states = world.GetComponents<UnitStateComponent>();
+            var healths = world.GetComponents<HealthComponent>();
 
             foreach (var entity in world
                          .GetFilter<UnitStateComponent>()
@@ -22,6 +23,25 @@ namespace GBJAM9.Ecs
                 var movement = movements.Get(entity);
                 
                 unitStateComponent.walking = !movement.disabled && inputComponent.direction.sqrMagnitude > 0;
+            }
+            
+            foreach (var entity in world
+                         .GetFilter<UnitStateComponent>()
+                         .Inc<HealthComponent>()
+                         .End())
+            { 
+                ref var unitStateComponent = ref states.Get(entity);
+                var healthComponent = healths.Get(entity);
+                ref var triggers = ref unitStateComponent.stateTriggers;
+
+                triggers.hit = false;
+                
+                if (healthComponent.pendingDamages.Count > 0)
+                {
+                    triggers.hit = true;
+                }
+
+                unitStateComponent.isDeath = healthComponent.isDeath;
             }
         }
     }

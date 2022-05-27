@@ -61,19 +61,25 @@ namespace GBJAM9.Ecs
         public Vector2 movingDirection;
     }
 
+    public struct StateTriggers
+    {
+        public bool hit;
+    }
+
     public struct UnitStateComponent : IEntityComponent
     {
         public bool walking;
         public bool dashing;
+        public bool isDeath;
 
         public bool chargeAttack1;
         public bool attacking1;
 
         public bool chargeAttack2;
         public bool attacking2;
-    }
 
-   
+        public StateTriggers stateTriggers;
+    }
 
     public struct AnimatorComponent : IEntityComponent
     {
@@ -83,6 +89,7 @@ namespace GBJAM9.Ecs
     public class TargetExtra
     {
         public Vector2 lookingDirection;
+        public bool isAlive;
     }
 
     public interface ITargetEffect
@@ -100,10 +107,23 @@ namespace GBJAM9.Ecs
         public List<ITargetEffect> targetEffects;
     }
 
+    public struct Damage
+    {
+        public float value;
+    }
+
     public struct HealthComponent : IEntityComponent
     {
         public float current;
         public float total;
+
+        public bool deathRequest;
+
+        public bool isDeath => current <= 0f;
+
+        public List<Damage> pendingDamages;
+
+        public bool autoDestroyOnDeath;
     }
 
 }

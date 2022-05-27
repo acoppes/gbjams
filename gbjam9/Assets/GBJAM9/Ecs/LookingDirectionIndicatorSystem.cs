@@ -44,6 +44,7 @@ namespace GBJAM9.Ecs
             var indicators = world.GetComponents<LookingDirectionIndicator>();
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             var positions = world.GetComponents<PositionComponent>();
+            // var states = world.GetComponents<UnitStateComponent>();
 
             foreach (var entity in world.GetFilter<LookingDirectionIndicator>().Inc<LookingDirection>().End())
             {
@@ -66,6 +67,16 @@ namespace GBJAM9.Ecs
                 var indicatorInstance = indicatorComponent.instance;
                 indicatorInstance.transform.position = positionComponent.value;
             }
+            
+            // indicator could be another entity instead of being only the model and use common model stuff.
+            // foreach (var entity in world.GetFilter<LookingDirectionIndicator>().Inc<UnitStateComponent>().End())
+            // {
+            //     var indicatorComponent = indicators.Get(entity);
+            //     var state = states.Get(entity);
+            //
+            //     var indicatorInstance = indicatorComponent.instance;
+            //     indicatorInstance.layer = state.isDeath ? LayerMask.NameToLayer("Hidden") : LayerMask.NameToLayer("Default");
+            // }
         }
 
 

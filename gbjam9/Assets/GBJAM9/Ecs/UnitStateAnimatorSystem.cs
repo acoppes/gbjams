@@ -51,6 +51,16 @@ namespace GBJAM9.Ecs
                     .SetBool("sword_attack", unitStateComponent.attacking1);
                 animatorComponent.animator
                     .SetBool("charge_attack1", unitStateComponent.chargeAttack1);
+
+                if (unitStateComponent.stateTriggers.hit)
+                {
+                    animatorComponent.animator.SetTrigger("hitted");
+                }
+
+                if (unitStateComponent.isDeath)
+                {
+                    animatorComponent.animator.SetTrigger("dead");
+                }
             }
             
         }

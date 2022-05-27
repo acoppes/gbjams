@@ -7,17 +7,29 @@ namespace GBJAM9.Ecs
     {
         public void Run(EcsSystems systems)
         {
-            var filter = world.GetFilter<UnitControlComponent>()
-                .Inc<PlayerInputComponent>().End();
-            
+            var filter = world
+                .GetFilter<UnitControlComponent>()
+                .Inc<PlayerInputComponent>()
+                .Inc<PlayerComponent>()
+                .End();
+
+            var gameData = world.sharedData.sharedData as SharedGameData;
+
             var controlComponents = world.GetComponents<UnitControlComponent>();
             var playerInputComponents = world.GetComponents<PlayerInputComponent>();
+            var playerComponents = world.GetComponents<PlayerComponent>();
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             
             foreach (var entity in filter)
             {
                 ref var control = ref controlComponents.Get(entity);
                 var playerInputComponent = playerInputComponents.Get(entity);
+                var playerComponent = playerComponents.Get(entity);
+
+                if (playerComponent.player != gameData.activePlayer)
+                {
+                    continue;
+                }
 
                 if (!playerInputComponent.disabled && !control.locked)
                 {

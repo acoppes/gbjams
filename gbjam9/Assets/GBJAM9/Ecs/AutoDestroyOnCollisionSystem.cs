@@ -22,7 +22,7 @@ namespace GBJAM9.Ecs
                 if (colliderComponent.collisionCount > 0 && 
                     autoDestroyOnCollision != null && autoDestroyOnCollision.isReady)
                 {
-                    healthComponent.current = 0;
+                    healthComponent.deathRequest = true;
                 }
             }
         }

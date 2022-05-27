@@ -22,7 +22,7 @@ public class SamuraiDogAIController : MonoBehaviour, IController
         var chargeSpecialAttack = abilities.GetAbility("SecondaryAbility");
         
         // if controllable by player, disable AI.
-        if (!playerInput.disabled)
+        if (playerInput.disabled)
             return;
 
         // var targets = TargetingUtils.FindTargets(world, specialAttackTargeting);

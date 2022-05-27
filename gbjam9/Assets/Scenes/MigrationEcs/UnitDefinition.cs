@@ -13,6 +13,8 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
 
     public bool canBeControlled = true;
     public bool canBeTargeted = true;
+
+    public bool autoDestroyOnDeath = true;
     
     public GameObject modelPrefab;
 
@@ -64,7 +66,8 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
             world.AddComponent(entity, new HealthComponent
             {
                 current = health,
-                total = health
+                total = health,
+                autoDestroyOnDeath = autoDestroyOnDeath
             });
         }
     }

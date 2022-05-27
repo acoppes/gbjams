@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 478210605849480811}
   - component: {fileID: 478210605849480810}
   - component: {fileID: 8481533805182933453}
+  - component: {fileID: 807824903925831709}
   m_Layer: 0
   m_Name: KunaiDefinition
   m_TagString: Untagged
@@ -34,6 +35,7 @@ Transform:
   - {fileID: 5364622306746497433}
   - {fileID: 3274654909776447297}
   - {fileID: 7041970079398835137}
+  - {fileID: 434432336204895248}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -64,6 +66,64 @@ MonoBehaviour:
   movementSpeed: 10
   modelPrefab: {fileID: 1644096927842248046, guid: ec3fd433023b58c4f92dc6bcc7e2830d, type: 3}
   colliderRadius: 0.1
+--- !u!114 &807824903925831709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478210605849480809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fed36fba5545a590bfd73117b22da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerObject: {fileID: 1776409513486576498}
+--- !u!1 &1776409513486576498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 434432336204895248}
+  - component: {fileID: 6870941286135721498}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &434432336204895248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776409513486576498}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 478210605849480811}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6870941286135721498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776409513486576498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 163e2f7cea4d4107bb7121613e6d1742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!1 &2942775155103773382
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +135,7 @@ GameObject:
   - component: {fileID: 3274654909776447297}
   - component: {fileID: 9028926499756533181}
   m_Layer: 0
-  m_Name: DetectTarget
+  m_Name: DamageOnImpact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +173,7 @@ MonoBehaviour:
   projectileDefinitionPrefab: {fileID: 0}
   startType: 0
   targetingParameters:
-    range: 0.25
+    range: 0.15
 --- !u!1 &7748243725680354033
 GameObject:
   m_ObjectHideFlags: 0

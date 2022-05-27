@@ -13,6 +13,11 @@ public class GameController : MonoBehaviour, IController
     {
         if (!initialized)
         {
+            world.sharedData.sharedData = new SharedGameData
+            {
+                activePlayer = 0
+            };
+            
             var mainCharacterEntity = world.GetEntityByName("Main_Character");
             if (mainCharacterEntity != Entity.NullEntity)
             {
