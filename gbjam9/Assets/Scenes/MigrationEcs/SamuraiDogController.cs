@@ -10,7 +10,7 @@ public class SamuraiDogController : MonoBehaviour, IController
     public float specialAttackExtraSpeed;
     public float specialAttackRecoveryTime;
     
-    public void OnUpdate(float dt, World world, int entity)
+    public void OnUpdate(float dt, World world, Entity entity)
     {
         ref var movementComponent = ref world.GetComponent<UnitMovementComponent>(entity);
         

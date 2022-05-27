@@ -8,6 +8,8 @@ public class ProjectileDefinition : MonoBehaviour, IEntityDefinition
     public float movementSpeed;
     public GameObject modelPrefab;
 
+    public float colliderRadius = 0;
+
     public void Apply(World world, int entity)
     {
         world.AddComponent(entity, new PlayerComponent());
@@ -48,5 +50,14 @@ public class ProjectileDefinition : MonoBehaviour, IEntityDefinition
             current = 1,
             total = 1
         });
+
+        if (colliderRadius > 0)
+        {
+            world.AddComponent(entity, new ColliderComponent
+            {
+                radius = colliderRadius,
+                collisions = new Collider2D[10]
+            });
+        }
     }
 }

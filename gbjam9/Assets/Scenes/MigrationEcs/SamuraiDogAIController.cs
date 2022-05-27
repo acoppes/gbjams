@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SamuraiDogAIController : MonoBehaviour, IController
 {
-    public void OnUpdate(float dt, World world, int entity)
+    public void OnUpdate(float dt, World world, Entity entity)
     {
         ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
         

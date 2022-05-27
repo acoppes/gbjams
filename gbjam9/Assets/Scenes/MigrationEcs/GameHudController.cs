@@ -8,7 +8,7 @@ public class GameHudController : MonoBehaviour, IController
 {
     private static readonly int visibleHash = Animator.StringToHash("visible");
     
-    public void OnUpdate(float dt, World world, int entity)
+    public void OnUpdate(float dt, World world, Entity entity)
     {
         ref var modelComponent = ref world.GetComponent<UnitModelComponent>(entity);
 

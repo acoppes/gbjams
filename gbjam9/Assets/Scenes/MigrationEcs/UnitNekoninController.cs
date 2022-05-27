@@ -11,7 +11,7 @@ public class UnitNekoninController : MonoBehaviour, IController
 
     private readonly StateFilter canDash = new StateFilter(null, "CantDashAgain");
 
-    public void OnUpdate(float dt, World world, int entity)
+    public void OnUpdate(float dt, World world, Entity entity)
     {
         // if (world.HasComponent<PlayerInputComponent>(entity))
         //     return;

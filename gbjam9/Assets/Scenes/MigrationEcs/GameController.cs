@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour, IController
 {
     private bool initialized;
     
-    public void OnUpdate(float dt, World world, int entity)
+    public void OnUpdate(float dt, World world, Entity entity)
     {
         if (!initialized)
         {
