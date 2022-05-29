@@ -16,13 +16,14 @@ public class SamuraiDogAIController : MonoBehaviour, IController
 
         ref var states = ref world.GetComponent<StatesComponent>(entity);
         ref var control = ref world.GetComponent<UnitControlComponent>(entity);
+        ref var unitState = ref world.GetComponent<UnitStateComponent>(entity);
 
         ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
         
         var chargeSpecialAttack = abilities.GetAbility("SecondaryAbility");
         
         // if controllable by player, disable AI.
-        if (playerInput.disabled)
+        if (playerInput.disabled || unitState.isDeath)
             return;
 
         // var targets = TargetingUtils.FindTargets(world, specialAttackTargeting);
