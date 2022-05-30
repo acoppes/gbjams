@@ -107,23 +107,6 @@ namespace GBJAM9.Ecs
         public List<ITargetEffect> targetEffects;
     }
 
-    public struct Damage
-    {
-        public float value;
-    }
 
-    public struct HealthComponent : IEntityComponent
-    {
-        public float current;
-        public float total;
-
-        public bool deathRequest;
-
-        public bool isDeath => current <= 0f;
-
-        public List<Damage> pendingDamages;
-
-        public bool autoDestroyOnDeath;
-    }
 
 }
