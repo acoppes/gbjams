@@ -23,8 +23,17 @@ public class SamuraiDogAIController : MonoBehaviour, IController
         var chargeSpecialAttack = abilities.GetAbility("SecondaryAbility");
         
         // if controllable by player, disable AI.
-        if (playerInput.disabled || unitState.isDeath)
+        
+        // TODO: stop running stuff if death (controls)
+        
+        if (playerInput.disabled)
             return;
+
+        if (unitState.healthState == HealthComponent.State.Death)
+        {
+            control.direction = Vector2.zero;
+            return;
+        }
 
         // var targets = TargetingUtils.FindTargets(world, specialAttackTargeting);
 

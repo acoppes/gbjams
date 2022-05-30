@@ -41,7 +41,7 @@ namespace GBJAM9.Ecs
                     triggers.hit = true;
                 }
 
-                unitStateComponent.isDeath = healthComponent.isDeath;
+                unitStateComponent.healthState = healthComponent.state;
             }
         }
     }

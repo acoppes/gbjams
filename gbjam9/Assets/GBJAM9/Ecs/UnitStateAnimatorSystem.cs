@@ -57,7 +57,7 @@ namespace GBJAM9.Ecs
                     animatorComponent.animator.SetTrigger("hitted");
                 }
 
-                if (unitStateComponent.isDeath)
+                if (unitStateComponent.healthState == HealthComponent.State.Death)
                 {
                     animatorComponent.animator.SetTrigger("dead");
                 }

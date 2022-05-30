@@ -70,7 +70,7 @@ namespace GBJAM9.Ecs
     {
         public bool walking;
         public bool dashing;
-        public bool isDeath;
+        public HealthComponent.State healthState;
 
         public bool chargeAttack1;
         public bool attacking1;
