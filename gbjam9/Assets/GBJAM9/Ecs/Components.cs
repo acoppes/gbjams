@@ -107,6 +107,15 @@ namespace GBJAM9.Ecs
         public List<ITargetEffect> targetEffects;
     }
 
+    // public struct PhysicsBodyComponent : IEntityComponent
+    // {
+    //     // add stuff to initialize the body
+    //     public Rigidbody2D bodyInstance;
+    // }
 
+    public struct TerrainCollisionComponent : IEntityComponent
+    {
+        public Vector2 lastValidPosition;
+    }
 
 }

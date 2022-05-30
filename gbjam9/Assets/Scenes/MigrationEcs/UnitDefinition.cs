@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GBJAM9.Ecs;
 using Gemserk.Leopotam.Ecs;
@@ -15,6 +16,9 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     public bool canBeTargeted = true;
 
     public bool autoDestroyOnDeath = true;
+
+    public float colliderRadius = 0f;
+    public bool collidesWithTerrain = true;
     
     public GameObject modelPrefab;
 
@@ -70,5 +74,24 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
                 autoDestroyOnDeath = autoDestroyOnDeath
             });
         }
+
+        if (colliderRadius > 0)
+        {
+            world.AddComponent(entity, new ColliderComponent
+            {
+                radius = colliderRadius,
+                collisions = new Collider2D[10]
+            });
+        }
+
+        if (collidesWithTerrain)
+        {
+            world.AddComponent(entity, new TerrainCollisionComponent());
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, colliderRadius);
     }
 }
