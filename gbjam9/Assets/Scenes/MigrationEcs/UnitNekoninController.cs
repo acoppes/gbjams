@@ -2,6 +2,7 @@ using System.Linq;
 using GBJAM9.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
+using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
 public class UnitNekoninController : MonoBehaviour, IController

@@ -2,6 +2,7 @@ using GBJAM9.Ecs;
 using GBJAM9.UI;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
+using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
 public class GameHudController : MonoBehaviour, IController

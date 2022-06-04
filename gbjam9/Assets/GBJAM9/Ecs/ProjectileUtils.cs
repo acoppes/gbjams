@@ -1,4 +1,5 @@
 using Gemserk.Leopotam.Ecs;
+using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
 namespace GBJAM9.Ecs

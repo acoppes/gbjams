@@ -1,4 +1,4 @@
-using Gemserk.Leopotam.Ecs;
+using Gemserk.Leopotam.Ecs.Gameplay;
 
 public class GameTargetingDefinition : TargetingDefinition
 {
