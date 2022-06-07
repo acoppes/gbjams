@@ -7,6 +7,7 @@ namespace GBJAM9.Components
     public class ControllerComponent : MonoBehaviour, IEntityComponent
     {
         public Object controllerObject;
+        
         [NonSerialized]
         public bool initialized;
     }
