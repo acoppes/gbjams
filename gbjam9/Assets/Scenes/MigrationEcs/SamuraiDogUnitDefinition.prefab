@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 478210605849480811}
   - component: {fileID: 478210605849480810}
   - component: {fileID: 478210605849480852}
-  - component: {fileID: -5211198163020410229}
+  - component: {fileID: 7950440419967001230}
   m_Layer: 0
   m_Name: SamuraiDogUnitDefinition
   m_TagString: Untagged
@@ -37,6 +37,7 @@ Transform:
   - {fileID: 7237200743664504717}
   - {fileID: 5098878103527251814}
   - {fileID: 1836208268440711791}
+  - {fileID: 1451211133388072057}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73,7 +74,7 @@ MonoBehaviour:
   colliderRadius: 0.15
   collidesWithTerrain: 1
   modelPrefab: {fileID: 5098878103527251825}
---- !u!114 &-5211198163020410229
+--- !u!114 &7950440419967001230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fed36fba5545a590bfd73117b22da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerObject: {fileID: 1836208268440711800}
+  controllerObject: {fileID: 8497133736822605092}
 --- !u!1 &1836208268440711800
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,3 +547,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 11
   state: 1
+--- !u!1 &8497133736822605092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1451211133388072057}
+  - component: {fileID: 7593593542497800373}
+  - component: {fileID: 703270761665154958}
+  m_Layer: 6
+  m_Name: LuaController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1451211133388072057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497133736822605092}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 478210605849480811}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7593593542497800373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497133736822605092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bcd70bf9024528af02743321179012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialAttackExtraSpeed: 11
+  specialAttackRecoveryTime: 1
+--- !u!114 &703270761665154958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497133736822605092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2242f17ef8f43ae968e2a4209e2e9d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  luaScript: {fileID: 4900000, guid: 778974d0943a29746b994e3862ee00a3, type: 3}

@@ -3,6 +3,7 @@ using GBJAM9.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
+using MoonSharp.Interpreter;
 using UnityEngine;
 
 public class SamuraiDogAIController : MonoBehaviour, IController
@@ -24,6 +25,29 @@ public class SamuraiDogAIController : MonoBehaviour, IController
         var chargeSpecialAttack = abilities.GetAbility("SecondaryAbility");
         
         // if controllable by player, disable AI.
+
+        // var lua = new Lua();
+        // lua["x"] = 10;
+        // var x = (int) lua.DoString("x = x + 1`")[0];
+        // Debug.Log(x);
+
+        // var scriptCode = @"
+        //     return x + 1
+        // ";
+        //
+        // var script = new Script();
+        //
+        // // DynValue x = UserData.Create(5);
+        // // Debug.Log(x.Number);
+        //
+        // script.Globals["x"] = 5;
+        //
+        // var result = script.DoString(scriptCode);
+        // Debug.Log(result.Number);
+        
+        // DynValue res = Script.RunString(script);
+        // return res.Number;
+        
         
         // TODO: stop running stuff if death (controls)
         
