@@ -20,6 +20,8 @@ namespace GBJAM9.Ecs
             Script.DefaultOptions.ScriptLoader = new FileSystemScriptLoader();
             
             UserData.RegisterType<LuaEntity>();
+            UserData.RegisterType<LuaStatesComponent>();
+
             UserData.RegisterType<Vector2>();
             UserData.RegisterType<UnitMovementComponent>();
             
