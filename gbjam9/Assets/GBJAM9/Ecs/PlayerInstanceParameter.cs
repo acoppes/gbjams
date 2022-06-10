@@ -8,7 +8,7 @@ namespace GBJAM9.Ecs
     {
         public int player;
         
-        public void Apply(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void Apply(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             ref var playerComponent = ref world.GetComponent<PlayerComponent>(entity);
             playerComponent.player = player;

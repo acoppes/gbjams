@@ -7,7 +7,7 @@ namespace GBJAM9.Ecs
 {
     public class UnitStateAnimatorSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
-        public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             var models = world.GetComponents<UnitModelComponent>();
             var animators = world.GetComponents<AnimatorComponent>();
@@ -20,7 +20,7 @@ namespace GBJAM9.Ecs
             }
         }
 
-        public void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             var animators = world.GetComponents<AnimatorComponent>();
             

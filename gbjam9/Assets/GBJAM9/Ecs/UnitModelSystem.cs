@@ -7,7 +7,7 @@ namespace GBJAM9.Ecs
 {
     public class UnitModelSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
-        public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             // create model if model component
             var models = world.GetComponents<UnitModelComponent>();
@@ -18,7 +18,7 @@ namespace GBJAM9.Ecs
             }
         }
 
-        public void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             // destroy model if model component
             var models = world.GetComponents<UnitModelComponent>();

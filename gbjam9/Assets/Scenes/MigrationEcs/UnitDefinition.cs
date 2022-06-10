@@ -23,7 +23,7 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     
     public GameObject modelPrefab;
 
-    public void Apply(World world, int entity)
+    public void Apply(World world, Entity entity)
     {
         world.AddComponent(entity, new PlayerComponent());
         world.AddComponent(entity, new PositionComponent());

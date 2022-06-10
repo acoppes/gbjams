@@ -10,7 +10,7 @@ namespace GBJAM9.Ecs
         [SerializeField]
         protected GameObject indicatorPrefab;
         
-        public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             if (lookingDirectionComponents.Has(entity))
@@ -26,7 +26,7 @@ namespace GBJAM9.Ecs
             }
         }
 
-        public void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, int entity)
+        public void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             var indicators = world.GetComponents<LookingDirectionIndicator>();
             if (indicators.Has(entity))

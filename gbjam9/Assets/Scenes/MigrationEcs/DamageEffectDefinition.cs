@@ -6,7 +6,7 @@ public class DamageEffectDefinition : TargetEffectDefinition
     //  more interesting values?
     public float damage;
     
-    public override void Apply(World world, int entity)
+    public override void Apply(World world, Entity entity)
     {
         ref var targetEffects = ref world.GetComponent<TargetEffectsComponent>(entity);
         

@@ -11,7 +11,7 @@ public class ProjectileDefinition : MonoBehaviour, IEntityDefinition
 
     public float colliderRadius = 0;
 
-    public void Apply(World world, int entity)
+    public void Apply(World world, Entity entity)
     {
         world.AddComponent(entity, new PlayerComponent());
         world.AddComponent(entity, new UnitControlComponent());
