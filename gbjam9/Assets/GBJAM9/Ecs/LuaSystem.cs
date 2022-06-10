@@ -21,6 +21,9 @@ namespace GBJAM9.Ecs
             
             UserData.RegisterType<LuaEntity>();
             UserData.RegisterType<LuaStatesComponent>();
+            UserData.RegisterType<LuaAbilitiesComponent>();
+            UserData.RegisterType<LuaAbility>();
+            UserData.RegisterType<LuaTarget>();
 
             UserData.RegisterType<Vector2>();
             UserData.RegisterType<UnitMovementComponent>();

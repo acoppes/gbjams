@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
@@ -18,6 +20,33 @@ namespace GBJAM9.Ecs
         {
             statesComponent.ExitState(state);
         }
+
+        public bool this[string stateName] => statesComponent.HasState(stateName);
+    }
+
+    public class LuaTarget
+    {
+        public Vector2 position;
+    }
+
+    public class LuaAbility
+    {
+        // public Ability ability;
+        public List<LuaTarget> targets;
+    }
+    
+    public class LuaAbilitiesComponent
+    {
+        public AbilitiesComponent abilitiesComponent;
+
+        public LuaAbility this[string abilityName] => new LuaAbility
+        {
+            targets = abilitiesComponent.GetTargeting(abilityName)
+                .targets.Select(t => new LuaTarget
+                {
+                    position = t.position
+                }).ToList()
+        };
     }
     
     public class LuaEntity
@@ -48,6 +77,11 @@ namespace GBJAM9.Ecs
         public LuaStatesComponent states => new ()
         {
             statesComponent = world.GetComponent<StatesComponent>(entity)
+        };
+        
+        public LuaAbilitiesComponent abilities => new ()
+        {
+            abilitiesComponent = world.GetComponent<AbilitiesComponent>(entity)
         };
 
         public bool HasState(string state)
