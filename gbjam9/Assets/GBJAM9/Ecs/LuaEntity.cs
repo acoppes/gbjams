@@ -73,6 +73,16 @@ namespace GBJAM9.Ecs
                 p = value;
             }
         }
+        
+        public Vector2 controlDirection
+        {
+            get => world.GetComponent<UnitControlComponent>(entity).direction;
+            set
+            {
+                ref var controlComponent = ref world.GetComponent<UnitControlComponent>(entity);
+                controlComponent.direction = value;
+            }
+        }
 
         public LuaStatesComponent states => new ()
         {

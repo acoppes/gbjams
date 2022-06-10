@@ -10,7 +10,14 @@ function onUpdate(entity)
     
     if (entity.states["Chase"])
     then
-        -- entity.control.direction = chaseTargets[0].position - entity.position
+        
+        if (#chaseTargets == 0)
+        then
+            entity.states.Exit("ChasingPlayer")
+            return
+        end
+        
+        entity.controlDirection = chaseTargets[0].position - entity.position
         return
     end
     
