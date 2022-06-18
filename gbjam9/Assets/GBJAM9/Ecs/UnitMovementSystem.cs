@@ -21,7 +21,7 @@ namespace GBJAM9.Ecs
                 ref var input = ref inputs.Get(entity);
                 ref var movement = ref movementComponents.Get(entity);
 
-                movement.movingDirection = input.direction;
+                movement.movingDirection = input.direction.normalized;
             }
 
             foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<PositionComponent>().End())
