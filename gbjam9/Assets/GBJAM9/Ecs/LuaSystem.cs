@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
@@ -18,6 +19,7 @@ namespace GBJAM9.Ecs
 
             MoonSharp.Interpreter.
             Script.DefaultOptions.ScriptLoader = new FileSystemScriptLoader();
+            Script.DefaultOptions.DebugPrint = s => Debug.Log(s.ToLower());
             
             UserData.RegisterType<LuaEntity>();
             UserData.RegisterType<LuaStatesComponent>();
