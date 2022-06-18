@@ -4,11 +4,11 @@ function onUpdate(entity)
     -- p.y = p.y + (entity.movement.speed * deltaTime)
     -- entity.position = p
     
-    -- chaseTargets = entity.abilities.chase.targets
-    
+    -- chaseTargets = entity.abilities.chase.targets   
+       
     chaseTargets = entity.abilities["Chase"].targets
     
-    if (entity.states["Chase"])
+    if (entity.states["ChasingPlayer"])
     then
         
         if (#chaseTargets == 0)
@@ -17,26 +17,30 @@ function onUpdate(entity)
             return
         end
         
-        entity.controlDirection = chaseTargets[0].position - entity.position
+        firstTarget = chaseTargets[1]
+        entity.controlDirection = firstTarget.position - entity.position
         return
     end
     
     if (#chaseTargets > 0)
     then
         entity.states.Enter("ChasingPlayer")
+        print 'ENTER CHASE'
         return
     end
     
-    if (entity.states["Test"])
-    then
-        p.x = p.x + (entity.movement.speed * deltaTime)
-        entity.states.Exit("Test")
-        -- entity = entity - "Test"
-    else
-        p.y = p.y + (entity.movement.speed * deltaTime)
-        --entity = entity + "Test"
-        entity.states.Enter("Test")
-    end
+    entity.ResetDirection()
+    
+--     if (entity.states["Test"])
+--     then
+--         p.x = p.x + (entity.movement.speed * deltaTime)
+--         entity.states.Exit("Test")
+--         -- entity = entity - "Test"
+--     else
+--         p.y = p.y + (entity.movement.speed * deltaTime)
+--         --entity = entity + "Test"
+--         entity.states.Enter("Test")
+--     end
     
     entity.position = p
 end

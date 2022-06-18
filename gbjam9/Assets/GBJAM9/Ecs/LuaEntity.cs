@@ -32,7 +32,7 @@ namespace GBJAM9.Ecs
     public class LuaAbility
     {
         // public Ability ability;
-        public List<LuaTarget> targets;
+        public List<LuaTarget> targets = new List<LuaTarget>();
     }
     
     public class LuaAbilitiesComponent
@@ -84,6 +84,12 @@ namespace GBJAM9.Ecs
             }
         }
 
+        public void ResetDirection()
+        {
+            ref var controlComponent = ref world.GetComponent<UnitControlComponent>(entity);
+            controlComponent.direction = Vector2.zero;
+        }
+        
         public LuaStatesComponent states => new ()
         {
             statesComponent = world.GetComponent<StatesComponent>(entity)
