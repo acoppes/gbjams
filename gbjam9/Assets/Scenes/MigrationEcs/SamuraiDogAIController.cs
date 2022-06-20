@@ -6,9 +6,9 @@ using Gemserk.Leopotam.Ecs.Gameplay;
 using MoonSharp.Interpreter;
 using UnityEngine;
 
-public class SamuraiDogAIController : MonoBehaviour, IController
+public class SamuraiDogAIController : ControllerBase
 {
-    public void OnUpdate(float dt, World world, Entity entity)
+    public override void OnUpdate(float dt)
     {
         ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
         

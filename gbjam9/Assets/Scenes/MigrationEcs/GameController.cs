@@ -1,15 +1,12 @@
 using GBJAM9;
 using GBJAM9.Ecs;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Controllers;
-using UnityEngine;
-using World = Gemserk.Leopotam.Ecs.World;
 
-public class GameController : MonoBehaviour, IController
+public class GameController : ControllerBase
 {
     private bool initialized;
     
-    public void OnUpdate(float dt, World world, Entity entity)
+    public override void OnUpdate(float dt)
     {
         if (!initialized)
         {

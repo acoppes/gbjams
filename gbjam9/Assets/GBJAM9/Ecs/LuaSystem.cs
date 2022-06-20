@@ -34,6 +34,16 @@ namespace GBJAM9.Ecs
 
         public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
+            if (world.HasComponent<ConfigurationComponent>(entity))
+            {
+                var configurationComponent = world.GetComponent<ConfigurationComponent>(entity);
+
+                if (configurationComponent.configuration is LuaConfiguration luaConfiguration)
+                {
+                    luaConfiguration.LoadScript();
+                }
+            }
+            
             if (world.HasComponent<ControllerComponent>(entity))
             {
                 var controllerComponent = world.GetComponent<ControllerComponent>(entity);

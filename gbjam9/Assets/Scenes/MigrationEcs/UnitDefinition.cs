@@ -23,6 +23,8 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     
     public GameObject modelPrefab;
 
+    public GameObject configuration;
+
     public void Apply(World world, Entity entity)
     {
         world.AddComponent(entity, new PlayerComponent());
@@ -88,6 +90,14 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
         if (collidesWithTerrain)
         {
             world.AddComponent(entity, new TerrainCollisionComponent());
+        }
+
+        if (configuration != null)
+        {
+            world.AddComponent(entity, new ConfigurationComponent()
+            {
+                configuration = configuration.GetComponentInChildren<IConfiguration>()
+            });
         }
     }
 

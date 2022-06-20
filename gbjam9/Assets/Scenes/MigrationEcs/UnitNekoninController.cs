@@ -5,14 +5,14 @@ using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
-public class UnitNekoninController : MonoBehaviour, IController
+public class UnitNekoninController : ControllerBase
 {
     // Read this kind of things from configuration
     public float dashExtraSpeed;
 
     private readonly StateFilter canDash = new StateFilter(null, "CantDashAgain");
 
-    public void OnUpdate(float dt, World world, Entity entity)
+    public override void OnUpdate(float dt)
     {
         // if (world.HasComponent<PlayerInputComponent>(entity))
         //     return;

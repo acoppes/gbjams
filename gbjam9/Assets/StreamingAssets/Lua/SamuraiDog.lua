@@ -1,4 +1,12 @@
-function onUpdate(entity) 
+function OnInit(entity) 
+
+end
+
+function OnConfigured(entity) 
+    
+end
+
+function OnUpdate(entity) 
     p = entity.position
     -- p.x = p.x + (entity.movement.speed * deltaTime)
     -- p.y = p.y + (entity.movement.speed * deltaTime)

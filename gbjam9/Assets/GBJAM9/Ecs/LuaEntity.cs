@@ -48,7 +48,7 @@ namespace GBJAM9.Ecs
                 }).ToList()
         };
     }
-    
+
     public class LuaEntity
     {
         public Gemserk.Leopotam.Ecs.World world;
@@ -64,6 +64,15 @@ namespace GBJAM9.Ecs
             }
         }
 
+        public float speed
+        {
+            get => world.GetComponent<UnitMovementComponent>(entity).speed;
+            set
+            {
+                ref var p = ref world.GetComponent<UnitMovementComponent>(entity);
+                p.speed = value;
+            }
+        }
         public UnitMovementComponent movement
         {
             get => world.GetComponent<UnitMovementComponent>(entity);

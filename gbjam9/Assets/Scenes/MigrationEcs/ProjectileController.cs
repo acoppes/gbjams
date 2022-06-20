@@ -1,14 +1,10 @@
-using GBJAM9.Ecs;
-using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
-using UnityEngine;
 
-public class ProjectileController : MonoBehaviour, IController
+public class ProjectileController : ControllerBase
 {
     public float damage;
     
-    public void OnUpdate(float dt, World world, Entity entity)
+    public override void OnUpdate(float dt)
     {
         ref var health = ref world.GetComponent<HealthComponent>(entity);
             

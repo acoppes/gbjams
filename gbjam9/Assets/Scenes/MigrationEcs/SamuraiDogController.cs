@@ -5,13 +5,13 @@ using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
 
-public class SamuraiDogController : MonoBehaviour, IController
+public class SamuraiDogController : ControllerBase
 {
     // Read this kind of things from configuration
     public float specialAttackExtraSpeed;
     public float specialAttackRecoveryTime;
     
-    public void OnUpdate(float dt, World world, Entity entity)
+    public override void OnUpdate(float dt)
     {
         ref var movementComponent = ref world.GetComponent<UnitMovementComponent>(entity);
         

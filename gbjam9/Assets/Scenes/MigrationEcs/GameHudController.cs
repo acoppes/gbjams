@@ -5,11 +5,11 @@ using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
-public class GameHudController : MonoBehaviour, IController
+public class GameHudController : ControllerBase
 {
     private static readonly int visibleHash = Animator.StringToHash("visible");
     
-    public void OnUpdate(float dt, World world, Entity entity)
+    public override void OnUpdate(float dt)
     {
         ref var modelComponent = ref world.GetComponent<UnitModelComponent>(entity);
 
