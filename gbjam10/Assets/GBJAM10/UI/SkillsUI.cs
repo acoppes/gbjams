@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using GBJAM10.Components;
+using Gemserk.Leopotam.Ecs;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,36 +16,6 @@ namespace GBJAM10.UI
 
         [NonSerialized]
         public Entity entity;
-
-        private void LateUpdate()
-        {
-            if (entity == null)
-            {
-                return;
-            }
-            
-            if (entity.attack.weaponData != null)
-            {
-                var attackType = entity.attack.weaponData.attackType.ToLowerInvariant();
-                
-                foreach (var weaponImage in weaponImages)
-                {
-                    weaponImage.enabled = weaponImage.name.ToLowerInvariant().Contains(attackType);
-                }
-                
-                weaponCooldown.fillAmount = entity.attack.cooldown / entity.attack.weaponData.cooldown;
-            }
-            else
-            {
-                foreach (var weaponImage in weaponImages)
-                {
-                    weaponImage.enabled = false;
-                }
-                weaponCooldown.fillAmount = 0;
-            }
-            
-            dashCooldown.fillAmount = entity.dash.cooldownCurrent / entity.dash.cooldown;
-        }
 
         public void SetAbilities(float mainAbilityCooldown, float secondaryAbilityCooldown)
         {
