@@ -1,3 +1,4 @@
+using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 
 public class ProjectileController : ControllerBase
