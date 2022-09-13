@@ -1,5 +1,5 @@
-using GBJAM9.Ecs;
-using GBJAM9.UI;
+using GBJAM10.Ecs;
+using GBJAM10.UI;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;

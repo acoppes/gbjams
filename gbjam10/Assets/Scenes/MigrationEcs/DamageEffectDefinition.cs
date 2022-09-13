@@ -1,4 +1,4 @@
-using GBJAM9.Ecs;
+using GBJAM10.Ecs;
 using Gemserk.Leopotam.Ecs;
 
 public class DamageEffectDefinition : TargetEffectDefinition
