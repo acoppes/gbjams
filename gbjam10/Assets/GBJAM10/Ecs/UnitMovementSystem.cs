@@ -7,21 +7,21 @@ namespace GBJAM10.Ecs
 {
     public class UnitMovementSystem : BaseSystem, IEcsRunSystem
     {
-        private static Vector2 gamePerspective = new Vector2(1.0f, 0.75f);
+        public Vector2 gamePerspective = new Vector2(1.0f, 0.75f);
         
         public void Run(EcsSystems systems)
         {
-            var inputs = world.GetComponents<UnitControlComponent>();
+            var controls = world.GetComponents<UnitControlComponent>();
             var movementComponents = world.GetComponents<UnitMovementComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
 
             foreach (var entity in world.GetFilter<UnitControlComponent>().Inc<UnitMovementComponent>().End())
             {
-                ref var input = ref inputs.Get(entity);
+                ref var control = ref controls.Get(entity);
                 ref var movement = ref movementComponents.Get(entity);
 
-                movement.movingDirection = input.direction.normalized;
+                movement.movingDirection = control.direction;
             }
 
             foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<PositionComponent>().End())
