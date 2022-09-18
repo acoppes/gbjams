@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterController : ControllerBase
 {
     // Read this kind of things from configuration
-    public float dashExtraSpeed;
+    public float jumpDuration;
 
     private readonly StateFilter canDash = new StateFilter(null, "CantDashAgain");
 
@@ -30,9 +30,11 @@ public class CharacterController : ControllerBase
         ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
         
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
-        
-        var attack = abilities.GetAbility("MainAbility");
-        var dash = abilities.GetAbility("SecondaryAbility");
+
+        if (playerInput.keyMap == null)
+        {
+            return;
+        }
         
         if (playerInput.keyMap != null)
         {
@@ -43,95 +45,30 @@ public class CharacterController : ControllerBase
         
         control.direction.x = 1;
         
-        if (dash.isRunning)
+        if (states.HasState("Jumping"))
         {
-            // var state = states.GetState("Dashing");
+            var jumpingState = states.GetState("Jumping");
+            
+            // cant do anything while jumping
+            
+            // if ground toched or jump completed// exit state?
+            control.direction.y = 0;
 
-            if (dash.isComplete)
+            if (jumpingState.time > jumpDuration)
             {
-                playerInput.disabled = false;
-                states.ExitState("Dashing");
-                // model unset dashing
                 unitState.dashing = false;
-                
-                movementComponent.extraSpeed = 0;
-                
-                dash.Stop();
+                states.ExitState("Jumping");
             }
-
-            return;
-        }
-
-        // if (states.HasState("Attacking"))
-        if (attack.isRunning)
-        {
-            // var state = states.GetState("Attacking");
-            
-            // if (state.time > attack.duration)
-            if (attack.isComplete) 
-            {
-                // FIRE KUNAI PROJECTILE! (depends on current weapon/etc)
-
-                var projectileEntity = ProjectileUtils.Fire(world, new ProjectileParameters
-                {
-                    definition = attack.projectileDefinition,
-                    position = attack.position, // attachpoints.Get("").position
-                    direction = attack.direction, // lookingdirection.value
-                    player = player.player
-                });
-                
-                // override something for that projectile?
-                
-                // states.ExitState("Attacking");
-                unitState.attacking1 = false;
-
-                attack.Stop();
-            }    
-        }
-
-        if (control.mainAction && attack.isReady)
-        {
-            // states.EnterState("Attacking");
-            unitState.attacking1 = true;
-
-            attack.StartRunning();
             
             return;
         }
 
-        if (!control.secondaryAction)
+        if (control.mainAction)
         {
-            states.ExitState("CantDashAgain");
+            // start jumping 
+            unitState.dashing = true;
+            states.EnterState("Jumping");
         }
         
-        if (dash.isReady && canDash.Match(states) && control.secondaryAction)
-        {
-            // states.EnterState("Dashing");
-            
-            dash.StartRunning();
-            
-            playerInput.disabled = true;
-            unitState.dashing = true;
-
-            control.direction = lookingDirection.value;
-
-            movementComponent.extraSpeed = dashExtraSpeed;
-            
-            states.EnterState("CantDashAgain");
-                
-            // states.EnterState("Dashing", dash.duration)
-            // {
-            //     onActivate =
-            //     {
-            //         
-            //     },
-            //     onDeactivate =
-            //     {
-            //         
-            //     }
-            // };
-            
-            return;
-        }    
     }
 }

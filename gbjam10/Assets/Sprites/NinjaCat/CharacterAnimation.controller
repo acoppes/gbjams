@@ -674,7 +674,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NinjaCatAnimator
+  m_Name: CharacterAnimation
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: walking
@@ -779,6 +779,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: walking
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: dashing
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5183703788345302682}
   m_Solo: 0
@@ -872,7 +875,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: dashing
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6441290846277308562}
   m_Solo: 0
