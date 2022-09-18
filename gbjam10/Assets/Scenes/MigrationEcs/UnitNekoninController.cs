@@ -1,9 +1,6 @@
-using System.Linq;
 using GBJAM10.Ecs;
-using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
-using UnityEngine;
 
 public class UnitNekoninController : ControllerBase
 {

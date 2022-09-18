@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace GBJAM9.Editor
+namespace GBJAM10.Editor
 {
     public static class ConfigureFontTextureFilter
     {

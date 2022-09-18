@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace GBJAM9.Editor
+namespace GBJAM10.Editor
 {
     public class BuildScript
     {

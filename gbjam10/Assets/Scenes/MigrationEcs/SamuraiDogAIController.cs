@@ -1,9 +1,6 @@
-using System.Collections.Generic;
 using GBJAM10.Ecs;
-using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
-using MoonSharp.Interpreter;
 using UnityEngine;
 
 public class SamuraiDogAIController : ControllerBase

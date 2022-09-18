@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using GBJAM10.Ecs;
 using Gemserk.Leopotam.Ecs;
