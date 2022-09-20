@@ -42,14 +42,20 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
         }
 
         world.AddComponent(entity, new UnitStateComponent());
-        world.AddComponent(entity, new AnimatorComponent());
-        
         world.AddComponent(entity, new StatesComponent());
 
-        world.AddComponent(entity, new UnitModelComponent
+        if (modelPrefab != null)
         {
-            prefab = modelPrefab
-        });
+            world.AddComponent(entity, new UnitModelComponent
+            {
+                prefab = modelPrefab
+            });
+            
+            if (modelPrefab.GetComponentInChildren<Animator>() != null)
+            {
+                world.AddComponent(entity, new AnimatorComponent());
+            }
+        }
 
         world.AddComponent(entity, new AbilitiesComponent
         {

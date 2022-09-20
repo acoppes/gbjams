@@ -19,7 +19,7 @@ namespace GBJAM10
 
         public Vector2 offset;
 
-        private void LateUpdate()
+        private void Update()
         {
             if (cameraTransform == null || followTransform == null) 
                 return;

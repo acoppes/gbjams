@@ -31,6 +31,8 @@ public class CharacterController : ControllerBase
         
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
 
+        control.direction.x = 1;
+        
         if (playerInput.keyMap == null)
         {
             return;
@@ -38,13 +40,23 @@ public class CharacterController : ControllerBase
         
         if (playerInput.keyMap != null)
         {
-            control.direction = playerInput.keyMap.direction;
+            control.direction.y = playerInput.keyMap.direction.y;
             control.mainAction = playerInput.keyMap.button1Pressed;
             control.secondaryAction = playerInput.keyMap.button2Pressed;
+
+            movementComponent.extraSpeed = 0;
+            
+            if (playerInput.keyMap.direction.x > 0)
+            {
+                movementComponent.extraSpeed = 3;
+            } else if (playerInput.keyMap.direction.x < 0)
+            {
+                movementComponent.extraSpeed = -3;
+            }
         }
-        
-        control.direction.x = 1;
-        
+
+        // movementComponent.movingDirection = new Vector2(1, movementComponent.movingDirection.y);
+
         if (states.HasState("Jumping"))
         {
             var jumpingState = states.GetState("Jumping");

@@ -5,8 +5,10 @@ using Gemserk.Leopotam.Ecs.Controllers;
 
 public class GameController : ControllerBase
 {
-    private bool initialized;
+    public string followName = "Main_Camera";
     
+    private bool initialized;
+
     public override void OnUpdate(float dt)
     {
         if (!initialized)
@@ -16,11 +18,11 @@ public class GameController : ControllerBase
                 activePlayer = 0
             };
             
-            var mainCharacterEntity = world.GetEntityByName("Main_Character");
-            if (mainCharacterEntity != Entity.NullEntity)
+            var followEntity = world.GetEntityByName(followName);
+            if (followEntity != Entity.NullEntity)
             {
                 var cameraFollow = FindObjectOfType<CameraFollow>();
-                var model = world.GetComponent<UnitModelComponent>(mainCharacterEntity);
+                var model = world.GetComponent<UnitModelComponent>(followEntity);
                 cameraFollow.followTransform = model.instance.transform;
             }
         }
