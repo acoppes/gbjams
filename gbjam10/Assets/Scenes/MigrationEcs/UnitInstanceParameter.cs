@@ -14,8 +14,11 @@ public class UnitInstanceParameter : MonoBehaviour, IEntityInstanceParameter
 
         if (!controllable)
         {
-            ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
-            playerInput.disabled = true;
+            if (world.HasComponent<PlayerInputComponent>(entity))
+            {
+                ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
+                playerInput.disabled = true;
+            }
         }
     }
 }
