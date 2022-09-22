@@ -8,8 +8,6 @@ public class CharacterController : ControllerBase
     // Read this kind of things from configuration
     public float jumpDuration;
 
-    private readonly StateFilter canDash = new StateFilter(null, "CantDashAgain");
-
     public override void OnUpdate(float dt)
     {
         // if (world.HasComponent<PlayerInputComponent>(entity))
@@ -27,18 +25,12 @@ public class CharacterController : ControllerBase
         ref var states = ref world.GetComponent<StatesComponent>(entity);
         ref var control = ref world.GetComponent<UnitControlComponent>(entity);
 
-        ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
-        
-        var lookingDirection = world.GetComponent<LookingDirection>(entity);
+        // ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
+        // var lookingDirection = world.GetComponent<LookingDirection>(entity);
 
         control.direction.x = 1;
         
-        if (playerInput.keyMap == null)
-        {
-            return;
-        }
-        
-        if (playerInput.keyMap != null)
+        if (playerInput.keyMap != null && player.player == 0)
         {
             control.direction.y = playerInput.keyMap.direction.y;
             control.mainAction = playerInput.keyMap.button1Pressed;
