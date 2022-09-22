@@ -30,7 +30,7 @@ public class CharacterController : ControllerBase
 
         control.direction.x = 1;
         
-        if (playerInput.keyMap != null && player.player == 0)
+        if (playerInput.keyMap != null)
         {
             control.direction.y = playerInput.keyMap.direction.y;
             control.mainAction = playerInput.keyMap.button1Pressed;
