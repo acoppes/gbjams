@@ -58,6 +58,8 @@ namespace GBJAM10.Ecs
         public Vector2 currentVelocity;
 
         public Vector2 movingDirection;
+        
+        public float totalSpeed => speed + extraSpeed;
     }
 
     public struct StateTriggers

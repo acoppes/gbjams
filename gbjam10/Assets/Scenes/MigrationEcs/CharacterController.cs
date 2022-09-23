@@ -8,6 +8,9 @@ public class CharacterController : ControllerBase
     // Read this kind of things from configuration
     public float jumpDuration;
 
+    public float slowExtraSpeed = -3;
+    public float fastExtraSpeed = 3;
+
     public override void OnUpdate(float dt)
     {
         // if (world.HasComponent<PlayerInputComponent>(entity))
@@ -21,6 +24,8 @@ public class CharacterController : ControllerBase
         ref var movementComponent = ref world.GetComponent<UnitMovementComponent>(entity);
         
         ref var unitState = ref world.GetComponent<UnitStateComponent>(entity);
+        unitState.disableAutoUpdate = true;
+        unitState.walking = false;
         
         ref var states = ref world.GetComponent<StatesComponent>(entity);
         ref var control = ref world.GetComponent<UnitControlComponent>(entity);
@@ -40,10 +45,10 @@ public class CharacterController : ControllerBase
             
             if (playerInput.keyMap.direction.x > 0)
             {
-                movementComponent.extraSpeed = 3;
+                movementComponent.extraSpeed += fastExtraSpeed;
             } else if (playerInput.keyMap.direction.x < 0)
             {
-                movementComponent.extraSpeed = -3;
+                movementComponent.extraSpeed += slowExtraSpeed;
             }
         }
 
@@ -72,7 +77,12 @@ public class CharacterController : ControllerBase
             // start jumping 
             unitState.dashing = true;
             states.EnterState("Jumping");
+            return;
         }
-        
+
+        if (movementComponent.totalSpeed > 0)
+        {
+            unitState.walking = true;    
+        }
     }
 }
