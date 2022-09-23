@@ -23,7 +23,10 @@ namespace GBJAM10.Ecs
                 var inputComponent = inputs.Get(entity);
                 var movement = movements.Get(entity);
                 
-                unitStateComponent.walking = !movement.disabled && inputComponent.direction.sqrMagnitude > 0;
+                if (!unitStateComponent.disableAutoUpdate)
+                {
+                    unitStateComponent.walking = !movement.disabled && inputComponent.direction.sqrMagnitude > 0;
+                }
             }
             
             foreach (var entity in world

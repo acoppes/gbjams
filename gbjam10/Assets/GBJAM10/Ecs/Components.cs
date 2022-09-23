@@ -78,6 +78,8 @@ namespace GBJAM10.Ecs
         public bool attacking2;
 
         public StateTriggers stateTriggers;
+
+        public bool disableAutoUpdate;
     }
 
     public struct AnimatorComponent : IEntityComponent
