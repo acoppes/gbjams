@@ -6,7 +6,7 @@ using UnityEngine;
 public class UnitInstanceParameter : MonoBehaviour, IEntityInstanceParameter
 {
     public bool controllable = false;
-    
+
     public void Apply(World world, Entity entity)
     {
         ref var position = ref world.GetComponent<PositionComponent>(entity);
