@@ -1,6 +1,7 @@
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace GBJAM10.Ecs
 {
@@ -23,7 +24,8 @@ namespace GBJAM10.Ecs
 
                 if (colliderComponent.collisionCount > 0)
                 {
-                    positionComponent.value = terrainCollisionComponent.lastValidPosition;
+                    positionComponent.value = new Vector2(positionComponent.value.x, 
+                        terrainCollisionComponent.lastValidPosition.y);
                 }
                 else
                 {
