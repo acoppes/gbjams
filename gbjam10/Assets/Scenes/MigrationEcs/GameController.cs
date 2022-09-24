@@ -113,7 +113,7 @@ public class GameController : ControllerBase
             var chunkTransform = level.GetChild(i);
             
             var chunkEnd = chunkTransform.Find("Chunk_End");
-            if (chunkEnd.position.x < Camera.main.transform.position.x - 3)
+            if (chunkEnd.position.x < Camera.main.transform.position.x - 5)
             {
                 chunkTransform.gameObject.SetActive(false);
                 chunkTransform.parent = chunksPoolParent;
