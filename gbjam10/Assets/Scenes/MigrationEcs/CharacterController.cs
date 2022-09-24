@@ -7,6 +7,7 @@ public class CharacterController : ControllerBase
 {
     private const string StateJumping = "Jumping";
     private const string StateFalling = "Falling";
+    private const string StatePickingTrap = "PickingTrap";
     
     // Read this kind of things from configuration
     public float jumpMaxHeight;
@@ -36,7 +37,9 @@ public class CharacterController : ControllerBase
         ref var states = ref world.GetComponent<StatesComponent>(entity);
         ref var control = ref world.GetComponent<UnitControlComponent>(entity);
 
-        // ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
+        ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
+        var pickTrapAbility = abilities.GetAbility("PickTrap");
+
         // var lookingDirection = world.GetComponent<LookingDirection>(entity);
 
         control.direction.x = 1;
@@ -56,6 +59,22 @@ public class CharacterController : ControllerBase
             {
                 movementComponent.extraSpeed += slowExtraSpeed;
             }
+        }
+        
+        if (states.HasState(StatePickingTrap))
+        {
+            control.direction.x = 0;
+            control.direction.y = 0;
+
+            if (pickTrapAbility.isComplete)
+            {
+                unitState.attacking1 = false;
+                
+                pickTrapAbility.isRunning = false;
+                states.ExitState(StatePickingTrap);
+            }
+            
+            return;
         }
 
         // movementComponent.movingDirection = new Vector2(1, movementComponent.movingDirection.y);
@@ -84,7 +103,7 @@ public class CharacterController : ControllerBase
 
             jumpComponent.y += dt * jumpSpeed;
 
-            if (jumpComponent.y >= jumpMaxHeight || !control.mainAction)
+            if (jumpComponent.y >= jumpMaxHeight || !control.secondaryAction)
             {
                 unitState.dashing = false;
                 states.ExitState(StateJumping);
@@ -93,8 +112,20 @@ public class CharacterController : ControllerBase
             
             return;
         }
+        
+        if (control.mainAction && pickTrapAbility.isCooldownReady)
+        {
+            pickTrapAbility.isRunning = true;
+            
+            unitState.walking = false;
+            control.direction.x = 0;
+            
+            unitState.attacking1 = true;
+            states.EnterState(StatePickingTrap);
+            return;
+        }
 
-        if (control.mainAction)
+        if (control.secondaryAction)
         {
             // start jumping 
             jumpComponent.y = 0;
