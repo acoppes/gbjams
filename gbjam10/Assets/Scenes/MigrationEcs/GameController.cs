@@ -32,14 +32,17 @@ public class GameController : ControllerBase
                 cameraFollow.followTransform = model.instance.transform;
             }
 
-            var startPosition = new Vector3(0, 0, 0);
+            var nextPosition = new Vector3(0, 0, 0);
             for (int i = 0; i < maxChunks; i++)
             {
                 var chunkPrefab = levelData.chunksList[UnityEngine.Random.Range(0, levelData.chunksList.Count)];
                 var chunkInstance = Instantiate(chunkPrefab, level);
-                chunkInstance.transform.position = startPosition;
+                chunkInstance.transform.position = nextPosition;
+
+                var chunkEnd = chunkInstance.transform.Find("Chunk_End");
                 
-                startPosition += new Vector3(50, 0, 0);
+                
+                nextPosition += new Vector3(chunkEnd.localPosition.x, 0, 0);
             }
 
             initialized = true;
