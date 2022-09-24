@@ -24,6 +24,7 @@ public class MainEnemyController : ControllerBase
 
         unitStateComponent.disableAutoUpdate = true;
         unitStateComponent.walking = false;
+        control.direction.x = 1;
         
         var position = world.GetComponent<PositionComponent>(entity);
 
@@ -49,12 +50,11 @@ public class MainEnemyController : ControllerBase
         if (spawnBombTime > spawnBombCooldown)
         {
             states.EnterState(SpawnBombState);
-            control.direction.x = 0;
+            // control.direction.x = 0;
             unitStateComponent.attacking1 = true;
             return;
         }
-
-        control.direction.x = 1;
+        
         unitStateComponent.walking = true;
     }
 }

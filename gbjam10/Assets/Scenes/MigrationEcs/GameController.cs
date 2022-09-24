@@ -8,13 +8,13 @@ using UnityEngine.Assertions;
 
 public class GameController : ControllerBase
 {
-    public string followName = "Main_Camera";
-    
     public Transform level;
     
     private bool initialized;
 
     public int startingChunks = 3;
+
+    public float initialGameSpeed = 5;
     
     public int poolSize = 20;
     
@@ -24,6 +24,10 @@ public class GameController : ControllerBase
 
     private Vector3 chunkEndPosition;
 
+    private Entity mainCharacter;
+    private Entity mainCamera;
+    private Entity mainEnemy;
+
     private void GenerateNewChunk()
     {
         var childCount = chunksPoolParent.childCount;
@@ -32,7 +36,8 @@ public class GameController : ControllerBase
         
         var chunkInstanceTransform =
             chunksPoolParent.GetChild(UnityEngine.Random.Range(0, childCount));
-
+        chunkInstanceTransform.SetParent(level);
+        
         var chunkInstance = chunkInstanceTransform.gameObject;
         chunkInstance.transform.position = chunkEndPosition;
         
@@ -40,6 +45,15 @@ public class GameController : ControllerBase
         chunkEndPosition += new Vector3(chunkEnd.localPosition.x, 0, 0);
         
         chunkInstance.SetActive(true);
+    }
+
+    private void UpdateEntitySpeed(Entity entity, float speed)
+    {
+        if (!world.HasComponent<UnitMovementComponent>(entity))
+            return;
+        
+        ref var movementComponent = ref world.GetComponent<UnitMovementComponent>(entity);
+        movementComponent.speed = speed;
     }
 
     public override void OnUpdate(float dt)
@@ -51,11 +65,14 @@ public class GameController : ControllerBase
                 activePlayer = 0
             };
             
-            var followEntity = world.GetEntityByName(followName);
-            if (followEntity != Entity.NullEntity)
+            mainCamera = world.GetEntityByName("Main_Camera");
+            mainCharacter = world.GetEntityByName("Main_Character");
+            mainEnemy = world.GetEntityByName("Main_Enemy");
+            
+            if (mainCamera != Entity.NullEntity)
             {
                 var cameraFollow = FindObjectOfType<CameraFollow>();
-                var model = world.GetComponent<UnitModelComponent>(followEntity);
+                var model = world.GetComponent<UnitModelComponent>(mainCamera);
                 cameraFollow.followTransform = model.instance.transform;
             }
 
@@ -85,6 +102,10 @@ public class GameController : ControllerBase
             }
 
             initialized = true;
+            
+            UpdateEntitySpeed(mainCamera, initialGameSpeed);
+            UpdateEntitySpeed(mainCharacter, initialGameSpeed);
+            UpdateEntitySpeed(mainEnemy, initialGameSpeed);
         }
 
         for (int i = 0; i < level.childCount; i++)
