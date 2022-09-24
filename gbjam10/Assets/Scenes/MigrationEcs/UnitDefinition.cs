@@ -26,6 +26,7 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     public GameObject configuration;
 
     public bool autoDestroyOutsideCamera = false;
+    public bool keepInsideCameraBounds = false;
 
     public void Apply(World world, Entity entity)
     {
@@ -116,6 +117,11 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
         if (autoDestroyOutsideCamera)
         {
             world.AddComponent(entity, new AutoDestroyOutsideCamera());
+        }
+
+        if (keepInsideCameraBounds)
+        {
+            world.AddComponent(entity, new KeepInsideCameraComponent());
         }
     }
 

@@ -69,7 +69,10 @@ public class CharacterController : ControllerBase
 
         if (states.HasState(StatePickingTrap))
         {
-            control.direction.x = 0;
+            movementComponent.extraSpeed += slowExtraSpeed;
+            
+            // control.direction.x = 0;
+            
             control.direction.y = 0;
 
             if (pickTrapAbility.isComplete)
@@ -124,7 +127,8 @@ public class CharacterController : ControllerBase
             pickTrapAbility.isRunning = true;
             
             unitState.walking = false;
-            control.direction.x = 0;
+            
+            // control.direction.x = 0;
             
             unitState.attacking1 = true;
             states.EnterState(StatePickingTrap);
