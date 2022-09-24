@@ -16,6 +16,9 @@ namespace GBJAM10.MainMenu
 
         public float transitionDuration = 4.0f;
 
+        public AudioSource bgMusicIntro;
+        public AudioSource bgMusicLoop;
+
         private void Start()
         {
             mainMenuIntro.Next();
@@ -23,6 +26,11 @@ namespace GBJAM10.MainMenu
 
         public void Update()
         {
+            if (!bgMusicIntro.isPlaying && !bgMusicLoop.isPlaying)
+            {
+                bgMusicLoop.Play();
+            }
+            
             if (startedTransition)
             {
                 return;
