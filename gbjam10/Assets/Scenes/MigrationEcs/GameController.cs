@@ -2,10 +2,13 @@ using GBJAM10;
 using GBJAM10.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
+using UnityEngine;
 
 public class GameController : ControllerBase
 {
     public string followName = "Main_Camera";
+
+    public Transform level;
     
     private bool initialized;
 
