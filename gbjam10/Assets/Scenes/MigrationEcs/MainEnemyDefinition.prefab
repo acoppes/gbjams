@@ -62,16 +62,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa08ba5941e4c2690b898d38e0ded1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
-  health: 5
+  movementSpeed: 5
+  health: 20
   showLookingDirection: 0
   canBeControlled: 1
   canBeTargeted: 1
+  canJump: 0
   autoDestroyOnDeath: 1
   colliderRadius: 0.15
   collidesWithTerrain: 1
   modelPrefab: {fileID: 2853645843958494069}
   configuration: {fileID: 0}
+  autoDestroyOutsideCamera: 0
+  keepInsideCameraBounds: 0
 --- !u!114 &-5211198163020410229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,8 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombDefinition: {fileID: 478210605849480809, guid: 622916d59dd883b4f8f88433ded3cfc0, type: 3}
   spawnBombCooldown: 2
-  spawnBombDuration: 0
-  spawnBombOffset: {x: -1, y: 0}
+  spawnBombDuration: 0.1
+  spawnBombOffset: {x: 0.5, y: 0}
 --- !u!1 &1618077017656683288
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,21 +17,46 @@ public class GameHudController : ControllerBase
         var animator = instance.GetComponent<Animator>();
 
         var mainCharacterEntity = world.GetEntityByName("Main_Character");
-
+        var bossEntity = world.GetEntityByName("Main_Enemy");
+        
         if (mainCharacterEntity == Entity.NullEntity)
         {
             animator.SetBool(visibleHash, false);
             return;
         }
-        
-        var healthComponent = world.GetComponent<HealthComponent>(mainCharacterEntity);
-        var abilitiesComponent = world.GetComponent<AbilitiesComponent>(mainCharacterEntity);
-
-        var healthUI = instance.GetComponentInChildren<HealthUI>();
-        
-        if (healthUI != null)
+        else
         {
-            healthUI.SetHealth(healthComponent.current, healthComponent.total);
+            var healthComponent = world.GetComponent<HealthComponent>(mainCharacterEntity);
+            // var abilitiesComponent = world.GetComponent<AbilitiesComponent>(mainCharacterEntity);
+
+            var healthObject = instance.transform.Find("Canvas/Hero_Health");
+        
+            if (healthObject != null)
+            {
+                var healthUI = healthObject.GetComponent<HealthUI>();
+
+                if (healthUI != null)
+                {
+                    healthUI.SetHealth(healthComponent.current, healthComponent.total);
+                }
+            }
+        }
+
+        if (bossEntity != Entity.NullEntity)
+        {
+            var healthObject = instance.transform.Find("Canvas/Boss");
+
+            if (healthObject != null)
+            {
+                var healthComponent = world.GetComponent<HealthComponent>(bossEntity);
+                
+                var healthUI = healthObject.GetComponent<HealthUI>();
+
+                if (healthUI != null)
+                {
+                    healthUI.SetHealth(healthComponent.current, healthComponent.total);
+                }
+            }
         }
 
         // var skillsUI = instance.GetComponentInChildren<SkillsUI>();
