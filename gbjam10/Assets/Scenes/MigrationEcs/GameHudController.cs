@@ -34,13 +34,13 @@ public class GameHudController : ControllerBase
             healthUI.SetHealth(healthComponent.current, healthComponent.total);
         }
 
-        var skillsUI = instance.GetComponentInChildren<SkillsUI>();
-
-        if (skillsUI != null)
-        {
-            skillsUI.SetAbilities(abilitiesComponent.GetAbility("MainAbility").CooldownFactor, 
-                abilitiesComponent.GetAbility("SecondaryAbility").CooldownFactor);
-        }
+        // var skillsUI = instance.GetComponentInChildren<SkillsUI>();
+        //
+        // if (skillsUI != null)
+        // {
+        //     skillsUI.SetAbilities(abilitiesComponent.GetAbility("MainAbility").CooldownFactor, 
+        //         abilitiesComponent.GetAbility("SecondaryAbility").CooldownFactor);
+        // }
         
         animator.SetBool(visibleHash, modelComponent.IsVisible);
     }
