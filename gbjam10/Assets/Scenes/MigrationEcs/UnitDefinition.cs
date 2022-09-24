@@ -15,20 +15,25 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     public bool canBeControlled = true;
     public bool canBeTargeted = true;
 
+    public bool canJump = false;
+
     public bool autoDestroyOnDeath = true;
 
     public float colliderRadius = 0f;
     public bool collidesWithTerrain = true;
     
     public GameObject modelPrefab;
-
     public GameObject configuration;
 
     public void Apply(World world, Entity entity)
     {
         world.AddComponent(entity, new PlayerComponent());
         world.AddComponent(entity, new PositionComponent());
-        world.AddComponent(entity, new JumpComponent());
+        
+        if (canJump)
+        {
+            world.AddComponent(entity, new JumpComponent());
+        }
         
         world.AddComponent(entity, new LookingDirection
         {

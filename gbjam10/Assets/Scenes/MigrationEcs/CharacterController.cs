@@ -1,4 +1,5 @@
 using GBJAM10.Ecs;
+using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class CharacterController : ControllerBase
 
     public float slowExtraSpeed = -3;
     public float fastExtraSpeed = 3;
+
+    public GameObject bulletDefinition;
 
     public override void OnUpdate(float dt)
     {
@@ -39,9 +42,12 @@ public class CharacterController : ControllerBase
 
         ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
         var pickTrapAbility = abilities.GetAbility("PickTrap");
+        
+        var autoAttackAbility = abilities.GetAbility("AutoAttack");
 
-        // var lookingDirection = world.GetComponent<LookingDirection>(entity);
-
+        var position = world.GetComponent<PositionComponent>(entity);
+        var lookingDirection = world.GetComponent<LookingDirection>(entity);
+        
         control.direction.x = 1;
         
         if (playerInput.keyMap != null)
@@ -60,7 +66,7 @@ public class CharacterController : ControllerBase
                 movementComponent.extraSpeed += slowExtraSpeed;
             }
         }
-        
+
         if (states.HasState(StatePickingTrap))
         {
             control.direction.x = 0;
@@ -132,6 +138,14 @@ public class CharacterController : ControllerBase
             unitState.dashing = true;
             states.EnterState(StateJumping);
             return;
+        }
+        
+        if (autoAttackAbility.isCooldownReady)
+        {
+            var bulletEntity = world.CreateEntity(bulletDefinition.GetInterface<IEntityDefinition>(), null);
+            ref var bulletPosition = ref world.GetComponent<PositionComponent>(bulletEntity);
+            bulletPosition.value = position.value + lookingDirection.value.normalized * 0.5f;
+            autoAttackAbility.cooldownCurrent = 0;
         }
 
         if (movementComponent.totalSpeed > 0)

@@ -1,6 +1,6 @@
 ﻿using Gemserk.Leopotam.Ecs.Controllers;
 
-public class BombController : ControllerBase
+public class PlantedItemController : ControllerBase
 {
     public override void OnUpdate(float dt)
     {
