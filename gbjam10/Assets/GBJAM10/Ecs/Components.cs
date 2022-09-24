@@ -74,6 +74,16 @@ namespace GBJAM10.Ecs
         public bool hit;
     }
 
+    public struct AutoDestroyOutsideCamera : IEntityComponent
+    {
+        
+    }
+    
+    public struct KeepInsideCameraComponent : IEntityComponent
+    {
+        
+    }
+    
     public struct UnitStateComponent : IEntityComponent
     {
         public bool walking;
