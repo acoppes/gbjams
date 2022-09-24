@@ -15,6 +15,7 @@ namespace GBJAM10.Ecs
             {
                 ref var model = ref models.Get(entity);
                 model.instance =  Instantiate(model.prefab);
+                model.subModel = model.instance.transform.Find("Model");
             }
         }
 
@@ -37,6 +38,8 @@ namespace GBJAM10.Ecs
         {
             var modelComponents = world.GetComponents<UnitModelComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
+            var positionHeightComponents = world.GetComponents<PositionHeightComponent>();
+            
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<PositionComponent>().End())
@@ -45,6 +48,16 @@ namespace GBJAM10.Ecs
                 var positionComponent = positionComponents.Get(entity);
 
                 modelComponent.instance.transform.position = positionComponent.value;
+            }
+            
+            foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<PositionHeightComponent>().End())
+            {
+                ref var modelComponent = ref modelComponents.Get(entity);
+                var positionHeightComponent = positionHeightComponents.Get(entity);
+                if (modelComponent.subModel != null)
+                {
+                    modelComponent.subModel.localPosition = new Vector3(0, positionHeightComponent.y, 0);
+                }
             }
             
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<LookingDirection>().End())
@@ -68,7 +81,7 @@ namespace GBJAM10.Ecs
                 else
                 {
                     var angle = Mathf.Atan2(lookingDirection.value.y, lookingDirection.value.x) * Mathf.Rad2Deg;
-                    modelInstance.transform.Find("Model").rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                    modelComponent.subModel.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 }
             }
         }

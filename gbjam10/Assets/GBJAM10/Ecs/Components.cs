@@ -40,6 +40,8 @@ namespace GBJAM10.Ecs
         public GameObject prefab;
         public GameObject instance;
 
+        public Transform subModel;
+
         public bool rotateToDirection;
 
         public Visiblity visiblity;
@@ -62,6 +64,11 @@ namespace GBJAM10.Ecs
         public float totalSpeed => speed + extraSpeed;
     }
 
+    public struct PositionHeightComponent : IEntityComponent
+    {
+        public float y;
+    }
+    
     public struct StateTriggers
     {
         public bool hit;
