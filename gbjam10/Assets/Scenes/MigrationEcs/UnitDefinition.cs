@@ -28,7 +28,7 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     {
         world.AddComponent(entity, new PlayerComponent());
         world.AddComponent(entity, new PositionComponent());
-        world.AddComponent(entity, new PositionHeightComponent());
+        world.AddComponent(entity, new JumpComponent());
         
         world.AddComponent(entity, new LookingDirection
         {

@@ -64,7 +64,7 @@ namespace GBJAM10.Ecs
         public float totalSpeed => speed + extraSpeed;
     }
 
-    public struct PositionHeightComponent : IEntityComponent
+    public struct JumpComponent : IEntityComponent
     {
         public float y;
     }

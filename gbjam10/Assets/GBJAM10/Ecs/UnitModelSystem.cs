@@ -38,7 +38,7 @@ namespace GBJAM10.Ecs
         {
             var modelComponents = world.GetComponents<UnitModelComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
-            var positionHeightComponents = world.GetComponents<PositionHeightComponent>();
+            var positionHeightComponents = world.GetComponents<JumpComponent>();
             
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             
@@ -50,7 +50,7 @@ namespace GBJAM10.Ecs
                 modelComponent.instance.transform.position = positionComponent.value;
             }
             
-            foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<PositionHeightComponent>().End())
+            foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<JumpComponent>().End())
             {
                 ref var modelComponent = ref modelComponents.Get(entity);
                 var positionHeightComponent = positionHeightComponents.Get(entity);

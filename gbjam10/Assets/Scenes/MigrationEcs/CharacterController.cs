@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class CharacterController : ControllerBase
 {
+    private const string StateJumping = "Jumping";
+    private const string StateFalling = "Falling";
+    
     // Read this kind of things from configuration
-    public float jumpDuration;
+    public float jumpMaxHeight;
+    public float jumpSpeed = 1;
+    public float fallSpeed = 1;
 
     public float slowExtraSpeed = -3;
     public float fastExtraSpeed = 3;
@@ -17,6 +22,7 @@ public class CharacterController : ControllerBase
         //     return;
         
         ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
+        ref var jumpComponent = ref world.GetComponent<JumpComponent>(entity);
         ref var player = ref world.GetComponent<PlayerComponent>(entity);
         
         playerInput.disabled = true;
@@ -53,20 +59,36 @@ public class CharacterController : ControllerBase
         }
 
         // movementComponent.movingDirection = new Vector2(1, movementComponent.movingDirection.y);
-
-        if (states.HasState("Jumping"))
+        if (states.HasState(StateFalling))
         {
-            var jumpingState = states.GetState("Jumping");
+            // var state = states.GetState(StateFalling);
             
-            // cant do anything while jumping
-            
-            // if ground toched or jump completed// exit state?
             control.direction.y = 0;
-
-            if (jumpingState.time > jumpDuration)
+            jumpComponent.y -= dt * fallSpeed;
+            
+            if (jumpComponent.y <= 0)
             {
                 unitState.dashing = false;
-                states.ExitState("Jumping");
+                states.ExitState(StateFalling);
+                jumpComponent.y = 0;
+            }
+            
+            return;
+        }
+
+        if (states.HasState(StateJumping))
+        {
+            // var state = states.GetState(StateJumping);
+            
+            control.direction.y = 0;
+
+            jumpComponent.y += dt * jumpSpeed;
+
+            if (jumpComponent.y >= jumpMaxHeight || !control.mainAction)
+            {
+                unitState.dashing = false;
+                states.ExitState(StateJumping);
+                states.EnterState(StateFalling);
             }
             
             return;
@@ -75,8 +97,9 @@ public class CharacterController : ControllerBase
         if (control.mainAction)
         {
             // start jumping 
+            jumpComponent.y = 0;
             unitState.dashing = true;
-            states.EnterState("Jumping");
+            states.EnterState(StateJumping);
             return;
         }
 
