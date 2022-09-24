@@ -25,6 +25,8 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     public GameObject modelPrefab;
     public GameObject configuration;
 
+    public bool autoDestroyOutsideCamera = false;
+
     public void Apply(World world, Entity entity)
     {
         world.AddComponent(entity, new PlayerComponent());
@@ -109,6 +111,11 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
             {
                 configuration = configuration.GetComponentInChildren<IConfiguration>()
             });
+        }
+
+        if (autoDestroyOutsideCamera)
+        {
+            world.AddComponent(entity, new AutoDestroyOutsideCamera());
         }
     }
 
