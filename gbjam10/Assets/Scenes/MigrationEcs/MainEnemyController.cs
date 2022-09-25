@@ -7,9 +7,12 @@ using UnityEngine;
 public class MainEnemyController : ControllerBase
 {
     private const string SpawnBombState = "SpawningBomb";
+    private const string SwitchingPositionState = "SwitchingPosition";
     
     public GameObject bombDefinition;
 
+    private float switchPositionDestinationY;
+    
     public Vector2 spawnBombOffset = new Vector2(-1, 0);
 
     public override void OnUpdate(float dt)
@@ -22,12 +25,35 @@ public class MainEnemyController : ControllerBase
         
         ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
         var plantTrapAbility = abilities.GetAbility("PlantTrap");
+        
+        var switchPositionAbility = abilities.GetAbility("SwitchPosition");
 
         unitStateComponent.disableAutoUpdate = true;
         unitStateComponent.walking = false;
+        
         control.direction.x = 1;
+        control.direction.y = 0;
         
         var position = world.GetComponent<PositionComponent>(entity);
+        
+        if (states.HasState(SwitchingPositionState))
+        {
+            var state = states.GetState(SwitchingPositionState);
+            
+            unitStateComponent.walking = true;
+
+            control.direction.y = Mathf.Sign(switchPositionDestinationY - position.value.y);
+
+            if (Mathf.Abs(switchPositionDestinationY - position.value.y) < 0.1f || 
+                state.time > switchPositionAbility.duration)
+            {
+                switchPositionAbility.isRunning = false;
+                switchPositionAbility.cooldownCurrent = 0;
+                states.ExitState(SwitchingPositionState);
+            }
+            
+            return;
+        }
 
         if (states.HasState(SpawnBombState))
         {
@@ -49,6 +75,21 @@ public class MainEnemyController : ControllerBase
                 states.ExitState(SpawnBombState);
             }
 
+            return;
+        }
+
+        if (switchPositionAbility.isCooldownReady)
+        {
+            switchPositionDestinationY = UnityEngine.Random.Range(-3.0f, 3.0f);
+            
+            Debug.Log($"DestinationY: {switchPositionDestinationY}");
+            
+            // switchPositionDestinationY = position.value.y + UnityEngine.Random.Range(1.0f, 3.0f) * 
+            //     (UnityEngine.Random.Range(0, 1) < 0.5f ? -1.0f : 1.0f);
+            
+            switchPositionAbility.isRunning = true;
+            unitStateComponent.walking = true;
+            states.EnterState(SwitchingPositionState);
             return;
         }
         

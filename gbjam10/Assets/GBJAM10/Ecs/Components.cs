@@ -54,7 +54,6 @@ namespace GBJAM10.Ecs
         public bool disabled;
         
         public float speed;
-
         public float extraSpeed;
 
         public Vector2 currentVelocity;
