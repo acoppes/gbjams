@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
 namespace GBJAM10.UI
@@ -12,15 +11,18 @@ namespace GBJAM10.UI
 
         private List<HealthSlotUI> healthSlots = new List<HealthSlotUI>();
 
-        public void SetHealth(HealthComponent health)
-        {
-            SetHealth(health.current, health.total);
-        }
-        
+        public float factor = 1.0f;
+
         public void SetHealth(float current, float total)
         {
+            var newCurrent = current * factor;
+            var newTotal = total * factor;
+
+            var totalInt = Mathf.RoundToInt(newTotal);
+            var currentInt = Mathf.RoundToInt(newCurrent);
+            
             // regenerate slots if different total
-            if (healthSlots.Count != total)
+            if (healthSlots.Count != totalInt)
             {
                 // regenerate all sub 
                 foreach (var healthSlot in healthSlots)
@@ -30,7 +32,7 @@ namespace GBJAM10.UI
                 
                 healthSlots.Clear();
 
-                for (var i = 0; i < total; i++)
+                for (var i = 0; i < totalInt; i++)
                 {
                     var healthSlotObject = Instantiate(healthSlotPrefab, container);
                     healthSlots.Add(healthSlotObject.GetComponent<HealthSlotUI>());
@@ -39,7 +41,15 @@ namespace GBJAM10.UI
             
             for (var i = 0; i < healthSlots.Count; i++)
             {
-                healthSlots[i].isFilled = i < current;
+                if (i == Mathf.FloorToInt(newCurrent))
+                {
+                    var difference = newCurrent - i;
+                    healthSlots[i].fillAmount = difference;
+                }
+                else
+                {
+                    healthSlots[i].fillAmount = i < newCurrent ? 1 : 0;
+                }
             }
         }
     }

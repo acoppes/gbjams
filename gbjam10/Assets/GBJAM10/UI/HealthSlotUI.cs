@@ -10,11 +10,11 @@ namespace GBJAM10.UI
         public Image fill;
 
         [NonSerialized]
-        public bool isFilled;
+        public float fillAmount = 1;
 
         private void LateUpdate()
         {
-            fill.enabled = isFilled;
+            fill.fillAmount = fillAmount;
         }
     }
 }
