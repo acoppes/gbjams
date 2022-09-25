@@ -3,12 +3,14 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class CharacterController : ControllerBase
+public class CharacterController : ControllerBase, IInit
 {
     private const string StateJumping = "Jumping";
     private const string StateFalling = "Falling";
     private const string StatePickingTrap = "PickingTrap";
+    private const string StateSuperAttack = "SuperAttack";
     
     // Read this kind of things from configuration
     public float jumpMaxHeight;
@@ -18,7 +20,16 @@ public class CharacterController : ControllerBase
     public float slowExtraSpeed = -3;
     public float fastExtraSpeed = 3;
 
-    public GameObject bulletDefinition;
+    [FormerlySerializedAs("bulletDefinition")] 
+    public GameObject defaultBulletDefinition;
+
+    private GameObject currentBulletDefinition;
+    
+    
+    public void OnInit()
+    {
+        currentBulletDefinition = defaultBulletDefinition;
+    }
 
     public override void OnUpdate(float dt)
     {
@@ -75,7 +86,31 @@ public class CharacterController : ControllerBase
             
             control.direction.y = 0;
 
-            if (pickTrapAbility.isComplete)
+            var stopAbility = pickTrapAbility.isComplete;
+
+            var pickTrapsTargeting = abilities.GetTargeting("PickTrap");
+            if (pickTrapsTargeting.targets.Count > 0)
+            {
+                var target = pickTrapsTargeting.targets[0];
+                var unitTypeComponent = world.GetComponent<UnitTypeComponent>(target.entity);
+
+                if ((unitTypeComponent.type & (int) UnitDefinition.UnitType.Pickup) != 0)
+                {
+                    ref var targetHealth = ref world.GetComponent<HealthComponent>(target.entity);
+                    targetHealth.deathRequest = true;
+                    
+                    // pick special attack 
+                    
+                    // change normal state!! 
+                    currentBulletDefinition = null;
+                    states.EnterState(StateSuperAttack);
+                }
+                
+                // kill trap before damage
+                stopAbility = true;
+            }
+
+            if (stopAbility)
             {
                 unitState.attacking1 = false;
                 
@@ -122,17 +157,30 @@ public class CharacterController : ControllerBase
             return;
         }
         
-        if (control.mainAction && pickTrapAbility.isCooldownReady)
+        if (!states.HasState(StateSuperAttack))
         {
-            pickTrapAbility.isRunning = true;
-            
-            unitState.walking = false;
-            
-            // control.direction.x = 0;
-            
-            unitState.attacking1 = true;
-            states.EnterState(StatePickingTrap);
-            return;
+            if (control.mainAction && pickTrapAbility.isCooldownReady)
+            {
+                pickTrapAbility.isRunning = true;
+
+                unitState.walking = false;
+
+                // control.direction.x = 0;
+
+                unitState.attacking1 = true;
+                states.EnterState(StatePickingTrap);
+                return;
+            }
+        }
+        else
+        {
+            if (control.mainAction)
+            {
+                // fire super bullet
+                
+                states.ExitState(StateSuperAttack);
+                currentBulletDefinition = defaultBulletDefinition;
+            }
         }
 
         if (control.secondaryAction)
@@ -144,9 +192,9 @@ public class CharacterController : ControllerBase
             return;
         }
         
-        if (autoAttackAbility.isCooldownReady)
+        if (autoAttackAbility.isCooldownReady && currentBulletDefinition != null)
         {
-            var bulletEntity = world.CreateEntity(bulletDefinition.GetInterface<IEntityDefinition>(), null);
+            var bulletEntity = world.CreateEntity(currentBulletDefinition.GetInterface<IEntityDefinition>(), null);
             ref var bulletPosition = ref world.GetComponent<PositionComponent>(bulletEntity);
             
             ref var bulletPlayerComponent = ref world.GetComponent<PlayerComponent>(bulletEntity);
@@ -161,4 +209,5 @@ public class CharacterController : ControllerBase
             unitState.walking = true;    
         }
     }
+
 }
