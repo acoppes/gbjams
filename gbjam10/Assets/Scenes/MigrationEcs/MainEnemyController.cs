@@ -10,12 +10,8 @@ public class MainEnemyController : ControllerBase
     
     public GameObject bombDefinition;
 
-    public float spawnBombCooldown;
-    public float spawnBombDuration;
-    
     public Vector2 spawnBombOffset = new Vector2(-1, 0);
-    private float spawnBombTime;
-    
+
     public override void OnUpdate(float dt)
     {
         ref var states = ref world.GetComponent<StatesComponent>(entity);
@@ -23,6 +19,9 @@ public class MainEnemyController : ControllerBase
         ref var control = ref world.GetComponent<UnitControlComponent>(entity);
         
         var playerComponent = world.GetComponent<PlayerComponent>(entity);
+        
+        ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
+        var plantTrapAbility = abilities.GetAbility("PlantTrap");
 
         unitStateComponent.disableAutoUpdate = true;
         unitStateComponent.walking = false;
@@ -33,7 +32,7 @@ public class MainEnemyController : ControllerBase
         if (states.HasState(SpawnBombState))
         {
             var state = states.GetState(SpawnBombState);
-            if (state.time > spawnBombDuration)
+            if (state.time > plantTrapAbility.duration)
             {
                 var bombEntity = world.CreateEntity(bombDefinition.GetInterface<IEntityDefinition>(), null);
                 ref var bombPosition = ref world.GetComponent<PositionComponent>(bombEntity);
@@ -42,7 +41,9 @@ public class MainEnemyController : ControllerBase
                 bombPlayerComponent.player = playerComponent.player;
                 
                 bombPosition.value = position.value + spawnBombOffset;
-                spawnBombTime = 0;  
+
+                plantTrapAbility.isRunning = false;
+                plantTrapAbility.cooldownCurrent = 0;
                 
                 unitStateComponent.attacking1 = false;
                 states.ExitState(SpawnBombState);
@@ -51,10 +52,9 @@ public class MainEnemyController : ControllerBase
             return;
         }
         
-        spawnBombTime += dt;
-
-        if (spawnBombTime > spawnBombCooldown)
+        if (plantTrapAbility.isCooldownReady)
         {
+            plantTrapAbility.isRunning = true;
             states.EnterState(SpawnBombState);
             // control.direction.x = 0;
             unitStateComponent.attacking1 = true;
