@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GBJAM10.Ecs;
 using Gemserk.Leopotam.Ecs;
@@ -7,6 +8,16 @@ using UnityEngine;
 
 public class UnitDefinition : MonoBehaviour, IEntityDefinition
 {
+    [Flags]
+    public enum UnitType
+    {
+        Nothing = 0,
+        Everything = -1,
+        Unit = 1 << 0,
+        Bullet = 1 << 1,
+        Pickup = 1 << 2
+    }
+        
     public float movementSpeed;
     public float health;
 
@@ -14,6 +25,8 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
 
     public bool canBeControlled = true;
     public bool canBeTargeted = true;
+    
+    public UnitType unitType;
 
     public bool canJump = false;
 
@@ -32,6 +45,14 @@ public class UnitDefinition : MonoBehaviour, IEntityDefinition
     {
         world.AddComponent(entity, new PlayerComponent());
         world.AddComponent(entity, new PositionComponent());
+
+        if (unitType != 0)
+        {
+            world.AddComponent(entity, new UnitTypeComponent()
+            {
+                type = (int) unitType
+            });
+        }
         
         if (canJump)
         {

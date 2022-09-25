@@ -23,7 +23,6 @@ namespace GBJAM10.UI
             if (healthSlots.Count != total)
             {
                 // regenerate all sub 
-
                 foreach (var healthSlot in healthSlots)
                 {
                     Destroy(healthSlot.gameObject);

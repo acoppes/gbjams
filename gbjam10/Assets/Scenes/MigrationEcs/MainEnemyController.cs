@@ -21,6 +21,8 @@ public class MainEnemyController : ControllerBase
         ref var states = ref world.GetComponent<StatesComponent>(entity);
         ref var unitStateComponent = ref world.GetComponent<UnitStateComponent>(entity);
         ref var control = ref world.GetComponent<UnitControlComponent>(entity);
+        
+        var playerComponent = world.GetComponent<PlayerComponent>(entity);
 
         unitStateComponent.disableAutoUpdate = true;
         unitStateComponent.walking = false;
@@ -35,6 +37,10 @@ public class MainEnemyController : ControllerBase
             {
                 var bombEntity = world.CreateEntity(bombDefinition.GetInterface<IEntityDefinition>(), null);
                 ref var bombPosition = ref world.GetComponent<PositionComponent>(bombEntity);
+                
+                ref var bombPlayerComponent = ref world.GetComponent<PlayerComponent>(bombEntity);
+                bombPlayerComponent.player = playerComponent.player;
+                
                 bombPosition.value = position.value + spawnBombOffset;
                 spawnBombTime = 0;  
                 

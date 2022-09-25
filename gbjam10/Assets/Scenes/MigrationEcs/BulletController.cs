@@ -18,10 +18,17 @@ public class BulletController : ControllerBase
         
         var damageOnImpact = abilities.GetTargeting("DamageOnImpact");
 
-        if (damageOnImpact.targets.Count > 0)
+        foreach (var target in damageOnImpact.targets)
         {
-            var target = damageOnImpact.targets[0];
-
+            if (world.HasComponent<UnitTypeComponent>(target.entity))
+            {
+                var unitTypeComponent = world.GetComponent<UnitTypeComponent>(target.entity);
+                if ((unitTypeComponent.type & (int) UnitDefinition.UnitType.Unit) == 0)
+                {
+                    continue;
+                }
+            }
+            
             ref var targetHealth = ref world.GetComponent<HealthComponent>(target.entity);
             targetHealth.pendingDamages.Add(new Damage
             {

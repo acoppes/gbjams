@@ -43,16 +43,19 @@ public class GameHudController : ControllerBase, IInit
         var mainCharacterEntity = world.GetEntityByName("Main_Character");
         var bossEntity = world.GetEntityByName("Main_Enemy");
         
-        if (mainCharacterEntity == Entity.NullEntity)
-        {
-            animator.SetBool(visibleHash, false);
-            return;
-        }
+        // if (mainCharacterEntity == Entity.NullEntity)
+        // {
+        //     animator.SetBool(visibleHash, false);
+        //     return;
+        // }
 
         if (heroHealthUI != null)
         { 
-            var healthComponent = world.GetComponent<HealthComponent>(mainCharacterEntity);
-            heroHealthUI.SetHealth(healthComponent.current, healthComponent.total);
+            if (mainCharacterEntity != Entity.NullEntity)
+            {
+                var healthComponent = world.GetComponent<HealthComponent>(mainCharacterEntity);
+                heroHealthUI.SetHealth(healthComponent.current, healthComponent.total);
+            }
         }
 
         if (bossHealthUI != null)

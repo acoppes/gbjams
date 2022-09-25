@@ -138,4 +138,8 @@ namespace GBJAM10.Ecs
         public Vector2 lastValidPosition;
     }
 
+    public struct UnitTypeComponent : IEntityComponent
+    {
+        public int type;
+    }
 }

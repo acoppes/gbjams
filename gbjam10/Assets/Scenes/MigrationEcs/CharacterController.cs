@@ -27,7 +27,7 @@ public class CharacterController : ControllerBase
         
         ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
         ref var jumpComponent = ref world.GetComponent<JumpComponent>(entity);
-        ref var player = ref world.GetComponent<PlayerComponent>(entity);
+        ref var playerComponent = ref world.GetComponent<PlayerComponent>(entity);
         
         playerInput.disabled = true;
         
@@ -148,6 +148,10 @@ public class CharacterController : ControllerBase
         {
             var bulletEntity = world.CreateEntity(bulletDefinition.GetInterface<IEntityDefinition>(), null);
             ref var bulletPosition = ref world.GetComponent<PositionComponent>(bulletEntity);
+            
+            ref var bulletPlayerComponent = ref world.GetComponent<PlayerComponent>(bulletEntity);
+            bulletPlayerComponent.player = playerComponent.player;
+            
             bulletPosition.value = position.value + lookingDirection.value.normalized * 0.5f;
             autoAttackAbility.cooldownCurrent = 0;
         }
