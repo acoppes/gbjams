@@ -82,11 +82,6 @@ public class MainEnemyController : ControllerBase
         {
             switchPositionDestinationY = UnityEngine.Random.Range(-3.0f, 3.0f);
             
-            Debug.Log($"DestinationY: {switchPositionDestinationY}");
-            
-            // switchPositionDestinationY = position.value.y + UnityEngine.Random.Range(1.0f, 3.0f) * 
-            //     (UnityEngine.Random.Range(0, 1) < 0.5f ? -1.0f : 1.0f);
-            
             switchPositionAbility.isRunning = true;
             unitStateComponent.walking = true;
             states.EnterState(SwitchingPositionState);

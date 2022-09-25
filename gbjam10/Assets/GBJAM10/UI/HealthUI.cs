@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using GBJAM10.Components;
+using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
 namespace GBJAM10.UI
