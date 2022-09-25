@@ -5,9 +5,33 @@ using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
-public class GameHudController : ControllerBase
+public class GameHudController : ControllerBase, IInit
 {
     private static readonly int visibleHash = Animator.StringToHash("visible");
+
+    private HealthUI heroHealthUI;
+    private HealthUI bossHealthUI;
+
+    public void OnInit()
+    {
+        ref var modelComponent = ref world.GetComponent<UnitModelComponent>(entity);
+
+        var instance = modelComponent.instance;
+        
+        var healthObject = instance.transform.Find("Canvas/Hero_Health");
+        
+        if (healthObject != null)
+        {
+            heroHealthUI = healthObject.GetComponent<HealthUI>();
+        }
+        
+        healthObject = instance.transform.Find("Canvas/Boss");
+
+        if (healthObject != null)
+        {
+            bossHealthUI = healthObject.GetComponent<HealthUI>();
+        }
+    }
     
     public override void OnUpdate(float dt)
     {
@@ -24,41 +48,23 @@ public class GameHudController : ControllerBase
             animator.SetBool(visibleHash, false);
             return;
         }
-        else
-        {
+
+        if (heroHealthUI != null)
+        { 
             var healthComponent = world.GetComponent<HealthComponent>(mainCharacterEntity);
-            // var abilitiesComponent = world.GetComponent<AbilitiesComponent>(mainCharacterEntity);
-
-            var healthObject = instance.transform.Find("Canvas/Hero_Health");
-        
-            if (healthObject != null)
-            {
-                var healthUI = healthObject.GetComponent<HealthUI>();
-
-                if (healthUI != null)
-                {
-                    healthUI.SetHealth(healthComponent.current, healthComponent.total);
-                }
-            }
+            heroHealthUI.SetHealth(healthComponent.current, healthComponent.total);
         }
 
-        if (bossEntity != Entity.NullEntity)
+        if (bossHealthUI != null)
         {
-            var healthObject = instance.transform.Find("Canvas/Boss");
-
-            if (healthObject != null)
+            if (bossEntity != Entity.NullEntity)
             {
                 var healthComponent = world.GetComponent<HealthComponent>(bossEntity);
-                
-                var healthUI = healthObject.GetComponent<HealthUI>();
-
-                if (healthUI != null)
-                {
-                    healthUI.SetHealth(healthComponent.current, healthComponent.total);
-                }
+                bossHealthUI.SetHealth(healthComponent.current, healthComponent.total);
             }
         }
 
+        
         // var skillsUI = instance.GetComponentInChildren<SkillsUI>();
         //
         // if (skillsUI != null)
@@ -69,4 +75,6 @@ public class GameHudController : ControllerBase
         
         animator.SetBool(visibleHash, modelComponent.IsVisible);
     }
+
+
 }
