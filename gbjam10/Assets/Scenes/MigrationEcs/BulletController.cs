@@ -1,4 +1,5 @@
 ﻿using GBJAM10.Ecs;
+using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class BulletController : ControllerBase
 {
     public float damage;
+    
+    public GameObject explosionVfxDefinition;
     
     public override void OnUpdate(float dt)
     {
@@ -35,6 +38,13 @@ public class BulletController : ControllerBase
                 value = damage
             });
             health.deathRequest = true;
+        }
+        
+        if (health.deathRequest && explosionVfxDefinition != null)
+        {
+            var vfxEntity = world.CreateEntity(explosionVfxDefinition.GetInterface<IEntityDefinition>(), null);
+            ref var vfxPosition = ref world.GetComponent<PositionComponent>(vfxEntity);
+            vfxPosition.value = world.GetComponent<PositionComponent>(entity).value;
         }
     }
 }

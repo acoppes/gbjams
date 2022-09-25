@@ -42,7 +42,7 @@ public class PlantedItemController : ControllerBase
             health.deathRequest = true;
         }
 
-        if (health.deathRequest)
+        if (health.deathRequest && explosionVfxDefinition != null)
         {
             var vfxEntity = world.CreateEntity(explosionVfxDefinition.GetInterface<IEntityDefinition>(), null);
             ref var vfxPosition = ref world.GetComponent<PositionComponent>(vfxEntity);
