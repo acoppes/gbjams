@@ -5,7 +5,7 @@ using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class CharacterController : ControllerBase, IInit
+public class CharacterController : ControllerBase, IInit, IEntityDestroyed
 {
     private const string StateJumping = "Jumping";
     private const string StateFalling = "Falling";
@@ -28,14 +28,24 @@ public class CharacterController : ControllerBase, IInit
     public GameObject superBulletDefinition;
     
     private GameObject currentBulletDefinition;
-    
+
+    private Entity autoAttackBullet = Entity.NullEntity;
     
     public void OnInit()
     {
         currentBulletDefinition = defaultBulletDefinition;
     }
+    
+    
+    public void OnEntityDestroyed(Entity e)
+    {
+        if (e == autoAttackBullet)
+        {
+            autoAttackBullet = Entity.NullEntity;
+        }
+    }
 
-    private void FireBullet(GameObject bulletDefinition)
+    private Entity FireBullet(GameObject bulletDefinition)
     {
         var playerComponent = world.GetComponent<PlayerComponent>(entity);
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
@@ -48,6 +58,8 @@ public class CharacterController : ControllerBase, IInit
         bulletPlayerComponent.player = playerComponent.player;
             
         bulletPosition.value = position.value + lookingDirection.value.normalized * 0.5f;
+
+        return bulletEntity;
     }
 
     public override void OnUpdate(float dt)
@@ -222,9 +234,9 @@ public class CharacterController : ControllerBase, IInit
             return;
         }
         
-        if (autoAttackAbility.isCooldownReady && currentBulletDefinition != null)
+        if (autoAttackAbility.isCooldownReady && currentBulletDefinition != null && autoAttackBullet == Entity.NullEntity)
         {
-            FireBullet(currentBulletDefinition);
+            autoAttackBullet = FireBullet(currentBulletDefinition);
             autoAttackAbility.cooldownCurrent = 0;
         }
 
