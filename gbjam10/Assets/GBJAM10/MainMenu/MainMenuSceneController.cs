@@ -19,6 +19,8 @@ namespace GBJAM10.MainMenu
         public AudioSource bgMusicIntro;
         public AudioSource bgMusicLoop;
 
+        public string nextSceneName = "LoadingScene";
+
         private void Start()
         {
             mainMenuIntro.Next();
@@ -68,7 +70,7 @@ namespace GBJAM10.MainMenu
                 }
             }
              
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene(nextSceneName);
         }
     }
 }

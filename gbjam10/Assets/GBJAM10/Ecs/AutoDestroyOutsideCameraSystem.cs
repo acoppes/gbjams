@@ -15,8 +15,6 @@ namespace GBJAM10.Ecs
         {
             var healthComponents = world.GetComponents<HealthComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
-
-            // var mainCamera = Camera.main;
             
             if (cameraEntity == Entity.NullEntity)
             {

@@ -3,6 +3,7 @@ using GBJAM10;
 using GBJAM10.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
+using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -108,19 +109,21 @@ public class GameController : ControllerBase
             UpdateEntitySpeed(mainEnemy, initialGameSpeed);
         }
 
+        var mainCameraPosition = world.GetComponent<PositionComponent>(mainCamera);
+
         for (int i = 0; i < level.childCount; i++)
         {
             var chunkTransform = level.GetChild(i);
             
             var chunkEnd = chunkTransform.Find("Chunk_End");
-            if (chunkEnd.position.x < Camera.main.transform.position.x - 5)
+            if (chunkEnd.position.x < mainCameraPosition.value.x - 5)
             {
                 chunkTransform.gameObject.SetActive(false);
                 chunkTransform.parent = chunksPoolParent;
             }
         }
 
-        if (Camera.main.transform.position.x + 5 > chunkEndPosition.x)
+        if (mainCameraPosition.value.x + 5 > chunkEndPosition.x)
         {
             GenerateNewChunk();
         }
