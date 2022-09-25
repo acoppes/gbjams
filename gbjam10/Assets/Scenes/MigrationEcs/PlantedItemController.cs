@@ -25,6 +25,9 @@ public class PlantedItemController : ControllerBase
 
         foreach (var target in damageOnImpact.targets)
         {
+            if (target.entity == Entity.NullEntity)
+                continue;
+
             if (world.HasComponent<UnitTypeComponent>(target.entity))
             {
                 var unitTypeComponent = world.GetComponent<UnitTypeComponent>(target.entity);

@@ -72,6 +72,7 @@ public class CharacterController : ControllerBase, IInit
         var pickTrapAbility = abilities.GetAbility("PickTrap");
         
         var autoAttackAbility = abilities.GetAbility("AutoAttack");
+        var superAttackAbility = abilities.GetAbility("SuperAttack");
 
         var position = world.GetComponent<PositionComponent>(entity);
         var lookingDirection = world.GetComponent<LookingDirection>(entity);
@@ -121,6 +122,8 @@ public class CharacterController : ControllerBase, IInit
                     // change normal state!! 
                     currentBulletDefinition = null;
                     states.EnterState(StateSuperAttack);
+
+                    superAttackAbility.cooldownCurrent = 0;
                 }
                 
                 // kill trap before damage
@@ -191,10 +194,9 @@ public class CharacterController : ControllerBase, IInit
         }
         else
         {
-            if (control.mainAction)
+            if (control.mainAction && superAttackAbility.isCooldownReady)
             {
                 FireBullet(superBulletDefinition);
-
                 states.ExitState(StateSuperAttack);
                 currentBulletDefinition = defaultBulletDefinition;
             }

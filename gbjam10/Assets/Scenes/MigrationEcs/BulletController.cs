@@ -16,6 +16,10 @@ public class BulletController : ControllerBase
         movement.movingDirection = Vector2.right;
         
         ref var health = ref world.GetComponent<HealthComponent>(entity);
+        if (health.deathRequest)
+        {
+            return;
+        }
             
         ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
         
@@ -23,6 +27,9 @@ public class BulletController : ControllerBase
 
         foreach (var target in damageOnImpact.targets)
         {
+            if (target.entity == Entity.NullEntity)
+                continue;
+            
             if (world.HasComponent<UnitTypeComponent>(target.entity))
             {
                 var unitTypeComponent = world.GetComponent<UnitTypeComponent>(target.entity);

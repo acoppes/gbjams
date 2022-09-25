@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 4155008833266147918}
   - {fileID: 3956839297206200666}
+  - {fileID: 8496909647173646630}
   - {fileID: 723953293149301528}
   - {fileID: 2853645843958494050}
   m_Father: {fileID: 0}
@@ -89,6 +90,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerObject: {fileID: 723953293149301519}
+--- !u!1 &541012765784576372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8496909647173646630}
+  - component: {fileID: 3407850472556800095}
+  m_Layer: 0
+  m_Name: SuperAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8496909647173646630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541012765784576372}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 478210605849480811}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3407850472556800095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541012765784576372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39e43ec2f2a44514a97c2646bc8158d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0.2
+  duration: 0.15
+  projectileDefinitionPrefab: {fileID: 0}
+  startType: 1
 --- !u!1 &723953293149301519
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +168,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 478210605849480811}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5305517232780654927
 MonoBehaviour:
@@ -257,7 +306,7 @@ Transform:
   - {fileID: 2853645844336902500}
   - {fileID: 3410231681486439912}
   m_Father: {fileID: 478210605849480811}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2853645843958494058
 Animator:
