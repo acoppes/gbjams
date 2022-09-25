@@ -149,6 +149,15 @@ namespace GBJAM10.Controllers
                         states.EnterState(StateSuperAttack);
 
                         superAttackAbility.cooldownCurrent = 0;
+                        
+                        if (model.instance != null)
+                        {
+                            var sfxTransform = model.instance.transform.FindInHierarchy("Sfx_PickTrap");
+                            if (sfxTransform != null)
+                            {
+                                sfxTransform.GetComponent<AudioSource>().Play();
+                            }
+                        }
                     }
                 
                     // kill trap before damage
@@ -184,23 +193,23 @@ namespace GBJAM10.Controllers
                 return;
             }
 
-            if (states.HasState(StateJumping))
-            {
-                // var state = states.GetState(StateJumping);
-            
-                control.direction.y = 0;
-
-                jumpComponent.y += dt * jumpSpeed;
-
-                if (jumpComponent.y >= jumpMaxHeight || !control.secondaryAction)
-                {
-                    unitState.dashing = false;
-                    states.ExitState(StateJumping);
-                    states.EnterState(StateFalling);
-                }
-            
-                return;
-            }
+            // if (states.HasState(StateJumping))
+            // {
+            //     // var state = states.GetState(StateJumping);
+            //
+            //     control.direction.y = 0;
+            //
+            //     jumpComponent.y += dt * jumpSpeed;
+            //
+            //     if (jumpComponent.y >= jumpMaxHeight || !control.secondaryAction)
+            //     {
+            //         unitState.dashing = false;
+            //         states.ExitState(StateJumping);
+            //         states.EnterState(StateFalling);
+            //     }
+            //
+            //     return;
+            // }
         
             if (!states.HasState(StateSuperAttack))
             {
@@ -215,15 +224,6 @@ namespace GBJAM10.Controllers
                     unitState.attacking1 = true;
                     states.EnterState(StatePickingTrap);
 
-                    if (model.instance != null)
-                    {
-                        var sfxTransform = model.instance.transform.FindInHierarchy("Sfx_PickTrap");
-                        if (sfxTransform != null)
-                        {
-                            sfxTransform.GetComponent<AudioSource>().Play();
-                        }
-                    }
-                
                     return;
                 }
             }
@@ -240,14 +240,14 @@ namespace GBJAM10.Controllers
                 }
             }
 
-            if (control.secondaryAction)
-            {
-                // start jumping 
-                jumpComponent.y = 0;
-                unitState.dashing = true;
-                states.EnterState(StateJumping);
-                return;
-            }
+            // if (control.secondaryAction)
+            // {
+            //     // start jumping 
+            //     jumpComponent.y = 0;
+            //     unitState.dashing = true;
+            //     states.EnterState(StateJumping);
+            //     return;
+            // }
         
             if (autoAttackAbility.isCooldownReady && currentBulletDefinition != null && autoAttackBullet == Entity.NullEntity)
             {
