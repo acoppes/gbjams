@@ -23,6 +23,8 @@ namespace GBJAM10.Definitions
         public float movementSpeed;
         public float health;
 
+        public float invulnerableTime;
+
         public bool showLookingDirection = true;
 
         public bool canBeControlled = true;
@@ -111,7 +113,8 @@ namespace GBJAM10.Definitions
                 {
                     current = health,
                     total = health,
-                    autoDestroyOnDeath = autoDestroyOnDeath
+                    autoDestroyOnDeath = autoDestroyOnDeath,
+                    invulnerableTime = invulnerableTime
                 });
             }
 

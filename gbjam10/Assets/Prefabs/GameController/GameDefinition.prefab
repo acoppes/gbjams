@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3258790840435783408}
   - component: {fileID: 3258790840435783409}
+  - component: {fileID: 2742468330923014585}
   - component: {fileID: 2032642831369316880}
   m_Layer: 0
   m_Name: GameDefinition
@@ -46,6 +47,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 057162161bac401bb66ec0b44b154cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2742468330923014585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3258790840435783410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa08ba5941e4c2690b898d38e0ded1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 0
+  health: 0
+  showLookingDirection: 0
+  canBeControlled: 0
+  canBeTargeted: 0
+  unitType: 0
+  canJump: 0
+  autoDestroyOnDeath: 0
+  colliderRadius: 0
+  collidesWithTerrain: 0
+  modelPrefab: {fileID: 0}
+  configuration: {fileID: 0}
+  autoDestroyOutsideCamera: 0
+  keepInsideCameraBounds: 0
 --- !u!114 &2032642831369316880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,4 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e18db5464d6dd4dbab715c4e72ad2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followName: Main_Camera
+  level: {fileID: 0}
+  startingChunks: 3
+  initialGameSpeed: 5
+  poolSize: 20
+  levelData: {fileID: 0}

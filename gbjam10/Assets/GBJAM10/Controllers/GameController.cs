@@ -7,7 +7,7 @@ using UnityEngine.Assertions;
 
 namespace GBJAM10.Controllers
 {
-    public class GameController : ControllerBase
+    public class GameController : ControllerBase, IEntityDestroyed
     {
         public Transform level;
     
@@ -28,6 +28,20 @@ namespace GBJAM10.Controllers
         private Entity mainCharacter;
         private Entity mainCamera;
         private Entity mainEnemy;
+        
+        public void OnEntityDestroyed(Entity e)
+        {
+            if (e == mainCharacter)
+            {
+                mainCharacter = Entity.NullEntity;
+                // do stuff, go to ending sequence
+
+                var states = world.GetComponent<StatesComponent>(entity);
+                states.EnterState("GameOver");
+                
+                // show gameover object
+            }
+        }
 
         private void GenerateNewChunk()
         {
@@ -129,5 +143,7 @@ namespace GBJAM10.Controllers
             }
         
         }
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GBJAM10.Definitions;
 using GBJAM10.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
@@ -21,6 +22,8 @@ namespace GBJAM10.Controllers
         public float switchPositionsRandomCooldown = 0.5f;
         public float spawnBombRandomCooldown = 0.5f;
 
+        public float damageNear = 1;
+
         public override void OnUpdate(float dt)
         {
             ref var states = ref world.GetComponent<StatesComponent>(entity);
@@ -41,6 +44,36 @@ namespace GBJAM10.Controllers
             control.direction.y = 0;
         
             var position = world.GetComponent<PositionComponent>(entity);
+
+            var damageNearAbility = abilities.GetAbility("DamageNear");
+            var damageNearTargeting = abilities.GetTargeting("DamageNear");
+
+            if (damageNearAbility.isCooldownReady)
+            {
+                foreach (var target in damageNearTargeting.targets)
+                {
+                    if (target.entity == Entity.NullEntity)
+                        continue;
+
+                    if (world.HasComponent<UnitTypeComponent>(target.entity))
+                    {
+                        var unitTypeComponent = world.GetComponent<UnitTypeComponent>(target.entity);
+                        if ((unitTypeComponent.type & (int)UnitDefinition.UnitType.Unit) == 0)
+                        {
+                            continue;
+                        }
+                    }
+
+                    ref var targetHealth = ref world.GetComponent<HealthComponent>(target.entity);
+                    targetHealth.pendingDamages.Add(new Damage
+                    {
+                        value = damageNear
+                    });
+                    
+                    // reset cooldown only if damage player
+                    damageNearAbility.cooldownCurrent = 0;
+                }
+            }
         
             if (states.HasState(SwitchingPositionState))
             {
