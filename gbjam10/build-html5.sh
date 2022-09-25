@@ -1,4 +1,4 @@
-export GB_GAME_NAME="GBJAM10"
+export GB_GAME_NAME="SeedcityChasers"
 export GB_GAME_BUILD_PATH="builds/html5/"
 export GB_GAME_BUILD_LOG_PATH="builds/html5.txt"
 
