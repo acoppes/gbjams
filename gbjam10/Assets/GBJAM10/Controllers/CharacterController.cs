@@ -54,13 +54,16 @@ namespace GBJAM10.Controllers
             var lookingDirection = world.GetComponent<LookingDirection>(entity);
             var position = world.GetComponent<PositionComponent>(entity);
         
+            var model = world.GetComponent<UnitModelComponent>(entity);
+            var attachBulletPosition = model.instance.transform.FindInHierarchy("Attach_Bullet").position;
+            
             var bulletEntity = world.CreateEntity(bulletDefinition.GetInterface<IEntityDefinition>(), null);
             ref var bulletPosition = ref world.GetComponent<PositionComponent>(bulletEntity);
             
             ref var bulletPlayerComponent = ref world.GetComponent<PlayerComponent>(bulletEntity);
             bulletPlayerComponent.player = playerComponent.player;
             
-            bulletPosition.value = position.value + lookingDirection.value.normalized * 0.5f;
+            bulletPosition.value = attachBulletPosition;
 
             return bulletEntity;
         }
