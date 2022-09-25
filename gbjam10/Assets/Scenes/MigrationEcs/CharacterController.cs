@@ -84,8 +84,14 @@ public class CharacterController : ControllerBase, IInit
         if (playerInput.keyMap != null)
         {
             control.direction.y = playerInput.keyMap.direction.y;
+            
             control.mainAction = playerInput.keyMap.button1Pressed;
             control.secondaryAction = playerInput.keyMap.button2Pressed;
+
+            // if (control.mainAction)
+            // {
+            //     Debug.Log("JUST PRESSED");
+            // }
 
             movementComponent.extraSpeed = 0;
             
@@ -203,6 +209,7 @@ public class CharacterController : ControllerBase, IInit
                 currentBulletDefinition = defaultBulletDefinition;
 
                 autoAttackAbility.cooldownCurrent = -autoAttackDelayAfterSuperAttack;
+                pickTrapAbility.cooldownCurrent = 0;
             }
         }
 
