@@ -16,6 +16,9 @@ public class MainEnemyController : ControllerBase
     
     public Vector2 spawnBombOffset = new Vector2(-1, 0);
 
+    public float switchPositionsRandomCooldown = 0.5f;
+    public float spawnBombRandomCooldown = 0.5f;
+
     public override void OnUpdate(float dt)
     {
         ref var states = ref world.GetComponent<StatesComponent>(entity);
@@ -49,7 +52,7 @@ public class MainEnemyController : ControllerBase
                 state.time > switchPositionAbility.duration)
             {
                 switchPositionAbility.isRunning = false;
-                switchPositionAbility.cooldownCurrent = 0;
+                switchPositionAbility.cooldownCurrent = UnityEngine.Random.Range(-switchPositionsRandomCooldown, 0);
                 states.ExitState(SwitchingPositionState);
             }
             
@@ -71,7 +74,7 @@ public class MainEnemyController : ControllerBase
                 plantPosition.value = position.value + spawnBombOffset;
 
                 plantTrapAbility.isRunning = false;
-                plantTrapAbility.cooldownCurrent = 0;
+                plantTrapAbility.cooldownCurrent = UnityEngine.Random.Range(-spawnBombRandomCooldown, 0);
                 
                 unitStateComponent.attacking1 = false;
                 states.ExitState(SpawnBombState);
