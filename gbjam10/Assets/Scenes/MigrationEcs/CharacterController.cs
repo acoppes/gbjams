@@ -20,6 +20,8 @@ public class CharacterController : ControllerBase, IInit
     public float slowExtraSpeed = -3;
     public float fastExtraSpeed = 3;
 
+    public float autoAttackDelayAfterSuperAttack;
+
     [FormerlySerializedAs("bulletDefinition")] 
     public GameObject defaultBulletDefinition;
 
@@ -199,6 +201,8 @@ public class CharacterController : ControllerBase, IInit
                 FireBullet(superBulletDefinition);
                 states.ExitState(StateSuperAttack);
                 currentBulletDefinition = defaultBulletDefinition;
+
+                autoAttackAbility.cooldownCurrent = -autoAttackDelayAfterSuperAttack;
             }
         }
 
