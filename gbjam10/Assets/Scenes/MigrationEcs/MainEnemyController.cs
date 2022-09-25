@@ -1,4 +1,5 @@
-﻿using GBJAM10.Ecs;
+﻿using System.Collections.Generic;
+using GBJAM10.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
@@ -9,7 +10,7 @@ public class MainEnemyController : ControllerBase
     private const string SpawnBombState = "SpawningBomb";
     private const string SwitchingPositionState = "SwitchingPosition";
     
-    public GameObject bombDefinition;
+    public List<GameObject> plantDefinitions;
 
     private float switchPositionDestinationY;
     
@@ -60,13 +61,14 @@ public class MainEnemyController : ControllerBase
             var state = states.GetState(SpawnBombState);
             if (state.time > plantTrapAbility.duration)
             {
-                var bombEntity = world.CreateEntity(bombDefinition.GetInterface<IEntityDefinition>(), null);
-                ref var bombPosition = ref world.GetComponent<PositionComponent>(bombEntity);
+                var plantDefinition = plantDefinitions[UnityEngine.Random.Range(0, plantDefinitions.Count)];
+                var plantEntity = world.CreateEntity(plantDefinition.GetInterface<IEntityDefinition>(), null);
+                ref var plantPosition = ref world.GetComponent<PositionComponent>(plantEntity);
                 
-                ref var bombPlayerComponent = ref world.GetComponent<PlayerComponent>(bombEntity);
-                bombPlayerComponent.player = playerComponent.player;
+                ref var plantPlayer = ref world.GetComponent<PlayerComponent>(plantEntity);
+                plantPlayer.player = playerComponent.player;
                 
-                bombPosition.value = position.value + spawnBombOffset;
+                plantPosition.value = position.value + spawnBombOffset;
 
                 plantTrapAbility.isRunning = false;
                 plantTrapAbility.cooldownCurrent = 0;
