@@ -23,12 +23,29 @@ public class CharacterController : ControllerBase, IInit
     [FormerlySerializedAs("bulletDefinition")] 
     public GameObject defaultBulletDefinition;
 
+    public GameObject superBulletDefinition;
+    
     private GameObject currentBulletDefinition;
     
     
     public void OnInit()
     {
         currentBulletDefinition = defaultBulletDefinition;
+    }
+
+    private void FireBullet(GameObject bulletDefinition)
+    {
+        var playerComponent = world.GetComponent<PlayerComponent>(entity);
+        var lookingDirection = world.GetComponent<LookingDirection>(entity);
+        var position = world.GetComponent<PositionComponent>(entity);
+        
+        var bulletEntity = world.CreateEntity(bulletDefinition.GetInterface<IEntityDefinition>(), null);
+        ref var bulletPosition = ref world.GetComponent<PositionComponent>(bulletEntity);
+            
+        ref var bulletPlayerComponent = ref world.GetComponent<PlayerComponent>(bulletEntity);
+        bulletPlayerComponent.player = playerComponent.player;
+            
+        bulletPosition.value = position.value + lookingDirection.value.normalized * 0.5f;
     }
 
     public override void OnUpdate(float dt)
@@ -176,8 +193,8 @@ public class CharacterController : ControllerBase, IInit
         {
             if (control.mainAction)
             {
-                // fire super bullet
-                
+                FireBullet(superBulletDefinition);
+
                 states.ExitState(StateSuperAttack);
                 currentBulletDefinition = defaultBulletDefinition;
             }
@@ -194,13 +211,7 @@ public class CharacterController : ControllerBase, IInit
         
         if (autoAttackAbility.isCooldownReady && currentBulletDefinition != null)
         {
-            var bulletEntity = world.CreateEntity(currentBulletDefinition.GetInterface<IEntityDefinition>(), null);
-            ref var bulletPosition = ref world.GetComponent<PositionComponent>(bulletEntity);
-            
-            ref var bulletPlayerComponent = ref world.GetComponent<PlayerComponent>(bulletEntity);
-            bulletPlayerComponent.player = playerComponent.player;
-            
-            bulletPosition.value = position.value + lookingDirection.value.normalized * 0.5f;
+            FireBullet(currentBulletDefinition);
             autoAttackAbility.cooldownCurrent = 0;
         }
 
