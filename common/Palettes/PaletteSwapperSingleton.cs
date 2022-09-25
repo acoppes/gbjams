@@ -43,8 +43,14 @@ namespace GBJAM7.Scripts
 
         private void Update()
         {
+            if (paletteSelectionAsset == null || paletteSwapKeys.Length == 0)
+                return;
+            
             for (var i = 0; i < paletteSelectionAsset.palettes.Length; i++)
             {
+                if (i >= paletteSwapKeys.Length)
+                    break;
+                
                 if (Input.GetKeyUp(paletteSwapKeys[i]))
                 {
                     paletteSelectionAsset.currentPalette = i;
