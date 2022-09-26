@@ -91,7 +91,7 @@ namespace GBJAM10.Controllers
             ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
             var pickTrapAbility = abilities.GetAbility("PickTrap");
         
-            var autoAttackAbility = abilities.GetAbility("AutoAttack");
+            var basicAttackAbility = abilities.GetAbility("AutoAttack");
             var superAttackAbility = abilities.GetAbility("SuperAttack");
 
             var position = world.GetComponent<PositionComponent>(entity);
@@ -148,7 +148,7 @@ namespace GBJAM10.Controllers
                         // pick special attack 
                     
                         // change normal state!! 
-                        currentBulletDefinition = null;
+                        // currentBulletDefinition = null;
                         states.EnterState(StateSuperAttack);
 
                         superAttackAbility.cooldownCurrent = 0;
@@ -216,7 +216,7 @@ namespace GBJAM10.Controllers
         
             if (!states.HasState(StateSuperAttack))
             {
-                if (control.mainAction && pickTrapAbility.isCooldownReady)
+                if (control.secondaryAction && pickTrapAbility.isCooldownReady)
                 {
                     pickTrapAbility.isRunning = true;
 
@@ -232,13 +232,13 @@ namespace GBJAM10.Controllers
             }
             else
             {
-                if (control.mainAction && superAttackAbility.isCooldownReady)
+                if (control.secondaryAction && superAttackAbility.isCooldownReady)
                 {
                     FireBullet(superBulletDefinition);
                     states.ExitState(StateSuperAttack);
-                    currentBulletDefinition = defaultBulletDefinition;
+                    // currentBulletDefinition = defaultBulletDefinition;
 
-                    autoAttackAbility.cooldownCurrent = -autoAttackDelayAfterSuperAttack;
+                    basicAttackAbility.cooldownCurrent = -autoAttackDelayAfterSuperAttack;
                     pickTrapAbility.cooldownCurrent = 0;
                 }
             }
@@ -252,12 +252,15 @@ namespace GBJAM10.Controllers
             //     return;
             // }
         
-            if (autoAttackAbility.isCooldownReady && currentBulletDefinition != null && autoAttackBullet == Entity.NullEntity)
+            if (control.mainAction)
             {
-                autoAttackBullet = FireBullet(currentBulletDefinition);
-                autoAttackAbility.cooldownCurrent = 0;
+                if (basicAttackAbility.isCooldownReady)
+                {
+                    autoAttackBullet = FireBullet(currentBulletDefinition);
+                    basicAttackAbility.cooldownCurrent = 0;
+                }
             }
-
+            
             if (movementComponent.totalSpeed > 0)
             {
                 unitState.walking = true;    
