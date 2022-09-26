@@ -7,12 +7,10 @@ using UnityEngine.Assertions;
 
 namespace GBJAM10.Controllers
 {
-    public class GameController : ControllerBase, IEntityDestroyed
+    public class GameController : ControllerBase, IEntityDestroyed, IInit
     {
         public Transform level;
     
-        private bool initialized;
-
         public int startingChunks = 3;
 
         public float initialGameSpeed = 5;
@@ -28,19 +26,91 @@ namespace GBJAM10.Controllers
         private Entity mainCharacter;
         private Entity mainCamera;
         private Entity mainEnemy;
-        
+
         public void OnEntityDestroyed(Entity e)
         {
             if (e == mainCharacter)
             {
                 mainCharacter = Entity.NullEntity;
-                // do stuff, go to ending sequence
 
                 var states = world.GetComponent<StatesComponent>(entity);
                 states.EnterState("GameOver");
                 
                 // show gameover object
+                var gameHudEntity = world.GetEntityByName("Game_Hud");
+                if (gameHudEntity != Entity.NullEntity)
+                {
+                    ref var model = ref world.GetComponent<UnitModelComponent>(gameHudEntity);
+                    model.visiblity = UnitModelComponent.Visiblity.Hidden;
+                }
+
+                ref var bossHealth = ref world.GetComponent<HealthComponent>(mainEnemy);
+                bossHealth.invulnerableTime = 10;
+                bossHealth.invulnerableCurrent = 10;
+
             }
+            
+            if (e == mainEnemy)
+            {
+                mainEnemy = Entity.NullEntity;
+                // do stuff, go to ending sequence
+
+                var states = world.GetComponent<StatesComponent>(entity);
+                states.EnterState("Victory");
+                
+                // show gameover object
+                var gameHudEntity = world.GetEntityByName("Game_Hud");
+                if (gameHudEntity != Entity.NullEntity)
+                {
+                    ref var model = ref world.GetComponent<UnitModelComponent>(gameHudEntity);
+                    model.visiblity = UnitModelComponent.Visiblity.Hidden;
+                }
+                
+                ref var heroHealth = ref world.GetComponent<HealthComponent>(mainCharacter);
+                heroHealth.invulnerableTime = 10;
+                heroHealth.invulnerableCurrent = 10;
+            }
+        }
+        
+        public void OnInit()
+        {
+            world.sharedData.sharedData = new SharedGameData
+            {
+                activePlayer = 0
+            };
+
+            // gameHud = world.GetEntityByName("Game_Hud");
+            mainCamera = world.GetEntityByName("Main_Camera");
+            mainCharacter = world.GetEntityByName("Main_Character");
+            mainEnemy = world.GetEntityByName("Main_Enemy");
+        
+            if (mainCamera != Entity.NullEntity)
+            {
+                var cameraFollow = FindObjectOfType<CameraFollow>();
+                var model = world.GetComponent<UnitModelComponent>(mainCamera);
+                cameraFollow.followTransform = model.instance.transform;
+            }
+
+            var chunksPoolInstance = new GameObject("~Pool_Chunks");
+            chunksPoolParent = chunksPoolInstance.transform;
+        
+            for (int i = 0; i < poolSize; i++)
+            {
+                var chunkPrefab = levelData.chunksList[UnityEngine.Random.Range(0, levelData.chunksList.Count)];
+                var chunkInstance = Instantiate(chunkPrefab, chunksPoolParent);
+                chunkInstance.SetActive(false);
+            }
+
+            chunkEndPosition = new Vector3(-3, 0, 0);
+        
+            for (var i = 0; i < startingChunks; i++)
+            {
+                GenerateNewChunk();
+            }
+        
+            UpdateEntitySpeed(mainCamera, initialGameSpeed);
+            UpdateEntitySpeed(mainCharacter, initialGameSpeed);
+            UpdateEntitySpeed(mainEnemy, initialGameSpeed);
         }
 
         private void GenerateNewChunk()
@@ -73,56 +143,6 @@ namespace GBJAM10.Controllers
 
         public override void OnUpdate(float dt)
         {
-            if (!initialized)
-            {
-                world.sharedData.sharedData = new SharedGameData
-                {
-                    activePlayer = 0
-                };
-            
-                mainCamera = world.GetEntityByName("Main_Camera");
-                mainCharacter = world.GetEntityByName("Main_Character");
-                mainEnemy = world.GetEntityByName("Main_Enemy");
-            
-                if (mainCamera != Entity.NullEntity)
-                {
-                    var cameraFollow = FindObjectOfType<CameraFollow>();
-                    var model = world.GetComponent<UnitModelComponent>(mainCamera);
-                    cameraFollow.followTransform = model.instance.transform;
-                }
-
-                var chunksPoolInstance = new GameObject("~Pool_Chunks");
-                chunksPoolParent = chunksPoolInstance.transform;
-            
-                for (int i = 0; i < poolSize; i++)
-                {
-                    var chunkPrefab = levelData.chunksList[UnityEngine.Random.Range(0, levelData.chunksList.Count)];
-                    var chunkInstance = Instantiate(chunkPrefab, chunksPoolParent);
-                    chunkInstance.SetActive(false);
-                }
-
-                chunkEndPosition = new Vector3(-3, 0, 0);
-            
-                for (int i = 0; i < startingChunks; i++)
-                {
-                    GenerateNewChunk();
-                
-                    // var chunkPrefab = levelData.chunksList[UnityEngine.Random.Range(0, levelData.chunksList.Count)];
-                    // var chunkInstance = Instantiate(chunkPrefab, level);
-                    // chunkInstance.transform.position = chunkEndPosition;
-                    //
-                    // var chunkEnd = chunkInstance.transform.Find("Chunk_End");
-                    //
-                    // chunkEndPosition += new Vector3(chunkEnd.localPosition.x, 0, 0);
-                }
-
-                initialized = true;
-            
-                UpdateEntitySpeed(mainCamera, initialGameSpeed);
-                UpdateEntitySpeed(mainCharacter, initialGameSpeed);
-                UpdateEntitySpeed(mainEnemy, initialGameSpeed);
-            }
-
             var mainCameraPosition = world.GetComponent<PositionComponent>(mainCamera);
 
             for (int i = 0; i < level.childCount; i++)
@@ -143,7 +163,6 @@ namespace GBJAM10.Controllers
             }
         
         }
-
 
     }
 }
