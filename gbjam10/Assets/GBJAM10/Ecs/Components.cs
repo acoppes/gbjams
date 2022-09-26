@@ -141,4 +141,14 @@ namespace GBJAM10.Ecs
     {
         public int type;
     }
+
+    public struct SpecialWeaponProviderComponent : IEntityComponent
+    {
+        public int special;
+    }
+
+    public struct SpecialWeaponComponent : IEntityComponent
+    {
+        public int special;
+    }
 }

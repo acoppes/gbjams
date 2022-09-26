@@ -45,6 +45,11 @@ namespace GBJAM10.Definitions
         public bool autoDestroyOutsideCamera = false;
         public bool keepInsideCameraBounds = false;
 
+        public bool providesSpecialWeapon;
+        public int specialWeapon;
+
+        public bool hasSpecialWeapon;
+
         public void Apply(World world, Entity entity)
         {
             world.AddComponent(entity, new PlayerComponent());
@@ -148,6 +153,19 @@ namespace GBJAM10.Definitions
             if (keepInsideCameraBounds)
             {
                 world.AddComponent(entity, new KeepInsideCameraComponent());
+            }
+
+            if (hasSpecialWeapon)
+            {
+                world.AddComponent(entity, new SpecialWeaponComponent());
+            }
+            
+            if (providesSpecialWeapon)
+            {
+                world.AddComponent(entity, new SpecialWeaponProviderComponent()
+                {
+                    special = specialWeapon
+                });
             }
         }
 

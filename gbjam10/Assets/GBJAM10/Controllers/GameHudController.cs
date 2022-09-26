@@ -13,6 +13,7 @@ namespace GBJAM10.Controllers
 
         private HealthUI heroHealthUI;
         private HealthUI bossHealthUI;
+        private WeaponUI weaponUI;
 
         public void OnInit()
         {
@@ -32,6 +33,12 @@ namespace GBJAM10.Controllers
             if (healthObject != null)
             {
                 bossHealthUI = healthObject.GetComponent<HealthUI>();
+            }
+
+            var weaponObject = instance.transform.FindInHierarchy("Hero_Weapon");
+            if (weaponObject != null)
+            {
+                weaponUI = weaponObject.GetComponent<WeaponUI>();
             }
         }
     
@@ -69,15 +76,16 @@ namespace GBJAM10.Controllers
                 }
             }
 
-        
-            // var skillsUI = instance.GetComponentInChildren<SkillsUI>();
-            //
-            // if (skillsUI != null)
-            // {
-            //     skillsUI.SetAbilities(abilitiesComponent.GetAbility("MainAbility").CooldownFactor, 
-            //         abilitiesComponent.GetAbility("SecondaryAbility").CooldownFactor);
-            // }
-        
+            if (weaponUI != null)
+            {
+                if (mainCharacterEntity != Entity.NullEntity)
+                {
+                    var specialWeapon = world.GetComponent<SpecialWeaponComponent>(mainCharacterEntity);
+                    weaponUI.UpdateWeapon(specialWeapon.special);
+                }
+                
+            }
+            
             animator.SetBool(visibleHash, modelComponent.IsVisible);
         }
 

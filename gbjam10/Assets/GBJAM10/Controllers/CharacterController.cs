@@ -87,6 +87,7 @@ namespace GBJAM10.Controllers
         
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             ref var control = ref world.GetComponent<UnitControlComponent>(entity);
+            ref var specialWeapon = ref world.GetComponent<SpecialWeaponComponent>(entity);
 
             ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
             var pickTrapAbility = abilities.GetAbility("PickTrap");
@@ -145,6 +146,12 @@ namespace GBJAM10.Controllers
                         ref var targetHealth = ref world.GetComponent<HealthComponent>(target.entity);
                         targetHealth.deathRequest = true;
                     
+                        if (world.HasComponent<SpecialWeaponProviderComponent>(target.entity))
+                        {
+                            var specialWeaponProvider =
+                                world.GetComponent<SpecialWeaponProviderComponent>(target.entity);
+                            specialWeapon.special = specialWeaponProvider.special;
+                        }
                         // pick special attack 
                     
                         // change normal state!! 
@@ -240,6 +247,8 @@ namespace GBJAM10.Controllers
 
                     basicAttackAbility.cooldownCurrent = -autoAttackDelayAfterSuperAttack;
                     pickTrapAbility.cooldownCurrent = 0;
+
+                    specialWeapon.special = 0;
                 }
             }
 
