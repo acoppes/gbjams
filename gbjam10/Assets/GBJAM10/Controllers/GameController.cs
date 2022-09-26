@@ -95,6 +95,7 @@ namespace GBJAM10.Controllers
 
                 bossDeathPosition.value = bossPosition.value;
                 bossDeathMovement.movingDirection = bossMovement.movingDirection;
+                bossDeathMovement.movingDirection.y = 0;
                 bossDeathMovement.speed = bossMovement.speed;
                 
                 mainEnemy = Entity.NullEntity;
