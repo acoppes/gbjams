@@ -4,6 +4,7 @@ using GBJAM10.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 namespace GBJAM10.Controllers
@@ -12,7 +13,8 @@ namespace GBJAM10.Controllers
     {
         private const string SpawnBombState = "SpawningBomb";
         private const string SwitchingPositionState = "SwitchingPosition";
-    
+        private const string BurstAttackState = "BurstAttack";
+        
         public List<GameObject> plantDefinitions;
 
         private float switchPositionDestinationY;
@@ -22,7 +24,31 @@ namespace GBJAM10.Controllers
         public float switchPositionsRandomCooldown = 0.5f;
         public float spawnBombRandomCooldown = 0.5f;
 
+        public GameObject burstAttackBulletDefinition;
+        public int burstAttackMinBullets = 3;
+        public int burstAttackMaxBullets = 5;
+
+        private int burstAttackPendingBullets = 0;
+
         public float damageNear = 1;
+        
+        private Entity FireBullet(GameObject bulletDefinition)
+        {
+            var playerComponent = world.GetComponent<PlayerComponent>(entity);
+        
+            var model = world.GetComponent<UnitModelComponent>(entity);
+            var attachBulletPosition = model.instance.transform.FindInHierarchy("Attach_Bullet").position;
+            
+            var bulletEntity = world.CreateEntity(bulletDefinition.GetInterface<IEntityDefinition>(), null);
+            ref var bulletPosition = ref world.GetComponent<PositionComponent>(bulletEntity);
+            
+            ref var bulletPlayerComponent = ref world.GetComponent<PlayerComponent>(bulletEntity);
+            bulletPlayerComponent.player = playerComponent.player;
+            
+            bulletPosition.value = attachBulletPosition;
+
+            return bulletEntity;
+        }
 
         public override void OnUpdate(float dt)
         {
@@ -33,9 +59,10 @@ namespace GBJAM10.Controllers
             var playerComponent = world.GetComponent<PlayerComponent>(entity);
         
             ref var abilities = ref world.GetComponent<AbilitiesComponent>(entity);
+            
             var plantTrapAbility = abilities.GetAbility("PlantTrap");
-        
             var switchPositionAbility = abilities.GetAbility("SwitchPosition");
+            var burstAttackAbility = abilities.GetAbility("BurstAttack");
 
             unitStateComponent.disableAutoUpdate = true;
             unitStateComponent.walking = false;
@@ -75,6 +102,34 @@ namespace GBJAM10.Controllers
                 }
             }
         
+            if (states.HasState(BurstAttackState))
+            {
+                var state = states.GetState(BurstAttackState);
+            
+                unitStateComponent.walking = true;
+
+                // fire bullets!!
+                
+                if (burstAttackAbility.isComplete)
+                {
+                    FireBullet(burstAttackBulletDefinition);
+                    
+                    burstAttackPendingBullets--;
+                    
+                    if (burstAttackPendingBullets <= 0)
+                    {
+                        states.ExitState(BurstAttackState);
+                        burstAttackAbility.isRunning = false;
+                        burstAttackAbility.cooldownCurrent =
+                            UnityEngine.Random.Range(-switchPositionsRandomCooldown, 0);
+                    }
+                    else
+                    {
+                        burstAttackAbility.runningTime = 0;
+                    }
+                }
+            }
+            
             if (states.HasState(SwitchingPositionState))
             {
                 var state = states.GetState(SwitchingPositionState);
@@ -136,7 +191,18 @@ namespace GBJAM10.Controllers
                 unitStateComponent.attacking1 = true;
                 return;
             }
-        
+
+            if (!states.HasState(BurstAttackState))
+            {
+                if (burstAttackAbility.isCooldownReady)
+                {
+                    burstAttackPendingBullets = UnityEngine.Random.Range(burstAttackMinBullets, burstAttackMaxBullets);
+                    burstAttackAbility.isRunning = true;
+                    states.EnterState(BurstAttackState);
+                    return;
+                }
+            }
+            
             unitStateComponent.walking = true;
         }
     }
