@@ -33,6 +33,8 @@ namespace GBJAM10.Controllers
         private GameObject currentBulletDefinition;
 
         private Entity autoAttackBullet = Entity.NullEntity;
+
+        private bool pickupTrapProcessed = false;
     
         public void OnInit()
         {
@@ -136,7 +138,7 @@ namespace GBJAM10.Controllers
                 var stopAbility = pickTrapAbility.isComplete;
 
                 var pickTrapsTargeting = abilities.GetTargeting("PickTrap");
-                if (pickTrapsTargeting.targets.Count > 0)
+                if (! pickupTrapProcessed && pickTrapsTargeting.targets.Count > 0)
                 {
                     var target = pickTrapsTargeting.targets[0];
                     var unitTypeComponent = world.GetComponent<UnitTypeComponent>(target.entity);
@@ -168,10 +170,13 @@ namespace GBJAM10.Controllers
                                 sfxTransform.GetComponent<AudioSource>().Play();
                             }
                         }
+                        
+                        pickupTrapProcessed = true;
                     }
-                
+
+                    
                     // kill trap before damage
-                    stopAbility = true;
+                    // stopAbility = true;
                 }
 
                 if (stopAbility)
@@ -231,6 +236,7 @@ namespace GBJAM10.Controllers
 
                     // control.direction.x = 0;
 
+                    pickupTrapProcessed = false;
                     unitState.attacking1 = true;
                     states.EnterState(StatePickingTrap);
 
