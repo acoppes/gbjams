@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace GBJAM10.Controllers
 {
-    public class MainEnemyController : ControllerBase
+    public class BossController : ControllerBase
     {
         private const string SpawnBombState = "SpawningBomb";
         private const string SwitchingPositionState = "SwitchingPosition";

@@ -35,6 +35,8 @@ namespace GBJAM10.Controllers
 
         public string restartSceneName = "Game";
         public string endingSceneName = "EndingScene";
+
+        public GameObject bossDeathDefinition;
         
         public void OnEntityDestroyed(Entity e)
         {
@@ -62,9 +64,6 @@ namespace GBJAM10.Controllers
             
             if (e == mainEnemy)
             {
-                mainEnemy = Entity.NullEntity;
-                // do stuff, go to ending sequence
-
                 var states = world.GetComponent<StatesComponent>(entity);
                 states.EnterState("Victory");
                 
@@ -86,6 +85,19 @@ namespace GBJAM10.Controllers
                 {
                     sfxBossDeath.GetComponent<AudioSource>().Play();
                 }
+
+                var bossPosition = world.GetComponent<PositionComponent>(mainEnemy);
+                var bossMovement = world.GetComponent<UnitMovementComponent>(mainEnemy);
+                
+                var bossDeathEntity = world.CreateEntity(bossDeathDefinition.GetInterface<IEntityDefinition>(), null);
+                ref var bossDeathPosition = ref world.GetComponent<PositionComponent>(bossDeathEntity);
+                ref var bossDeathMovement = ref world.GetComponent<UnitMovementComponent>(bossDeathEntity);
+
+                bossDeathPosition.value = bossPosition.value;
+                bossDeathMovement.movingDirection = bossMovement.movingDirection;
+                bossDeathMovement.speed = bossMovement.speed;
+                
+                mainEnemy = Entity.NullEntity;
             }
         }
         
