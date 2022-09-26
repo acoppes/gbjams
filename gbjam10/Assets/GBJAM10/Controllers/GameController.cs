@@ -79,6 +79,13 @@ namespace GBJAM10.Controllers
                 ref var heroHealth = ref world.GetComponent<HealthComponent>(mainCharacter);
                 heroHealth.invulnerableTime = 10;
                 heroHealth.invulnerableCurrent = 10;
+                
+                var gameModel = world.GetComponent<UnitModelComponent>(entity);
+                var sfxBossDeath = gameModel.instance.transform.FindInHierarchy("Sfx_Boss_Death");
+                if (sfxBossDeath != null)
+                {
+                    sfxBossDeath.GetComponent<AudioSource>().Play();
+                }
             }
         }
         
