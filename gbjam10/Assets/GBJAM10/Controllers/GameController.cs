@@ -4,6 +4,7 @@ using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 namespace GBJAM10.Controllers
 {
@@ -27,6 +28,9 @@ namespace GBJAM10.Controllers
         private Entity mainCamera;
         private Entity mainEnemy;
 
+        public float gameOverDuration = 3.0f;
+        public GameObject defeatDefinition;
+
         public void OnEntityDestroyed(Entity e)
         {
             if (e == mainCharacter)
@@ -48,6 +52,7 @@ namespace GBJAM10.Controllers
                 bossHealth.invulnerableTime = 10;
                 bossHealth.invulnerableCurrent = 10;
 
+                world.CreateEntity(defeatDefinition.GetInterface<IEntityDefinition>(), null);
             }
             
             if (e == mainEnemy)
@@ -143,6 +148,17 @@ namespace GBJAM10.Controllers
 
         public override void OnUpdate(float dt)
         {
+            var states = world.GetComponent<StatesComponent>(entity);
+
+            if (states.HasState("GameOver"))
+            {
+                var state = states.GetState("GameOver");
+                if (state.time > gameOverDuration)
+                {
+                    SceneManager.LoadScene("MainMenu");
+                }
+            }
+            
             var mainCameraPosition = world.GetComponent<PositionComponent>(mainCamera);
 
             for (int i = 0; i < level.childCount; i++)
