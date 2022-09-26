@@ -3,7 +3,7 @@ Base project for our GBJAM entries.
 
 **Links**
 
-- [Seedcity chasers - GBJAM10 Entry](https://arielsan.itch.io/seedcity-chasersneko-sama)
+- [Seedcity chasers - GBJAM10 Entry](https://arielsan.itch.io/seedcity-chasers)
 - [GBJAM10 at itchio](https://itch.io/jam/gbjam-10)
 
 <img src="gbjam10/devstuff/seedcity_gameplay.gif" width="320" />
