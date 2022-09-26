@@ -31,6 +31,11 @@ namespace GBJAM10.Controllers
         public float gameOverDuration = 3.0f;
         public GameObject defeatDefinition;
 
+        public float victoryDuration = 3.0f;
+
+        public string restartSceneName = "Game";
+        public string endingSceneName = "EndingScene";
+        
         public void OnEntityDestroyed(Entity e)
         {
             if (e == mainCharacter)
@@ -155,7 +160,16 @@ namespace GBJAM10.Controllers
                 var state = states.GetState("GameOver");
                 if (state.time > gameOverDuration)
                 {
-                    SceneManager.LoadScene("MainMenu");
+                    SceneManager.LoadScene(restartSceneName);
+                }
+            }
+            
+            if (states.HasState("Victory"))
+            {
+                var state = states.GetState("Victory");
+                if (state.time > victoryDuration)
+                {
+                    SceneManager.LoadScene(endingSceneName);
                 }
             }
             
