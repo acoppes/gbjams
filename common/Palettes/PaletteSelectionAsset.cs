@@ -7,21 +7,8 @@ namespace GBJAM.Commons
     public class PaletteSelectionAsset : ScriptableObject
     {
         [SerializeField]
-        private int defaultPalette;
-        
-        [NonSerialized]
-        public int currentPalette;
-        
+        public int defaultPalette;
+
         public Texture2D[] palettes;
-
-        private void OnEnable()
-        {
-            currentPalette = defaultPalette;
-        }
-
-        public Texture2D GetCurrentPalette()
-        {
-            return palettes[currentPalette];
-        }
     }
 }

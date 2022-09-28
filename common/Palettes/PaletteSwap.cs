@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GBJAM.Commons
 {
@@ -11,12 +12,35 @@ namespace GBJAM.Commons
     
         private Material _mat;
 
+        [NonSerialized]
+        public int currentPalette;
+
+        public void NextPalette()
+        {
+            currentPalette++;
+            if (currentPalette >= paletteSelection.palettes.Length)
+            {
+                currentPalette = 0;
+            }
+        }
+
+        public void PreviousPalette()
+        {
+            currentPalette--;
+            if (currentPalette < 0)
+            {
+                currentPalette = paletteSelection.palettes.Length - 1;
+            }
+        }
+        
         private void OnEnable()
         {
             if (_mat == null && shader != null)
             {
                 _mat = new Material(shader);
             }
+
+            currentPalette = paletteSelection.defaultPalette;
         }
 
         private void OnDisable()
@@ -32,7 +56,9 @@ namespace GBJAM.Commons
         {
             if (paletteSelection == null || _mat == null || shader == null)
                 return;
-            _mat.SetTexture("_PaletteTex", paletteSelection.GetCurrentPalette());
+
+            var palette = paletteSelection.palettes[currentPalette];
+            _mat.SetTexture("_PaletteTex", palette);
             Graphics.Blit(src, dst,  _mat);
         }
     }

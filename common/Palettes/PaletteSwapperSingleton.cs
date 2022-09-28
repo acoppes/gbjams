@@ -7,54 +7,59 @@ namespace GBJAM7.Scripts
     {
         [SerializeField]
         private PaletteSelectionAsset paletteSelectionAsset;
-
-        private KeyCode[] paletteSwapKeys =
-        {
-            KeyCode.Alpha1,
-            KeyCode.Alpha2,
-            KeyCode.Alpha3,
-            KeyCode.Alpha4,
-            KeyCode.Alpha5,
-            KeyCode.Alpha6,
-            KeyCode.Alpha7,
-            KeyCode.Alpha8,
-            KeyCode.Alpha9,
-            KeyCode.Alpha0
-        };
         
+        [SerializeField]
+        private GameObject paletteCameraPrefab;
+        
+        private PaletteSwap paletteSwap;
+
+        [SerializeField]
+        private KeyCode nextPaletteKeyCode;
+        
+        [SerializeField]
+        private KeyCode previousPaletteKeyCode;
+
         private void OnValidate()
         {
             gameObject.name = "~PaletteSwapperSingleton";
         }
 
+        private void CreateCamera()
+        {
+            var cameraInstance = GameObject.Instantiate(paletteCameraPrefab);
+            cameraInstance.name = "~PaletteCamera";
+            GameObject.DontDestroyOnLoad(cameraInstance);
+            paletteSwap = cameraInstance.GetComponent<PaletteSwap>();
+        }
+
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-
-            if (paletteSelectionAsset == null)
-            {
-                var paletteSwap = FindObjectOfType<PaletteSwap>();
-                if (paletteSwap != null)
-                {
-                    paletteSelectionAsset = paletteSwap.paletteSelection;
-                }
-            }
         }
 
         private void Update()
         {
-            if (paletteSelectionAsset == null || paletteSwapKeys.Length == 0)
-                return;
-            
-            for (var i = 0; i < paletteSelectionAsset.palettes.Length; i++)
+            if (paletteCameraPrefab == null)
             {
-                if (i >= paletteSwapKeys.Length)
-                    break;
-                
-                if (Input.GetKeyUp(paletteSwapKeys[i]))
-                {
-                    paletteSelectionAsset.currentPalette = i;
-                }
+                return;
+            }
+            
+            var nextPalette = Input.GetKeyUp(nextPaletteKeyCode);
+            var previousPalette = Input.GetKeyUp(previousPaletteKeyCode);
+
+            if (paletteSwap == null &&  (nextPalette || previousPalette))
+            {
+                CreateCamera();
+            }
+
+            if (nextPalette)
+            {
+                paletteSwap.NextPalette();
+            }
+
+            if (previousPalette)
+            {
+                paletteSwap.PreviousPalette();
             }
         }
     }
