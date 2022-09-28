@@ -6,9 +6,6 @@ namespace GBJAM7.Scripts
     public class PaletteSwapperSingleton : MonoBehaviour
     {
         [SerializeField]
-        private PaletteSelectionAsset paletteSelectionAsset;
-        
-        [SerializeField]
         private GameObject paletteCameraPrefab;
         
         private PaletteSwap paletteSwap;
