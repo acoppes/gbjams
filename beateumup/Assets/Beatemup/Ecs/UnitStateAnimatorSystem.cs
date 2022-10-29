@@ -46,22 +46,13 @@ namespace Beatemup.Ecs
                 
                 animatorComponent.animator
                     .SetBool("walking", unitStateComponent.walking);
-                animatorComponent.animator
-                    .SetBool("dashing", unitStateComponent.dashing);
-                animatorComponent.animator
-                    .SetBool("sword_attack", unitStateComponent.attacking1);
-                animatorComponent.animator
-                    .SetBool("charge_attack1", unitStateComponent.chargeAttack1);
 
                 if (unitStateComponent.stateTriggers.hit)
                 {
                     animatorComponent.animator.SetTrigger("hitted");
                 }
 
-                if (unitStateComponent.healthState == HealthComponent.State.Death)
-                {
-                    animatorComponent.animator.SetTrigger("dead");
-                }
+
             }
             
         }

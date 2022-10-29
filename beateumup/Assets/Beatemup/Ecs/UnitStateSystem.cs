@@ -44,8 +44,6 @@ namespace Beatemup.Ecs
                 {
                     triggers.hit = true;
                 }
-
-                unitStateComponent.healthState = healthComponent.state;
             }
         }
     }

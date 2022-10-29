@@ -10,6 +10,11 @@ namespace Beatemup.Ecs
         {
             var filter = world.GetFilter<PlayerInputComponent>().End();
             var playerInputComponents = world.GetComponents<PlayerInputComponent>();
+
+            if (GameboyInput.Instance == null)
+            {
+                return;
+            }
             
             var gameboyKeyMap = GameboyInput.Instance.current;
 

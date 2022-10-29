@@ -67,11 +67,6 @@ namespace Beatemup.Ecs
     {
         public float y;
     }
-    
-    public struct StateTriggers
-    {
-        public bool hit;
-    }
 
     public struct AutoDestroyOutsideCamera : IEntityComponent
     {
@@ -83,17 +78,14 @@ namespace Beatemup.Ecs
         
     }
     
+    public struct StateTriggers
+    {
+        public bool hit;
+    }
+    
     public struct UnitStateComponent : IEntityComponent
     {
         public bool walking;
-        public bool dashing;
-        public HealthComponent.State healthState;
-
-        public bool chargeAttack1;
-        public bool attacking1;
-
-        public bool chargeAttack2;
-        public bool attacking2;
 
         public StateTriggers stateTriggers;
 
