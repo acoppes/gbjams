@@ -1,4 +1,4 @@
-butler push builds/windows arielsan/seedcity-chasers:windows-latest
-butler push builds/macos arielsan/seedcity-chasers:mac-latest
-butler push builds/linux arielsan/seedcity-chasers:linux-latest
-butler push builds/html5 arielsan/seedcity-chasers:html5-latest
+# butler push builds/windows arielsan/beatemup:windows-latest
+# butler push builds/macos arielsan/beatemup:mac-latest
+# butler push builds/linux arielsan/beatemup:linux-latest
+butler push builds/html5 arielsan/beatemup:html5-latest
