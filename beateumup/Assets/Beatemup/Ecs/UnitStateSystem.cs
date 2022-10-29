@@ -8,14 +8,14 @@ namespace Beatemup.Ecs
     {
         public void Run(EcsSystems systems)
         {
-            var inputs = world.GetComponents<UnitControlComponent>();
+            var inputs = world.GetComponents<ControlComponent>();
             var movements = world.GetComponents<UnitMovementComponent>();
             var states = world.GetComponents<UnitStateComponent>();
             var healths = world.GetComponents<HealthComponent>();
 
             foreach (var entity in world
                          .GetFilter<UnitStateComponent>()
-                         .Inc<UnitControlComponent>()
+                         .Inc<ControlComponent>()
                          .Inc<UnitMovementComponent>()
                          .End())
             { 

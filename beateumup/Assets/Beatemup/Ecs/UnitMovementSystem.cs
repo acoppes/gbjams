@@ -11,12 +11,12 @@ namespace Beatemup.Ecs
         
         public void Run(EcsSystems systems)
         {
-            var controls = world.GetComponents<UnitControlComponent>();
+            var controls = world.GetComponents<ControlComponent>();
             var movementComponents = world.GetComponents<UnitMovementComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
 
-            foreach (var entity in world.GetFilter<UnitControlComponent>().Inc<UnitMovementComponent>().End())
+            foreach (var entity in world.GetFilter<ControlComponent>().Inc<UnitMovementComponent>().End())
             {
                 ref var control = ref controls.Get(entity);
                 ref var movement = ref movementComponents.Get(entity);

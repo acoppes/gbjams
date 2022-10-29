@@ -14,19 +14,12 @@ namespace Beatemup.Ecs
     public struct PlayerInputComponent : IEntityComponent
     {
         public bool disabled;
-        public GameboyButtonKeyMapAsset keyMap;
+        public int playerInput;
     }
     
-    public struct UnitControlComponent : IEntityComponent
+    public struct ControlComponent : IEntityComponent
     {
         public Vector2 direction;
-        
-        // public Vector2 attackDirection;
-
-        public bool mainAction;
-
-        public bool secondaryAction;
-        public bool locked;
     }
 
     public struct UnitModelComponent : IEntityComponent

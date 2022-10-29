@@ -85,17 +85,17 @@ namespace Beatemup.Ecs
         
         public Vector2 controlDirection
         {
-            get => world.GetComponent<UnitControlComponent>(entity).direction;
+            get => world.GetComponent<ControlComponent>(entity).direction;
             set
             {
-                ref var controlComponent = ref world.GetComponent<UnitControlComponent>(entity);
+                ref var controlComponent = ref world.GetComponent<ControlComponent>(entity);
                 controlComponent.direction = value;
             }
         }
 
         public void ResetDirection()
         {
-            ref var controlComponent = ref world.GetComponent<UnitControlComponent>(entity);
+            ref var controlComponent = ref world.GetComponent<ControlComponent>(entity);
             controlComponent.direction = Vector2.zero;
         }
         

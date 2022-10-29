@@ -12,7 +12,7 @@ namespace Beatemup.Ecs
             var lookingDirections = world.GetComponents<LookingDirection>();
 
             var projectileComponents = world.GetComponents<ProjectileComponent>();
-            var unitControlComponents = world.GetComponents<UnitControlComponent>();
+            var unitControlComponents = world.GetComponents<ControlComponent>();
             
             // update ability position
             foreach (var entity in world.GetFilter<ProjectileComponent>()
@@ -36,7 +36,7 @@ namespace Beatemup.Ecs
             }
             
             foreach (var entity in world.GetFilter<ProjectileComponent>()
-                         .Inc<UnitControlComponent>().End())
+                         .Inc<ControlComponent>().End())
             {
                 var projectileComponent = projectileComponents.Get(entity);
                 ref var unitControlComponent = ref unitControlComponents.Get(entity);

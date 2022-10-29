@@ -1,6 +1,7 @@
-using GBJAM.Commons;
 using Gemserk.Leopotam.Ecs;
 using Leopotam.EcsLite;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Beatemup.Ecs
 {
@@ -8,20 +9,25 @@ namespace Beatemup.Ecs
     {
         public void Run(EcsSystems systems)
         {
-            var filter = world.GetFilter<PlayerInputComponent>().End();
             var playerInputComponents = world.GetComponents<PlayerInputComponent>();
+            var controlComponents = world.GetComponents<ControlComponent>();
 
-            if (GameboyInput.Instance == null)
+            foreach (var entity in world.GetFilter<PlayerInputComponent>().Inc<ControlComponent>().End())
             {
-                return;
-            }
-            
-            var gameboyKeyMap = GameboyInput.Instance.current;
+                var playerInputComponent = playerInputComponents.Get(entity);
 
-            foreach (var entity in filter)
-            {
-                ref var playerInputComponent = ref playerInputComponents.Get(entity);
-                playerInputComponent.keyMap = gameboyKeyMap;
+                var playerInput = PlayerInput.GetPlayerByIndex(playerInputComponent.playerInput);
+
+                if (playerInput == null)
+                {
+                    break;
+                }
+
+                var move = playerInput.actions["Move"];
+
+                ref var controlComponent = ref controlComponents.Get(entity);
+
+                controlComponent.direction = move.ReadValue<Vector2>();
             }
         }
     }

@@ -20,7 +20,7 @@ namespace Beatemup.Definitions
 
         public UnitType unitType;
         public float movementSpeed;
-       
+
         public GameObject modelPrefab;
 
         public void Apply(World world, Entity entity)
@@ -36,11 +36,7 @@ namespace Beatemup.Definitions
                 });
             }
             
-            // if (canBeControlled)
-            // {
-            //     world.AddComponent(entity, new PlayerInputComponent());
-            //     world.AddComponent(entity, new UnitControlComponent());
-            // }
+            world.AddComponent(entity, new ControlComponent());
 
             world.AddComponent(entity, new UnitStateComponent());
             world.AddComponent(entity, new StatesComponent());
