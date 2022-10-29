@@ -1,10 +1,10 @@
 #if UNITY_TOOLBAR_EXTENDER
-using UnityEngine;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using System.Collections.Generic;
+using UnityEngine;
 
-namespace ASze.CustomPlayButton
+namespace ASze.CustomPlayButton.Editor
 {
     public class EditorSelectScenePopup : PopupWindowContent
     {

@@ -1,4 +1,4 @@
-namespace GBJAM9
+namespace GBJAM.Commons.Controls
 {
     public class ButtonDoubleTapDetection
     {

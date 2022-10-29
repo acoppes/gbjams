@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace GBJAM.Commons
+namespace GBJAM.Commons.Palettes
 {
     [CreateAssetMenu(menuName = "Palette Selection")]
     public class PaletteSelectionAsset : ScriptableObject

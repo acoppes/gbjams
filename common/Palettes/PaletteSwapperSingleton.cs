@@ -1,7 +1,6 @@
-﻿using GBJAM.Commons;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace GBJAM7.Scripts
+namespace GBJAM.Commons.Palettes
 {
     public class PaletteSwapperSingleton : MonoBehaviour
     {

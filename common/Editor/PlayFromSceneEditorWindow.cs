@@ -1,11 +1,12 @@
 ﻿using System.IO;
 using System.Linq;
+using GBJAM.Commons;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace GBJAM7.Editor
+namespace Editor
 {
     [InitializeOnLoad]
     public static class PlayFromSceneHandler

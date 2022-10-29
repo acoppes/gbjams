@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GBJAM.Commons
+namespace GBJAM.Commons.Prefabs.Sfx
 {
     public class SfxVariant : MonoBehaviour
     {

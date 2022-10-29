@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace GBJAM.Commons
+namespace GBJAM.Commons.Palettes
 {
     [ExecuteInEditMode]
     public class PaletteSwap : MonoBehaviour

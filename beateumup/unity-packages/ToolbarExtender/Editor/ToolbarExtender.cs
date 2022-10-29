@@ -4,7 +4,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace UnityToolbarExtender
+namespace Editor
 {
 	[InitializeOnLoad]
 	public static class ToolbarExtender
@@ -17,7 +17,7 @@ namespace UnityToolbarExtender
 
 		static ToolbarExtender()
 		{
-			Type toolbarType = typeof(Editor).Assembly.GetType("UnityEditor.Toolbar");
+			Type toolbarType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.Toolbar");
 			
 #if UNITY_2019_1_OR_NEWER
 			string fieldName = "k_ToolCount";

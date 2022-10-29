@@ -1,23 +1,22 @@
-﻿using UnityEngine;
-using UnityEditor;
-using UnityEditor.SceneManagement;
-using System.IO;
-using System.Reflection;
-
-#if UNITY_TOOLBAR_EXTENDER
-using UnityToolbarExtender;
+﻿#if UNITY_TOOLBAR_EXTENDER
 #else
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 #endif
 
+using System.IO;
+using System.Reflection;
+using Editor;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
 #if UNITY_2019_1_OR_NEWER
 using VisualElement = UnityEngine.UIElements.VisualElement;
 #else
 using VisualElement = UnityEngine.Experimental.UIElements.VisualElement;
 #endif
 
-namespace ASze.CustomPlayButton
+namespace ASze.CustomPlayButton.Editor
 {
     [InitializeOnLoad]
     public static class CustomPlayButton
@@ -186,14 +185,14 @@ namespace ASze.CustomPlayButton
             // Get toolbar element for repainting
             if (toolbarElement == null)
             {
-                var toolbarType = typeof(Editor).Assembly.GetType("UnityEditor.Toolbar");
+                var toolbarType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.Toolbar");
                 var toolbars = Resources.FindObjectsOfTypeAll(toolbarType);
                 var currentToolbar = toolbars.Length > 0 ? (ScriptableObject)toolbars[0] : null;
                 if (currentToolbar != null)
                 {
-                    var guiViewType = typeof(Editor).Assembly.GetType("UnityEditor.GUIView");
+                    var guiViewType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.GUIView");
 #if UNITY_2020_1_OR_NEWER
-                    var iWindowBackendType = typeof(Editor).Assembly.GetType("UnityEditor.IWindowBackend");
+                    var iWindowBackendType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.IWindowBackend");
                     var guiBackend = guiViewType.GetProperty("windowBackend",
                         BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
                     var viewVisualTree = iWindowBackendType.GetProperty("visualTree",

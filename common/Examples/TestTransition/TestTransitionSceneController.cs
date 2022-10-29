@@ -1,36 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using GBJAM.Commons.Transitions;
 using UnityEngine;
 
-public class TestTransitionSceneController : MonoBehaviour
+namespace GBJAM.Commons.Examples.TestTransition
 {
-    public Transition transition;
-    
-    // Update is called once per frame
-    private void Update()
+    public class TestTransitionSceneController : MonoBehaviour
     {
-        if (transition == null)
+        public Transition transition;
+    
+        // Update is called once per frame
+        private void Update()
         {
-            return;
-        }
+            if (transition == null)
+            {
+                return;
+            }
         
-        if (Input.GetMouseButtonUp(0))
-        {
-            transition.Open();
-        }    
+            if (Input.GetMouseButtonUp(0))
+            {
+                transition.Open();
+            }    
         
-        if (Input.GetMouseButtonUp(1))
-        {
-            transition.Close();
-        }    
+            if (Input.GetMouseButtonUp(1))
+            {
+                transition.Close();
+            }    
         
-        if (transition.isOpen)
-        {
-            Debug.Log($"Transition open");
-        } else if (transition.isClosed)
-        {
-            Debug.Log($"Transition closed");
+            if (transition.isOpen)
+            {
+                Debug.Log($"Transition open");
+            } else if (transition.isClosed)
+            {
+                Debug.Log($"Transition closed");
+            }
         }
     }
 }

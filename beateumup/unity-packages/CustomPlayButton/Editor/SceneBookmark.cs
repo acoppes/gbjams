@@ -1,8 +1,8 @@
-using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 
-namespace ASze.CustomPlayButton
+namespace ASze.CustomPlayButton.Editor
 {
     public class SceneBookmark : ScriptableObject
     {

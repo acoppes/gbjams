@@ -1,22 +1,22 @@
 using System;
-using UnityEngine;
-using UnityEditor;
 using System.Reflection;
-
-#if UNITY_2019_1_OR_NEWER
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
+#if UNITY_2019_1_OR_NEWER
+
 #else
 using UnityEngine.Experimental.UIElements;
 #endif
 
-namespace UnityToolbarExtender
+namespace Editor
 {
 	public static class ToolbarCallback
 	{
-		static Type m_toolbarType = typeof(Editor).Assembly.GetType("UnityEditor.Toolbar");
-		static Type m_guiViewType = typeof(Editor).Assembly.GetType("UnityEditor.GUIView");
+		static Type m_toolbarType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.Toolbar");
+		static Type m_guiViewType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.GUIView");
 #if UNITY_2020_1_OR_NEWER
-		static Type m_iWindowBackendType = typeof(Editor).Assembly.GetType("UnityEditor.IWindowBackend");
+		static Type m_iWindowBackendType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.IWindowBackend");
 		static PropertyInfo m_windowBackend = m_guiViewType.GetProperty("windowBackend",
 			BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 		static PropertyInfo m_viewVisualTree = m_iWindowBackendType.GetProperty("visualTree",

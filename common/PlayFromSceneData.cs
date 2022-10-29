@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GBJAM7.Editor
+namespace GBJAM.Commons
 {
     public class PlayFromSceneData : MonoBehaviour
     {
