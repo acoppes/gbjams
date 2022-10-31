@@ -16,13 +16,13 @@ namespace Beatemup.Ecs
             var positionComponents = world.GetComponents<PositionComponent>();
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
 
-            foreach (var entity in world.GetFilter<ControlComponent>().Inc<UnitMovementComponent>().End())
-            {
-                ref var control = ref controls.Get(entity);
-                ref var movement = ref movementComponents.Get(entity);
-
-                movement.movingDirection = control.direction;
-            }
+            // foreach (var entity in world.GetFilter<ControlComponent>().Inc<UnitMovementComponent>().End())
+            // {
+            //     ref var control = ref controls.Get(entity);
+            //     ref var movement = ref movementComponents.Get(entity);
+            //
+            //     movement.movingDirection = control.direction;
+            // }
 
             foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<PositionComponent>().End())
             {

@@ -26,8 +26,13 @@ namespace Beatemup.Ecs
                 var move = playerInput.actions["Move"];
 
                 ref var controlComponent = ref controlComponents.Get(entity);
-
                 controlComponent.direction = move.ReadValue<Vector2>();
+
+                // var startRunning = playerInput.actions["StartRunning"];
+                // if (startRunning.)
+                // {
+                //     Debug.Log("start running");
+                // } 
             }
         }
     }

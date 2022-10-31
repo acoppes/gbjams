@@ -18,10 +18,10 @@ namespace Beatemup.Controllers
 
         public override void OnUpdate(float dt)
         {
-            // if (world.HasComponent<PlayerInputComponent>(entity))
-            //     return;
-        
-            // ref var playerInput = ref world.GetComponent<PlayerInputComponent>(entity);
+            var control = world.GetComponent<ControlComponent>(entity);
+            ref var movement = ref world.GetComponent<UnitMovementComponent>(entity);
+            
+            movement.movingDirection = control.direction;
         }
 
     }
