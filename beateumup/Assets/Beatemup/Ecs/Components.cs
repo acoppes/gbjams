@@ -1,14 +1,8 @@
-using System.Collections.Generic;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
 
 namespace Beatemup.Ecs
 {
-    public struct LookingDirectionIndicator : IEntityComponent
-    {
-        public GameObject instance;
-    }
-
     public struct PlayerInputComponent : IEntityComponent
     {
         public bool disabled;
@@ -79,9 +73,10 @@ namespace Beatemup.Ecs
         public bool hit;
     }
     
-    public struct UnitStateComponent : IEntityComponent
+    public struct ModelStateComponent : IEntityComponent
     {
         public bool walking;
+        public bool up;
 
         public StateTriggers stateTriggers;
 

@@ -39,7 +39,7 @@ namespace Beatemup.Definitions
             
             world.AddComponent(entity, new ControlComponent());
 
-            world.AddComponent(entity, new UnitStateComponent());
+            world.AddComponent(entity, new ModelStateComponent());
             world.AddComponent(entity, new StatesComponent());
 
             if (modelPrefab != null)
