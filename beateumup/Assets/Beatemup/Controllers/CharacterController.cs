@@ -13,6 +13,8 @@ namespace Beatemup.Controllers
 
         public float dashDuration = 1.0f;
         public float dashExtraSpeed = 10.0f;
+        
+        public float dashStopDuration = 0.1f;
 
         public void OnInit()
         {
@@ -33,30 +35,31 @@ namespace Beatemup.Controllers
             
             var lookingDirection = world.GetComponent<LookingDirection>(entity);
             
-            // if (states.HasState(DashState))
-            // {
-            //     var state = states.GetState(DashState);
-            //     if (state.time > dashDuration)
-            //     {
-            //         modelState.dashing = false;
-            //         movement.extraSpeed = 0;
-            //         states.ExitState(DashState);
-            //     }
-            //     
-            //     // ref var position = ref world.GetComponent<PositionComponent>(entity);
-            //     // position.value = new Vector2(-position.value.x, position.value.y);
-            //     
-            //     return;
-            // }
+            if (states.HasState(DashStopState))
+            {
+                var state = states.GetState(DashStopState);
+                if (state.time > dashStopDuration)
+                {
+                    states.ExitState(DashStopState);
+                }
+                
+                // ref var position = ref world.GetComponent<PositionComponent>(entity);
+                // position.value = new Vector2(-position.value.x, position.value.y);
+                
+                return;
+            }
 
             if (states.HasState(DashState))
             {
                 var state = states.GetState(DashState);
+                
                 if (state.time > dashDuration)
                 {
+                    movement.movingDirection = Vector2.zero;
                     modelState.dashing = false;
                     movement.extraSpeed = 0;
                     states.ExitState(DashState);
+                    states.EnterState(DashStopState);
                 }
                 
                 // ref var position = ref world.GetComponent<PositionComponent>(entity);
