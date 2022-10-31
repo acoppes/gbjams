@@ -38,7 +38,6 @@ namespace Beatemup.Ecs
         {
             var modelComponents = world.GetComponents<UnitModelComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
-            var positionHeightComponents = world.GetComponents<JumpComponent>();
             
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             
@@ -49,17 +48,7 @@ namespace Beatemup.Ecs
 
                 modelComponent.instance.transform.position = positionComponent.value;
             }
-            
-            foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<JumpComponent>().End())
-            {
-                ref var modelComponent = ref modelComponents.Get(entity);
-                var positionHeightComponent = positionHeightComponents.Get(entity);
-                if (modelComponent.subModel != null)
-                {
-                    modelComponent.subModel.localPosition = new Vector3(0, positionHeightComponent.y, 0);
-                }
-            }
-            
+
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<LookingDirection>().End())
             {
                 var modelComponent = modelComponents.Get(entity);

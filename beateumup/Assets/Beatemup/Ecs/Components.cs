@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using GBJAM.Commons;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
 namespace Beatemup.Ecs
@@ -16,6 +14,8 @@ namespace Beatemup.Ecs
         public bool disabled;
         public int playerInput;
     }
+    
+    
     
     public struct ControlComponent : IEntityComponent
     {
@@ -56,16 +56,6 @@ namespace Beatemup.Ecs
         public float totalSpeed => speed + extraSpeed;
     }
 
-    public struct JumpComponent : IEntityComponent
-    {
-        public float y;
-    }
-
-    public struct AutoDestroyOutsideCamera : IEntityComponent
-    {
-        
-    }
-    
     public struct KeepInsideCameraComponent : IEntityComponent
     {
         
