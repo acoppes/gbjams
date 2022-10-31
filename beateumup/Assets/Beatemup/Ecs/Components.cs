@@ -14,12 +14,25 @@ namespace Beatemup.Ecs
         public bool disabled;
         public int playerInput;
     }
-    
-    
+
+    public struct Button
+    {
+        public bool isPressed;
+        public bool wasReleased;
+        public bool wasPressed;
+
+        public void UpdatePressed(bool pressed)
+        {
+            wasPressed = !isPressed && pressed;
+            wasReleased = isPressed && !pressed;
+            isPressed = pressed;
+        }
+    }
     
     public struct ControlComponent : IEntityComponent
     {
         public Vector2 direction;
+        public Button button1;
     }
 
     public struct UnitModelComponent : IEntityComponent
