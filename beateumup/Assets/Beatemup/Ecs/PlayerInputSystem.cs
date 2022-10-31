@@ -23,10 +23,13 @@ namespace Beatemup.Ecs
                     break;
                 }
 
-                var move = playerInput.actions["Move"];
+                var horizontal = playerInput.actions["Horizontal"];
+                var vertical = playerInput.actions["Vertical"];
 
                 ref var controlComponent = ref controlComponents.Get(entity);
-                controlComponent.direction = move.ReadValue<Vector2>();
+                
+                controlComponent.direction = 
+                    new Vector2(horizontal.ReadValue<float>(), vertical.ReadValue<float>());
 
                 var button1 = playerInput.actions["Button1"];
                 controlComponent.button1.UpdatePressed(button1.IsPressed());
