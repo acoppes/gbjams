@@ -27,7 +27,10 @@ namespace Beatemup.Definitions
         {
             world.AddComponent(entity, new PlayerComponent());
             world.AddComponent(entity, new PositionComponent());
-            world.AddComponent(entity, new LookingDirection());
+            world.AddComponent(entity, new LookingDirection
+            {
+                value = Vector2.right
+            });
 
             if (unitType != 0)
             {

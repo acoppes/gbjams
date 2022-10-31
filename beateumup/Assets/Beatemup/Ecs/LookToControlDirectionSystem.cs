@@ -1,11 +1,14 @@
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace Beatemup.Ecs
 {
     public class LookToControlDirectionSystem : BaseSystem, IEcsRunSystem
     {
+        
+        
         public void Run(EcsSystems systems)
         {
             // var gameData = world.sharedData.sharedData as SharedGameData;
@@ -19,10 +22,15 @@ namespace Beatemup.Ecs
                 var control = controlComponents.Get(entity);
                 ref var lookingDirection = ref lookingDirectionComponents.Get(entity);
 
-                if (control.direction.sqrMagnitude > 0f)
+                if (Mathf.Abs(control.direction.x) > 0)
                 {
-                    lookingDirection.value = control.direction.normalized;
+                    lookingDirection.value.x = Mathf.Sign(control.direction.x);
                 }
+
+                // if (control.direction.sqrMagnitude > 0f)
+                // {
+                //     lookingDirection.value = control.direction.normalized;
+                // }
             }
         }
     }

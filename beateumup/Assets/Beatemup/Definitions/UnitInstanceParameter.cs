@@ -11,6 +11,8 @@ namespace Beatemup.Definitions
         
         public bool controllable = false;
 
+        public float startingLookingDirectionAngle = 0;
+
         public void Apply(World world, Entity entity)
         {
             ref var position = ref world.GetComponent<PositionComponent>(entity);
@@ -24,6 +26,9 @@ namespace Beatemup.Definitions
                     disabled = false
                 });
             }
+
+            ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
+            lookingDirection.value = Vector2.right.Rotate(startingLookingDirectionAngle * Mathf.Deg2Rad);
         }
     }
 }

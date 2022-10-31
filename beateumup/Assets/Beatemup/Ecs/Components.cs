@@ -77,6 +77,7 @@ namespace Beatemup.Ecs
     {
         public bool walking;
         public bool up;
+        public bool dashing;
 
         public StateTriggers stateTriggers;
 

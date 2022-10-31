@@ -55,16 +55,21 @@ namespace Beatemup.Ecs
                 movement.currentVelocity = velocity;
             }
             
-            foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<LookingDirection>().End())
-            {
-                var movement = movementComponents.Get(entity);
-                ref var lookingDirection = ref lookingDirectionComponents.Get(entity);
-
-                if (movement.currentVelocity.SqrMagnitude() > 0)
-                {
-                    lookingDirection.value = movement.currentVelocity.normalized;
-                }
-            }
+            // foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<LookingDirection>().End())
+            // {
+            //     var movement = movementComponents.Get(entity);
+            //     ref var lookingDirection = ref lookingDirectionComponents.Get(entity);
+            //
+            //     if (Mathf.Abs(movement.currentVelocity.x) > 0)
+            //     {
+            //         lookingDirection.value.x = Mathf.Abs(movement.currentVelocity.x) / movement.currentVelocity.x;
+            //     }
+            //
+            //     // if (movement.currentVelocity.SqrMagnitude() > 0)
+            //     // {
+            //     //     lookingDirection.value = movement.currentVelocity.normalized;
+            //     // }
+            // }
         }
     }
 }
