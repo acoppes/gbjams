@@ -98,28 +98,6 @@ namespace Beatemup.Ecs
         public Vector2 lookingDirection;
         public bool isAlive;
     }
-
-    public interface ITargetEffect
-    {
-        
-    }
-
-    public class DamageTargetEffect : ITargetEffect
-    {
-        public float damage;
-    }
-    
-    public struct TargetEffectsComponent : IEntityComponent
-    {
-        public List<ITargetEffect> targetEffects;
-    }
-
-    // public struct PhysicsBodyComponent : IEntityComponent
-    // {
-    //     // add stuff to initialize the body
-    //     public Rigidbody2D bodyInstance;
-    // }
-
     public struct TerrainCollisionComponent : IEntityComponent
     {
         public Vector2 lastValidPosition;
@@ -128,15 +106,5 @@ namespace Beatemup.Ecs
     public struct UnitTypeComponent : IEntityComponent
     {
         public int type;
-    }
-
-    public struct SpecialWeaponProviderComponent : IEntityComponent
-    {
-        public int special;
-    }
-
-    public struct SpecialWeaponComponent : IEntityComponent
-    {
-        public int special;
     }
 }
