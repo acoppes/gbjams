@@ -7,6 +7,8 @@ namespace Beatemup.Ecs
 {
     public class UnitStateAnimatorSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
+        private readonly int walkingStateHash = Animator.StringToHash("walking");
+        
         public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             var models = world.GetComponents<UnitModelComponent>();
@@ -45,7 +47,7 @@ namespace Beatemup.Ecs
                 var unitStateComponent = states.Get(entity);
                 
                 animatorComponent.animator
-                    .SetBool("walking", unitStateComponent.walking);
+                    .SetBool(walkingStateHash, unitStateComponent.walking);
 
                 if (unitStateComponent.stateTriggers.hit)
                 {

@@ -8,12 +8,6 @@ namespace Beatemup.Ecs
     {
         public void Run(EcsSystems systems)
         {
-            var filter = world
-                .GetFilter<ControlComponent>()
-                .Inc<PlayerInputComponent>()
-                .Inc<PlayerComponent>()
-                .End();
-
             // var gameData = world.sharedData.sharedData as SharedGameData;
 
             var controlComponents = world.GetComponents<ControlComponent>();

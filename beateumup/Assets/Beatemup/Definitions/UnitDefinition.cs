@@ -27,6 +27,7 @@ namespace Beatemup.Definitions
         {
             world.AddComponent(entity, new PlayerComponent());
             world.AddComponent(entity, new PositionComponent());
+            world.AddComponent(entity, new LookingDirection());
 
             if (unitType != 0)
             {
