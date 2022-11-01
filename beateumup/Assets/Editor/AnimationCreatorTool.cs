@@ -17,6 +17,8 @@ namespace Utils.Editor
         {
             public List<KeyFrame> keyframes = new List<KeyFrame>();
         }
+
+        private const float DefaultFrameRate = 15.0f;
         
         [UnityEditor.MenuItem("Assets/Create Animations from Folder")]
         public static void CreateAnimationsFromFolder()
@@ -66,6 +68,7 @@ namespace Utils.Editor
                 var animation = animations[animationName];
                 
                 var clip = new AnimationClip();
+                clip.frameRate = DefaultFrameRate;
                 
                 var spriteBinding = new EditorCurveBinding
                 {
@@ -74,32 +77,29 @@ namespace Utils.Editor
                     propertyName = "m_Sprite"
                 };
 
-                var fps = 60.0f;
-                var frameTime = 8;
-                
-                var frameDuration = 1.0f / fps;
+                // var frameDuration = 1.0f / fps;
 
-                var referenceKeyFrames = new ObjectReferenceKeyframe[animation.keyframes.Count + 1];
+                var referenceKeyFrames = new ObjectReferenceKeyframe[animation.keyframes.Count];
                 
                 for (var i = 0; i < animation.keyframes.Count; i++)
                 {
                     referenceKeyFrames[i] = new ObjectReferenceKeyframe
                     {
-                        time = animation.keyframes[i].frame * frameTime / fps,
+                        time = animation.keyframes[i].frame / clip.frameRate,
                         value = animation.keyframes[i].sprite
                     };
                 }
 
-                // repeat last frame
-                if (frameTime > 1)
-                {
-                    var i = animation.keyframes.Count - 1;
-                    referenceKeyFrames[i + 1] = new ObjectReferenceKeyframe
-                    {
-                        time = ((animation.keyframes[i].frame + 1) * frameTime / fps) - frameDuration,
-                        value = animation.keyframes[i].sprite
-                    };
-                }
+                // // repeat last frame
+                // if (frameTime > 1)
+                // {
+                //     var i = animation.keyframes.Count - 1;
+                //     referenceKeyFrames[i + 1] = new ObjectReferenceKeyframe
+                //     {
+                //         time = ((animation.keyframes[i].frame + 1) * frameTime / fps) - frameDuration,
+                //         value = animation.keyframes[i].sprite
+                //     };
+                // }
                 
                 AnimationUtility.SetObjectReferenceCurve(clip, spriteBinding, referenceKeyFrames);
 

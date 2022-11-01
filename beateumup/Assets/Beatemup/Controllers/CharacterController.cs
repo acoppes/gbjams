@@ -1,3 +1,4 @@
+using System;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
@@ -12,12 +13,12 @@ namespace Beatemup.Controllers
         private const string DashState = "Dash";
         private const string DashStopState = "DashStop";
 
-        public float attack1Duration = 1.0f;
+        private float _attack1Duration = 1.0f;
 
         public float dashDuration = 1.0f;
         public float dashExtraSpeed = 10.0f;
         
-        public float dashStopDuration = 0.1f;
+        private float _dashStopDuration = 0.1f;
 
         public void OnInit()
         {
@@ -28,9 +29,14 @@ namespace Beatemup.Controllers
 
             foreach (var clip in allClips)
             {
-                if (clip.name.Equals("Attack"))
+                if (clip.name.Equals("Attack", StringComparison.OrdinalIgnoreCase))
                 {
-                    attack1Duration = clip.length;
+                    _attack1Duration = clip.length;
+                }
+                
+                if (clip.name.Equals("DashStop", StringComparison.OrdinalIgnoreCase))
+                {
+                    _dashStopDuration = clip.length;
                 }
             }
         }
@@ -52,7 +58,7 @@ namespace Beatemup.Controllers
             if (states.HasState(Attack1State))
             {
                 var state = states.GetState(Attack1State);
-                if (state.time >= attack1Duration)
+                if (state.time >= _attack1Duration)
                 {
                     modelState.attack1 = false;
                     lookingDirection.locked = false;
@@ -66,7 +72,7 @@ namespace Beatemup.Controllers
             if (states.HasState(DashStopState))
             {
                 var state = states.GetState(DashStopState);
-                if (state.time >= dashStopDuration)
+                if (state.time >= _dashStopDuration)
                 {
                     lookingDirection.locked = false;
                     states.ExitState(DashStopState);
