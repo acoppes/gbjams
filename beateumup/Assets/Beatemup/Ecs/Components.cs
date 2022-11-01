@@ -29,6 +29,12 @@ namespace Beatemup.Ecs
         public Button button1;
         public Button button2;
     }
+    
+    public struct LookingDirection : IEntityComponent
+    {
+        public Vector2 value;
+        public bool locked;
+    }
 
     public struct UnitModelComponent : IEntityComponent
     {
@@ -90,12 +96,7 @@ namespace Beatemup.Ecs
     {
         public Animator animator;
     }
-
-    public class TargetExtra
-    {
-        public Vector2 lookingDirection;
-        public bool isAlive;
-    }
+    
     public struct TerrainCollisionComponent : IEntityComponent
     {
         public Vector2 lastValidPosition;

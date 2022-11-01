@@ -1,7 +1,6 @@
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
-using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
 namespace Beatemup.Controllers
@@ -48,7 +47,7 @@ namespace Beatemup.Controllers
             ref var modelState = ref world.GetComponent<ModelStateComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
-            var lookingDirection = world.GetComponent<LookingDirection>(entity);
+            ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             
             if (states.HasState(Attack1State))
             {
@@ -56,6 +55,7 @@ namespace Beatemup.Controllers
                 if (state.time >= attack1Duration)
                 {
                     modelState.attack1 = false;
+                    lookingDirection.locked = false;
                     states.ExitState(Attack1State);
                 }
 
@@ -68,6 +68,7 @@ namespace Beatemup.Controllers
                 var state = states.GetState(DashStopState);
                 if (state.time >= dashStopDuration)
                 {
+                    lookingDirection.locked = false;
                     states.ExitState(DashStopState);
                 }
 
@@ -97,6 +98,7 @@ namespace Beatemup.Controllers
             {
                 movement.movingDirection = Vector2.zero;
                 modelState.attack1 = true;
+                lookingDirection.locked = true;
                 states.EnterState(Attack1State);
                 return;
             }
@@ -106,6 +108,7 @@ namespace Beatemup.Controllers
                 movement.movingDirection = new Vector2(lookingDirection.value.x, 0);
                 modelState.dashing = true;
                 movement.extraSpeed = dashExtraSpeed;
+                lookingDirection.locked = true;
                 states.EnterState(DashState);
                 return;
             }

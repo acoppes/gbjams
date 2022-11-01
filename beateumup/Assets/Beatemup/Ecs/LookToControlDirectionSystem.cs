@@ -21,8 +21,8 @@ namespace Beatemup.Ecs
             {
                 var control = controlComponents.Get(entity);
                 ref var lookingDirection = ref lookingDirectionComponents.Get(entity);
-
-                if (Mathf.Abs(control.direction.x) > 0)
+                
+                if (!lookingDirection.locked && Mathf.Abs(control.direction.x) > 0)
                 {
                     lookingDirection.value.x = Mathf.Sign(control.direction.x);
                 }

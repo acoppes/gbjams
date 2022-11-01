@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
+using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Definitions
 {
