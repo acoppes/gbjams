@@ -67,9 +67,12 @@ namespace Utils.Editor
             {
                 var animation = animations[animationName];
                 
-                var clip = new AnimationClip();
-                clip.frameRate = DefaultFrameRate;
-                
+                var clip = new AnimationClip
+                {
+                    frameRate = DefaultFrameRate,
+                    name = animationName
+                };
+
                 var spriteBinding = new EditorCurveBinding
                 {
                     type = typeof(SpriteRenderer),
@@ -89,6 +92,11 @@ namespace Utils.Editor
                         value = animation.keyframes[i].sprite
                     };
                 }
+                
+                AnimationUtility.SetAnimationClipSettings(clip, new AnimationClipSettings()
+                {
+                    loopTime = true
+                });
 
                 // // repeat last frame
                 // if (frameTime > 1)
@@ -114,7 +122,7 @@ namespace Utils.Editor
 
                 if (previousAnimationClip != null)
                 {
-                    clip.name = animationName;
+                    previousAnimationClip.wrapMode = WrapMode.Loop;
                     EditorUtility.CopySerialized(clip, previousAnimationClip);
                     AssetDatabase.SaveAssets();
                 }
