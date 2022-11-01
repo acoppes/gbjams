@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Utils.Editor
@@ -107,8 +108,21 @@ namespace Utils.Editor
                 {
                     AssetDatabase.CreateFolder("Assets/Animations", $"{characterName}");
                 }
+
+                var fileName = $"Assets/Animations/{characterName}/{animationName}.anim";
                 
-                AssetDatabase.CreateAsset(clip, $"Assets/Animations/{characterName}/{animationName}.anim");
+                var previousAnimationClip = AssetDatabase.LoadMainAssetAtPath(fileName) as AnimationClip;
+
+                if (previousAnimationClip != null)
+                {
+                    clip.name = animationName;
+                    EditorUtility.CopySerialized(clip, previousAnimationClip);
+                    AssetDatabase.SaveAssets();
+                }
+                else
+                {
+                    AssetDatabase.CreateAsset(clip, fileName);
+                }
             }
             
 
