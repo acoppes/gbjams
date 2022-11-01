@@ -27,6 +27,7 @@ namespace Beatemup.Ecs
     {
         public Vector2 direction;
         public Button button1;
+        public Button button2;
     }
 
     public struct UnitModelComponent : IEntityComponent
@@ -78,6 +79,7 @@ namespace Beatemup.Ecs
         public bool walking;
         public bool up;
         public bool dashing;
+        public bool attack1;
 
         public StateTriggers stateTriggers;
 

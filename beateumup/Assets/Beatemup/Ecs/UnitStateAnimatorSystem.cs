@@ -9,6 +9,7 @@ namespace Beatemup.Ecs
     {
         private readonly int _walkingParameterHash = Animator.StringToHash("walking");
         private readonly int _upParameterHash = Animator.StringToHash("up");
+        private readonly int _attack1ParameterHash = Animator.StringToHash("attack1");
         private readonly int _dashingParameterHash = Animator.StringToHash("dashing");
         
         public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
@@ -56,6 +57,9 @@ namespace Beatemup.Ecs
                 
                 animatorComponent.animator
                     .SetBool(_dashingParameterHash, unitStateComponent.dashing);
+                
+                animatorComponent.animator
+                    .SetBool(_attack1ParameterHash, unitStateComponent.attack1);
 
                 if (unitStateComponent.stateTriggers.hit)
                 {

@@ -34,6 +34,9 @@ namespace Beatemup.Ecs
                 var button1 = playerInput.actions["Button1"];
                 controlComponent.button1.UpdatePressed(button1.IsPressed());
 
+                var button2 = playerInput.actions["Button2"];
+                controlComponent.button2.UpdatePressed(button2.IsPressed());
+                
                 // var startRunning = playerInput.actions["StartRunning"];
                 // if (startRunning.)
                 // {
