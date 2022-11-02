@@ -35,12 +35,14 @@ namespace Beatemup.Ecs
                     continue;
                 }
 
-                var speed = movement.speed + movement.extraSpeed;
                 var direction = movement.movingDirection;
 
                 var newPosition = position.value;
 
-                var velocity = direction * speed;
+                var velocity = Vector2.zero;
+
+                velocity.x = direction.x * (movement.speed + movement.extraSpeed.x);
+                velocity.y = direction.y * (movement.speed + movement.extraSpeed.y);
 
                 velocity = new Vector2(
                     velocity.x * gamePerspective.x, 

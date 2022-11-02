@@ -105,7 +105,7 @@ namespace Beatemup.Controllers
                 {
                     movement.movingDirection = Vector2.zero;
                     modelState.dashing = false;
-                    movement.extraSpeed = 0;
+                    movement.extraSpeed.x = 0;
                     states.ExitState(DashState);
                     states.EnterState(DashStopState);
                 }
@@ -143,11 +143,11 @@ namespace Beatemup.Controllers
                 // exit sprint
                 states.ExitState(SprintState);
                 modelState.sprinting = false;
-                movement.extraSpeed = 0;
+                movement.extraSpeed.x = 0;
                 
                 movement.movingDirection = new Vector2(lookingDirection.value.x, 0);
                 modelState.dashing = true;
-                movement.extraSpeed = dashExtraSpeed;
+                movement.extraSpeed.x = dashExtraSpeed;
                 lookingDirection.locked = true;
                 states.EnterState(DashState);
                 
@@ -161,7 +161,7 @@ namespace Beatemup.Controllers
                 if (!control.forward.isPressed || control.backward.isPressed)
                 {
                     modelState.sprinting = false;
-                    movement.extraSpeed = 0;
+                    movement.extraSpeed.x = 0;
                     states.ExitState(SprintState);
                     return;
                 }
@@ -171,7 +171,7 @@ namespace Beatemup.Controllers
                 if (control.forward.isPressed && control.forward.doubleTap)
                 {
                     modelState.sprinting = true;
-                    movement.extraSpeed = sprintExtraSpeed;
+                    movement.extraSpeed.x = sprintExtraSpeed;
                     states.EnterState(SprintState);
                     return;
                 }

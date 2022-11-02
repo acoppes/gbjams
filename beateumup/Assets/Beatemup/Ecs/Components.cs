@@ -124,13 +124,12 @@ namespace Beatemup.Ecs
         public bool disabled;
         
         public float speed;
-        public float extraSpeed;
+
+        public Vector2 extraSpeed;
 
         public Vector2 currentVelocity;
 
         public Vector2 movingDirection;
-        
-        public float totalSpeed => speed + extraSpeed;
     }
 
     public struct KeepInsideCameraComponent : IEntityComponent
