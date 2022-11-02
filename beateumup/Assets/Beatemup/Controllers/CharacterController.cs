@@ -100,7 +100,7 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (control.button1.wasPressed)
+            if (control.button1.isPressed)
             {
                 movement.movingDirection = Vector2.zero;
                 modelState.attack1 = true;
@@ -109,7 +109,7 @@ namespace Beatemup.Controllers
                 return;
             }
 
-            if (control.button2.wasPressed)
+            if (control.button2.isPressed)
             {
                 movement.movingDirection = new Vector2(lookingDirection.value.x, 0);
                 modelState.dashing = true;

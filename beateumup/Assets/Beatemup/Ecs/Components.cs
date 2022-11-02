@@ -11,21 +11,43 @@ namespace Beatemup.Ecs
 
     public struct Button
     {
-        public bool isPressed;
+        public int current;
+        
+        public bool[] pressedBuffer;
+
+        public bool isPressed => pressedBuffer[current];
+        
         public bool wasReleased;
         public bool wasPressed;
 
+        public Button(int buffer)
+        {
+            pressedBuffer = new bool[buffer];
+            current = 0;
+            wasPressed = false;
+            wasReleased = false;
+        }
+
         public void UpdatePressed(bool pressed)
         {
-            wasPressed = !isPressed && pressed;
-            wasReleased = isPressed && !pressed;
-            isPressed = pressed;
+            wasPressed = !pressedBuffer[current] && pressed;
+            wasReleased = pressedBuffer[current] && !pressed;
+            
+            current++;
+            
+            if (current >= pressedBuffer.Length)
+            {
+                current = 0;
+            }
+            
+            pressedBuffer[current] = pressed;
         }
     }
     
     public struct ControlComponent : IEntityComponent
     {
         public Vector2 direction;
+        
         public Button button1;
         public Button button2;
     }
