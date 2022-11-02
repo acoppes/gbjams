@@ -80,6 +80,11 @@ namespace Utils.Editor
                     propertyName = "m_Sprite"
                 };
 
+                if (animationName.Contains("Fx"))
+                {
+                    spriteBinding.path = "Effect";
+                }
+
                 // var frameDuration = 1.0f / fps;
 
                 var referenceKeyFrames = new ObjectReferenceKeyframe[animation.keyframes.Count];

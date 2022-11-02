@@ -7,12 +7,6 @@ namespace Beatemup.Ecs
 {
     public class UnitStateAnimatorSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
-        private readonly int _walkingParameterHash = Animator.StringToHash("walking");
-        private readonly int _upParameterHash = Animator.StringToHash("up");
-        // private readonly int _attack1ParameterHash = Animator.StringToHash("attack1");
-        private readonly int _dashingParameterHash = Animator.StringToHash("dashing");
-        private readonly int _sprintingParameterHash = Animator.StringToHash("sprinting");
-        
         public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             var models = world.GetComponents<UnitModelComponent>();
@@ -51,13 +45,13 @@ namespace Beatemup.Ecs
                 var unitStateComponent = states.Get(entity);
                 
                 animatorComponent.animator
-                    .SetBool(_walkingParameterHash, unitStateComponent.walking);
+                    .SetBool(nameof(unitStateComponent.walking), unitStateComponent.walking);
                 
                 animatorComponent.animator
-                    .SetBool(_upParameterHash, unitStateComponent.up);
+                    .SetBool(nameof(unitStateComponent.up), unitStateComponent.up);
                 
                 animatorComponent.animator
-                    .SetBool(_dashingParameterHash, unitStateComponent.dashing);
+                    .SetBool(nameof(unitStateComponent.dashing), unitStateComponent.dashing);
                 
                 animatorComponent.animator
                     .SetBool(nameof(unitStateComponent.attack), unitStateComponent.attack);
@@ -66,7 +60,7 @@ namespace Beatemup.Ecs
                     .SetBool(nameof(unitStateComponent.attackMoving), unitStateComponent.attackMoving);
                 
                 animatorComponent.animator
-                    .SetBool(_sprintingParameterHash, unitStateComponent.sprinting);
+                    .SetBool(nameof(unitStateComponent.sprinting), unitStateComponent.sprinting);
 
                 if (unitStateComponent.stateTriggers.hit)
                 {
