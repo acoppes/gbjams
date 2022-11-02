@@ -8,7 +8,7 @@ namespace Beatemup.Controllers
 {
     public class CharacterController : ControllerBase, IInit, IEntityDestroyed
     {
-        private const string Attack1State = "Attack1";
+        private const string AttackState = "Attack";
         
         private const string DashState = "Dash";
         private const string DashStopState = "DashStop";
@@ -16,7 +16,10 @@ namespace Beatemup.Controllers
         private const string SprintState = "Sprint";
         // private const string DashStopState = "DashStop";
 
-        private float _attack1Duration = 1.0f;
+        private float _attackDuration = 1.0f;
+        private float _attackMovingDuration = 1.0f;
+
+        private float _currentAttackDuration;
 
         public float dashDuration = 1.0f;
         public float dashExtraSpeed = 10.0f;
@@ -36,7 +39,12 @@ namespace Beatemup.Controllers
             {
                 if (clip.name.Equals("Attack", StringComparison.OrdinalIgnoreCase))
                 {
-                    _attack1Duration = clip.length;
+                    _attackDuration = clip.length;
+                }
+                
+                if (clip.name.Equals("AttackMoving", StringComparison.OrdinalIgnoreCase))
+                {
+                    _attackMovingDuration = clip.length;
                 }
                 
                 if (clip.name.Equals("DashStop", StringComparison.OrdinalIgnoreCase))
@@ -60,14 +68,17 @@ namespace Beatemup.Controllers
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             
-            if (states.HasState(Attack1State))
+            if (states.HasState(AttackState))
             {
-                var state = states.GetState(Attack1State);
-                if (state.time >= _attack1Duration)
+                var state = states.GetState(AttackState);
+                
+                if (state.time >= _currentAttackDuration)
                 {
-                    modelState.attack1 = false;
+                    modelState.attack = false;
+                    modelState.attackMoving = false;
+                    
                     lookingDirection.locked = false;
-                    states.ExitState(Attack1State);
+                    states.ExitState(AttackState);
                 }
 
                 return;
@@ -107,10 +118,23 @@ namespace Beatemup.Controllers
             
             if (control.button1.isPressed)
             {
+                if (control.forward.isPressed)
+                {
+                    modelState.attackMoving = true;
+                    _currentAttackDuration = _attackMovingDuration;
+                }
+                else
+                {
+                    modelState.attack = true;
+                    _currentAttackDuration = _attackDuration;
+                }
+               
+                
                 movement.movingDirection = Vector2.zero;
-                modelState.attack1 = true;
+                
+                
                 lookingDirection.locked = true;
-                states.EnterState(Attack1State);
+                states.EnterState(AttackState);
                 return;
             }
 

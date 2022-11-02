@@ -9,7 +9,7 @@ namespace Beatemup.Ecs
     {
         private readonly int _walkingParameterHash = Animator.StringToHash("walking");
         private readonly int _upParameterHash = Animator.StringToHash("up");
-        private readonly int _attack1ParameterHash = Animator.StringToHash("attack1");
+        // private readonly int _attack1ParameterHash = Animator.StringToHash("attack1");
         private readonly int _dashingParameterHash = Animator.StringToHash("dashing");
         private readonly int _sprintingParameterHash = Animator.StringToHash("sprinting");
         
@@ -60,7 +60,10 @@ namespace Beatemup.Ecs
                     .SetBool(_dashingParameterHash, unitStateComponent.dashing);
                 
                 animatorComponent.animator
-                    .SetBool(_attack1ParameterHash, unitStateComponent.attack1);
+                    .SetBool(nameof(unitStateComponent.attack), unitStateComponent.attack);
+                
+                animatorComponent.animator
+                    .SetBool(nameof(unitStateComponent.attackMoving), unitStateComponent.attackMoving);
                 
                 animatorComponent.animator
                     .SetBool(_sprintingParameterHash, unitStateComponent.sprinting);

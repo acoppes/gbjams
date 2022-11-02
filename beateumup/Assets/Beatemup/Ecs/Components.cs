@@ -149,7 +149,9 @@ namespace Beatemup.Ecs
         public bool up;
         public bool dashing;
         public bool sprinting;
-        public bool attack1;
+        
+        public bool attack;
+        public bool attackMoving;
 
         public StateTriggers stateTriggers;
 
