@@ -11,6 +11,7 @@ namespace Beatemup.Ecs
         {
             var playerInputComponents = world.GetComponents<PlayerInputComponent>();
             var controlComponents = world.GetComponents<ControlComponent>();
+            var lookingDirectionComponents = world.GetComponents<LookingDirection>();
 
             foreach (var entity in world.GetFilter<PlayerInputComponent>().Inc<ControlComponent>().End())
             {
@@ -36,12 +37,24 @@ namespace Beatemup.Ecs
 
                 var button2 = playerInput.actions["Button2"];
                 controlComponent.button2.UpdatePressed(button2.IsPressed());
+            }
+            
+            foreach (var entity in world.GetFilter<ControlComponent>().Inc<LookingDirection>().End())
+            {
+                var lookingDirection = lookingDirectionComponents.Get(entity);
+
+                ref var controlComponent = ref controlComponents.Get(entity);
                 
-                // var startRunning = playerInput.actions["StartRunning"];
-                // if (startRunning.)
-                // {
-                //     Debug.Log("start running");
-                // } 
+                controlComponent.up.UpdatePressed(controlComponent.direction.y > 0);
+                controlComponent.down.UpdatePressed(controlComponent.direction.y < 0);
+                
+                controlComponent.forward.UpdatePressed(
+                    (controlComponent.direction.x > 0 && lookingDirection.value.x > 0) || 
+                    (controlComponent.direction.x < 0 && lookingDirection.value.x < 0)); 
+                
+                controlComponent.backward.UpdatePressed(
+                    (controlComponent.direction.x < 0 && lookingDirection.value.x > 0) || 
+                    (controlComponent.direction.x > 0 && lookingDirection.value.x < 0)); 
             }
         }
     }

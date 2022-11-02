@@ -40,11 +40,7 @@ namespace Beatemup.Definitions
                 });
             }
             
-            world.AddComponent(entity, new ControlComponent
-            {
-                button1 = new Button(8),
-                button2 = new Button(8)
-            });
+            world.AddComponent(entity, ControlComponent.Default());
 
             world.AddComponent(entity, new ModelStateComponent());
             world.AddComponent(entity, new StatesComponent());

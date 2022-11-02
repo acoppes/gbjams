@@ -12,11 +12,16 @@ namespace Beatemup.Controllers
         
         private const string DashState = "Dash";
         private const string DashStopState = "DashStop";
+        
+        private const string SprintState = "Sprint";
+        // private const string DashStopState = "DashStop";
 
         private float _attack1Duration = 1.0f;
 
         public float dashDuration = 1.0f;
         public float dashExtraSpeed = 10.0f;
+        
+        public float sprintExtraSpeed = 2.0f;
         
         private float _dashStopDuration = 0.1f;
 
@@ -111,15 +116,44 @@ namespace Beatemup.Controllers
 
             if (control.button2.isPressed)
             {
+                // exit sprint
+                states.ExitState(SprintState);
+                modelState.sprinting = false;
+                movement.extraSpeed = 0;
+                
                 movement.movingDirection = new Vector2(lookingDirection.value.x, 0);
                 modelState.dashing = true;
                 movement.extraSpeed = dashExtraSpeed;
                 lookingDirection.locked = true;
                 states.EnterState(DashState);
+                
                 return;
             }
             
             movement.movingDirection = control.direction;
+
+            if (states.HasState(SprintState))
+            {
+                if (!control.forward.isPressed || control.backward.isPressed)
+                {
+                    modelState.sprinting = false;
+                    movement.extraSpeed = 0;
+                    states.ExitState(SprintState);
+                    return;
+                }
+            }
+            else
+            {
+                if (control.forward.isPressed && control.forward.doubleTap)
+                {
+                    modelState.sprinting = true;
+                    movement.extraSpeed = sprintExtraSpeed;
+                    states.EnterState(SprintState);
+                    return;
+                }
+            }
+
+
         }
 
     }

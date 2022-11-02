@@ -11,29 +11,40 @@ namespace Beatemup.Ecs
 
     public struct Button
     {
+        public const int DoubleTapFrames = 20;
+        
         public int current;
         
         public bool[] pressedBuffer;
 
         public bool isPressed => pressedBuffer[current];
+
+        private int lastPressedFrame;
         
-        public bool wasReleased;
-        public bool wasPressed;
+        // public bool wasReleased;
+        // public bool wasPressed;
+
+        public bool doubleTap;
 
         public Button(int buffer)
         {
             pressedBuffer = new bool[buffer];
             current = 0;
-            wasPressed = false;
-            wasReleased = false;
+
+            lastPressedFrame = 0;
+            doubleTap = false;
+
+            // wasPressed = false;
+            // wasReleased = false;
         }
 
         public void UpdatePressed(bool pressed)
         {
-            wasPressed = !pressedBuffer[current] && pressed;
-            wasReleased = pressedBuffer[current] && !pressed;
+            var wasPressed = !pressedBuffer[current] && pressed;
+            // wasReleased = pressedBuffer[current] && !pressed;
             
             current++;
+            lastPressedFrame--;
             
             if (current >= pressedBuffer.Length)
             {
@@ -41,6 +52,17 @@ namespace Beatemup.Ecs
             }
             
             pressedBuffer[current] = pressed;
+
+            if (wasPressed)
+            {
+                doubleTap = lastPressedFrame > 0;
+                lastPressedFrame = DoubleTapFrames;
+            }
+        }
+
+        public static Button Default()
+        {
+            return new Button(8);
         }
     }
     
@@ -48,8 +70,27 @@ namespace Beatemup.Ecs
     {
         public Vector2 direction;
         
+        public Button up;
+        public Button down;
+        
+        public Button forward;
+        public Button backward;
+        
         public Button button1;
         public Button button2;
+
+        public static ControlComponent Default()
+        {
+            return new ControlComponent()
+            {
+                up = Button.Default(),
+                down = Button.Default(),
+                forward = Button.Default(),
+                backward = Button.Default(),
+                button1 = Button.Default(),
+                button2 = Button.Default()
+            };
+        }
     }
     
     public struct LookingDirection : IEntityComponent
@@ -107,6 +148,7 @@ namespace Beatemup.Ecs
         public bool walking;
         public bool up;
         public bool dashing;
+        public bool sprinting;
         public bool attack1;
 
         public StateTriggers stateTriggers;
