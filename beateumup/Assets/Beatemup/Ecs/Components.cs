@@ -40,7 +40,7 @@ namespace Beatemup.Ecs
 
         public void UpdatePressed(bool pressed)
         {
-            var wasPressed = !pressedBuffer[current] && pressed;
+            var wasPressedThisFrame = !pressedBuffer[current] && pressed;
             // wasReleased = pressedBuffer[current] && !pressed;
             
             current++;
@@ -53,11 +53,22 @@ namespace Beatemup.Ecs
             
             pressedBuffer[current] = pressed;
 
-            if (wasPressed)
+            if (wasPressedThisFrame)
             {
                 doubleTap = lastPressedFrame > 0;
                 lastPressedFrame = DoubleTapFrames;
             }
+        }
+
+        public void ClearBuffer()
+        {
+            for (var i = 0; i < pressedBuffer.Length; i++)
+            {
+                pressedBuffer[i] = false;
+            }
+
+            doubleTap = false;
+            lastPressedFrame = 0;
         }
 
         public static Button Default()

@@ -52,6 +52,9 @@ namespace Beatemup.Controllers
                     _dashStopDuration = clip.length;
                 }
             }
+            
+            ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
+            lookingDirection.locked = true;
         }
         
         public void OnEntityDestroyed(Entity e)
@@ -77,7 +80,7 @@ namespace Beatemup.Controllers
                     modelState.attack = false;
                     modelState.attackMoving = false;
                     
-                    lookingDirection.locked = false;
+                    // lookingDirection.locked = false;
                     states.ExitState(AttackState);
                 }
 
@@ -90,7 +93,7 @@ namespace Beatemup.Controllers
                 var state = states.GetState(DashStopState);
                 if (state.time >= _dashStopDuration)
                 {
-                    lookingDirection.locked = false;
+                    // lookingDirection.locked = false;
                     states.ExitState(DashStopState);
                 }
 
@@ -133,7 +136,7 @@ namespace Beatemup.Controllers
                 movement.movingDirection = Vector2.zero;
                 
                 
-                lookingDirection.locked = true;
+                // lookingDirection.locked = true;
                 states.EnterState(AttackState);
                 return;
             }
@@ -148,13 +151,11 @@ namespace Beatemup.Controllers
                 movement.movingDirection = new Vector2(lookingDirection.value.x, 0);
                 modelState.dashing = true;
                 movement.extraSpeed.x = dashExtraSpeed;
-                lookingDirection.locked = true;
+                // lookingDirection.locked = true;
                 states.EnterState(DashState);
                 
                 return;
             }
-            
-            movement.movingDirection = control.direction;
 
             if (states.HasState(SprintState))
             {
@@ -176,8 +177,38 @@ namespace Beatemup.Controllers
                     return;
                 }
             }
+            
+            movement.movingDirection = control.direction;
 
+            if (states.HasState("Moving"))
+            {
+                if (control.backward.isPressed)
+                {
+                    lookingDirection.value.x = control.direction.x;
+                    control.forward.ClearBuffer();
+                }
+                
+                if (control.direction.sqrMagnitude < Mathf.Epsilon)
+                {
+                    // lookingDirection.locked = false;
+                    states.ExitState("Moving");
+                }
 
+                return;
+            }
+
+            if (control.direction.sqrMagnitude > Mathf.Epsilon)
+            {
+                if (control.backward.isPressed)
+                {
+                    lookingDirection.value.x = control.direction.x;
+                    control.forward.ClearBuffer();
+                }
+                
+                // lookingDirection.locked = true;
+                states.EnterState("Moving");
+                return;
+            }
         }
 
     }
