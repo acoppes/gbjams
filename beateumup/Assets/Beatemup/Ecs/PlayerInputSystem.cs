@@ -23,14 +23,29 @@ namespace Beatemup.Ecs
                 {
                     break;
                 }
+                ref var controlComponent = ref controlComponents.Get(entity);
+
+                var buttonUp = playerInput.actions["Up"];
+                controlComponent.up.UpdatePressed(buttonUp.IsPressed());
+                
+                var buttonDown = playerInput.actions["Down"];
+                controlComponent.down.UpdatePressed(buttonDown.IsPressed());
+
+                var yComponent = 0.0f;
+                if (buttonUp.IsPressed())
+                {
+                    yComponent += 1.0f;
+                } 
+                
+                if (buttonDown.IsPressed())
+                {
+                    yComponent -= 1.0f;
+                } 
 
                 var horizontal = playerInput.actions["Horizontal"];
-                var vertical = playerInput.actions["Vertical"];
 
-                ref var controlComponent = ref controlComponents.Get(entity);
-                
                 controlComponent.direction = 
-                    new Vector2(horizontal.ReadValue<float>(), vertical.ReadValue<float>());
+                    new Vector2(horizontal.ReadValue<float>(), yComponent);
 
                 var button1 = playerInput.actions["Button1"];
                 controlComponent.button1.UpdatePressed(button1.IsPressed());
@@ -45,8 +60,8 @@ namespace Beatemup.Ecs
 
                 ref var controlComponent = ref controlComponents.Get(entity);
                 
-                controlComponent.up.UpdatePressed(controlComponent.direction.y > 0);
-                controlComponent.down.UpdatePressed(controlComponent.direction.y < 0);
+                // controlComponent.up.UpdatePressed(controlComponent.direction.y > 0);
+                // controlComponent.down.UpdatePressed(controlComponent.direction.y < 0);
                 
                 controlComponent.forward.UpdatePressed(
                     (controlComponent.direction.x > 0 && lookingDirection.value.x > 0) || 
