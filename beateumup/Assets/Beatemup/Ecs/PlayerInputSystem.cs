@@ -10,7 +10,7 @@ namespace Beatemup.Ecs
 {
     public class PlayerInputSystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
     {
-        private const float DefaultBufferTime = 1.0f;
+        private const float DefaultBufferTime = 0.3f;
         
         private List<FieldInfo> _controlActions; 
         
