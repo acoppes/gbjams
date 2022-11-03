@@ -91,13 +91,12 @@ namespace Beatemup.Controllers
             if (states.HasState(DashStopState))
             {
                 var state = states.GetState(DashStopState);
-                if (state.time >= _dashStopDuration)
+                if (state.time >= _dashStopDuration || control.IsPreviousAction(control.button1, 1))
                 {
                     // lookingDirection.locked = false;
+                    movement.currentVelocity.x = 0.1f;
                     states.ExitState(DashStopState);
                 }
-
-                return;
             }
 
             if (states.HasState(DashState))
@@ -119,9 +118,9 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (control.button1.isPressed)
+            if (control.IsPreviousAction(control.button1, 1))
             {
-                if (control.forward.isPressed)
+                if (Mathf.Abs(movement.currentVelocity.x) > Mathf.Epsilon)
                 {
                     modelState.attackMoving = true;
                     _currentAttackDuration = _attackMovingDuration;

@@ -70,6 +70,11 @@ namespace Beatemup.Ecs
             };
         }
 
+        public bool IsPreviousAction(Button button, int count)
+        {
+            return IsPreviousAction(button.name, count);
+        }
+
         public bool IsPreviousAction(string actionName, int count)
         {
             for (var i = buffer.Count - 1; i >= 0; i--)
