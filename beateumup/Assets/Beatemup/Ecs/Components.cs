@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Beatemup.Ecs
 {
@@ -92,6 +94,8 @@ namespace Beatemup.Ecs
         public Button button1;
         public Button button2;
 
+        // public List<string> buffer;
+
         public static ControlComponent Default()
         {
             return new ControlComponent()
@@ -103,7 +107,8 @@ namespace Beatemup.Ecs
                 forward = Button.Default(),
                 backward = Button.Default(),
                 button1 = Button.Default(),
-                button2 = Button.Default()
+                button2 = Button.Default(),
+                // buffer = new List<string>()
             };
         }
     }

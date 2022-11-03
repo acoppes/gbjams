@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Gemserk.Leopotam.Ecs;
 using Leopotam.EcsLite;
 using UnityEngine;
@@ -5,8 +8,38 @@ using UnityEngine.InputSystem;
 
 namespace Beatemup.Ecs
 {
-    public class PlayerInputSystem : BaseSystem, IEcsRunSystem
+    public class PlayerInputSystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
     {
+        private List<FieldInfo> _controlActions; 
+        
+        public void Init(EcsSystems systems)
+        {
+            var allFields = typeof(ControlComponent).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            _controlActions = allFields.Where(f => f.FieldType == typeof(Button)).ToList();
+        }
+        
+        private static void UpdateFromInput(ref ControlComponent controlComponent, FieldInfo field, PlayerInput playerInput)
+        {
+            var inputAction = playerInput.actions.FindAction(field.Name);
+            
+            if (inputAction == null)
+                return;
+
+            var pressed = inputAction.IsPressed();
+
+            var button = (Button) field.GetValue(controlComponent);
+            button.UpdatePressed(pressed);
+
+            object boxed = controlComponent;
+            field.SetValue(boxed, button);
+            controlComponent = (ControlComponent) boxed;
+            
+            // if (pressed)
+            // {
+            //     controlComponent.buffer.Add(field.Name);
+            // }
+        }
+        
         public void Run(EcsSystems systems)
         {
             var playerInputComponents = world.GetComponents<PlayerInputComponent>();
@@ -27,45 +60,32 @@ namespace Beatemup.Ecs
                 ref var controlComponent = ref controlComponents.Get(entity);
                 var direction = Vector2.zero;
 
-                var buttonUp = playerInput.actions[nameof(controlComponent.up)];
-                controlComponent.up.UpdatePressed(buttonUp.IsPressed());
-                
-                var buttonDown = playerInput.actions[nameof(controlComponent.down)];
-                controlComponent.down.UpdatePressed(buttonDown.IsPressed());
-                
-                var buttonRight = playerInput.actions[nameof(controlComponent.right)];
-                controlComponent.right.UpdatePressed(buttonRight.IsPressed());
-                
-                var buttonLeft = playerInput.actions[nameof(controlComponent.left)];
-                controlComponent.left.UpdatePressed(buttonLeft.IsPressed());
+                foreach (var controlAction in _controlActions)
+                {
+                    UpdateFromInput(ref controlComponent, controlAction, playerInput);
+                }
 
-                if (buttonUp.IsPressed())
+                if (controlComponent.up.isPressed)
                 {
                     direction.y += 1.0f;
                 } 
                 
-                if (buttonDown.IsPressed())
+                if (controlComponent.down.isPressed)
                 {
                     direction.y -= 1.0f;
                 }
                 
-                if (buttonRight.IsPressed())
+                if (controlComponent.right.isPressed)
                 {
                     direction.x += 1.0f;
                 } 
                 
-                if (buttonLeft.IsPressed())
+                if (controlComponent.left.isPressed)
                 {
                     direction.x -= 1.0f;
                 }
 
                 controlComponent.direction = direction;
-
-                var button1 = playerInput.actions[nameof(controlComponent.button1)];
-                controlComponent.button1.UpdatePressed(button1.IsPressed());
-
-                var button2 = playerInput.actions[nameof(controlComponent.button2)];
-                controlComponent.button2.UpdatePressed(button2.IsPressed());
             }
             
             foreach (var entity in world.GetFilter<ControlComponent>().Inc<LookingDirection>().End())
@@ -83,5 +103,6 @@ namespace Beatemup.Ecs
                     (controlComponent.direction.x > 0 && lookingDirection.value.x < 0)); 
             }
         }
+
     }
 }
