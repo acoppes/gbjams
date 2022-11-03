@@ -74,8 +74,11 @@ namespace Beatemup.Ecs
         {
             for (var i = buffer.Count - 1; i >= 0; i--)
             {
-                if (buffer[i].Equals(actionName, StringComparison.OrdinalIgnoreCase))
-                    count--;
+                if (!buffer[i].Equals(actionName, StringComparison.OrdinalIgnoreCase))
+                    return false;
+                
+                count--;
+                
                 if (count == 0)
                     return true;
             }
