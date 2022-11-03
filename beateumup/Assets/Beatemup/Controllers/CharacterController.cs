@@ -159,7 +159,7 @@ namespace Beatemup.Controllers
 
             if (states.HasState(SprintState))
             {
-                if (!control.forward.isPressed || control.backward.isPressed)
+                if (!control.right.isPressed && !control.left.isPressed)
                 {
                     modelState.sprinting = false;
                     movement.extraSpeed.x = 0;
@@ -169,7 +169,8 @@ namespace Beatemup.Controllers
             }
             else
             {
-                if (control.forward.isPressed && control.forward.doubleTap)
+                if ((control.right.isPressed && control.IsPreviousAction(control.right.name)) || 
+                    (control.left.isPressed && control.IsPreviousAction(control.left.name)))
                 {
                     modelState.sprinting = true;
                     movement.extraSpeed.x = sprintExtraSpeed;
@@ -185,7 +186,6 @@ namespace Beatemup.Controllers
                 if (control.backward.isPressed)
                 {
                     lookingDirection.value.x = control.direction.x;
-                    control.forward.ClearBuffer();
                 }
                 
                 if (control.direction.sqrMagnitude < Mathf.Epsilon)
@@ -202,7 +202,6 @@ namespace Beatemup.Controllers
                 if (control.backward.isPressed)
                 {
                     lookingDirection.value.x = control.direction.x;
-                    control.forward.ClearBuffer();
                 }
                 
                 // lookingDirection.locked = true;

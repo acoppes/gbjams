@@ -6,25 +6,20 @@ public class ButtonBufferTests
     [Test]
     public void TestDoubleTap()
     {
-        var button = Button.Default();
+        // var button = new Button("name");
+
+        var controlComponent = ControlComponent.Default();
         
-        button.UpdatePressed(false);
-        Assert.IsFalse(button.doubleTap);
+        Assert.IsFalse(controlComponent.IsPreviousAction(nameof(ControlComponent.right)));
+
+        controlComponent.right.UpdatePressed(true);
+        controlComponent.buffer.Add(nameof(ControlComponent.right));
         
-        button.UpdatePressed(true);
-        Assert.IsFalse(button.doubleTap);
+        Assert.IsFalse(controlComponent.IsPreviousAction(nameof(ControlComponent.right)));
+
+        controlComponent.right.UpdatePressed(true);
+        controlComponent.buffer.Add(nameof(ControlComponent.right));
         
-        button.UpdatePressed(true);
-        Assert.IsFalse(button.doubleTap);
-        
-        button.UpdatePressed(false);
-        Assert.IsFalse(button.doubleTap);
-        
-        button.UpdatePressed(true);
-        Assert.IsTrue(button.doubleTap);
-        
-        button.ClearBuffer();
-        button.UpdatePressed(true);
-        Assert.IsFalse(button.doubleTap);
+        Assert.IsTrue(controlComponent.IsPreviousAction(nameof(ControlComponent.right)));
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
@@ -13,52 +14,23 @@ namespace Beatemup.Ecs
 
     public struct Button
     {
-        public const int DoubleTapFrames = 15;
-
+        public string name;
+        
         public bool isPressed;
 
-        private int lastPressedFrame;
-        
         public bool wasPressedThisFrame;
 
-        public bool doubleTap;
-
-        public Button(int buffer)
+        public Button(string name)
         {
-            // current = 0;
+            this.name = name;
             isPressed = false;
-
-            lastPressedFrame = 0;
-            doubleTap = false;
-
             wasPressedThisFrame = false;
         }
 
         public void UpdatePressed(bool pressed)
         {
             wasPressedThisFrame = !isPressed && pressed;
-            // wasReleased = pressedBuffer[current] && !pressed;
-            
-            lastPressedFrame--;
-
             isPressed = pressed;
-
-            if (wasPressedThisFrame)
-            {
-                doubleTap = lastPressedFrame > 0;
-                lastPressedFrame = DoubleTapFrames;
-            }
-        }
-
-        public void ClearBuffer()
-        {
-            doubleTap = false;
-            lastPressedFrame = 0;
-        }
-
-        public static Button Default()
-        {
-            return new Button(8);
         }
     }
     
@@ -86,16 +58,25 @@ namespace Beatemup.Ecs
         {
             return new ControlComponent()
             {
-                right = Button.Default(),
-                left = Button.Default(),
-                up = Button.Default(),
-                down = Button.Default(),
-                forward = Button.Default(),
-                backward = Button.Default(),
-                button1 = Button.Default(),
-                button2 = Button.Default(),
+                right = new Button(nameof(right)),
+                left = new Button(nameof(left)),
+                up = new Button(nameof(up)),
+                down = new Button(nameof(down)),
+                forward = new Button(nameof(forward)),
+                backward = new Button(nameof(backward)),
+                button1 = new Button(nameof(button1)),
+                button2 = new Button(nameof(button2)),
                 buffer = new List<string>()
             };
+        }
+
+        public bool IsPreviousAction(string actionName)
+        {
+            if (buffer.Count > 1)
+            {
+                return buffer[^2].Equals(actionName, StringComparison.OrdinalIgnoreCase);
+            }
+            return false;
         }
     }
     

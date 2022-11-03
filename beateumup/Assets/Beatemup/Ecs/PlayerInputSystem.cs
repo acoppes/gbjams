@@ -10,7 +10,7 @@ namespace Beatemup.Ecs
 {
     public class PlayerInputSystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
     {
-        public float defaultBufferTime = 1.0f;
+        private const float DefaultBufferTime = 1.0f;
         
         private List<FieldInfo> _controlActions; 
         
@@ -20,15 +20,18 @@ namespace Beatemup.Ecs
             _controlActions = allFields.Where(f => f.FieldType == typeof(Button)).ToList();
         }
         
-        private void UpdateFromInput(ref ControlComponent controlComponent, FieldInfo field, PlayerInput playerInput)
+        private static void UpdateFromInput(ref ControlComponent controlComponent, FieldInfo field, PlayerInput playerInput)
         {
             var inputAction = playerInput.actions.FindAction(field.Name);
             
             if (inputAction == null)
                 return;
-
-            var pressed = inputAction.IsPressed();
-
+            
+            UpdateFromInput(ref controlComponent, field, inputAction.IsPressed());
+        }
+        
+        private static void UpdateFromInput(ref ControlComponent controlComponent, FieldInfo field, bool pressed)
+        {
             var button = (Button) field.GetValue(controlComponent);
             button.UpdatePressed(pressed);
 
@@ -39,7 +42,7 @@ namespace Beatemup.Ecs
             if (button.wasPressedThisFrame)
             {
                 controlComponent.buffer.Add(field.Name);
-                controlComponent.bufferTime = defaultBufferTime;
+                controlComponent.bufferTime = DefaultBufferTime;
             }
         }
         
