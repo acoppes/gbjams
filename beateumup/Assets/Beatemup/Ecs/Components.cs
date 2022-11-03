@@ -24,7 +24,7 @@ namespace Beatemup.Ecs
         private int lastPressedFrame;
         
         // public bool wasReleased;
-        // public bool wasPressed;
+        public bool wasPressedThisFrame;
 
         public bool doubleTap;
 
@@ -36,13 +36,12 @@ namespace Beatemup.Ecs
             lastPressedFrame = 0;
             doubleTap = false;
 
-            // wasPressed = false;
-            // wasReleased = false;
+            wasPressedThisFrame = false;
         }
 
         public void UpdatePressed(bool pressed)
         {
-            var wasPressedThisFrame = !pressedBuffer[current] && pressed;
+            wasPressedThisFrame = !pressedBuffer[current] && pressed;
             // wasReleased = pressedBuffer[current] && !pressed;
             
             current++;
@@ -81,6 +80,8 @@ namespace Beatemup.Ecs
     
     public struct ControlComponent : IEntityComponent
     {
+        public const int MaxBufferCount = 15;
+        
         public Vector2 direction;
         
         public Button right;
@@ -94,7 +95,8 @@ namespace Beatemup.Ecs
         public Button button1;
         public Button button2;
 
-        // public List<string> buffer;
+        public List<string> buffer;
+        public float bufferTime;
 
         public static ControlComponent Default()
         {
@@ -108,7 +110,7 @@ namespace Beatemup.Ecs
                 backward = Button.Default(),
                 button1 = Button.Default(),
                 button2 = Button.Default(),
-                // buffer = new List<string>()
+                buffer = new List<string>()
             };
         }
     }

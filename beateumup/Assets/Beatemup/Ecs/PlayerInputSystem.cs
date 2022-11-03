@@ -10,6 +10,8 @@ namespace Beatemup.Ecs
 {
     public class PlayerInputSystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
     {
+        public float defaultBufferTime = 1.0f;
+        
         private List<FieldInfo> _controlActions; 
         
         public void Init(EcsSystems systems)
@@ -18,7 +20,7 @@ namespace Beatemup.Ecs
             _controlActions = allFields.Where(f => f.FieldType == typeof(Button)).ToList();
         }
         
-        private static void UpdateFromInput(ref ControlComponent controlComponent, FieldInfo field, PlayerInput playerInput)
+        private void UpdateFromInput(ref ControlComponent controlComponent, FieldInfo field, PlayerInput playerInput)
         {
             var inputAction = playerInput.actions.FindAction(field.Name);
             
@@ -34,10 +36,11 @@ namespace Beatemup.Ecs
             field.SetValue(boxed, button);
             controlComponent = (ControlComponent) boxed;
             
-            // if (pressed)
-            // {
-            //     controlComponent.buffer.Add(field.Name);
-            // }
+            if (button.wasPressedThisFrame)
+            {
+                controlComponent.buffer.Add(field.Name);
+                controlComponent.bufferTime = defaultBufferTime;
+            }
         }
         
         public void Run(EcsSystems systems)
@@ -58,6 +61,9 @@ namespace Beatemup.Ecs
                 }
                 
                 ref var controlComponent = ref controlComponents.Get(entity);
+
+                controlComponent.bufferTime -= Time.deltaTime;
+                
                 var direction = Vector2.zero;
 
                 foreach (var controlAction in _controlActions)
@@ -86,6 +92,16 @@ namespace Beatemup.Ecs
                 }
 
                 controlComponent.direction = direction;
+
+                if (controlComponent.bufferTime < 0 && controlComponent.buffer.Count > 0)
+                {
+                    controlComponent.buffer.Clear();
+                }
+
+                // if (controlComponent.buffer.Count > ControlComponent.MaxBufferCount)
+                // {
+                //     controlComponent.buffer.remo
+                // }
             }
             
             foreach (var entity in world.GetFilter<ControlComponent>().Inc<LookingDirection>().End())

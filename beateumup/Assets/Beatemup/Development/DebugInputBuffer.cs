@@ -7,10 +7,7 @@ using UnityEngine.UI;
 
 public class DebugInputBuffer : MonoBehaviour
 {
-    // public int playerInput;
     public string playerName;
-    
-    public int bufferSize = 10;
 
     public GameObject actionPrefab;
 
@@ -18,47 +15,47 @@ public class DebugInputBuffer : MonoBehaviour
 
     public List<Sprite> actionSprites = new List<Sprite>();
 
-    private World world;
+    private World _world;
 
-    private List<Image> inputBufferList = new List<Image>();
+    private readonly List<Image> _inputBufferList = new List<Image>();
     
     public void Start()
     {
-        for (int i = 0; i < bufferSize; i++)
+        for (int i = 0; i < ControlComponent.MaxBufferCount; i++)
         {
             var actionInstance = GameObject.Instantiate(actionPrefab, layoutTransform);
             actionInstance.SetActive(false);
             
-            inputBufferList.Add(actionInstance.GetComponent<Image>());
+            _inputBufferList.Add(actionInstance.GetComponent<Image>());
         }
 
-        world = World.Instance;
+        _world = World.Instance;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        // [ A, A, A, A ]
-
-        for (var i = 0; i < inputBufferList.Count; i++)
+        for (var i = 0; i < _inputBufferList.Count; i++)
         {
-            inputBufferList[i].gameObject.SetActive(false);
+            _inputBufferList[i].gameObject.SetActive(false);
         }
 
-        var entity = world.GetEntityByName(playerName);
+        var entity = _world.GetEntityByName(playerName);
         if (entity == Entity.NullEntity)
         {
             return;
         }
 
-        var controlComponent = world.GetComponent<ControlComponent>(entity);
-
-        if (controlComponent.forward.isPressed)
-        {
-            inputBufferList[0].gameObject.SetActive(true);
-            inputBufferList[0].sprite = 
-                actionSprites.Find(s => s.name.Equals("right", StringComparison.OrdinalIgnoreCase));
-        }
+        var controlComponent = _world.GetComponent<ControlComponent>(entity);
         
+        for (var i = 0; i < _inputBufferList.Count; i++)
+        {
+            if (i >= controlComponent.buffer.Count)
+            {
+                break;
+            }
+                
+            _inputBufferList[i].gameObject.SetActive(true);
+            _inputBufferList[i].sprite = 
+                actionSprites.Find(s => s.name.Equals(controlComponent.buffer[i], StringComparison.OrdinalIgnoreCase));
+        }
     }
 }
