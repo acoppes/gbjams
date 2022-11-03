@@ -74,16 +74,13 @@ namespace Beatemup.Ecs
 
                 ref var controlComponent = ref controlComponents.Get(entity);
                 
-                // controlComponent.up.UpdatePressed(controlComponent.direction.y > 0);
-                // controlComponent.down.UpdatePressed(controlComponent.direction.y < 0);
-                
                 controlComponent.forward.UpdatePressed(
-                    (controlComponent.right.isPressed && lookingDirection.value.x > 0) || 
-                    (controlComponent.left.isPressed && lookingDirection.value.x < 0)); 
+                    (controlComponent.direction.x > 0 && lookingDirection.value.x > 0) || 
+                    (controlComponent.direction.x < 0 && lookingDirection.value.x < 0)); 
                 
                 controlComponent.backward.UpdatePressed(
-                    (controlComponent.left.isPressed && lookingDirection.value.x > 0) || 
-                    (controlComponent.right.isPressed && lookingDirection.value.x < 0)); 
+                    (controlComponent.direction.x < 0 && lookingDirection.value.x > 0) || 
+                    (controlComponent.direction.x > 0 && lookingDirection.value.x < 0)); 
             }
         }
     }
