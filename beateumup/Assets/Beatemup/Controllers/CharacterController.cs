@@ -159,7 +159,8 @@ namespace Beatemup.Controllers
 
             if (states.HasState(SprintState))
             {
-                if (!control.right.isPressed && !control.left.isPressed)
+                if ((!control.right.isPressed && !control.left.isPressed) || 
+                    (control.right.isPressed && control.left.isPressed) )
                 {
                     modelState.sprinting = false;
                     movement.extraSpeed.x = 0;
@@ -169,13 +170,16 @@ namespace Beatemup.Controllers
             }
             else
             {
-                if ((control.right.isPressed && control.IsPreviousAction(control.right.name)) || 
-                    (control.left.isPressed && control.IsPreviousAction(control.left.name)))
+                if (control.right.isPressed != control.left.isPressed)
                 {
-                    modelState.sprinting = true;
-                    movement.extraSpeed.x = sprintExtraSpeed;
-                    states.EnterState(SprintState);
-                    return;
+                    if ((control.right.isPressed && control.IsPreviousAction(control.right.name)) ||
+                        (control.left.isPressed && control.IsPreviousAction(control.left.name)))
+                    {
+                        modelState.sprinting = true;
+                        movement.extraSpeed.x = sprintExtraSpeed;
+                        states.EnterState(SprintState);
+                        return;
+                    }
                 }
             }
             
