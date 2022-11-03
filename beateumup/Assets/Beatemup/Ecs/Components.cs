@@ -11,7 +11,7 @@ namespace Beatemup.Ecs
 
     public struct Button
     {
-        public const int DoubleTapFrames = 20;
+        public const int DoubleTapFrames = 15;
         
         public int current;
         
