@@ -14,24 +14,19 @@ namespace Beatemup.Ecs
     public struct Button
     {
         public const int DoubleTapFrames = 15;
-        
-        public int current;
-        
-        public bool[] pressedBuffer;
 
-        public bool isPressed => pressedBuffer[current];
+        public bool isPressed;
 
         private int lastPressedFrame;
         
-        // public bool wasReleased;
         public bool wasPressedThisFrame;
 
         public bool doubleTap;
 
         public Button(int buffer)
         {
-            pressedBuffer = new bool[buffer];
-            current = 0;
+            // current = 0;
+            isPressed = false;
 
             lastPressedFrame = 0;
             doubleTap = false;
@@ -41,18 +36,12 @@ namespace Beatemup.Ecs
 
         public void UpdatePressed(bool pressed)
         {
-            wasPressedThisFrame = !pressedBuffer[current] && pressed;
+            wasPressedThisFrame = !isPressed && pressed;
             // wasReleased = pressedBuffer[current] && !pressed;
             
-            current++;
             lastPressedFrame--;
-            
-            if (current >= pressedBuffer.Length)
-            {
-                current = 0;
-            }
-            
-            pressedBuffer[current] = pressed;
+
+            isPressed = pressed;
 
             if (wasPressedThisFrame)
             {
@@ -63,11 +52,6 @@ namespace Beatemup.Ecs
 
         public void ClearBuffer()
         {
-            for (var i = 0; i < pressedBuffer.Length; i++)
-            {
-                pressedBuffer[i] = false;
-            }
-
             doubleTap = false;
             lastPressedFrame = 0;
         }
