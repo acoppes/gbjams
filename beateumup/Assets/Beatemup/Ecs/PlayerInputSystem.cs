@@ -27,16 +27,16 @@ namespace Beatemup.Ecs
                 ref var controlComponent = ref controlComponents.Get(entity);
                 var direction = Vector2.zero;
 
-                var buttonUp = playerInput.actions["Up"];
+                var buttonUp = playerInput.actions[nameof(controlComponent.up)];
                 controlComponent.up.UpdatePressed(buttonUp.IsPressed());
                 
-                var buttonDown = playerInput.actions["Down"];
+                var buttonDown = playerInput.actions[nameof(controlComponent.down)];
                 controlComponent.down.UpdatePressed(buttonDown.IsPressed());
                 
-                var buttonRight = playerInput.actions["Right"];
+                var buttonRight = playerInput.actions[nameof(controlComponent.right)];
                 controlComponent.right.UpdatePressed(buttonRight.IsPressed());
                 
-                var buttonLeft = playerInput.actions["Left"];
+                var buttonLeft = playerInput.actions[nameof(controlComponent.left)];
                 controlComponent.left.UpdatePressed(buttonLeft.IsPressed());
 
                 if (buttonUp.IsPressed())
@@ -61,10 +61,10 @@ namespace Beatemup.Ecs
 
                 controlComponent.direction = direction;
 
-                var button1 = playerInput.actions["Button1"];
+                var button1 = playerInput.actions[nameof(controlComponent.button1)];
                 controlComponent.button1.UpdatePressed(button1.IsPressed());
 
-                var button2 = playerInput.actions["Button2"];
+                var button2 = playerInput.actions[nameof(controlComponent.button2)];
                 controlComponent.button2.UpdatePressed(button2.IsPressed());
             }
             
