@@ -70,12 +70,16 @@ namespace Beatemup.Ecs
             };
         }
 
-        public bool IsPreviousAction(string actionName)
+        public bool IsPreviousAction(string actionName, int count)
         {
-            if (buffer.Count > 1)
+            for (var i = buffer.Count - 1; i >= 0; i--)
             {
-                return buffer[^2].Equals(actionName, StringComparison.OrdinalIgnoreCase);
+                if (buffer[i].Equals(actionName, StringComparison.OrdinalIgnoreCase))
+                    count--;
+                if (count == 0)
+                    return true;
             }
+
             return false;
         }
     }
