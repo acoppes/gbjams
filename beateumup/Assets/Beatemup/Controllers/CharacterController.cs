@@ -93,10 +93,10 @@ namespace Beatemup.Controllers
                 var state = states.GetState(DashStopState);
                 if (state.time >= _dashStopDuration || control.IsPreviousAction(control.button1, 1))
                 {
-                    // lookingDirection.locked = false;
-                    movement.currentVelocity.x = 0.1f;
                     states.ExitState(DashStopState);
                 }
+
+                return;
             }
 
             if (states.HasState(DashState))
