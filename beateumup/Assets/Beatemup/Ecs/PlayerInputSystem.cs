@@ -23,29 +23,43 @@ namespace Beatemup.Ecs
                 {
                     break;
                 }
+                
                 ref var controlComponent = ref controlComponents.Get(entity);
+                var direction = Vector2.zero;
 
                 var buttonUp = playerInput.actions["Up"];
                 controlComponent.up.UpdatePressed(buttonUp.IsPressed());
                 
                 var buttonDown = playerInput.actions["Down"];
                 controlComponent.down.UpdatePressed(buttonDown.IsPressed());
+                
+                var buttonRight = playerInput.actions["Right"];
+                controlComponent.right.UpdatePressed(buttonRight.IsPressed());
+                
+                var buttonLeft = playerInput.actions["Left"];
+                controlComponent.left.UpdatePressed(buttonLeft.IsPressed());
 
-                var yComponent = 0.0f;
                 if (buttonUp.IsPressed())
                 {
-                    yComponent += 1.0f;
+                    direction.y += 1.0f;
                 } 
                 
                 if (buttonDown.IsPressed())
                 {
-                    yComponent -= 1.0f;
+                    direction.y -= 1.0f;
+                }
+                
+                if (buttonRight.IsPressed())
+                {
+                    direction.x += 1.0f;
                 } 
+                
+                if (buttonLeft.IsPressed())
+                {
+                    direction.x -= 1.0f;
+                }
 
-                var horizontal = playerInput.actions["Horizontal"];
-
-                controlComponent.direction = 
-                    new Vector2(horizontal.ReadValue<float>(), yComponent);
+                controlComponent.direction = direction;
 
                 var button1 = playerInput.actions["Button1"];
                 controlComponent.button1.UpdatePressed(button1.IsPressed());
@@ -64,12 +78,12 @@ namespace Beatemup.Ecs
                 // controlComponent.down.UpdatePressed(controlComponent.direction.y < 0);
                 
                 controlComponent.forward.UpdatePressed(
-                    (controlComponent.direction.x > 0 && lookingDirection.value.x > 0) || 
-                    (controlComponent.direction.x < 0 && lookingDirection.value.x < 0)); 
+                    (controlComponent.right.isPressed && lookingDirection.value.x > 0) || 
+                    (controlComponent.left.isPressed && lookingDirection.value.x < 0)); 
                 
                 controlComponent.backward.UpdatePressed(
-                    (controlComponent.direction.x < 0 && lookingDirection.value.x > 0) || 
-                    (controlComponent.direction.x > 0 && lookingDirection.value.x < 0)); 
+                    (controlComponent.left.isPressed && lookingDirection.value.x > 0) || 
+                    (controlComponent.right.isPressed && lookingDirection.value.x < 0)); 
             }
         }
     }

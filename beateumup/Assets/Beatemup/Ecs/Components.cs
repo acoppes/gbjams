@@ -81,6 +81,8 @@ namespace Beatemup.Ecs
     {
         public Vector2 direction;
         
+        public Button right;
+        public Button left;
         public Button up;
         public Button down;
         
@@ -94,6 +96,8 @@ namespace Beatemup.Ecs
         {
             return new ControlComponent()
             {
+                right = Button.Default(),
+                left = Button.Default(),
                 up = Button.Default(),
                 down = Button.Default(),
                 forward = Button.Default(),
