@@ -1,4 +1,3 @@
-using System;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
@@ -10,15 +9,6 @@ namespace Beatemup.Definitions
 {
     public class UnitDefinition : MonoBehaviour, IEntityDefinition
     {
-        [Flags]
-        public enum UnitType
-        {
-            Nothing = 0,
-            Everything = -1,
-            Unit = 1 << 0,
-        }
-
-        public UnitType unitType;
         public float movementSpeed;
 
         public GameObject modelPrefab;
@@ -32,14 +22,6 @@ namespace Beatemup.Definitions
                 value = Vector2.right
             });
 
-            if (unitType != 0)
-            {
-                world.AddComponent(entity, new UnitTypeComponent()
-                {
-                    type = (int) unitType
-                });
-            }
-            
             world.AddComponent(entity, ControlComponent.Default());
 
             world.AddComponent(entity, new ModelStateComponent());

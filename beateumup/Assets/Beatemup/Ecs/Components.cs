@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Beatemup.Ecs
 {
@@ -131,11 +130,6 @@ namespace Beatemup.Ecs
         public Vector2 movingDirection;
     }
 
-    public struct KeepInsideCameraComponent : IEntityComponent
-    {
-        
-    }
-    
     public struct StateTriggers
     {
         public bool hit;
@@ -159,15 +153,5 @@ namespace Beatemup.Ecs
     public struct AnimatorComponent : IEntityComponent
     {
         public Animator animator;
-    }
-    
-    public struct TerrainCollisionComponent : IEntityComponent
-    {
-        public Vector2 lastValidPosition;
-    }
-
-    public struct UnitTypeComponent : IEntityComponent
-    {
-        public int type;
     }
 }
