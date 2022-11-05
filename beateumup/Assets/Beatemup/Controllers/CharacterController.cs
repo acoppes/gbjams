@@ -86,7 +86,7 @@ namespace Beatemup.Controllers
                 if (states.HasState(AttackStates[i]))
                 {
                     var state = states.GetState(AttackStates[i]);
-
+                    
                     if (state.time >= attackCancelationTime && control.HasBufferedAction(control.button1) 
                                                             && i < AttackStates.Length - 1)
                     {
@@ -96,7 +96,13 @@ namespace Beatemup.Controllers
                         modelState.states[AttackStates[i + 1]] = true;
 
                         state.time = 0;
-                    
+                        
+                        if (control.HasBufferedActions(control.backward.name, control.button1.name))
+                        {
+                            lookingDirection.value.x = -lookingDirection.value.x;
+                            // TODO: should also stop combo
+                        }
+
                         states.ExitState(AttackStates[i]);
                         states.EnterState(AttackStates[i + 1]);
 
