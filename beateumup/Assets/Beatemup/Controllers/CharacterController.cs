@@ -12,17 +12,11 @@ namespace Beatemup.Controllers
         {
             "attack", "attack2", "attack3", "attackFinisher"
         };
-        
-        // private static readonly string[] Combo2States = new string []
-        // {
-        //     "AttackMoving", "Attack2" //, "Attack3", "AttackFinisher"
-        // };
 
         private const string DashState = "Dash";
         private const string DashStopState = "DashStop";
         
         private const string SprintState = "Sprint";
-        // private const string DashStopState = "DashStop";
 
         public float attackCancelationTime = 0.1f;
 
@@ -93,7 +87,7 @@ namespace Beatemup.Controllers
                 {
                     var state = states.GetState(AttackStates[i]);
 
-                    if (state.time >= attackCancelationTime && control.HasBufferedAction(control.button1, 1) 
+                    if (state.time >= attackCancelationTime && control.HasBufferedAction(control.button1) 
                                                             && i < AttackStates.Length - 1)
                     {
                         modelState.attackMoving = false;
@@ -126,7 +120,7 @@ namespace Beatemup.Controllers
             if (states.HasState(DashStopState))
             {
                 var state = states.GetState(DashStopState);
-                if (state.time >= _dashStopDuration || control.HasBufferedAction(control.button1, 1))
+                if (state.time >= _dashStopDuration || control.HasBufferedAction(control.button1))
                 {
                     states.ExitState(DashStopState);
                 }
@@ -153,7 +147,7 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (control.HasBufferedAction(control.button1, 1))
+            if (control.HasBufferedAction(control.button1))
             {
                 if (Mathf.Abs(movement.currentVelocity.x) > Mathf.Epsilon)
                 {
@@ -178,7 +172,7 @@ namespace Beatemup.Controllers
                 return;
             }
 
-            if (control.HasBufferedAction(control.button2, 1))
+            if (control.HasBufferedAction(control.button2))
             {
                 // exit sprint
                 states.ExitState(SprintState);
@@ -209,8 +203,8 @@ namespace Beatemup.Controllers
             {
                 if (control.right.isPressed != control.left.isPressed)
                 {
-                    if ((control.right.isPressed && control.HasBufferedAction(control.right.name, 2)) ||
-                        (control.left.isPressed && control.HasBufferedAction(control.left.name, 2)))
+                    if ((control.right.isPressed && control.HasBufferedActions(control.right.name, control.right.name)) ||
+                        (control.left.isPressed && control.HasBufferedActions(control.left.name, control.left.name)))
                     {
                         modelState.sprinting = true;
                         movement.extraSpeed.x = sprintExtraSpeed;

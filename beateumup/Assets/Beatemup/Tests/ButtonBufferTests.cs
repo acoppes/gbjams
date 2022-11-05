@@ -4,22 +4,31 @@ using NUnit.Framework;
 public class ButtonBufferTests
 {
     [Test]
-    public void TestDoubleTap()
+    public void Test_HasBufferedAction()
     {
         // var button = new Button("name");
 
         var controlComponent = ControlComponent.Default();
         
-        Assert.IsFalse(controlComponent.HasBufferedAction(nameof(ControlComponent.right), 2));
-
-        controlComponent.right.UpdatePressed(true);
+        Assert.IsFalse(controlComponent.HasBufferedActions(nameof(ControlComponent.right)));
         controlComponent.buffer.Add(nameof(ControlComponent.right));
-        
-        Assert.IsFalse(controlComponent.HasBufferedAction(nameof(ControlComponent.right), 2));
 
-        controlComponent.right.UpdatePressed(true);
-        controlComponent.buffer.Add(nameof(ControlComponent.right));
+        Assert.IsTrue(controlComponent.HasBufferedActions(nameof(ControlComponent.right)));
+    }
+    
+    [Test]
+    public void Test_HasBufferedActions_List()
+    {
+        var controlComponent = ControlComponent.Default();
+        Assert.IsFalse(controlComponent.HasBufferedActions("a", "b"));
         
-        Assert.IsTrue(controlComponent.HasBufferedAction(nameof(ControlComponent.right), 2));
+        controlComponent.buffer.Add("a");
+        Assert.IsFalse(controlComponent.HasBufferedActions("a", "b"));
+
+        controlComponent.buffer.Add("b");
+        Assert.IsTrue(controlComponent.HasBufferedActions("a", "b"));
+        
+        controlComponent.buffer.Add("c");
+        Assert.IsFalse(controlComponent.HasBufferedActions("a", "b"));
     }
 }

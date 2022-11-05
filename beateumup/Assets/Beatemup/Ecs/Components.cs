@@ -69,25 +69,33 @@ namespace Beatemup.Ecs
             };
         }
 
-        public bool HasBufferedAction(Button button, int count)
+        public bool HasBufferedAction(Button button)
         {
-            return HasBufferedAction(button.name, count);
+            return HasBufferedActions(button.name);
         }
 
-        public bool HasBufferedAction(string actionName, int count)
+        public bool HasBufferedActions(params string[] actions)
         {
-            for (var i = buffer.Count - 1; i >= 0; i--)
+            if (actions.Length == 0)
             {
-                if (!buffer[i].Equals(actionName, StringComparison.OrdinalIgnoreCase))
-                    return false;
-                
-                count--;
-                
-                if (count == 0)
-                    return true;
+                return false;
             }
 
-            return false;
+            var bufferStart = buffer.Count - actions.Length;
+            
+            if (bufferStart < 0)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < actions.Length; i++)
+            {
+                var action = actions[i];
+                if (!buffer[bufferStart + i].Equals(action, StringComparison.OrdinalIgnoreCase))
+                    return false;
+            }
+
+            return true;
         }
 
         public void ConsumeBuffer()
