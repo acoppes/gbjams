@@ -18,7 +18,7 @@ namespace Utils.Editor
             public List<KeyFrame> keyframes = new List<KeyFrame>();
         }
 
-        private const float DefaultFrameRate = 10f;
+        private const float DefaultFrameRate = 12.5f;
         
         [UnityEditor.MenuItem("Assets/Create Animations from Folder")]
         public static void CreateAnimationsFromFolder()

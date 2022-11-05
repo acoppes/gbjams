@@ -57,6 +57,9 @@ namespace Beatemup.Ecs
                     .SetBool(nameof(unitStateComponent.attack), unitStateComponent.attack);
                 
                 animatorComponent.animator
+                    .SetBool(nameof(unitStateComponent.attack2), unitStateComponent.attack2);
+                
+                animatorComponent.animator
                     .SetBool(nameof(unitStateComponent.attackMoving), unitStateComponent.attackMoving);
                 
                 animatorComponent.animator
