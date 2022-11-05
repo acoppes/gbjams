@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -10,12 +11,14 @@ namespace Utils.Editor
         private class KeyFrame
         {
             public Sprite sprite;
+            public Sprite fxSprite;
             public int frame;
         }
         
         private class Animation
         {
             public List<KeyFrame> keyframes = new List<KeyFrame>();
+            public bool hasFx;
         }
 
         private const float DefaultFrameRate = 12.5f;
@@ -45,7 +48,13 @@ namespace Utils.Editor
             {
                 var spriteParts = sprite.name.Split("_");
                 var animationName = spriteParts[0];
-                var frame = int.Parse(spriteParts[1]);
+                var frame = spriteParts[1];
+
+                if (animationName.EndsWith("fx", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                    // animationName = animationName.Replace("fx", "");
+                }
                 
                 // var animationName = sprite.name.Substring(0, 
                 //     sprite.name.IndexOf("_", StringComparison.OrdinalIgnoreCase));
@@ -56,11 +65,18 @@ namespace Utils.Editor
                 }
 
                 var animation = animations[animationName];
+
+                var fxSprite = sprites.Find(s =>
+                    s.name.Equals($"{animationName}fx_{frame}", StringComparison.OrdinalIgnoreCase));
+                
                 animation.keyframes.Add(new KeyFrame()
                 {
                     sprite = sprite,
-                    frame = frame
+                    fxSprite = fxSprite,
+                    frame = int.Parse(frame)
                 });
+
+                animation.hasFx = animation.hasFx || fxSprite;
             }
 
             foreach (var animationName in animations.Keys)
@@ -72,6 +88,11 @@ namespace Utils.Editor
                     frameRate = DefaultFrameRate,
                     name = animationName
                 };
+                
+                AnimationUtility.SetAnimationClipSettings(clip, new AnimationClipSettings()
+                {
+                    loopTime = true
+                });
 
                 var spriteBinding = new EditorCurveBinding
                 {
@@ -79,43 +100,43 @@ namespace Utils.Editor
                     path = "Model",
                     propertyName = "m_Sprite"
                 };
-
-                if (animationName.Contains("Fx"))
-                {
-                    spriteBinding.path = "Effect";
-                }
-
-                // var frameDuration = 1.0f / fps;
-
-                var referenceKeyFrames = new ObjectReferenceKeyframe[animation.keyframes.Count];
+                
+                var spriteReferenceKeyFrames = new ObjectReferenceKeyframe[animation.keyframes.Count];
                 
                 for (var i = 0; i < animation.keyframes.Count; i++)
                 {
-                    referenceKeyFrames[i] = new ObjectReferenceKeyframe
+                    spriteReferenceKeyFrames[i] = new ObjectReferenceKeyframe
                     {
                         time = animation.keyframes[i].frame / clip.frameRate,
                         value = animation.keyframes[i].sprite
                     };
                 }
                 
-                AnimationUtility.SetAnimationClipSettings(clip, new AnimationClipSettings()
-                {
-                    loopTime = true
-                });
-
-                // // repeat last frame
-                // if (frameTime > 1)
-                // {
-                //     var i = animation.keyframes.Count - 1;
-                //     referenceKeyFrames[i + 1] = new ObjectReferenceKeyframe
-                //     {
-                //         time = ((animation.keyframes[i].frame + 1) * frameTime / fps) - frameDuration,
-                //         value = animation.keyframes[i].sprite
-                //     };
-                // }
+                AnimationUtility.SetObjectReferenceCurve(clip, spriteBinding, spriteReferenceKeyFrames);
                 
-                AnimationUtility.SetObjectReferenceCurve(clip, spriteBinding, referenceKeyFrames);
+                if (animation.hasFx)
+                {
+                    var spriteFxBinding = new EditorCurveBinding
+                    {
+                        type = typeof(SpriteRenderer),
+                        path = "Effect",
+                        propertyName = "m_Sprite"
+                    };
 
+                    var effectReferenceKeyFrames = new ObjectReferenceKeyframe[animation.keyframes.Count];
+
+                    for (var i = 0; i < animation.keyframes.Count; i++)
+                    {
+                        effectReferenceKeyFrames[i] = new ObjectReferenceKeyframe
+                        {
+                            time = animation.keyframes[i].frame / clip.frameRate,
+                            value = animation.keyframes[i].fxSprite
+                        };
+                    }
+
+                    AnimationUtility.SetObjectReferenceCurve(clip, spriteFxBinding, effectReferenceKeyFrames);
+                }
+                
                 if (!AssetDatabase.IsValidFolder($"Assets/Animations/{characterName}"))
                 {
                     AssetDatabase.CreateFolder("Assets/Animations", $"{characterName}");
