@@ -8,8 +8,11 @@ namespace Beatemup.Controllers
 {
     public class CharacterController : ControllerBase, IInit, IEntityDestroyed
     {
-        private const string AttackState = "Attack";
-        
+        private static readonly string[] AttackStates = new string []
+        {
+            "Attack", "Attack2", "Attack3", "AttackFinisher"
+        };
+
         private const string DashState = "Dash";
         private const string DashStopState = "DashStop";
         
@@ -81,19 +84,50 @@ namespace Beatemup.Controllers
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             
-            if (states.HasState(AttackState))
+            if (states.HasState(AttackStates[1]))
             {
-                var state = states.GetState(AttackState);
+                var state = states.GetState(AttackStates[1]);
 
-                if (state.time >= attackCancelationTime && control.IsPreviousAction(control.button1, 1) && (modelState.attack || modelState.attackMoving))
+                // if (state.time >= attackCancelationTime && control.IsPreviousAction(control.button1, 1))
+                // {
+                //     // start next attack
+                //     modelState.attack2 = true;
+                //     _currentAttackDuration = _attackDuration[1];
+                //     
+                //     modelState.attack = false;
+                //     modelState.attackMoving = false;
+                //     state.time = 0;
+                //     
+                //     states.ExitState(AttackStates[0]);
+                //     states.ExitState(AttackStates[1]);
+                //     
+                //     return;
+                // }
+                
+                if (state.time >= _attackDuration[1])
+                {
+                    modelState.attack2 = false;
+                    states.ExitState(AttackStates[1]);
+                }
+
+                return;
+            }
+            
+            if (states.HasState(AttackStates[0]))
+            {
+                var state = states.GetState(AttackStates[0]);
+
+                if (state.time >= attackCancelationTime && control.IsPreviousAction(control.button1, 1))
                 {
                     // start next attack
                     modelState.attack2 = true;
-                    _currentAttackDuration = _attackDuration[1];
                     
                     modelState.attack = false;
                     modelState.attackMoving = false;
                     state.time = 0;
+                    
+                    states.ExitState(AttackStates[0]);
+                    states.EnterState(AttackStates[1]);
                     
                     return;
                 }
@@ -105,13 +139,12 @@ namespace Beatemup.Controllers
                     modelState.attackMoving = false;
                     
                     // lookingDirection.locked = false;
-                    states.ExitState(AttackState);
+                    states.ExitState(AttackStates[0]);
                 }
 
                 return;
             }
-            
-            
+
             if (states.HasState(DashStopState))
             {
                 var state = states.GetState(DashStopState);
@@ -159,7 +192,7 @@ namespace Beatemup.Controllers
                 
                 // lookingDirection.locked = true;
                 control.buffer.Clear();
-                states.EnterState(AttackState);
+                states.EnterState(AttackStates[0]);
                 return;
             }
 
