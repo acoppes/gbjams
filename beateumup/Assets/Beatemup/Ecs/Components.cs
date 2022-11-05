@@ -164,16 +164,6 @@ namespace Beatemup.Ecs
             set => states["sprinting"] = value;
         }
 
-        public bool attack
-        {
-            set => states["attack"] = value;
-        }
-        
-        public bool attack2
-        {
-            set => states["attack2"] = value;
-        }
-        
         public bool attackMoving
         {
             set => states["attackMoving"] = value;

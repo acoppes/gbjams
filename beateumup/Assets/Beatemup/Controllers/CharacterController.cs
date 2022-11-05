@@ -96,6 +96,8 @@ namespace Beatemup.Controllers
                     if (state.time >= attackCancelationTime && control.HasBufferedAction(control.button1, 1) 
                                                             && i < AttackStates.Length - 1)
                     {
+                        modelState.attackMoving = false;
+                     
                         modelState.states[AttackStates[i]] = false;
                         modelState.states[AttackStates[i + 1]] = true;
 
@@ -111,6 +113,7 @@ namespace Beatemup.Controllers
                 
                     if (state.time >= _attackDuration[i])
                     {
+                        modelState.attackMoving = false;
                         modelState.states[AttackStates[i]] = false;
                         states.ExitState(AttackStates[i]);
                     }
@@ -158,7 +161,7 @@ namespace Beatemup.Controllers
                     
                     // TODO: recover attack moving
                     
-                    modelState.states[AttackStates[0]] = true;
+                    modelState.attackMoving = true;
                 }
                 else
                 {
