@@ -10,8 +10,13 @@ namespace Beatemup.Controllers
     {
         private static readonly string[] AttackStates = new string []
         {
-            "Attack", "Attack2", "Attack3", "AttackFinisher"
+            "attack", "attack2", "attack3", "attackFinisher"
         };
+        
+        // private static readonly string[] Combo2States = new string []
+        // {
+        //     "AttackMoving", "Attack2" //, "Attack3", "AttackFinisher"
+        // };
 
         private const string DashState = "Dash";
         private const string DashStopState = "DashStop";
@@ -24,8 +29,6 @@ namespace Beatemup.Controllers
         private float[] _attackDuration;
         
         private float _attackMovingDuration = 1.0f;
-
-        private float _currentAttackDuration;
 
         public float dashDuration = 1.0f;
         public float dashExtraSpeed = 10.0f;
@@ -41,18 +44,18 @@ namespace Beatemup.Controllers
 
             var allClips = animator.runtimeAnimatorController.animationClips;
 
-            _attackDuration = new float[2];
+            _attackDuration = new float[AttackStates.Length];
 
             foreach (var clip in allClips)
             {
-                if (clip.name.Equals("Attack", StringComparison.OrdinalIgnoreCase))
+                for (var i = 0; i < AttackStates.Length; i++)
                 {
-                    _attackDuration[0] = clip.length;
-                }
-                
-                if (clip.name.Equals("Attack2", StringComparison.OrdinalIgnoreCase))
-                {
-                    _attackDuration[1] = clip.length;
+                    var attackState = AttackStates[i];
+                    
+                    if (clip.name.Equals(attackState, StringComparison.OrdinalIgnoreCase))
+                    {
+                        _attackDuration[i] = clip.length;
+                    }
                 }
                 
                 if (clip.name.Equals("AttackMoving", StringComparison.OrdinalIgnoreCase))
@@ -83,67 +86,39 @@ namespace Beatemup.Controllers
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
-            
-            if (states.HasState(AttackStates[1]))
-            {
-                var state = states.GetState(AttackStates[1]);
 
-                // if (state.time >= attackCancelationTime && control.IsPreviousAction(control.button1, 1))
-                // {
-                //     // start next attack
-                //     modelState.attack2 = true;
-                //     _currentAttackDuration = _attackDuration[1];
-                //     
-                //     modelState.attack = false;
-                //     modelState.attackMoving = false;
-                //     state.time = 0;
-                //     
-                //     states.ExitState(AttackStates[0]);
-                //     states.ExitState(AttackStates[1]);
-                //     
-                //     return;
-                // }
+            for (int i = 0; i < AttackStates.Length; i++)
+            {
+                if (states.HasState(AttackStates[i]))
+                {
+                    var state = states.GetState(AttackStates[i]);
+
+                    if (state.time >= attackCancelationTime && control.HasBufferedAction(control.button1, 1) 
+                                                            && i < AttackStates.Length - 1)
+                    {
+                        modelState.states[AttackStates[i]] = false;
+                        modelState.states[AttackStates[i + 1]] = true;
+
+                        state.time = 0;
+                    
+                        states.ExitState(AttackStates[i]);
+                        states.EnterState(AttackStates[i + 1]);
+
+                        control.ConsumeBuffer();
+                        
+                        return;
+                    }
                 
-                if (state.time >= _attackDuration[1])
-                {
-                    modelState.attack2 = false;
-                    states.ExitState(AttackStates[1]);
-                }
+                    if (state.time >= _attackDuration[i])
+                    {
+                        modelState.states[AttackStates[i]] = false;
+                        states.ExitState(AttackStates[i]);
+                    }
 
-                return;
-            }
-            
-            if (states.HasState(AttackStates[0]))
-            {
-                var state = states.GetState(AttackStates[0]);
-
-                if (state.time >= attackCancelationTime && control.HasBufferedAction(control.button1, 1))
-                {
-                    // start next attack
-                    modelState.attack2 = true;
-                    
-                    modelState.attack = false;
-                    modelState.attackMoving = false;
-                    state.time = 0;
-                    
-                    states.ExitState(AttackStates[0]);
-                    states.EnterState(AttackStates[1]);
-                    
                     return;
                 }
-                
-                if (state.time >= _currentAttackDuration)
-                {
-                    modelState.attack = false;
-                    modelState.attack2 = false;
-                    modelState.attackMoving = false;
-                    
-                    // lookingDirection.locked = false;
-                    states.ExitState(AttackStates[0]);
-                }
-
-                return;
             }
+
 
             if (states.HasState(DashStopState))
             {
@@ -179,24 +154,28 @@ namespace Beatemup.Controllers
             {
                 if (Mathf.Abs(movement.currentVelocity.x) > Mathf.Epsilon)
                 {
-                    modelState.attackMoving = true;
-                    _currentAttackDuration = _attackMovingDuration;
+                    // modelState.attackMoving = true;
+                    
+                    // TODO: recover attack moving
+                    
+                    modelState.states[AttackStates[0]] = true;
                 }
                 else
                 {
-                    modelState.attack = true;
-                    _currentAttackDuration = _attackDuration[0];
+                    modelState.states[AttackStates[0]] = true;
+                    // _currentAttackDuration = _attackDuration[0];
                 }
                 
                 movement.movingDirection = Vector2.zero;
                 
                 // lookingDirection.locked = true;
-                control.buffer.Clear();
+                control.ConsumeBuffer();
+                
                 states.EnterState(AttackStates[0]);
                 return;
             }
 
-            if (control.button2.isPressed)
+            if (control.HasBufferedAction(control.button2, 1))
             {
                 // exit sprint
                 states.ExitState(SprintState);

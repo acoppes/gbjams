@@ -89,6 +89,11 @@ namespace Beatemup.Ecs
 
             return false;
         }
+
+        public void ConsumeBuffer()
+        {
+            buffer.Clear();
+        }
     }
     
     public struct LookingDirection : IEntityComponent
