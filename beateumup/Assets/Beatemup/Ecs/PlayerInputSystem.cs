@@ -100,11 +100,6 @@ namespace Beatemup.Ecs
                 {
                     controlComponent.buffer.Clear();
                 }
-
-                // if (controlComponent.buffer.Count > ControlComponent.MaxBufferCount)
-                // {
-                //     controlComponent.buffer.remo
-                // }
             }
             
             foreach (var entity in world.GetFilter<ControlComponent>().Inc<LookingDirection>().End())
