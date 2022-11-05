@@ -107,14 +107,39 @@ namespace Beatemup.Ecs
                 var lookingDirection = lookingDirectionComponents.Get(entity);
 
                 ref var controlComponent = ref controlComponents.Get(entity);
+
+                controlComponent.forward.UpdatePressed(false);
+                controlComponent.backward.UpdatePressed(false);
                 
-                controlComponent.forward.UpdatePressed(
-                    (controlComponent.direction.x > 0 && lookingDirection.value.x > 0) || 
-                    (controlComponent.direction.x < 0 && lookingDirection.value.x < 0)); 
+                if (controlComponent.direction.x > 0 && lookingDirection.value.x > 0)
+                {
+                    controlComponent.forward.name = controlComponent.right.name;
+                    controlComponent.backward.name = controlComponent.left.name;
+                    controlComponent.forward.UpdatePressed(true);
+                } else if (controlComponent.direction.x < 0 && lookingDirection.value.x < 0)
+                {
+                    controlComponent.forward.name = controlComponent.left.name;
+                    controlComponent.backward.name = controlComponent.right.name;
+                    controlComponent.forward.UpdatePressed(true);
+                } else if (controlComponent.direction.x < 0 && lookingDirection.value.x > 0)
+                {
+                    controlComponent.backward.name = controlComponent.left.name;
+                    controlComponent.forward.name = controlComponent.right.name;
+                    controlComponent.backward.UpdatePressed(true);
+                } else if (controlComponent.direction.x > 0 && lookingDirection.value.x < 0)
+                {
+                    controlComponent.backward.name = controlComponent.right.name;
+                    controlComponent.forward.name = controlComponent.left.name;
+                    controlComponent.backward.UpdatePressed(true);
+                }
                 
-                controlComponent.backward.UpdatePressed(
-                    (controlComponent.direction.x < 0 && lookingDirection.value.x > 0) || 
-                    (controlComponent.direction.x > 0 && lookingDirection.value.x < 0)); 
+                // controlComponent.forward.UpdatePressed(
+                //     (controlComponent.direction.x > 0 && lookingDirection.value.x > 0) || 
+                //     (controlComponent.direction.x < 0 && lookingDirection.value.x < 0)); 
+                //
+                // controlComponent.backward.UpdatePressed(
+                //     (controlComponent.direction.x < 0 && lookingDirection.value.x > 0) || 
+                //     (controlComponent.direction.x > 0 && lookingDirection.value.x < 0)); 
             }
         }
 

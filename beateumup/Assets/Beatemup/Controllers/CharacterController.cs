@@ -201,17 +201,20 @@ namespace Beatemup.Controllers
             }
             else
             {
-                if (control.right.isPressed != control.left.isPressed)
+                if (control.HasBufferedActions(control.forward.name, control.forward.name))
                 {
-                    if ((control.right.isPressed && control.HasBufferedActions(control.right.name, control.right.name)) ||
-                        (control.left.isPressed && control.HasBufferedActions(control.left.name, control.left.name)))
-                    {
-                        modelState.sprinting = true;
-                        movement.extraSpeed.x = sprintExtraSpeed;
-                        states.EnterState(SprintState);
-                        return;
-                    }
+                    control.ConsumeBuffer();
+                    
+                    modelState.sprinting = true;
+                    movement.extraSpeed.x = sprintExtraSpeed;
+                    states.EnterState(SprintState);
+                    return;
                 }
+                
+                // if (control.right.isPressed != control.left.isPressed)
+                // {
+                //
+                // }
             }
             
             movement.movingDirection = control.direction;
