@@ -117,7 +117,7 @@ namespace Beatemup.Controllers
             {
                 var state = states.GetState(AttackStates[0]);
 
-                if (state.time >= attackCancelationTime && control.IsPreviousAction(control.button1, 1))
+                if (state.time >= attackCancelationTime && control.HasBufferedAction(control.button1, 1))
                 {
                     // start next attack
                     modelState.attack2 = true;
@@ -148,7 +148,7 @@ namespace Beatemup.Controllers
             if (states.HasState(DashStopState))
             {
                 var state = states.GetState(DashStopState);
-                if (state.time >= _dashStopDuration || control.IsPreviousAction(control.button1, 1))
+                if (state.time >= _dashStopDuration || control.HasBufferedAction(control.button1, 1))
                 {
                     states.ExitState(DashStopState);
                 }
@@ -175,7 +175,7 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (control.IsPreviousAction(control.button1, 1))
+            if (control.HasBufferedAction(control.button1, 1))
             {
                 if (Mathf.Abs(movement.currentVelocity.x) > Mathf.Epsilon)
                 {
@@ -227,8 +227,8 @@ namespace Beatemup.Controllers
             {
                 if (control.right.isPressed != control.left.isPressed)
                 {
-                    if ((control.right.isPressed && control.IsPreviousAction(control.right.name, 2)) ||
-                        (control.left.isPressed && control.IsPreviousAction(control.left.name, 2)))
+                    if ((control.right.isPressed && control.HasBufferedAction(control.right.name, 2)) ||
+                        (control.left.isPressed && control.HasBufferedAction(control.left.name, 2)))
                     {
                         modelState.sprinting = true;
                         movement.extraSpeed.x = sprintExtraSpeed;

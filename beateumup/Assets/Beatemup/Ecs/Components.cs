@@ -69,12 +69,12 @@ namespace Beatemup.Ecs
             };
         }
 
-        public bool IsPreviousAction(Button button, int count)
+        public bool HasBufferedAction(Button button, int count)
         {
-            return IsPreviousAction(button.name, count);
+            return HasBufferedAction(button.name, count);
         }
 
-        public bool IsPreviousAction(string actionName, int count)
+        public bool HasBufferedAction(string actionName, int count)
         {
             for (var i = buffer.Count - 1; i >= 0; i--)
             {
@@ -137,14 +137,42 @@ namespace Beatemup.Ecs
     
     public struct ModelStateComponent : IEntityComponent
     {
-        public bool walking;
-        public bool up;
-        public bool dashing;
-        public bool sprinting;
+        public IDictionary<string, bool> states;
         
-        public bool attack;
-        public bool attack2;
-        public bool attackMoving;
+        public bool walking
+        {
+            set => states["walking"] = value;
+        }
+        
+        public bool up
+        {
+            set => states["up"] = value;
+        }
+        
+        public bool dashing
+        {
+            set => states["dashing"] = value;
+        }
+        
+        public bool sprinting
+        {
+            set => states["sprinting"] = value;
+        }
+
+        public bool attack
+        {
+            set => states["attack"] = value;
+        }
+        
+        public bool attack2
+        {
+            set => states["attack2"] = value;
+        }
+        
+        public bool attackMoving
+        {
+            set => states["attackMoving"] = value;
+        }
 
         public StateTriggers stateTriggers;
 

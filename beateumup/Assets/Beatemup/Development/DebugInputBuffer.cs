@@ -16,7 +16,7 @@ public class DebugInputBuffer : MonoBehaviour
     public List<Sprite> actionSprites = new List<Sprite>();
 
     private World _world;
-
+ 
     private readonly List<Image> _inputBufferList = new List<Image>();
     
     public void Start()

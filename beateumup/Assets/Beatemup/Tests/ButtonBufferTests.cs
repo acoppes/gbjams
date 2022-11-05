@@ -10,16 +10,16 @@ public class ButtonBufferTests
 
         var controlComponent = ControlComponent.Default();
         
-        Assert.IsFalse(controlComponent.IsPreviousAction(nameof(ControlComponent.right), 2));
+        Assert.IsFalse(controlComponent.HasBufferedAction(nameof(ControlComponent.right), 2));
 
         controlComponent.right.UpdatePressed(true);
         controlComponent.buffer.Add(nameof(ControlComponent.right));
         
-        Assert.IsFalse(controlComponent.IsPreviousAction(nameof(ControlComponent.right), 2));
+        Assert.IsFalse(controlComponent.HasBufferedAction(nameof(ControlComponent.right), 2));
 
         controlComponent.right.UpdatePressed(true);
         controlComponent.buffer.Add(nameof(ControlComponent.right));
         
-        Assert.IsTrue(controlComponent.IsPreviousAction(nameof(ControlComponent.right), 2));
+        Assert.IsTrue(controlComponent.HasBufferedAction(nameof(ControlComponent.right), 2));
     }
 }

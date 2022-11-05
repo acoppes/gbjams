@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
@@ -24,7 +25,11 @@ namespace Beatemup.Definitions
 
             world.AddComponent(entity, ControlComponent.Default());
 
-            world.AddComponent(entity, new ModelStateComponent());
+            world.AddComponent(entity, new ModelStateComponent
+            {
+                states = new Dictionary<string, bool>()
+            });
+            
             world.AddComponent(entity, new StatesComponent());
 
             if (modelPrefab != null)

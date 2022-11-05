@@ -43,27 +43,11 @@ namespace Beatemup.Ecs
             { 
                 var animatorComponent = animators.Get(entity);
                 var unitStateComponent = states.Get(entity);
-                
-                animatorComponent.animator
-                    .SetBool(nameof(unitStateComponent.walking), unitStateComponent.walking);
-                
-                animatorComponent.animator
-                    .SetBool(nameof(unitStateComponent.up), unitStateComponent.up);
-                
-                animatorComponent.animator
-                    .SetBool(nameof(unitStateComponent.dashing), unitStateComponent.dashing);
-                
-                animatorComponent.animator
-                    .SetBool(nameof(unitStateComponent.attack), unitStateComponent.attack);
-                
-                animatorComponent.animator
-                    .SetBool(nameof(unitStateComponent.attack2), unitStateComponent.attack2);
-                
-                animatorComponent.animator
-                    .SetBool(nameof(unitStateComponent.attackMoving), unitStateComponent.attackMoving);
-                
-                animatorComponent.animator
-                    .SetBool(nameof(unitStateComponent.sprinting), unitStateComponent.sprinting);
+
+                foreach (var key in unitStateComponent.states.Keys)
+                {
+                    animatorComponent.animator.SetBool(key, unitStateComponent.states[key]);
+                }
 
                 if (unitStateComponent.stateTriggers.hit)
                 {
