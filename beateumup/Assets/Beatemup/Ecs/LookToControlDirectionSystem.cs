@@ -7,8 +7,6 @@ namespace Beatemup.Ecs
 {
     public class LookToControlDirectionSystem : BaseSystem, IEcsRunSystem
     {
-        
-        
         public void Run(EcsSystems systems)
         {
             // var gameData = world.sharedData.sharedData as SharedGameData;

@@ -22,7 +22,7 @@ namespace Utils.Editor
             public bool hasFx;
         }
 
-        private const float DefaultFrameRate = 12.5f;
+        private const float DefaultFrameRate = 15f;
 
         [UnityEditor.MenuItem("Assets/Create Animation Asset from Folder")]
         public static void CreateAnimationAssetFromFolder()

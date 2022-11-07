@@ -40,12 +40,15 @@ namespace Beatemup.Ecs
         public int loops;
         public State state;
         public bool paused;
+
+        public float playingTime;
         
         public void Play(int animation, int startFrame, int loops = -1)
         {
             currentAnimation = animation;
             currentFrame = startFrame;
             currentTime = 0;
+            playingTime = 0;
             this.loops = loops;
             state = State.Playing;
         }

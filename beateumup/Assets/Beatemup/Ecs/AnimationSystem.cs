@@ -32,6 +32,7 @@ namespace Beatemup.Ecs
                     var frameTime = 1.0f / definition.fps;
                         
                     animationComponent.currentTime += Time.deltaTime;
+                    animationComponent.playingTime += Time.deltaTime;
 
                     while (animationComponent.currentTime >= frameTime)
                     {

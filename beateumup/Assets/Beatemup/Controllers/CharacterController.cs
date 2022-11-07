@@ -7,7 +7,7 @@ namespace Beatemup.Controllers
 {
     public class CharacterController : ControllerBase, IInit, IEntityDestroyed
     {
-        private static readonly string[] ComboAnimations = new string []
+        private static readonly string[] ComboAnimations = 
         {
             "Attack2", "Attack3", "AttackFinisher"
         };
@@ -23,6 +23,11 @@ namespace Beatemup.Controllers
         public float dashExtraSpeed = 10.0f;
         
         public float sprintExtraSpeed = 2.0f;
+
+        public float heavySwingStartTime = 0.5f;
+        public float heavySwingChargeTime = 0.25f;
+
+        private float pressedAttackTime = 0;
 
         private int comboAttacks => ComboAnimations.Length;
         private int currentComboAttack;
@@ -50,7 +55,68 @@ namespace Beatemup.Controllers
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
-            
+
+            if (states.HasState("HeavySwing"))
+            {
+                if (animation.IsPlaying("HeavySwingAttack"))
+                {
+                    if (animation.state == AnimationComponent.State.Completed)
+                    {
+                        animation.Play("Idle");
+                        states.ExitState("HeavySwing");
+                    }
+                }
+                
+                if (animation.IsPlaying("HeavySwingFirstStrike"))
+                {
+                    if (animation.state == AnimationComponent.State.Completed)
+                    {
+                        animation.Play("HeavySwingAttack", 1);
+                    }
+                }
+                
+                if (animation.IsPlaying("HeavySwingHold"))
+                {
+                    if (!control.button1.isPressed)
+                    {
+                        animation.Play("HeavySwingFirstStrike", 1);
+                        return;
+                    }
+                }
+                
+                if (animation.IsPlaying("HeavySwingCharging"))
+                {
+                    if (!control.button1.isPressed)
+                    {
+                        animation.Play("Idle");
+                        states.ExitState("HeavySwing");
+                        return;
+                    }
+
+                    if (animation.playingTime > heavySwingChargeTime)
+                    {
+                        animation.Play("HeavySwingHold");
+                    }
+                }
+                
+                if (animation.IsPlaying("HeavySwingStartup"))
+                {
+                    if (!control.button1.isPressed)
+                    {
+                        animation.Play("Idle");
+                        states.ExitState("HeavySwing");
+                        return;
+                    }
+                    
+                    if (animation.state == AnimationComponent.State.Completed)
+                    {
+                        animation.Play("HeavySwingCharging");
+                    }
+                }
+
+                return;
+            }
+
             if (states.HasState("SprintStop"))
             {
                 if (animation.state == AnimationComponent.State.Completed || control.HasBufferedAction(control.button1))
@@ -87,7 +153,7 @@ namespace Beatemup.Controllers
             if (states.HasState("Attack"))
             {
                 var state = states.GetState("Attack");
-                
+
                 if (state.time >= attackCancelationTime &&
                     control.HasBufferedActions(control.button1.name, control.backward.name))
                 {
@@ -149,6 +215,26 @@ namespace Beatemup.Controllers
                 return;
             }
             
+            pressedAttackTime -= dt;
+
+            if (!control.button1.isPressed)
+            {
+                pressedAttackTime = heavySwingStartTime;
+            }
+
+            if (pressedAttackTime <= 0)
+            {
+                control.ConsumeBuffer();
+                    
+                states.ExitState("Attack");
+                states.ExitState("Combo");
+                    
+                animation.Play("HeavySwingStartup", 1);
+                states.EnterState("HeavySwing");
+                    
+                return;
+            }
+            
             if (control.HasBufferedAction(control.button1))
             {
                 currentComboAttack = 0;
@@ -171,7 +257,7 @@ namespace Beatemup.Controllers
                 
                 return;
             }
-
+            
             if (control.HasBufferedAction(control.button2))
             {
                 control.ConsumeBuffer();
