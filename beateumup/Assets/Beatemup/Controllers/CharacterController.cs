@@ -9,7 +9,7 @@ namespace Beatemup.Controllers
     {
         private static readonly string[] ComboAnimations = new string []
         {
-            "Attack", "Attack2", "Attack3", "AttackFinisher"
+            "Attack2", "Attack3", "AttackFinisher"
         };
 
         private const string DashState = "Dash";
@@ -24,7 +24,7 @@ namespace Beatemup.Controllers
         
         public float sprintExtraSpeed = 2.0f;
 
-        private int comboAttacks = 4;
+        private int comboAttacks => ComboAnimations.Length;
         private int currentComboAttack;
 
         public void OnInit()
@@ -103,6 +103,8 @@ namespace Beatemup.Controllers
                 if (states.HasState("Combo") && state.time >= attackCancelationTime && control.HasBufferedAction(control.button1) 
                     && currentComboAttack < comboAttacks)
                 {
+                    animation.Play(ComboAnimations[currentComboAttack], 1);
+                    
                     state.time = 0;
                     
                     if (control.HasBufferedActions(control.backward.name, control.button1.name))
@@ -112,9 +114,6 @@ namespace Beatemup.Controllers
                     }
 
                     currentComboAttack++;
-                 
-                    animation.Play(ComboAnimations[currentComboAttack], 1);
-
                     control.ConsumeBuffer();
                     
                     return;
@@ -160,7 +159,7 @@ namespace Beatemup.Controllers
                 }
                 else
                 {
-                    animation.Play(ComboAnimations[currentComboAttack], 1);
+                    animation.Play("Attack", 1);
                 }
                 
                 movement.movingDirection = Vector2.zero;
