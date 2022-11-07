@@ -20,10 +20,6 @@ namespace Beatemup.Controllers
 
         public float attackCancelationTime = 0.1f;
 
-        private float[] _attackDuration;
-        
-        private float _attackMovingDuration = 1.0f;
-
         public float dashDuration = 1.0f;
         public float dashExtraSpeed = 10.0f;
         
@@ -33,40 +29,6 @@ namespace Beatemup.Controllers
 
         public void OnInit()
         {
-            var model = world.GetComponent<UnitModelComponent>(entity);
-            
-            _attackDuration = new float[AttackStates.Length];
-            
-            var animator = model.instance.GetComponent<Animator>();
-            
-            if (animator != null)
-            {
-                var allClips = animator.runtimeAnimatorController.animationClips;
-
-                foreach (var clip in allClips)
-                {
-                    for (var i = 0; i < AttackStates.Length; i++)
-                    {
-                        var attackState = AttackStates[i];
-
-                        if (clip.name.Equals(attackState, StringComparison.OrdinalIgnoreCase))
-                        {
-                            _attackDuration[i] = clip.length;
-                        }
-                    }
-
-                    if (clip.name.Equals("AttackMoving", StringComparison.OrdinalIgnoreCase))
-                    {
-                        _attackMovingDuration = clip.length;
-                    }
-
-                    if (clip.name.Equals("DashStop", StringComparison.OrdinalIgnoreCase))
-                    {
-                        _dashStopDuration = clip.length;
-                    }
-                }
-            }
-            
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             lookingDirection.locked = true;
             
@@ -88,6 +50,28 @@ namespace Beatemup.Controllers
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
+            
+            if (states.HasState("SprintStop"))
+            {
+                if (animation.state == AnimationComponent.State.Completed || control.HasBufferedAction(control.button1))
+                {
+                    animation.Play("Idle");
+                    states.ExitState("SprintStop");
+                }
+                return;
+            }
+            
+            if (states.HasState(DashStopState))
+            {
+                var state = states.GetState(DashStopState);
+                if (animation.state == AnimationComponent.State.Completed || control.HasBufferedAction(control.button1))
+                {
+                    animation.Play("Idle");
+                    states.ExitState(DashStopState);
+                }
+
+                return;
+            }
 
             for (int i = 0; i < AttackStates.Length; i++)
             {
@@ -135,17 +119,7 @@ namespace Beatemup.Controllers
             }
 
 
-            if (states.HasState(DashStopState))
-            {
-                var state = states.GetState(DashStopState);
-                if (state.time >= _dashStopDuration || control.HasBufferedAction(control.button1))
-                {
-                    animation.Play("Idle");
-                    states.ExitState(DashStopState);
-                }
 
-                return;
-            }
 
             if (states.HasState(DashState))
             {
@@ -196,29 +170,16 @@ namespace Beatemup.Controllers
 
             if (control.HasBufferedAction(control.button2))
             {
-                // exit sprint
+                control.ConsumeBuffer();
+                
                 states.ExitState(SprintState);
-                // animation.Play("Idle");
-                // modelState.sprinting = false;
                 movement.extraSpeed.x = 0;
                 
                 movement.movingDirection = new Vector2(lookingDirection.value.x, 0);
                 animation.Play("Dash", 1);
-                // modelState.dashing = true;
                 movement.extraSpeed.x = dashExtraSpeed;
-                // lookingDirection.locked = true;
                 states.EnterState(DashState);
                 
-                return;
-            }
-
-            if (states.HasState("SprintStop"))
-            {
-                if (animation.state == AnimationComponent.State.Completed)
-                {
-                    animation.Play("Idle");
-                    states.ExitState("SprintStop");
-                }
                 return;
             }
 
@@ -229,6 +190,8 @@ namespace Beatemup.Controllers
                 {
                     // modelState.sprinting = false;
                     movement.extraSpeed.x = 0;
+                    movement.movingDirection = Vector2.zero;
+                    
                     animation.Play("SprintStop", 1);
                     states.ExitState(SprintState);
                     states.EnterState("SprintStop");
