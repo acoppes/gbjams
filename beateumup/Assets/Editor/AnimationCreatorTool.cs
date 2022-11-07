@@ -233,7 +233,7 @@ namespace Utils.Editor
                 {
                     animationDefinition.frames.Add(new AnimationFrame()
                     {
-                        frame = animation.keyframes[i].frame,
+                        // frame = animation.keyframes[i].frame,
                         sprite = animation.keyframes[i].sprite,
                         fxSprite = animation.keyframes[i].fxSprite
                     });

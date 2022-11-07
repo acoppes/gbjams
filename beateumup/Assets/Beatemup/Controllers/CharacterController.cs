@@ -70,11 +70,8 @@ namespace Beatemup.Controllers
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             lookingDirection.locked = true;
             
-            if (world.HasComponent<AnimationComponent>(entity))
-            {
-                ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
-                animationComponent.Play("Idle");
-            }
+            ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
+            animationComponent.Play("Idle");
         }
         
         public void OnEntityDestroyed(Entity e)
@@ -86,7 +83,8 @@ namespace Beatemup.Controllers
         {
             var control = world.GetComponent<ControlComponent>(entity);
             ref var movement = ref world.GetComponent<UnitMovementComponent>(entity);
-            ref var modelState = ref world.GetComponent<ModelStateComponent>(entity);
+            // ref var modelState = ref world.GetComponent<ModelStateComponent>(entity);
+            ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
@@ -100,10 +98,11 @@ namespace Beatemup.Controllers
                     if (state.time >= attackCancelationTime && control.HasBufferedAction(control.button1) 
                                                             && i < AttackStates.Length - 1)
                     {
-                        modelState.attackMoving = false;
-                     
-                        modelState.states[AttackStates[i]] = false;
-                        modelState.states[AttackStates[i + 1]] = true;
+                        animation.Play(AttackStates[i + 1], 1);
+                        
+                        // modelState.attackMoving = false;
+                        // modelState.states[AttackStates[i]] = false;
+                        // modelState.states[AttackStates[i + 1]] = true;
 
                         state.time = 0;
                         
@@ -121,10 +120,13 @@ namespace Beatemup.Controllers
                         return;
                     }
                 
-                    if (state.time >= _attackDuration[i])
+                    if (animation.state == AnimationComponent.State.Completed)
                     {
-                        modelState.attackMoving = false;
-                        modelState.states[AttackStates[i]] = false;
+                        animation.Play("Idle");
+                        
+                        // modelState.attackMoving = false;
+                        // modelState.states[AttackStates[i]] = false;
+                        
                         states.ExitState(AttackStates[i]);
                     }
 
@@ -138,6 +140,7 @@ namespace Beatemup.Controllers
                 var state = states.GetState(DashStopState);
                 if (state.time >= _dashStopDuration || control.HasBufferedAction(control.button1))
                 {
+                    animation.Play("Idle");
                     states.ExitState(DashStopState);
                 }
 
@@ -151,7 +154,8 @@ namespace Beatemup.Controllers
                 if (state.time > dashDuration)
                 {
                     movement.movingDirection = Vector2.zero;
-                    modelState.dashing = false;
+                    // modelState.dashing = false;
+                    animation.Play("DashStop", 1);
                     movement.extraSpeed.x = 0;
                     states.ExitState(DashState);
                     states.EnterState(DashStopState);
@@ -171,11 +175,13 @@ namespace Beatemup.Controllers
                     
                     // TODO: recover attack moving
                     
-                    modelState.attackMoving = true;
+                    animation.Play("AttackMoving", 1);
+                    // modelState.attackMoving = true;
                 }
                 else
                 {
-                    modelState.states[AttackStates[0]] = true;
+                    animation.Play(AttackStates[0], 1);
+                    // modelState.states[AttackStates[0]] = true;
                     // _currentAttackDuration = _attackDuration[0];
                 }
                 
@@ -192,11 +198,13 @@ namespace Beatemup.Controllers
             {
                 // exit sprint
                 states.ExitState(SprintState);
-                modelState.sprinting = false;
+                // animation.Play("Idle");
+                // modelState.sprinting = false;
                 movement.extraSpeed.x = 0;
                 
                 movement.movingDirection = new Vector2(lookingDirection.value.x, 0);
-                modelState.dashing = true;
+                animation.Play("Dash", 1);
+                // modelState.dashing = true;
                 movement.extraSpeed.x = dashExtraSpeed;
                 // lookingDirection.locked = true;
                 states.EnterState(DashState);
@@ -209,7 +217,8 @@ namespace Beatemup.Controllers
                 if ((!control.right.isPressed && !control.left.isPressed) || 
                     (control.right.isPressed && control.left.isPressed) || control.backward.isPressed)
                 {
-                    modelState.sprinting = false;
+                    animation.Play("Idle");
+                    // modelState.sprinting = false;
                     movement.extraSpeed.x = 0;
                     states.ExitState(SprintState);
                     return;
@@ -221,9 +230,11 @@ namespace Beatemup.Controllers
                 {
                     control.ConsumeBuffer();
                     
-                    modelState.sprinting = true;
+                    animation.Play("Sprint");
+                    // modelState.sprinting = true;
                     movement.extraSpeed.x = sprintExtraSpeed;
                     states.EnterState(SprintState);
+                    states.ExitState("Moving");
                     return;
                 }
                 
@@ -245,13 +256,23 @@ namespace Beatemup.Controllers
                 if (control.direction.sqrMagnitude < Mathf.Epsilon)
                 {
                     // lookingDirection.locked = false;
+                    animation.Play("Idle");
                     states.ExitState("Moving");
+                    return;
+                }
+
+                if (control.direction.y > 0 && animation.IsPlaying("Walk"))
+                {
+                    animation.Play("WalkUp");
+                } else if (control.direction.y <= 0 && animation.IsPlaying("WalkUp"))
+                {
+                    animation.Play("Walk");
                 }
 
                 return;
             }
 
-            if (control.direction.sqrMagnitude > Mathf.Epsilon)
+            if (!states.HasState(SprintState) && control.direction.sqrMagnitude > Mathf.Epsilon)
             {
                 if (control.backward.isPressed)
                 {
@@ -259,6 +280,7 @@ namespace Beatemup.Controllers
                 }
                 
                 // lookingDirection.locked = true;
+                animation.Play("Walk");
                 states.EnterState("Moving");
                 return;
             }

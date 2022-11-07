@@ -8,7 +8,7 @@ namespace Beatemup.Ecs
     [Serializable]
     public class AnimationFrame
     {
-        public int frame;
+        // public int frame;
         public Sprite sprite;
         public Sprite fxSprite;
     }
@@ -21,7 +21,7 @@ namespace Beatemup.Ecs
         public float fps = 30.0f;
         public int TotalFrames => frames.Count;
         
-        public float Duration => TotalFrames / fps;
+        // public float Duration => TotalFrames / fps;
     }
 
     public struct AnimationComponent : IEntityComponent
@@ -58,6 +58,11 @@ namespace Beatemup.Ecs
         public void Play(string animation, int loops = -1)
         {
             Play(animationsAsset.FindByName(animation), loops);
+        }
+
+        public bool IsPlaying(string animationName)
+        {
+            return currentAnimation == animationsAsset.FindByName(animationName);
         }
     }
 }

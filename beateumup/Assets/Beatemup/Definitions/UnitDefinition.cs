@@ -27,10 +27,10 @@ namespace Beatemup.Definitions
 
             world.AddComponent(entity, ControlComponent.Default());
 
-            world.AddComponent(entity, new ModelStateComponent
-            {
-                states = new Dictionary<string, bool>()
-            });
+            // world.AddComponent(entity, new ModelStateComponent
+            // {
+            //     states = new Dictionary<string, bool>()
+            // });
             
             world.AddComponent(entity, new StatesComponent());
 
@@ -41,10 +41,10 @@ namespace Beatemup.Definitions
                     prefab = modelPrefab
                 });
             
-                if (modelPrefab.GetComponentInChildren<Animator>() != null)
-                {
-                    world.AddComponent(entity, new AnimatorComponent());
-                }
+                // if (modelPrefab.GetComponentInChildren<Animator>() != null)
+                // {
+                //     world.AddComponent(entity, new AnimatorComponent());
+                // }
             }
             world.AddComponent(entity, new UnitMovementComponent()
             {
