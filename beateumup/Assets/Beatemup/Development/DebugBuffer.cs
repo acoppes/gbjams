@@ -12,9 +12,14 @@ namespace Beatemup.Development
         private GameObject actionPrefab;
 
         [SerializeField]
+        private Color historyColor;
+
+        [SerializeField]
         private List<Sprite> actionSprites = new ();
         
         private readonly List<Image> inputActionImages = new ();
+
+        private bool isHistory;
         
         public void Start()
         {
@@ -26,22 +31,36 @@ namespace Beatemup.Development
             }
         }
 
-        public void UpdateBuffer(ControlComponent controlComponent)
+        public void ConvertToHistory()
         {
             foreach (var inputAction in inputActionImages)
             {
-                inputAction.gameObject.SetActive(false);
+                inputAction.color = historyColor;
             }
 
+            isHistory = true;
+        }
+
+        public void UpdateBuffer(ControlComponent controlComponent)
+        {
+            if (isHistory)
+            {
+                return;
+            }
+            
             for (var i = 0; i < inputActionImages.Count; i++)
             {
+                var inputActionImage = inputActionImages[i];
+                
+                inputActionImage.gameObject.SetActive(false);
+                
                 if (i >= controlComponent.buffer.Count)
                 {
-                    break;
+                    continue;
                 }
                 
-                inputActionImages[i].gameObject.SetActive(true);
-                inputActionImages[i].sprite = 
+                inputActionImage.gameObject.SetActive(true);
+                inputActionImage.sprite = 
                     actionSprites.Find(s => s.name.Equals(controlComponent.buffer[i], StringComparison.OrdinalIgnoreCase));
             }
         }
