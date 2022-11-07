@@ -7,7 +7,7 @@ namespace Beatemup.Controllers
 {
     public class CharacterController : ControllerBase, IInit, IEntityDestroyed
     {
-        private static readonly string[] AttackStates = new string []
+        private static readonly string[] ComboAnimations = new string []
         {
             "Attack", "Attack2", "Attack3", "AttackFinisher"
         };
@@ -23,6 +23,9 @@ namespace Beatemup.Controllers
         public float dashExtraSpeed = 10.0f;
         
         public float sprintExtraSpeed = 2.0f;
+
+        private int comboAttacks = 4;
+        private int currentComboAttack;
 
         public void OnInit()
         {
@@ -80,63 +83,53 @@ namespace Beatemup.Controllers
 
                 return;
             }
-
-            for (int i = 0; i < AttackStates.Length; i++)
+            
+            if (states.HasState("Attack"))
             {
-                if (states.HasState(AttackStates[i]))
-                {
-                    var state = states.GetState(AttackStates[i]);
-                    
-                    if (state.time >= attackCancelationTime &&
-                        control.HasBufferedActions(control.button1.name, control.backward.name))
-                    {
-                        animation.Play("Backkick", 1);
-                        states.ExitState(AttackStates[i]);
-                        states.ExitState("Combo");
-                        states.EnterState("Backkick");
-                        return;
-                    }
-
-                    if (states.HasState("Combo") && state.time >= attackCancelationTime && control.HasBufferedAction(control.button1) 
-                        && i < AttackStates.Length - 1)
-                    {
-                        animation.Play(AttackStates[i + 1], 1);
-                        
-                        // modelState.attackMoving = false;
-                        // modelState.states[AttackStates[i]] = false;
-                        // modelState.states[AttackStates[i + 1]] = true;
-
-                        state.time = 0;
-                        
-                        if (control.HasBufferedActions(control.backward.name, control.button1.name))
-                        {
-                            lookingDirection.value.x = -lookingDirection.value.x;
-                            states.ExitState("Combo");
-                        }
-
-                        states.ExitState(AttackStates[i]);
-                        states.EnterState(AttackStates[i + 1]);
-
-                        control.ConsumeBuffer();
-                        
-                        return;
-                    }
+                var state = states.GetState("Attack");
                 
-                    if (animation.state == AnimationComponent.State.Completed)
-                    {
-                        animation.Play("Idle");
-                        states.ExitState("Combo");
-                        
-                        // modelState.attackMoving = false;
-                        // modelState.states[AttackStates[i]] = false;
-                        
-                        states.ExitState(AttackStates[i]);
-                    }
-
+                if (state.time >= attackCancelationTime &&
+                    control.HasBufferedActions(control.button1.name, control.backward.name))
+                {
+                    control.ConsumeBuffer();
+                    
+                    animation.Play("Backkick", 1);
+                    states.ExitState("Attack");
+                    states.ExitState("Combo");
+                    states.EnterState("Backkick");
                     return;
                 }
-            }
+
+                if (states.HasState("Combo") && state.time >= attackCancelationTime && control.HasBufferedAction(control.button1) 
+                    && currentComboAttack < comboAttacks)
+                {
+                    state.time = 0;
+                    
+                    if (control.HasBufferedActions(control.backward.name, control.button1.name))
+                    {
+                        lookingDirection.value.x = -lookingDirection.value.x;
+                        states.ExitState("Combo");
+                    }
+
+                    currentComboAttack++;
+                 
+                    animation.Play(ComboAnimations[currentComboAttack], 1);
+
+                    control.ConsumeBuffer();
+                    
+                    return;
+                }
             
+                if (animation.state == AnimationComponent.State.Completed)
+                {
+                    animation.Play("Idle");
+                    states.ExitState("Combo");
+                    states.ExitState("Attack");
+                }
+
+                return;
+            }
+
             if (states.HasState(DashState))
             {
                 var state = states.GetState(DashState);
@@ -159,28 +152,22 @@ namespace Beatemup.Controllers
             
             if (control.HasBufferedAction(control.button1))
             {
+                currentComboAttack = 0;
+                
                 if (Mathf.Abs(movement.currentVelocity.x) > Mathf.Epsilon)
                 {
-                    // modelState.attackMoving = true;
-                    
-                    // TODO: recover attack moving
-                    
                     animation.Play("AttackMoving", 1);
-                    // modelState.attackMoving = true;
                 }
                 else
                 {
-                    animation.Play(AttackStates[0], 1);
-                    // modelState.states[AttackStates[0]] = true;
-                    // _currentAttackDuration = _attackDuration[0];
+                    animation.Play(ComboAnimations[currentComboAttack], 1);
                 }
                 
                 movement.movingDirection = Vector2.zero;
                 
-                // lookingDirection.locked = true;
                 control.ConsumeBuffer();
-                
-                states.EnterState(AttackStates[0]);
+
+                states.EnterState("Attack");
                 states.EnterState("Combo");
                 
                 return;
