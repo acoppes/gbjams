@@ -31,6 +31,11 @@ namespace Beatemup.Ecs
             wasPressedThisFrame = !isPressed && pressed;
             isPressed = pressed;
         }
+
+        public override string ToString()
+        {
+            return $"{name}:{isPressed}";
+        }
     }
     
     public struct ControlComponent : IEntityComponent
@@ -133,57 +138,9 @@ namespace Beatemup.Ecs
     public struct UnitMovementComponent : IEntityComponent
     {
         public bool disabled;
-        
         public float speed;
-
         public Vector2 extraSpeed;
-
         public Vector2 currentVelocity;
-
         public Vector2 movingDirection;
-    }
-
-    public struct StateTriggers
-    {
-        public bool hit;
-    }
-    
-    public struct ModelStateComponent : IEntityComponent
-    {
-        public IDictionary<string, bool> states;
-        
-        public bool walking
-        {
-            set => states["walking"] = value;
-        }
-        
-        public bool up
-        {
-            set => states["up"] = value;
-        }
-        
-        public bool dashing
-        {
-            set => states["dashing"] = value;
-        }
-        
-        public bool sprinting
-        {
-            set => states["sprinting"] = value;
-        }
-
-        public bool attackMoving
-        {
-            set => states["attackMoving"] = value;
-        }
-
-        public StateTriggers stateTriggers;
-
-        public bool disableAutoUpdate;
-    }
-
-    public struct AnimatorComponent : IEntityComponent
-    {
-        public Animator animator;
     }
 }

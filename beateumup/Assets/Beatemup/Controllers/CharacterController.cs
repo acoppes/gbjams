@@ -212,17 +212,32 @@ namespace Beatemup.Controllers
                 return;
             }
 
+            if (states.HasState("SprintStop"))
+            {
+                if (animation.state == AnimationComponent.State.Completed)
+                {
+                    animation.Play("Idle");
+                    states.ExitState("SprintStop");
+                }
+                return;
+            }
+
             if (states.HasState(SprintState))
             {
                 if ((!control.right.isPressed && !control.left.isPressed) || 
                     (control.right.isPressed && control.left.isPressed) || control.backward.isPressed)
                 {
-                    animation.Play("Idle");
                     // modelState.sprinting = false;
                     movement.extraSpeed.x = 0;
+                    animation.Play("SprintStop", 1);
                     states.ExitState(SprintState);
+                    states.EnterState("SprintStop");
                     return;
                 }
+                
+                movement.movingDirection = control.direction;
+
+                return;
             }
             else
             {
@@ -272,7 +287,7 @@ namespace Beatemup.Controllers
                 return;
             }
 
-            if (!states.HasState(SprintState) && control.direction.sqrMagnitude > Mathf.Epsilon)
+            if (control.direction.sqrMagnitude > Mathf.Epsilon)
             {
                 if (control.backward.isPressed)
                 {

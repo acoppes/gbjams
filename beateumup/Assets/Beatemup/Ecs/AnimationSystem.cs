@@ -14,8 +14,10 @@ namespace Beatemup.Ecs
             {
                 ref var animationComponent = ref animations.Get(entity);
 
-                if (animationComponent.paused) 
-                    return;
+                if (animationComponent.paused)
+                {
+                    continue;
+                }
 
                 if (animationComponent.state == AnimationComponent.State.Playing)
                 {
