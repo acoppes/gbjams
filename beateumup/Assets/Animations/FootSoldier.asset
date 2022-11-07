@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43476aec9d91461b89f0964aa65efc4e, type: 3}
+  m_Name: FootSoldier
+  m_EditorClassIdentifier: 
+  animations:
+  - name: Getup
+    frames:
+    - frame: 0
+      sprite: {fileID: 21300000, guid: 5b6f1c4f7bdeba1488d75d83772dc2ef, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 1
+      sprite: {fileID: 21300000, guid: af20825af9b1c1047b637b6a97dd8728, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 2
+      sprite: {fileID: 21300000, guid: 2bf17f137e3a50342bcf101566520ca6, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 3
+      sprite: {fileID: 21300000, guid: ce3fd0387ee463243b5d2e79ca1c8017, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 4
+      sprite: {fileID: 21300000, guid: f17dca8a0031f63469b0d07b011a82f0, type: 3}
+      fxSprite: {fileID: 0}
+    fps: 12.5
+  - name: Hitstun
+    frames:
+    - frame: 0
+      sprite: {fileID: 21300000, guid: 579787f96266a4d4092e6d25ae3213d1, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 1
+      sprite: {fileID: 21300000, guid: 4d0ee725b0b02c0479db0ff357436067, type: 3}
+      fxSprite: {fileID: 0}
+    fps: 12.5
+  - name: Idle
+    frames:
+    - frame: 0
+      sprite: {fileID: 21300000, guid: a8116cbb49e023c4a80aac07e6a78e8c, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 1
+      sprite: {fileID: 21300000, guid: 3587cedd7ed6a41458d2b226316a0457, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 2
+      sprite: {fileID: 21300000, guid: 88556eb3807419f4b99e03b8b66d3aa9, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 3
+      sprite: {fileID: 21300000, guid: d140df8634a417847b1c788765f3b02c, type: 3}
+      fxSprite: {fileID: 0}
+    fps: 12.5
+  - name: KnockdownAscending
+    frames:
+    - frame: 0
+      sprite: {fileID: 21300000, guid: 8167e7399edf49e42b6f3abb31bbdfe6, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 1
+      sprite: {fileID: 21300000, guid: 45c432ef2f21fb849800b4601b6bae59, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 2
+      sprite: {fileID: 21300000, guid: 44e306eaf6e5dcf4ab83c7a090b28e31, type: 3}
+      fxSprite: {fileID: 0}
+    fps: 12.5
+  - name: KnockdownBounce
+    frames:
+    - frame: 0
+      sprite: {fileID: 21300000, guid: 78c57a464d892394d8651e2f7c4fb63e, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 1
+      sprite: {fileID: 21300000, guid: c040aab44d9ad594ea354931f929dbda, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 2
+      sprite: {fileID: 21300000, guid: 76a427039fbaf9545a7698dab859a9c7, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 3
+      sprite: {fileID: 21300000, guid: 65753383089179d4dbb9b6671c63c599, type: 3}
+      fxSprite: {fileID: 0}
+    fps: 12.5
+  - name: KnockdownDescending
+    frames:
+    - frame: 0
+      sprite: {fileID: 21300000, guid: 4bd198eda4b74624e810369981b68a47, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 1
+      sprite: {fileID: 21300000, guid: 365f02dc94f55fc429678a6510fcb879, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 2
+      sprite: {fileID: 21300000, guid: a888261774a963c4ebbca5484d5ff253, type: 3}
+      fxSprite: {fileID: 0}
+    fps: 12.5
+  - name: Walk
+    frames:
+    - frame: 0
+      sprite: {fileID: 21300000, guid: 962ae1adaba1c5a4da634d5f9f4900ff, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 1
+      sprite: {fileID: 21300000, guid: 4fc8080684a40a14782eb89c3f9e6ea7, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 2
+      sprite: {fileID: 21300000, guid: 8dc3d6e6426107f4db9e0b4a7c76f573, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 3
+      sprite: {fileID: 21300000, guid: 01a3d5e927a65a6449f11921c9bc7300, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 4
+      sprite: {fileID: 21300000, guid: d33222b3ac6e56441b6e12ebc378f5d6, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 5
+      sprite: {fileID: 21300000, guid: 91fe7e38c8a17a346ba9805c31ae74b2, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 6
+      sprite: {fileID: 21300000, guid: 18044a10fc0fad84dae60d421b81b3cb, type: 3}
+      fxSprite: {fileID: 0}
+    - frame: 7
+      sprite: {fileID: 21300000, guid: 4f64d78a487142f499e893bc33d9e5be, type: 3}
+      fxSprite: {fileID: 0}
+    fps: 12.5

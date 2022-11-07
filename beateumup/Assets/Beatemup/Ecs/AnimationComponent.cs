@@ -10,14 +10,14 @@ namespace Beatemup.Ecs
     {
         public int frame;
         public Sprite sprite;
-        public Sprite effectSprite;
+        public Sprite fxSprite;
     }
     
     [Serializable]
     public class AnimationDefinition
     {
         public string name;
-        public readonly List<AnimationFrame> frames = new List<AnimationFrame>();
+        public List<AnimationFrame> frames = new List<AnimationFrame>();
         public float fps = 30.0f;
         public int TotalFrames => frames.Count;
         
