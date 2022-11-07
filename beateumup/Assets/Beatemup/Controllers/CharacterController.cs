@@ -62,7 +62,7 @@ namespace Beatemup.Controllers
                 {
                     if (animation.state == AnimationComponent.State.Completed)
                     {
-                        animation.Play("Idle");
+                        
                         states.ExitState("HeavySwing");
                     }
                 }
@@ -88,7 +88,7 @@ namespace Beatemup.Controllers
                 {
                     if (!control.button1.isPressed)
                     {
-                        animation.Play("Idle");
+                        
                         states.ExitState("HeavySwing");
                         return;
                     }
@@ -103,7 +103,7 @@ namespace Beatemup.Controllers
                 {
                     if (!control.button1.isPressed)
                     {
-                        animation.Play("Idle");
+                        
                         states.ExitState("HeavySwing");
                         return;
                     }
@@ -121,7 +121,7 @@ namespace Beatemup.Controllers
             {
                 if (animation.state == AnimationComponent.State.Completed || control.HasBufferedAction(control.button1))
                 {
-                    animation.Play("Idle");
+                    
                     states.ExitState("SprintStop");
                 }
                 return;
@@ -131,7 +131,7 @@ namespace Beatemup.Controllers
             {
                 if (animation.state == AnimationComponent.State.Completed || control.HasBufferedAction(control.button1))
                 {
-                    animation.Play("Idle");
+                    
                     states.ExitState(DashStopState);
                 }
 
@@ -143,7 +143,7 @@ namespace Beatemup.Controllers
                 if (animation.state == AnimationComponent.State.Completed)
                 {
                     lookingDirection.value.x = -lookingDirection.value.x;
-                    animation.Play("Idle");
+                    
                     states.ExitState("Backkick");
                 }
 
@@ -187,7 +187,7 @@ namespace Beatemup.Controllers
             
                 if (animation.state == AnimationComponent.State.Completed)
                 {
-                    animation.Play("Idle");
+                    
                     states.ExitState("Combo");
                     states.ExitState("Attack");
                 }
@@ -321,7 +321,7 @@ namespace Beatemup.Controllers
                 if (control.direction.sqrMagnitude < Mathf.Epsilon)
                 {
                     // lookingDirection.locked = false;
-                    animation.Play("Idle");
+                    
                     states.ExitState("Moving");
                     return;
                 }
@@ -348,6 +348,11 @@ namespace Beatemup.Controllers
                 animation.Play("Walk");
                 states.EnterState("Moving");
                 return;
+            }
+
+            if (!animation.IsPlaying("Idle"))
+            {
+                animation.Play("Idle");
             }
         }
 
