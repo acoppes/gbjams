@@ -9,7 +9,7 @@ namespace Beatemup.Controllers
     {
         private static readonly string[] AttackStates = new string []
         {
-            "attack", "attack2", "attack3", "attackFinisher"
+            "Attack", "Attack2", "Attack3", "AttackFinisher"
         };
 
         private const string DashState = "Dash";
