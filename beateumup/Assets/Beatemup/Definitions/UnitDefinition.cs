@@ -14,6 +14,8 @@ namespace Beatemup.Definitions
 
         public GameObject modelPrefab;
 
+        public AnimationsAsset animationsAsset;
+
         public void Apply(World world, Entity entity)
         {
             world.AddComponent(entity, new PlayerComponent());
@@ -48,6 +50,20 @@ namespace Beatemup.Definitions
             {
                 speed = movementSpeed
             });
+
+            if (animationsAsset != null)
+            {
+                world.AddComponent(entity, new AnimationComponent
+                {
+                    animationsAsset = animationsAsset,
+                    currentAnimation = 0,
+                    currentFrame = 0,
+                    currentTime = 0,
+                    state = AnimationComponent.State.Completed,
+                    loops = 0,
+                    paused = false
+                });
+            }
         }
     }
 }

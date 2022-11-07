@@ -12,12 +12,12 @@ namespace Beatemup.Ecs
             
             foreach (var entity in world.GetFilter<AnimationComponent>().End())
             {
-                ref var animator = ref animations.Get(entity);
+                ref var animationComponent = ref animations.Get(entity);
 
-                if (animator.paused) 
+                if (animationComponent.paused) 
                     return;
 
-                if (animator.state == AnimationComponent.State.Playing)
+                if (animationComponent.state == AnimationComponent.State.Playing)
                 {
                     // if (animator.onStartEventPending)
                     // {
@@ -25,27 +25,27 @@ namespace Beatemup.Ecs
                     //     animator.onStartEventPending = false;
                     // }
                     
-                    var definition = animator.animationsAsset.animations[animator.currentAnimation];
+                    var definition = animationComponent.animationsAsset.animations[animationComponent.currentAnimation];
 
                     var frameTime = 1.0f / definition.fps;
                         
-                    animator.currentTime += Time.deltaTime;
+                    animationComponent.currentTime += Time.deltaTime;
 
-                    while (animator.currentTime >= frameTime)
+                    while (animationComponent.currentTime >= frameTime)
                     {
                         // if (definition.frames != null && definition.frames.Count > 0 && definition.frames[animator.currentFrame].hasEvent)
                         // {
                         //     animator.OnEvent();
                         // }
                         
-                        animator.currentTime -= frameTime;
-                        animator.currentFrame++;
+                        animationComponent.currentTime -= frameTime;
+                        animationComponent.currentFrame++;
 
-                        if (animator.currentFrame >= definition.TotalFrames)
+                        if (animationComponent.currentFrame >= definition.TotalFrames)
                         {
-                            if (animator.loops > 0)
+                            if (animationComponent.loops > 0)
                             {
-                                animator.loops -= 1;
+                                animationComponent.loops -= 1;
                             }
 
                             // if (animator.loops == -1)
@@ -53,15 +53,15 @@ namespace Beatemup.Ecs
                             //     animator.OnCompletedLoop();
                             // }
                             
-                            if (animator.loops == 0)
+                            if (animationComponent.loops == 0)
                             {
-                                animator.state = AnimationComponent.State.Completed;
-                                animator.currentFrame = definition.TotalFrames - 1;
+                                animationComponent.state = AnimationComponent.State.Completed;
+                                animationComponent.currentFrame = definition.TotalFrames - 1;
                                 // animator.OnComplete();
                                 break;
                             }
                             
-                            animator.currentFrame = 0;
+                            animationComponent.currentFrame = 0;
                         }
                     }
                 }

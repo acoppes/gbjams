@@ -34,37 +34,47 @@ namespace Beatemup.Controllers
         public void OnInit()
         {
             var model = world.GetComponent<UnitModelComponent>(entity);
-            var animator = model.instance.GetComponent<Animator>();
-
-            var allClips = animator.runtimeAnimatorController.animationClips;
-
+            
             _attackDuration = new float[AttackStates.Length];
-
-            foreach (var clip in allClips)
+            
+            var animator = model.instance.GetComponent<Animator>();
+            
+            if (animator != null)
             {
-                for (var i = 0; i < AttackStates.Length; i++)
+                var allClips = animator.runtimeAnimatorController.animationClips;
+
+                foreach (var clip in allClips)
                 {
-                    var attackState = AttackStates[i];
-                    
-                    if (clip.name.Equals(attackState, StringComparison.OrdinalIgnoreCase))
+                    for (var i = 0; i < AttackStates.Length; i++)
                     {
-                        _attackDuration[i] = clip.length;
+                        var attackState = AttackStates[i];
+
+                        if (clip.name.Equals(attackState, StringComparison.OrdinalIgnoreCase))
+                        {
+                            _attackDuration[i] = clip.length;
+                        }
                     }
-                }
-                
-                if (clip.name.Equals("AttackMoving", StringComparison.OrdinalIgnoreCase))
-                {
-                    _attackMovingDuration = clip.length;
-                }
-                
-                if (clip.name.Equals("DashStop", StringComparison.OrdinalIgnoreCase))
-                {
-                    _dashStopDuration = clip.length;
+
+                    if (clip.name.Equals("AttackMoving", StringComparison.OrdinalIgnoreCase))
+                    {
+                        _attackMovingDuration = clip.length;
+                    }
+
+                    if (clip.name.Equals("DashStop", StringComparison.OrdinalIgnoreCase))
+                    {
+                        _dashStopDuration = clip.length;
+                    }
                 }
             }
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             lookingDirection.locked = true;
+            
+            if (world.HasComponent<AnimationComponent>(entity))
+            {
+                ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
+                animationComponent.Play("Idle");
+            }
         }
         
         public void OnEntityDestroyed(Entity e)
