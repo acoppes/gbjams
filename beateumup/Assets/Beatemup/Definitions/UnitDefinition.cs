@@ -45,6 +45,7 @@ namespace Beatemup.Definitions
             {
                 world.AddComponent(entity, new AnimationComponent
                 {
+                    fps = AnimationComponent.DefaultFrameRate,
                     animationsAsset = animationsAsset,
                     currentAnimation = 0,
                     currentFrame = 0,

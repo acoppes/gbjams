@@ -55,7 +55,7 @@ namespace Beatemup.Controllers
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
-
+            
             if (states.HasState("HeavySwing"))
             {
                 if (animation.IsPlaying("HeavySwingAttack"))
@@ -225,10 +225,7 @@ namespace Beatemup.Controllers
             if (pressedAttackTime <= 0)
             {
                 control.ConsumeBuffer();
-                    
-                states.ExitState("Attack");
-                states.ExitState("Combo");
-                    
+
                 animation.Play("HeavySwingStartup", 1);
                 states.EnterState("HeavySwing");
                     

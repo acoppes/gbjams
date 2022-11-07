@@ -22,7 +22,7 @@ namespace Utils.Editor
             public bool hasFx;
         }
 
-        private const float DefaultFrameRate = 15f;
+        // private const float DefaultFrameRate = 15f;
 
         [UnityEditor.MenuItem("Assets/Create Animation Asset from Folder")]
         public static void CreateAnimationAssetFromFolder()
@@ -90,7 +90,7 @@ namespace Utils.Editor
                 var animationDefinition = new AnimationDefinition
                 {
                     name = animationName,
-                    fps = DefaultFrameRate
+                    // fps = DefaultFrameRate
                 };
 
                 for (var i = 0; i < animation.keyframes.Count; i++)

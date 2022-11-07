@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Beatemup.Ecs
 {
@@ -17,15 +18,22 @@ namespace Beatemup.Ecs
     public class AnimationDefinition
     {
         public string name;
-        public List<AnimationFrame> frames = new List<AnimationFrame>();
-        public float fps = 30.0f;
+        public List<AnimationFrame> frames = new ();
         public int TotalFrames => frames.Count;
         
         // public float Duration => TotalFrames / fps;
+
+        public float GetDuration(float fps)
+        {
+            Assert.IsTrue(fps > 0);
+            return TotalFrames / fps;
+        }
     }
 
     public struct AnimationComponent : IEntityComponent
     {
+        public const float DefaultFrameRate = 15.0f;
+        
         public enum State
         {
             Completed,
@@ -33,6 +41,8 @@ namespace Beatemup.Ecs
         }
         
         public AnimationsAsset animationsAsset;
+
+        public float fps;
         
         public int currentAnimation;
         public int currentFrame;

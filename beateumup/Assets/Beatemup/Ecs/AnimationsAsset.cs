@@ -6,7 +6,7 @@ namespace Beatemup.Ecs
 {
     public class AnimationsAsset : ScriptableObject
     {
-        public List<AnimationDefinition> animations = new List<AnimationDefinition>();
+        public List<AnimationDefinition> animations = new();
 
         public int FindByName(string animationName)
         {
