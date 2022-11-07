@@ -1,4 +1,3 @@
-using System;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
@@ -24,8 +23,6 @@ namespace Beatemup.Controllers
         public float dashExtraSpeed = 10.0f;
         
         public float sprintExtraSpeed = 2.0f;
-        
-        private float _dashStopDuration = 0.1f;
 
         public void OnInit()
         {
@@ -128,6 +125,7 @@ namespace Beatemup.Controllers
                     if (animation.state == AnimationComponent.State.Completed)
                     {
                         animation.Play("Idle");
+                        states.ExitState("Combo");
                         
                         // modelState.attackMoving = false;
                         // modelState.states[AttackStates[i]] = false;
@@ -259,10 +257,10 @@ namespace Beatemup.Controllers
                     return;
                 }
 
-                if (control.direction.y > 0 && animation.IsPlaying("Walk"))
+                if (control.direction.y > 0 && !animation.IsPlaying("WalkUp"))
                 {
                     animation.Play("WalkUp");
-                } else if (control.direction.y <= 0 && animation.IsPlaying("WalkUp"))
+                } else if (control.direction.y <= 0 && !animation.IsPlaying("Walk"))
                 {
                     animation.Play("Walk");
                 }
