@@ -79,7 +79,7 @@ namespace Beatemup.Controllers
                 {
                     var state = states.GetState(AttackStates[i]);
                     
-                    if (state.time >= attackCancelationTime && control.HasBufferedAction(control.button1) 
+                    if (states.HasState("Combo") && state.time >= attackCancelationTime && control.HasBufferedAction(control.button1) 
                                                             && i < AttackStates.Length - 1)
                     {
                         animation.Play(AttackStates[i + 1], 1);
@@ -93,7 +93,7 @@ namespace Beatemup.Controllers
                         if (control.HasBufferedActions(control.backward.name, control.button1.name))
                         {
                             lookingDirection.value.x = -lookingDirection.value.x;
-                            // TODO: should also stop combo
+                            states.ExitState("Combo");
                         }
 
                         states.ExitState(AttackStates[i]);
@@ -117,10 +117,7 @@ namespace Beatemup.Controllers
                     return;
                 }
             }
-
-
-
-
+            
             if (states.HasState(DashState))
             {
                 var state = states.GetState(DashState);
@@ -165,6 +162,8 @@ namespace Beatemup.Controllers
                 control.ConsumeBuffer();
                 
                 states.EnterState(AttackStates[0]);
+                states.EnterState("Combo");
+                
                 return;
             }
 
