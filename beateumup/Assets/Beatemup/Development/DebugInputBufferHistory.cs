@@ -1,3 +1,4 @@
+using System;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
@@ -8,7 +9,11 @@ namespace Beatemup.Development
     {
         public string playerName;
 
-        public GameObject debugBufferPrefab;
+        [SerializeField]
+        private int maxHistory = 10;
+        
+        [SerializeField]
+        private GameObject debugBufferPrefab;
 
         private DebugBuffer _debugBuffer;
 
@@ -28,6 +33,16 @@ namespace Beatemup.Development
 
             var controlComponent = _world.GetComponent<ControlComponent>(entity);
 
+            if (controlComponent.buffer.Count == 0)
+            {
+                if (_debugBuffer != null)
+                {
+                    _debugBuffer.ConvertToHistory();
+                }
+                _debugBuffer = null;
+                return;
+            }
+
             if (_debugBuffer == null)
             {
                 var debugBufferInstance = GameObject.Instantiate(debugBufferPrefab, transform);
@@ -35,6 +50,12 @@ namespace Beatemup.Development
             }
             
             _debugBuffer.UpdateBuffer(controlComponent);
+            
+            if (transform.childCount > maxHistory)
+            {
+                var firstChild = transform.GetChild(0);
+                GameObject.DestroyImmediate(firstChild.gameObject);
+            }
         }
     }
 }
