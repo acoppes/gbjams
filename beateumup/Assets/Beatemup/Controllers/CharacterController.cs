@@ -63,11 +63,22 @@ namespace Beatemup.Controllers
             
             if (states.HasState(DashStopState))
             {
-                var state = states.GetState(DashStopState);
                 if (animation.state == AnimationComponent.State.Completed || control.HasBufferedAction(control.button1))
                 {
                     animation.Play("Idle");
                     states.ExitState(DashStopState);
+                }
+
+                return;
+            }
+
+            if (states.HasState("Backkick"))
+            {
+                if (animation.state == AnimationComponent.State.Completed)
+                {
+                    lookingDirection.value.x = -lookingDirection.value.x;
+                    animation.Play("Idle");
+                    states.ExitState("Backkick");
                 }
 
                 return;
@@ -79,8 +90,18 @@ namespace Beatemup.Controllers
                 {
                     var state = states.GetState(AttackStates[i]);
                     
+                    if (state.time >= attackCancelationTime &&
+                        control.HasBufferedActions(control.button1.name, control.backward.name))
+                    {
+                        animation.Play("Backkick", 1);
+                        states.ExitState(AttackStates[i]);
+                        states.ExitState("Combo");
+                        states.EnterState("Backkick");
+                        return;
+                    }
+
                     if (states.HasState("Combo") && state.time >= attackCancelationTime && control.HasBufferedAction(control.button1) 
-                                                            && i < AttackStates.Length - 1)
+                        && i < AttackStates.Length - 1)
                     {
                         animation.Play(AttackStates[i + 1], 1);
                         
