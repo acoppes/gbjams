@@ -15,6 +15,7 @@ namespace Beatemup.Ecs
             {
                 ref var model = ref models.Get(entity);
                 model.instance =  Instantiate(model.prefab);
+                model.instance.SetActive(true);
                 model.subModel = model.instance.transform.Find("Model");
             }
         }
