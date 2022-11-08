@@ -77,5 +77,10 @@ namespace Beatemup.Ecs
         {
             return currentAnimation == animationsAsset.FindByName(animationName);
         }
+
+        public bool HasAnimation(string animationName)
+        {
+            return animationsAsset.FindByName(animationName) != -1;
+        }
     }
 }
