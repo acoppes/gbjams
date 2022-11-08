@@ -1,11 +1,11 @@
 using Beatemup.Ecs;
-using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Beatemup.Controllers
 {
-    public class CharacterController : ControllerBase, IInit, IEntityDestroyed
+    public class TmntPlayerController : ControllerBase, IInit
     {
         private static readonly string[] ComboAnimations = 
         {
@@ -17,7 +17,8 @@ namespace Beatemup.Controllers
         
         private const string SprintState = "Sprint";
 
-        public float attackCancelationTime = 0.1f;
+        [FormerlySerializedAs("attackCancelationTime")] 
+        public float attackCancellationTime = 0.1f;
 
         public float dashDuration = 1.0f;
         public float dashExtraSpeed = 10.0f;
@@ -40,11 +41,6 @@ namespace Beatemup.Controllers
             ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
             animationComponent.Play("Idle");
         }
-        
-        public void OnEntityDestroyed(Entity e)
-        {
-
-        }
 
         public override void OnUpdate(float dt)
         {
@@ -64,7 +60,6 @@ namespace Beatemup.Controllers
                 {
                     if (animation.state == AnimationComponent.State.Completed)
                     {
-                        
                         states.ExitState("HeavySwing");
                     }
                 }
@@ -156,7 +151,7 @@ namespace Beatemup.Controllers
             {
                 // var state = states.GetState("Attack");
 
-                if (state.time >= attackCancelationTime &&
+                if (animation.playingTime >= attackCancellationTime &&
                     control.HasBufferedActions(control.button1.name, control.backward.name))
                 {
                     control.ConsumeBuffer();
@@ -168,13 +163,11 @@ namespace Beatemup.Controllers
                     return;
                 }
 
-                if (states.HasState("Combo") && state.time >= attackCancelationTime && control.HasBufferedAction(control.button1) 
+                if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime && control.HasBufferedAction(control.button1) 
                     && currentComboAttack < comboAttacks)
                 {
                     animation.Play(ComboAnimations[currentComboAttack], 1);
-                    
-                    state.time = 0;
-                    
+
                     if (control.HasBufferedActions(control.backward.name, control.button1.name))
                     {
                         lookingDirection.value.x = -lookingDirection.value.x;
@@ -189,7 +182,6 @@ namespace Beatemup.Controllers
             
                 if (animation.state == AnimationComponent.State.Completed)
                 {
-                    
                     states.ExitState("Combo");
                     states.ExitState("Attack");
                 }
