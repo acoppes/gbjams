@@ -1,3 +1,4 @@
+using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Leopotam.EcsLite;
@@ -14,8 +15,10 @@ namespace Beatemup.Ecs
             if (models.Has(entity))
             {
                 ref var model = ref models.Get(entity);
-                model.instance =  Instantiate(model.prefab);
-                model.instance.SetActive(true);
+                var modelInstance = Instantiate(model.prefab);
+                
+                model.instance = modelInstance.GetComponent<Model>();
+                model.instance.gameObject.SetActive(true);
                 model.subModel = model.instance.transform.Find("Model");
             }
         }

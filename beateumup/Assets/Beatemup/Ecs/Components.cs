@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
 
@@ -124,7 +125,7 @@ namespace Beatemup.Ecs
         }
         
         public GameObject prefab;
-        public GameObject instance;
+        public Model instance;
 
         public Transform subModel;
 

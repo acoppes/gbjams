@@ -1,6 +1,5 @@
 ﻿using Gemserk.Leopotam.Ecs;
 using Leopotam.EcsLite;
-using UnityEngine;
 
 namespace Beatemup.Ecs
 {
@@ -18,18 +17,15 @@ namespace Beatemup.Ecs
 
                 var animation = animationComponent.animationsAsset.animations[animationComponent.currentAnimation];
                 var frame = animation.frames[animationComponent.currentFrame];
-
-                var model = modelComponent.instance.transform.Find("Model");
-                var effectModel = modelComponent.instance.transform.Find("Effect");
-
-                if (model != null)
+                
+                if (modelComponent.instance.model != null)
                 {
-                    model.GetComponent<SpriteRenderer>().sprite = frame.sprite;
+                    modelComponent.instance.model.sprite = frame.sprite;
                 }
                 
-                if (effectModel != null)
+                if (modelComponent.instance.effect != null)
                 {
-                    effectModel.GetComponent<SpriteRenderer>().sprite = frame.fxSprite;
+                    modelComponent.instance.effect.sprite = frame.fxSprite;
                 }
             }
         }
