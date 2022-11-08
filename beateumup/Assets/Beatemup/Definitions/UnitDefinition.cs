@@ -15,6 +15,8 @@ namespace Beatemup.Definitions
 
         public AnimationsAsset animationsAsset;
 
+        public Vector2 hurtBoxSize;
+
         public void Apply(World world, Entity entity)
         {
             world.AddComponent(entity, new PlayerComponent());
@@ -33,6 +35,11 @@ namespace Beatemup.Definitions
                 world.AddComponent(entity, new UnitModelComponent
                 {
                     prefab = modelPrefab
+                });
+                
+                world.AddComponent(entity, new HurtBoxComponent
+                {
+                    size = hurtBoxSize
                 });
             }
             world.AddComponent(entity, new UnitMovementComponent()

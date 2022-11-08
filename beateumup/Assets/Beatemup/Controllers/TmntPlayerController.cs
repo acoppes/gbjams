@@ -184,6 +184,9 @@ namespace Beatemup.Controllers
                     Debug.Log($"HIT EVENT: {animation.currentFrame}");
                     // detect enemies in hitbox
                     // if enemies, then hit enemy and enter combo
+                    
+                    // Physics2D.overlap
+                    
                     states.EnterState("Combo");
                 }
 
