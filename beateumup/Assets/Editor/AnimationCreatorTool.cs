@@ -24,6 +24,23 @@ namespace Utils.Editor
 
         // private const float DefaultFrameRate = 15f;
 
+        public static List<int> GetFramesFromRanges(string frameRange)
+        {
+            var frames = new List<int>();
+            var separations = frameRange.Split("_");
+
+            foreach (var separation in separations)
+            {
+                var ranges = separation.Split("-");
+                foreach (var range in ranges)
+                {
+                    frames.Add(int.Parse(range));
+                }
+            }
+            
+            return frames;
+        }
+
         [UnityEditor.MenuItem("Assets/Create Animation Asset from Folder")]
         public static void CreateAnimationAssetFromFolder()
         {
@@ -47,9 +64,9 @@ namespace Utils.Editor
 
             foreach (var sprite in sprites)
             {
-                var spriteParts = sprite.name.Split("_");
+                var spriteParts = sprite.name.Split("_", 2);
                 var animationName = spriteParts[0];
-                var frame = spriteParts[1];
+                var frameString = spriteParts[1];
 
                 if (animationName.EndsWith("fx", StringComparison.OrdinalIgnoreCase))
                 {
@@ -68,16 +85,27 @@ namespace Utils.Editor
                 var animation = animations[animationName];
 
                 var fxSprite = sprites.Find(s =>
-                    s.name.Equals($"{animationName}fx_{frame}", StringComparison.OrdinalIgnoreCase));
-                
-                animation.keyframes.Add(new KeyFrame()
-                {
-                    sprite = sprite,
-                    fxSprite = fxSprite,
-                    frame = int.Parse(frame)
-                });
+                    s.name.Equals($"{animationName}fx_{frameString}", StringComparison.OrdinalIgnoreCase));
 
+                var frames = GetFramesFromRanges(frameString);
+
+                foreach (var frame in frames)
+                {
+                    animation.keyframes.Add(new KeyFrame
+                    {
+                        sprite = sprite,
+                        fxSprite = fxSprite,
+                        frame = frame
+                    });
+                }
+                
                 animation.hasFx = animation.hasFx || fxSprite;
+            }
+
+            foreach (var animationName in animations.Keys)
+            {
+                var animation = animations[animationName];
+                animation.keyframes.Sort((a, b) => a.frame - b.frame);
             }
 
             var animationsAsset = ScriptableObject.CreateInstance<AnimationsAsset>();
