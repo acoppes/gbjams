@@ -9,9 +9,10 @@ namespace Beatemup.Ecs
     [Serializable]
     public class AnimationFrame
     {
-        // public int frame;
         public Sprite sprite;
         public Sprite fxSprite;
+
+        public bool hitEvent;
     }
     
     [Serializable]
@@ -28,6 +29,11 @@ namespace Beatemup.Ecs
             Assert.IsTrue(fps > 0);
             return TotalFrames / fps;
         }
+    }
+
+    public struct CurrentAnimationFrameComponent : IEntityComponent
+    {
+        public bool hit;
     }
 
     public struct AnimationComponent : IEntityComponent

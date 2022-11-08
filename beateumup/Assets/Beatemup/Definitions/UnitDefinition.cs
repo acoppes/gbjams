@@ -53,6 +53,7 @@ namespace Beatemup.Definitions
                     loops = 0,
                     paused = false
                 });
+                world.AddComponent(entity, new CurrentAnimationFrameComponent());
             }
         }
     }

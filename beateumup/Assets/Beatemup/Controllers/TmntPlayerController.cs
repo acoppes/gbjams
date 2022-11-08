@@ -48,6 +48,7 @@ namespace Beatemup.Controllers
             ref var movement = ref world.GetComponent<UnitMovementComponent>(entity);
             // ref var modelState = ref world.GetComponent<ModelStateComponent>(entity);
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
+            var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
@@ -157,8 +158,19 @@ namespace Beatemup.Controllers
             if (states.TryGetState("Attack", out state))
             {
                 // var state = states.GetState("Attack");
+                
+                // if (animation.)
 
-                if (animation.playingTime >= attackCancellationTime &&
+                if (currentAnimationFrame.hit)
+                {
+                    Debug.Log($"HIT EVENT: {animation.currentFrame}");
+                    
+                    // detect enemies in hitbox
+                    // if enemies, then hit enemy and enter combo
+                    states.EnterState("Combo");
+                }
+
+                if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime &&
                     control.HasBufferedActions(control.button1.name, control.backward.name))
                 {
                     control.ConsumeBuffer();
@@ -249,7 +261,8 @@ namespace Beatemup.Controllers
                 control.ConsumeBuffer();
 
                 states.EnterState("Attack");
-                states.EnterState("Combo");
+                
+                // states.EnterState("Combo");
                 
                 return;
             }
