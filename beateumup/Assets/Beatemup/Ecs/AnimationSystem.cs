@@ -21,11 +21,11 @@ namespace Beatemup.Ecs
 
                 if (animationComponent.state == AnimationComponent.State.Playing)
                 {
-                    // if (animator.onStartEventPending)
-                    // {
-                    //     animator.OnStart();
-                    //     animator.onStartEventPending = false;
-                    // }
+                    if (animationComponent.onStartEventPending)
+                    {
+                        animationComponent.OnStart();
+                        animationComponent.onStartEventPending = false;
+                    }
                     
                     var definition = animationComponent.animationsAsset.animations[animationComponent.currentAnimation];
 
@@ -36,10 +36,10 @@ namespace Beatemup.Ecs
 
                     while (animationComponent.currentTime >= frameTime)
                     {
-                        // if (definition.frames != null && definition.frames.Count > 0 && definition.frames[animator.currentFrame].hasEvent)
-                        // {
-                        //     animator.OnEvent();
-                        // }
+                        if (definition.frames != null && definition.frames.Count > 0 && definition.frames[animationComponent.currentFrame].HasEvents)
+                        {
+                            animationComponent.OnEvent();
+                        }
                         
                         animationComponent.currentTime -= frameTime;
                         animationComponent.currentFrame++;
@@ -51,16 +51,16 @@ namespace Beatemup.Ecs
                                 animationComponent.loops -= 1;
                             }
 
-                            // if (animator.loops == -1)
-                            // {
-                            //     animator.OnCompletedLoop();
-                            // }
+                            if (animationComponent.loops == -1)
+                            {
+                                animationComponent.OnCompletedLoop();
+                            }
                             
                             if (animationComponent.loops == 0)
                             {
                                 animationComponent.state = AnimationComponent.State.Completed;
                                 animationComponent.currentFrame = definition.TotalFrames - 1;
-                                // animator.OnComplete();
+                                animationComponent.OnComplete();
                                 break;
                             }
                             

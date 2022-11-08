@@ -144,4 +144,12 @@ namespace Beatemup.Ecs
         public Vector2 currentVelocity;
         public Vector2 movingDirection;
     }
+    
+    public struct CurrentAnimationFrameComponent : IEntityComponent
+    {
+        public int animation;
+        public int frame;
+        
+        public bool hit;
+    }
 }

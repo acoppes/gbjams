@@ -40,7 +40,25 @@ namespace Beatemup.Controllers
             
             ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
             animationComponent.Play("Idle");
+            
+            // animationComponent.onEvent += OnAnimationEvent;
         }
+
+        // private void OnAnimationEvent(AnimationComponent animationComponent, int animation, int frameNumber)
+        // {
+        //     ref var states = ref world.GetComponent<StatesComponent>(entity);
+        //     var frame = animationComponent.GetFrame(animation, frameNumber);
+        //
+        //     if (states.HasState("Attack"))
+        //     {
+        //         if (frame.events.Contains("hit"))
+        //         {
+        //             // check for enemies
+        //             
+        //             // if found, hit enemies and enable combo
+        //         }
+        //     }
+        // }
 
         public override void OnUpdate(float dt)
         {
@@ -164,7 +182,6 @@ namespace Beatemup.Controllers
                 if (currentAnimationFrame.hit)
                 {
                     Debug.Log($"HIT EVENT: {animation.currentFrame}");
-                    
                     // detect enemies in hitbox
                     // if enemies, then hit enemy and enter combo
                     states.EnterState("Combo");
