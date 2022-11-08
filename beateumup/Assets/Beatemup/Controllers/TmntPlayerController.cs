@@ -76,7 +76,14 @@ namespace Beatemup.Controllers
                 {
                     if (!control.button1.isPressed)
                     {
-                        animation.Play("HeavySwingFirstStrike", 1);
+                        if (animation.HasAnimation("HeavySwingFirstStrike"))
+                        {
+                            animation.Play("HeavySwingFirstStrike", 1);
+                        }
+                        else
+                        {
+                            animation.Play("HeavySwingAttack", 1);
+                        }
                         return;
                     }
                 }
