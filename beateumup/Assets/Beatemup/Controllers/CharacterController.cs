@@ -55,8 +55,10 @@ namespace Beatemup.Controllers
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
+
+            State state;
             
-            if (states.HasState("HeavySwing"))
+            if (states.TryGetState("HeavySwing", out state))
             {
                 if (animation.IsPlaying("HeavySwingAttack"))
                 {
@@ -150,9 +152,9 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (states.HasState("Attack"))
+            if (states.TryGetState("Attack", out state))
             {
-                var state = states.GetState("Attack");
+                // var state = states.GetState("Attack");
 
                 if (state.time >= attackCancelationTime &&
                     control.HasBufferedActions(control.button1.name, control.backward.name))
@@ -195,10 +197,8 @@ namespace Beatemup.Controllers
                 return;
             }
 
-            if (states.HasState(DashState))
+            if (states.TryGetState(DashState, out state))
             {
-                var state = states.GetState(DashState);
-                
                 if (state.time > dashDuration)
                 {
                     movement.movingDirection = Vector2.zero;
