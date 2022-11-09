@@ -36,12 +36,16 @@ namespace Beatemup.Definitions
                 {
                     prefab = modelPrefab
                 });
-                
+            }
+            
+            if (hurtBoxSize.sqrMagnitude > 0)
+            {
                 world.AddComponent(entity, new HurtBoxComponent
                 {
                     size = hurtBoxSize
                 });
             }
+            
             world.AddComponent(entity, new UnitMovementComponent()
             {
                 speed = movementSpeed

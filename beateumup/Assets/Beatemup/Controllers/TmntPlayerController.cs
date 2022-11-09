@@ -1,7 +1,12 @@
+using System.Collections.Generic;
 using Beatemup.Ecs;
+using Beatemup.Models;
 using Gemserk.Leopotam.Ecs.Controllers;
+using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
+using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Controllers
 {
@@ -27,6 +32,8 @@ namespace Beatemup.Controllers
 
         public float heavySwingStartTime = 0.5f;
         public float heavySwingChargeTime = 0.25f;
+
+        public float hitStunTime = 0.25f;
 
         private float pressedAttackTime = 0;
 
@@ -62,9 +69,9 @@ namespace Beatemup.Controllers
 
         public override void OnUpdate(float dt)
         {
+            var position = world.GetComponent<PositionComponent>(entity);
             var control = world.GetComponent<ControlComponent>(entity);
             ref var movement = ref world.GetComponent<UnitMovementComponent>(entity);
-            // ref var modelState = ref world.GetComponent<ModelStateComponent>(entity);
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
@@ -72,7 +79,22 @@ namespace Beatemup.Controllers
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
             State state;
-            
+
+            if (states.TryGetState("HitStun", out state))
+            {
+                if (!animation.IsPlaying("HitStun"))
+                {
+                    animation.Play("HitStun");
+                }
+
+                if (animation.playingTime > hitStunTime)
+                {
+                    states.ExitState("HitStun");
+                }
+                
+                return;
+            }
+
             if (states.TryGetState("HeavySwing", out state))
             {
                 if (animation.IsPlaying("HeavySwingAttack"))
@@ -144,7 +166,6 @@ namespace Beatemup.Controllers
             {
                 if (animation.state == AnimationComponent.State.Completed || control.HasBufferedAction(control.button1))
                 {
-                    
                     states.ExitState("SprintStop");
                 }
                 return;
@@ -154,7 +175,6 @@ namespace Beatemup.Controllers
             {
                 if (animation.state == AnimationComponent.State.Completed || control.HasBufferedAction(control.button1))
                 {
-                    
                     states.ExitState(DashStopState);
                 }
 
@@ -181,13 +201,36 @@ namespace Beatemup.Controllers
 
                 if (currentAnimationFrame.hit)
                 {
-                    Debug.Log($"HIT EVENT: {animation.currentFrame}");
+                    // Debug.Log($"HIT EVENT: {animation.currentFrame}");
+                    
                     // detect enemies in hitbox
                     // if enemies, then hit enemy and enter combo
+
+                    var contactFilter = new ContactFilter2D()
+                    {
+                        useTriggers = true,
+                        useLayerMask = true,
+                        layerMask = LayerMask.GetMask("HurtBox")
+                    };
+
+                    var colliders = new List<Collider2D>();
                     
-                    // Physics2D.overlap
-                    
-                    states.EnterState("Combo");
+                    if (Physics2D.OverlapBox(position.value, new Vector2(4, 1), 0, contactFilter,
+                            colliders) > 0)
+                    {
+                        foreach (var collider in colliders)
+                        {
+                            var entityReference = collider.GetComponent<ColliderEntityReference>();
+                            var targetStates = world.GetComponent<StatesComponent>(entityReference.entity);
+                            targetStates.EnterState("HitStun");
+
+                            ref var targetPosition = ref world.GetComponent<PositionComponent>(entityReference.entity);
+                            targetPosition.value = new Vector2(targetPosition.value.x, position.value.y + 0.1f);
+                        }
+                        
+                        Debug.Log("Hit Something");
+                        states.EnterState("Combo");
+                    }
                 }
 
                 if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime &&
