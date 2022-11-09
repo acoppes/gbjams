@@ -127,8 +127,6 @@ namespace Beatemup.Ecs
         public GameObject prefab;
         public Model instance;
 
-        public Transform subModel;
-
         public bool rotateToDirection;
 
         public Visiblity visiblity;

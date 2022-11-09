@@ -19,7 +19,7 @@ namespace Beatemup.Ecs
                 
                 model.instance = modelInstance.GetComponent<Model>();
                 model.instance.gameObject.SetActive(true);
-                model.subModel = model.instance.transform.Find("Model");
+                // model.subModel = model.instance.transform.Find("Model");
             }
         }
 
@@ -50,7 +50,8 @@ namespace Beatemup.Ecs
                 ref var modelComponent = ref modelComponents.Get(entity);
                 var positionComponent = positionComponents.Get(entity);
 
-                modelComponent.instance.transform.position = positionComponent.value;
+                modelComponent.instance.transform.position = new Vector3(positionComponent.value.x, positionComponent.value.y, 0);
+                modelComponent.instance.model.transform.localPosition = new Vector3(0, positionComponent.value.z, 0);
             }
 
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<LookingDirection>().End())
@@ -74,7 +75,7 @@ namespace Beatemup.Ecs
                 else
                 {
                     var angle = Mathf.Atan2(lookingDirection.value.y, lookingDirection.value.x) * Mathf.Rad2Deg;
-                    modelComponent.subModel.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                    // modelComponent.subModel.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 }
             }
         }

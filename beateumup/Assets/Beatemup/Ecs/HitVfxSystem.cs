@@ -37,8 +37,10 @@ namespace Beatemup.Ecs
                     var hitEntity = world.CreateEntity(hitDefinition.GetInterface<IEntityDefinition>());
                     ref var hitPosition = ref world.GetComponent<PositionComponent>(hitEntity);
 
-                    // TODO: use position in 3d
                     hitPosition.value = position.value;
+                    hitPosition.value.x += UnityEngine.Random.Range(-hurtBox.size.x, hurtBox.size.x) * 0.5f;
+                    hitPosition.value.z += UnityEngine.Random.Range(0, hurtBox.size.y);
+                    hitPosition.value.y = position.value.y - 0.01f;
                 }
 
                 hitComponent.hits = 0;

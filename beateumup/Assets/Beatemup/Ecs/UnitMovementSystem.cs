@@ -39,14 +39,14 @@ namespace Beatemup.Ecs
 
                 var newPosition = position.value;
 
-                var velocity = Vector2.zero;
+                var velocity = Vector3.zero;
 
                 velocity.x = direction.x * (movement.speed + movement.extraSpeed.x);
                 velocity.y = direction.y * (movement.speed + movement.extraSpeed.y);
 
-                velocity = new Vector2(
+                velocity = new Vector3(
                     velocity.x * gamePerspective.x, 
-                    velocity.y * gamePerspective.y);
+                    velocity.y * gamePerspective.y, 0);
                     
                 // e.collider.rigidbody.velocity = velocity;
 
