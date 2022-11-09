@@ -132,6 +132,8 @@ namespace Beatemup.Ecs
         public Visiblity visiblity;
 
         public bool IsVisible => visiblity == Visiblity.Visible;
+
+        public bool hasShadow;
     }
     
     public struct UnitMovementComponent : IEntityComponent

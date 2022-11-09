@@ -45,6 +45,16 @@ namespace Beatemup.Ecs
             
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             
+            foreach (var entity in world.GetFilter<UnitModelComponent>().End())
+            {
+                var modelComponent = modelComponents.Get(entity);
+
+                if (modelComponent.instance.shadow != null)
+                {
+                    modelComponent.instance.shadow.enabled = modelComponent.hasShadow;
+                }
+            }
+            
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<PositionComponent>().End())
             {
                 ref var modelComponent = ref modelComponents.Get(entity);

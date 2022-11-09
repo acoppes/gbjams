@@ -214,7 +214,6 @@ namespace Beatemup.Controllers
                             hitComponent.hits++;
                         }
                         
-                        Debug.Log("Hit Something");
                         states.EnterState("Combo");
                     }
                 }

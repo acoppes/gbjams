@@ -12,6 +12,7 @@ namespace Beatemup.Definitions
         public float movementSpeed;
 
         public GameObject modelPrefab;
+        public bool hasShadow = true;
 
         public AnimationsAsset animationsAsset;
 
@@ -34,7 +35,8 @@ namespace Beatemup.Definitions
             {
                 world.AddComponent(entity, new UnitModelComponent
                 {
-                    prefab = modelPrefab
+                    prefab = modelPrefab,
+                    hasShadow = hasShadow
                 });
             }
             
