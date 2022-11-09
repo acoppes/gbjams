@@ -47,6 +47,15 @@ namespace Beatemup.Controllers
             
             ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
             animationComponent.Play("Idle");
+            
+            ref var hitComponent = ref world.GetComponent<HitComponent>(entity);
+            hitComponent.OnHitEvent += OnHit;
+        }
+
+        private void OnHit(HitComponent hitComponent)
+        {
+            ref var states = ref world.GetComponent<StatesComponent>(entity);
+            states.EnterState("HitStun");
         }
 
         public override void OnUpdate(float dt)
@@ -69,7 +78,7 @@ namespace Beatemup.Controllers
                     animation.Play("HitStun");
                 }
 
-                if (animation.playingTime > hitStunTime)
+                if (state.time > hitStunTime)
                 {
                     states.ExitState("HitStun");
                 }

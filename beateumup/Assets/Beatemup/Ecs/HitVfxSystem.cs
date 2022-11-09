@@ -42,8 +42,6 @@ namespace Beatemup.Ecs
                     hitPosition.value.z += UnityEngine.Random.Range(0, hurtBox.size.y);
                     hitPosition.value.y = position.value.y - 0.01f;
                 }
-
-                hitComponent.hits = 0;
             }
         }
     }

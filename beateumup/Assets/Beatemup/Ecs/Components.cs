@@ -170,5 +170,11 @@ namespace Beatemup.Ecs
     public struct HitComponent : IEntityComponent
     {
         public int hits;
+        public event Action<HitComponent> OnHitEvent;
+
+        public void OnHit()
+        {
+            OnHitEvent?.Invoke(this);
+        }
     }
 }
