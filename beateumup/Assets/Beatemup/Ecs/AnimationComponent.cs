@@ -11,6 +11,7 @@ namespace Beatemup.Ecs
     {
         public Sprite sprite;
         public Sprite fxSprite;
+        
         public List<string> events = new ();
 
         public bool HasEvents => events.Count > 0;

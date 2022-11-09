@@ -32,7 +32,7 @@ namespace Beatemup.Ecs
                 ref var model = ref models.Get(entity);
                 if (model.instance != null)
                 {
-                    Destroy(model.instance);
+                    Destroy(model.instance.gameObject);
                 }
                 model.instance = null;
             }

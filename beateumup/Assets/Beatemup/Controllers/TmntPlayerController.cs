@@ -47,25 +47,7 @@ namespace Beatemup.Controllers
             
             ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
             animationComponent.Play("Idle");
-            
-            // animationComponent.onEvent += OnAnimationEvent;
         }
-
-        // private void OnAnimationEvent(AnimationComponent animationComponent, int animation, int frameNumber)
-        // {
-        //     ref var states = ref world.GetComponent<StatesComponent>(entity);
-        //     var frame = animationComponent.GetFrame(animation, frameNumber);
-        //
-        //     if (states.HasState("Attack"))
-        //     {
-        //         if (frame.events.Contains("hit"))
-        //         {
-        //             // check for enemies
-        //             
-        //             // if found, hit enemies and enable combo
-        //         }
-        //     }
-        // }
 
         public override void OnUpdate(float dt)
         {
@@ -221,11 +203,15 @@ namespace Beatemup.Controllers
                         foreach (var collider in colliders)
                         {
                             var entityReference = collider.GetComponent<ColliderEntityReference>();
-                            var targetStates = world.GetComponent<StatesComponent>(entityReference.entity);
-                            targetStates.EnterState("HitStun");
+                            
+                            // var targetStates = world.GetComponent<StatesComponent>(entityReference.entity);
+                            // // targetStates.EnterState("HitStun");
 
                             ref var targetPosition = ref world.GetComponent<PositionComponent>(entityReference.entity);
                             targetPosition.value = new Vector2(targetPosition.value.x, position.value.y + 0.1f);
+                            
+                            ref var hitComponent = ref world.GetComponent<HitComponent>(entityReference.entity);
+                            hitComponent.hits++;
                         }
                         
                         Debug.Log("Hit Something");

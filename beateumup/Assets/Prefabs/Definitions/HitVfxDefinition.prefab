@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 478210605849480852}
   - component: {fileID: -5211198163020410229}
   m_Layer: 0
-  m_Name: FootSoldierDefinition
+  m_Name: HitVfxDefinition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,10 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa08ba5941e4c2690b898d38e0ded1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 8
+  movementSpeed: 0
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
-  animationsAsset: {fileID: 11400000, guid: 013ac21cc4b0da14e8fd674abe32d94a, type: 2}
-  hurtBoxSize: {x: 2, y: 3, z: 1}
+  animationsAsset: {fileID: 11400000, guid: e70a9e42a1efbd941ace5b47c986ca0d, type: 2}
+  hurtBoxSize: {x: 0, y: 0, z: 0}
 --- !u!114 &-5211198163020410229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 723953293149301528}
-  - component: {fileID: 5305517232780654927}
+  - component: {fileID: 7630029669123961095}
   m_Layer: 6
   m_Name: Controller
   m_TagString: Untagged
@@ -108,7 +108,7 @@ Transform:
   m_Father: {fileID: 478210605849480811}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5305517232780654927
+--- !u!114 &7630029669123961095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,13 +117,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 723953293149301519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b14e949f75dd01c4e8ad700f2c9c1338, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f068f63eba74047b26a305925f237e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCancellationTime: 0.1
-  dashDuration: 0.1
-  dashExtraSpeed: 40
-  sprintExtraSpeed: 7
-  heavySwingStartTime: 0.5
-  heavySwingChargeTime: 0.25
-  hitStunTime: 0.25
