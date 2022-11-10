@@ -205,8 +205,10 @@ namespace Beatemup.Controllers
                     };
 
                     var colliders = new List<Collider2D>();
+
+                    var hitbox = world.GetComponent<HitBoxComponent>(entity);
                     
-                    if (Physics2D.OverlapBox(position.value, new Vector2(4, 1), 0, contactFilter,
+                    if (Physics2D.OverlapBox(hitbox.position, hitbox.size, 0, contactFilter,
                             colliders) > 0)
                     {
                         foreach (var collider in colliders)
@@ -216,8 +218,8 @@ namespace Beatemup.Controllers
                             // var targetStates = world.GetComponent<StatesComponent>(entityReference.entity);
                             // // targetStates.EnterState("HitStun");
 
-                            ref var targetPosition = ref world.GetComponent<PositionComponent>(entityReference.entity);
-                            targetPosition.value = new Vector2(targetPosition.value.x, position.value.y + 0.1f);
+                            // ref var targetPosition = ref world.GetComponent<PositionComponent>(entityReference.entity);
+                            // targetPosition.value = new Vector2(targetPosition.value.x, position.value.y + 0.1f);
                             
                             ref var hitComponent = ref world.GetComponent<HitComponent>(entityReference.entity);
                             hitComponent.hits++;
