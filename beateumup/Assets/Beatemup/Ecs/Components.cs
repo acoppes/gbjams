@@ -153,9 +153,12 @@ namespace Beatemup.Ecs
         public bool hit;
     }
 
+    [Serializable]
     public struct HitBox
     {
+        [NonSerialized]
         public Vector2 position;
+        public Vector2 offset;
         public float depth;
         public Vector2 size;
     }

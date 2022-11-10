@@ -16,7 +16,8 @@ namespace Beatemup.Definitions
 
         public AnimationsAsset animationsAsset;
 
-        public Vector3 hurtBoxSize;
+        public HitBox defaultHitBox;
+        public HitBox defaultHurtBox;
 
         public void Apply(World world, Entity entity)
         {
@@ -59,13 +60,10 @@ namespace Beatemup.Definitions
                     paused = false
                 });
                 world.AddComponent(entity, new CurrentAnimationFrameComponent());
-                world.AddComponent(entity, new HitBoxComponent()
+                world.AddComponent(entity, new HitBoxComponent
                 {
-                    hurt = new HitBox()
-                    {
-                        depth = hurtBoxSize.z,
-                        size = new Vector2(hurtBoxSize.x, hurtBoxSize.y)
-                    }
+                    hurt = defaultHurtBox,
+                    hit = defaultHitBox
                 });
             }
             

@@ -33,6 +33,7 @@ namespace Beatemup.Ecs
                 {
                     size = hitBox.hurt.size,
                     position = new Vector2(position.value.x, position.value.y),
+                    offset = hitBox.hurt.offset,
                     depth = hitBox.hurt.depth
                 };
 
@@ -57,7 +58,8 @@ namespace Beatemup.Ecs
                     hitBox.hit = new HitBox
                     {
                         size = frame.hitbox.size,
-                        position = new Vector2(position.value.x, position.value.y) + offset,
+                        position = new Vector2(position.value.x, position.value.y),
+                        offset = offset,
                         depth = frame.hitbox.depth
                     };
                 }

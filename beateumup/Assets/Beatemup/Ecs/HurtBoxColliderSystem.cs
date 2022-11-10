@@ -51,7 +51,7 @@ namespace Beatemup.Ecs
                 ref var hitBox = ref hitBoxes.Get(entity);
                 // var positionComponent = positionComponents.Get(entity);
                 
-                hitBox.instance.transform.position = hitBox.hurt.position;
+                hitBox.instance.transform.position = hitBox.hurt.position + hitBox.hurt.offset;
                 hitBox.instance.boxCollider2D.size = hitBox.hurt.size;
             }
         }

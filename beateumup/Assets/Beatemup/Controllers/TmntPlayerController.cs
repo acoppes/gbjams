@@ -208,7 +208,7 @@ namespace Beatemup.Controllers
 
                     var hitbox = world.GetComponent<HitBoxComponent>(entity);
                     
-                    if (Physics2D.OverlapBox(hitbox.hit.position, hitbox.hit.size, 0, contactFilter,
+                    if (Physics2D.OverlapBox(hitbox.hit.position + hitbox.hit.offset, hitbox.hit.size, 0, contactFilter,
                             colliders) > 0)
                     {
                         foreach (var collider in colliders)

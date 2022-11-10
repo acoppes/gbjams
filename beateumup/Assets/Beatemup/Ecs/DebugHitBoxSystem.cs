@@ -56,10 +56,10 @@ namespace Beatemup.Ecs
             {
                 var hitBox = hitBoxComponents.Get(entity);
                 
-                hitBox.debugHitBox.transform.position = hitBox.hit.position;
+                hitBox.debugHitBox.transform.position = hitBox.hit.position + hitBox.hit.offset;
                 hitBox.debugHitBox.transform.localScale = new Vector3(hitBox.hit.size.x, hitBox.hit.size.y, 1);
                 
-                hitBox.debugHurtBox.transform.position = hitBox.hurt.position;
+                hitBox.debugHurtBox.transform.position = hitBox.hurt.position + hitBox.hurt.offset;
                 hitBox.debugHurtBox.transform.localScale = new Vector3(hitBox.hurt.size.x, hitBox.hurt.size.y, 1);
             }
             
