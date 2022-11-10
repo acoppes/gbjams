@@ -9,7 +9,7 @@ namespace Beatemup.Ecs
     [Serializable]
     public struct HitBox
     {
-        public const float DefaultDepth = 0.25f;
+        public const float DefaultDepth = 0.5f;
         
         [NonSerialized]
         public Vector2 position;

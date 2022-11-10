@@ -58,15 +58,12 @@ namespace Beatemup.Controllers
 
         public override void OnUpdate(float dt)
         {
-            var position = world.GetComponent<PositionComponent>(entity);
             var control = world.GetComponent<ControlComponent>(entity);
             ref var movement = ref world.GetComponent<UnitMovementComponent>(entity);
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
-            
-            var hitBox = world.GetComponent<HitBoxComponent>(entity);
-            
+
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
             State state;
@@ -90,6 +87,17 @@ namespace Beatemup.Controllers
             {
                 if (animation.IsPlaying("HeavySwingAttack"))
                 {
+                    if (currentAnimationFrame.hit)
+                    {
+                        var hitTargets = HitBoxUtils.GetTargets(world, entity);
+
+                        foreach (var hitTarget in hitTargets)
+                        {
+                            ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
+                            hitComponent.hits++;
+                        }
+                    }
+                    
                     if (animation.state == AnimationComponent.State.Completed)
                     {
                         states.ExitState("HeavySwing");
@@ -98,6 +106,17 @@ namespace Beatemup.Controllers
                 
                 if (animation.IsPlaying("HeavySwingFirstStrike"))
                 {
+                    if (currentAnimationFrame.hit)
+                    {
+                        var hitTargets = HitBoxUtils.GetTargets(world, entity);
+
+                        foreach (var hitTarget in hitTargets)
+                        {
+                            ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
+                            hitComponent.hits++;
+                        }
+                    }
+                    
                     if (animation.state == AnimationComponent.State.Completed)
                     {
                         animation.Play("HeavySwingAttack", 1);
@@ -174,10 +193,20 @@ namespace Beatemup.Controllers
 
             if (states.HasState("Backkick"))
             {
+                if (currentAnimationFrame.hit)
+                {
+                    var hitTargets = HitBoxUtils.GetTargets(world, entity);
+
+                    foreach (var hitTarget in hitTargets)
+                    {
+                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
+                        hitComponent.hits++;
+                    }
+                }
+                
                 if (animation.state == AnimationComponent.State.Completed)
                 {
                     lookingDirection.value.x = -lookingDirection.value.x;
-                    
                     states.ExitState("Backkick");
                 }
 
@@ -186,11 +215,6 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("Attack", out state))
             {
-                if (hitBox.hit.size.sqrMagnitude > Mathf.Epsilon)
-                {
-                    
-                }
-                
                 if (currentAnimationFrame.hit)
                 {
                     var hitTargets = HitBoxUtils.GetTargets(world, entity);
