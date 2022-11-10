@@ -68,12 +68,7 @@ namespace Beatemup.Definitions
                     paused = false
                 });
                 world.AddComponent(entity, new CurrentAnimationFrameComponent());
-                world.AddComponent(entity, new HitBoxComponent()
-                {
-                    depth = 1,
-                    position = Vector2.zero,
-                    size = new Vector2(1, 1)
-                });
+                world.AddComponent(entity, new HitBoxComponent());
             }
             
             world.AddComponent(entity, new HitComponent());

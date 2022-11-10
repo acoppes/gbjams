@@ -31,9 +31,12 @@ namespace Beatemup.Ecs
 
                 if (frame.hitbox == null)
                 {
-                    hitBox.position = Vector2.zero;
-                    hitBox.size = Vector2.zero;
-                    hitBox.depth = 0;
+                    hitBox.hit = new HitBox
+                    {
+                        position = Vector2.zero,
+                        size = Vector2.zero,
+                        depth = 0
+                    };
                 }
                 else
                 {
@@ -44,9 +47,12 @@ namespace Beatemup.Ecs
                         offset.x *= -1;
                     }
                     
-                    hitBox.size = frame.hitbox.size;
-                    hitBox.position = new Vector2(position.value.x, position.value.y) + offset;
-                    hitBox.depth = frame.hitbox.depth;
+                    hitBox.hit = new HitBox
+                    {
+                        size = frame.hitbox.size,
+                        position = new Vector2(position.value.x, position.value.y) + offset,
+                        depth = frame.hitbox.depth
+                    };
                 }
             }
         }

@@ -155,18 +155,29 @@ namespace Beatemup.Ecs
 
     public struct HurtBoxComponent : IEntityComponent
     {
+        public Vector2 position;
         public float depth;
         public Vector2 size;
+        
         public ColliderEntityReference instance;
+        
+        public GameObject debug;
     }
-    
-    public struct HitBoxComponent : IEntityComponent
+
+    public struct HitBox
     {
         public Vector2 position;
         public float depth;
         public Vector2 size;
+    }
+    
+    public struct HitBoxComponent : IEntityComponent
+    {
+        public HitBox hit;
+        // public HitBox hurt;
 
-        public GameObject debug;
+        public GameObject debugHitBox;
+        // public GameObject debugHurtBox;
     }
 
     public struct HitComponent : IEntityComponent
