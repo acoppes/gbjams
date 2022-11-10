@@ -14,6 +14,13 @@ namespace Beatemup.Ecs
             var positions = world.GetComponents<PositionComponent>();
             var lookingDirections = world.GetComponents<LookingDirection>();
             
+            foreach (var entity in world.GetFilter<HitBoxComponent>().End())
+            {
+                ref var hitBox = ref hitBoxes.Get(entity);
+                hitBox.hurt = hitBox.defaultHurt;
+                hitBox.hit = hitBox.defaultHit;
+            }
+
             foreach (var entity in world.GetFilter<AnimationComponent>()
                          .Inc<HitBoxComponent>()
                          .Inc<PositionComponent>()
@@ -28,25 +35,10 @@ namespace Beatemup.Ecs
                 var asset = animationComponent.animationsAsset;
                 var animation = asset.animations[animationComponent.currentAnimation];
                 var frame = animation.frames[animationComponent.currentFrame];
-                
-                hitBox.hurt = new HitBox
-                {
-                    size = hitBox.hurt.size,
-                    position = new Vector2(position.value.x, position.value.y),
-                    offset = hitBox.hurt.offset,
-                    depth = hitBox.hurt.depth
-                };
 
-                if (frame.hitbox == null)
-                {
-                    hitBox.hit = new HitBox
-                    {
-                        position = Vector2.zero,
-                        size = Vector2.zero,
-                        depth = 0
-                    };
-                }
-                else
+                hitBox.hurt.position = new Vector2(position.value.x, position.value.y);
+
+                if (frame.hitbox != null)
                 {
                     var offset = frame.hitbox.offset;
                     
