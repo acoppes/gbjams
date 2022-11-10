@@ -70,16 +70,7 @@ namespace Beatemup.Ecs
                         continue;
                     }
 
-
-                    // targetStates.EnterState("HitStun");
-
-                    // ref var targetPosition = ref world.GetComponent<PositionComponent>(entityReference.entity);
-                    // targetPosition.value = new Vector2(targetPosition.value.x, position.value.y + 0.1f);
-                    
                     hitTargets.Add(entityReference.entity);
-
-                    // ref var hitComponent = ref world.GetComponent<HitComponent>(entityReference.entity);
-                    // hitComponent.hits++;
                 }
             }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Beatemup.Ecs;
 using Beatemup.Models;
+using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
@@ -53,7 +54,7 @@ namespace Beatemup.Controllers
             hitComponent.OnHitEvent += OnHit;
         }
 
-        private void OnHit(HitComponent hitComponent)
+        private void OnHit(World world, Entity entity, HitComponent hitComponent)
         {
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             states.EnterState("HitStun");
@@ -189,6 +190,11 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("Attack", out state))
             {
+                if (hitBox.hit.size.sqrMagnitude > Mathf.Epsilon)
+                {
+                    
+                }
+                
                 if (currentAnimationFrame.hit)
                 {
                     var hitTargets = HitBoxUtils.GetTargets(world, entity);

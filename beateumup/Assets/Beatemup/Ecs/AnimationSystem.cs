@@ -36,10 +36,10 @@ namespace Beatemup.Ecs
 
                     while (animationComponent.currentTime >= frameTime)
                     {
-                        if (definition.frames != null && definition.frames.Count > 0 && definition.frames[animationComponent.currentFrame].HasEvents)
-                        {
-                            animationComponent.OnEvent();
-                        }
+                        // if (definition.frames != null && definition.frames.Count > 0 && definition.frames[animationComponent.currentFrame].HasEvents)
+                        // {
+                        //     animationComponent.OnEvent();
+                        // }
                         
                         animationComponent.currentTime -= frameTime;
                         animationComponent.currentFrame++;

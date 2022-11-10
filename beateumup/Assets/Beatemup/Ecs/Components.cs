@@ -156,11 +156,11 @@ namespace Beatemup.Ecs
     public struct HitComponent : IEntityComponent
     {
         public int hits;
-        public event Action<HitComponent> OnHitEvent;
+        public event Action<World, Entity, HitComponent> OnHitEvent;
 
-        public void OnHit()
+        public void OnHit(World world, Entity entity)
         {
-            OnHitEvent?.Invoke(this);
+            OnHitEvent?.Invoke(world, entity, this);
         }
     }
 }

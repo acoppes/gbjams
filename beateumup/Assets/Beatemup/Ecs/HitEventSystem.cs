@@ -18,7 +18,7 @@ namespace Beatemup.Ecs
                     continue;
                 }
 
-                hitComponent.OnHit();
+                hitComponent.OnHit(world, entity);
 
                 hitComponent.hits = 0;
             }

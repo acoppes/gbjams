@@ -13,9 +13,9 @@ namespace Beatemup.Ecs
         public Sprite fxSprite;
 
         public HitboxAsset hitbox;
-        public List<string> events = new ();
-
-        public bool HasEvents => events.Count > 0;
+        
+        // public List<string> events = new ();
+        // public bool HasEvents => events.Count > 0;
     }
     
     [Serializable]
