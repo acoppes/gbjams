@@ -156,10 +156,11 @@ namespace Beatemup.Ecs
     [Serializable]
     public struct HitBox
     {
+        public const float DefaultDepth = 0.5f;
+        
         [NonSerialized]
         public Vector2 position;
         public Vector2 offset;
-        public float depth;
         public Vector2 size;
     }
     
@@ -171,11 +172,14 @@ namespace Beatemup.Ecs
         public HitBox hit;
         public HitBox hurt;
         
+        public float depth;
+        
         // hurt box collider2d
         public ColliderEntityReference instance;
 
         public GameObject debugHitBox;
         public GameObject debugHurtBox;
+        public GameObject debugDepthBox;
     }
 
     public struct HitComponent : IEntityComponent

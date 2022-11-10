@@ -62,6 +62,7 @@ namespace Beatemup.Definitions
                 world.AddComponent(entity, new CurrentAnimationFrameComponent());
                 world.AddComponent(entity, new HitBoxComponent
                 {
+                    depth = HitBox.DefaultDepth,
                     defaultHurt = defaultHurtBox,
                     defaultHit = defaultHitBox
                 });

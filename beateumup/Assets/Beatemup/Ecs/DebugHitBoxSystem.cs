@@ -1,6 +1,4 @@
-﻿using System;
-using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Gameplay;
+﻿using Gemserk.Leopotam.Ecs;
 using Leopotam.EcsLite;
 using UnityEngine;
 
@@ -10,7 +8,8 @@ namespace Beatemup.Ecs
     {
         public GameObject debugHitBoxPrefab;
         public GameObject debugHurtBoxPrefab;
-        
+        public GameObject debugDepthBoxPrefab;
+
         public void OnEntityCreated(World world, Entity entity)
         {
             if (world.HasComponent<HitBoxComponent>(entity))
@@ -24,6 +23,10 @@ namespace Beatemup.Ecs
                 hitBox.debugHurtBox = GameObject.Instantiate(debugHurtBoxPrefab);
                 hitBox.debugHurtBox.SetActive(true);
                 hitBox.debugHurtBox.transform.localScale = new Vector3(0, 0, 1);
+                
+                hitBox.debugDepthBox = GameObject.Instantiate(debugDepthBoxPrefab);
+                hitBox.debugDepthBox.SetActive(true);
+                hitBox.debugDepthBox.transform.localScale = new Vector3(0, 0, 1);
             }
         }
         
@@ -43,8 +46,14 @@ namespace Beatemup.Ecs
                     GameObject.DestroyImmediate(hitBox.debugHurtBox);
                 }
                 
+                if (hitBox.debugDepthBox != null)
+                {
+                    GameObject.DestroyImmediate(hitBox.debugDepthBox);
+                }
+                
                 hitBox.debugHitBox = null;
                 hitBox.debugHurtBox = null;
+                hitBox.debugDepthBox = null;
             }
         }
         
@@ -61,6 +70,9 @@ namespace Beatemup.Ecs
                 
                 hitBox.debugHurtBox.transform.position = hitBox.hurt.position + hitBox.hurt.offset;
                 hitBox.debugHurtBox.transform.localScale = new Vector3(hitBox.hurt.size.x, hitBox.hurt.size.y, 1);
+                
+                hitBox.debugDepthBox.transform.position = hitBox.hurt.position;
+                hitBox.debugDepthBox.transform.localScale = new Vector3(hitBox.hurt.size.x, hitBox.depth, 1);
             }
             
         }
