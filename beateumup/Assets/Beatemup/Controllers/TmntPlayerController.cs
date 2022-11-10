@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Beatemup.Ecs;
-using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UIElements;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Controllers
