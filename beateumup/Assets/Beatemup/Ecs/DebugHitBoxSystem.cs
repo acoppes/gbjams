@@ -1,4 +1,5 @@
 ﻿using Gemserk.Leopotam.Ecs;
+using Gemserk.Leopotam.Ecs.Gameplay;
 using Leopotam.EcsLite;
 using UnityEngine;
 
@@ -60,6 +61,7 @@ namespace Beatemup.Ecs
         public void Run(EcsSystems systems)
         {
             var hitBoxComponents = world.GetComponents<HitBoxComponent>();
+            var positionComponents = world.GetComponents<PositionComponent>();
             
             foreach (var entity in world.GetFilter<HitBoxComponent>().End())
             {
@@ -70,9 +72,15 @@ namespace Beatemup.Ecs
                 
                 hitBox.debugHurtBox.transform.position = hitBox.hurt.position + hitBox.hurt.offset;
                 hitBox.debugHurtBox.transform.localScale = new Vector3(hitBox.hurt.size.x, hitBox.hurt.size.y, 1);
+            }
+            
+            foreach (var entity in world.GetFilter<HitBoxComponent>().Inc<PositionComponent>().End())
+            {
+                var hitBox = hitBoxComponents.Get(entity);
+                var position = positionComponents.Get(entity);
                 
-                hitBox.debugDepthBox.transform.position = hitBox.hurt.position;
-                hitBox.debugDepthBox.transform.localScale = new Vector3(hitBox.hurt.size.x, hitBox.depth, 1);
+                hitBox.debugDepthBox.transform.position = new Vector3(position.value.x, position.value.y, 0);
+                hitBox.debugDepthBox.transform.localScale = new Vector3(hitBox.hurt.size.x, hitBox.depth * 2.0f, 1);
             }
             
         }

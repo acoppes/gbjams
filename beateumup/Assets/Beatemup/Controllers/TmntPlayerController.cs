@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Beatemup.Ecs;
 using Beatemup.Models;
@@ -66,6 +67,8 @@ namespace Beatemup.Controllers
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
+            
+            var hitBox = world.GetComponent<HitBoxComponent>(entity);
             
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
@@ -186,44 +189,14 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("Attack", out state))
             {
-                // var state = states.GetState("Attack");
-                
-                // if (animation.)
-
                 if (currentAnimationFrame.hit)
                 {
-                    // Debug.Log($"HIT EVENT: {animation.currentFrame}");
-                    
-                    // detect enemies in hitbox
-                    // if enemies, then hit enemy and enter combo
+                    var hitTargets = HitBoxUtils.GetTargets(world, entity);
 
-                    var contactFilter = new ContactFilter2D()
+                    foreach (var hitTarget in hitTargets)
                     {
-                        useTriggers = true,
-                        useLayerMask = true,
-                        layerMask = LayerMask.GetMask("HurtBox")
-                    };
-
-                    var colliders = new List<Collider2D>();
-
-                    var hitbox = world.GetComponent<HitBoxComponent>(entity);
-                    
-                    if (Physics2D.OverlapBox(hitbox.hit.position + hitbox.hit.offset, hitbox.hit.size, 0, contactFilter,
-                            colliders) > 0)
-                    {
-                        foreach (var collider in colliders)
-                        {
-                            var entityReference = collider.GetComponent<ColliderEntityReference>();
-                            
-                            // var targetStates = world.GetComponent<StatesComponent>(entityReference.entity);
-                            // // targetStates.EnterState("HitStun");
-
-                            // ref var targetPosition = ref world.GetComponent<PositionComponent>(entityReference.entity);
-                            // targetPosition.value = new Vector2(targetPosition.value.x, position.value.y + 0.1f);
-                            
-                            ref var hitComponent = ref world.GetComponent<HitComponent>(entityReference.entity);
-                            hitComponent.hits++;
-                        }
+                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
+                        hitComponent.hits++;
                         
                         states.EnterState("Combo");
                     }
