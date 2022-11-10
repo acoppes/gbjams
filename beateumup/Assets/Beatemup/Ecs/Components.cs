@@ -165,6 +165,8 @@ namespace Beatemup.Ecs
         public Vector2 position;
         public float depth;
         public Vector2 size;
+
+        public GameObject debug;
     }
 
     public struct HitComponent : IEntityComponent
