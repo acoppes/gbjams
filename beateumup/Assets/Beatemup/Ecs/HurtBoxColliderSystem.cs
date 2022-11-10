@@ -1,6 +1,5 @@
 ﻿using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Gameplay;
 using Leopotam.EcsLite;
 using UnityEngine;
 
@@ -10,50 +9,50 @@ namespace Beatemup.Ecs
     {
         public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
-            var hurtBoxes = world.GetComponents<HurtBoxComponent>();
-            if (hurtBoxes.Has(entity))
+            var hitBoxes = world.GetComponents<HitBoxComponent>();
+            if (hitBoxes.Has(entity))
             {
-                ref var hurtBoxComponent = ref hurtBoxes.Get(entity);
+                ref var hitBox = ref hitBoxes.Get(entity);
 
                 var instance = new GameObject("HurtBox");
                 instance.layer = LayerMask.NameToLayer("HurtBox");
 
-                hurtBoxComponent.instance = instance.AddComponent<ColliderEntityReference>();
+                hitBox.instance = instance.AddComponent<ColliderEntityReference>();
                 
-                hurtBoxComponent.instance.boxCollider2D = instance.AddComponent<BoxCollider2D>();
-                hurtBoxComponent.instance.boxCollider2D.size = hurtBoxComponent.size;
-                hurtBoxComponent.instance.boxCollider2D.isTrigger = true;
+                hitBox.instance.boxCollider2D = instance.AddComponent<BoxCollider2D>();
+                hitBox.instance.boxCollider2D.size = hitBox.hurt.size;
+                hitBox.instance.boxCollider2D.isTrigger = true;
 
-                hurtBoxComponent.instance.entity = entity;
+                hitBox.instance.entity = entity;
             }
         }
 
         public void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
-            var hurtBoxes = world.GetComponents<HurtBoxComponent>();
-            if (hurtBoxes.Has(entity))
+            var hitBoxes = world.GetComponents<HitBoxComponent>();
+            if (hitBoxes.Has(entity))
             {
-                ref var hurtBoxComponent = ref hurtBoxes.Get(entity);
-                if (hurtBoxComponent.instance != null)
+                ref var hitBox = ref hitBoxes.Get(entity);
+                if (hitBox.instance != null)
                 {
-                    GameObject.DestroyImmediate(hurtBoxComponent.instance.gameObject);
+                    GameObject.DestroyImmediate(hitBox.instance.gameObject);
                 }
-                hurtBoxComponent.instance = null;
+                hitBox.instance = null;
             }
         }
 
         public void Run(EcsSystems systems)
         {
-            var hurtBoxes = world.GetComponents<HurtBoxComponent>();
-            var positionComponents = world.GetComponents<PositionComponent>();
+            var hitBoxes = world.GetComponents<HitBoxComponent>();
+            // var positionComponents = world.GetComponents<PositionComponent>();
             
-            foreach (var entity in world.GetFilter<HurtBoxComponent>().Inc<PositionComponent>().End())
+            foreach (var entity in world.GetFilter<HitBoxComponent>().End())
             {
-                ref var hurtBoxComponent = ref hurtBoxes.Get(entity);
-                var positionComponent = positionComponents.Get(entity);
+                ref var hitBox = ref hitBoxes.Get(entity);
+                // var positionComponent = positionComponents.Get(entity);
                 
-                hurtBoxComponent.instance.transform.position = positionComponent.value;
-                hurtBoxComponent.instance.boxCollider2D.size = hurtBoxComponent.size;
+                hitBox.instance.transform.position = hitBox.hurt.position;
+                hitBox.instance.boxCollider2D.size = hitBox.hurt.size;
             }
         }
     }

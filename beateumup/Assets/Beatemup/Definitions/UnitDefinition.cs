@@ -39,16 +39,7 @@ namespace Beatemup.Definitions
                     hasShadow = hasShadow
                 });
             }
-            
-            if (hurtBoxSize.sqrMagnitude > 0)
-            {
-                world.AddComponent(entity, new HurtBoxComponent
-                {
-                    depth = hurtBoxSize.z,
-                    size = new Vector2(hurtBoxSize.x, hurtBoxSize.y)
-                });
-            }
-            
+
             world.AddComponent(entity, new UnitMovementComponent()
             {
                 speed = movementSpeed
@@ -68,7 +59,14 @@ namespace Beatemup.Definitions
                     paused = false
                 });
                 world.AddComponent(entity, new CurrentAnimationFrameComponent());
-                world.AddComponent(entity, new HitBoxComponent());
+                world.AddComponent(entity, new HitBoxComponent()
+                {
+                    hurt = new HitBox()
+                    {
+                        depth = hurtBoxSize.z,
+                        size = new Vector2(hurtBoxSize.x, hurtBoxSize.y)
+                    }
+                });
             }
             
             world.AddComponent(entity, new HitComponent());

@@ -19,18 +19,11 @@ namespace Beatemup.Ecs
                 
                 hitBox.debugHitBox = GameObject.Instantiate(debugHitBoxPrefab);
                 hitBox.debugHitBox.SetActive(true);
-
                 hitBox.debugHitBox.transform.localScale = new Vector3(0, 0, 1);
-            }
-            
-            if (world.HasComponent<HurtBoxComponent>(entity))
-            {
-                ref var hurtBox = ref world.GetComponent<HurtBoxComponent>(entity);
                 
-                hurtBox.debug = GameObject.Instantiate(debugHurtBoxPrefab);
-                hurtBox.debug.SetActive(true);
-
-                hurtBox.debug.transform.localScale = new Vector3(0, 0, 1);
+                hitBox.debugHurtBox = GameObject.Instantiate(debugHurtBoxPrefab);
+                hitBox.debugHurtBox.SetActive(true);
+                hitBox.debugHurtBox.transform.localScale = new Vector3(0, 0, 1);
             }
         }
         
@@ -44,20 +37,14 @@ namespace Beatemup.Ecs
                 {
                     GameObject.DestroyImmediate(hitBox.debugHitBox);
                 }
+
+                if (hitBox.debugHurtBox != null)
+                {
+                    GameObject.DestroyImmediate(hitBox.debugHurtBox);
+                }
                 
                 hitBox.debugHitBox = null;
-            }
-            
-            if (world.HasComponent<HurtBoxComponent>(entity))
-            {
-                ref var hurtBox = ref world.GetComponent<HurtBoxComponent>(entity);
-
-                if (hurtBox.debug != null)
-                {
-                    GameObject.DestroyImmediate(hurtBox.debug);
-                }
-
-                hurtBox.debug = null;
+                hitBox.debugHurtBox = null;
             }
         }
         
@@ -69,23 +56,13 @@ namespace Beatemup.Ecs
             {
                 var hitBox = hitBoxComponents.Get(entity);
                 
-                var debugObject = hitBox.debugHitBox;
+                hitBox.debugHitBox.transform.position = hitBox.hit.position;
+                hitBox.debugHitBox.transform.localScale = new Vector3(hitBox.hit.size.x, hitBox.hit.size.y, 1);
                 
-                debugObject.transform.position = hitBox.hit.position;
-                debugObject.transform.localScale = new Vector3(hitBox.hit.size.x, hitBox.hit.size.y, 1);
+                hitBox.debugHurtBox.transform.position = hitBox.hurt.position;
+                hitBox.debugHurtBox.transform.localScale = new Vector3(hitBox.hurt.size.x, hitBox.hurt.size.y, 1);
             }
             
-            var hurtBoxComponents = world.GetComponents<HurtBoxComponent>();
-            
-            foreach (var entity in world.GetFilter<HurtBoxComponent>().End())
-            {
-                var hurtBox = hurtBoxComponents.Get(entity);
-                
-                var debugObject = hurtBox.debug;
-                
-                debugObject.transform.position = hurtBox.position;
-                debugObject.transform.localScale = new Vector3(hurtBox.size.x, hurtBox.size.y, 1);
-            }
         }
     }
 }

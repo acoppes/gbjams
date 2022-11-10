@@ -28,6 +28,13 @@ namespace Beatemup.Ecs
                 var asset = animationComponent.animationsAsset;
                 var animation = asset.animations[animationComponent.currentAnimation];
                 var frame = animation.frames[animationComponent.currentFrame];
+                
+                hitBox.hurt = new HitBox
+                {
+                    size = hitBox.hurt.size,
+                    position = new Vector2(position.value.x, position.value.y),
+                    depth = hitBox.hurt.depth
+                };
 
                 if (frame.hitbox == null)
                 {
