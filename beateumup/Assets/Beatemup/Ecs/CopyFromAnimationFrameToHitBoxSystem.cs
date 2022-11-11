@@ -39,9 +39,11 @@ namespace Beatemup.Ecs
                 hitBox.hurt.position = new Vector2(position.value.x, position.value.y);
                 hitBox.hurt.offset += new Vector2(0, position.value.z);
 
-                if (frame.hitbox != null)
+                if (frame.hitBoxes.Count > 0)
                 {
-                    var offset = frame.hitbox.offset;
+                    var hitbox = frame.hitBoxes[0];
+                    
+                    var offset = hitbox.offset;
                     
                     if (lookingDirection.value.x < 0)
                     {
@@ -50,7 +52,7 @@ namespace Beatemup.Ecs
                     
                     hitBox.hit = new HitBox
                     {
-                        size = frame.hitbox.size,
+                        size = hitbox.size,
                         position = new Vector2(position.value.x, position.value.y),
                         offset = offset + new Vector2(0, position.value.z)
                     };

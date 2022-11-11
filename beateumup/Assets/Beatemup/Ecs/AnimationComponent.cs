@@ -12,8 +12,6 @@ namespace Beatemup.Ecs
         public Sprite sprite;
         public Sprite fxSprite;
 
-        public HitboxAsset hitbox;
-
         public List<HitboxAsset> hitBoxes = new();
         public List<HitboxAsset> hurtBoxes = new();
         
