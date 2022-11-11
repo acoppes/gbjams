@@ -365,6 +365,11 @@ namespace Beatemup.Controllers
                     return;
                 }
                 
+                if (!animation.IsPlaying("Sprint"))
+                {
+                    animation.Play("Sprint");
+                }
+                
                 movement.movingDirection = control.direction;
 
                 return;
