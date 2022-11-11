@@ -16,6 +16,7 @@ namespace Beatemup.Definitions
         public bool hasShadow = true;
 
         public AnimationsAsset animationsAsset;
+        public AnimationHitboxMetadata animationMetadata;
 
         public HitBox defaultHurtBox;
 
