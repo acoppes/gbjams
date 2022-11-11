@@ -20,7 +20,6 @@ namespace Beatemup.Ecs
     
     public struct HitBoxComponent : IEntityComponent
     {
-        public HitBox defaultHit;
         public HitBox defaultHurt;
         
         public HitBox hit;

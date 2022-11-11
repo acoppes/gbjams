@@ -18,7 +18,6 @@ namespace Beatemup.Ecs
             {
                 ref var hitBox = ref hitBoxes.Get(entity);
                 hitBox.hurt = hitBox.defaultHurt;
-                hitBox.hit = hitBox.defaultHit;
             }
 
             foreach (var entity in world.GetFilter<AnimationComponent>()

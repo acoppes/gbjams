@@ -16,7 +16,6 @@ namespace Beatemup.Definitions
 
         public AnimationsAsset animationsAsset;
 
-        public HitBox defaultHitBox;
         public HitBox defaultHurtBox;
 
         public bool isVfx;
@@ -66,8 +65,7 @@ namespace Beatemup.Definitions
                 world.AddComponent(entity, new HitBoxComponent
                 {
                     depth = HitBox.DefaultDepth,
-                    defaultHurt = defaultHurtBox,
-                    defaultHit = defaultHitBox
+                    defaultHurt = defaultHurtBox
                 });
             }
             
