@@ -7,6 +7,8 @@ namespace Beatemup.Ecs
 {
     public class DebugHitBoxSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
+        public bool debugHitBoxesEnabled;
+        
         public GameObject debugHitBoxPrefab;
         public GameObject debugHurtBoxPrefab;
         public GameObject debugDepthBoxPrefab;
@@ -62,6 +64,14 @@ namespace Beatemup.Ecs
         {
             var hitBoxComponents = world.GetComponents<HitBoxComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
+            
+            foreach (var entity in world.GetFilter<HitBoxComponent>().End())
+            {
+                var hitBox = hitBoxComponents.Get(entity);
+                hitBox.debugHitBox.gameObject.SetActive(debugHitBoxesEnabled);
+                hitBox.debugHurtBox.gameObject.SetActive(debugHitBoxesEnabled);
+                hitBox.debugDepthBox.gameObject.SetActive(debugHitBoxesEnabled);
+            }
             
             foreach (var entity in world.GetFilter<HitBoxComponent>().End())
             {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Beatemup.Ecs;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ namespace Beatemup.Development
     {
         public InputAction slowerTimeScale;
         public InputAction fasterTimeScale;
+        
+        public InputAction toggleHitBoxes;
 
         public Text debugTimeScale;
 
@@ -24,11 +27,21 @@ namespace Beatemup.Development
         {
             slowerTimeScale.Enable();
             fasterTimeScale.Enable();
+            toggleHitBoxes.Enable();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (toggleHitBoxes.WasReleasedThisFrame())
+            {
+                var debugHitBoxSystem = FindObjectOfType<DebugHitBoxSystem>();
+                if (debugHitBoxSystem != null)
+                {
+                    debugHitBoxSystem.debugHitBoxesEnabled = !debugHitBoxSystem.debugHitBoxesEnabled;
+                }
+            }
+            
             var previousTimeScale = Time.timeScale;
             
             if (slowerTimeScale.WasReleasedThisFrame())
