@@ -33,6 +33,8 @@ namespace Beatemup.Controllers
 
         public float hitStunTime = 0.25f;
 
+        public float hitAnimationPauseTime = 1.0f;
+
         private float pressedAttackTime = 0;
 
         private int comboAttacks => ComboAnimations.Length;
@@ -95,6 +97,8 @@ namespace Beatemup.Controllers
                         {
                             ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
                             hitComponent.hits++;
+                            
+                            animation.pauseTime = hitAnimationPauseTime;
                         }
                     }
                     
@@ -114,6 +118,8 @@ namespace Beatemup.Controllers
                         {
                             ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
                             hitComponent.hits++;
+                            
+                            animation.pauseTime = hitAnimationPauseTime;
                         }
                     }
                     
@@ -201,6 +207,8 @@ namespace Beatemup.Controllers
                     {
                         ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
                         hitComponent.hits++;
+                        
+                        animation.pauseTime = hitAnimationPauseTime;
                     }
                 }
                 
@@ -225,6 +233,8 @@ namespace Beatemup.Controllers
                         hitComponent.hits++;
                         
                         states.EnterState("Combo");
+
+                        animation.pauseTime = hitAnimationPauseTime;
                     }
                 }
 

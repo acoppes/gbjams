@@ -36,8 +36,8 @@ namespace Beatemup.Ecs
 
     public struct AnimationComponent : IEntityComponent
     {
-        public delegate void OnAnimatorEventHandler(AnimationComponent animationComponent, int animation);
-        public delegate void OnAnimationEventHandler(AnimationComponent animationComponent, int animation, int frame);
+        // public delegate void OnAnimatorEventHandler(AnimationComponent animationComponent, int animation);
+        // public delegate void OnAnimationEventHandler(AnimationComponent animationComponent, int animation, int frame);
         
         public const float DefaultFrameRate = 15.0f;
         
@@ -59,13 +59,15 @@ namespace Beatemup.Ecs
         public bool paused;
 
         public float playingTime;
+
+        public float pauseTime;
         
-        public event OnAnimatorEventHandler onStart;
-        public event OnAnimatorEventHandler onComplete;
-        public event OnAnimatorEventHandler onCompletedLoop;
-        public event OnAnimationEventHandler onEvent;
+        // public event OnAnimatorEventHandler onStart;
+        // public event OnAnimatorEventHandler onComplete;
+        // public event OnAnimatorEventHandler onCompletedLoop;
+        // public event OnAnimationEventHandler onEvent;
         
-        public bool onStartEventPending;
+        // public bool onStartEventPending;
         
         public void Play(int animation, int startFrame, int loops = -1)
         {
@@ -76,7 +78,7 @@ namespace Beatemup.Ecs
             this.loops = loops;
             state = State.Playing;
             
-            onStartEventPending = true;
+            // onStartEventPending = true;
         }
         
         public void Play(int animation, int loops = -1)
@@ -104,23 +106,23 @@ namespace Beatemup.Ecs
             return animationsAsset.animations[animation].frames[frame];
         }
         
-        public void OnStart()
-        {
-            onStart?.Invoke(this, currentAnimation);
-        }
-        public void OnComplete()
-        {
-            onComplete?.Invoke(this, currentAnimation);
-        }
-
-        public void OnCompletedLoop()
-        {
-            onCompletedLoop?.Invoke(this, currentAnimation);
-        }
-
-        public void OnEvent()
-        {
-            onEvent?.Invoke(this, currentAnimation, currentFrame);
-        }
+        // public void OnStart()
+        // {
+        //     onStart?.Invoke(this, currentAnimation);
+        // }
+        // public void OnComplete()
+        // {
+        //     onComplete?.Invoke(this, currentAnimation);
+        // }
+        //
+        // public void OnCompletedLoop()
+        // {
+        //     onCompletedLoop?.Invoke(this, currentAnimation);
+        // }
+        //
+        // public void OnEvent()
+        // {
+        //     onEvent?.Invoke(this, currentAnimation, currentFrame);
+        // }
     }
 }

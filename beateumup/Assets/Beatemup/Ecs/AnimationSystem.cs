@@ -19,13 +19,19 @@ namespace Beatemup.Ecs
                     continue;
                 }
 
+                if (animationComponent.pauseTime > 0)
+                {
+                    animationComponent.pauseTime -= Time.deltaTime;
+                    continue;
+                }
+
                 if (animationComponent.state == AnimationComponent.State.Playing)
                 {
-                    if (animationComponent.onStartEventPending)
-                    {
-                        animationComponent.OnStart();
-                        animationComponent.onStartEventPending = false;
-                    }
+                    // if (animationComponent.onStartEventPending)
+                    // {
+                    //     animationComponent.OnStart();
+                    //     animationComponent.onStartEventPending = false;
+                    // }
                     
                     var definition = animationComponent.animationsAsset.animations[animationComponent.currentAnimation];
 
@@ -51,16 +57,16 @@ namespace Beatemup.Ecs
                                 animationComponent.loops -= 1;
                             }
 
-                            if (animationComponent.loops == -1)
-                            {
-                                animationComponent.OnCompletedLoop();
-                            }
+                            // if (animationComponent.loops == -1)
+                            // {
+                            //     animationComponent.OnCompletedLoop();
+                            // }
                             
                             if (animationComponent.loops == 0)
                             {
                                 animationComponent.state = AnimationComponent.State.Completed;
                                 animationComponent.currentFrame = definition.TotalFrames - 1;
-                                animationComponent.OnComplete();
+                                // animationComponent.OnComplete();
                                 break;
                             }
                             
