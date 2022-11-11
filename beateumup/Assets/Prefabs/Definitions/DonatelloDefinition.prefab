@@ -61,8 +61,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 8
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
+  hasShadow: 1
   animationsAsset: {fileID: 11400000, guid: 73e39bd4688e12d4884d42ca0980ae9f, type: 2}
-  hurtBoxSize: {x: 2, y: 1}
+  defaultHitBox:
+    offset: {x: 0, y: 0}
+    size: {x: 0, y: 0}
+  defaultHurtBox:
+    offset: {x: 0, y: 2}
+    size: {x: 2, y: 4}
 --- !u!114 &-5211198163020410229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,3 +132,4 @@ MonoBehaviour:
   sprintExtraSpeed: 7
   heavySwingStartTime: 0.5
   heavySwingChargeTime: 0.25
+  hitStunTime: 0.25

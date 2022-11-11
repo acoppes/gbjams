@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
+using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
 
 namespace Beatemup.Ecs
@@ -50,6 +51,7 @@ namespace Beatemup.Ecs
         public static List<Entity> GetTargets(World world, Entity source)
         {
             var hitBox = world.GetComponent<HitBoxComponent>(source);
+            var player = world.GetComponent<PlayerComponent>(source);
 
             var hitTargets = new List<Entity>();
 
@@ -61,9 +63,16 @@ namespace Beatemup.Ecs
                 foreach (var collider in colliders)
                 {
                     var entityReference = collider.GetComponent<ColliderEntityReference>();
+                    
+                    var targetPlayer = world.GetComponent<PlayerComponent>(entityReference.entity);
 
+                    if (player.player == targetPlayer.player)
+                    {
+                        continue;
+                    }
+                    
                     var targetHitBox = world.GetComponent<HitBoxComponent>(entityReference.entity);
-
+                    
                     if (Mathf.Abs(hitBox.hit.position.y - targetHitBox.hurt.position.y) >
                         (hitBox.depth + targetHitBox.depth))
                     {
