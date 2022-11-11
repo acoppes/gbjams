@@ -37,6 +37,7 @@ namespace Beatemup.Ecs
                 var frame = animation.frames[animationComponent.currentFrame];
 
                 hitBox.hurt.position = new Vector2(position.value.x, position.value.y);
+                hitBox.hurt.offset += new Vector2(0, position.value.z);
 
                 if (frame.hitbox != null)
                 {
@@ -51,7 +52,7 @@ namespace Beatemup.Ecs
                     {
                         size = frame.hitbox.size,
                         position = new Vector2(position.value.x, position.value.y),
-                        offset = offset
+                        offset = offset + new Vector2(0, position.value.z)
                     };
                 }
             }
