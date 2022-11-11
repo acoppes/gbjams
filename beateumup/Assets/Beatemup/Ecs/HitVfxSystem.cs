@@ -7,6 +7,8 @@ namespace Beatemup.Ecs
 {
     public class HitVfxSystem : BaseSystem, IEcsRunSystem
     {
+        public float maxRandomDelay = 0.25f;
+        
         public GameObject hitDefinition;
         
         public void Run(EcsSystems systems)
@@ -41,6 +43,9 @@ namespace Beatemup.Ecs
                     hitPosition.value.x += UnityEngine.Random.Range(-hitBox.hurt.size.x, hitBox.hurt.size.x) * 0.5f;
                     hitPosition.value.z += UnityEngine.Random.Range(0, hitBox.hurt.size.y);
                     hitPosition.value.y = position.value.y - 0.01f;
+                    
+                    ref var hitVfxComponent = ref world.GetComponent<VfxComponent>(hitEntity);
+                    hitVfxComponent.delay = UnityEngine.Random.Range(0.0f, maxRandomDelay);
                 }
             }
         }

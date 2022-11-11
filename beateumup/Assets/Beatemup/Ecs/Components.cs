@@ -163,4 +163,9 @@ namespace Beatemup.Ecs
             OnHitEvent?.Invoke(world, entity, this);
         }
     }
+
+    public struct VfxComponent : IEntityComponent
+    {
+        public float delay;
+    }
 }

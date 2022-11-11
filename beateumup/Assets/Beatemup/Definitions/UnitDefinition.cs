@@ -19,6 +19,8 @@ namespace Beatemup.Definitions
         public HitBox defaultHitBox;
         public HitBox defaultHurtBox;
 
+        public bool isVfx;
+
         public void Apply(World world, Entity entity)
         {
             world.AddComponent(entity, new PlayerComponent());
@@ -69,6 +71,11 @@ namespace Beatemup.Definitions
             }
             
             world.AddComponent(entity, new HitComponent());
+
+            if (isVfx)
+            {
+                world.AddComponent(entity, new VfxComponent());
+            }
         }
     }
 }
