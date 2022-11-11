@@ -55,7 +55,17 @@ namespace Beatemup.Controllers
         private void OnHit(World world, Entity entity, HitComponent hitComponent)
         {
             ref var states = ref world.GetComponent<StatesComponent>(entity);
+            var position = world.GetComponent<PositionComponent>(entity);
+            ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
+
             states.EnterState("HitStun");
+
+            if (hitComponent.hits.Count > 0)
+            {
+                var hitPosition = hitComponent.hits[0].position;
+
+                lookingDirection.value = hitPosition - position.value;
+            }
         }
 
         public override void OnUpdate(float dt)
@@ -65,6 +75,8 @@ namespace Beatemup.Controllers
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
+            
+            var position = world.GetComponent<PositionComponent>(entity);
 
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
@@ -96,7 +108,10 @@ namespace Beatemup.Controllers
                         foreach (var hitTarget in hitTargets)
                         {
                             ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
-                            hitComponent.hits++;
+                            hitComponent.hits.Add(new HitData
+                            {
+                                position = position.value
+                            });
                             
                             animation.pauseTime = hitAnimationPauseTime;
                         }
@@ -117,7 +132,10 @@ namespace Beatemup.Controllers
                         foreach (var hitTarget in hitTargets)
                         {
                             ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
-                            hitComponent.hits++;
+                            hitComponent.hits.Add(new HitData
+                            {
+                                position = position.value
+                            });
                             
                             animation.pauseTime = hitAnimationPauseTime;
                         }
@@ -206,7 +224,10 @@ namespace Beatemup.Controllers
                     foreach (var hitTarget in hitTargets)
                     {
                         ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
-                        hitComponent.hits++;
+                        hitComponent.hits.Add(new HitData
+                        {
+                            position = position.value
+                        });
                         
                         animation.pauseTime = hitAnimationPauseTime;
                     }
@@ -230,7 +251,10 @@ namespace Beatemup.Controllers
                     foreach (var hitTarget in hitTargets)
                     {
                         ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
-                        hitComponent.hits++;
+                        hitComponent.hits.Add(new HitData
+                        {
+                            position = position.value
+                        });
                         
                         states.EnterState("Combo");
 

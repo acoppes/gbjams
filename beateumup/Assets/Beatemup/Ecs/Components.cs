@@ -153,9 +153,14 @@ namespace Beatemup.Ecs
         public bool hit;
     }
 
+    public struct HitData
+    {
+        public Vector3 position;
+    }
+
     public struct HitComponent : IEntityComponent
     {
-        public int hits;
+        public List<HitData> hits;
         public event Action<World, Entity, HitComponent> OnHitEvent;
 
         public void OnHit(World world, Entity entity)

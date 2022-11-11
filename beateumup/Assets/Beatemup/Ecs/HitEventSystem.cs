@@ -13,14 +13,14 @@ namespace Beatemup.Ecs
             {
                 ref var hitComponent = ref hitComponents.Get(entity);
 
-                if (hitComponent.hits == 0)
+                if (hitComponent.hits.Count == 0)
                 {
                     continue;
                 }
 
                 hitComponent.OnHit(world, entity);
 
-                hitComponent.hits = 0;
+                hitComponent.hits.Clear();
             }
         }
     }

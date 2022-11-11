@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
@@ -69,7 +70,10 @@ namespace Beatemup.Definitions
                 });
             }
             
-            world.AddComponent(entity, new HitComponent());
+            world.AddComponent(entity, new HitComponent()
+            {
+                hits = new List<HitData>()
+            });
 
             if (isVfx)
             {

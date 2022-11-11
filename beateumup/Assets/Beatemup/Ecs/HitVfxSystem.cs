@@ -26,25 +26,27 @@ namespace Beatemup.Ecs
             {
                 ref var hitComponent = ref hitComponents.Get(entity);
 
-                if (hitComponent.hits == 0)
+                if (hitComponent.hits.Count == 0)
                 {
                     continue;
                 }
 
-                for (int i = 0; i < hitComponent.hits; i++)
+                for (int i = 0; i < hitComponent.hits.Count; i++)
                 {
+                    // var hitData = hitComponent.hits[i];
+                    
                     var position = positionComponents.Get(entity);
                     var hitBox = hitBoxComponents.Get(entity);
 
-                    var hitEntity = world.CreateEntity(hitDefinition.GetInterface<IEntityDefinition>());
-                    ref var hitPosition = ref world.GetComponent<PositionComponent>(hitEntity);
+                    var hitVfxEntity = world.CreateEntity(hitDefinition.GetInterface<IEntityDefinition>());
+                    ref var hitVfxPosition = ref world.GetComponent<PositionComponent>(hitVfxEntity);
 
-                    hitPosition.value = position.value;
-                    hitPosition.value.x += UnityEngine.Random.Range(-hitBox.hurt.size.x, hitBox.hurt.size.x) * 0.5f;
-                    hitPosition.value.z += UnityEngine.Random.Range(0, hitBox.hurt.size.y);
-                    hitPosition.value.y = position.value.y - 0.01f;
+                    hitVfxPosition.value = position.value;
+                    hitVfxPosition.value.x += UnityEngine.Random.Range(-hitBox.hurt.size.x, hitBox.hurt.size.x) * 0.5f;
+                    hitVfxPosition.value.z += UnityEngine.Random.Range(0, hitBox.hurt.size.y);
+                    hitVfxPosition.value.y = position.value.y - 0.01f;
                     
-                    ref var hitVfxComponent = ref world.GetComponent<VfxComponent>(hitEntity);
+                    ref var hitVfxComponent = ref world.GetComponent<VfxComponent>(hitVfxEntity);
                     hitVfxComponent.delay = UnityEngine.Random.Range(0.0f, maxRandomDelay);
                 }
             }
