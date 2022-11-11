@@ -4,6 +4,7 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
+using UnityEngine.Serialization;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Definitions
@@ -16,7 +17,8 @@ namespace Beatemup.Definitions
         public bool hasShadow = true;
 
         public AnimationsAsset animationsAsset;
-        public AnimationHitboxMetadata animationMetadata;
+        [FormerlySerializedAs("animationMetadata")] 
+        public AnimationHitboxMetadata animationHitboxMetadata;
 
         public HitBox defaultHurtBox;
 
@@ -56,6 +58,7 @@ namespace Beatemup.Definitions
                 {
                     fps = AnimationComponent.DefaultFrameRate,
                     animationsAsset = animationsAsset,
+                    metadata = animationHitboxMetadata,
                     currentAnimation = 0,
                     currentFrame = 0,
                     currentTime = 0,
@@ -64,11 +67,15 @@ namespace Beatemup.Definitions
                     paused = false
                 });
                 world.AddComponent(entity, new CurrentAnimationFrameComponent());
-                world.AddComponent(entity, new HitBoxComponent
+                
+                if (animationHitboxMetadata != null)
                 {
-                    depth = HitBox.DefaultDepth,
-                    defaultHurt = defaultHurtBox
-                });
+                    world.AddComponent(entity, new HitBoxComponent
+                    {
+                        depth = HitBox.DefaultDepth,
+                        defaultHurt = defaultHurtBox
+                    });
+                }
             }
             
             world.AddComponent(entity, new HitComponent()

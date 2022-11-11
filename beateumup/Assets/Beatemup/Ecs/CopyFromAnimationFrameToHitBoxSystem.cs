@@ -34,14 +34,16 @@ namespace Beatemup.Ecs
                 
                 var asset = animationComponent.animationsAsset;
                 var animation = asset.animations[animationComponent.currentAnimation];
-                var frame = animation.frames[animationComponent.currentFrame];
+                // var frame = animation.frames[animationComponent.currentFrame];
 
                 hitBox.hurt.position = new Vector2(position.value.x, position.value.y);
                 hitBox.hurt.offset += new Vector2(0, position.value.z);
 
-                if (frame.hitBoxes.Count > 0)
+                var frameMetadata = animationComponent.metadata.GetFrameMetadata(animation.name, animationComponent.currentFrame);
+
+                if (frameMetadata != null && frameMetadata.hitBoxes.Count > 0)
                 {
-                    var hitbox = frame.hitBoxes[0];
+                    var hitbox = frameMetadata.hitBoxes[0];
                     
                     var offset = hitbox.offset;
                     

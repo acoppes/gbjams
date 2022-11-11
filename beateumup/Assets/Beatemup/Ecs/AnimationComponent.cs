@@ -12,10 +12,6 @@ namespace Beatemup.Ecs
         public Sprite sprite;
         public Sprite fxSprite;
 
-        public List<HitboxAsset> hitBoxes = new();
-        
-        // public List<HitboxAsset> hurtBoxes = new();
-        
         // public List<string> events = new ();
         // public bool HasEvents => events.Count > 0;
     }
@@ -50,6 +46,7 @@ namespace Beatemup.Ecs
         }
         
         public AnimationsAsset animationsAsset;
+        public AnimationHitboxMetadata metadata;
 
         public float fps;
         
