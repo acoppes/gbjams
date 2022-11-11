@@ -24,6 +24,12 @@ namespace Beatemup.Controllers
         
         public override void OnUpdate(float dt)
         {
+            ref var destroyable = ref world.GetComponent<DestroyableComponent>(entity);
+            if (destroyable.destroy)
+            {
+                return;
+            }
+            
             var vfx = world.GetComponent<VfxComponent>(entity);
             ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
@@ -40,7 +46,7 @@ namespace Beatemup.Controllers
 
             if (animationComponent.state == AnimationComponent.State.Completed)
             {
-                world.DestroyEntity(entity);
+                destroyable.destroy = true;
             }
         }
 

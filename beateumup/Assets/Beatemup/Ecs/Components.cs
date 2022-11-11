@@ -168,4 +168,9 @@ namespace Beatemup.Ecs
     {
         public float delay;
     }
+
+    public struct DestroyableComponent : IEntityComponent
+    {
+        public bool destroy;
+    }
 }

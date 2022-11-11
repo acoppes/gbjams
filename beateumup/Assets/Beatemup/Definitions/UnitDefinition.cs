@@ -23,6 +23,7 @@ namespace Beatemup.Definitions
 
         public void Apply(World world, Entity entity)
         {
+            world.AddComponent(entity, new DestroyableComponent());
             world.AddComponent(entity, new PlayerComponent());
             world.AddComponent(entity, new PositionComponent());
             world.AddComponent(entity, new LookingDirection
