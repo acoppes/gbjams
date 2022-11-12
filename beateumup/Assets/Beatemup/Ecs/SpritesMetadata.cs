@@ -9,10 +9,7 @@ namespace Beatemup.Ecs
     public class HitboxMetadata
     {
         public Sprite sprite;
-        
-        public string animation;
-        public int frame;
-        
+
         public List<HitboxAsset> hitBoxes = new();
         
         // public List<HitboxAsset> hurtBoxes = new();
@@ -23,10 +20,10 @@ namespace Beatemup.Ecs
     {
         public List<HitboxMetadata> frameMetadata = new ();
 
-        public HitboxMetadata GetFrameMetadata(string animation, int frame)
+        public HitboxMetadata GetFrameMetadata(Sprite sprite)
         {
             return frameMetadata
-                .FirstOrDefault(f => f.animation.Equals(animation, StringComparison.OrdinalIgnoreCase) && f.frame == frame);
+                .FirstOrDefault(f => f.sprite == sprite);
         }
     }
 }
