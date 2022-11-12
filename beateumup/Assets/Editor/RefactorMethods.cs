@@ -1,11 +1,18 @@
-﻿using Beatemup.Ecs;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEditor;
 
 namespace Utils.Editor
 {
     public static class RefactorMethods {
         
+        [MenuItem("Refactor/Reserialize All Assets")]
+        public static void ReserializeAssets()
+        {
+            if (EditorUtility.DisplayDialog("Reserialize", "Force reserialize all assets?", "Ok", "Cancel"))
+            {
+                AssetDatabase.ForceReserializeAssets();
+            }
+        }
+
         [MenuItem("Refactor/Switch to sprite metadata")]
         public static void RefactorMethod1()
         {
