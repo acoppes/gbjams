@@ -4,7 +4,6 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
-using UnityEngine.Serialization;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Definitions
@@ -17,7 +16,6 @@ namespace Beatemup.Definitions
         public bool hasShadow = true;
 
         public AnimationsAsset animationsAsset;
-        [FormerlySerializedAs("spriteMetadata")] [FormerlySerializedAs("animationHitboxMetadata")] [FormerlySerializedAs("animationMetadata")] 
         public SpritesMetadata spritesMetadata;
 
         public HitBox defaultHurtBox;

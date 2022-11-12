@@ -11,7 +11,6 @@ namespace Beatemup
             OnlyX = 1
         }
         
-        [FormerlySerializedAs("transform")] 
         public Transform followTransform;
         public Transform cameraTransform;
 
