@@ -17,8 +17,8 @@ namespace Beatemup.Definitions
         public bool hasShadow = true;
 
         public AnimationsAsset animationsAsset;
-        [FormerlySerializedAs("animationMetadata")] 
-        public AnimationHitboxMetadata animationHitboxMetadata;
+        [FormerlySerializedAs("spriteMetadata")] [FormerlySerializedAs("animationHitboxMetadata")] [FormerlySerializedAs("animationMetadata")] 
+        public SpritesMetadata spritesMetadata;
 
         public HitBox defaultHurtBox;
 
@@ -58,7 +58,7 @@ namespace Beatemup.Definitions
                 {
                     fps = AnimationComponent.DefaultFrameRate,
                     animationsAsset = animationsAsset,
-                    metadata = animationHitboxMetadata,
+                    metadata = spritesMetadata,
                     currentAnimation = 0,
                     currentFrame = 0,
                     currentTime = 0,
@@ -68,7 +68,7 @@ namespace Beatemup.Definitions
                 });
                 world.AddComponent(entity, new CurrentAnimationFrameComponent());
                 
-                if (animationHitboxMetadata != null)
+                if (spritesMetadata != null)
                 {
                     world.AddComponent(entity, new HitBoxComponent
                     {

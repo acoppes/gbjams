@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Beatemup.Ecs;
+﻿using Beatemup.Ecs;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,44 +6,31 @@ namespace Utils.Editor
 {
     public static class RefactorMethods {
         
-        [MenuItem("Refactor/Create Animation Metadata")]
+        [MenuItem("Refactor/Switch to sprite metadata")]
         public static void RefactorMethod1()
         {
-            // RefactorTools.RefactorAsset(delegate(AnimationsAsset asset)
-            // {
-            //     // var modified = false;
-            //     //
-            //     // var path = AssetDatabase.GetAssetPath(asset);
-            //     //
-            //     // var newAssetPath = Path.Combine(Path.GetDirectoryName(path), 
-            //     //     $"{Path.GetFileNameWithoutExtension(path)}Metadata.asset");
-            //     //
-            //     // // Debug.Log(newAssetPath);
-            //     // var metadataAsset = ScriptableObject.CreateInstance<AnimationHitboxMetadata>();
-            //     //
-            //     // foreach (var animationDefinition in asset.animations)
-            //     // {
-            //     //     for (var i = 0; i < animationDefinition.frames.Count; i++)
-            //     //     {
-            //     //         var frame = animationDefinition.frames[i];
-            //     //     
-            //     //         if (frame.hitBoxes.Count > 0)
-            //     //         {
-            //     //             metadataAsset.frameMetadata.Add(new AnimationHitboxFrameMetadata()
-            //     //             {
-            //     //                 animation = animationDefinition.name,
-            //     //                 frame = i,
-            //     //                 hitBoxes = frame.hitBoxes
-            //     //             });
-            //     //         }
-            //     //         // modified = true;
-            //     //     }
-            //     // }
-            //     //
-            //     // AssetDatabase.CreateAsset(metadataAsset, newAssetPath);
-            //     //
-            //     // return modified;
-            // });
+            RefactorTools.RefactorAsset(delegate(SpritesMetadata asset)
+            {
+                // var modified = false;
+                
+                var path = AssetDatabase.GetAssetPath(asset);
+
+                var animationFile = path.Replace("Metadata", "");
+                
+                Debug.Log($"{animationFile}");
+                
+                var animationsAsset = AssetDatabase.LoadAssetAtPath<AnimationsAsset>(animationFile);
+
+                foreach (var hitboxMetadata in asset.frameMetadata)
+                {
+                    var animationIndex = animationsAsset.FindByName(hitboxMetadata.animation);
+                    var animation = animationsAsset.animations[animationIndex];
+
+                    hitboxMetadata.sprite = animation.frames[hitboxMetadata.frame].sprite;
+                }
+                
+                return true;
+            });
         }
     }
 }

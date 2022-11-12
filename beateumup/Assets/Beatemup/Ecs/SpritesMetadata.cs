@@ -6,8 +6,10 @@ using UnityEngine;
 namespace Beatemup.Ecs
 {
     [Serializable]
-    public class AnimationHitboxFrameMetadata
+    public class HitboxMetadata
     {
+        public Sprite sprite;
+        
         public string animation;
         public int frame;
         
@@ -16,12 +18,12 @@ namespace Beatemup.Ecs
         // public List<HitboxAsset> hurtBoxes = new();
     }
     
-    [CreateAssetMenu(menuName = "Tools/Create Animation Metadata", fileName = "AnimationMetadata", order = 0)]
-    public class AnimationHitboxMetadata : ScriptableObject
+    [CreateAssetMenu(menuName = "Tools/Create Sprites Metadata", fileName = "SpritesMetadata", order = 0)]
+    public class SpritesMetadata : ScriptableObject
     {
-        public List<AnimationHitboxFrameMetadata> frameMetadata = new ();
+        public List<HitboxMetadata> frameMetadata = new ();
 
-        public AnimationHitboxFrameMetadata GetFrameMetadata(string animation, int frame)
+        public HitboxMetadata GetFrameMetadata(string animation, int frame)
         {
             return frameMetadata
                 .FirstOrDefault(f => f.animation.Equals(animation, StringComparison.OrdinalIgnoreCase) && f.frame == frame);
