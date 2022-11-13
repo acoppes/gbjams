@@ -11,9 +11,6 @@ namespace Beatemup.Controllers
         {
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             lookingDirection.locked = true;
-            
-            ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
-            animationComponent.Play("Idle");
         }
 
         public override void OnUpdate(float dt)
