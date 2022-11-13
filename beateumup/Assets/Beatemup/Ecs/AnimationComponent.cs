@@ -46,7 +46,7 @@ namespace Beatemup.Ecs
         }
         
         public AnimationsAsset animationsAsset;
-        public AnimationHitboxMetadata metadata;
+        public SpritesMetadata metadata;
 
         public float fps;
         

@@ -20,7 +20,6 @@ namespace Beatemup.Controllers
         
         private const string SprintState = "Sprint";
 
-        [FormerlySerializedAs("attackCancelationTime")] 
         public float attackCancellationTime = 0.1f;
 
         public float dashDuration = 1.0f;
