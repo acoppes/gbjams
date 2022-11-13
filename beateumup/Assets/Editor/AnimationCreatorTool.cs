@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using Beatemup.Ecs;
@@ -49,6 +49,53 @@ namespace Utils.Editor
             }
             
             return frames;
+        }
+
+        [UnityEditor.MenuItem("Assets/Expand files in Folder")]
+        public static void ExpandFiles()
+        {
+            var folderToExpand = EditorUtility.OpenFolderPanel("Select folder", Application.dataPath, "");
+
+            if (!string.IsNullOrEmpty(folderToExpand))
+            {
+                var targetFolder = Path.Combine(folderToExpand, "Expanded");
+
+                if (!Directory.Exists(targetFolder))
+                {
+                    Directory.CreateDirectory(targetFolder);
+                }
+                
+                var files = Directory.GetFiles(folderToExpand, "*.png");
+                foreach (var file in files)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(file);
+                    
+                    var spriteParts = fileName.Split("_", 2);
+                    var animationName = spriteParts[0];
+                    var frameString = spriteParts[1];
+                    
+                    // Debug.Log($"{frameString}");
+
+                    if (string.IsNullOrEmpty(animationName))
+                        continue;
+                    
+                    if (string.IsNullOrEmpty(frameString))
+                        continue;
+                    
+                    // Debug.Log($"Convert {fileName} to multiple files");
+
+                    var frames = GetFramesFromRanges(frameString);
+
+                    foreach (var frame in frames)
+                    {
+                        var target = Path.Combine(targetFolder, $"{animationName}_{frame:00}.png");
+                        if (!File.Exists(target))
+                        {
+                            FileUtil.CopyFileOrDirectory(file, target);
+                        }
+                    }
+                }
+            }
         }
 
         [UnityEditor.MenuItem("Assets/Create Animation Asset from Folder")]
