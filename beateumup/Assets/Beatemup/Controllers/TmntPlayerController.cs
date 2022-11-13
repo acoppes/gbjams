@@ -3,7 +3,6 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
-using UnityEngine.Serialization;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Controllers
@@ -463,6 +462,5 @@ namespace Beatemup.Controllers
                 animation.Play("Idle");
             }
         }
-
     }
 }
