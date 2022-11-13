@@ -140,9 +140,10 @@ namespace Beatemup.Ecs
     {
         public bool disabled;
         public float speed;
-        public Vector2 extraSpeed;
-        public Vector2 currentVelocity;
-        public Vector2 movingDirection;
+        
+        public Vector3 extraSpeed;
+        public Vector3 currentVelocity;
+        public Vector3 movingDirection;
     }
     
     public struct CurrentAnimationFrameComponent : IEntityComponent

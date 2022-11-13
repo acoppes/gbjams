@@ -70,17 +70,15 @@ namespace Utils.Editor
                 {
                     var fileName = Path.GetFileNameWithoutExtension(file);
                     
-                    var spriteParts = fileName.Split("_", 2);
+                    var fileNameParts = fileName.Split("_", 2);
 
-                    if (spriteParts.Length < 2)
+                    if (fileNameParts.Length < 2)
                     {
                         continue;
                     }
                     
-                    var animationName = spriteParts[0];
-                    var frameString = spriteParts[1];
-                    
-                    // Debug.Log($"{frameString}");
+                    var animationName = fileNameParts[0];
+                    var frameString = fileNameParts[1];
 
                     if (string.IsNullOrEmpty(animationName))
                     {
@@ -91,8 +89,6 @@ namespace Utils.Editor
                     {
                         continue;
                     }
-                    
-                    // Debug.Log($"Convert {fileName} to multiple files");
 
                     var frames = GetFramesFromRanges(frameString);
 

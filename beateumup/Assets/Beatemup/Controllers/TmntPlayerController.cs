@@ -74,7 +74,7 @@ namespace Beatemup.Controllers
             var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
-            var position = world.GetComponent<PositionComponent>(entity);
+            ref var position = ref world.GetComponent<PositionComponent>(entity);
 
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
@@ -90,6 +90,35 @@ namespace Beatemup.Controllers
                 if (state.time > hitStunTime)
                 {
                     states.ExitState("HitStun");
+                }
+                
+                return;
+            }
+            
+            if (states.TryGetState("Jump", out state))
+            {
+                movement.movingDirection = control.direction;
+                
+                if (animation.IsPlaying("JumpUp"))
+                {
+                    movement.movingDirection.z = 1;
+                    
+                    if (!control.button2.isPressed)
+                    {
+                        movement.movingDirection.z = -1;
+                        animation.Play("JumpFall");
+                    }
+                }
+                
+                if (animation.IsPlaying("JumpFall"))
+                {
+                    movement.movingDirection.z = -1;
+
+                    if (position.value.z <= 0)
+                    {
+                        position.value.z = 0;
+                        states.ExitState("Jump");
+                    }
                 }
                 
                 return;
@@ -254,6 +283,10 @@ namespace Beatemup.Controllers
                             position = position.value
                         });
                         
+                        var targetPosition = world.GetComponent<PositionComponent>(hitTarget);
+
+                        position.value = new Vector3(position.value.x, targetPosition.value.y - 0.1f, position.value.z);
+                        
                         states.EnterState("Combo");
 
                         animation.pauseTime = hitAnimationPauseTime;
@@ -357,20 +390,18 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            // if (control.HasBufferedAction(control.button2))
-            // {
-            //     control.ConsumeBuffer();
-            //     
-            //     states.ExitState(SprintState);
-            //     movement.extraSpeed.x = 0;
-            //     
-            //     movement.movingDirection = new Vector2(lookingDirection.value.x, 0);
-            //     animation.Play("Dash", 1);
-            //     movement.extraSpeed.x = dashExtraSpeed;
-            //     states.EnterState(DashState);
-            //     
-            //     return;
-            // }
+            if (control.HasBufferedAction(control.button2))
+            {
+                control.ConsumeBuffer();
+                
+                states.ExitState(SprintState);
+                movement.extraSpeed.x = 0;
+                
+                animation.Play("JumpUp", 1);
+                states.EnterState("Jump");
+                
+                return;
+            }
 
             if (states.HasState(SprintState))
             {
