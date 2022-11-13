@@ -99,26 +99,46 @@ namespace Beatemup.Controllers
             {
                 movement.movingDirection = control.direction;
                 
+                if (control.backward.isPressed)
+                {
+                    lookingDirection.value.x = control.direction.x;
+                }
+                
                 if (animation.IsPlaying("JumpUp"))
                 {
-                    movement.movingDirection.z = 1;
+                    movement.movingDirection.z = 2;
                     
                     if (!control.button2.isPressed)
                     {
-                        movement.movingDirection.z = -1;
+                        animation.Play("JumpRoll", 1);
+                    }
+
+                    return;
+                }
+                
+                if (animation.IsPlaying("JumpRoll"))
+                {
+                    movement.movingDirection.z = 0;
+                    
+                    if (animation.state == AnimationComponent.State.Completed)
+                    {
                         animation.Play("JumpFall");
                     }
+
+                    return;
                 }
                 
                 if (animation.IsPlaying("JumpFall"))
                 {
-                    movement.movingDirection.z = -1;
+                    movement.movingDirection.z = -2;
 
                     if (position.value.z <= 0)
                     {
                         position.value.z = 0;
                         states.ExitState("Jump");
                     }
+
+                    return;
                 }
                 
                 return;
