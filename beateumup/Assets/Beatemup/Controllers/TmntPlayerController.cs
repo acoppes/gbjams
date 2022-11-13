@@ -14,15 +14,15 @@ namespace Beatemup.Controllers
             "Attack2", "Attack3", "AttackFinisher"
         };
 
-        private const string DashState = "Dash";
-        private const string DashStopState = "DashStop";
+        // private const string DashState = "Dash";
+        // private const string DashStopState = "DashStop";
         
         private const string SprintState = "Sprint";
 
         public float attackCancellationTime = 0.1f;
 
-        public float dashDuration = 1.0f;
-        public float dashExtraSpeed = 10.0f;
+        // public float dashDuration = 1.0f;
+        // public float dashExtraSpeed = 10.0f;
         
         public float sprintExtraSpeed = 2.0f;
 
@@ -203,15 +203,15 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (states.HasState(DashStopState))
-            {
-                if (animation.state == AnimationComponent.State.Completed || control.HasBufferedAction(control.button1))
-                {
-                    states.ExitState(DashStopState);
-                }
-
-                return;
-            }
+            // if (states.HasState(DashStopState))
+            // {
+            //     if (animation.state == AnimationComponent.State.Completed || control.HasBufferedAction(control.button1))
+            //     {
+            //         states.ExitState(DashStopState);
+            //     }
+            //
+            //     return;
+            // }
 
             if (states.HasState("Backkick"))
             {
@@ -298,23 +298,23 @@ namespace Beatemup.Controllers
                 return;
             }
 
-            if (states.TryGetState(DashState, out state))
-            {
-                if (state.time > dashDuration)
-                {
-                    movement.movingDirection = Vector2.zero;
-                    // modelState.dashing = false;
-                    animation.Play("DashStop", 1);
-                    movement.extraSpeed.x = 0;
-                    states.ExitState(DashState);
-                    states.EnterState(DashStopState);
-                }
-                
-                // ref var position = ref world.GetComponent<PositionComponent>(entity);
-                // position.value = new Vector2(-position.value.x, position.value.y);
-                
-                return;
-            }
+            // if (states.TryGetState(DashState, out state))
+            // {
+            //     if (state.time > dashDuration)
+            //     {
+            //         movement.movingDirection = Vector2.zero;
+            //         // modelState.dashing = false;
+            //         animation.Play("DashStop", 1);
+            //         movement.extraSpeed.x = 0;
+            //         states.ExitState(DashState);
+            //         states.EnterState(DashStopState);
+            //     }
+            //     
+            //     // ref var position = ref world.GetComponent<PositionComponent>(entity);
+            //     // position.value = new Vector2(-position.value.x, position.value.y);
+            //     
+            //     return;
+            // }
             
             pressedAttackTime -= dt;
 
@@ -357,20 +357,20 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (control.HasBufferedAction(control.button2))
-            {
-                control.ConsumeBuffer();
-                
-                states.ExitState(SprintState);
-                movement.extraSpeed.x = 0;
-                
-                movement.movingDirection = new Vector2(lookingDirection.value.x, 0);
-                animation.Play("Dash", 1);
-                movement.extraSpeed.x = dashExtraSpeed;
-                states.EnterState(DashState);
-                
-                return;
-            }
+            // if (control.HasBufferedAction(control.button2))
+            // {
+            //     control.ConsumeBuffer();
+            //     
+            //     states.ExitState(SprintState);
+            //     movement.extraSpeed.x = 0;
+            //     
+            //     movement.movingDirection = new Vector2(lookingDirection.value.x, 0);
+            //     animation.Play("Dash", 1);
+            //     movement.extraSpeed.x = dashExtraSpeed;
+            //     states.EnterState(DashState);
+            //     
+            //     return;
+            // }
 
             if (states.HasState(SprintState))
             {
