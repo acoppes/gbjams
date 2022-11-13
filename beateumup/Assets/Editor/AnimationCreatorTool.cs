@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Beatemup.Ecs;
@@ -32,9 +32,19 @@ namespace Utils.Editor
             foreach (var separation in separations)
             {
                 var ranges = separation.Split("-");
-                foreach (var range in ranges)
+
+                if (ranges.Length == 2)
                 {
-                    frames.Add(int.Parse(range));
+                    var start = int.Parse(ranges[0]);
+                    var end = int.Parse(ranges[1]);
+
+                    for (var i = start; i <= end; i++)
+                    {
+                        frames.Add(i);
+                    }
+                } else if (ranges.Length == 1)
+                {
+                    frames.Add(int.Parse(ranges[0]));
                 }
             }
             
