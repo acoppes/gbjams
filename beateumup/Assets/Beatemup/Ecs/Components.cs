@@ -150,6 +150,8 @@ namespace Beatemup.Ecs
     {
         public bool isOverGround;
         public bool isActive;
+
+        public bool disabled;
         public float speed;
     }
     

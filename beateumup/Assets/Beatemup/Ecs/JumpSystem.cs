@@ -17,13 +17,16 @@ namespace Beatemup.Ecs
                 ref var jump = ref jumpComponents.Get(entity);
                 ref var position = ref positionComponents.Get(entity);
                 
-                if (jump.isActive)
+                if (!jump.disabled)
                 {
-                    position.value.z += jump.speed * Time.deltaTime;
-                }
-                else if (position.value.z > 0)
-                {
-                    position.value.z -= jump.speed * Time.deltaTime;
+                    if (jump.isActive)
+                    {
+                        position.value.z += jump.speed * Time.deltaTime;
+                    }
+                    else if (position.value.z > 0)
+                    {
+                        position.value.z -= jump.speed * Time.deltaTime;
+                    }
                 }
 
                 if (position.value.z < 0)

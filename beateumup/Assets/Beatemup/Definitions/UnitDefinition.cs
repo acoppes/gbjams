@@ -22,6 +22,7 @@ namespace Beatemup.Definitions
 
         public bool isVfx;
 
+        public bool jumpStartsDisabled = false;
         public float jumpSpeed = 1;
 
         public void Apply(World world, Entity entity)
@@ -51,8 +52,10 @@ namespace Beatemup.Definitions
             {
                 speed = movementSpeed
             });
+            
             world.AddComponent(entity, new JumpComponent
             {
+                disabled = jumpStartsDisabled,
                 speed = jumpSpeed
             });
 
