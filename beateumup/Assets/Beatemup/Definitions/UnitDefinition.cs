@@ -56,7 +56,8 @@ namespace Beatemup.Definitions
             world.AddComponent(entity, new JumpComponent
             {
                 disabled = jumpStartsDisabled,
-                speed = jumpSpeed
+                upSpeed = jumpSpeed,
+                fallSpeed = jumpSpeed
             });
 
             if (animationsAsset != null)

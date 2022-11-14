@@ -151,8 +151,13 @@ namespace Beatemup.Ecs
         public bool isOverGround;
         public bool isActive;
 
+        public float upTime;
+        public float fallTime;
+
         public bool disabled;
-        public float speed;
+        
+        public float upSpeed;
+        public float fallSpeed;
     }
     
     public struct CurrentAnimationFrameComponent : IEntityComponent
