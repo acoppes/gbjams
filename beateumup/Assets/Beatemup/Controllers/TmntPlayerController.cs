@@ -94,7 +94,43 @@ namespace Beatemup.Controllers
                 
                 return;
             }
-            
+
+            if (states.TryGetState("DiveKick", out state))
+            {
+                if (animation.IsPlaying("DivekickStartup"))
+                {
+                    animation.Play("DivekickLoop");
+                }
+
+                if (currentAnimationFrame.hit)
+                {
+                    var hitTargets = HitBoxUtils.GetTargets(world, entity);
+
+                    foreach (var hitTarget in hitTargets)
+                    {
+                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
+                        hitComponent.hits.Add(new HitData
+                        {
+                            position = position.value
+                        });
+                            
+                        animation.pauseTime = hitAnimationPauseTime;
+                    }
+                }
+                
+                movement.movingDirection.y = 0;
+                movement.movingDirection.x = lookingDirection.value.x;
+                movement.movingDirection.z = -2;
+                    
+                if (position.value.z <= 0)
+                {
+                    position.value.z = 0;
+                    states.ExitState("DiveKick");
+                }
+
+                return;
+            }
+
             if (states.TryGetState("Jump", out state))
             {
                 movement.movingDirection = control.direction;
@@ -125,13 +161,33 @@ namespace Beatemup.Controllers
                         animation.Play("JumpFall");
                     }
 
+                    if (control.HasBufferedAction(control.button1))
+                    {
+                        movement.movingDirection.z = 0;
+                        
+                        states.ExitState("Jump");
+                        states.EnterState("DiveKick");
+                        
+                        animation.Play("DivekickStartup", 1);
+                    }
+
                     return;
                 }
                 
                 if (animation.IsPlaying("JumpFall"))
                 {
-                    movement.movingDirection.z = -2;
+                    if (control.HasBufferedAction(control.button1))
+                    {
+                        movement.movingDirection.z = 0;
+                        
+                        states.ExitState("Jump");
+                        states.EnterState("DiveKick");
+                        
+                        animation.Play("DivekickStartup", 1);
+                    }
 
+                    movement.movingDirection.z = -2;
+                    
                     if (position.value.z <= 0)
                     {
                         position.value.z = 0;
