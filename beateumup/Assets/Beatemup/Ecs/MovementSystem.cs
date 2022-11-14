@@ -11,17 +11,17 @@ namespace Beatemup.Ecs
         
         public void Run(EcsSystems systems)
         {
-            var movementComponents = world.GetComponents<UnitMovementComponent>();
+            var movementComponents = world.GetComponents<HorizontalMovementComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
             
-            foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<PositionComponent>().End())
+            foreach (var entity in world.GetFilter<HorizontalMovementComponent>().Inc<PositionComponent>().End())
             {
                 ref var movement = ref movementComponents.Get(entity);
                 ref var position = ref positionComponents.Get(entity);
                 
                 if (movement.disabled)
                 {
-                    movement.currentVelocity = Vector3.zero;
+                    movement.currentVelocity = Vector2.zero;
                     continue;
                 }
 
@@ -29,41 +29,24 @@ namespace Beatemup.Ecs
 
                 var newPosition = position.value;
 
-                var velocity = Vector3.zero;
+                var velocity = Vector2.zero;
 
                 velocity.x = direction.x * (movement.speed + movement.extraSpeed.x);
                 velocity.y = direction.y * (movement.speed + movement.extraSpeed.y);
-                velocity.z = direction.z * (movement.speed + movement.extraSpeed.z);
+                // velocity.z = direction.z * (movement.speed + movement.extraSpeed.z);
 
-                velocity = new Vector3(
+                velocity = new Vector2(
                     velocity.x * gamePerspective.x, 
-                    velocity.y * gamePerspective.y, 
-                    velocity.z);
+                    velocity.y * gamePerspective.y);
                     
                 // e.collider.rigidbody.velocity = velocity;
 
-                newPosition += velocity * Time.deltaTime;
+                newPosition += new Vector3(velocity.x, velocity.y, 0) * Time.deltaTime;
                 
                 position.value = newPosition;
 
                 movement.currentVelocity = velocity;
             }
-            
-            // foreach (var entity in world.GetFilter<UnitMovementComponent>().Inc<LookingDirection>().End())
-            // {
-            //     var movement = movementComponents.Get(entity);
-            //     ref var lookingDirection = ref lookingDirectionComponents.Get(entity);
-            //
-            //     if (Mathf.Abs(movement.currentVelocity.x) > 0)
-            //     {
-            //         lookingDirection.value.x = Mathf.Abs(movement.currentVelocity.x) / movement.currentVelocity.x;
-            //     }
-            //
-            //     // if (movement.currentVelocity.SqrMagnitude() > 0)
-            //     // {
-            //     //     lookingDirection.value = movement.currentVelocity.normalized;
-            //     // }
-            // }
         }
     }
 }

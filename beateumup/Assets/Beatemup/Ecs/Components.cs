@@ -136,14 +136,21 @@ namespace Beatemup.Ecs
         public bool hasShadow;
     }
     
-    public struct UnitMovementComponent : IEntityComponent
+    public struct HorizontalMovementComponent : IEntityComponent
     {
         public bool disabled;
         public float speed;
         
-        public Vector3 extraSpeed;
-        public Vector3 currentVelocity;
-        public Vector3 movingDirection;
+        public Vector2 extraSpeed;
+        public Vector2 currentVelocity;
+        public Vector2 movingDirection;
+    }
+    
+    public struct JumpComponent : IEntityComponent
+    {
+        public bool isOverGround;
+        public bool isActive;
+        public float speed;
     }
     
     public struct CurrentAnimationFrameComponent : IEntityComponent

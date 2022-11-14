@@ -26,7 +26,7 @@ namespace Beatemup.Ecs
             UserData.RegisterType<LuaTarget>();
 
             UserData.RegisterType<Vector2>();
-            UserData.RegisterType<UnitMovementComponent>();
+            UserData.RegisterType<HorizontalMovementComponent>();
             
         }
 

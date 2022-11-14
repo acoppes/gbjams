@@ -22,6 +22,8 @@ namespace Beatemup.Definitions
 
         public bool isVfx;
 
+        public float jumpSpeed = 1;
+
         public void Apply(World world, Entity entity)
         {
             world.AddComponent(entity, new DestroyableComponent());
@@ -45,9 +47,13 @@ namespace Beatemup.Definitions
                 });
             }
 
-            world.AddComponent(entity, new UnitMovementComponent()
+            world.AddComponent(entity, new HorizontalMovementComponent
             {
                 speed = movementSpeed
+            });
+            world.AddComponent(entity, new JumpComponent
+            {
+                speed = jumpSpeed
             });
 
             if (animationsAsset != null)

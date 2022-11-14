@@ -16,7 +16,7 @@ namespace Beatemup.Controllers
         public override void OnUpdate(float dt)
         {
             var control = world.GetComponent<ControlComponent>(entity);
-            ref var movement = ref world.GetComponent<UnitMovementComponent>(entity);
+            ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             

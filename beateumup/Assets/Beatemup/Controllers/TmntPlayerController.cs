@@ -69,12 +69,13 @@ namespace Beatemup.Controllers
         public override void OnUpdate(float dt)
         {
             var control = world.GetComponent<ControlComponent>(entity);
-            ref var movement = ref world.GetComponent<UnitMovementComponent>(entity);
+            ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var position = ref world.GetComponent<PositionComponent>(entity);
+            ref var jump = ref world.GetComponent<JumpComponent>(entity);
 
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
@@ -120,11 +121,11 @@ namespace Beatemup.Controllers
                 
                 movement.movingDirection.y = 0;
                 movement.movingDirection.x = lookingDirection.value.x;
-                movement.movingDirection.z = -2;
+                
+                // movement.movingDirection.z = -2;
                     
-                if (position.value.z <= 0)
+                if (jump.isOverGround)
                 {
-                    position.value.z = 0;
                     states.ExitState("DiveKick");
                 }
 
@@ -142,10 +143,9 @@ namespace Beatemup.Controllers
                 
                 if (animation.IsPlaying("JumpUp"))
                 {
-                    movement.movingDirection.z = 2;
-                    
                     if (!control.button2.isPressed)
                     {
+                        jump.isActive = false;
                         animation.Play("JumpRoll", 1);
                     }
 
@@ -154,21 +154,26 @@ namespace Beatemup.Controllers
                 
                 if (animation.IsPlaying("JumpRoll"))
                 {
-                    movement.movingDirection.z = 0;
-                    
                     if (animation.state == AnimationComponent.State.Completed)
                     {
                         animation.Play("JumpFall");
+                        return;
                     }
 
                     if (control.HasBufferedAction(control.button1))
                     {
-                        movement.movingDirection.z = 0;
+                        control.ConsumeBuffer();
                         
                         states.ExitState("Jump");
                         states.EnterState("DiveKick");
                         
                         animation.Play("DivekickStartup", 1);
+                        return;
+                    }
+                    
+                    if (jump.isOverGround)
+                    {
+                        states.ExitState("Jump");
                     }
 
                     return;
@@ -178,19 +183,16 @@ namespace Beatemup.Controllers
                 {
                     if (control.HasBufferedAction(control.button1))
                     {
-                        movement.movingDirection.z = 0;
-                        
+                        control.ConsumeBuffer();
+
                         states.ExitState("Jump");
                         states.EnterState("DiveKick");
                         
                         animation.Play("DivekickStartup", 1);
                     }
 
-                    movement.movingDirection.z = -2;
-                    
-                    if (position.value.z <= 0)
+                    if (jump.isOverGround)
                     {
-                        position.value.z = 0;
                         states.ExitState("Jump");
                     }
 
@@ -466,7 +468,7 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (control.HasBufferedAction(control.button2))
+            if (jump.isOverGround && control.HasBufferedAction(control.button2))
             {
                 control.ConsumeBuffer();
                 
@@ -475,6 +477,8 @@ namespace Beatemup.Controllers
                 
                 animation.Play("JumpUp", 1);
                 states.EnterState("Jump");
+
+                jump.isActive = true;
                 
                 return;
             }

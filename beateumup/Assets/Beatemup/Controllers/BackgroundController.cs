@@ -8,7 +8,7 @@ namespace Beatemup.Controllers
     {
         public override void OnUpdate(float dt)
         {
-            ref var movement = ref world.GetComponent<UnitMovementComponent>(entity);
+            ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             movement.movingDirection = Vector2.left;
         }
     }

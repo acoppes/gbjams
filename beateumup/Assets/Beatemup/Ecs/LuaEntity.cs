@@ -66,19 +66,19 @@ namespace Beatemup.Ecs
 
         public float speed
         {
-            get => world.GetComponent<UnitMovementComponent>(entity).speed;
+            get => world.GetComponent<HorizontalMovementComponent>(entity).speed;
             set
             {
-                ref var p = ref world.GetComponent<UnitMovementComponent>(entity);
+                ref var p = ref world.GetComponent<HorizontalMovementComponent>(entity);
                 p.speed = value;
             }
         }
-        public UnitMovementComponent movement
+        public HorizontalMovementComponent movement
         {
-            get => world.GetComponent<UnitMovementComponent>(entity);
+            get => world.GetComponent<HorizontalMovementComponent>(entity);
             set
             {
-                ref var p = ref world.GetComponent<UnitMovementComponent>(entity);
+                ref var p = ref world.GetComponent<HorizontalMovementComponent>(entity);
                 p = value;
             }
         }
