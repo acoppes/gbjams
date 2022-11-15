@@ -22,7 +22,7 @@ namespace Beatemup.Definitions
 
         public bool isVfx;
 
-        public bool jumpStartsDisabled = false;
+        public bool gravityStartsDisabled = false;
         public float jumpSpeed = 1;
 
         public void Apply(World world, Entity entity)
@@ -53,11 +53,20 @@ namespace Beatemup.Definitions
                 speed = movementSpeed
             });
             
+            world.AddComponent(entity, new VerticalMovementComponent()
+            {
+                speed = 1
+            });
+            
+            world.AddComponent(entity, new GravityComponent()
+            {
+                disabled = gravityStartsDisabled,
+                scale = 1
+            });
+            
             world.AddComponent(entity, new JumpComponent
             {
-                disabled = jumpStartsDisabled,
-                upSpeed = jumpSpeed,
-                fallSpeed = jumpSpeed
+                upSpeed = jumpSpeed
             });
 
             if (animationsAsset != null)

@@ -8,51 +8,32 @@ namespace Beatemup.Ecs
     public class JumpSystem : BaseSystem, IEcsRunSystem
     {
         public AnimationCurve upCurve;
-        public AnimationCurve fallCurve;
         
         public void Run(EcsSystems systems)
         {
             var jumpComponents = world.GetComponents<JumpComponent>();
-            var positionComponents = world.GetComponents<PositionComponent>();
+            var verticalComponents = world.GetComponents<VerticalMovementComponent>();
             
-            foreach (var entity in world.GetFilter<JumpComponent>().Inc<PositionComponent>().End())
+            foreach (var entity in world.GetFilter<JumpComponent>().Inc<VerticalMovementComponent>().End())
             {
                 ref var jump = ref jumpComponents.Get(entity);
-                ref var position = ref positionComponents.Get(entity);
+                ref var verticalMovement = ref verticalComponents.Get(entity);
 
                 if (!jump.isActive)
                 {
                     jump.upTime = 0;
                 }
-                else
-                {
-                    jump.fallTime = 0;
-                }
-
-                if (!jump.disabled)
-                {
-                    if (jump.isActive)
-                    {
-                        var currentSpeed = upCurve.Evaluate(jump.upTime) * jump.upSpeed;
-                        position.value.z += currentSpeed * Time.deltaTime;
-
-                        jump.upTime += Time.deltaTime;
-                    }
-                    else if (position.value.z > 0)
-                    {
-                        var currentSpeed = fallCurve.Evaluate(jump.fallTime) * jump.fallSpeed;
-                        position.value.z -= currentSpeed * Time.deltaTime;
-                        
-                        jump.fallTime += Time.deltaTime;
-                    }
-                }
-
-                if (position.value.z < 0)
-                {
-                    position.value.z = 0;
-                }
                 
-                jump.isOverGround = position.value.z <= Mathf.Epsilon;
+                if (jump.isActive)
+                {
+                    // var currentSpeed = upCurve.Evaluate(jump.upTime) * jump.upSpeed;
+
+                    verticalMovement.speed = upCurve.Evaluate(jump.upTime) * jump.upSpeed;
+                        
+                    // verticalMovement.value.z += currentSpeed * Time.deltaTime;
+
+                    jump.upTime += Time.deltaTime;
+                }
             }
         }
     }

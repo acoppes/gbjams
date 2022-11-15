@@ -146,18 +146,24 @@ namespace Beatemup.Ecs
         public Vector2 movingDirection;
     }
     
-    public struct JumpComponent : IEntityComponent
+    public struct VerticalMovementComponent : IEntityComponent
     {
         public bool isOverGround;
-        public bool isActive;
+        public float speed;
+    }
 
-        public float upTime;
-        public float fallTime;
-
+    public struct GravityComponent : IEntityComponent
+    {
         public bool disabled;
+        public float scale;
+    }
+    
+    public struct JumpComponent : IEntityComponent
+    {
+        public bool isActive;
         
         public float upSpeed;
-        public float fallSpeed;
+        public float upTime;
     }
     
     public struct CurrentAnimationFrameComponent : IEntityComponent

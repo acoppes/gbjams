@@ -69,7 +69,11 @@ namespace Beatemup.Controllers
         public override void OnUpdate(float dt)
         {
             var control = world.GetComponent<ControlComponent>(entity);
+
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
+            ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
+            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
+
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
@@ -124,9 +128,10 @@ namespace Beatemup.Controllers
                 
                 // movement.movingDirection.z = -2;
                     
-                if (jump.isOverGround)
+                if (verticalMovement.isOverGround)
                 {
                     states.ExitState("DiveKick");
+                    gravityComponent.disabled = false;
                 }
 
                 return;
@@ -146,6 +151,8 @@ namespace Beatemup.Controllers
                     if (!control.button2.isPressed)
                     {
                         jump.isActive = false;
+                        gravityComponent.disabled = false;
+                        
                         animation.Play("JumpRoll", 1);
                     }
 
@@ -171,7 +178,7 @@ namespace Beatemup.Controllers
                         return;
                     }
                     
-                    if (jump.isOverGround)
+                    if (verticalMovement.isOverGround)
                     {
                         states.ExitState("Jump");
                     }
@@ -191,7 +198,7 @@ namespace Beatemup.Controllers
                         animation.Play("DivekickStartup", 1);
                     }
 
-                    if (jump.isOverGround)
+                    if (verticalMovement.isOverGround)
                     {
                         states.ExitState("Jump");
                     }
@@ -468,7 +475,7 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (jump.isOverGround && control.HasBufferedAction(control.button2))
+            if (verticalMovement.isOverGround && control.HasBufferedAction(control.button2))
             {
                 control.ConsumeBuffer();
                 
@@ -479,6 +486,7 @@ namespace Beatemup.Controllers
                 states.EnterState("Jump");
 
                 jump.isActive = true;
+                gravityComponent.disabled = true;
                 
                 return;
             }
