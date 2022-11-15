@@ -33,10 +33,14 @@ namespace Beatemup.Controllers
 
         public float hitAnimationPauseTime = 1.0f;
 
+        public Vector3 diveKickSpeed;
+        
         private float pressedAttackTime = 0;
 
         private int comboAttacks => ComboAnimations.Length;
         private int currentComboAttack;
+
+        
 
         public void OnInit()
         {
@@ -122,12 +126,13 @@ namespace Beatemup.Controllers
                         animation.pauseTime = hitAnimationPauseTime;
                     }
                 }
+
+                gravityComponent.disabled = true;
+                movement.movingDirection.y = diveKickSpeed.y;
+                movement.movingDirection.x = lookingDirection.value.x * diveKickSpeed.x;
+
+                verticalMovement.speed = diveKickSpeed.z;
                 
-                movement.movingDirection.y = 0;
-                movement.movingDirection.x = lookingDirection.value.x;
-                
-                // movement.movingDirection.z = -2;
-                    
                 if (verticalMovement.isOverGround)
                 {
                     states.ExitState("DiveKick");
