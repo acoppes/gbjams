@@ -28,7 +28,7 @@ namespace Beatemup.Ecs
 
                 vertical.speed += g * gravity.scale * Time.deltaTime;
 
-                if (Mathf.Abs(vertical.speed) < maxFallingSpeed)
+                if (vertical.speed < maxFallingSpeed)
                 {
                     vertical.speed = maxFallingSpeed;
                 }

@@ -148,10 +148,12 @@ namespace Beatemup.Controllers
                 
                 if (animation.IsPlaying("JumpUp"))
                 {
-                    if (!control.button2.isPressed)
+                    if (!control.button2.isPressed || Mathf.Abs(verticalMovement.speed) < Mathf.Epsilon)
                     {
                         jump.isActive = false;
                         gravityComponent.disabled = false;
+
+                        verticalMovement.speed = 0;
                         
                         animation.Play("JumpRoll", 1);
                     }
