@@ -40,8 +40,6 @@ namespace Beatemup.Controllers
         private int comboAttacks => ComboAnimations.Length;
         private int currentComboAttack;
 
-        
-
         public void OnInit()
         {
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
@@ -80,11 +78,11 @@ namespace Beatemup.Controllers
             
             // Debug.Log($"OnEnterState: {string.Join(", ", states.statesEntered)}");
             
-            // if (states.statesEntered.Contains("DiveKick"))
-            // {
-            //     animation.Play("DivekickStartup", 1);
-            //     gravityComponent.disabled = true;
-            // }
+            if (states.statesEntered.Contains("DiveKick"))
+            {
+                animation.Play("DivekickStartup", 1);
+                gravityComponent.disabled = true;
+            }
 
             if (states.statesEntered.Contains("Jump"))
             {
@@ -104,10 +102,10 @@ namespace Beatemup.Controllers
             
             var states = world.GetComponent<StatesComponent>(entity);
 
-            // if (states.statesExited.Contains("DiveKick"))
-            // {
-            //     gravityComponent.disabled = false;
-            // }
+            if (states.statesExited.Contains("DiveKick"))
+            {
+                gravityComponent.disabled = false;
+            }
             
             if (states.statesExited.Contains(SprintState))
             {
@@ -150,61 +148,56 @@ namespace Beatemup.Controllers
                 
                 return;
             }
-
-            if (states.HasState("DiveKick"))
+            
+            if (states.TryGetState("DiveKick", out state))
             {
+                if (animation.IsPlaying("DivekickStartup") && animation.state == AnimationComponent.State.Completed)
+                {
+                    animation.Play("DivekickLoop");
+                    return;
+                }
+            
+                if (currentAnimationFrame.hit)
+                {
+                    var hitTargets = HitBoxUtils.GetTargets(world, entity);
+            
+                    foreach (var hitTarget in hitTargets)
+                    {
+                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
+                        hitComponent.hits.Add(new HitData
+                        {
+                            position = position.value
+                        });
+                            
+                        animation.pauseTime = TmntConstants.HitAnimationPauseTime;
+                    }
+                }
+            
+                // gravityComponent.disabled = true;
+                
+                movement.movingDirection.y = diveKickSpeed.y;
+                movement.movingDirection.x = lookingDirection.value.x * diveKickSpeed.x;
+            
+                verticalMovement.speed = diveKickSpeed.z;
+                
+                if (control.HasBufferedAction(control.button2))
+                {
+                    control.ConsumeBuffer();
+                        
+                    states.EnterState("Jump");
+                    states.ExitState("DiveKick");
+                        
+                    return;
+                }
+                
+                if (verticalMovement.isOverGround)
+                {
+                    states.ExitState("DiveKick");
+                    // gravityComponent.disabled = false;
+                }
+            
                 return;
             }
-
-            // if (states.TryGetState("DiveKick", out state))
-            // {
-            //     if (animation.IsPlaying("DivekickStartup") && animation.state == AnimationComponent.State.Completed)
-            //     {
-            //         animation.Play("DivekickLoop");
-            //         return;
-            //     }
-            //
-            //     if (currentAnimationFrame.hit)
-            //     {
-            //         var hitTargets = HitBoxUtils.GetTargets(world, entity);
-            //
-            //         foreach (var hitTarget in hitTargets)
-            //         {
-            //             ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
-            //             hitComponent.hits.Add(new HitData
-            //             {
-            //                 position = position.value
-            //             });
-            //                 
-            //             animation.pauseTime = TmntConstants.HitAnimationPauseTime;
-            //         }
-            //     }
-            //
-            //     // gravityComponent.disabled = true;
-            //     
-            //     movement.movingDirection.y = diveKickSpeed.y;
-            //     movement.movingDirection.x = lookingDirection.value.x * diveKickSpeed.x;
-            //
-            //     verticalMovement.speed = diveKickSpeed.z;
-            //     
-            //     if (control.HasBufferedAction(control.button2))
-            //     {
-            //         control.ConsumeBuffer();
-            //             
-            //         states.EnterState("Jump");
-            //         states.ExitState("DiveKick");
-            //             
-            //         return;
-            //     }
-            //     
-            //     if (verticalMovement.isOverGround)
-            //     {
-            //         states.ExitState("DiveKick");
-            //         // gravityComponent.disabled = false;
-            //     }
-            //
-            //     return;
-            // }
 
             if (states.TryGetState("Jump", out state))
             {
