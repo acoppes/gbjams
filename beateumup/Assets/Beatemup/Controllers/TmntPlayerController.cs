@@ -76,7 +76,8 @@ namespace Beatemup.Controllers
         { 
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
-              
+            ref var jump = ref world.GetComponent<JumpComponent>(entity);
+            
             var states = world.GetComponent<StatesComponent>(entity);
             
             // Debug.Log($"OnEnterState: {string.Join(", ", states.statesEntered)}");
@@ -86,17 +87,33 @@ namespace Beatemup.Controllers
                 animation.Play("DivekickStartup", 1);
                 gravityComponent.disabled = true;
             }
+
+            if (states.statesEntered.Contains("Jump"))
+            {
+                states.ExitState(SprintState);
+                
+                animation.Play("JumpUp", 1);
+                
+                jump.isActive = true;
+                gravityComponent.disabled = true;
+            }
         }
 
         public void OnExit()
         {
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
-              
+            ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
+            
             var states = world.GetComponent<StatesComponent>(entity);
 
-            if (states.statesEntered.Contains("DiveKick"))
+            if (states.statesExited.Contains("DiveKick"))
             {
                 gravityComponent.disabled = false;
+            }
+            
+            if (states.statesExited.Contains(SprintState))
+            {
+                movement.extraSpeed.x = 0;
             }
         }
 
@@ -138,9 +155,10 @@ namespace Beatemup.Controllers
 
             if (states.TryGetState("DiveKick", out state))
             {
-                if (animation.IsPlaying("DivekickStartup"))
+                if (animation.IsPlaying("DivekickStartup") && animation.state == AnimationComponent.State.Completed)
                 {
                     animation.Play("DivekickLoop");
+                    return;
                 }
 
                 if (currentAnimationFrame.hit)
@@ -165,6 +183,16 @@ namespace Beatemup.Controllers
                 movement.movingDirection.x = lookingDirection.value.x * diveKickSpeed.x;
 
                 verticalMovement.speed = diveKickSpeed.z;
+                
+                if (control.HasBufferedAction(control.button2))
+                {
+                    control.ConsumeBuffer();
+                        
+                    states.EnterState("Jump");
+                    states.ExitState("DiveKick");
+                        
+                    return;
+                }
                 
                 if (verticalMovement.isOverGround)
                 {
@@ -233,8 +261,6 @@ namespace Beatemup.Controllers
 
                         states.ExitState("Jump");
                         states.EnterState("DiveKick");
-                        
-                        animation.Play("DivekickStartup", 1);
                     }
 
                     if (verticalMovement.isOverGround)
@@ -518,15 +544,12 @@ namespace Beatemup.Controllers
             {
                 control.ConsumeBuffer();
                 
-                states.ExitState(SprintState);
-                movement.extraSpeed.x = 0;
-                
-                animation.Play("JumpUp", 1);
+                // states.ExitState(SprintState);
+                // movement.extraSpeed.x = 0;
+                //
+                // animation.Play("JumpUp", 1);
                 states.EnterState("Jump");
 
-                jump.isActive = true;
-                gravityComponent.disabled = true;
-                
                 return;
             }
 
