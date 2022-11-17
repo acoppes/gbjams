@@ -33,8 +33,6 @@ namespace Beatemup.Controllers
 
         public float hitStunTime = 0.25f;
 
-        public float hitAnimationPauseTime = 1.0f;
-
         public Vector3 diveKickSpeed;
         
         private float pressedAttackTime = 0;
@@ -173,7 +171,7 @@ namespace Beatemup.Controllers
                             position = position.value
                         });
                             
-                        animation.pauseTime = hitAnimationPauseTime;
+                        animation.pauseTime = TmntConstants.HitAnimationPauseTime;
                     }
                 }
 
@@ -290,7 +288,7 @@ namespace Beatemup.Controllers
                                 position = position.value
                             });
                             
-                            animation.pauseTime = hitAnimationPauseTime;
+                            animation.pauseTime = TmntConstants.HitAnimationPauseTime;
                         }
                     }
                     
@@ -314,7 +312,7 @@ namespace Beatemup.Controllers
                                 position = position.value
                             });
                             
-                            animation.pauseTime = hitAnimationPauseTime;
+                            animation.pauseTime = TmntConstants.HitAnimationPauseTime;
                         }
                     }
                     
@@ -406,7 +404,7 @@ namespace Beatemup.Controllers
                             position = position.value
                         });
                         
-                        animation.pauseTime = hitAnimationPauseTime;
+                        animation.pauseTime = TmntConstants.HitAnimationPauseTime;
                     }
                 }
                 
@@ -439,7 +437,7 @@ namespace Beatemup.Controllers
                         
                         states.EnterState("Combo");
 
-                        animation.pauseTime = hitAnimationPauseTime;
+                        animation.pauseTime = TmntConstants.HitAnimationPauseTime;
                     }
                 }
 
