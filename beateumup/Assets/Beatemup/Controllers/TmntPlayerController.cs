@@ -1,7 +1,8 @@
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
+using Gemserk.Leopotam.Gameplay.Controllers;
+using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 
@@ -88,6 +89,8 @@ namespace Beatemup.Controllers
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
             State state;
+            
+            // UpdateStateHitStun()
 
             if (states.TryGetState("HitStun", out state))
             {

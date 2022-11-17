@@ -1,5 +1,6 @@
 ﻿using Beatemup.Ecs;
-using Gemserk.Leopotam.Ecs.Controllers;
+using Gemserk.Leopotam.Gameplay.Controllers;
+using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 

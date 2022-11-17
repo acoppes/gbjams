@@ -1,6 +1,7 @@
 using System.IO;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Controllers;
+using Gemserk.Leopotam.Gameplay.Controllers;
+using Gemserk.Leopotam.Gameplay.Events;
 using MoonSharp.Interpreter;
 using UnityEngine;
 

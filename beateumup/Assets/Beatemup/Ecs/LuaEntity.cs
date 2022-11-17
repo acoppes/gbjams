@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
+using Gemserk.Leopotam.Gameplay.Controllers;
 using UnityEngine;
 
 namespace Beatemup.Ecs
