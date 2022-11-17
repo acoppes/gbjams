@@ -1,3 +1,4 @@
+using System.Linq;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
@@ -8,7 +9,7 @@ using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Controllers
 {
-    public class TmntPlayerController : ControllerBase, IInit
+    public class TmntPlayerController : ControllerBase, IInit, IStateChanged
     {
         private static readonly string[] ComboAnimations = 
         {
@@ -68,6 +69,34 @@ namespace Beatemup.Controllers
                 var hitPosition = hitComponent.hits[0].position;
 
                 lookingDirection.value = hitPosition - position.value;
+            }
+        }
+        
+        public void OnEnter()
+        { 
+            ref var animation = ref world.GetComponent<AnimationComponent>(entity);
+            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
+              
+            var states = world.GetComponent<StatesComponent>(entity);
+            
+            // Debug.Log($"OnEnterState: {string.Join(", ", states.statesEntered)}");
+            
+            if (states.statesEntered.Contains("DiveKick"))
+            {
+                animation.Play("DivekickStartup", 1);
+                gravityComponent.disabled = true;
+            }
+        }
+
+        public void OnExit()
+        {
+            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
+              
+            var states = world.GetComponent<StatesComponent>(entity);
+
+            if (states.statesEntered.Contains("DiveKick"))
+            {
+                gravityComponent.disabled = false;
             }
         }
 
@@ -130,7 +159,8 @@ namespace Beatemup.Controllers
                     }
                 }
 
-                gravityComponent.disabled = true;
+                // gravityComponent.disabled = true;
+                
                 movement.movingDirection.y = diveKickSpeed.y;
                 movement.movingDirection.x = lookingDirection.value.x * diveKickSpeed.x;
 
@@ -139,7 +169,7 @@ namespace Beatemup.Controllers
                 if (verticalMovement.isOverGround)
                 {
                     states.ExitState("DiveKick");
-                    gravityComponent.disabled = false;
+                    // gravityComponent.disabled = false;
                 }
 
                 return;
@@ -184,7 +214,6 @@ namespace Beatemup.Controllers
                         states.ExitState("Jump");
                         states.EnterState("DiveKick");
                         
-                        animation.Play("DivekickStartup", 1);
                         return;
                     }
                     
@@ -591,5 +620,6 @@ namespace Beatemup.Controllers
                 animation.Play("Idle");
             }
         }
+
     }
 }
