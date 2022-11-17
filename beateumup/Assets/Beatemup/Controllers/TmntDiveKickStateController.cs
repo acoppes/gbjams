@@ -10,16 +10,31 @@ namespace Beatemup.Controllers
     public class TmntDiveKickStateController : ControllerBase, IStateChanged
     {
         public Vector3 diveKickSpeed;
-        
-       
+
         public void OnEnter()
         {
+            ref var animation = ref world.GetComponent<AnimationComponent>(entity);
+            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
             
+            var states = world.GetComponent<StatesComponent>(entity);
+
+            if (states.statesEntered.Contains("DiveKick"))
+            {
+                animation.Play("DivekickStartup", 1);
+                gravityComponent.disabled = true;
+            }
         }
 
         public void OnExit()
         {
+            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);;
             
+            var states = world.GetComponent<StatesComponent>(entity);
+
+            if (states.statesExited.Contains("DiveKick"))
+            {
+                gravityComponent.disabled = false;
+            }
         }
 
         public override void OnUpdate(float dt)
@@ -28,14 +43,12 @@ namespace Beatemup.Controllers
 
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
-            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
 
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var position = ref world.GetComponent<PositionComponent>(entity);
-            ref var jump = ref world.GetComponent<JumpComponent>(entity);
 
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
