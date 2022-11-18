@@ -14,15 +14,19 @@ namespace Beatemup.Controllers
             "Attack2", "Attack3", "AttackFinisher"
         };
 
-        public float dashTime = 0.25f;
-        
+        public float dashFrontTime = 0.1f;
+        public float dashBackTime = 0.1f;
+
         public float dashFrontSpeed = 3.0f;
         public float dashBackSpeed = 3.0f;
 
         public float dashBackRecoveryTime = 0.5f;
 
-        public float dashCooldown = 0.25f;
-        private float dashCooldownCurrent = 0;
+        public float dashFrontCooldown = 5.0f / 15.0f;
+        private float dashFrontCooldownCurrent = 0;
+        
+        public float dashBackCooldown = 5.0f / 15.0f;
+        private float dashBackCooldownCurrent = 0;
 
         public float attackCooldown = 0.1f;
         private float attackCooldownCurrent = 0;
@@ -102,12 +106,12 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("DashBack", out state))
             {
-                dashCooldownCurrent = dashCooldown;
+                dashBackCooldownCurrent = dashBackCooldown;
                 
                 movement.movingDirection = -lookingDirection.value;
                 movement.extraSpeed = new Vector2(dashBackSpeed, 0);
                 
-                if (state.time > dashTime)
+                if (state.time > dashBackTime)
                 {
                     movement.extraSpeed = Vector2.zero;
                     states.ExitState(state.name);
@@ -120,12 +124,12 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("DashFront", out state))
             {
-                dashCooldownCurrent = dashCooldown;
+                dashFrontCooldownCurrent = dashFrontCooldown;
                 
                 movement.movingDirection = lookingDirection.value;
                 movement.extraSpeed = new Vector2(dashFrontSpeed, 0);
                 
-                if (state.time > dashTime)
+                if (state.time > dashFrontTime)
                 {
                     movement.extraSpeed = Vector2.zero;
                     states.ExitState(state.name);
@@ -134,7 +138,8 @@ namespace Beatemup.Controllers
                 return;
             }
 
-            dashCooldownCurrent -= Time.deltaTime;
+            dashBackCooldownCurrent -= Time.deltaTime;
+            dashFrontCooldownCurrent -= Time.deltaTime;
 
             if (states.TryGetState("HiddenAttack", out state))
             {
@@ -158,7 +163,7 @@ namespace Beatemup.Controllers
                     animation.Play("TeleportFinisher", 1);
 
                     // reset dash cooldown
-                    dashCooldownCurrent = dashCooldown;
+                    dashFrontCooldownCurrent = dashFrontCooldown;
                     
                     // if (states.HasState("Combo"))
                     // {
@@ -202,7 +207,7 @@ namespace Beatemup.Controllers
                 
                 if (animation.playingTime >= currentAnimationFrame.cancellationTime 
                     && currentComboAttack < comboAttacks
-                    && dashCooldownCurrent < 0 
+                    && dashBackCooldownCurrent <= 0 
                     && (control.HasBufferedActions(control.backward.name, control.button2.name) ||
                     control.HasBufferedActions(control.button2.name, control.backward.name)))
                 {
@@ -219,7 +224,7 @@ namespace Beatemup.Controllers
                 
                 if (states.HasState("Combo") && animation.playingTime >= currentAnimationFrame.cancellationTime && 
                     control.HasBufferedActions(control.button2.name)
-                     && dashCooldownCurrent < 0
+                     && dashFrontCooldownCurrent <= 0
                     && currentComboAttack < comboAttacks)
                 {
                     control.ConsumeBuffer();
@@ -283,7 +288,7 @@ namespace Beatemup.Controllers
                 return;
             }
 
-            if (dashCooldownCurrent < 0)
+            if (dashBackCooldownCurrent <= 0)
             {
                 if (control.HasBufferedActions(control.backward.name, control.button2.name) ||
                     control.HasBufferedActions(control.button2.name, control.backward.name))
@@ -292,7 +297,10 @@ namespace Beatemup.Controllers
                     states.EnterState("DashBack");
                     return;
                 }
-
+            }
+            
+            if (dashFrontCooldownCurrent <= 0)
+            {
                 if (control.HasBufferedAction(control.button2))
                 {
                     control.ConsumeBuffer();
