@@ -1,5 +1,4 @@
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Gameplay;
 using Leopotam.EcsLite;
 using UnityEngine;
 

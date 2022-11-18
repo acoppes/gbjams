@@ -1,4 +1,4 @@
-﻿using Gemserk.Leopotam.Ecs.Controllers;
+﻿using Gemserk.Leopotam.Gameplay.Controllers;
 
 namespace Beatemup.Ecs
 {

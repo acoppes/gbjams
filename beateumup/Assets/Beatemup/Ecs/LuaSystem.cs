@@ -1,5 +1,5 @@
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Controllers;
+using Gemserk.Leopotam.Gameplay.Controllers;
 using Leopotam.EcsLite;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;

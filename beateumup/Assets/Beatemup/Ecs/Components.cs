@@ -166,12 +166,13 @@ namespace Beatemup.Ecs
         public float upTime;
     }
     
-    public struct CurrentAnimationFrameComponent : IEntityComponent
+    public struct CurrentAnimationAttackComponent : IEntityComponent
     {
         public int animation;
         public int frame;
         
-        public bool hit;
+        public bool currentFrameHit;
+        public float cancellationTime;
     }
 
     public struct HitData

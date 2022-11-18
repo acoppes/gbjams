@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
+using Gemserk.Leopotam.Gameplay.Controllers;
 using UnityEngine;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 
@@ -39,7 +39,7 @@ namespace Beatemup.Definitions
 
             world.AddComponent(entity, ControlComponent.Default());
 
-            world.AddComponent(entity, new StatesComponent());
+            world.AddComponent(entity, StatesComponent.Create());
 
             if (modelPrefab != null)
             {
@@ -85,7 +85,7 @@ namespace Beatemup.Definitions
                     loops = 0,
                     paused = false
                 });
-                world.AddComponent(entity, new CurrentAnimationFrameComponent());
+                world.AddComponent(entity, new CurrentAnimationAttackComponent());
                 
                 if (spritesMetadata != null)
                 {

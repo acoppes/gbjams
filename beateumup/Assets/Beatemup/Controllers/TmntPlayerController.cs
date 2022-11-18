@@ -1,13 +1,15 @@
+using System.Linq;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Gameplay;
+using Gemserk.Leopotam.Gameplay.Controllers;
+using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Controllers
 {
-    public class TmntPlayerController : ControllerBase, IInit
+    public class TmntPlayerController : ControllerBase, IInit, IStateChanged
     {
         private static readonly string[] ComboAnimations = 
         {
@@ -31,16 +33,12 @@ namespace Beatemup.Controllers
 
         public float hitStunTime = 0.25f;
 
-        public float hitAnimationPauseTime = 1.0f;
-
         public Vector3 diveKickSpeed;
         
         private float pressedAttackTime = 0;
 
         private int comboAttacks => ComboAnimations.Length;
         private int currentComboAttack;
-
-        
 
         public void OnInit()
         {
@@ -69,6 +67,51 @@ namespace Beatemup.Controllers
                 lookingDirection.value = hitPosition - position.value;
             }
         }
+        
+        public void OnEnter()
+        { 
+            ref var animation = ref world.GetComponent<AnimationComponent>(entity);
+            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
+            ref var jump = ref world.GetComponent<JumpComponent>(entity);
+            
+            var states = world.GetComponent<StatesComponent>(entity);
+            
+            // Debug.Log($"OnEnterState: {string.Join(", ", states.statesEntered)}");
+            
+            if (states.statesEntered.Contains("DiveKick"))
+            {
+                animation.Play("DivekickStartup", 1);
+                gravityComponent.disabled = true;
+            }
+
+            if (states.statesEntered.Contains("Jump"))
+            {
+                states.ExitState(SprintState);
+                
+                animation.Play("JumpUp", 1);
+                
+                jump.isActive = true;
+                gravityComponent.disabled = true;
+            }
+        }
+
+        public void OnExit()
+        {
+            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
+            ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
+            
+            var states = world.GetComponent<StatesComponent>(entity);
+
+            if (states.statesExited.Contains("DiveKick"))
+            {
+                gravityComponent.disabled = false;
+            }
+            
+            if (states.statesExited.Contains(SprintState))
+            {
+                movement.extraSpeed.x = 0;
+            }
+        }
 
         public override void OnUpdate(float dt)
         {
@@ -79,7 +122,7 @@ namespace Beatemup.Controllers
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
 
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
-            var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
+            var currentAnimationFrame = world.GetComponent<CurrentAnimationAttackComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var position = ref world.GetComponent<PositionComponent>(entity);
@@ -88,6 +131,8 @@ namespace Beatemup.Controllers
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
             State state;
+            
+            // UpdateStateHitStun()
 
             if (states.TryGetState("HitStun", out state))
             {
@@ -103,18 +148,19 @@ namespace Beatemup.Controllers
                 
                 return;
             }
-
+            
             if (states.TryGetState("DiveKick", out state))
             {
-                if (animation.IsPlaying("DivekickStartup"))
+                if (animation.IsPlaying("DivekickStartup") && animation.state == AnimationComponent.State.Completed)
                 {
                     animation.Play("DivekickLoop");
+                    return;
                 }
-
-                if (currentAnimationFrame.hit)
+            
+                if (currentAnimationFrame.currentFrameHit)
                 {
                     var hitTargets = HitBoxUtils.GetTargets(world, entity);
-
+            
                     foreach (var hitTarget in hitTargets)
                     {
                         ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
@@ -123,22 +169,33 @@ namespace Beatemup.Controllers
                             position = position.value
                         });
                             
-                        animation.pauseTime = hitAnimationPauseTime;
+                        animation.pauseTime = TmntConstants.HitAnimationPauseTime;
                     }
                 }
-
-                gravityComponent.disabled = true;
+            
+                // gravityComponent.disabled = true;
+                
                 movement.movingDirection.y = diveKickSpeed.y;
                 movement.movingDirection.x = lookingDirection.value.x * diveKickSpeed.x;
-
+            
                 verticalMovement.speed = diveKickSpeed.z;
+                
+                if (control.HasBufferedAction(control.button2))
+                {
+                    control.ConsumeBuffer();
+                        
+                    states.EnterState("Jump");
+                    states.ExitState("DiveKick");
+                        
+                    return;
+                }
                 
                 if (verticalMovement.isOverGround)
                 {
                     states.ExitState("DiveKick");
-                    gravityComponent.disabled = false;
+                    // gravityComponent.disabled = false;
                 }
-
+            
                 return;
             }
 
@@ -181,7 +238,6 @@ namespace Beatemup.Controllers
                         states.ExitState("Jump");
                         states.EnterState("DiveKick");
                         
-                        animation.Play("DivekickStartup", 1);
                         return;
                     }
                     
@@ -201,8 +257,6 @@ namespace Beatemup.Controllers
 
                         states.ExitState("Jump");
                         states.EnterState("DiveKick");
-                        
-                        animation.Play("DivekickStartup", 1);
                     }
 
                     if (verticalMovement.isOverGround)
@@ -220,7 +274,7 @@ namespace Beatemup.Controllers
             {
                 if (animation.IsPlaying("HeavySwingAttack"))
                 {
-                    if (currentAnimationFrame.hit)
+                    if (currentAnimationFrame.currentFrameHit)
                     {
                         var hitTargets = HitBoxUtils.GetTargets(world, entity);
 
@@ -232,7 +286,7 @@ namespace Beatemup.Controllers
                                 position = position.value
                             });
                             
-                            animation.pauseTime = hitAnimationPauseTime;
+                            animation.pauseTime = TmntConstants.HitAnimationPauseTime;
                         }
                     }
                     
@@ -244,7 +298,7 @@ namespace Beatemup.Controllers
                 
                 if (animation.IsPlaying("HeavySwingFirstStrike"))
                 {
-                    if (currentAnimationFrame.hit)
+                    if (currentAnimationFrame.currentFrameHit)
                     {
                         var hitTargets = HitBoxUtils.GetTargets(world, entity);
 
@@ -256,7 +310,7 @@ namespace Beatemup.Controllers
                                 position = position.value
                             });
                             
-                            animation.pauseTime = hitAnimationPauseTime;
+                            animation.pauseTime = TmntConstants.HitAnimationPauseTime;
                         }
                     }
                     
@@ -336,7 +390,7 @@ namespace Beatemup.Controllers
 
             if (states.HasState("Backkick"))
             {
-                if (currentAnimationFrame.hit)
+                if (currentAnimationFrame.currentFrameHit)
                 {
                     var hitTargets = HitBoxUtils.GetTargets(world, entity);
 
@@ -348,7 +402,7 @@ namespace Beatemup.Controllers
                             position = position.value
                         });
                         
-                        animation.pauseTime = hitAnimationPauseTime;
+                        animation.pauseTime = TmntConstants.HitAnimationPauseTime;
                     }
                 }
                 
@@ -363,7 +417,7 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("Attack", out state))
             {
-                if (currentAnimationFrame.hit)
+                if (currentAnimationFrame.currentFrameHit)
                 {
                     var hitTargets = HitBoxUtils.GetTargets(world, entity);
 
@@ -381,7 +435,7 @@ namespace Beatemup.Controllers
                         
                         states.EnterState("Combo");
 
-                        animation.pauseTime = hitAnimationPauseTime;
+                        animation.pauseTime = TmntConstants.HitAnimationPauseTime;
                     }
                 }
 
@@ -486,15 +540,12 @@ namespace Beatemup.Controllers
             {
                 control.ConsumeBuffer();
                 
-                states.ExitState(SprintState);
-                movement.extraSpeed.x = 0;
-                
-                animation.Play("JumpUp", 1);
+                // states.ExitState(SprintState);
+                // movement.extraSpeed.x = 0;
+                //
+                // animation.Play("JumpUp", 1);
                 states.EnterState("Jump");
 
-                jump.isActive = true;
-                gravityComponent.disabled = true;
-                
                 return;
             }
 
@@ -588,5 +639,6 @@ namespace Beatemup.Controllers
                 animation.Play("Idle");
             }
         }
+
     }
 }

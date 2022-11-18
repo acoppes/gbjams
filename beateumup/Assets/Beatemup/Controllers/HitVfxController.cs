@@ -1,6 +1,6 @@
 ﻿using Beatemup.Ecs;
-using Gemserk.Leopotam.Ecs.Controllers;
-using UnityEngine;
+using Gemserk.Leopotam.Gameplay.Controllers;
+using Gemserk.Leopotam.Gameplay.Events;
 
 namespace Beatemup.Controllers
 {
