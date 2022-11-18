@@ -7,7 +7,7 @@ using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Controllers
 {
-    public class NictoController : ControllerBase, IInit
+    public class NictoController : ControllerBase, IInit, IStateChanged
     {
         private static readonly string[] ComboAnimations = 
         {
@@ -18,11 +18,29 @@ namespace Beatemup.Controllers
         
         private int comboAttacks => ComboAnimations.Length;
         private int currentComboAttack;
+
+        private Vector3 teleportLastHitPosition;
         
         public void OnInit()
         {
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             lookingDirection.locked = true;
+        }
+        
+        public void OnEnter()
+        {
+            ref var animation = ref world.GetComponent<AnimationComponent>(entity);
+            
+            var states = world.GetComponent<StatesComponent>(entity);
+            
+            if (states.statesEntered.Contains("Moving"))
+            {
+                animation.Play("Walk");
+            }
+        }
+
+        public void OnExit()
+        {
         }
 
         public override void OnUpdate(float dt)
@@ -44,6 +62,28 @@ namespace Beatemup.Controllers
             
             State state;
 
+            if (states.TryGetState("HiddenAttack", out state))
+            {
+                if (animation.IsPlaying("TeleportOut") && animation.state == AnimationComponent.State.Completed)
+                {
+                    position.value = teleportLastHitPosition;
+                    position.value.x += lookingDirection.value.x * 3;
+                    
+                    animation.Play("TeleportIn", 1);
+                    return;
+                }
+                
+                if (animation.IsPlaying("TeleportIn") && animation.state == AnimationComponent.State.Completed)
+                {
+                    lookingDirection.value.x = -lookingDirection.value.x;
+                    
+                    states.ExitState("HiddenAttack");
+                    return;
+                }
+
+                return;
+            }
+
             if (states.TryGetState("Attack", out state))
             {
                 if (currentAnimationFrame.hit)
@@ -60,23 +100,25 @@ namespace Beatemup.Controllers
                         
                         var targetPosition = world.GetComponent<PositionComponent>(hitTarget);
 
-                        position.value = new Vector3(position.value.x, targetPosition.value.y - 0.1f, position.value.z);
+                        // position.value = new Vector3(position.value.x, targetPosition.value.y - 0.1f, position.value.z);
                         
                         states.EnterState("Combo");
 
                         animation.pauseTime = TmntConstants.HitAnimationPauseTime;
+
+                        teleportLastHitPosition = targetPosition.value;
                     }
                 }
 
                 if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime &&
-                    control.HasBufferedActions(control.button1.name, control.backward.name))
+                    control.HasBufferedActions(control.button2.name))
                 {
                     control.ConsumeBuffer();
                     
-                    animation.Play("Backkick", 1);
+                    animation.Play("TeleportOut", 1);
                     states.ExitState("Attack");
                     states.ExitState("Combo");
-                    states.EnterState("Backkick");
+                    states.EnterState("HiddenAttack");
                     return;
                 }
 
@@ -127,6 +169,11 @@ namespace Beatemup.Controllers
 
             if (states.HasState("Moving"))
             {
+                if (!animation.IsPlaying("Walk"))
+                {
+                    animation.Play("Walk");
+                }
+                
                 if (control.backward.isPressed)
                 {
                     lookingDirection.value.x = control.direction.x;
@@ -158,6 +205,7 @@ namespace Beatemup.Controllers
                 animation.Play("Idle");
             }
         }
+
 
     }
 }
