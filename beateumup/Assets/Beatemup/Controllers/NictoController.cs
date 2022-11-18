@@ -78,6 +78,14 @@ namespace Beatemup.Controllers
                     lookingDirection.value.x = -lookingDirection.value.x;
                     
                     states.ExitState("HiddenAttack");
+                    
+                    if (states.HasState("Combo"))
+                    {
+                        states.EnterState("Attack");
+                        animation.Play(ComboAnimations[currentComboAttack], 1);
+                        currentComboAttack++;
+                    }
+                    
                     return;
                 }
 
@@ -111,13 +119,13 @@ namespace Beatemup.Controllers
                 }
 
                 if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime &&
-                    control.HasBufferedActions(control.button2.name))
+                    control.HasBufferedActions(control.forward.name, control.button1.name) && currentComboAttack < comboAttacks)
                 {
                     control.ConsumeBuffer();
                     
                     animation.Play("TeleportOut", 1);
                     states.ExitState("Attack");
-                    states.ExitState("Combo");
+                    // states.ExitState("Combo");
                     states.EnterState("HiddenAttack");
                     return;
                 }
@@ -127,11 +135,11 @@ namespace Beatemup.Controllers
                 {
                     animation.Play(ComboAnimations[currentComboAttack], 1);
 
-                    if (control.HasBufferedActions(control.backward.name, control.button1.name))
-                    {
-                        lookingDirection.value.x = -lookingDirection.value.x;
-                        states.ExitState("Combo");
-                    }
+                    // if (control.HasBufferedActions(control.backward.name, control.button1.name))
+                    // {
+                    //     lookingDirection.value.x = -lookingDirection.value.x;
+                    //     states.ExitState("Combo");
+                    // }
 
                     currentComboAttack++;
                     control.ConsumeBuffer();
