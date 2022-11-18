@@ -153,8 +153,8 @@ namespace Beatemup.Controllers
                     states.ExitState("HiddenAttack");
                     
                     states.EnterState("Attack");
-                    currentComboAttack = 0;
-                    animation.Play("Attack1", 1);
+                    currentComboAttack = comboAttacks;
+                    animation.Play("TeleportFinisher", 1);
 
                     // reset dash cooldown
                     dashCooldownCurrent = dashCooldown;
@@ -200,6 +200,7 @@ namespace Beatemup.Controllers
                 }
                 
                 if (animation.playingTime >= attackCancellationTime 
+                    && currentComboAttack < comboAttacks
                     && dashCooldownCurrent < 0 
                     && (control.HasBufferedActions(control.backward.name, control.button2.name) ||
                     control.HasBufferedActions(control.button2.name, control.backward.name)))
@@ -217,7 +218,8 @@ namespace Beatemup.Controllers
                 
                 if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime && 
                     control.HasBufferedActions(control.button2.name)
-                     && dashCooldownCurrent < 0)
+                     && dashCooldownCurrent < 0
+                    && currentComboAttack < comboAttacks)
                 {
                     control.ConsumeBuffer();
                     
