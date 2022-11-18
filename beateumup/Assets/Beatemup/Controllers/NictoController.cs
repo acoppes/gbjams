@@ -25,6 +25,9 @@ namespace Beatemup.Controllers
 
         public float dashCooldown = 0.25f;
         private float dashCooldownCurrent = 0;
+
+        public float attackCooldown = 0.1f;
+        private float attackCooldownCurrent = 0;
         
         private int comboAttacks => ComboAnimations.Length;
         private int currentComboAttack;
@@ -252,12 +255,20 @@ namespace Beatemup.Controllers
                 {
                     states.ExitState("Combo");
                     states.ExitState("Attack");
+
+                    // if combo completed, then reset attack cooldown
+                    if (currentComboAttack >= comboAttacks)
+                    {
+                        attackCooldownCurrent = attackCooldown;
+                    }
                 }
 
                 return;
             }
+
+            attackCooldownCurrent -= Time.deltaTime;
             
-            if (control.HasBufferedAction(control.button1))
+            if (control.HasBufferedAction(control.button1) && attackCooldownCurrent <= 0)
             {
                 currentComboAttack = 0;
                 
