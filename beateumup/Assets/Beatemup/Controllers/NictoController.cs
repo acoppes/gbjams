@@ -16,7 +16,12 @@ namespace Beatemup.Controllers
         
         public float attackCancellationTime = 0.1f;
 
-        public float dashTime = 0.5f;
+        public float dashTime = 0.25f;
+        
+        public float dashFrontSpeed = 3.0f;
+        public float dashBackSpeed = 3.0f;
+
+        public float dashBackRecoveryTime = 0.5f;
         
         private int comboAttacks => ComboAnimations.Length;
         private int currentComboAttack;
@@ -38,6 +43,11 @@ namespace Beatemup.Controllers
             if (states.statesEntered.Contains("Moving"))
             {
                 animation.Play("Walk");
+            }
+            
+            if (states.statesEntered.Contains("DashBackRecovery"))
+            {
+                animation.Play("DashBackRecovery");
             }
             
             if (states.statesEntered.Contains("DashBack"))
@@ -74,25 +84,45 @@ namespace Beatemup.Controllers
             
             State state;
 
+            if (states.TryGetState("DashBackRecovery", out state))
+            {
+                movement.movingDirection = Vector2.zero;
+                
+                if (state.time > dashBackRecoveryTime)
+                {
+                    states.ExitState("DashBackRecovery");
+                }
+                
+                return;
+            }
+            
             if (states.TryGetState("DashBack", out state))
             {
                 movement.movingDirection = -lookingDirection.value;
+                movement.extraSpeed = new Vector2(dashBackSpeed, 0);
                 
                 if (state.time > dashTime)
                 {
+                    movement.extraSpeed = Vector2.zero;
                     states.ExitState(state.name);
+                    
+                    states.EnterState("DashBackRecovery");
                 }
+                
                 return;
             }
             
             if (states.TryGetState("DashFront", out state))
             {
                 movement.movingDirection = lookingDirection.value;
-
+                movement.extraSpeed = new Vector2(dashFrontSpeed, 0);
+                
                 if (state.time > dashTime)
                 {
+                    movement.extraSpeed = Vector2.zero;
                     states.ExitState(state.name);
                 }
+                
                 return;
             }
 
@@ -150,6 +180,16 @@ namespace Beatemup.Controllers
 
                         teleportLastHitPosition = targetPosition.value;
                     }
+                }
+                
+                if (animation.playingTime >= attackCancellationTime && control.HasBufferedActions(control.backward.name, control.button2.name) ||
+                    control.HasBufferedActions(control.button2.name, control.backward.name))
+                {
+                    control.ConsumeBuffer();
+                    states.ExitState("Attack");
+                    states.ExitState("Combo");
+                    states.EnterState("DashBack");
+                    return;
                 }
 
                 if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime &&
