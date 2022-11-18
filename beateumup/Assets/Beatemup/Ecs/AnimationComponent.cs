@@ -87,6 +87,8 @@ namespace Beatemup.Ecs
 
         public void Play(string animation, int loops = -1)
         {
+            var animationIndex = animationsAsset.FindByName(animation);
+            Assert.IsTrue(animationIndex >= 0, $"Couldn't find {animation}");
             Play(animationsAsset.FindByName(animation), loops);
         }
 
