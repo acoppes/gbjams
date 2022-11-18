@@ -122,7 +122,7 @@ namespace Beatemup.Controllers
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
 
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
-            var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
+            var currentAnimationFrame = world.GetComponent<CurrentAnimationAttackComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var position = ref world.GetComponent<PositionComponent>(entity);
@@ -157,7 +157,7 @@ namespace Beatemup.Controllers
                     return;
                 }
             
-                if (currentAnimationFrame.hit)
+                if (currentAnimationFrame.currentFrameHit)
                 {
                     var hitTargets = HitBoxUtils.GetTargets(world, entity);
             
@@ -274,7 +274,7 @@ namespace Beatemup.Controllers
             {
                 if (animation.IsPlaying("HeavySwingAttack"))
                 {
-                    if (currentAnimationFrame.hit)
+                    if (currentAnimationFrame.currentFrameHit)
                     {
                         var hitTargets = HitBoxUtils.GetTargets(world, entity);
 
@@ -298,7 +298,7 @@ namespace Beatemup.Controllers
                 
                 if (animation.IsPlaying("HeavySwingFirstStrike"))
                 {
-                    if (currentAnimationFrame.hit)
+                    if (currentAnimationFrame.currentFrameHit)
                     {
                         var hitTargets = HitBoxUtils.GetTargets(world, entity);
 
@@ -390,7 +390,7 @@ namespace Beatemup.Controllers
 
             if (states.HasState("Backkick"))
             {
-                if (currentAnimationFrame.hit)
+                if (currentAnimationFrame.currentFrameHit)
                 {
                     var hitTargets = HitBoxUtils.GetTargets(world, entity);
 
@@ -417,7 +417,7 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("Attack", out state))
             {
-                if (currentAnimationFrame.hit)
+                if (currentAnimationFrame.currentFrameHit)
                 {
                     var hitTargets = HitBoxUtils.GetTargets(world, entity);
 

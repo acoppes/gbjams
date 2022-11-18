@@ -45,7 +45,7 @@ namespace Beatemup.Controllers
             ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
 
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
-            var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
+            var currentAnimationFrame = world.GetComponent<CurrentAnimationAttackComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var position = ref world.GetComponent<PositionComponent>(entity);
@@ -62,7 +62,7 @@ namespace Beatemup.Controllers
                     return;
                 }
 
-                if (currentAnimationFrame.hit)
+                if (currentAnimationFrame.currentFrameHit)
                 {
                     var hitTargets = HitBoxUtils.GetTargets(world, entity);
 

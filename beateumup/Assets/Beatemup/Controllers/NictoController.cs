@@ -13,8 +13,6 @@ namespace Beatemup.Controllers
         {
             "Attack2", "Attack3", "AttackFinisher"
         };
-        
-        public float attackCancellationTime = 0.1f;
 
         public float dashTime = 0.25f;
         
@@ -80,7 +78,7 @@ namespace Beatemup.Controllers
             // ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
 
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
-            var currentAnimationFrame = world.GetComponent<CurrentAnimationFrameComponent>(entity);
+            var currentAnimationFrame = world.GetComponent<CurrentAnimationAttackComponent>(entity);
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var position = ref world.GetComponent<PositionComponent>(entity);
@@ -178,7 +176,7 @@ namespace Beatemup.Controllers
 
             if (states.TryGetState("Attack", out state))
             {
-                if (currentAnimationFrame.hit)
+                if (currentAnimationFrame.currentFrameHit)
                 {
                     var hitTargets = HitBoxUtils.GetTargets(world, entity);
 
@@ -202,7 +200,7 @@ namespace Beatemup.Controllers
                     }
                 }
                 
-                if (animation.playingTime >= attackCancellationTime 
+                if (animation.playingTime >= currentAnimationFrame.cancellationTime 
                     && currentComboAttack < comboAttacks
                     && dashCooldownCurrent < 0 
                     && (control.HasBufferedActions(control.backward.name, control.button2.name) ||
@@ -219,7 +217,7 @@ namespace Beatemup.Controllers
                     (control.HasBufferedActions(control.forward.name, control.button2.name) ||
                     control.HasBufferedActions(control.button2.name, control.forward.name))*/
                 
-                if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime && 
+                if (states.HasState("Combo") && animation.playingTime >= currentAnimationFrame.cancellationTime && 
                     control.HasBufferedActions(control.button2.name)
                      && dashCooldownCurrent < 0
                     && currentComboAttack < comboAttacks)
@@ -234,7 +232,7 @@ namespace Beatemup.Controllers
                     return;
                 }
 
-                if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime && control.HasBufferedAction(control.button1) 
+                if (states.HasState("Combo") && animation.playingTime >= currentAnimationFrame.cancellationTime && control.HasBufferedAction(control.button1) 
                     && currentComboAttack < comboAttacks)
                 {
                     animation.Play(ComboAnimations[currentComboAttack], 1);
