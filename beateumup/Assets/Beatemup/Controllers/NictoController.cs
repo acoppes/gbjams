@@ -15,6 +15,8 @@ namespace Beatemup.Controllers
         };
         
         public float attackCancellationTime = 0.1f;
+
+        public float dashTime = 0.5f;
         
         private int comboAttacks => ComboAnimations.Length;
         private int currentComboAttack;
@@ -36,6 +38,16 @@ namespace Beatemup.Controllers
             if (states.statesEntered.Contains("Moving"))
             {
                 animation.Play("Walk");
+            }
+            
+            if (states.statesEntered.Contains("DashBack"))
+            {
+                animation.Play("DashBack");
+            }
+            
+            if (states.statesEntered.Contains("DashFront"))
+            {
+                animation.Play("DashFront");
             }
         }
 
@@ -61,6 +73,28 @@ namespace Beatemup.Controllers
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             
             State state;
+
+            if (states.TryGetState("DashBack", out state))
+            {
+                movement.movingDirection = -lookingDirection.value;
+                
+                if (state.time > dashTime)
+                {
+                    states.ExitState(state.name);
+                }
+                return;
+            }
+            
+            if (states.TryGetState("DashFront", out state))
+            {
+                movement.movingDirection = lookingDirection.value;
+
+                if (state.time > dashTime)
+                {
+                    states.ExitState(state.name);
+                }
+                return;
+            }
 
             if (states.TryGetState("HiddenAttack", out state))
             {
@@ -170,6 +204,21 @@ namespace Beatemup.Controllers
                 
                 // states.EnterState("Combo");
                 
+                return;
+            }
+
+            if (control.HasBufferedActions(control.backward.name, control.button2.name) ||
+                control.HasBufferedActions(control.button2.name, control.backward.name))
+            {
+                control.ConsumeBuffer();
+                states.EnterState("DashBack");
+                return;
+            }
+            
+            if (control.HasBufferedAction(control.button2))
+            {
+                control.ConsumeBuffer();
+                states.EnterState("DashFront");
                 return;
             }
             
