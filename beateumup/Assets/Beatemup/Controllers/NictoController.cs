@@ -22,6 +22,9 @@ namespace Beatemup.Controllers
         public float dashBackSpeed = 3.0f;
 
         public float dashBackRecoveryTime = 0.5f;
+
+        public float dashCooldown = 0.25f;
+        private float dashCooldownCurrent = 0;
         
         private int comboAttacks => ComboAnimations.Length;
         private int currentComboAttack;
@@ -98,6 +101,8 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("DashBack", out state))
             {
+                dashCooldownCurrent = dashCooldown;
+                
                 movement.movingDirection = -lookingDirection.value;
                 movement.extraSpeed = new Vector2(dashBackSpeed, 0);
                 
@@ -114,6 +119,8 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("DashFront", out state))
             {
+                dashCooldownCurrent = dashCooldown;
+                
                 movement.movingDirection = lookingDirection.value;
                 movement.extraSpeed = new Vector2(dashFrontSpeed, 0);
                 
@@ -125,6 +132,8 @@ namespace Beatemup.Controllers
                 
                 return;
             }
+
+            dashCooldownCurrent -= Time.deltaTime;
 
             if (states.TryGetState("HiddenAttack", out state))
             {
@@ -143,12 +152,20 @@ namespace Beatemup.Controllers
                     
                     states.ExitState("HiddenAttack");
                     
-                    if (states.HasState("Combo"))
-                    {
-                        states.EnterState("Attack");
-                        animation.Play(ComboAnimations[currentComboAttack], 1);
-                        currentComboAttack++;
-                    }
+                    states.EnterState("Attack");
+                    currentComboAttack = 0;
+                    animation.Play("Attack1", 1);
+
+                    // reset dash cooldown
+                    dashCooldownCurrent = dashCooldown;
+                    
+                    // if (states.HasState("Combo"))
+                    // {
+                    //
+                    //     
+                    //     // animation.Play(ComboAnimations[currentComboAttack], 1);
+                    //     // currentComboAttack++;
+                    // }
                     
                     return;
                 }
@@ -182,8 +199,10 @@ namespace Beatemup.Controllers
                     }
                 }
                 
-                if (animation.playingTime >= attackCancellationTime && control.HasBufferedActions(control.backward.name, control.button2.name) ||
-                    control.HasBufferedActions(control.button2.name, control.backward.name))
+                if (animation.playingTime >= attackCancellationTime 
+                    && dashCooldownCurrent < 0 
+                    && (control.HasBufferedActions(control.backward.name, control.button2.name) ||
+                    control.HasBufferedActions(control.button2.name, control.backward.name)))
                 {
                     control.ConsumeBuffer();
                     states.ExitState("Attack");
@@ -192,14 +211,20 @@ namespace Beatemup.Controllers
                     return;
                 }
 
-                if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime &&
-                    control.HasBufferedActions(control.forward.name, control.button1.name) && currentComboAttack < comboAttacks)
+                /*if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime && 
+                    (control.HasBufferedActions(control.forward.name, control.button2.name) ||
+                    control.HasBufferedActions(control.button2.name, control.forward.name))*/
+                
+                if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime && 
+                    control.HasBufferedActions(control.button2.name)
+                     && dashCooldownCurrent < 0)
                 {
                     control.ConsumeBuffer();
                     
                     animation.Play("TeleportOut", 1);
                     states.ExitState("Attack");
-                    // states.ExitState("Combo");
+                    states.ExitState("Combo");
+                    
                     states.EnterState("HiddenAttack");
                     return;
                 }
@@ -247,19 +272,22 @@ namespace Beatemup.Controllers
                 return;
             }
 
-            if (control.HasBufferedActions(control.backward.name, control.button2.name) ||
-                control.HasBufferedActions(control.button2.name, control.backward.name))
+            if (dashCooldownCurrent < 0)
             {
-                control.ConsumeBuffer();
-                states.EnterState("DashBack");
-                return;
-            }
-            
-            if (control.HasBufferedAction(control.button2))
-            {
-                control.ConsumeBuffer();
-                states.EnterState("DashFront");
-                return;
+                if (control.HasBufferedActions(control.backward.name, control.button2.name) ||
+                    control.HasBufferedActions(control.button2.name, control.backward.name))
+                {
+                    control.ConsumeBuffer();
+                    states.EnterState("DashBack");
+                    return;
+                }
+
+                if (control.HasBufferedAction(control.button2))
+                {
+                    control.ConsumeBuffer();
+                    states.EnterState("DashFront");
+                    return;
+                }
             }
             
             movement.movingDirection = control.direction;
