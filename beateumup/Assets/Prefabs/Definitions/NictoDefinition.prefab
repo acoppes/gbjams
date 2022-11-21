@@ -69,8 +69,8 @@ MonoBehaviour:
     size: {x: 2, y: 4}
   isVfx: 0
   gravityStartsDisabled: 0
-  gravityScale: 1
-  jumpSpeed: 1
+  gravityScale: 5
+  jumpSpeed: 0
 --- !u!114 &-5211198163020410229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bafb20f59894a6cb19240412654a424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpMaxHeight: 5
   dashFrontTime: 0.3
   dashBackTime: 0.3
   dashHeightCurve:
@@ -165,6 +166,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   dashFrontSpeed: 15
   dashBackSpeed: 15
+  dashBackJumpSpeed: {x: 7, y: 20}
   dashBackRecoveryTime: 0.26666668
   dashFrontCooldown: 0.33333334
   dashBackCooldown: 0.33333334

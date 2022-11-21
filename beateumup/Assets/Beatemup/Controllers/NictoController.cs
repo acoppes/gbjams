@@ -14,6 +14,8 @@ namespace Beatemup.Controllers
             "Attack2", "Attack3", "AttackFinisher"
         };
 
+        public float jumpMaxHeight = 3;
+
         public float dashFrontTime = 0.1f;
         public float dashBackTime = 0.1f;
 
@@ -21,6 +23,8 @@ namespace Beatemup.Controllers
 
         public float dashFrontSpeed = 3.0f;
         public float dashBackSpeed = 3.0f;
+        
+        public Vector2 dashBackJumpSpeed = new Vector2(10f, 10f);
 
         public float dashBackRecoveryTime = 0.5f;
 
@@ -51,6 +55,9 @@ namespace Beatemup.Controllers
             var states = world.GetComponent<StatesComponent>(entity);
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
             
+            ref var jump = ref world.GetComponent<JumpComponent>(entity);
+            ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
+            
             if (states.statesEntered.Contains("Moving"))
             {
                 animation.Play("Walk");
@@ -64,13 +71,23 @@ namespace Beatemup.Controllers
             if (states.statesEntered.Contains("DashBack"))
             {
                 gravityComponent.disabled = true;
-                animation.Play("DashBack");
+                animation.Play("DashBack", 1);
+            }
+            
+            if (states.statesEntered.Contains("DashBackJump"))
+            {
+                // jump.isActive = true;
+                verticalMovement.speed = dashBackJumpSpeed.y;
+                
+                gravityComponent.disabled = true;
+                animation.Play("DashBack", 1);
+                states.EnterState("DashBackJump.Up");
             }
             
             if (states.statesEntered.Contains("DashFront"))
             {
                 gravityComponent.disabled = true;
-                animation.Play("DashFront");
+                animation.Play("DashFront", 1);
             }
         }
 
@@ -81,6 +98,17 @@ namespace Beatemup.Controllers
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var position = ref world.GetComponent<PositionComponent>(entity);
+            
+            if (states.statesExited.Contains("DashBackJump"))
+            {
+                position.value.z = 0;
+                movement.extraSpeed = Vector2.zero;
+                gravityComponent.disabled = false;
+                
+                // exit all sub states, for now manually
+                states.ExitState("DashBackJump.Up");
+                states.ExitState("DashBackJump.Fall");
+            }
             
             if (states.statesExited.Contains("DashBack"))
             {
@@ -113,7 +141,7 @@ namespace Beatemup.Controllers
             // ref var jump = ref world.GetComponent<JumpComponent>(entity);
 
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
-            
+
             State state;
 
             if (states.TryGetState("DashBackRecovery", out state))
@@ -127,6 +155,47 @@ namespace Beatemup.Controllers
                 
                 dashBackCooldownCurrent -= Time.deltaTime;
                 dashFrontCooldownCurrent -= Time.deltaTime;
+                
+                return;
+            }
+            
+            if (states.TryGetState("DashBackJump", out state))
+            {
+                if (states.HasState("DashBackJump.Up"))
+                {
+                    movement.movingDirection = -lookingDirection.value;
+                    movement.extraSpeed = new Vector2(dashBackJumpSpeed.x, 0);
+                    
+                    if (position.value.z >= jumpMaxHeight)
+                    {
+                        position.value.z = jumpMaxHeight;
+                        // jump.isActive = false;
+                        gravityComponent.disabled = false;
+                        verticalMovement.speed = 0;
+
+                        animation.Play("BackJump");
+                        
+                        states.ExitState("DashBackJump.Up");
+                        states.EnterState("DashBackJump.Fall");
+                    }
+
+                    return;
+                }
+                
+                if (states.HasState("DashBackJump.Fall"))
+                {
+                    movement.movingDirection = -lookingDirection.value;
+                    movement.extraSpeed = Vector2.zero;
+                    
+                    if (verticalMovement.isOverGround)
+                    {
+                        states.EnterState("DashBackRecovery");
+                        states.ExitState("DashBackJump");
+                        states.ExitState("DashBackJump.Fall");
+                    }
+
+                    return;
+                }
                 
                 return;
             }
@@ -239,6 +308,19 @@ namespace Beatemup.Controllers
                 if (animation.playingTime >= currentAnimationFrame.cancellationTime 
                     && currentComboAttack < comboAttacks
                     && dashBackCooldownCurrent <= 0 
+                    && (control.HasBufferedActions(control.up.name, control.button2.name) ||
+                        control.HasBufferedActions(control.button2.name, control.up.name)))
+                {
+                    control.ConsumeBuffer();
+                    states.ExitState("Attack");
+                    states.ExitState("Combo");
+                    states.EnterState("DashBackJump");
+                    return;
+                }
+                
+                if (animation.playingTime >= currentAnimationFrame.cancellationTime 
+                    && currentComboAttack < comboAttacks
+                    && dashBackCooldownCurrent <= 0 
                     && (control.HasBufferedActions(control.backward.name, control.button2.name) ||
                     control.HasBufferedActions(control.button2.name, control.backward.name)))
                 {
@@ -317,6 +399,17 @@ namespace Beatemup.Controllers
                 // states.EnterState("Combo");
                 
                 return;
+            }
+            
+            if (dashBackCooldownCurrent <= 0)
+            {
+                if (control.HasBufferedActions(control.up.name, control.button2.name) ||
+                    control.HasBufferedActions(control.button2.name, control.up.name))
+                {
+                    control.ConsumeBuffer();
+                    states.EnterState("DashBackJump");
+                    return;
+                }
             }
 
             if (dashBackCooldownCurrent <= 0)
