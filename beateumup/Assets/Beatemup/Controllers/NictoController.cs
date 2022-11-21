@@ -26,11 +26,13 @@ namespace Beatemup.Controllers
         public float dashBackSpeed = 3.0f;
         
         public Vector2 dashBackJumpSpeed = new Vector2(10f, 10f);
-
+        
         [FormerlySerializedAs("dashBackjumpMaxHeight")]
         [FormerlySerializedAs("jumpMaxHeight")] 
         public float dashBackJumpMaxHeight = 3;
 
+        private Vector2 dashBackRecoveryDirection;
+        public Vector2 dashBackRecoverySpeed = new Vector2(1f, 1f);
         public float dashBackRecoveryTime = 0.5f;
 
         public float dashFrontCooldown = 5.0f / 15.0f;
@@ -60,6 +62,7 @@ namespace Beatemup.Controllers
             var states = world.GetComponent<StatesComponent>(entity);
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
             
+            ref var horizontalMovement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
             
             if (states.statesEntered.Contains("Moving"))
@@ -69,6 +72,7 @@ namespace Beatemup.Controllers
             
             if (states.statesEntered.Contains("DashBackRecovery"))
             {
+                dashBackRecoveryDirection = horizontalMovement.movingDirection;
                 animation.Play("DashBackRecovery");
             }
             
@@ -150,7 +154,12 @@ namespace Beatemup.Controllers
 
             if (states.TryGetState("DashBackRecovery", out state))
             {
-                movement.movingDirection = Vector2.zero;
+                // movement.movingDirection = Vector2.zero;
+                
+                // TODO: set direction from caller 
+
+                movement.movingDirection = dashBackRecoveryDirection;
+                movement.baseSpeed = dashBackRecoverySpeed;
                 
                 if (state.time > dashBackRecoveryTime)
                 {
