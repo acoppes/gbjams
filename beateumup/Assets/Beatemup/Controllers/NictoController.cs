@@ -101,6 +101,9 @@ namespace Beatemup.Controllers
                     states.ExitState("DashBackRecovery");
                 }
                 
+                dashBackCooldownCurrent -= Time.deltaTime;
+                dashFrontCooldownCurrent -= Time.deltaTime;
+                
                 return;
             }
             
@@ -133,6 +136,8 @@ namespace Beatemup.Controllers
                 {
                     movement.extraSpeed = Vector2.zero;
                     states.ExitState(state.name);
+                    
+                    states.EnterState("DashBackRecovery");
                 }
                 
                 return;
@@ -158,9 +163,11 @@ namespace Beatemup.Controllers
                     
                     states.ExitState("HiddenAttack");
                     
-                    states.EnterState("Attack");
-                    currentComboAttack = comboAttacks;
-                    animation.Play("TeleportFinisher", 1);
+                    // states.EnterState("Attack");
+                    // currentComboAttack = comboAttacks;
+                    // animation.Play("TeleportFinisher", 1);
+                    
+                    states.EnterState("DashBackRecovery");
 
                     // reset dash cooldown
                     dashFrontCooldownCurrent = dashFrontCooldown;
