@@ -10,8 +10,6 @@ namespace Beatemup.Definitions
 {
     public class UnitDefinition : MonoBehaviour, IEntityDefinition
     {
-        public float movementSpeed;
-
         public GameObject modelPrefab;
         public bool hasShadow = true;
 
@@ -52,7 +50,6 @@ namespace Beatemup.Definitions
 
             world.AddComponent(entity, new HorizontalMovementComponent
             {
-                baseSpeed = new Vector2(movementSpeed, movementSpeed),
                 speedMultiplier = 1.0f
             });
             

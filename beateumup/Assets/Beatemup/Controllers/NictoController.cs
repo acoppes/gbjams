@@ -3,6 +3,7 @@ using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
 using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
+using UnityEngine.Serialization;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Controllers
@@ -15,9 +16,7 @@ namespace Beatemup.Controllers
         };
 
         public Vector2 baseSpeed;
-
-        public float jumpMaxHeight = 3;
-
+        
         public float dashFrontTime = 0.1f;
         public float dashBackTime = 0.1f;
 
@@ -27,6 +26,10 @@ namespace Beatemup.Controllers
         public float dashBackSpeed = 3.0f;
         
         public Vector2 dashBackJumpSpeed = new Vector2(10f, 10f);
+
+        [FormerlySerializedAs("dashBackjumpMaxHeight")]
+        [FormerlySerializedAs("jumpMaxHeight")] 
+        public float dashBackJumpMaxHeight = 3;
 
         public float dashBackRecoveryTime = 0.5f;
 
@@ -167,9 +170,9 @@ namespace Beatemup.Controllers
                     movement.movingDirection = -lookingDirection.value;
                     movement.baseSpeed = new Vector2(dashBackJumpSpeed.x, 0);
                     
-                    if (position.value.z >= jumpMaxHeight)
+                    if (position.value.z >= dashBackJumpMaxHeight)
                     {
-                        position.value.z = jumpMaxHeight;
+                        position.value.z = dashBackJumpMaxHeight;
                         // jump.isActive = false;
                         gravityComponent.disabled = false;
                         verticalMovement.speed = 0;
@@ -186,7 +189,7 @@ namespace Beatemup.Controllers
                 if (states.HasState("DashBackJump.Fall"))
                 {
                     movement.movingDirection = -lookingDirection.value;
-                    movement.baseSpeed = Vector2.zero;
+                    movement.baseSpeed = new Vector2(dashBackJumpSpeed.x, 0) * 0.75f;
                     
                     if (verticalMovement.isOverGround)
                     {
