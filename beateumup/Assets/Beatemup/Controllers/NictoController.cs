@@ -17,6 +17,8 @@ namespace Beatemup.Controllers
         public float dashFrontTime = 0.1f;
         public float dashBackTime = 0.1f;
 
+        public AnimationCurve dashHeightCurve = AnimationCurve.Constant(0, 1, 0);
+
         public float dashFrontSpeed = 3.0f;
         public float dashBackSpeed = 3.0f;
 
@@ -47,6 +49,7 @@ namespace Beatemup.Controllers
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             
             var states = world.GetComponent<StatesComponent>(entity);
+            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
             
             if (states.statesEntered.Contains("Moving"))
             {
@@ -60,17 +63,38 @@ namespace Beatemup.Controllers
             
             if (states.statesEntered.Contains("DashBack"))
             {
+                gravityComponent.disabled = true;
                 animation.Play("DashBack");
             }
             
             if (states.statesEntered.Contains("DashFront"))
             {
+                gravityComponent.disabled = true;
                 animation.Play("DashFront");
             }
         }
 
         public void OnExit()
         {
+            var states = world.GetComponent<StatesComponent>(entity);
+            
+            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
+            ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
+            ref var position = ref world.GetComponent<PositionComponent>(entity);
+            
+            if (states.statesExited.Contains("DashBack"))
+            {
+                position.value.z = 0;
+                movement.extraSpeed = Vector2.zero;
+                gravityComponent.disabled = false;
+            }
+            
+            if (states.statesExited.Contains("DashFront"))
+            {
+                position.value.z = 0;
+                movement.extraSpeed = Vector2.zero;
+                gravityComponent.disabled = false;
+            }
         }
 
         public override void OnUpdate(float dt)
@@ -78,8 +102,8 @@ namespace Beatemup.Controllers
             var control = world.GetComponent<ControlComponent>(entity);
 
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
-            // ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
-            // ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
+            ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
+            ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
 
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             var currentAnimationFrame = world.GetComponent<CurrentAnimationAttackComponent>(entity);
@@ -114,11 +138,11 @@ namespace Beatemup.Controllers
                 movement.movingDirection = -lookingDirection.value;
                 movement.extraSpeed = new Vector2(dashBackSpeed, 0);
                 
+                position.value.z = dashHeightCurve.Evaluate(state.time / dashBackTime);
+
                 if (state.time > dashBackTime)
                 {
-                    movement.extraSpeed = Vector2.zero;
                     states.ExitState(state.name);
-                    
                     states.EnterState("DashBackRecovery");
                 }
                 
@@ -132,11 +156,11 @@ namespace Beatemup.Controllers
                 movement.movingDirection = lookingDirection.value;
                 movement.extraSpeed = new Vector2(dashFrontSpeed, 0);
                 
+                position.value.z = dashHeightCurve.Evaluate(state.time / dashFrontTime);
+
                 if (state.time > dashFrontTime)
                 {
-                    movement.extraSpeed = Vector2.zero;
                     states.ExitState(state.name);
-                    
                     states.EnterState("DashBackRecovery");
                 }
                 
