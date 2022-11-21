@@ -52,7 +52,8 @@ namespace Beatemup.Definitions
 
             world.AddComponent(entity, new HorizontalMovementComponent
             {
-                speed = movementSpeed
+                baseSpeed = new Vector2(movementSpeed, movementSpeed),
+                speedMultiplier = 1.0f
             });
             
             world.AddComponent(entity, new VerticalMovementComponent()

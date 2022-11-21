@@ -4,6 +4,7 @@ using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
 using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
+using UnityEngine.Serialization;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Controllers
@@ -15,6 +16,8 @@ namespace Beatemup.Controllers
             "Attack2", "Attack3", "AttackFinisher"
         };
 
+        public Vector2 baseSpeed;
+
         // private const string DashState = "Dash";
         // private const string DashStopState = "DashStop";
         
@@ -25,7 +28,8 @@ namespace Beatemup.Controllers
         // public float dashDuration = 1.0f;
         // public float dashExtraSpeed = 10.0f;
         
-        public float sprintExtraSpeed = 2.0f;
+        [FormerlySerializedAs("sprintExtraSpeed")] 
+        public Vector2 sprintSpeed;
 
         public float heavySwingStartTime = 0.5f;
         public float heavySwingChargeTime = 0.25f;
@@ -108,7 +112,7 @@ namespace Beatemup.Controllers
             
             if (states.statesExited.Contains(SprintState))
             {
-                movement.extraSpeed.x = 0;
+                movement.baseSpeed = Vector2.zero;
             }
         }
 
@@ -556,7 +560,7 @@ namespace Beatemup.Controllers
                     (control.right.isPressed && control.left.isPressed) || control.backward.isPressed)
                 {
                     // modelState.sprinting = false;
-                    movement.extraSpeed.x = 0;
+                    movement.baseSpeed = sprintSpeed;
                     movement.movingDirection = Vector2.zero;
                     
                     animation.Play("SprintStop", 1);
@@ -582,7 +586,7 @@ namespace Beatemup.Controllers
                     
                     animation.Play("Sprint");
                     // modelState.sprinting = true;
-                    movement.extraSpeed.x = sprintExtraSpeed;
+                    movement.baseSpeed = sprintSpeed;
                     states.EnterState(SprintState);
                     states.ExitState("Moving");
                     return;
@@ -593,7 +597,8 @@ namespace Beatemup.Controllers
                 //
                 // }
             }
-            
+
+            movement.baseSpeed = baseSpeed;
             movement.movingDirection = control.direction;
 
             if (states.HasState("Moving"))

@@ -31,8 +31,9 @@ namespace Beatemup.Ecs
 
                 var velocity = Vector2.zero;
 
-                velocity.x = direction.x * (movement.speed + movement.extraSpeed.x);
-                velocity.y = direction.y * (movement.speed + movement.extraSpeed.y);
+                velocity.x = direction.x * movement.baseSpeed.x * movement.speedMultiplier;
+                velocity.y = direction.y * movement.baseSpeed.y * movement.speedMultiplier;
+                
                 // velocity.z = direction.z * (movement.speed + movement.extraSpeed.z);
 
                 velocity = new Vector2(

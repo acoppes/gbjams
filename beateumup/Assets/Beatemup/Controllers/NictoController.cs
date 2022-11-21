@@ -14,6 +14,8 @@ namespace Beatemup.Controllers
             "Attack2", "Attack3", "AttackFinisher"
         };
 
+        public Vector2 baseSpeed;
+
         public float jumpMaxHeight = 3;
 
         public float dashFrontTime = 0.1f;
@@ -55,7 +57,6 @@ namespace Beatemup.Controllers
             var states = world.GetComponent<StatesComponent>(entity);
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
             
-            ref var jump = ref world.GetComponent<JumpComponent>(entity);
             ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
             
             if (states.statesEntered.Contains("Moving"))
@@ -102,7 +103,7 @@ namespace Beatemup.Controllers
             if (states.statesExited.Contains("DashBackJump"))
             {
                 position.value.z = 0;
-                movement.extraSpeed = Vector2.zero;
+                movement.baseSpeed = Vector2.zero;
                 gravityComponent.disabled = false;
                 
                 // exit all sub states, for now manually
@@ -113,14 +114,14 @@ namespace Beatemup.Controllers
             if (states.statesExited.Contains("DashBack"))
             {
                 position.value.z = 0;
-                movement.extraSpeed = Vector2.zero;
+                movement.baseSpeed = Vector2.zero;
                 gravityComponent.disabled = false;
             }
             
             if (states.statesExited.Contains("DashFront"))
             {
                 position.value.z = 0;
-                movement.extraSpeed = Vector2.zero;
+                movement.baseSpeed = Vector2.zero;
                 gravityComponent.disabled = false;
             }
         }
@@ -164,7 +165,7 @@ namespace Beatemup.Controllers
                 if (states.HasState("DashBackJump.Up"))
                 {
                     movement.movingDirection = -lookingDirection.value;
-                    movement.extraSpeed = new Vector2(dashBackJumpSpeed.x, 0);
+                    movement.baseSpeed = new Vector2(dashBackJumpSpeed.x, 0);
                     
                     if (position.value.z >= jumpMaxHeight)
                     {
@@ -185,7 +186,7 @@ namespace Beatemup.Controllers
                 if (states.HasState("DashBackJump.Fall"))
                 {
                     movement.movingDirection = -lookingDirection.value;
-                    movement.extraSpeed = Vector2.zero;
+                    movement.baseSpeed = Vector2.zero;
                     
                     if (verticalMovement.isOverGround)
                     {
@@ -205,7 +206,7 @@ namespace Beatemup.Controllers
                 dashBackCooldownCurrent = dashBackCooldown;
                 
                 movement.movingDirection = -lookingDirection.value;
-                movement.extraSpeed = new Vector2(dashBackSpeed, 0);
+                movement.baseSpeed = new Vector2(dashBackSpeed, 0);
                 
                 position.value.z = dashHeightCurve.Evaluate(state.time / dashBackTime);
 
@@ -223,7 +224,7 @@ namespace Beatemup.Controllers
                 dashFrontCooldownCurrent = dashFrontCooldown;
                 
                 movement.movingDirection = lookingDirection.value;
-                movement.extraSpeed = new Vector2(dashFrontSpeed, 0);
+                movement.baseSpeed = new Vector2(dashFrontSpeed, 0);
                 
                 position.value.z = dashHeightCurve.Evaluate(state.time / dashFrontTime);
 
@@ -432,7 +433,8 @@ namespace Beatemup.Controllers
                     return;
                 }
             }
-            
+
+            movement.baseSpeed = baseSpeed;
             movement.movingDirection = control.direction;
 
             if (states.HasState("Moving"))

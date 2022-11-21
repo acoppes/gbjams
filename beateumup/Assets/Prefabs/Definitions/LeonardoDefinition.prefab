@@ -68,6 +68,9 @@ MonoBehaviour:
     offset: {x: 0, y: 0}
     size: {x: 2, y: 0}
   isVfx: 0
+  gravityStartsDisabled: 0
+  gravityScale: 1
+  jumpSpeed: 1
 --- !u!114 &-5211198163020410229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,11 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14e949f75dd01c4e8ad700f2c9c1338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseSpeed: {x: 8, y: 8}
   attackCancellationTime: 0.4
-  dashDuration: 0.1
-  dashExtraSpeed: 40
-  sprintExtraSpeed: 7
+  sprintSpeed: {x: 15, y: 8}
   heavySwingStartTime: 0.15
   heavySwingChargeTime: 0.35
   hitStunTime: 0.25
-  hitAnimationPauseTime: 0.13333334
+  diveKickSpeed: {x: 0, y: 0, z: 0}
