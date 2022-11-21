@@ -18,11 +18,19 @@ namespace Beatemup.Controllers
         public override void OnUpdate(float dt)
         {
             // var mainPlayer = world.GetEntityByName("Character_Player_0");
+
+            return;
             
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             ref var control = ref world.GetComponent<ControlComponent>(entity);
             
             State state;
+
+            if (states.HasState("HitStun"))
+            {
+                control.direction = Vector2.zero;
+                return;
+            }
             
             if (states.TryGetState("MovingDown", out state))
             {

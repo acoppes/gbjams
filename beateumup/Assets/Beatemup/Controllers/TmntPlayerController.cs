@@ -135,6 +135,8 @@ namespace Beatemup.Controllers
 
             if (states.TryGetState("HitStun", out state))
             {
+                movement.movingDirection = Vector2.zero;
+                
                 if (!animation.IsPlaying("HitStun"))
                 {
                     animation.Play("HitStun");
