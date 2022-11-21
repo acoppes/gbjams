@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa08ba5941e4c2690b898d38e0ded1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 8
+  movementSpeed: 5
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
   animationsAsset: {fileID: 11400000, guid: 013ac21cc4b0da14e8fd674abe32d94a, type: 2}
@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 723953293149301528}
+  - component: {fileID: 4990437376335793113}
   - component: {fileID: 5305517232780654927}
   m_Layer: 6
   m_Name: Controller
@@ -116,6 +117,19 @@ Transform:
   m_Father: {fileID: 478210605849480811}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4990437376335793113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723953293149301519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9361cff7b28439a906bab23e52a2220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToChangeDirection: 0.5
 --- !u!114 &5305517232780654927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,4 +147,4 @@ MonoBehaviour:
   heavySwingStartTime: 0.5
   heavySwingChargeTime: 0.25
   hitStunTime: 0.5
-  hitAnimationPauseTime: 1
+  diveKickSpeed: {x: 0, y: 0, z: 0}
