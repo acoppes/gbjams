@@ -174,15 +174,49 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("DashBackJump", out state))
             {
+                if (states.HasState("DashBackJump.Attack"))
+                {
+                    movement.movingDirection = -lookingDirection.value;
+                    movement.baseSpeed = new Vector2(dashBackJumpSpeed.x, 0);
+
+                    // check for event to fire kunais!
+
+                    if (position.value.z >= dashBackJumpMaxHeight)
+                    {
+                        position.value.z = dashBackJumpMaxHeight;
+                        gravityComponent.disabled = false;
+                        verticalMovement.speed = 0;
+                    }
+                    
+                    if (animation.state == AnimationComponent.State.Completed)
+                    {
+                        animation.Play("BackJump");
+                        
+                        states.ExitState("DashBackJump.Attack");
+                        states.EnterState("DashBackJump.Fall");
+                    }
+
+                    return;
+                }
+                
                 if (states.HasState("DashBackJump.Up"))
                 {
                     movement.movingDirection = -lookingDirection.value;
                     movement.baseSpeed = new Vector2(dashBackJumpSpeed.x, 0);
+
+                    if (control.HasBufferedActions(control.button1.name))
+                    {
+                        animation.Play("AirAttack", 1);
+                        states.ExitState("DashBackJump.Up");
+                        states.EnterState("DashBackJump.Attack");
+                        
+                        return;
+                    }
                     
                     if (position.value.z >= dashBackJumpMaxHeight)
                     {
                         position.value.z = dashBackJumpMaxHeight;
-                        // jump.isActive = false;
+                        
                         gravityComponent.disabled = false;
                         verticalMovement.speed = 0;
 
