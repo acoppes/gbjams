@@ -443,7 +443,7 @@ namespace Beatemup.Controllers
                         
                         var targetPosition = world.GetComponent<PositionComponent>(hitTarget);
 
-                        position.value = new Vector3(position.value.x, targetPosition.value.y - 0.1f, position.value.z);
+                        // position.value = new Vector3(position.value.x, targetPosition.value.y - 0.1f, position.value.z);
                         
                         states.EnterState("Combo");
 
