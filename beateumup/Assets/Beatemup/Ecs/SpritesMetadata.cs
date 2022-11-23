@@ -12,7 +12,7 @@ namespace Beatemup.Ecs
 
         public List<HitboxAsset> hitBoxes = new();
         
-        // public List<HitboxAsset> hurtBoxes = new();
+        public List<HitboxAsset> hurtBoxes = new();
     }
     
     [CreateAssetMenu(menuName = "Tools/Create Sprites Metadata", fileName = "SpritesMetadata", order = 0)]

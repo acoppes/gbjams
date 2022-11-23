@@ -43,21 +43,44 @@ namespace Beatemup.Ecs
 
                 if (frameMetadata != null && frameMetadata.hitBoxes.Count > 0)
                 {
-                    var hitbox = frameMetadata.hitBoxes[0];
+                    hitBox.hit = frameMetadata.hitBoxes[0].GetHitBox(position, lookingDirection);
                     
-                    var offset = hitbox.offset;
+                    // var hitbox = frameMetadata.hitBoxes[0];
+                    //
+                    // var offset = hitbox.offset;
+                    //
+                    // if (lookingDirection.value.x < 0)
+                    // {
+                    //     offset.x *= -1;
+                    // }
+                    //
+                    // hitBox.hit = new HitBox
+                    // {
+                    //     size = hitbox.size,
+                    //     position = new Vector2(position.value.x, position.value.y),
+                    //     offset = offset + new Vector2(0, position.value.z)
+                    // };
+                }
+                
+                if (frameMetadata != null && frameMetadata.hurtBoxes.Count > 0)
+                {
+                    hitBox.hurt = frameMetadata.hurtBoxes[0].GetHitBox(position, lookingDirection);
                     
-                    if (lookingDirection.value.x < 0)
-                    {
-                        offset.x *= -1;
-                    }
-                    
-                    hitBox.hit = new HitBox
-                    {
-                        size = hitbox.size,
-                        position = new Vector2(position.value.x, position.value.y),
-                        offset = offset + new Vector2(0, position.value.z)
-                    };
+                    // var hurtBox = frameMetadata.hitBoxes[0];
+                    //
+                    // var offset = hurtBox.offset;
+                    //
+                    // if (lookingDirection.value.x < 0)
+                    // {
+                    //     offset.x *= -1;
+                    // }
+                    //
+                    // hitBox.hurt = new HitBox
+                    // {
+                    //     size = hurtBox.size,
+                    //     position = new Vector2(position.value.x, position.value.y),
+                    //     offset = offset + new Vector2(0, position.value.z)
+                    // };
                 }
             }
         }
