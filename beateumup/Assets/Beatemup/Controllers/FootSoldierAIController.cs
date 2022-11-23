@@ -49,7 +49,7 @@ namespace Beatemup.Controllers
                 }
             }
             
-            if (!states.HasState("Attack") && !states.HasState("TryingAttack"))
+            if (!states.HasState("TryingAttack"))
             {
                 var hitBox = attackDetection.GetHitBox(position, lookingDirection);
 

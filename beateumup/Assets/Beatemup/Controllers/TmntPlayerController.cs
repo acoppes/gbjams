@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
@@ -11,11 +12,6 @@ namespace Beatemup.Controllers
 {
     public class TmntPlayerController : ControllerBase, IInit, IStateChanged
     {
-        private static readonly string[] ComboAnimations = 
-        {
-            "Attack2", "Attack3", "AttackFinisher"
-        };
-
         public Vector2 baseSpeed;
 
         // private const string DashState = "Dash";
@@ -40,7 +36,12 @@ namespace Beatemup.Controllers
         
         private float pressedAttackTime = 0;
 
-        private int comboAttacks => ComboAnimations.Length;
+        public List<string> comboAnimations = new List<string>()
+        {
+            "Attack2", "Attack3", "AttackFinisher"
+        };
+        
+        private int comboAttacks => comboAnimations.Count;
         private int currentComboAttack;
 
         public void OnInit()
@@ -459,7 +460,7 @@ namespace Beatemup.Controllers
                 if (states.HasState("Combo") && animation.playingTime >= attackCancellationTime && control.HasBufferedAction(control.button1) 
                     && currentComboAttack < comboAttacks)
                 {
-                    animation.Play(ComboAnimations[currentComboAttack], 1);
+                    animation.Play(comboAnimations[currentComboAttack], 1);
 
                     if (control.HasBufferedActions(control.backward.name, control.button1.name))
                     {
@@ -507,7 +508,7 @@ namespace Beatemup.Controllers
                 pressedAttackTime = heavySwingStartTime;
             }
 
-            if (pressedAttackTime <= 0)
+            if (pressedAttackTime <= 0 && animation.HasAnimation("HeavySwingStartup"))
             {
                 control.ConsumeBuffer();
 
