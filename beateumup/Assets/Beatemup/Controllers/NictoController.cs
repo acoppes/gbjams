@@ -166,6 +166,19 @@ namespace Beatemup.Controllers
                     states.ExitState("DashBackRecovery");
                 }
                 
+                if (control.HasBufferedAction(control.button1) && attackCooldownCurrent <= 0)
+                {
+                    states.ExitState("DashBackRecovery");
+                    
+                    currentComboAttack = 0;
+                    animation.Play("Attack1", 1);
+                    movement.movingDirection = Vector2.zero;
+                    control.ConsumeBuffer();
+                    states.EnterState("Attack");
+                
+                    return;
+                }
+                
                 dashBackCooldownCurrent -= Time.deltaTime;
                 dashFrontCooldownCurrent -= Time.deltaTime;
                 
