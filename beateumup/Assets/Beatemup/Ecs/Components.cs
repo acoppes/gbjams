@@ -41,6 +41,8 @@ namespace Beatemup.Ecs
     
     public struct ControlComponent : IEntityComponent
     {
+        public const float DefaultBufferTime = 0.2f;
+        
         public const int MaxBufferCount = 15;
         
         public Vector2 direction;
@@ -102,6 +104,12 @@ namespace Beatemup.Ecs
             }
 
             return true;
+        }
+
+        public void InsertInBuffer(string action)
+        {
+            buffer.Add(action);
+            bufferTime = DefaultBufferTime;
         }
 
         public void ConsumeBuffer()

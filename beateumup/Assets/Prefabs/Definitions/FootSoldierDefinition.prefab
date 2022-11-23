@@ -59,7 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa08ba5941e4c2690b898d38e0ded1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
   animationsAsset: {fileID: 11400000, guid: 013ac21cc4b0da14e8fd674abe32d94a, type: 2}
@@ -130,6 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToChangeDirection: 0.5
+  timeToTryAttack: 0.25
+  attackDetection: {fileID: 11400000, guid: f7d77839282ff4e4f87a80a250bd2ade, type: 2}
 --- !u!114 &5305517232780654927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,8 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14e949f75dd01c4e8ad700f2c9c1338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCancellationTime: 0.1
-  sprintExtraSpeed: 7
+  baseSpeed: {x: 0, y: 0}
+  attackCancellationTime: 0.13333334
+  sprintSpeed: {x: 0, y: 0}
   heavySwingStartTime: 0.5
   heavySwingChargeTime: 0.25
   hitStunTime: 0.5

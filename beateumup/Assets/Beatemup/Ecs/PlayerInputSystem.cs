@@ -10,8 +10,6 @@ namespace Beatemup.Ecs
 {
     public class PlayerInputSystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
     {
-        private const float DefaultBufferTime = 0.2f;
-        
         private List<FieldInfo> _controlActions; 
         
         public void Init(EcsSystems systems)
@@ -41,8 +39,7 @@ namespace Beatemup.Ecs
             
             if (button.wasPressedThisFrame)
             {
-                controlComponent.buffer.Add(field.Name);
-                controlComponent.bufferTime = DefaultBufferTime;
+                controlComponent.InsertInBuffer(field.Name);
             }
         }
         
