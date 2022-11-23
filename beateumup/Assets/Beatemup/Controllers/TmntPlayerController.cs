@@ -97,6 +97,12 @@ namespace Beatemup.Controllers
                 jump.isActive = true;
                 gravityComponent.disabled = true;
             }
+            
+            if (states.statesEntered.Contains("HitStun"))
+            {
+                states.ExitState("Attack");
+                states.ExitState("Combo");
+            }
         }
 
         public void OnExit()
