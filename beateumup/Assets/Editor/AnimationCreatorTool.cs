@@ -51,7 +51,7 @@ namespace Utils.Editor
             return frames;
         }
 
-        [UnityEditor.MenuItem("Assets/Expand files in Folder")]
+        [UnityEditor.MenuItem("Assets/TMNT Tools/Expand sprites in Folder")]
         public static void ExpandFiles()
         {
             var folderToExpand = EditorUtility.OpenFolderPanel("Select folder", Application.dataPath, "");
@@ -104,7 +104,7 @@ namespace Utils.Editor
             }
         }
 
-        [UnityEditor.MenuItem("Assets/Create Animation Asset from Folder")]
+        [UnityEditor.MenuItem("Assets/TMNT Tools/Create Animation Asset from Folder")]
         public static void CreateAnimationAssetFromFolder()
         {
             var activeObject = Selection.activeObject;
