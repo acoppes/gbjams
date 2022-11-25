@@ -1,4 +1,5 @@
 ﻿using Beatemup.Ecs;
+using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
 using Gemserk.Leopotam.Gameplay.Events;
@@ -48,11 +49,38 @@ namespace Beatemup.Controllers
         private int currentComboAttack;
 
         private Vector3 teleportLastHitPosition;
+
+        public float hitStunTime;
         
         public void OnInit()
         {
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             lookingDirection.locked = true;
+            
+            ref var hitComponent = ref world.GetComponent<HitComponent>(entity);
+            hitComponent.OnHitEvent += OnHit;
+        }
+        
+        private void OnHit(World world, Entity entity, HitComponent hitComponent)
+        {
+            ref var states = ref world.GetComponent<StatesComponent>(entity);
+            var position = world.GetComponent<PositionComponent>(entity);
+            ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
+
+            if (states.HasState("DashFront") || states.HasState("DashBack"))
+            {
+                return;
+            }
+
+            states.EnterState("HitStun");
+
+            // if (hitComponent.hits.Count > 0)
+            // {
+            //     var hitPosition = hitComponent.hits[0].position;
+            //
+            //     lookingDirection.value = hitPosition - position.value;
+            //     lookingDirection.value.Normalize();
+            // }
         }
         
         public void OnEnter()
@@ -96,6 +124,15 @@ namespace Beatemup.Controllers
             {
                 gravityComponent.disabled = true;
                 animation.Play("DashFront", 1);
+            }
+            
+            if (states.statesEntered.Contains("HitStun"))
+            {
+                states.ExitState("Attack");
+                states.ExitState("Combo");
+                
+                // states.ExitState("DashFront");
+                // states.ExitState("DashBack");
             }
         }
 
@@ -151,6 +188,23 @@ namespace Beatemup.Controllers
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
             State state;
+            
+            if (states.TryGetState("HitStun", out state))
+            {
+                movement.movingDirection = Vector2.zero;
+                
+                if (!animation.IsPlaying("HitStun"))
+                {
+                    animation.Play("HitStun", 1);
+                }
+
+                if (animation.state == AnimationComponent.State.Completed)
+                {
+                    states.ExitState("HitStun");
+                }
+                
+                return;
+            }
 
             if (states.TryGetState("DashBackRecovery", out state))
             {
