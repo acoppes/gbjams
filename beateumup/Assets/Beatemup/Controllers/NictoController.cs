@@ -49,8 +49,6 @@ namespace Beatemup.Controllers
         private int currentComboAttack;
 
         private Vector3 teleportLastHitPosition;
-
-        public float hitStunTime;
         
         public void OnInit()
         {
