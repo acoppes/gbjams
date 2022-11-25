@@ -59,7 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa08ba5941e4c2690b898d38e0ded1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 8
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
   animationsAsset: {fileID: 11400000, guid: 0c1b2d38bc50eee4d83029320b678a0e, type: 2}
@@ -67,6 +66,7 @@ MonoBehaviour:
   defaultHurtBox:
     offset: {x: 0, y: 0}
     size: {x: 2, y: 0}
+    depth: 0.5
   isVfx: 0
   gravityStartsDisabled: 0
   gravityScale: 1
@@ -135,3 +135,7 @@ MonoBehaviour:
   heavySwingChargeTime: 0.35
   hitStunTime: 0.25
   diveKickSpeed: {x: 0, y: 0, z: 0}
+  comboAnimations:
+  - Attack2
+  - Attack3
+  - AttackFinisher

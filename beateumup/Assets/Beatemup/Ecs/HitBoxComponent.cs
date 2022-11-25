@@ -14,8 +14,10 @@ namespace Beatemup.Ecs
         
         [NonSerialized]
         public Vector2 position;
+        
         public Vector2 offset;
         public Vector2 size;
+        public float depth;
     }
     
     public struct HitBoxComponent : IEntityComponent
@@ -24,9 +26,7 @@ namespace Beatemup.Ecs
         
         public HitBox hit;
         public HitBox hurt;
-        
-        public float depth;
-        
+
         // hurt box collider2d
         public ColliderEntityReference instance;
 
@@ -59,7 +59,8 @@ namespace Beatemup.Ecs
             {
                 size = hitBoxAsset.size,
                 position = new Vector2(position.value.x, position.value.y),
-                offset = offset + new Vector2(0, position.value.z)
+                offset = offset + new Vector2(0, position.value.z), 
+                depth = hitBoxAsset.depth
             };
         }
         
@@ -95,7 +96,7 @@ namespace Beatemup.Ecs
                     var targetHitBox = world.GetComponent<HitBoxComponent>(entityReference.entity);
                     
                     if (Mathf.Abs(hit.position.y - targetHitBox.hurt.position.y) >
-                        (hitBox.depth + targetHitBox.depth))
+                        (hit.depth + targetHitBox.hurt.depth))
                     {
                         continue;
                     }

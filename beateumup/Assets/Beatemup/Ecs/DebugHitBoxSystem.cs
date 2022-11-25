@@ -90,7 +90,7 @@ namespace Beatemup.Ecs
                 var position = positionComponents.Get(entity);
                 
                 hitBox.debugDepthBox.transform.position = new Vector3(position.value.x, position.value.y, 0);
-                hitBox.debugDepthBox.transform.localScale = new Vector3(hitBox.hurt.size.x, hitBox.depth * 2.0f, 1);
+                hitBox.debugDepthBox.transform.localScale = new Vector3(hitBox.hurt.size.x, hitBox.hurt.depth * 2.0f, 1);
             }
             
         }
