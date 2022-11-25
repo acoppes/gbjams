@@ -13,13 +13,6 @@ namespace Beatemup.Ecs
             var hitBoxes = world.GetComponents<HitBoxComponent>();
             var positions = world.GetComponents<PositionComponent>();
             var lookingDirections = world.GetComponents<LookingDirection>();
-            
-            foreach (var entity in world.GetFilter<HitBoxComponent>().End())
-            {
-                ref var hitBox = ref hitBoxes.Get(entity);
-                hitBox.hurt = hitBox.defaultHurt;
-                hitBox.hit = new HitBox();
-            }
 
             foreach (var entity in world.GetFilter<AnimationComponent>()
                          .Inc<HitBoxComponent>()
@@ -36,51 +29,27 @@ namespace Beatemup.Ecs
                 var animationDefinition = asset.animations[animationComponent.currentAnimation];
                 var frame = animationDefinition.frames[animationComponent.currentFrame];
 
-                hitBox.hurt.position = new Vector2(position.value.x, position.value.y);
-                hitBox.hurt.offset += new Vector2(0, position.value.z);
+                hitBox.hurt = new HitBox();
+                hitBox.hit = new HitBox();
+
+                if (hitBox.defaultHurt != null)
+                {
+                    hitBox.hurt = hitBox.defaultHurt.GetHitBox(position, lookingDirection);
+                }
+                
+                // hitBox.hurt.position = new Vector2(position.value.x, position.value.y);
+                // hitBox.hurt.offset += new Vector2(0, position.value.z);
 
                 var frameMetadata = animationComponent.metadata.GetFrameMetadata(frame.sprite);
 
                 if (frameMetadata != null && frameMetadata.hitBoxes.Count > 0)
                 {
                     hitBox.hit = frameMetadata.hitBoxes[0].GetHitBox(position, lookingDirection);
-                    
-                    // var hitbox = frameMetadata.hitBoxes[0];
-                    //
-                    // var offset = hitbox.offset;
-                    //
-                    // if (lookingDirection.value.x < 0)
-                    // {
-                    //     offset.x *= -1;
-                    // }
-                    //
-                    // hitBox.hit = new HitBox
-                    // {
-                    //     size = hitbox.size,
-                    //     position = new Vector2(position.value.x, position.value.y),
-                    //     offset = offset + new Vector2(0, position.value.z)
-                    // };
                 }
                 
                 if (frameMetadata != null && frameMetadata.hurtBoxes.Count > 0)
                 {
                     hitBox.hurt = frameMetadata.hurtBoxes[0].GetHitBox(position, lookingDirection);
-                    
-                    // var hurtBox = frameMetadata.hitBoxes[0];
-                    //
-                    // var offset = hurtBox.offset;
-                    //
-                    // if (lookingDirection.value.x < 0)
-                    // {
-                    //     offset.x *= -1;
-                    // }
-                    //
-                    // hitBox.hurt = new HitBox
-                    // {
-                    //     size = hurtBox.size,
-                    //     position = new Vector2(position.value.x, position.value.y),
-                    //     offset = offset + new Vector2(0, position.value.z)
-                    // };
                 }
             }
         }

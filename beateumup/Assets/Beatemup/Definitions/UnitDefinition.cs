@@ -16,7 +16,7 @@ namespace Beatemup.Definitions
         public AnimationsAsset animationsAsset;
         public SpritesMetadata spritesMetadata;
 
-        public HitBox defaultHurtBox;
+        public HitboxAsset defaultHurtBoxAsset;
 
         public bool isVfx;
 
@@ -89,7 +89,7 @@ namespace Beatemup.Definitions
                 {
                     world.AddComponent(entity, new HitBoxComponent
                     {
-                        defaultHurt = defaultHurtBox
+                        defaultHurt = defaultHurtBoxAsset
                     });
                 }
             }
