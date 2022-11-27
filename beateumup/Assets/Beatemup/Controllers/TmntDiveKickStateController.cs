@@ -69,7 +69,7 @@ namespace Beatemup.Controllers
 
                     foreach (var hitTarget in hitTargets)
                     {
-                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
+                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget.entity);
                         hitComponent.hits.Add(new HitData
                         {
                             position = position.value

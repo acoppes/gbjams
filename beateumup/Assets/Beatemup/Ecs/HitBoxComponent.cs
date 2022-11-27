@@ -20,10 +20,13 @@ namespace Beatemup.Ecs
         public HitBox hit;
         public HitBox hurt;
 
-        // hurt box collider2d
-        public ColliderEntityReference instance;
-
         public DebugHitBox debugHitBox;
         public DebugHitBox debugHurtBox;
+    }
+    
+    public struct HurtBoxColliderComponent : IEntityComponent
+    {
+        public BoxCollider2D collider;
+        public TargetReference targetReference;
     }
 }

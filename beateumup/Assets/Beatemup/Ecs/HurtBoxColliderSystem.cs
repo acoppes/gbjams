@@ -16,43 +16,58 @@ namespace Beatemup.Ecs
 
                 var instance = new GameObject("HurtBox");
                 instance.layer = LayerMask.NameToLayer("HurtBox");
-
-                hitBox.instance = instance.AddComponent<ColliderEntityReference>();
                 
-                hitBox.instance.boxCollider2D = instance.AddComponent<BoxCollider2D>();
-                hitBox.instance.boxCollider2D.size = hitBox.hurt.size;
-                hitBox.instance.boxCollider2D.isTrigger = true;
+                var targetReference = instance.AddComponent<TargetReference>();
+                
+                var boxCollider2D = instance.AddComponent<BoxCollider2D>();
+                boxCollider2D.size = hitBox.hurt.size;
+                boxCollider2D.isTrigger = true;
 
-                hitBox.instance.entity = entity;
+                targetReference.target = new TargetingUtils.Target
+                {
+                    entity = entity
+                };
+                
+                world.AddComponent(entity, new HurtBoxColliderComponent()
+                {
+                    collider = boxCollider2D,
+                    targetReference = targetReference
+                });
             }
         }
 
         public void OnEntityDestroyed(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
-            var hitBoxes = world.GetComponents<HitBoxComponent>();
-            if (hitBoxes.Has(entity))
+            var hurtBoxColliders = world.GetComponents<HurtBoxColliderComponent>();
+            if (hurtBoxColliders.Has(entity))
             {
-                ref var hitBox = ref hitBoxes.Get(entity);
-                if (hitBox.instance != null)
+                ref var hurtBoxCollider = ref hurtBoxColliders.Get(entity);
+                
+                if (hurtBoxCollider.targetReference != null)
                 {
-                    GameObject.DestroyImmediate(hitBox.instance.gameObject);
+                    GameObject.DestroyImmediate(hurtBoxCollider.targetReference.gameObject);
                 }
-                hitBox.instance = null;
+                
+                hurtBoxCollider.targetReference = null;
+                hurtBoxCollider.collider = null;
             }
         }
 
         public void Run(EcsSystems systems)
         {
             var hitBoxes = world.GetComponents<HitBoxComponent>();
+            var hurtBoxColliders = world.GetComponents<HurtBoxColliderComponent>();
             // var positionComponents = world.GetComponents<PositionComponent>();
             
-            foreach (var entity in world.GetFilter<HitBoxComponent>().End())
+            foreach (var entity in world.GetFilter<HurtBoxColliderComponent>().Inc<HitBoxComponent>().End())
             {
-                ref var hitBox = ref hitBoxes.Get(entity);
+                var hitBox = hitBoxes.Get(entity);
+                ref var hurtBoxColliderComponent = ref hurtBoxColliders.Get(entity);
                 // var positionComponent = positionComponents.Get(entity);
                 
-                hitBox.instance.transform.position = hitBox.hurt.position + hitBox.hurt.offset;
-                hitBox.instance.boxCollider2D.size = hitBox.hurt.size;
+                hurtBoxColliderComponent.targetReference.transform.position = hitBox.hurt.position + hitBox.hurt.offset;
+                hurtBoxColliderComponent.collider.enabled = hitBox.hurt.size.SqrMagnitude() > Mathf.Epsilon;
+                hurtBoxColliderComponent.collider.size = hitBox.hurt.size;
             }
         }
     }

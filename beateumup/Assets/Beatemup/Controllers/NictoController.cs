@@ -400,13 +400,13 @@ namespace Beatemup.Controllers
 
                     foreach (var hitTarget in hitTargets)
                     {
-                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget);
+                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget.entity);
                         hitComponent.hits.Add(new HitData
                         {
                             position = position.value
                         });
                         
-                        var targetPosition = world.GetComponent<PositionComponent>(hitTarget);
+                        var targetPosition = world.GetComponent<PositionComponent>(hitTarget.entity);
 
                         // position.value = new Vector3(position.value.x, targetPosition.value.y - 0.1f, position.value.z);
                         

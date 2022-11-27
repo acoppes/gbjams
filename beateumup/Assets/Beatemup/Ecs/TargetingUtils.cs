@@ -14,6 +14,11 @@ namespace Beatemup.Ecs
             public HitBox area;
         }
         
+        public class Target
+        {
+            public Entity entity;
+        }
+        
         private static readonly ContactFilter2D HurtBoxContactFilter = new()
         {
             useTriggers = true,
@@ -23,7 +28,7 @@ namespace Beatemup.Ecs
         
         private static readonly List<Collider2D> colliders = new ();
 
-        public static List<Entity> GetTargets(World world, Entity source)
+        public static List<Target> GetTargets(World world, Entity source)
         {
             var hitBox = world.GetComponent<HitBoxComponent>(source);
             var player = world.GetComponent<PlayerComponent>(source);
@@ -35,9 +40,9 @@ namespace Beatemup.Ecs
             });
         }
         
-        public static List<Entity> GetTargets(World world, TargetingParameters targetingParameters)
+        public static List<Target> GetTargets(World world, TargetingParameters targetingParameters)
         {
-            var hitTargets = new List<Entity>();
+            var hitTargets = new List<Target>();
             
             var area = targetingParameters.area;
 
@@ -48,16 +53,16 @@ namespace Beatemup.Ecs
             {
                 foreach (var collider in colliders)
                 {
-                    var entityReference = collider.GetComponent<ColliderEntityReference>();
+                    var targetEntityReference = collider.GetComponent<TargetReference>();
                     
-                    var targetPlayer = world.GetComponent<PlayerComponent>(entityReference.entity);
+                    var targetPlayer = world.GetComponent<PlayerComponent>(targetEntityReference.target.entity);
 
                     if (targetingParameters.player == targetPlayer.player)
                     {
                         continue;
                     }
                     
-                    var targetHitBox = world.GetComponent<HitBoxComponent>(entityReference.entity);
+                    var targetHitBox = world.GetComponent<HitBoxComponent>(targetEntityReference.target.entity);
                     
                     if (Mathf.Abs(area.position.y - targetHitBox.hurt.position.y) >
                         (area.depth + targetHitBox.hurt.depth))
@@ -65,7 +70,7 @@ namespace Beatemup.Ecs
                         continue;
                     }
 
-                    hitTargets.Add(entityReference.entity);
+                    hitTargets.Add(targetEntityReference.target);
                 }
             }
 
