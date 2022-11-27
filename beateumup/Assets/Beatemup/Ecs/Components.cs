@@ -209,4 +209,9 @@ namespace Beatemup.Ecs
     {
         public bool destroy;
     }
+
+    public struct TargetComponent : IEntityComponent
+    {
+        public TargetingUtils.Target target;
+    }
 }

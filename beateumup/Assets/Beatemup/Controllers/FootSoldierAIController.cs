@@ -73,15 +73,11 @@ namespace Beatemup.Controllers
             
             if (!states.HasState("TryingAttack"))
             {
-                
-
-                var targets = TargetingUtils.GetTargets(world, new TargetingUtils.TargetingParameters
+                var targets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
                 {
                     player = player.player,
                     area = hitBox
                 });
-
-             
                 
                 if (targets.Count > 0)
                 {

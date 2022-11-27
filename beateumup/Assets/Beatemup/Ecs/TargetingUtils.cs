@@ -17,6 +17,8 @@ namespace Beatemup.Ecs
         public class Target
         {
             public Entity entity;
+            public int player;
+            public HitBox hurtBox;
         }
         
         private static readonly ContactFilter2D HurtBoxContactFilter = new()
@@ -33,14 +35,14 @@ namespace Beatemup.Ecs
             var hitBox = world.GetComponent<HitBoxComponent>(source);
             var player = world.GetComponent<PlayerComponent>(source);
             
-            return GetTargets(world, new TargetingParameters
+            return GetTargets(new TargetingParameters
             {
                 player = player.player,
                 area= hitBox.hit
             });
         }
         
-        public static List<Target> GetTargets(World world, TargetingParameters targetingParameters)
+        public static List<Target> GetTargets(TargetingParameters targetingParameters)
         {
             var hitTargets = new List<Target>();
             
@@ -54,18 +56,15 @@ namespace Beatemup.Ecs
                 foreach (var collider in colliders)
                 {
                     var targetEntityReference = collider.GetComponent<TargetReference>();
+                    var target = targetEntityReference.target;
                     
-                    var targetPlayer = world.GetComponent<PlayerComponent>(targetEntityReference.target.entity);
-
-                    if (targetingParameters.player == targetPlayer.player)
+                    if (targetingParameters.player == target.player)
                     {
                         continue;
                     }
-                    
-                    var targetHitBox = world.GetComponent<HitBoxComponent>(targetEntityReference.target.entity);
-                    
-                    if (Mathf.Abs(area.position.y - targetHitBox.hurt.position.y) >
-                        (area.depth + targetHitBox.hurt.depth))
+
+                    if (Mathf.Abs(area.position.y - target.hurtBox.position.y) >
+                        (area.depth + target.hurtBox.depth))
                     {
                         continue;
                     }

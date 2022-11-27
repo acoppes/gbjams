@@ -5,6 +5,8 @@ using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
 using UnityEngine;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
+using TargetComponent = Beatemup.Ecs.TargetComponent;
+using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
 namespace Beatemup.Definitions
 {
@@ -93,6 +95,14 @@ namespace Beatemup.Definitions
                     });
                 }
             }
+            
+            world.AddComponent(entity, new TargetComponent
+            {
+                target = new TargetingUtils.Target
+                {
+                    entity = entity
+                }
+            });
             
             world.AddComponent(entity, new HitComponent()
             {

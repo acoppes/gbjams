@@ -23,11 +23,6 @@ namespace Beatemup.Ecs
                 boxCollider2D.size = hitBox.hurt.size;
                 boxCollider2D.isTrigger = true;
 
-                targetReference.target = new TargetingUtils.Target
-                {
-                    entity = entity
-                };
-                
                 world.AddComponent(entity, new HurtBoxColliderComponent()
                 {
                     collider = boxCollider2D,
@@ -57,13 +52,20 @@ namespace Beatemup.Ecs
         {
             var hitBoxes = world.GetComponents<HitBoxComponent>();
             var hurtBoxColliders = world.GetComponents<HurtBoxColliderComponent>();
-            // var positionComponents = world.GetComponents<PositionComponent>();
+            var targetComponents = world.GetComponents<TargetComponent>();
+            
+            foreach (var entity in world.GetFilter<HurtBoxColliderComponent>().Inc<TargetComponent>().End())
+            {
+                ref var hurtBoxColliderComponent = ref hurtBoxColliders.Get(entity);
+                var targetComponent = targetComponents.Get(entity);
+
+                hurtBoxColliderComponent.targetReference.target = targetComponent.target;
+            }
             
             foreach (var entity in world.GetFilter<HurtBoxColliderComponent>().Inc<HitBoxComponent>().End())
             {
                 var hitBox = hitBoxes.Get(entity);
                 ref var hurtBoxColliderComponent = ref hurtBoxColliders.Get(entity);
-                // var positionComponent = positionComponents.Get(entity);
                 
                 hurtBoxColliderComponent.targetReference.transform.position = hitBox.hurt.position + hitBox.hurt.offset;
                 hurtBoxColliderComponent.collider.enabled = hitBox.hurt.size.SqrMagnitude() > Mathf.Epsilon;
