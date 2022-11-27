@@ -1,4 +1,5 @@
-﻿using Beatemup.Ecs;
+﻿using Beatemup.Development;
+using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
 using Gemserk.Leopotam.Gameplay.Events;
@@ -14,11 +15,22 @@ namespace Beatemup.Controllers
         public float timeToTryAttack = 0.25f;
         
         public HitboxAsset attackDetection;
+
+        private DebugHitBoxSystem debugHitBoxes;
+
+        private DebugHitBox debugHitBox;
         
         public void OnInit()
         {
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             states.EnterState("MovingDown");
+
+            debugHitBoxes = FindObjectOfType<DebugHitBoxSystem>();
+
+            if (debugHitBoxes != null)
+            {
+                debugHitBox = debugHitBoxes.CreateDebugHitBox(2);
+            }
         }
         
         public override void OnUpdate(float dt)
@@ -55,6 +67,11 @@ namespace Beatemup.Controllers
 
                 var targets = HitBoxUtils.GetTargets(world, entity, hitBox);
 
+                if (debugHitBox != null)
+                {
+                    debugHitBox.UpdateHitBox(hitBox);
+                }
+                
                 if (targets.Count > 0)
                 {
                     states.EnterState("TryingAttack");

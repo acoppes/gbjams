@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Beatemup.Development;
 using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
@@ -8,7 +9,6 @@ namespace Beatemup.Ecs
 {
     public struct HitBox
     {
-        public const float DefaultDepth = 0.5f;
         public Vector2 position;
         public Vector2 offset;
         public Vector2 size;
@@ -25,9 +25,8 @@ namespace Beatemup.Ecs
         // hurt box collider2d
         public ColliderEntityReference instance;
 
-        public GameObject debugHitBox;
-        public GameObject debugHurtBox;
-        public GameObject debugDepthBox;
+        public DebugHitBox debugHitBox;
+        public DebugHitBox debugHurtBox;
     }
 
     public static class HitBoxUtils

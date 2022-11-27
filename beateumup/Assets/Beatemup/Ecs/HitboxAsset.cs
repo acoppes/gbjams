@@ -7,6 +7,6 @@ namespace Beatemup.Ecs
     {
         public Vector2 offset;
         public Vector2 size;
-        public float depth = HitBox.DefaultDepth;
+        public float depth = 0.5f;
     }
 }
