@@ -10,7 +10,7 @@ namespace Beatemup.Ecs
     {
         public struct TargetingParameters
         {
-            public int player;
+            public int sourcePlayer;
             public HitBox area;
         }
         
@@ -18,6 +18,7 @@ namespace Beatemup.Ecs
         {
             public Entity entity;
             public int player;
+            public Vector3 position;
             public HitBox hurtBox;
         }
         
@@ -37,7 +38,7 @@ namespace Beatemup.Ecs
             
             return GetTargets(new TargetingParameters
             {
-                player = player.player,
+                sourcePlayer = player.player,
                 area= hitBox.hit
             });
         }
@@ -58,7 +59,7 @@ namespace Beatemup.Ecs
                     var targetEntityReference = collider.GetComponent<TargetReference>();
                     var target = targetEntityReference.target;
                     
-                    if (targetingParameters.player == target.player)
+                    if (targetingParameters.sourcePlayer == target.player)
                     {
                         continue;
                     }

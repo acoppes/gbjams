@@ -529,7 +529,7 @@ namespace Beatemup.Controllers
             {
                 currentComboAttack = 0;
                 
-                if (Mathf.Abs(movement.currentVelocity.x) > Mathf.Epsilon)
+                if (animation.HasAnimation("AttackMoving") && Mathf.Abs(movement.currentVelocity.x) > Mathf.Epsilon)
                 {
                     animation.Play("AttackMoving", 1);
                 }

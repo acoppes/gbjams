@@ -11,6 +11,17 @@ namespace Beatemup.Ecs
             var targetComponents = world.GetComponents<TargetComponent>();
             var playerComponents = world.GetComponents<PlayerComponent>();
             var hitBoxComponents = world.GetComponents<HitBoxComponent>();
+            var positions = world.GetComponents<PositionComponent>();
+            
+            foreach (var entity in world.GetFilter<TargetComponent>().Inc<PositionComponent>().End())
+            {
+                ref var targetComponent = ref targetComponents.Get(entity);
+                var positionComponent = positions.Get(entity);
+
+                ref var target = ref targetComponent.target;
+                target.entity = entity;
+                target.position = positionComponent.value;
+            }
             
             foreach (var entity in world.GetFilter<TargetComponent>().Inc<PlayerComponent>().End())
             {

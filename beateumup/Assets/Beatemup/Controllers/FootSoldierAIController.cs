@@ -1,5 +1,6 @@
 ﻿using Beatemup.Development;
 using Beatemup.Ecs;
+using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
 using Gemserk.Leopotam.Gameplay.Events;
@@ -9,7 +10,7 @@ using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
 namespace Beatemup.Controllers
 {
-    public class FootSoldierAIController : ControllerBase, IInit
+    public class FootSoldierAIController : ControllerBase, IInit, IEntityDestroyed
     {
         public float timeToChangeDirection = 0.25f;
         
@@ -20,6 +21,8 @@ namespace Beatemup.Controllers
         private DebugHitBoxSystem debugHitBoxes;
 
         private DebugHitBox debugHitBox;
+
+        private TargetingUtils.Target mainTarget;
         
         public void OnInit()
         {
@@ -31,6 +34,14 @@ namespace Beatemup.Controllers
             if (debugHitBoxes != null)
             {
                 debugHitBox = debugHitBoxes.CreateDebugHitBox(2);
+            }
+        }
+        
+        public void OnEntityDestroyed(Entity e)
+        {
+            if (mainTarget != null && mainTarget.entity == e)
+            {
+                mainTarget = null;
             }
         }
         
@@ -57,6 +68,26 @@ namespace Beatemup.Controllers
                 debugHitBox.UpdateHitBox(hitBox);
             }
             
+            if (mainTarget == null)
+            {
+                var targets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
+                {
+                    sourcePlayer = player.player,
+                    area = new HitBox
+                    {
+                        position = position.value,
+                        depth = 100,
+                        offset = Vector2.zero,
+                        size = new Vector2(100, 100)
+                    }
+                });
+
+                if (targets.Count > 0)
+                {
+                    mainTarget = targets[0];
+                }
+            }
+            
             if (states.HasState("HitStun"))
             {
                 control.direction = Vector2.zero;
@@ -75,7 +106,7 @@ namespace Beatemup.Controllers
             {
                 var targets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
                 {
-                    player = player.player,
+                    sourcePlayer = player.player,
                     area = hitBox
                 });
                 
@@ -87,9 +118,12 @@ namespace Beatemup.Controllers
                     control.InsertInBuffer(control.button1.name);
                     return;
                 }
+            }
 
-                // control.direction = Vector2.zero;
-                return;
+
+            if (mainTarget != null)
+            {
+                control.direction = (mainTarget.position - position.value).normalized;
             }
             
             // if (states.TryGetState("MovingDown", out state))
@@ -118,5 +152,6 @@ namespace Beatemup.Controllers
             //     return;
             // }
         }
+
     }
 }
