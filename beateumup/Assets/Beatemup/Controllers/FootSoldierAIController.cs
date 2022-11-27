@@ -93,6 +93,12 @@ namespace Beatemup.Controllers
                 control.direction = Vector2.zero;
                 return;
             }
+            
+            var baseAttackTargets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
+            {
+                sourcePlayer = player.player,
+                area = hitBox
+            });
 
             if (states.TryGetState("TryingAttack", out state))
             {
@@ -104,13 +110,7 @@ namespace Beatemup.Controllers
             
             if (!states.HasState("TryingAttack"))
             {
-                var targets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
-                {
-                    sourcePlayer = player.player,
-                    area = hitBox
-                });
-                
-                if (targets.Count > 0)
+                if (baseAttackTargets.Count > 0)
                 {
                     states.EnterState("TryingAttack");
                     control.button1.isPressed = true;
@@ -119,9 +119,10 @@ namespace Beatemup.Controllers
                     return;
                 }
             }
-
-
-            if (mainTarget != null)
+            
+            control.direction = Vector2.zero;
+            
+            if (mainTarget != null && baseAttackTargets.Count == 0)
             {
                 control.direction = (mainTarget.position - position.value).normalized;
             }
