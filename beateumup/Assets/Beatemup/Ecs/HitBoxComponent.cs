@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
@@ -7,14 +6,10 @@ using UnityEngine;
 
 namespace Beatemup.Ecs
 {
-    [Serializable]
     public struct HitBox
     {
         public const float DefaultDepth = 0.5f;
-        
-        [NonSerialized]
         public Vector2 position;
-        
         public Vector2 offset;
         public Vector2 size;
         public float depth;
