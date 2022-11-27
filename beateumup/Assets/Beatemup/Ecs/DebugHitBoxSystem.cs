@@ -23,16 +23,6 @@ namespace Beatemup.Ecs
             return debugHitBox;
         }
 
-        /*public void Init(EcsSystems systems)
-        {
-            instance = this;
-        }
-
-        public void Destroy(EcsSystems systems)
-        {
-            instance = null;
-        }*/
-        
         public void OnEntityCreated(World world, Entity entity)
         {
             if (world.HasComponent<HitBoxComponent>(entity))
@@ -68,15 +58,6 @@ namespace Beatemup.Ecs
         public void Run(EcsSystems systems)
         {
             var hitBoxComponents = world.GetComponents<HitBoxComponent>();
-            // var positionComponents = world.GetComponents<PositionComponent>();
-            
-            // foreach (var entity in world.GetFilter<HitBoxComponent>().End())
-            // {
-            //     var hitBox = hitBoxComponents.Get(entity);
-            //     hitBox.debugHitBox.gameObject.SetActive(debugHitBoxesEnabled);
-            //     hitBox.debugHurtBox.gameObject.SetActive(debugHitBoxesEnabled);
-            //     hitBox.debugDepthBox.gameObject.SetActive(debugHitBoxesEnabled);
-            // }
             
             foreach (var entity in world.GetFilter<HitBoxComponent>().End())
             {
@@ -85,21 +66,6 @@ namespace Beatemup.Ecs
                 hitBox.debugHitBox.UpdateHitBox(hitBox.hit);
                 hitBox.debugHurtBox.UpdateHitBox(hitBox.hurt);
             }
-            
-            // foreach (var entity in world.GetFilter<HitBoxComponent>().Inc<PositionComponent>().End())
-            // {
-            //     var hitBox = hitBoxComponents.Get(entity);
-            //     var position = positionComponents.Get(entity);
-            //     
-            //     hitBox.debugDepthBox.UpdateHitBox(new HitBox()
-            //     {
-            //         
-            //     });
-            //     hitBox.debugDepthBox.transform.localScale = new Vector3(hitBox.hurt.size.x, hitBox.hurt.depth * 2.0f, 1);
-            // }
-            
         }
-
-
     }
 }
