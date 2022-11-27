@@ -5,6 +5,7 @@ using Gemserk.Leopotam.Gameplay.Controllers;
 using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
+using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
 namespace Beatemup.Controllers
 {
@@ -43,10 +44,19 @@ namespace Beatemup.Controllers
             var position = world.GetComponent<PositionComponent>(entity);
             var lookingDirection = world.GetComponent<LookingDirection>(entity);
 
+            var player = world.GetComponent<PlayerComponent>(entity);
+
             State state;
 
             control.button1.isPressed = false;
-
+            
+            var hitBox = attackDetection.GetHitBox(position, lookingDirection);
+            
+            if (debugHitBox != null)
+            {
+                debugHitBox.UpdateHitBox(hitBox);
+            }
+            
             if (states.HasState("HitStun"))
             {
                 control.direction = Vector2.zero;
@@ -63,14 +73,15 @@ namespace Beatemup.Controllers
             
             if (!states.HasState("TryingAttack"))
             {
-                var hitBox = attackDetection.GetHitBox(position, lookingDirection);
+                
 
-                var targets = HitBoxUtils.GetTargets(world, entity, hitBox);
-
-                if (debugHitBox != null)
+                var targets = TargetingUtils.GetTargets(world, new TargetingUtils.TargetingParameters
                 {
-                    debugHitBox.UpdateHitBox(hitBox);
-                }
+                    player = player.player,
+                    area = hitBox
+                });
+
+             
                 
                 if (targets.Count > 0)
                 {

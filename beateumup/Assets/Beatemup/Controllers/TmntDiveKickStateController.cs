@@ -4,6 +4,7 @@ using Gemserk.Leopotam.Gameplay.Controllers;
 using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
+using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
 namespace Beatemup.Controllers
 {
@@ -64,7 +65,7 @@ namespace Beatemup.Controllers
 
                 if (currentAnimationFrame.currentFrameHit)
                 {
-                    var hitTargets = HitBoxUtils.GetTargets(world, entity);
+                    var hitTargets = TargetingUtils.GetTargets(world, entity);
 
                     foreach (var hitTarget in hitTargets)
                     {
