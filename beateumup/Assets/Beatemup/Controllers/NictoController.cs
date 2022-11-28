@@ -24,8 +24,7 @@ namespace Beatemup.Controllers
 
         public AnimationCurve dashHeightCurve = AnimationCurve.Constant(0, 1, 0);
 
-        public float dashFrontSpeed = 3.0f;
-        public float dashBackSpeed = 3.0f;
+        public Vector2 dashSpeed = new Vector2(23.0f, 0.0f);
         
         public Vector2 dashBackJumpSpeed = new Vector2(10f, 10f);
         
@@ -95,7 +94,10 @@ namespace Beatemup.Controllers
             
             ref var horizontalMovement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
-            
+
+            var lookingDirection = world.GetComponent<LookingDirection>(entity);
+            var control = world.GetComponent<ControlComponent>(entity);
+
             if (states.statesEntered.Contains("Moving"))
             {
                 animation.Play("Walk");
@@ -111,6 +113,8 @@ namespace Beatemup.Controllers
             {
                 gravityComponent.disabled = true;
                 animation.Play("DashBack", 1);
+                
+                horizontalMovement.movingDirection = new Vector2(-lookingDirection.value.x, control.direction.y);
             }
             
             if (states.statesEntered.Contains("DashBackJump"))
@@ -127,6 +131,8 @@ namespace Beatemup.Controllers
             {
                 gravityComponent.disabled = true;
                 animation.Play("DashFront", 1);
+                
+                horizontalMovement.movingDirection = new Vector2(lookingDirection.value.x, control.direction.y);
             }
             
             if (states.statesEntered.Contains("HitStun"))
@@ -163,6 +169,8 @@ namespace Beatemup.Controllers
                 position.value.z = 0;
                 movement.baseSpeed = Vector2.zero;
                 gravityComponent.disabled = false;
+
+                movement.movingDirection.y = 0;
             }
             
             if (states.statesExited.Contains("DashFront"))
@@ -170,6 +178,8 @@ namespace Beatemup.Controllers
                 position.value.z = 0;
                 movement.baseSpeed = Vector2.zero;
                 gravityComponent.disabled = false;
+                
+                movement.movingDirection.y = 0;
             }
         }
 
@@ -333,8 +343,8 @@ namespace Beatemup.Controllers
             {
                 dashBackCooldownCurrent = dashBackCooldown;
                 
-                movement.movingDirection = -lookingDirection.value;
-                movement.baseSpeed = new Vector2(dashBackSpeed, 0);
+                // movement.movingDirection = new Vector2(-lookingDirection.value.x, control.direction.y);
+                movement.baseSpeed = dashSpeed;
                 
                 position.value.z = dashHeightCurve.Evaluate(state.time / dashBackTime);
 
@@ -351,8 +361,8 @@ namespace Beatemup.Controllers
             {
                 dashFrontCooldownCurrent = dashFrontCooldown;
                 
-                movement.movingDirection = lookingDirection.value;
-                movement.baseSpeed = new Vector2(dashFrontSpeed, 0);
+                // movement.movingDirection = new Vector2(lookingDirection.value.x, control.direction.y);
+                movement.baseSpeed = dashSpeed;
                 
                 position.value.z = dashHeightCurve.Evaluate(state.time / dashFrontTime);
 
