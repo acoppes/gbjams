@@ -1,5 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using NUnit.Framework;
 using UnityEditor;
+using UnityEngine;
 
 namespace Utils.Editor
 {
@@ -27,9 +31,25 @@ namespace Utils.Editor
                 .Where(obj => AssetDatabase.GetAssetPath(obj) != null)
                 .Select(obj => AssetDatabase.GetAssetPath(obj));
 
+            var allPaths = new List<string>();
+
+            foreach (var assetPath in assetPaths)
+            {
+                allPaths.Add(assetPath);
+                
+                if (Directory.Exists(assetPath))
+                {
+                    var objectsInside = AssetDatabase.FindAssets("t:Object", new []{assetPath});
+                    var paths = objectsInside.Select(obj => AssetDatabase.GUIDToAssetPath(obj));
+
+                    allPaths.AddRange(paths);
+                }
+            }
+
             if (EditorUtility.DisplayDialog("Reserialize", "Force reserialize selected assets?", "Ok", "Cancel"))
             {
-                AssetDatabase.ForceReserializeAssets(assetPaths);
+                AssetDatabase.ForceReserializeAssets(allPaths);
+                // allPaths.ForEach(p => Debug.Log(p));
             }
         }
 
