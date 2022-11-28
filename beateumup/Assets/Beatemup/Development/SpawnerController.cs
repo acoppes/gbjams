@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Beatemup;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
@@ -11,7 +12,7 @@ public class SpawnerController : ControllerBase, IInit
     public GameObject enemyDefinition;
     public GameObject enemyParameters;
     
-    public BoxCollider2D spawnArea;
+    public List<BoxCollider2D> spawnAreas = new List<BoxCollider2D>();
     
     
     public void OnInit()
@@ -32,6 +33,8 @@ public class SpawnerController : ControllerBase, IInit
             enemyParameters.GetComponentsInChildren<IEntityInstanceParameter>());
         
         ref var enemyPosition = ref world.GetComponent<PositionComponent>(enemyEntity);
+
+        var spawnArea = spawnAreas.Random();
 
         enemyPosition.value = new Vector3(UnityEngine.Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x), 
             UnityEngine.Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y), 0);
