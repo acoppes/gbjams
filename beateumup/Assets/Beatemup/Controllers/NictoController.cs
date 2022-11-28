@@ -35,9 +35,15 @@ namespace Beatemup.Controllers
 
         private Vector2 dashBackRecoveryDirection;
         public Vector2 dashBackRecoverySpeed = new Vector2(1f, 1f);
-        public float dashBackRecoveryTime = 0.5f;
-        public AnimationCurve dashRecoverySpeed = AnimationCurve.EaseInOut(0, 1, 1, 0);
-
+        
+        [FormerlySerializedAs("dashBackRecoveryTime")] 
+        public float dashRecoveryTime = 0.5f;
+        
+        [FormerlySerializedAs("dashRecoverySpeed")] 
+        public AnimationCurve dashRecoverySpeedCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
+        
+        private bool dashBackRecoveryCanFlip = true;
+        
         public float dashFrontCooldown = 5.0f / 15.0f;
         private float dashFrontCooldownCurrent = 0;
         
@@ -213,21 +219,23 @@ namespace Beatemup.Controllers
                 // TODO: set direction from caller 
 
                 movement.movingDirection = dashBackRecoveryDirection;
-                movement.baseSpeed = dashRecoverySpeed.Evaluate(state.time / dashBackRecoveryTime) * dashBackRecoverySpeed;
+                movement.baseSpeed = dashRecoverySpeedCurve.Evaluate(state.time / dashRecoveryTime) * dashBackRecoverySpeed;
                 
-                if (control.backward.isPressed)
+                if (dashBackRecoveryCanFlip && control.backward.isPressed)
                 {
                     lookingDirection.value.x = -lookingDirection.value.x;
                 }
                 
-                if (state.time > dashBackRecoveryTime)
+                if (state.time > dashRecoveryTime)
                 {
                     states.ExitState("DashBackRecovery");
+                    dashBackRecoveryCanFlip = true;
                 }
 
                 if (control.HasBufferedAction(control.button1) && attackCooldownCurrent <= 0)
                 {
                     states.ExitState("DashBackRecovery");
+                    dashBackRecoveryCanFlip = true;
 
                     // if (control.backward.isPressed)
                     // {
@@ -384,6 +392,8 @@ namespace Beatemup.Controllers
                     // currentComboAttack = comboAttacks;
                     // animation.Play("TeleportFinisher", 1);
                     
+                    // dont allow flip! 
+                    dashBackRecoveryCanFlip = false;
                     states.EnterState("DashBackRecovery");
 
                     // reset dash cooldown

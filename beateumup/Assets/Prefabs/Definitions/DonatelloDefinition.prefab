@@ -63,10 +63,6 @@ MonoBehaviour:
   hasShadow: 1
   animationsAsset: {fileID: 11400000, guid: 73e39bd4688e12d4884d42ca0980ae9f, type: 2}
   spritesMetadata: {fileID: 11400000, guid: 3d344be6fab676c4faaeba8c7198323b, type: 2}
-  defaultHurtBox:
-    offset: {x: 0, y: 2}
-    size: {x: 2, y: 4}
-    depth: 0.5
   defaultHurtBoxAsset: {fileID: 11400000, guid: 1b3c90d96e6ca2443804c24c01661a41, type: 2}
   isVfx: 0
   gravityStartsDisabled: 0
@@ -140,3 +136,54 @@ MonoBehaviour:
   - Attack2
   - Attack3
   - AttackFinisher
+  knockbackBaseSpeed: 0
+  knockbackCurveSpeed: 1
+  knockbackMaxHeight: 1
+  knockbackHorizontalCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  knockbackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
