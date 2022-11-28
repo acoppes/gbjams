@@ -222,6 +222,11 @@ namespace Beatemup.Controllers
                 if (control.HasBufferedAction(control.button1) && attackCooldownCurrent <= 0)
                 {
                     states.ExitState("DashBackRecovery");
+
+                    if (control.backward.isPressed)
+                    {
+                        lookingDirection.value.x = control.direction.x;
+                    }
                     
                     currentComboAttack = 0;
                     animation.Play("Attack1", 1);
@@ -500,14 +505,16 @@ namespace Beatemup.Controllers
             
             if (control.HasBufferedAction(control.button1) && attackCooldownCurrent <= 0)
             {
+                if (control.backward.isPressed)
+                {
+                    lookingDirection.value.x = -lookingDirection.value.x;
+                }
+                
                 currentComboAttack = 0;
                 
                 animation.Play("Attack1", 1);
-                
                 movement.movingDirection = Vector2.zero;
-                
                 control.ConsumeBuffer();
-
                 states.EnterState("Attack");
                 
                 // states.EnterState("Combo");
