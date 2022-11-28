@@ -53,7 +53,7 @@ namespace Beatemup.Controllers
             ref var control = ref world.GetComponent<ControlComponent>(entity);
             
             var position = world.GetComponent<PositionComponent>(entity);
-            var lookingDirection = world.GetComponent<LookingDirection>(entity);
+            ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
             var player = world.GetComponent<PlayerComponent>(entity);
 
@@ -124,7 +124,17 @@ namespace Beatemup.Controllers
             
             if (mainTarget != null && baseAttackTargets.Count == 0)
             {
-                control.direction = (mainTarget.position - position.value).normalized;
+                var side = Mathf.Sign(position.value.x - mainTarget.position.x);
+                
+                var desiredPosition = mainTarget.position + new Vector3(side * attackDetection.offset.x, 0, 0);
+                control.direction = (desiredPosition - position.value).normalized;
+                
+                if ((desiredPosition - position.value).sqrMagnitude < 0.1f)
+                {
+                    control.direction = Vector2.zero;
+                    lookingDirection.value.x = -side;
+                    // control.direction = (mainTarget.position - position.value).normalized;
+                }
             }
             
             // if (states.TryGetState("MovingDown", out state))
