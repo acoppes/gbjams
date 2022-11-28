@@ -36,6 +36,7 @@ namespace Beatemup.Controllers
         private Vector2 dashBackRecoveryDirection;
         public Vector2 dashBackRecoverySpeed = new Vector2(1f, 1f);
         public float dashBackRecoveryTime = 0.5f;
+        public AnimationCurve dashRecoverySpeed = AnimationCurve.EaseInOut(0, 1, 1, 0);
 
         public float dashFrontCooldown = 5.0f / 15.0f;
         private float dashFrontCooldownCurrent = 0;
@@ -212,21 +213,26 @@ namespace Beatemup.Controllers
                 // TODO: set direction from caller 
 
                 movement.movingDirection = dashBackRecoveryDirection;
-                movement.baseSpeed = dashBackRecoverySpeed;
+                movement.baseSpeed = dashRecoverySpeed.Evaluate(state.time / dashBackRecoveryTime) * dashBackRecoverySpeed;
+                
+                if (control.backward.isPressed)
+                {
+                    lookingDirection.value.x = -lookingDirection.value.x;
+                }
                 
                 if (state.time > dashBackRecoveryTime)
                 {
                     states.ExitState("DashBackRecovery");
                 }
-                
+
                 if (control.HasBufferedAction(control.button1) && attackCooldownCurrent <= 0)
                 {
                     states.ExitState("DashBackRecovery");
 
-                    if (control.backward.isPressed)
-                    {
-                        lookingDirection.value.x = control.direction.x;
-                    }
+                    // if (control.backward.isPressed)
+                    // {
+                    //     lookingDirection.value.x = control.direction.x;
+                    // }
                     
                     currentComboAttack = 0;
                     animation.Play("Attack1", 1);
@@ -424,18 +430,18 @@ namespace Beatemup.Controllers
                     }
                 }
                 
-                if (animation.playingTime >= currentAnimationFrame.cancellationTime 
-                    && currentComboAttack < comboAttacks
-                    && dashBackCooldownCurrent <= 0 
-                    && (control.HasBufferedActions(control.up.name, control.button2.name) ||
-                        control.HasBufferedActions(control.button2.name, control.up.name)))
-                {
-                    control.ConsumeBuffer();
-                    states.ExitState("Attack");
-                    states.ExitState("Combo");
-                    states.EnterState("DashBackJump");
-                    return;
-                }
+                // if (animation.playingTime >= currentAnimationFrame.cancellationTime 
+                //     && currentComboAttack < comboAttacks
+                //     && dashBackCooldownCurrent <= 0 
+                //     && (control.HasBufferedActions(control.up.name, control.button2.name) ||
+                //         control.HasBufferedActions(control.button2.name, control.up.name)))
+                // {
+                //     control.ConsumeBuffer();
+                //     states.ExitState("Attack");
+                //     states.ExitState("Combo");
+                //     states.EnterState("DashBackJump");
+                //     return;
+                // }
                 
                 if (animation.playingTime >= currentAnimationFrame.cancellationTime 
                     && currentComboAttack < comboAttacks
@@ -522,16 +528,16 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (dashBackCooldownCurrent <= 0)
-            {
-                if (control.HasBufferedActions(control.up.name, control.button2.name) ||
-                    control.HasBufferedActions(control.button2.name, control.up.name))
-                {
-                    control.ConsumeBuffer();
-                    states.EnterState("DashBackJump");
-                    return;
-                }
-            }
+            // if (dashBackCooldownCurrent <= 0)
+            // {
+            //     if (control.HasBufferedActions(control.up.name, control.button2.name) ||
+            //         control.HasBufferedActions(control.button2.name, control.up.name))
+            //     {
+            //         control.ConsumeBuffer();
+            //         states.EnterState("DashBackJump");
+            //         return;
+            //     }
+            // }
 
             if (dashBackCooldownCurrent <= 0)
             {

@@ -63,10 +63,6 @@ MonoBehaviour:
   hasShadow: 1
   animationsAsset: {fileID: 11400000, guid: 9ed98a14e55329646b22c0362e830133, type: 2}
   spritesMetadata: {fileID: 11400000, guid: f323c5b3cdade1549b7be23ad3880d66, type: 2}
-  defaultHurtBox:
-    offset: {x: 0, y: 2}
-    size: {x: 2, y: 4}
-    depth: 0.5
   defaultHurtBoxAsset: {fileID: 11400000, guid: 1b3c90d96e6ca2443804c24c01661a41, type: 2}
   isVfx: 0
   gravityStartsDisabled: 0
@@ -169,8 +165,32 @@ MonoBehaviour:
   dashBackSpeed: 23
   dashBackJumpSpeed: {x: 15, y: 20}
   dashBackJumpMaxHeight: 5
-  dashBackRecoverySpeed: {x: 1, y: 1}
+  dashBackRecoverySpeed: {x: 10, y: 0}
   dashBackRecoveryTime: 0.2
+  dashRecoverySpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.324746
+      outSlope: -2.324746
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.043624163
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   dashFrontCooldown: 0.33333334
   dashBackCooldown: 0.33333334
   attackCooldown: 0.2

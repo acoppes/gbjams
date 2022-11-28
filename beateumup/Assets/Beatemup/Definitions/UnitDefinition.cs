@@ -113,6 +113,11 @@ namespace Beatemup.Definitions
             {
                 world.AddComponent(entity, new VfxComponent());
             }
+            
+            world.AddComponent(entity, new QueryComponent()
+            {
+                
+            });
         }
     }
 }
