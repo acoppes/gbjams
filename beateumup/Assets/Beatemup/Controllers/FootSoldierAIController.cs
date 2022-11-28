@@ -88,7 +88,7 @@ namespace Beatemup.Controllers
                 }
             }
             
-            if (states.HasState("HitStun"))
+            if (states.HasState("HitStun") || states.HasState("Down"))
             {
                 control.direction = Vector2.zero;
                 return;

@@ -151,28 +151,63 @@ MonoBehaviour:
   comboAnimations:
   - Attack2
   - AttackFinisher
-  knockbackBaseSpeed: 2
+  knockbackBaseSpeed: 25
+  knockbackCurveSpeed: 2.5
+  knockbackMaxHeight: 2
+  knockbackHorizontalCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.25
+      outSlope: -0.25
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.75
+      inSlope: -0.25
+      outSlope: -3.233018
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.057802014
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   knockbackCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
+      value: 0
       inSlope: 2
-      outSlope: 3.4755826
+      outSlope: 10.1107
       tangentMode: 1
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.06940426
+      outWeight: 0.059578974
+    - serializedVersion: 3
+      time: 0.16897091
+      value: 0.81709313
+      inSlope: 1.6642463
+      outSlope: 1.6642463
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.20704347
     - serializedVersion: 3
       time: 0.5
       value: 1
-      inSlope: -0
-      outSlope: 0
-      tangentMode: 1
+      inSlope: -0.24587251
+      outSlope: -0.24587251
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.46644294
-      outWeight: 0.33333334
+      inWeight: 0.33333334
+      outWeight: 0.20134223
     - serializedVersion: 3
       time: 1
       value: 0

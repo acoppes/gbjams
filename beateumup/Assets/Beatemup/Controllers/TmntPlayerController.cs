@@ -43,6 +43,9 @@ namespace Beatemup.Controllers
         };
 
         public float knockbackBaseSpeed;
+        public float knockbackCurveSpeed = 1.0f;
+        public float knockbackMaxHeight = 1.0f;
+        public AnimationCurve knockbackHorizontalCurve = AnimationCurve.Linear(1, 1, 0, 0);
         public AnimationCurve knockbackCurve = AnimationCurve.Linear(1, 1, 0, 0);
         
         private int comboAttacks => comboAnimations.Count;
@@ -71,8 +74,9 @@ namespace Beatemup.Controllers
             foreach (var hit in hitComponent.hits)
             {
                 var hitPosition = hit.position;
-                lookingDirection.value = hitPosition - position.value;
-
+                
+                lookingDirection.value = (hitPosition - position.value).normalized;
+                
                 finisher = finisher || hit.finisher;
             }
 
@@ -128,6 +132,18 @@ namespace Beatemup.Controllers
 
                 states.ExitState("Attack");
                 states.ExitState("Combo");
+                states.ExitState("HitStun");
+                states.ExitState("Down");
+            }
+            
+            if (states.statesEntered.Contains("Death"))
+            {
+                animation.Play("Death", 1);
+            }
+            
+            if (states.statesEntered.Contains("Down"))
+            {
+                animation.Play("Down");
             }
         }
 
@@ -177,25 +193,42 @@ namespace Beatemup.Controllers
             
             // UpdateStateHitStun()
             
+            if (states.TryGetState("Death", out state))
+            {
+                movement.movingDirection = Vector2.zero;
+
+                if (animation.state == AnimationComponent.State.Completed)
+                {
+                    ref var destroyable = ref world.GetComponent<DestroyableComponent>(entity);
+                    destroyable.destroy = true;
+                }
+                
+                return;
+            }
+            
+            if (states.TryGetState("Down", out state))
+            {
+                movement.movingDirection = Vector2.zero;
+                return;
+            }
+            
             if (states.TryGetState("Knockback", out state))
             {
-                movement.baseSpeed = new Vector2(knockbackBaseSpeed, 0);
+                // movement.baseSpeed = new Vector2(knockbackBaseSpeed, 0);
                 movement.movingDirection = new Vector2(-lookingDirection.value.x, 0);
 
-                verticalMovement.speed = 1;
+                position.value.z = knockbackCurve.Evaluate(state.time * knockbackCurveSpeed) 
+                                   * knockbackMaxHeight;
 
-                position.value.z = knockbackCurve.Evaluate(state.time);
+                movement.baseSpeed = new Vector2(
+                    knockbackHorizontalCurve.Evaluate(state.time * knockbackCurveSpeed) * knockbackBaseSpeed, 
+                    0);
 
-                // if (states.HasState("Knockback.Ascending") && state.time > 0.5f)
-                // {
-                //     states.ExitState("Knockback.Ascending");
-                //     states.EnterState("Knockback.Descending");
-                // }
-                
-                if (state.time > 1.0f)
+                if (state.time * knockbackCurveSpeed > 1.0f)
                 {
                     // states.ExitState("Knockback.Descending");
                     states.ExitState("Knockback");
+                    states.EnterState("Death");
                 }
                 
                 return;
