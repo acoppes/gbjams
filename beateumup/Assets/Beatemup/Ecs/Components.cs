@@ -187,6 +187,7 @@ namespace Beatemup.Ecs
     public struct HitData
     {
         public Vector3 position;
+        public bool finisher;
     }
 
     public struct HitComponent : IEntityComponent

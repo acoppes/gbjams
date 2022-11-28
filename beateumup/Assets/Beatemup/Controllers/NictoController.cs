@@ -403,7 +403,8 @@ namespace Beatemup.Controllers
                         ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget.entity);
                         hitComponent.hits.Add(new HitData
                         {
-                            position = position.value
+                            position = position.value,
+                            finisher = currentComboAttack >= comboAttacks
                         });
                         
                         var targetPosition = world.GetComponent<PositionComponent>(hitTarget.entity);
