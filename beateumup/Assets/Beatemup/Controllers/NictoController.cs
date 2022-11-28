@@ -29,17 +29,14 @@ namespace Beatemup.Controllers
         
         public Vector2 dashBackJumpSpeed = new Vector2(10f, 10f);
         
-        [FormerlySerializedAs("dashBackjumpMaxHeight")]
-        [FormerlySerializedAs("jumpMaxHeight")] 
         public float dashBackJumpMaxHeight = 3;
 
-        private Vector2 dashBackRecoveryDirection;
-        public Vector2 dashBackRecoverySpeed = new Vector2(1f, 1f);
+        private Vector2 dashRecoveryDirection;
         
-        [FormerlySerializedAs("dashBackRecoveryTime")] 
+        public Vector2 dashRecoverySpeed = new Vector2(1f, 1f);
+        
         public float dashRecoveryTime = 0.5f;
         
-        [FormerlySerializedAs("dashRecoverySpeed")] 
         public AnimationCurve dashRecoverySpeedCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
         
         private bool dashBackRecoveryCanFlip = true;
@@ -106,7 +103,7 @@ namespace Beatemup.Controllers
             
             if (states.statesEntered.Contains("DashBackRecovery"))
             {
-                dashBackRecoveryDirection = horizontalMovement.movingDirection;
+                dashRecoveryDirection = horizontalMovement.movingDirection;
                 animation.Play("DashBackRecovery");
             }
             
@@ -218,8 +215,8 @@ namespace Beatemup.Controllers
                 
                 // TODO: set direction from caller 
 
-                movement.movingDirection = dashBackRecoveryDirection;
-                movement.baseSpeed = dashRecoverySpeedCurve.Evaluate(state.time / dashRecoveryTime) * dashBackRecoverySpeed;
+                movement.movingDirection = dashRecoveryDirection;
+                movement.baseSpeed = dashRecoverySpeedCurve.Evaluate(state.time / dashRecoveryTime) * dashRecoverySpeed;
                 
                 if (dashBackRecoveryCanFlip && control.backward.isPressed)
                 {

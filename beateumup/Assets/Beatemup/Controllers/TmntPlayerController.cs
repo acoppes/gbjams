@@ -25,7 +25,6 @@ namespace Beatemup.Controllers
         // public float dashDuration = 1.0f;
         // public float dashExtraSpeed = 10.0f;
         
-        [FormerlySerializedAs("sprintExtraSpeed")] 
         public Vector2 sprintSpeed;
 
         public float heavySwingStartTime = 0.5f;
