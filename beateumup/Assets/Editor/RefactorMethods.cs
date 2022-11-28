@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Linq;
+using UnityEditor;
 
 namespace Utils.Editor
 {
@@ -10,6 +11,25 @@ namespace Utils.Editor
             if (EditorUtility.DisplayDialog("Reserialize", "Force reserialize all assets?", "Ok", "Cancel"))
             {
                 AssetDatabase.ForceReserializeAssets();
+            }
+        }
+        
+        [MenuItem("Refactor/Reserialize Selected Assets")]
+        public static void ReserializeSelectedAssets()
+        {
+            var selectedObjects = Selection.objects;
+            if (selectedObjects.Length == 0)
+            {
+                return;
+            }
+
+            var assetPaths = selectedObjects
+                .Where(obj => AssetDatabase.GetAssetPath(obj) != null)
+                .Select(obj => AssetDatabase.GetAssetPath(obj));
+
+            if (EditorUtility.DisplayDialog("Reserialize", "Force reserialize selected assets?", "Ok", "Cancel"))
+            {
+                AssetDatabase.ForceReserializeAssets(assetPaths);
             }
         }
 
