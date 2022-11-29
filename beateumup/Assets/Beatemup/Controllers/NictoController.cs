@@ -131,8 +131,15 @@ namespace Beatemup.Controllers
             {
                 gravityComponent.disabled = true;
                 animation.Play("DashFront", 1);
+
+                // var directionX = control.direction.x;
+                //
+                // if (Mathf.Abs(directionX) < 0.01f)
+                // {
+                //     directionX = lookingDirection.value.x;
+                // }
                 
-                horizontalMovement.movingDirection = new Vector2(lookingDirection.value.x, control.direction.y);
+                horizontalMovement.movingDirection = new Vector2(control.direction.x, control.direction.y);
             }
             
             if (states.statesEntered.Contains("HitStun"))
@@ -555,11 +562,25 @@ namespace Beatemup.Controllers
             //         return;
             //     }
             // }
+            
+            var validDashFrontDirections =
+                control.forward.isPressed || control.up.isPressed || control.down.isPressed;
+            
+            if (dashFrontCooldownCurrent <= 0)
+            {
+                
+                if ((control.HasBufferedAction(control.button2) && validDashFrontDirections) ||
+                    control.HasBufferedActions(control.button2.name, control.forward.name))
+                {
+                    control.ConsumeBuffer();
+                    states.EnterState("DashFront");
+                    return;
+                }
+            }
 
             if (dashBackCooldownCurrent <= 0)
             {
-                if (control.HasBufferedActions(control.backward.name, control.button2.name) ||
-                    control.HasBufferedActions(control.button2.name, control.backward.name))
+                if (control.HasBufferedAction(control.button2) && !validDashFrontDirections)
                 {
                     control.ConsumeBuffer();
                     states.EnterState("DashBack");
@@ -567,15 +588,7 @@ namespace Beatemup.Controllers
                 }
             }
             
-            if (dashFrontCooldownCurrent <= 0)
-            {
-                if (control.HasBufferedAction(control.button2))
-                {
-                    control.ConsumeBuffer();
-                    states.EnterState("DashFront");
-                    return;
-                }
-            }
+
 
             movement.baseSpeed = baseSpeed;
             movement.movingDirection = control.direction;
