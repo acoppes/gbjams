@@ -12,7 +12,7 @@ namespace Beatemup.Controllers
 {
     public class FootSoldierAIController : ControllerBase, IInit, IEntityDestroyed
     {
-        public float timeToChangeDirection = 0.25f;
+        public float targetReachedDelayToAttack = 0.5f;
         
         public float timeToTryAttack = 0.25f;
         
@@ -94,6 +94,39 @@ namespace Beatemup.Controllers
                 return;
             }
             
+            if (states.TryGetState("TargetReached", out state))
+            {
+                control.direction = Vector2.zero;
+
+                if (state.time > targetReachedDelayToAttack)
+                {
+                    states.ExitState(state.name);
+                }
+                return;
+            }
+
+            if (states.TryGetState("FollowingTarget", out state))
+            {
+                var side = Mathf.Sign(position.value.x - mainTarget.position.x);
+                
+                var desiredPosition = mainTarget.position + new Vector3(side * attackDetection.offset.x, 0, 0);
+                control.direction = (desiredPosition - position.value).normalized;
+                
+                // lookingDirection.value.x = Mathf.Sign(mainTarget.position.x - position.value.x);
+                
+                if ((desiredPosition - position.value).sqrMagnitude < 0.1f)
+                {
+                    control.direction = Vector2.zero;
+                    lookingDirection.value.x = -side;
+                    // control.direction = (mainTarget.position - position.value).normalized;
+                    
+                    states.EnterState("TargetReached");
+                    states.ExitState(state.name);
+                }
+
+                return;
+            }
+            
             var baseAttackTargets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
             {
                 sourcePlayer = player.player,
@@ -121,20 +154,11 @@ namespace Beatemup.Controllers
             }
             
             control.direction = Vector2.zero;
-            
+
             if (mainTarget != null && baseAttackTargets.Count == 0)
             {
-                var side = Mathf.Sign(position.value.x - mainTarget.position.x);
-                
-                var desiredPosition = mainTarget.position + new Vector3(side * attackDetection.offset.x, 0, 0);
-                control.direction = (desiredPosition - position.value).normalized;
-                
-                if ((desiredPosition - position.value).sqrMagnitude < 0.1f)
-                {
-                    control.direction = Vector2.zero;
-                    lookingDirection.value.x = -side;
-                    // control.direction = (mainTarget.position - position.value).normalized;
-                }
+                states.EnterState("FollowingTarget");
+                return;
             }
             
             // if (states.TryGetState("MovingDown", out state))

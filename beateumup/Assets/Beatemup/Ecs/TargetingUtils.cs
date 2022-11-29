@@ -10,7 +10,10 @@ namespace Beatemup.Ecs
     {
         public struct TargetingParameters
         {
+            // searcher properties
             public int sourcePlayer;
+            
+            // filter properties
             public HitBox area;
         }
         
