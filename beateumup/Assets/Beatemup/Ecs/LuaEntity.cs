@@ -64,7 +64,7 @@ namespace Beatemup.Ecs
             }
         }
 
-        public Vector2 speed
+        public float speed
         {
             get => world.GetComponent<HorizontalMovementComponent>(entity).baseSpeed;
             set

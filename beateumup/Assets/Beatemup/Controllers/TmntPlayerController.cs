@@ -161,7 +161,7 @@ namespace Beatemup.Controllers
             
             if (states.statesExited.Contains(SprintState))
             {
-                movement.baseSpeed = Vector2.zero;
+                movement.baseSpeed = 0;
             }
             
             if (states.statesExited.Contains("Knockback"))
@@ -219,9 +219,7 @@ namespace Beatemup.Controllers
                 position.value.z = knockbackCurve.Evaluate(state.time * knockbackCurveSpeed) 
                                    * knockbackMaxHeight;
 
-                movement.baseSpeed = new Vector2(
-                    knockbackHorizontalCurve.Evaluate(state.time * knockbackCurveSpeed) * knockbackBaseSpeed, 
-                    0);
+                movement.baseSpeed = knockbackHorizontalCurve.Evaluate(state.time * knockbackCurveSpeed) * knockbackBaseSpeed;
 
                 if (state.time * knockbackCurveSpeed > 1.0f)
                 {
@@ -656,7 +654,7 @@ namespace Beatemup.Controllers
                     (control.right.isPressed && control.left.isPressed) || control.backward.isPressed)
                 {
                     // modelState.sprinting = false;
-                    movement.baseSpeed = sprintSpeed;
+                    movement.baseSpeed = sprintSpeed.x;
                     movement.movingDirection = Vector2.zero;
                     
                     animation.Play("SprintStop", 1);
@@ -682,7 +680,7 @@ namespace Beatemup.Controllers
                     
                     animation.Play("Sprint");
                     // modelState.sprinting = true;
-                    movement.baseSpeed = sprintSpeed;
+                    movement.baseSpeed = sprintSpeed.x;
                     states.EnterState(SprintState);
                     states.ExitState("Moving");
                     return;
@@ -694,7 +692,7 @@ namespace Beatemup.Controllers
                 // }
             }
 
-            movement.baseSpeed = baseSpeed;
+            movement.baseSpeed = baseSpeed.x;
             movement.movingDirection = control.direction;
 
             if (states.HasState("Moving"))

@@ -163,7 +163,7 @@ namespace Beatemup.Controllers
             if (states.statesExited.Contains("DashBackJump"))
             {
                 position.value.z = 0;
-                movement.baseSpeed = Vector2.zero;
+                movement.baseSpeed = 0;
                 gravityComponent.disabled = false;
                 
                 // exit all sub states, for now manually
@@ -174,19 +174,19 @@ namespace Beatemup.Controllers
             if (states.statesExited.Contains("DashBack"))
             {
                 position.value.z = 0;
-                movement.baseSpeed = Vector2.zero;
+                movement.baseSpeed = 0;
                 gravityComponent.disabled = false;
 
-                movement.movingDirection.y = 0;
+                //movement.movingDirection.y = 0;
             }
             
             if (states.statesExited.Contains("DashFront"))
             {
                 position.value.z = 0;
-                movement.baseSpeed = Vector2.zero;
+                movement.baseSpeed = 0;
                 gravityComponent.disabled = false;
                 
-                movement.movingDirection.y = 0;
+                // movement.movingDirection.y = 0;
             }
         }
 
@@ -233,7 +233,7 @@ namespace Beatemup.Controllers
                 // TODO: set direction from caller 
 
                 movement.movingDirection = dashRecoveryDirection;
-                movement.baseSpeed = dashRecoverySpeedCurve.Evaluate(state.time / dashRecoveryTime) * dashRecoverySpeed;
+                movement.baseSpeed = dashRecoverySpeedCurve.Evaluate(state.time / dashRecoveryTime) * dashRecoverySpeed.x;
                 
                 if (dashBackRecoveryCanFlip && control.backward.isPressed)
                 {
@@ -276,7 +276,7 @@ namespace Beatemup.Controllers
                 if (states.HasState("DashBackJump.Attack"))
                 {
                     movement.movingDirection = -lookingDirection.value;
-                    movement.baseSpeed = new Vector2(dashBackJumpSpeed.x, 0);
+                    movement.baseSpeed = dashBackJumpSpeed.x;
 
                     // check for event to fire kunais!
 
@@ -301,7 +301,7 @@ namespace Beatemup.Controllers
                 if (states.HasState("DashBackJump.Up"))
                 {
                     movement.movingDirection = -lookingDirection.value;
-                    movement.baseSpeed = new Vector2(dashBackJumpSpeed.x, 0);
+                    movement.baseSpeed = dashBackJumpSpeed.x;
 
                     if (control.HasBufferedActions(control.button1.name))
                     {
@@ -331,7 +331,7 @@ namespace Beatemup.Controllers
                 if (states.HasState("DashBackJump.Fall"))
                 {
                     movement.movingDirection = -lookingDirection.value;
-                    movement.baseSpeed = new Vector2(dashBackJumpSpeed.x, 0) * 0.75f;
+                    movement.baseSpeed = dashBackJumpSpeed.x * 0.75f;
                     
                     if (verticalMovement.isOverGround)
                     {
@@ -351,7 +351,7 @@ namespace Beatemup.Controllers
                 dashBackCooldownCurrent = dashBackCooldown;
                 
                 // movement.movingDirection = new Vector2(-lookingDirection.value.x, control.direction.y);
-                movement.baseSpeed = dashSpeed;
+                movement.baseSpeed = dashSpeed.x;
                 
                 position.value.z = dashHeightCurve.Evaluate(state.time / dashBackTime);
 
@@ -369,7 +369,7 @@ namespace Beatemup.Controllers
                 dashFrontCooldownCurrent = dashFrontCooldown;
                 
                 // movement.movingDirection = new Vector2(lookingDirection.value.x, control.direction.y);
-                movement.baseSpeed = dashSpeed;
+                movement.baseSpeed = dashSpeed.x;
                 
                 position.value.z = dashHeightCurve.Evaluate(state.time / dashFrontTime);
 
@@ -590,7 +590,7 @@ namespace Beatemup.Controllers
             
 
 
-            movement.baseSpeed = baseSpeed;
+            movement.baseSpeed = baseSpeed.x;
             movement.movingDirection = control.direction;
 
             if (states.HasState("Moving"))

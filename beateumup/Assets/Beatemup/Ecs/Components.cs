@@ -149,8 +149,9 @@ namespace Beatemup.Ecs
         public bool disabled;
         
         public float speedMultiplier;
+
+        public float baseSpeed;
         
-        public Vector2 baseSpeed;
         public Vector2 currentVelocity;
         public Vector2 movingDirection;
     }
