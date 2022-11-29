@@ -70,7 +70,7 @@ namespace Beatemup.Controllers
             
             if (mainTarget == null)
             {
-                var targets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
+                var targets = TargetingUtils.GetTargets(world, new TargetingUtils.RuntimeTargetingParameters
                 {
                     player = player.player,
                     area = new HitBox
@@ -80,6 +80,7 @@ namespace Beatemup.Controllers
                         offset = Vector2.zero,
                         size = new Vector2(100, 100)
                     }, 
+                    checkAreaType = TargetingUtils.RuntimeTargetingParameters.CheckAreaType.HitBox,
                     playerAllianceType = TargetingUtils.PlayerAllianceType.Enemies
                 });
 
@@ -128,10 +129,11 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            var baseAttackTargets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
+            var baseAttackTargets = TargetingUtils.GetTargets(world, new TargetingUtils.RuntimeTargetingParameters
             {
                 player = player.player,
                 area = hitBox,
+                checkAreaType = TargetingUtils.RuntimeTargetingParameters.CheckAreaType.HitBox,
                 playerAllianceType = TargetingUtils.PlayerAllianceType.Enemies
             });
 

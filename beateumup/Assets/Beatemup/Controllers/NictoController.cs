@@ -424,7 +424,7 @@ namespace Beatemup.Controllers
             {
                 if (currentAnimationFrame.currentFrameHit)
                 {
-                    var hitTargets = TargetingUtils.GetTargets(world, entity);
+                    var hitTargets = world.GetTargets(entity);
 
                     foreach (var hitTarget in hitTargets)
                     {

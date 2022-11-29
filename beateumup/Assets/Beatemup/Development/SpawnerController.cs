@@ -36,10 +36,10 @@ public class SpawnerController : ControllerBase, IInit
         
         // if there are still enemies...
 
-        var targets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
+        var targets = TargetingUtils.GetTargets(world, new TargetingUtils.RuntimeTargetingParameters
         {
             player = player.player,
-            area = HitBox.AllTheWorld,
+            checkAreaType = TargetingUtils.RuntimeTargetingParameters.CheckAreaType.Nothing,
             playerAllianceType = TargetingUtils.PlayerAllianceType.Allies,
             name = "Enemy_Soldier"
         });
@@ -53,13 +53,8 @@ public class SpawnerController : ControllerBase, IInit
         {
             return;
         }
-        
-        // var enemyInstance = world.GetEntityByName("Enemy_Character");
-        //
-        // if (enemyInstance != Entity.NullEntity)
-        // {
-        //     return;
-        // }
+
+        var spawnAreaIndex = UnityEngine.Random.Range(0, spawnAreas.Count);
 
         for (var i = 0; i < spawnsPerWave; i++)
         {
@@ -68,7 +63,7 @@ public class SpawnerController : ControllerBase, IInit
         
             ref var enemyPosition = ref world.GetComponent<PositionComponent>(enemyEntity);
         
-            var spawnArea = spawnAreas.Random();
+            var spawnArea = spawnAreas[spawnAreaIndex];
 
             enemyPosition.value = new Vector3(UnityEngine.Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x), 
                 UnityEngine.Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y), 0);
@@ -77,6 +72,8 @@ public class SpawnerController : ControllerBase, IInit
 
             // player.player = enemyPosition.value.x < 0 ? 0 : 1;
             instancePlayer.player = player.player;
+
+            spawnAreaIndex = (spawnAreaIndex + 1) % spawnAreas.Count;
         }
         
         spawnedWaves++;

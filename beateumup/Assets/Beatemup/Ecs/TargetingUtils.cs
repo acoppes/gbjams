@@ -45,13 +45,21 @@ namespace Beatemup.Ecs
             return false;
         }
 
-        public struct TargetingParameters
+        public struct RuntimeTargetingParameters
         {
+            public enum CheckAreaType
+            {
+                Nothing = 0,
+                HitBox = 1
+            }
+            
             // searcher properties
             public int player;
             
             // filter properties
             public HitBox area;
+            public CheckAreaType checkAreaType;
+            
             public PlayerAllianceType playerAllianceType;
             public string name;
         }
@@ -74,57 +82,78 @@ namespace Beatemup.Ecs
         
         private static readonly List<Collider2D> colliders = new ();
 
-        public static List<Target> GetTargets(World world, Entity source)
+        public static List<Target> GetTargets(this World world, Entity source)
         {
             var hitBox = world.GetComponent<HitBoxComponent>(source);
             var player = world.GetComponent<PlayerComponent>(source);
             
-            return GetTargets(new TargetingParameters
+            return world.GetTargets(new RuntimeTargetingParameters
             {
                 player = player.player,
                 area = hitBox.hit,
-                playerAllianceType = PlayerAllianceType.Enemies
+                playerAllianceType = PlayerAllianceType.Enemies,
+                checkAreaType = RuntimeTargetingParameters.CheckAreaType.HitBox
             });
         }
         
-        public static List<Target> GetTargets(TargetingParameters targetingParameters)
+        public static List<Target> GetTargets(this World world, RuntimeTargetingParameters runtimeTargetingParameters)
         {
-            var hitTargets = new List<Target>();
+            var result = new List<Target>();
+            var targets = new List<Target>();
             
-            var area = targetingParameters.area;
-
-            colliders.Clear();
-
-            if (Physics2D.OverlapBox(area.position + area.offset, area.size, 0, HurtBoxContactFilter,
-                    colliders) > 0)
+            if (runtimeTargetingParameters.checkAreaType == RuntimeTargetingParameters.CheckAreaType.HitBox)
             {
-                foreach (var collider in colliders)
+                // collect targets using physics collider
+                var area = runtimeTargetingParameters.area;
+
+                colliders.Clear();
+
+                if (Physics2D.OverlapBox(area.position + area.offset, area.size, 0, HurtBoxContactFilter,
+                        colliders) > 0)
                 {
-                    var targetEntityReference = collider.GetComponent<TargetReference>();
-                    var target = targetEntityReference.target;
-                    
-                    if (!targetingParameters.playerAllianceType.CheckPlayerAlliance(targetingParameters.player, target.player))
+                    foreach (var collider in colliders)
                     {
-                        continue;
-                    }
+                        var targetEntityReference = collider.GetComponent<TargetReference>();
+                        var target = targetEntityReference.target;
 
-                    // check hitbox depth
-                    if (!area.IsInsideDepth(target.hurtBox))
-                    {
-                        continue;
+                        // check hitbox depth
+                        if (!area.IsInsideDepth(target.hurtBox))
+                        {
+                            continue;
+                        }
+                        
+                        targets.Add(target);
                     }
-
-                    if (targetingParameters.name != null && 
-                        !targetingParameters.name.Equals(target.name, StringComparison.OrdinalIgnoreCase))
-                    {
-                        continue;
-                    }
-
-                    hitTargets.Add(targetEntityReference.target);
+                }
+            } else
+            {
+                var targetComponents = world.GetComponents<TargetComponent>();
+                
+                foreach (var entity in world.GetFilter<TargetComponent>().End())
+                {
+                    var targetComponent = targetComponents.Get(entity);
+                    targets.Add(targetComponent.target);
                 }
             }
+            
+            // filter valid targets
+            foreach (var target in targets)
+            {
+                if (!runtimeTargetingParameters.playerAllianceType.CheckPlayerAlliance(runtimeTargetingParameters.player, target.player))
+                {
+                    continue;
+                }
+                
+                if (runtimeTargetingParameters.name != null && 
+                    !runtimeTargetingParameters.name.Equals(target.name, StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
 
-            return hitTargets;
+                result.Add(target);
+            }
+
+            return result;
         }
     }
 }
