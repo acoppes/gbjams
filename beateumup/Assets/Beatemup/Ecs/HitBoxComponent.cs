@@ -11,6 +11,14 @@ namespace Beatemup.Ecs
         public Vector2 offset;
         public Vector2 size;
         public float depth;
+
+        public static HitBox AllTheWorld => new HitBox()
+        {
+            position = Vector2.zero,
+            depth = Mathf.Infinity,
+            offset = Vector2.zero,
+            size = Vector2.positiveInfinity
+        };
     }
     
     public struct HitBoxComponent : IEntityComponent

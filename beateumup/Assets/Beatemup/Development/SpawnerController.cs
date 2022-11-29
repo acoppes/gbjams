@@ -6,6 +6,7 @@ using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
 using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
+using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
 public class SpawnerController : ControllerBase, IInit
 {
@@ -27,13 +28,28 @@ public class SpawnerController : ControllerBase, IInit
     
     public override void OnUpdate(float dt)
     {
-        var query = new Query()
-            .CheckName("Enemy_Soldier")
-            .CheckPlayer(1);
+        var player = world.GetComponent<PlayerComponent>(entity);
+        
+        // var query = new Query()
+        //     .CheckName("Enemy_Soldier")
+        //     .CheckPlayer(1);
         
         // if there are still enemies...
+
+        var targets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
+        {
+            player = player.player,
+            area = HitBox.AllTheWorld,
+            playerAllianceType = TargetingUtils.PlayerAllianceType.Allies,
+            name = "Enemy_Soldier"
+        });
         
-        if (world.Query(query))
+        // if (world.Query(query))
+        // {
+        //     return;
+        // }
+
+        if (targets.Count > 0)
         {
             return;
         }
@@ -58,7 +74,7 @@ public class SpawnerController : ControllerBase, IInit
                 UnityEngine.Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y), 0);
             
             ref var instancePlayer = ref world.GetComponent<PlayerComponent>(enemyEntity);
-            ref var player = ref world.GetComponent<PlayerComponent>(enemyEntity);
+
             // player.player = enemyPosition.value.x < 0 ? 0 : 1;
             instancePlayer.player = player.player;
         }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
@@ -8,13 +10,50 @@ namespace Beatemup.Ecs
 {
     public static class TargetingUtils
     {
+        [Flags]
+        public enum PlayerAllianceType
+        {
+            Nothing = 0,
+            Enemies = 1 << 0,
+            Allies = 1 << 1,
+            Everything = -1
+        }
+        
+        public static bool HasAllianceFlag(this PlayerAllianceType self, PlayerAllianceType flag)
+        {
+            return (self & flag) == flag;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool CheckPlayerAlliance(this PlayerAllianceType playerAllianceType, int p0, int p1)
+        {
+            // get if p0 and p1 are allies or enemies from some config?
+            // for now we assume all players are enemies
+
+            if (playerAllianceType == PlayerAllianceType.Everything)
+                return true;
+
+            var allies = p0 == p1;
+            var enemies = !allies;
+
+            if (allies && playerAllianceType.HasAllianceFlag(PlayerAllianceType.Allies))
+                return true;
+            
+            if (enemies && playerAllianceType.HasAllianceFlag(PlayerAllianceType.Enemies))
+                return true;
+
+            return false;
+        }
+
         public struct TargetingParameters
         {
             // searcher properties
-            public int sourcePlayer;
+            public int player;
             
             // filter properties
             public HitBox area;
+            public PlayerAllianceType playerAllianceType;
+            public string name;
         }
         
         public class Target
@@ -23,6 +62,7 @@ namespace Beatemup.Ecs
             public int player;
             public Vector3 position;
             public HitBox hurtBox;
+            public string name;
         }
         
         private static readonly ContactFilter2D HurtBoxContactFilter = new()
@@ -41,8 +81,9 @@ namespace Beatemup.Ecs
             
             return GetTargets(new TargetingParameters
             {
-                sourcePlayer = player.player,
-                area= hitBox.hit
+                player = player.player,
+                area = hitBox.hit,
+                playerAllianceType = PlayerAllianceType.Enemies
             });
         }
         
@@ -62,13 +103,19 @@ namespace Beatemup.Ecs
                     var targetEntityReference = collider.GetComponent<TargetReference>();
                     var target = targetEntityReference.target;
                     
-                    if (targetingParameters.sourcePlayer == target.player)
+                    if (!targetingParameters.playerAllianceType.CheckPlayerAlliance(targetingParameters.player, target.player))
                     {
                         continue;
                     }
 
-                    if (Mathf.Abs(area.position.y - target.hurtBox.position.y) >
-                        (area.depth + target.hurtBox.depth))
+                    // check hitbox depth
+                    if (!area.IsInsideDepth(target.hurtBox))
+                    {
+                        continue;
+                    }
+
+                    if (targetingParameters.name != null && 
+                        !targetingParameters.name.Equals(target.name, StringComparison.OrdinalIgnoreCase))
                     {
                         continue;
                     }

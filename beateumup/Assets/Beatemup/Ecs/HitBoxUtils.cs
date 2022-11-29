@@ -22,5 +22,11 @@ namespace Beatemup.Ecs
                 depth = hitBoxAsset.depth
             };
         }
+
+        public static bool IsInsideDepth(this HitBox source, HitBox target)
+        {
+            return Mathf.Abs(source.position.y - target.position.y) <=
+                   source.depth + target.depth;
+        }
     }
 }

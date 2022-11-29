@@ -12,6 +12,7 @@ namespace Beatemup.Ecs
             var playerComponents = world.GetComponents<PlayerComponent>();
             var hitBoxComponents = world.GetComponents<HitBoxComponent>();
             var positions = world.GetComponents<PositionComponent>();
+            var nameComponents = world.GetComponents<NameComponent>();
             
             foreach (var entity in world.GetFilter<TargetComponent>().Inc<PositionComponent>().End())
             {
@@ -37,6 +38,13 @@ namespace Beatemup.Ecs
                 var hitBoxComponent = hitBoxComponents.Get(entity);
 
                 targetComponent.target.hurtBox = hitBoxComponent.hurt;
+            }
+            
+            foreach (var entity in world.GetFilter<TargetComponent>().Inc<NameComponent>().End())
+            {
+                ref var targetComponent = ref targetComponents.Get(entity);
+                var nameComponent = nameComponents.Get(entity);
+                targetComponent.target.name = nameComponent.name;
             }
         }
     }

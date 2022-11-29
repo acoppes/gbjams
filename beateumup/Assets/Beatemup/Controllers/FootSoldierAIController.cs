@@ -72,14 +72,15 @@ namespace Beatemup.Controllers
             {
                 var targets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
                 {
-                    sourcePlayer = player.player,
+                    player = player.player,
                     area = new HitBox
                     {
                         position = position.value,
                         depth = 100,
                         offset = Vector2.zero,
                         size = new Vector2(100, 100)
-                    }
+                    }, 
+                    playerAllianceType = TargetingUtils.PlayerAllianceType.Enemies
                 });
 
                 if (targets.Count > 0)
@@ -129,8 +130,9 @@ namespace Beatemup.Controllers
             
             var baseAttackTargets = TargetingUtils.GetTargets(new TargetingUtils.TargetingParameters
             {
-                sourcePlayer = player.player,
-                area = hitBox
+                player = player.player,
+                area = hitBox,
+                playerAllianceType = TargetingUtils.PlayerAllianceType.Enemies
             });
 
             if (states.TryGetState("TryingAttack", out state))
