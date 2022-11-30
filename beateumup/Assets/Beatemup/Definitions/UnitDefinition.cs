@@ -3,6 +3,7 @@ using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
+using MyBox;
 using UnityEngine;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 using TargetComponent = Beatemup.Ecs.TargetComponent;
@@ -15,7 +16,6 @@ namespace Beatemup.Definitions
         public GameObject modelPrefab;
         public bool hasShadow = true;
 
-        public AnimationsAsset animationsAsset;
         public SpritesMetadata spritesMetadata;
 
         public HitboxAsset defaultHurtBoxAsset;
@@ -27,6 +27,13 @@ namespace Beatemup.Definitions
         
         public float jumpSpeed = 1;
 
+        [Separator("Animation")]
+        public bool hasAnimation = true;
+        [ConditionalField(nameof(hasAnimation))]
+        public AnimationsAsset animationsAsset;
+        [ConditionalField(nameof(hasAnimation))]
+        public float animationFps = AnimationComponent.DefaultFrameRate;
+        
         public void Apply(World world, Entity entity)
         {
             world.AddComponent(entity, new DestroyableComponent());
@@ -71,11 +78,11 @@ namespace Beatemup.Definitions
                 upSpeed = jumpSpeed
             });
 
-            if (animationsAsset != null)
+            if (hasAnimation)
             {
                 world.AddComponent(entity, new AnimationComponent
                 {
-                    fps = AnimationComponent.DefaultFrameRate,
+                    fps = animationFps,
                     animationsAsset = animationsAsset,
                     metadata = spritesMetadata,
                     currentAnimation = 0,
