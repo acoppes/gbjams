@@ -1,4 +1,5 @@
-﻿using Beatemup.Ecs;
+﻿using System.Collections.Generic;
+using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
@@ -12,11 +13,6 @@ namespace Beatemup.Controllers
 {
     public class NictoController : ControllerBase, IInit, IStateChanged
     {
-        private static readonly string[] ComboAnimations = 
-        {
-            "Attack2", "Attack3", "AttackFinisher"
-        };
-
         public float baseSpeed = 8.0f;
         
         public float dashFrontTime = 0.1f;
@@ -46,10 +42,15 @@ namespace Beatemup.Controllers
         public float dashBackCooldown = 5.0f / 15.0f;
         private float dashBackCooldownCurrent = 0;
 
+        public List<string> comboAnimations = new List<string>()
+        {
+            "Attack2", "Attack3", "AttackFinisher"
+        };
+        
         public float attackCooldown = 0.1f;
         private float attackCooldownCurrent = 0;
         
-        private int comboAttacks => ComboAnimations.Length;
+        private int comboAttacks => comboAnimations.Count;
         private int currentComboAttack;
 
         private Vector3 teleportLastHitPosition;
@@ -106,7 +107,7 @@ namespace Beatemup.Controllers
             if (states.statesEntered.Contains("DashBackRecovery"))
             {
                 dashRecoveryDirection = horizontalMovement.movingDirection;
-                animation.Play("DashBackRecovery");
+                animation.Play("DashRecovery");
             }
             
             if (states.statesEntered.Contains("DashBack"))
@@ -502,7 +503,7 @@ namespace Beatemup.Controllers
                 if (states.HasState("Combo") && animation.playingTime >= currentAnimationFrame.cancellationTime && control.HasBufferedAction(control.button1) 
                     && currentComboAttack < comboAttacks)
                 {
-                    animation.Play(ComboAnimations[currentComboAttack], 1);
+                    animation.Play(comboAnimations[currentComboAttack], 1);
 
                     // if (control.HasBufferedActions(control.backward.name, control.button1.name))
                     // {
