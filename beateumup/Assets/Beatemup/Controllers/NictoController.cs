@@ -17,14 +17,14 @@ namespace Beatemup.Controllers
             "Attack2", "Attack3", "AttackFinisher"
         };
 
-        public Vector2 baseSpeed;
+        public float baseSpeed = 8.0f;
         
         public float dashFrontTime = 0.1f;
         public float dashBackTime = 0.1f;
 
         public AnimationCurve dashHeightCurve = AnimationCurve.Constant(0, 1, 0);
 
-        public Vector2 dashSpeed = new Vector2(23.0f, 0.0f);
+        public float dashSpeed = 20.0f;
         
         public Vector2 dashBackJumpSpeed = new Vector2(10f, 10f);
         
@@ -32,7 +32,7 @@ namespace Beatemup.Controllers
 
         private Vector2 dashRecoveryDirection;
         
-        public Vector2 dashRecoverySpeed = new Vector2(1f, 1f);
+        public float dashRecoverySpeed = 10.0f;
         
         public float dashRecoveryTime = 0.5f;
         
@@ -233,7 +233,7 @@ namespace Beatemup.Controllers
                 // TODO: set direction from caller 
 
                 movement.movingDirection = dashRecoveryDirection;
-                movement.baseSpeed = dashRecoverySpeedCurve.Evaluate(state.time / dashRecoveryTime) * dashRecoverySpeed.x;
+                movement.baseSpeed = dashRecoverySpeedCurve.Evaluate(state.time / dashRecoveryTime) * dashRecoverySpeed;
                 
                 if (dashBackRecoveryCanFlip && control.backward.isPressed)
                 {
@@ -351,7 +351,7 @@ namespace Beatemup.Controllers
                 dashBackCooldownCurrent = dashBackCooldown;
                 
                 // movement.movingDirection = new Vector2(-lookingDirection.value.x, control.direction.y);
-                movement.baseSpeed = dashSpeed.x;
+                movement.baseSpeed = dashSpeed;
                 
                 position.value.z = dashHeightCurve.Evaluate(state.time / dashBackTime);
 
@@ -369,7 +369,7 @@ namespace Beatemup.Controllers
                 dashFrontCooldownCurrent = dashFrontCooldown;
                 
                 // movement.movingDirection = new Vector2(lookingDirection.value.x, control.direction.y);
-                movement.baseSpeed = dashSpeed.x;
+                movement.baseSpeed = dashSpeed;
                 
                 position.value.z = dashHeightCurve.Evaluate(state.time / dashFrontTime);
 
@@ -590,7 +590,7 @@ namespace Beatemup.Controllers
             
 
 
-            movement.baseSpeed = baseSpeed.x;
+            movement.baseSpeed = baseSpeed;
             movement.movingDirection = control.direction;
 
             if (states.HasState("Moving"))
