@@ -54,11 +54,13 @@ namespace Utils.Editor
         [UnityEditor.MenuItem("Assets/TMNT Tools/Expand sprites in Folder")]
         public static void ExpandFiles()
         {
-            var folderToExpand = EditorUtility.OpenFolderPanel("Select folder", Application.dataPath, "");
+            var folderToExpand = EditorUtility.OpenFolderPanel("Select source folder", Application.dataPath, "");
 
             if (!string.IsNullOrEmpty(folderToExpand))
             {
-                var targetFolder = Path.Combine(folderToExpand, "Expanded");
+                var targetFolder = EditorUtility.OpenFolderPanel("Select target folder", Application.dataPath, "");
+                
+                // var targetFolder = Path.Combine(folderToExpand, "Expanded");
 
                 if (!Directory.Exists(targetFolder))
                 {
