@@ -43,6 +43,11 @@ namespace Beatemup.Controllers
             {
                 mainTarget = null;
             }
+
+            if (entity == e && debugHitBox != null)
+            {
+                GameObject.Destroy(debugHitBox.gameObject);
+            }
         }
         
         public override void OnUpdate(float dt)

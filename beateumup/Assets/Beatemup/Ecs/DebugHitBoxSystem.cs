@@ -42,12 +42,12 @@ namespace Beatemup.Ecs
 
                 if (hitBox.debugHitBox != null)
                 {
-                    GameObject.DestroyImmediate(hitBox.debugHitBox);
+                    GameObject.DestroyImmediate(hitBox.debugHitBox.gameObject);
                 }
 
                 if (hitBox.debugHurtBox != null)
                 {
-                    GameObject.DestroyImmediate(hitBox.debugHurtBox);
+                    GameObject.DestroyImmediate(hitBox.debugHurtBox.gameObject);
                 }
 
                 hitBox.debugHitBox = null;
