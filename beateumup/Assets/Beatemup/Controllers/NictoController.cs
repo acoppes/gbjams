@@ -77,13 +77,13 @@ namespace Beatemup.Controllers
 
             states.EnterState("HitStun");
 
-            // if (hitComponent.hits.Count > 0)
-            // {
-            //     var hitPosition = hitComponent.hits[0].position;
-            //
-            //     lookingDirection.value = hitPosition - position.value;
-            //     lookingDirection.value.Normalize();
-            // }
+            if (hitComponent.hits.Count > 0)
+            {
+                var hitPosition = hitComponent.hits[0].position;
+            
+                lookingDirection.value = hitPosition - position.value;
+                lookingDirection.value.Normalize();
+            }
         }
         
         public void OnEnter()
