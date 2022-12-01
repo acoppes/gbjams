@@ -141,6 +141,11 @@ namespace Beatemup.Controllers
                 // }
                 
                 horizontalMovement.movingDirection = new Vector2(control.direction.x, control.direction.y);
+
+                if (horizontalMovement.movingDirection.SqrMagnitude() < 0.01f)
+                {
+                    horizontalMovement.movingDirection = lookingDirection.value;
+                }
             }
             
             if (states.statesEntered.Contains("HitStun"))
@@ -485,7 +490,7 @@ namespace Beatemup.Controllers
                     (control.HasBufferedActions(control.forward.name, control.button2.name) ||
                     control.HasBufferedActions(control.button2.name, control.forward.name))*/
                 
-                if (states.HasState("Combo") && animation.playingTime >= currentAnimationFrame.cancellationTime && 
+                if (animation.HasAnimation("TeleportOut") && states.HasState("Combo") && animation.playingTime >= currentAnimationFrame.cancellationTime && 
                     control.HasBufferedActions(control.button2.name)
                      && dashFrontCooldownCurrent <= 0
                     && currentComboAttack < comboAttacks)
@@ -497,6 +502,18 @@ namespace Beatemup.Controllers
                     states.ExitState("Combo");
                     
                     states.EnterState("HiddenAttack");
+                    return;
+                }
+                
+                if (animation.playingTime >= currentAnimationFrame.cancellationTime 
+                    && currentComboAttack < comboAttacks
+                    && dashFrontCooldown <= 0 
+                    && control.HasBufferedActions(control.button2.name))
+                {
+                    control.ConsumeBuffer();
+                    states.ExitState("Attack");
+                    states.ExitState("Combo");
+                    states.EnterState("DashFront");
                     return;
                 }
 
@@ -564,14 +581,13 @@ namespace Beatemup.Controllers
             //     }
             // }
             
-            var validDashFrontDirections =
-                control.forward.isPressed || control.up.isPressed || control.down.isPressed;
+            // var validDashFrontDirections =
+            //     control.forward.isPressed || control.up.isPressed || control.down.isPressed;
             
             if (dashFrontCooldownCurrent <= 0)
             {
                 
-                if ((control.HasBufferedAction(control.button2) && validDashFrontDirections) ||
-                    control.HasBufferedActions(control.button2.name, control.forward.name))
+                if (control.HasBufferedAction(control.button2))
                 {
                     control.ConsumeBuffer();
                     states.EnterState("DashFront");
@@ -579,15 +595,15 @@ namespace Beatemup.Controllers
                 }
             }
 
-            if (dashBackCooldownCurrent <= 0)
-            {
-                if (control.HasBufferedAction(control.button2) && !validDashFrontDirections)
-                {
-                    control.ConsumeBuffer();
-                    states.EnterState("DashBack");
-                    return;
-                }
-            }
+            // if (dashBackCooldownCurrent <= 0)
+            // {
+            //     if (control.HasBufferedAction(control.button2) && !validDashFrontDirections)
+            //     {
+            //         control.ConsumeBuffer();
+            //         states.EnterState("DashBack");
+            //         return;
+            //     }
+            // }
             
 
 
