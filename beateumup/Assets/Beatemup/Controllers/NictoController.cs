@@ -55,6 +55,12 @@ namespace Beatemup.Controllers
 
         private Vector3 teleportLastHitPosition;
         
+        public float knockbackBaseSpeed;
+        public float knockbackCurveSpeed = 1.0f;
+        public float knockbackMaxHeight = 1.0f;
+        public AnimationCurve knockbackHorizontalCurve = AnimationCurve.Linear(1, 1, 0, 0);
+        public AnimationCurve knockbackCurve = AnimationCurve.Linear(1, 1, 0, 0);
+        
         public void OnInit()
         {
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
@@ -75,14 +81,24 @@ namespace Beatemup.Controllers
                 return;
             }
 
-            states.EnterState("HitStun");
+            var finisher = false;
 
-            if (hitComponent.hits.Count > 0)
+            foreach (var hit in hitComponent.hits)
             {
-                var hitPosition = hitComponent.hits[0].position;
-            
-                lookingDirection.value = hitPosition - position.value;
-                lookingDirection.value.Normalize();
+                var hitPosition = hit.position;
+                
+                lookingDirection.value = (hitPosition - position.value).normalized;
+                
+                finisher = finisher || hit.finisher;
+            }
+
+            if (!finisher)
+            {
+                states.EnterState("HitStun");
+            }
+            else
+            {
+                states.EnterState("Knockback");
             }
         }
         
@@ -156,6 +172,20 @@ namespace Beatemup.Controllers
                 // states.ExitState("DashFront");
                 // states.ExitState("DashBack");
             }
+            
+            if (states.statesEntered.Contains("Knockback"))
+            {
+                animation.Play("KnockdownAscending");
+
+                gravityComponent.disabled = true;
+                
+                // states.EnterState("Knockback.Ascending");
+
+                states.ExitState("Attack");
+                states.ExitState("Combo");
+                states.ExitState("HitStun");
+                states.ExitState("Down");
+            }
         }
 
         public void OnExit()
@@ -194,6 +224,12 @@ namespace Beatemup.Controllers
                 
                 // movement.movingDirection.y = 0;
             }
+            
+            if (states.statesExited.Contains("Knockback"))
+            {
+                gravityComponent.disabled = false;
+                position.value.z = 0;
+            }
         }
 
         public override void OnUpdate(float dt)
@@ -214,6 +250,26 @@ namespace Beatemup.Controllers
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
             State state;
+            
+            if (states.TryGetState("Knockback", out state))
+            {
+                // movement.baseSpeed = new Vector2(knockbackBaseSpeed, 0);
+                movement.movingDirection = new Vector2(-lookingDirection.value.x, 0);
+
+                position.value.z = knockbackCurve.Evaluate(state.time * knockbackCurveSpeed) 
+                                   * knockbackMaxHeight;
+
+                movement.baseSpeed = knockbackHorizontalCurve.Evaluate(state.time * knockbackCurveSpeed) * knockbackBaseSpeed;
+
+                if (state.time * knockbackCurveSpeed > 1.0f)
+                {
+                    // states.ExitState("Knockback.Descending");
+                    states.ExitState("Knockback");
+                    states.EnterState("Death");
+                }
+                
+                return;
+            }
             
             if (states.TryGetState("HitStun", out state))
             {
