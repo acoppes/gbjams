@@ -109,7 +109,7 @@ namespace Beatemup.Controllers
             var states = world.GetComponent<StatesComponent>(entity);
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
             
-            ref var horizontalMovement = ref world.GetComponent<HorizontalMovementComponent>(entity);
+            ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
 
             var lookingDirection = world.GetComponent<LookingDirection>(entity);
@@ -122,7 +122,7 @@ namespace Beatemup.Controllers
             
             if (states.statesEntered.Contains("DashBackRecovery"))
             {
-                dashRecoveryDirection = horizontalMovement.movingDirection;
+                dashRecoveryDirection = movement.movingDirection;
                 animation.Play("DashRecovery");
             }
             
@@ -131,7 +131,7 @@ namespace Beatemup.Controllers
                 gravityComponent.disabled = true;
                 animation.Play("DashBack", 1);
                 
-                horizontalMovement.movingDirection = new Vector2(-lookingDirection.value.x, control.direction.y);
+                movement.movingDirection = new Vector2(-lookingDirection.value.x, control.direction.y);
             }
             
             if (states.statesEntered.Contains("DashBackJump"))
@@ -156,11 +156,11 @@ namespace Beatemup.Controllers
                 //     directionX = lookingDirection.value.x;
                 // }
                 
-                horizontalMovement.movingDirection = new Vector2(control.direction.x, control.direction.y);
+                movement.movingDirection = new Vector2(control.direction.x, control.direction.y);
 
-                if (horizontalMovement.movingDirection.SqrMagnitude() < 0.01f)
+                if (movement.movingDirection.SqrMagnitude() < 0.01f)
                 {
-                    horizontalMovement.movingDirection = lookingDirection.value;
+                    movement.movingDirection = lookingDirection.value;
                 }
             }
             
@@ -185,6 +185,12 @@ namespace Beatemup.Controllers
                 states.ExitState("Combo");
                 states.ExitState("HitStun");
                 states.ExitState("Down");
+            }
+            
+            if (states.statesEntered.Contains("GetUp"))
+            {
+                animation.Play("GetUp", 1);
+                movement.baseSpeed = 0;
             }
         }
 
@@ -251,6 +257,15 @@ namespace Beatemup.Controllers
 
             State state;
             
+            if (states.TryGetState("GetUp", out state))
+            {
+                if (animation.state == AnimationComponent.State.Completed)
+                {
+                    states.ExitState("GetUp");
+                }
+                return;
+            }
+            
             if (states.TryGetState("Knockback", out state))
             {
                 // movement.baseSpeed = new Vector2(knockbackBaseSpeed, 0);
@@ -265,7 +280,7 @@ namespace Beatemup.Controllers
                 {
                     // states.ExitState("Knockback.Descending");
                     states.ExitState("Knockback");
-                    states.EnterState("Death");
+                    states.EnterState("GetUp");
                 }
                 
                 return;
