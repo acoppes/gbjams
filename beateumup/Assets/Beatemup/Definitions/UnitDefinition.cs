@@ -85,7 +85,7 @@ namespace Beatemup.Definitions
                     fps = animationFps,
                     animationsAsset = animationsAsset,
                     metadata = spritesMetadata,
-                    currentAnimation = -1,
+                    currentAnimation = AnimationComponent.NoAnimation,
                     currentFrame = 0,
                     currentTime = 0,
                     state = AnimationComponent.State.Completed,

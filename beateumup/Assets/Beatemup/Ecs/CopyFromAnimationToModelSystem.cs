@@ -15,6 +15,11 @@ namespace Beatemup.Ecs
                 var animationComponent = animations.Get(entity);
                 ref var modelComponent = ref models.Get(entity);
 
+                if (animationComponent.currentAnimation == AnimationComponent.NoAnimation)
+                {
+                    continue;
+                }
+                
                 var animation = animationComponent.animationsAsset.animations[animationComponent.currentAnimation];
                 var frame = animation.frames[animationComponent.currentFrame];
                 

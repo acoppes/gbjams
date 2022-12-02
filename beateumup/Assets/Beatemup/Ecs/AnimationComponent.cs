@@ -34,6 +34,8 @@ namespace Beatemup.Ecs
 
     public struct AnimationComponent : IEntityComponent
     {
+        public const int NoAnimation = -1;
+        
         // public delegate void OnAnimatorEventHandler(AnimationComponent animationComponent, int animation);
         // public delegate void OnAnimationEventHandler(AnimationComponent animationComponent, int animation, int frame);
         
