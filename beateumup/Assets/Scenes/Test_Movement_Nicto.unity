@@ -494,7 +494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &62019162
 Transform:
   m_ObjectHideFlags: 0
@@ -5977,7 +5977,7 @@ MonoBehaviour:
   jumpSpeed: 0
   hasAnimation: 1
   animationsAsset: {fileID: 11400000, guid: 2b03046d1308fa148b16d04e6db5bf16, type: 2}
-  animationFps: 10
+  animationFps: 15
 --- !u!114 &1022854085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8884,9 +8884,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 0
+  playerInput: 1
   controllable: 1
-  startingLookingDirectionAngle: 0
+  startingLookingDirectionAngle: 180
 --- !u!114 &1407458113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8913,7 +8913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a13de81ea045d59db72bd28f929121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityDefinition: {fileID: 792263095}
+  entityDefinition: {fileID: 1022854081}
   instanceType: 0
 --- !u!1 &1413433778
 GameObject:
@@ -11583,29 +11583,29 @@ MonoBehaviour:
   - Attack2
   - AttackFinisher
   attackCooldown: 0.2
-  knockbackBaseSpeed: 0
-  knockbackCurveSpeed: 1
-  knockbackMaxHeight: 1
+  knockbackBaseSpeed: 15
+  knockbackCurveSpeed: 3
+  knockbackMaxHeight: 1.5
   knockbackHorizontalCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
+      value: 1
+      inSlope: -0.25
+      outSlope: -0.25
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
+      value: 0.75
+      inSlope: -0.25
+      outSlope: -3.233018
+      tangentMode: 69
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.057802014
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -11616,20 +11616,38 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 2
+      outSlope: 10.1107
+      tangentMode: 1
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.059578974
+    - serializedVersion: 3
+      time: 0.16897091
+      value: 0.81709313
+      inSlope: 1.6642463
+      outSlope: 1.6642463
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.20704347
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: -0.24587251
+      outSlope: -0.24587251
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.20134223
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
+      value: 0
+      inSlope: -3.6991072
+      outSlope: -2
+      tangentMode: 1
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.06375837
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
