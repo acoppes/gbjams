@@ -20,6 +20,11 @@ namespace Beatemup.Ecs
                 ref var currentAnimationFrameComponent = ref currentFrames.Get(entity);
                 
                 currentAnimationFrameComponent.currentFrameHit = false;
+
+                if (animationComponent.currentAnimation == AnimationComponent.NoAnimation)
+                {
+                    continue;
+                }
                 
                 if (animationComponent.currentAnimation != currentAnimationFrameComponent.animation)
                 {

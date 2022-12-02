@@ -19,6 +19,12 @@ namespace Beatemup.Ecs
                          .Inc<LookingDirection>().End())
             {
                 var animationComponent = animations.Get(entity);
+
+                if (animationComponent.currentAnimation == AnimationComponent.NoAnimation)
+                {
+                    continue;
+                }
+                
                 var position = positions.Get(entity);
                 var lookingDirection = lookingDirections.Get(entity);
                 
