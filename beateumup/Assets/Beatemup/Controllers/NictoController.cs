@@ -60,6 +60,7 @@ namespace Beatemup.Controllers
         public float knockbackMaxHeight = 1.0f;
         public AnimationCurve knockbackHorizontalCurve = AnimationCurve.Linear(1, 1, 0, 0);
         public AnimationCurve knockbackCurve = AnimationCurve.Linear(1, 1, 0, 0);
+        public float knockbackDownTime = 1.0f;
         
         public void OnInit()
         {
@@ -192,6 +193,12 @@ namespace Beatemup.Controllers
                 animation.Play("GetUp", 1);
                 movement.baseSpeed = 0;
             }
+            
+            if (states.statesEntered.Contains("Down"))
+            {
+                animation.Play("Down");
+                movement.baseSpeed = 0;
+            }
         }
 
         public void OnExit()
@@ -257,6 +264,17 @@ namespace Beatemup.Controllers
 
             State state;
             
+            if (states.TryGetState("Down", out state))
+            {
+                if (state.time > knockbackDownTime)
+                {
+                    states.ExitState("Down");
+                    states.EnterState("GetUp");
+                }
+                
+                return;
+                
+            }
             if (states.TryGetState("GetUp", out state))
             {
                 if (animation.state == AnimationComponent.State.Completed)
@@ -280,7 +298,7 @@ namespace Beatemup.Controllers
                 {
                     // states.ExitState("Knockback.Descending");
                     states.ExitState("Knockback");
-                    states.EnterState("GetUp");
+                    states.EnterState("Down");
                 }
                 
                 return;
