@@ -31,9 +31,7 @@ namespace Beatemup.Definitions
         public bool hasAnimation = true;
         [ConditionalField(nameof(hasAnimation))]
         public AnimationsAsset animationsAsset;
-        [ConditionalField(nameof(hasAnimation))]
-        public float animationFps = AnimationComponent.DefaultFrameRate;
-        
+
         public void Apply(World world, Entity entity)
         {
             world.AddComponent(entity, new DestroyableComponent());
@@ -82,7 +80,6 @@ namespace Beatemup.Definitions
             {
                 world.AddComponent(entity, new AnimationComponent
                 {
-                    fps = animationFps,
                     animationsAsset = animationsAsset,
                     metadata = spritesMetadata,
                     currentAnimation = AnimationComponent.NoAnimation,

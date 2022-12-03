@@ -19,7 +19,11 @@ namespace Beatemup.Ecs
     [Serializable]
     public class AnimationDefinition
     {
+        public const float DefaultFrameRate = 15.0f;
+        
         public string name;
+        public float fps = DefaultFrameRate;
+        
         public List<AnimationFrame> frames = new ();
         public int TotalFrames => frames.Count;
         
@@ -39,8 +43,6 @@ namespace Beatemup.Ecs
         // public delegate void OnAnimatorEventHandler(AnimationComponent animationComponent, int animation);
         // public delegate void OnAnimationEventHandler(AnimationComponent animationComponent, int animation, int frame);
         
-        public const float DefaultFrameRate = 15.0f;
-        
         public enum State
         {
             Completed,
@@ -50,8 +52,6 @@ namespace Beatemup.Ecs
         public AnimationsAsset animationsAsset;
         public SpritesMetadata metadata;
 
-        public float fps;
-        
         public int currentAnimation;
         public int currentFrame;
         public float currentTime;

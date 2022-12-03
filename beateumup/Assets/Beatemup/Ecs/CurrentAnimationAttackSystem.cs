@@ -32,7 +32,7 @@ namespace Beatemup.Ecs
                     var animationDefinition = asset.animations[animationComponent.currentAnimation];
 
                     currentAnimationFrameComponent.cancellationTime =
-                        animationDefinition.GetDuration(animationComponent.fps);
+                        animationDefinition.GetDuration(animationDefinition.fps);
                     
                     if (animationComponent.metadata != null)
                     {
@@ -43,7 +43,7 @@ namespace Beatemup.Ecs
                                 animationComponent.metadata.GetFrameMetadata(animationDefinition.frames[i].sprite);
                             if (metadata != null && metadata.hitBoxes.Count > 0)
                             {
-                                currentAnimationFrameComponent.cancellationTime = (i + 1) / animationComponent.fps;
+                                currentAnimationFrameComponent.cancellationTime = (i + 1) / animationDefinition.fps;
                             }
                         }
                     }

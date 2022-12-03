@@ -35,7 +35,7 @@ namespace Beatemup.Ecs
                     
                     var definition = animationComponent.animationsAsset.animations[animationComponent.currentAnimation];
 
-                    var frameTime = 1.0f / animationComponent.fps;
+                    var frameTime = 1.0f / definition.fps;
                         
                     animationComponent.currentTime += Time.deltaTime;
                     animationComponent.playingTime += Time.deltaTime;
