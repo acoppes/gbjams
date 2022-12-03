@@ -88,7 +88,7 @@ namespace Beatemup.Controllers
 
                 if (targets.Count > 0)
                 {
-                    mainTarget = targets[0];
+                    mainTarget = targets.Random();
                 }
             }
             
