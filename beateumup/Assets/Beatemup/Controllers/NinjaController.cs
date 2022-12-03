@@ -5,13 +5,11 @@ using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
 using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
-using UnityEngine.Serialization;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
-using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
 namespace Beatemup.Controllers
 {
-    public class NictoController : ControllerBase, IInit, IStateChanged
+    public class NinjaController : ControllerBase, IInit, IStateChanged
     {
         public float baseSpeed = 8.0f;
         
