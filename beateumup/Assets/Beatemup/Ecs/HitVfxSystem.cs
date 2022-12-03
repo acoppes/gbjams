@@ -18,11 +18,11 @@ namespace Beatemup.Ecs
                 return;
             }
             
-            var hitComponents = world.GetComponents<HitComponent>();
+            var hitComponents = world.GetComponents<HitPointsComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
             var hitBoxComponents = world.GetComponents<HitBoxComponent>();
             
-            foreach (var entity in world.GetFilter<HitComponent>().Inc<PositionComponent>().Inc<HitBoxComponent>().End())
+            foreach (var entity in world.GetFilter<HitPointsComponent>().Inc<PositionComponent>().Inc<HitBoxComponent>().End())
             {
                 ref var hitComponent = ref hitComponents.Get(entity);
 

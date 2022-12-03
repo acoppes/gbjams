@@ -58,11 +58,11 @@ namespace Beatemup.Controllers
             ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
             animationComponent.Play("Idle");
             
-            ref var hitComponent = ref world.GetComponent<HitComponent>(entity);
+            ref var hitComponent = ref world.GetComponent<HitPointsComponent>(entity);
             hitComponent.OnHitEvent += OnHit;
         }
 
-        private void OnHit(World world, Entity entity, HitComponent hitComponent)
+        private void OnHit(World world, Entity entity, HitPointsComponent hitPointsComponent)
         {
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             var position = world.GetComponent<PositionComponent>(entity);
@@ -70,13 +70,13 @@ namespace Beatemup.Controllers
             
             var finisher = false;
 
-            foreach (var hit in hitComponent.hits)
+            foreach (var hit in hitPointsComponent.hits)
             {
                 var hitPosition = hit.position;
                 
                 lookingDirection.value = (hitPosition - position.value).normalized;
                 
-                finisher = finisher || hit.finisher;
+                finisher = finisher || hit.knockback;
             }
 
             if (!finisher)
@@ -262,7 +262,7 @@ namespace Beatemup.Controllers
             
                     foreach (var hitTarget in hitTargets)
                     {
-                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget.entity);
+                        ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
                         hitComponent.hits.Add(new HitData
                         {
                             position = position.value
@@ -379,7 +379,7 @@ namespace Beatemup.Controllers
 
                         foreach (var hitTarget in hitTargets)
                         {
-                            ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget.entity);
+                            ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
                             hitComponent.hits.Add(new HitData
                             {
                                 position = position.value
@@ -403,7 +403,7 @@ namespace Beatemup.Controllers
 
                         foreach (var hitTarget in hitTargets)
                         {
-                            ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget.entity);
+                            ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
                             hitComponent.hits.Add(new HitData
                             {
                                 position = position.value
@@ -495,7 +495,7 @@ namespace Beatemup.Controllers
 
                     foreach (var hitTarget in hitTargets)
                     {
-                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget.entity);
+                        ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
                         hitComponent.hits.Add(new HitData
                         {
                             position = position.value
@@ -522,7 +522,7 @@ namespace Beatemup.Controllers
 
                     foreach (var hitTarget in hitTargets)
                     {
-                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget.entity);
+                        ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
                         hitComponent.hits.Add(new HitData
                         {
                             position = position.value

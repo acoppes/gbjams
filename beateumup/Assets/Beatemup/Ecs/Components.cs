@@ -188,13 +188,17 @@ namespace Beatemup.Ecs
     public struct HitData
     {
         public Vector3 position;
-        public bool finisher;
+        public int hitPoints;
+        public bool knockback;
     }
 
-    public struct HitComponent : IEntityComponent
+    public struct HitPointsComponent : IEntityComponent
     {
+        public int total;
+        public int current;
+        
         public List<HitData> hits;
-        public event Action<World, Entity, HitComponent> OnHitEvent;
+        public event Action<World, Entity, HitPointsComponent> OnHitEvent;
 
         public void OnHit(World world, Entity entity)
         {

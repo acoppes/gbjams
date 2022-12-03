@@ -111,6 +111,12 @@ namespace Beatemup.Controllers
 
             if (states.TryGetState("FollowingTarget", out state))
             {
+                if (mainTarget == null)
+                {
+                    states.ExitState(state.name);
+                    return;
+                }
+                
                 var side = Mathf.Sign(position.value.x - mainTarget.position.x);
                 
                 var desiredPosition = mainTarget.position + new Vector3(side * attackDetection.offset.x, 0, 0);

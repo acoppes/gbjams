@@ -18,6 +18,7 @@ namespace Beatemup.Definitions
 
         public SpritesMetadata spritesMetadata;
 
+        public int hitPoints = 10;
         public HitboxAsset defaultHurtBoxAsset;
 
         public bool isVfx;
@@ -108,8 +109,10 @@ namespace Beatemup.Definitions
                 }
             });
             
-            world.AddComponent(entity, new HitComponent()
+            world.AddComponent(entity, new HitPointsComponent
             {
+                total = hitPoints,
+                current = hitPoints,
                 hits = new List<HitData>()
             });
 

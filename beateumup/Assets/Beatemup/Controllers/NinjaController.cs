@@ -65,11 +65,11 @@ namespace Beatemup.Controllers
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             lookingDirection.locked = true;
             
-            ref var hitComponent = ref world.GetComponent<HitComponent>(entity);
+            ref var hitComponent = ref world.GetComponent<HitPointsComponent>(entity);
             hitComponent.OnHitEvent += OnHit;
         }
         
-        private void OnHit(World world, Entity entity, HitComponent hitComponent)
+        private void OnHit(World world, Entity entity, HitPointsComponent hitPointsComponent)
         {
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             var position = world.GetComponent<PositionComponent>(entity);
@@ -82,18 +82,25 @@ namespace Beatemup.Controllers
 
             var finisher = false;
 
-            foreach (var hit in hitComponent.hits)
+            foreach (var hit in hitPointsComponent.hits)
             {
                 var hitPosition = hit.position;
                 
                 lookingDirection.value = (hitPosition - position.value).normalized;
                 
-                finisher = finisher || hit.finisher;
+                finisher = finisher || hit.knockback;
             }
-
+            
             if (!finisher)
             {
-                states.EnterState("HitStun");
+                if (hitPointsComponent.current <= 0)
+                {
+                    states.EnterState("Death");
+                }
+                else
+                {
+                    states.EnterState("HitStun");   
+                }
             }
             else
             {
@@ -197,6 +204,13 @@ namespace Beatemup.Controllers
                 animation.Play("Down");
                 movement.baseSpeed = 0;
             }
+            
+            if (states.statesEntered.Contains("Death"))
+            {
+                animation.Play("Death", 1);
+                // block movement, etc
+                movement.baseSpeed = 0;
+            }
         }
 
         public void OnExit()
@@ -206,7 +220,7 @@ namespace Beatemup.Controllers
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var position = ref world.GetComponent<PositionComponent>(entity);
-            
+
             if (states.statesExited.Contains("DashBackJump"))
             {
                 position.value.z = 0;
@@ -256,11 +270,26 @@ namespace Beatemup.Controllers
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var position = ref world.GetComponent<PositionComponent>(entity);
+            ref var hitPoints = ref world.GetComponent<HitPointsComponent>(entity);
+            
             // ref var jump = ref world.GetComponent<JumpComponent>(entity);
 
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
             State state;
+            
+            if (states.TryGetState("Death", out state))
+            {
+                movement.movingDirection = Vector2.zero;
+
+                if (animation.state == AnimationComponent.State.Completed)
+                {
+                    ref var destroyable = ref world.GetComponent<DestroyableComponent>(entity);
+                    destroyable.destroy = true;
+                }
+                
+                return;
+            }
             
             if (states.TryGetState("Down", out state))
             {
@@ -296,7 +325,15 @@ namespace Beatemup.Controllers
                 {
                     // states.ExitState("Knockback.Descending");
                     states.ExitState("Knockback");
-                    states.EnterState("Down");
+                    
+                    if (hitPoints.current <= 0)
+                    {
+                        states.EnterState("Death");
+                    }
+                    else
+                    {
+                        states.EnterState("Down");
+                    }
                 }
                 
                 return;
@@ -528,11 +565,12 @@ namespace Beatemup.Controllers
 
                     foreach (var hitTarget in hitTargets)
                     {
-                        ref var hitComponent = ref world.GetComponent<HitComponent>(hitTarget.entity);
+                        ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
                         hitComponent.hits.Add(new HitData
                         {
                             position = position.value,
-                            finisher = currentComboAttack >= comboAttacks
+                            knockback = currentComboAttack >= comboAttacks,
+                            hitPoints = 1
                         });
                         
                         var targetPosition = world.GetComponent<PositionComponent>(hitTarget.entity);
