@@ -169,8 +169,8 @@ namespace Beatemup.Controllers
             {
                 states.ExitState("Attack");
                 states.ExitState("Combo");
+                states.ExitState("Down");
                 
-                // states.ExitState("DashFront");
                 // states.ExitState("DashBack");
             }
             
