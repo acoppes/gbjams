@@ -63,7 +63,7 @@ namespace Beatemup.Ecs
 
                 if (playerInput == null)
                 {
-                    break;
+                    continue;
                 }
                 
                 ref var controlComponent = ref controlComponents.Get(entity);
