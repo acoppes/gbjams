@@ -10,7 +10,7 @@ using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
 namespace Beatemup.Controllers
 {
-    public class FootSoldierAIController : ControllerBase, IInit, IEntityDestroyed
+    public class EnemyAIController : ControllerBase, IInit, IEntityDestroyed
     {
         public float targetReachedDelayToAttack = 0.5f;
         
@@ -26,9 +26,6 @@ namespace Beatemup.Controllers
         
         public void OnInit()
         {
-            ref var states = ref world.GetComponent<StatesComponent>(entity);
-            states.EnterState("MovingDown");
-
             debugHitBoxes = FindObjectOfType<DebugHitBoxSystem>();
 
             if (debugHitBoxes != null)
@@ -100,7 +97,7 @@ namespace Beatemup.Controllers
                 control.direction = Vector2.zero;
                 return;
             }
-            
+
             if (states.TryGetState("TargetReached", out state))
             {
                 control.direction = Vector2.zero;
@@ -160,6 +157,12 @@ namespace Beatemup.Controllers
                     control.InsertInBuffer(control.button1.name);
                     return;
                 }
+            }
+            
+            // is attacking, dont try anything else
+            if (states.HasState("Attack"))
+            {
+                return;
             }
             
             control.direction = Vector2.zero;
