@@ -49,6 +49,12 @@ namespace Beatemup.Ecs
             var controlComponents = world.GetComponents<ControlComponent>();
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
 
+            foreach (var entity in world.GetFilter<ControlComponent>().End())
+            {
+                ref var controlComponent = ref controlComponents.Get(entity);
+                controlComponent.bufferTime -= Time.deltaTime;
+            }
+
             foreach (var entity in world.GetFilter<PlayerInputComponent>().Inc<ControlComponent>().End())
             {
                 var playerInputComponent = playerInputComponents.Get(entity);
@@ -61,8 +67,6 @@ namespace Beatemup.Ecs
                 }
                 
                 ref var controlComponent = ref controlComponents.Get(entity);
-
-                controlComponent.bufferTime -= Time.deltaTime;
                 
                 var direction = Vector2.zero;
 
