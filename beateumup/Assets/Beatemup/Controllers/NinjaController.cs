@@ -80,7 +80,7 @@ namespace Beatemup.Controllers
                 return;
             }
 
-            var finisher = false;
+            var knockback = false;
 
             foreach (var hit in hitPointsComponent.hits)
             {
@@ -88,14 +88,15 @@ namespace Beatemup.Controllers
                 
                 lookingDirection.value = (hitPosition - position.value).normalized;
                 
-                finisher = finisher || hit.knockback;
+                knockback = knockback || hit.knockback;
             }
             
-            if (!finisher)
+            if (!knockback)
             {
                 if (hitPointsComponent.current <= 0)
                 {
-                    states.EnterState("Death");
+                    states.EnterState("Knockback");
+                    // states.EnterState("Death");
                 }
                 else
                 {
