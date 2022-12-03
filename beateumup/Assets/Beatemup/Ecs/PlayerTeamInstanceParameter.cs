@@ -1,17 +1,19 @@
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Beatemup.Ecs
 {
-    public class PlayerInstanceParameter : MonoBehaviour, IEntityInstanceParameter
+    public class PlayerTeamInstanceParameter : MonoBehaviour, IEntityInstanceParameter
     {
-        public int player;
+        [FormerlySerializedAs("player")] 
+        public int team;
         
         public void Apply(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             ref var playerComponent = ref world.GetComponent<PlayerComponent>(entity);
-            playerComponent.player = player;
+            playerComponent.player = team;
         }
     }
 }
