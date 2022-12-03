@@ -62,7 +62,7 @@ namespace Beatemup.Ecs
         public float playingTime;
 
         public float pauseTime;
-        
+
         // public event OnAnimatorEventHandler onStart;
         // public event OnAnimatorEventHandler onComplete;
         // public event OnAnimatorEventHandler onCompletedLoop;

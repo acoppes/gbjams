@@ -10,6 +10,8 @@ namespace Beatemup.Ecs
         {
             var animations = world.GetComponents<AnimationComponent>();
             
+            var dt = Time.deltaTime;            
+            
             foreach (var entity in world.GetFilter<AnimationComponent>().End())
             {
                 ref var animationComponent = ref animations.Get(entity);
@@ -21,7 +23,7 @@ namespace Beatemup.Ecs
 
                 if (animationComponent.pauseTime > 0)
                 {
-                    animationComponent.pauseTime -= Time.deltaTime;
+                    animationComponent.pauseTime -= dt;
                     continue;
                 }
 
@@ -36,9 +38,9 @@ namespace Beatemup.Ecs
                     var definition = animationComponent.animationsAsset.animations[animationComponent.currentAnimation];
 
                     var frameTime = 1.0f / definition.fps;
-                        
-                    animationComponent.currentTime += Time.deltaTime;
-                    animationComponent.playingTime += Time.deltaTime;
+
+                    animationComponent.currentTime += dt;
+                    animationComponent.playingTime += dt;
 
                     while (animationComponent.currentTime >= frameTime)
                     {
