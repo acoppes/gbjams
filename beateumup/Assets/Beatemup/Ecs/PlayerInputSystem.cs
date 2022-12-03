@@ -96,7 +96,11 @@ namespace Beatemup.Ecs
                 }
 
                 controlComponent.direction = direction;
-
+            }
+            
+            foreach (var entity in world.GetFilter<ControlComponent>().End())
+            {
+                ref var controlComponent = ref controlComponents.Get(entity);
                 if (controlComponent.bufferTime < 0 && controlComponent.buffer.Count > 0)
                 {
                     controlComponent.buffer.Clear();
