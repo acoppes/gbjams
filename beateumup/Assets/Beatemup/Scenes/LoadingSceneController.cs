@@ -10,13 +10,13 @@ namespace Beatemup.MainMenu
 
         private void Start()
         {
-            StartCoroutine(SequenceToNextScene());
+            StartCoroutine(LoadNextScene(nextSceneName));
         }
 
-        private IEnumerator SequenceToNextScene()
+        public static IEnumerator LoadNextScene(string name)
         {
             yield return null;
-            SceneManager.LoadScene(nextSceneName);
+            SceneManager.LoadScene(name);
         }
     }
 }
