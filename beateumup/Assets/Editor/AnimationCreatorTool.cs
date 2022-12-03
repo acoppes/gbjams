@@ -192,7 +192,7 @@ namespace Utils.Editor
                     {
                         // frame = animation.keyframes[i].frame,
                         sprite = animation.keyframes[i].sprite,
-                        fxSprite = animation.keyframes[i].fxSprite
+                        // fxSprite = animation.keyframes[i].fxSprite
                     });
                 }
                 

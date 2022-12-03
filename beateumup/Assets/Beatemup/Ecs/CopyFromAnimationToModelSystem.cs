@@ -28,10 +28,10 @@ namespace Beatemup.Ecs
                     modelComponent.instance.model.sprite = frame.sprite;
                 }
                 
-                if (modelComponent.instance.effect != null)
-                {
-                    modelComponent.instance.effect.sprite = frame.fxSprite;
-                }
+                // if (modelComponent.instance.effect != null)
+                // {
+                //     modelComponent.instance.effect.sprite = frame.fxSprite;
+                // }
             }
         }
     }

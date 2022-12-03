@@ -10,7 +10,7 @@ namespace Beatemup.Ecs
     public class AnimationFrame
     {
         public Sprite sprite;
-        public Sprite fxSprite;
+        // public Sprite fxSprite;
 
         // public List<string> events = new ();
         // public bool HasEvents => events.Count > 0;
