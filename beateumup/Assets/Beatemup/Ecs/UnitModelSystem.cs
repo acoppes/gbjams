@@ -42,6 +42,7 @@ namespace Beatemup.Ecs
         {
             var modelComponents = world.GetComponents<UnitModelComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
+            var playerInputComponents = world.GetComponents<PlayerInputComponent>();
             
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             
@@ -52,6 +53,12 @@ namespace Beatemup.Ecs
                 if (modelComponent.instance.shadow != null)
                 {
                     modelComponent.instance.shadow.enabled = modelComponent.hasShadow;
+                }
+                
+                // disable by default
+                if (modelComponent.instance.playerIndicator != null)
+                {
+                    modelComponent.instance.playerIndicator.enabled = false;
                 }
             }
             
