@@ -1,6 +1,7 @@
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
+using MyBox;
 using UnityEngine;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 
@@ -8,9 +9,10 @@ namespace Beatemup.Definitions
 {
     public class UnitInstanceParameter : MonoBehaviour, IEntityInstanceParameter
     {
-        public int playerInput;
-        
         public bool controllable = false;
+        
+        [ConditionalField(nameof(controllable))]
+        public int playerInput;
 
         public float startingLookingDirectionAngle = 0;
 
