@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Leopotam.EcsLite;

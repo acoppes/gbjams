@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using GBJAM.Commons;
+using GBJAM.Commons.Prefabs.Sfx;
 using GBJAM.Commons.Transitions;
 using GBJAM9.Components;
 using UnityEngine;

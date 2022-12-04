@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using GBJAM9.Controllers;
 using UnityEngine;
 
 namespace GBJAM9.Components

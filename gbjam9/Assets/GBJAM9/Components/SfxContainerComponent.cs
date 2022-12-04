@@ -1,4 +1,4 @@
-using GBJAM.Commons;
+using GBJAM.Commons.Prefabs.Sfx;
 using UnityEngine;
 
 namespace GBJAM9.Components

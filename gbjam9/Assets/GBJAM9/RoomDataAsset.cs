@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using GBJAM9.Components;
 using UnityEngine;
 
 namespace GBJAM9
