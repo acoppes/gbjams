@@ -57,14 +57,17 @@ namespace Beatemup.Ecs
 
             foreach (var entity in world.GetFilter<PlayerInputComponent>().Inc<ControlComponent>().End())
             {
-                var playerInputComponent = playerInputComponents.Get(entity);
+                ref var playerInputComponent = ref playerInputComponents.Get(entity);
 
                 var playerInput = PlayerInput.GetPlayerByIndex(playerInputComponent.playerInput);
 
                 if (playerInput == null)
                 {
+                    playerInputComponent.isControlled = false;
                     continue;
                 }
+
+                playerInputComponent.isControlled = true;
                 
                 ref var controlComponent = ref controlComponents.Get(entity);
                 

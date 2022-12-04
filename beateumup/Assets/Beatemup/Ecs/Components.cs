@@ -10,6 +10,7 @@ namespace Beatemup.Ecs
     {
         public bool disabled;
         public int playerInput;
+        public bool isControlled;
     }
 
     public struct Button
