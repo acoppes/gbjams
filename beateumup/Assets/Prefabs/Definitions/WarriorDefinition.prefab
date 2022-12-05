@@ -59,17 +59,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa08ba5941e4c2690b898d38e0ded1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthType: 0
+  hitPoints: 10
+  movementType: 1
+  hasModel: 1
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
-  spritesMetadata: {fileID: 11400000, guid: bc2e91ebf33e15441855e72c9293ddab, type: 2}
-  defaultHurtBoxAsset: {fileID: 11400000, guid: 741438423c630254aa7fc8fdddbc517d, type: 2}
-  isVfx: 0
-  gravityStartsDisabled: 0
-  gravityScale: 7.5
-  jumpSpeed: 0
   hasAnimation: 1
   animationsAsset: {fileID: 11400000, guid: 2b03046d1308fa148b16d04e6db5bf16, type: 2}
-  animationFps: 15
+  defaultHurtBoxAsset: {fileID: 11400000, guid: 741438423c630254aa7fc8fdddbc517d, type: 2}
+  spritesMetadata: {fileID: 11400000, guid: bc2e91ebf33e15441855e72c9293ddab, type: 2}
+  hasController: 0
+  controllerObject: {fileID: 0}
+  hasGravity: 1
+  gravityStartsDisabled: 0
+  gravityScale: 7.5
+  isVfx: 0
+  jumpSpeed: 0
 --- !u!114 &3877063926540325674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,3 +274,5 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   knockbackDownTime: 0.25
+  knockbackRandomAngle: 10
+  autoDestroyOnDeath: 1

@@ -60,6 +60,9 @@ namespace Beatemup.Controllers
         public AnimationCurve knockbackCurve = AnimationCurve.Linear(1, 1, 0, 0);
         public float knockbackDownTime = 1.0f;
 
+        public float knockbackRandomAngle = 0;
+        private Vector2 knockbackDirection;
+
         public bool autoDestroyOnDeath = true;
         
         public void OnInit()
@@ -187,6 +190,12 @@ namespace Beatemup.Controllers
                 animation.Play("KnockdownAscending");
 
                 gravityComponent.disabled = true;
+                
+                knockbackDirection = new Vector2(-lookingDirection.value.x, 0);
+                knockbackDirection = knockbackDirection.Rotate(UnityEngine.Random.Range(-knockbackRandomAngle, knockbackRandomAngle) *
+                                                            Mathf.Deg2Rad);
+                
+                // knockbackRandomY = UnityEngine.Random.Range(-0.25f, 0.25f);
                 
                 // states.EnterState("Knockback.Ascending");
 
@@ -317,7 +326,7 @@ namespace Beatemup.Controllers
             if (states.TryGetState("Knockback", out state))
             {
                 // movement.baseSpeed = new Vector2(knockbackBaseSpeed, 0);
-                movement.movingDirection = new Vector2(-lookingDirection.value.x, 0);
+                movement.movingDirection = knockbackDirection;
 
                 position.value.z = knockbackCurve.Evaluate(state.time * knockbackCurveSpeed) 
                                    * knockbackMaxHeight;
