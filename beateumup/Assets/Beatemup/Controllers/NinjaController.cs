@@ -308,6 +308,7 @@ namespace Beatemup.Controllers
                         ref var deathBodyAnimationComponent = ref world.GetComponent<AnimationComponent>(deathBodyEntity);
                         deathBodyAnimationComponent.currentAnimation = animation.currentAnimation;
                         deathBodyAnimationComponent.currentFrame = animation.currentFrame;
+                        deathBodyAnimationComponent.animationsAsset = animation.animationsAsset;
                         
                         ref var deathBodyLookingDirection = ref world.GetComponent<LookingDirection>(deathBodyEntity);
                         deathBodyLookingDirection.value = lookingDirection.value;
