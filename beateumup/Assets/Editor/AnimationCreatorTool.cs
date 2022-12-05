@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Beatemup.Ecs;
 using UnityEditor;
 using UnityEngine;
@@ -120,11 +121,21 @@ namespace Utils.Editor
             var path = AssetDatabase.GetAssetPath(activeObject);
             var characterName = Path.GetFileNameWithoutExtension(path);
 
-            var sprites = AssetDatabaseExt.FindAssets<Sprite>(new []
+            var textures = AssetDatabaseExt.FindAssets<Texture2D>(new []
             {
                 path
             });
 
+            var sprites = new List<Sprite>();
+
+            foreach (var texture in textures)
+            {
+                var texturePath = AssetDatabase.GetAssetPath(texture);
+                var textureSprites = AssetDatabase.LoadAllAssetRepresentationsAtPath(texturePath)
+                    .OfType<Sprite>();
+                sprites.AddRange(textureSprites);
+            }
+            
             var animations = new Dictionary<string, Animation>();
 
             foreach (var sprite in sprites)
