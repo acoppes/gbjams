@@ -12,6 +12,19 @@ namespace Beatemup.Ecs
         {
             var modelComponents = world.GetComponents<UnitModelComponent>();
             var playerInputComponents = world.GetComponents<PlayerInputComponent>();
+
+            var controlledCount = 0;
+            
+            foreach (var _ in world.GetFilter<PlayerInputComponent>().End())
+            {
+                controlledCount++;
+                
+                // var playerInputComponent = playerInputComponents.Get(entity);
+                // if (playerInputComponent.isControlled)
+                // {
+                //     controlledCount++;
+                // }
+            }
             
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<PlayerInputComponent>().End())
             {
@@ -20,10 +33,18 @@ namespace Beatemup.Ecs
 
                 if (modelComponent.instance.playerIndicator != null)
                 {
-                    modelComponent.instance.playerIndicator.enabled = playerInputComponent.isControlled;
+                    modelComponent.instance.playerIndicator.enabled = playerInputComponent.isControlled 
+                                                                      && controlledCount > 1;
                     modelComponent.instance.playerIndicator.color = playerColors[playerInputComponent.playerInput];
+                    
+                    if (playerInputComponent.isControlled)
+                    {
+                        controlledCount++;
+                    }
                 }
             }
+            
+
         }
     }
 }
