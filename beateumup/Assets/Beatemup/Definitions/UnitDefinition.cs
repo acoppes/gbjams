@@ -13,25 +13,57 @@ namespace Beatemup.Definitions
 {
     public class UnitDefinition : MonoBehaviour, IEntityDefinition
     {
-        public GameObject modelPrefab;
-        public bool hasShadow = true;
-
-        public SpritesMetadata spritesMetadata;
-
-        public int hitPoints = 10;
-        public HitboxAsset defaultHurtBoxAsset;
-
-        public bool isVfx;
-
-        public bool gravityStartsDisabled = false;
-        public float gravityScale = 1;
+        public enum HealthType
+        {
+            Normal = 0,
+            None = 1
+        }
         
-        public float jumpSpeed = 1;
+        public enum MovementType
+        {
+            None = 0,
+            Basic = 1
+        }
+        
+        [Separator("Health")]
+        public HealthType healthType = HealthType.Normal;
+        [ConditionalField(nameof(healthType), false, HealthType.Normal)]
+        public int hitPoints = 10;
+
+        [Separator("Movement")] 
+        public MovementType movementType = MovementType.Basic;
+
+        [Separator("Model")]
+        public bool hasModel = true;
+        [ConditionalField(nameof(hasModel))]
+        public GameObject modelPrefab;
+        [ConditionalField(nameof(hasModel))]
+        public bool hasShadow = true;
 
         [Separator("Animation")]
         public bool hasAnimation = true;
         [ConditionalField(nameof(hasAnimation))]
         public AnimationsAsset animationsAsset;
+        [ConditionalField(nameof(hasAnimation))]
+        public HitboxAsset defaultHurtBoxAsset;
+        [ConditionalField(nameof(hasAnimation))]
+        public SpritesMetadata spritesMetadata;
+        
+        [Separator("Controller")]
+        public bool hasController;
+        [ConditionalField(nameof(hasController))]
+        public GameObject controllerObject;
+        
+        [Separator("Gravity")]
+        public bool hasGravity = true;
+        [ConditionalField(nameof(hasGravity))]
+        public bool gravityStartsDisabled = false;
+        [ConditionalField(nameof(hasGravity))]
+        public float gravityScale = 1;
+        
+        [Separator("Others")]
+        public bool isVfx;
+        public float jumpSpeed = 1;
 
         public void Apply(World world, Entity entity)
         {
@@ -47,7 +79,7 @@ namespace Beatemup.Definitions
 
             world.AddComponent(entity, StatesComponent.Create());
 
-            if (modelPrefab != null)
+            if (hasModel)
             {
                 world.AddComponent(entity, new UnitModelComponent
                 {
@@ -56,21 +88,26 @@ namespace Beatemup.Definitions
                 });
             }
 
-            world.AddComponent(entity, new HorizontalMovementComponent
+            if (movementType == MovementType.Basic)
             {
-                speedMultiplier = 1.0f
-            });
+                world.AddComponent(entity, new HorizontalMovementComponent
+                {
+                    speedMultiplier = 1.0f
+                });
+                world.AddComponent(entity, new VerticalMovementComponent()
+                {
+                    speed = 0
+                });
+            }
             
-            world.AddComponent(entity, new VerticalMovementComponent()
+            if (hasGravity)
             {
-                speed = 0
-            });
-            
-            world.AddComponent(entity, new GravityComponent()
-            {
-                disabled = gravityStartsDisabled,
-                scale = gravityScale
-            });
+                world.AddComponent(entity, new GravityComponent()
+                {
+                    disabled = gravityStartsDisabled,
+                    scale = gravityScale
+                });
+            }
             
             world.AddComponent(entity, new JumpComponent
             {
@@ -109,16 +146,27 @@ namespace Beatemup.Definitions
                 }
             });
             
-            world.AddComponent(entity, new HitPointsComponent
+            if (healthType != HealthType.None)
             {
-                total = hitPoints,
-                current = hitPoints,
-                hits = new List<HitData>()
-            });
+                world.AddComponent(entity, new HitPointsComponent
+                {
+                    total = hitPoints,
+                    current = hitPoints,
+                    hits = new List<HitData>()
+                });
+            }
 
             if (isVfx)
             {
                 world.AddComponent(entity, new VfxComponent());
+            }
+
+            if (hasController)
+            {
+                world.AddComponent(entity, new ControllerComponent
+                {
+                    prefab = controllerObject
+                });
             }
             
             // world.AddComponent(entity, new QueryComponent()
