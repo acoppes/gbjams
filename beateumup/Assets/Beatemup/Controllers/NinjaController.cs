@@ -63,7 +63,7 @@ namespace Beatemup.Controllers
         public float knockbackRandomAngle = 0;
         private Vector2 knockbackDirection;
 
-        public bool autoDestroyOnDeath = true;
+        public GameObject deathBodyDefinition;
         
         public void OnInit()
         {
@@ -294,10 +294,24 @@ namespace Beatemup.Controllers
             {
                 movement.movingDirection = Vector2.zero;
 
-                if (animation.state == AnimationComponent.State.Completed && autoDestroyOnDeath)
+                if (animation.state == AnimationComponent.State.Completed)
                 {
                     ref var destroyable = ref world.GetComponent<DestroyableComponent>(entity);
                     destroyable.destroy = true;
+
+                    if (deathBodyDefinition != null)
+                    {
+                        var deathBodyEntity = world.CreateEntity(deathBodyDefinition);
+                        ref var deathBodyPosition = ref world.GetComponent<PositionComponent>(deathBodyEntity);
+                        deathBodyPosition.value = position.value;
+                        
+                        ref var deathBodyAnimationComponent = ref world.GetComponent<AnimationComponent>(deathBodyEntity);
+                        deathBodyAnimationComponent.currentAnimation = animation.currentAnimation;
+                        deathBodyAnimationComponent.currentFrame = animation.currentFrame;
+                        
+                        ref var deathBodyLookingDirection = ref world.GetComponent<LookingDirection>(deathBodyEntity);
+                        deathBodyLookingDirection.value = lookingDirection.value;
+                    }
                 }
                 
                 return;
