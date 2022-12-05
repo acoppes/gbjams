@@ -195,8 +195,18 @@ namespace Beatemup.Ecs
 
     public struct HitPointsComponent : IEntityComponent
     {
+        [Flags]
+        public enum AliveType
+        {
+            None = 0,
+            Alive = 1 << 1,
+            Death = 1 << 2
+        }
+        
         public int total;
         public int current;
+
+        public AliveType aliveType => current > 0 ? AliveType.Alive : AliveType.Death;
         
         public List<HitData> hits;
         public event Action<World, Entity, HitPointsComponent> OnHitEvent;

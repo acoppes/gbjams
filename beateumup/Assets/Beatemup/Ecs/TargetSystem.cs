@@ -46,6 +46,16 @@ namespace Beatemup.Ecs
                 var nameComponent = nameComponents.Get(entity);
                 targetComponent.target.name = nameComponent.name;
             }
+            
+            var hitPointsComponents = world.GetComponents<HitPointsComponent>();
+            
+            foreach (var entity in world.GetFilter<TargetComponent>().Inc<HitPointsComponent>().End())
+            {
+                ref var targetComponent = ref targetComponents.Get(entity);
+                var hitPointsComponent = hitPointsComponents.Get(entity);
+
+                targetComponent.target.aliveType = hitPointsComponent.aliveType;
+            }
         }
     }
 }

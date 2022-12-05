@@ -23,6 +23,11 @@ namespace Beatemup.Ecs
         {
             return (self & flag) == flag;
         }
+        
+        public static bool HasAliveFlag(this HitPointsComponent.AliveType self, HitPointsComponent.AliveType flag)
+        {
+            return (self & flag) == flag;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool CheckPlayerAlliance(this PlayerAllianceType playerAllianceType, int p0, int p1)
@@ -62,6 +67,8 @@ namespace Beatemup.Ecs
             
             public PlayerAllianceType playerAllianceType;
             public string name;
+
+            public HitPointsComponent.AliveType aliveType;
         }
         
         public class Target
@@ -71,6 +78,7 @@ namespace Beatemup.Ecs
             public Vector3 position;
             public HitBox hurtBox;
             public string name;
+            public HitPointsComponent.AliveType aliveType = HitPointsComponent.AliveType.Alive;
         }
         
         private static readonly ContactFilter2D HurtBoxContactFilter = new()
@@ -92,7 +100,8 @@ namespace Beatemup.Ecs
                 player = player.player,
                 area = hitBox.hit,
                 playerAllianceType = PlayerAllianceType.Enemies,
-                checkAreaType = RuntimeTargetingParameters.CheckAreaType.HitBox
+                checkAreaType = RuntimeTargetingParameters.CheckAreaType.HitBox,
+                aliveType = HitPointsComponent.AliveType.Alive
             });
         }
         
@@ -148,6 +157,14 @@ namespace Beatemup.Ecs
                     !runtimeTargetingParameters.name.Equals(target.name, StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
+                }
+
+                if (runtimeTargetingParameters.aliveType != HitPointsComponent.AliveType.None)
+                {
+                    if (!runtimeTargetingParameters.aliveType.HasFlag(target.aliveType))
+                    {
+                        continue;
+                    }
                 }
 
                 result.Add(target);
