@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Beatemup.Ecs;
@@ -129,9 +129,9 @@ namespace Utils.Editor
 
             foreach (var sprite in sprites)
             {
-                var spriteParts = sprite.name.Split("_", 2);
-                var animationName = spriteParts[0];
-                var frameString = spriteParts[1];
+                var spriteParts = sprite.name.Split("_");
+                var animationName = spriteParts[^2];
+                var frameString = spriteParts[^1];
 
                 if (animationName.EndsWith("fx", StringComparison.OrdinalIgnoreCase))
                 {
