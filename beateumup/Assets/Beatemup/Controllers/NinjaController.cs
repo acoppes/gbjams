@@ -59,6 +59,8 @@ namespace Beatemup.Controllers
         public AnimationCurve knockbackHorizontalCurve = AnimationCurve.Linear(1, 1, 0, 0);
         public AnimationCurve knockbackCurve = AnimationCurve.Linear(1, 1, 0, 0);
         public float knockbackDownTime = 1.0f;
+
+        public bool autoDestroyOnDeath = true;
         
         public void OnInit()
         {
@@ -283,7 +285,7 @@ namespace Beatemup.Controllers
             {
                 movement.movingDirection = Vector2.zero;
 
-                if (animation.state == AnimationComponent.State.Completed)
+                if (animation.state == AnimationComponent.State.Completed && autoDestroyOnDeath)
                 {
                     ref var destroyable = ref world.GetComponent<DestroyableComponent>(entity);
                     destroyable.destroy = true;
