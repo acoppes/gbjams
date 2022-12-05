@@ -41,7 +41,8 @@ public class SpawnerController : ControllerBase, IInit
             player = player.player,
             checkAreaType = TargetingUtils.RuntimeTargetingParameters.CheckAreaType.Nothing,
             playerAllianceType = TargetingUtils.PlayerAllianceType.Allies,
-            name = "Enemy_Soldier"
+            name = "Enemy_Soldier",
+            aliveType = HitPointsComponent.AliveType.Alive
         });
         
         // if (world.Query(query))
