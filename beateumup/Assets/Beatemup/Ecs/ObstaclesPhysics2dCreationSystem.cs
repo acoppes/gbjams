@@ -18,6 +18,7 @@ namespace Beatemup.Ecs
                 obstacle.collider2d = obstacleGameObject.AddComponent<CircleCollider2D>();
 
                 obstacle.body.gravityScale = 0;
+                obstacle.body.mass = obstacle.size;
                 
                 obstacle.collider2d.radius = obstacle.size;
             }
