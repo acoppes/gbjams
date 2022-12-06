@@ -126,6 +126,8 @@ namespace Beatemup.Controllers
 
             var lookingDirection = world.GetComponent<LookingDirection>(entity);
             var control = world.GetComponent<ControlComponent>(entity);
+            
+            ref var obstacle = ref world.GetComponent<ObstacleComponent>(entity);
 
             if (states.statesEntered.Contains("Moving"))
             {
@@ -144,6 +146,8 @@ namespace Beatemup.Controllers
                 animation.Play("DashBack", 1);
                 
                 movement.movingDirection = new Vector2(-lookingDirection.value.x, control.direction.y);
+
+                obstacle.disabled = true;
             }
             
             if (states.statesEntered.Contains("DashBackJump"))
@@ -160,6 +164,8 @@ namespace Beatemup.Controllers
             {
                 gravityComponent.disabled = true;
                 animation.Play("DashFront", 1);
+                
+                obstacle.disabled = true;
 
                 // var directionX = control.direction.x;
                 //
@@ -232,7 +238,9 @@ namespace Beatemup.Controllers
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var position = ref world.GetComponent<PositionComponent>(entity);
-
+            
+            ref var obstacle = ref world.GetComponent<ObstacleComponent>(entity);
+             
             if (states.statesExited.Contains("DashBackJump"))
             {
                 position.value.z = 0;
@@ -250,6 +258,7 @@ namespace Beatemup.Controllers
                 movement.baseSpeed = 0;
                 gravityComponent.disabled = false;
 
+                obstacle.disabled = false;
                 //movement.movingDirection.y = 0;
             }
             
@@ -259,6 +268,7 @@ namespace Beatemup.Controllers
                 movement.baseSpeed = 0;
                 gravityComponent.disabled = false;
                 
+                obstacle.disabled = false;
                 // movement.movingDirection.y = 0;
             }
             

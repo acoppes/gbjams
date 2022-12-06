@@ -18,7 +18,8 @@ namespace Beatemup.Ecs
                 // copy from position to body
                 ref var obstacleComponent = ref obstacleComponents.Get(entity);
                 var positionComponent = positions.Get(entity);
-
+                
+                obstacleComponent.collider2d.enabled = !obstacleComponent.disabled;
                 obstacleComponent.body.position = positionComponent.value.ToVector2();
             }
         }
