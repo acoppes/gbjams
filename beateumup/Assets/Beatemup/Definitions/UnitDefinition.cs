@@ -25,6 +25,12 @@ namespace Beatemup.Definitions
             Basic = 1
         }
         
+        public enum ObstacleType
+        {
+            None = 0,
+            Basic = 1
+        }
+        
         [Separator("Health")]
         public HealthType healthType = HealthType.Normal;
         [ConditionalField(nameof(healthType), false, HealthType.Normal)]
@@ -61,6 +67,11 @@ namespace Beatemup.Definitions
         [ConditionalField(nameof(hasGravity))]
         public float gravityScale = 1;
         
+        [Separator("Obstacle")]
+        public ObstacleType obstacleType = ObstacleType.None;
+        [ConditionalField(nameof(obstacleType), false, ObstacleType.Basic)]
+        public float obstacleSize = 0.25f;
+
         [Separator("Others")]
         public bool isVfx;
         public float jumpSpeed = 1;
@@ -166,6 +177,15 @@ namespace Beatemup.Definitions
                 world.AddComponent(entity, new ControllerComponent
                 {
                     prefab = controllerObject
+                });
+            }
+
+            if (obstacleType != ObstacleType.None)
+            {
+                world.AddComponent(entity, new ObstacleComponent()
+                {
+                    size = obstacleSize,
+                    priority = 0
                 });
             }
             

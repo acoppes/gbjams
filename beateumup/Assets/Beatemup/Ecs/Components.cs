@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Beatemup.Definitions;
 using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
@@ -230,5 +231,15 @@ namespace Beatemup.Ecs
     public struct TargetComponent : IEntityComponent
     {
         public TargetingUtils.Target target;
+    }
+    
+    public struct ObstacleComponent : IEntityComponent
+    {
+        public bool disabled;
+        public float size;
+        public int priority;
+
+        public Rigidbody2D body;
+        public CircleCollider2D collider2d;
     }
 }
