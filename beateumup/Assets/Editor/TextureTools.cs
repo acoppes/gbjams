@@ -6,12 +6,19 @@ namespace Utils.Editor
 {
     public static class TextureTools
     {
-        [UnityEditor.MenuItem("Assets/Texture Tools/Create LUT 2D from Texture")]
+        [UnityEditor.MenuItem("Assets/Texture Tools/Extract LUT2D from Texture")]
         public static void Create()
         {
             if (Selection.activeObject is not Texture2D)
             {
                 EditorUtility.DisplayDialog("Error", "Select texture", "ok");
+                return;
+            }
+
+            var targetFilePath = EditorUtility.SaveFilePanel("Select target file", "", "generatedLut", "png");
+
+            if (string.IsNullOrEmpty(targetFilePath))
+            {
                 return;
             }
             
@@ -60,8 +67,8 @@ namespace Utils.Editor
                 // lutTexture.SetPixels(lutPixels);
                 lutTexture.Apply();
 
-                var png = lutTexture.EncodeToPNG();
-                File.WriteAllBytes(Application.dataPath + "/Development/lutTest.png", png);
+                var pngBytes = lutTexture.EncodeToPNG();
+                File.WriteAllBytes(targetFilePath, pngBytes);
                 AssetDatabase.Refresh();
             }
             finally
