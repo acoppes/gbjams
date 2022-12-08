@@ -18,6 +18,12 @@ namespace Beatemup.Definitions
             Normal = 0,
             None = 1
         }
+
+        public enum TargetType
+        {
+            None = 0,
+            Enabled = 1
+        }
         
         public enum MovementType
         {
@@ -36,6 +42,9 @@ namespace Beatemup.Definitions
         [ConditionalField(nameof(healthType), false, HealthType.Normal)]
         public int hitPoints = 10;
 
+        [Separator("Target")]
+        public TargetType targetType = TargetType.Enabled;
+        
         [Separator("Movement")] 
         public MovementType movementType = MovementType.Basic;
 
@@ -56,6 +65,9 @@ namespace Beatemup.Definitions
         public HitboxAsset defaultHurtBoxAsset;
         [ConditionalField(nameof(hasAnimation))]
         public SpritesMetadata spritesMetadata;
+        
+        [Separator("States")]
+        public bool hasStates = true;        
         
         [Separator("Controller")]
         public bool hasController;
@@ -90,8 +102,11 @@ namespace Beatemup.Definitions
 
             world.AddComponent(entity, ControlComponent.Default());
 
-            world.AddComponent(entity, StatesComponent.Create());
-
+            if (hasStates)
+            {
+                world.AddComponent(entity, StatesComponent.Create());
+            }
+            
             if (hasModel)
             {
                 world.AddComponent(entity, new UnitModelComponent
@@ -152,13 +167,16 @@ namespace Beatemup.Definitions
                 }
             }
             
-            world.AddComponent(entity, new TargetComponent
+            if (targetType == TargetType.Enabled)
             {
-                target = new TargetingUtils.Target
+                world.AddComponent(entity, new TargetComponent
                 {
-                    entity = entity
-                }
-            });
+                    target = new TargetingUtils.Target
+                    {
+                        entity = entity
+                    }
+                });
+            }
             
             if (healthType != HealthType.None)
             {

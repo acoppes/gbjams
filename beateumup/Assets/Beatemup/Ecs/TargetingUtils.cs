@@ -78,7 +78,7 @@ namespace Beatemup.Ecs
             public Vector3 position;
             public HitBox hurtBox;
             public string name;
-            public HitPointsComponent.AliveType aliveType = HitPointsComponent.AliveType.Alive;
+            public HitPointsComponent.AliveType aliveType = HitPointsComponent.AliveType.None;
         }
         
         private static readonly ContactFilter2D HurtBoxContactFilter = new()
@@ -161,6 +161,11 @@ namespace Beatemup.Ecs
 
                 if (runtimeTargetingParameters.aliveType != HitPointsComponent.AliveType.None)
                 {
+                    if (target.aliveType == HitPointsComponent.AliveType.None)
+                    {
+                        continue;
+                    }
+                    
                     if (!runtimeTargetingParameters.aliveType.HasFlag(target.aliveType))
                     {
                         continue;
