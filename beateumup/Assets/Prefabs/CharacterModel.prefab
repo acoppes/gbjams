@@ -233,6 +233,7 @@ MonoBehaviour:
   model: {fileID: 4258507774719311077}
   shadow: {fileID: 8848974650244364889}
   playerIndicator: {fileID: 6927133844781043397}
+  remapShader: {fileID: 2757212473333454914}
 --- !u!1 &4258507774719311075
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4258507774719311074}
   - component: {fileID: 4258507774719311077}
+  - component: {fileID: 2757212473333454914}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -317,6 +319,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &2757212473333454914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4258507774719311075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8cd5d06639c5b428edd5e814778f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4258507774719311077}
+  lutTexture: {fileID: 0}
+  spriteWithLutMaterial: {fileID: 2100000, guid: 7c221978e8e34874484ae8cc59b9d5dc, type: 2}
 --- !u!1 &5646918643770790734
 GameObject:
   m_ObjectHideFlags: 0

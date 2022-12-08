@@ -7,5 +7,6 @@ namespace Beatemup.Models
         public SpriteRenderer model;
         public SpriteRenderer shadow;
         public SpriteRenderer playerIndicator;
+        public SpriteColorRemapShader remapShader;
     }
 }

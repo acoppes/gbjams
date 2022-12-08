@@ -43,8 +43,6 @@ namespace Beatemup.Ecs
                     }
                 }
             }
-            
-
         }
     }
 }

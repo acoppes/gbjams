@@ -144,6 +144,8 @@ namespace Beatemup.Ecs
         public bool IsVisible => visiblity == Visiblity.Visible;
 
         public bool hasShadow;
+        
+        public Texture2D[] remapTexturesPerPlayer;
     }
     
     public struct HorizontalMovementComponent : IEntityComponent

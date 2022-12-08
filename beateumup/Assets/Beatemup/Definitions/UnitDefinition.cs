@@ -45,6 +45,8 @@ namespace Beatemup.Definitions
         public GameObject modelPrefab;
         [ConditionalField(nameof(hasModel))]
         public bool hasShadow = true;
+        [ConditionalField(nameof(hasModel))] 
+        public Texture2D[] remapTexturesPerPlayer; 
 
         [Separator("Animation")]
         public bool hasAnimation = true;
@@ -95,7 +97,8 @@ namespace Beatemup.Definitions
                 world.AddComponent(entity, new UnitModelComponent
                 {
                     prefab = modelPrefab,
-                    hasShadow = hasShadow
+                    hasShadow = hasShadow,
+                    remapTexturesPerPlayer = remapTexturesPerPlayer
                 });
             }
 
