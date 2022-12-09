@@ -9,12 +9,16 @@ namespace Beatemup.Scenes
     {
         public static int players = 1;
 
+        public float spawnDistanceToCenter = 4f;
         public GameObject playerCharacterDefinition;
         
         // Start is called before the first frame update
         void Start()
         {
             var world = World.Instance;
+
+            var spawnAngle = UnityEngine.Random.Range(0, 360);
+            var divAngle = 360 / players;
             
             for (var i = 0; i < players; i++)
             {
@@ -32,7 +36,10 @@ namespace Beatemup.Scenes
                     singleton = true
                 });
 
-                var position = UnityEngine.Random.insideUnitCircle * 4f;
+                var position = Vector2.right.Rotate(spawnAngle * Mathf.Deg2Rad) * spawnDistanceToCenter;
+                spawnAngle += divAngle;
+                
+                // var position = UnityEngine.Random.insideUnitCircle * 4f;
                 position.y *= 0.75f;
 
                 ref var positionComponent = ref world.GetComponent<PositionComponent>(playerCharacterEntity);
