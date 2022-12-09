@@ -39,7 +39,9 @@ namespace Beatemup.Screens
                 }
             }
             
-            canvasGroup.alpha = entity == Entity.NullEntity ? 0 : 1;
+            healthBarCurrent.fillAmount = 0;
+            
+            // canvasGroup.alpha = entity == Entity.NullEntity ? 0 : 1;
 
             if (entity != Entity.NullEntity)
             {
