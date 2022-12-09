@@ -1,4 +1,5 @@
-﻿using Gemserk.Leopotam.Ecs;
+﻿using Beatemup.Definitions;
+using Gemserk.Leopotam.Ecs;
 using UnityEngine;
 
 namespace Beatemup.Ecs
@@ -15,12 +16,23 @@ namespace Beatemup.Ecs
                 obstacleGameObject.layer = LayerMask.NameToLayer("Obstacle");
                 
                 obstacle.body = obstacleGameObject.AddComponent<Rigidbody2D>();
-                obstacle.collider2d = obstacleGameObject.AddComponent<CircleCollider2D>();
 
                 obstacle.body.gravityScale = 0;
                 obstacle.body.mass = obstacle.size;
+
+                obstacle.body.bodyType = obstacle.isStatic ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic; 
                 
-                obstacle.collider2d.radius = obstacle.size;
+                if (obstacle.obstacleType == UnitDefinition.ObstacleType.Circle)
+                {
+                    var collider2d = obstacleGameObject.AddComponent<CircleCollider2D>();
+                    collider2d.radius = obstacle.size;
+                    obstacle.collider2d = collider2d;
+                } else if (obstacle.obstacleType == UnitDefinition.ObstacleType.Box)
+                {
+                    var collider2d = obstacleGameObject.AddComponent<BoxCollider2D>();
+                    collider2d.size = new Vector2(obstacle.size, obstacle.size);
+                    obstacle.collider2d = collider2d;
+                }
             }
         }
         

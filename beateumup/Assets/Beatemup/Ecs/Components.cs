@@ -237,11 +237,15 @@ namespace Beatemup.Ecs
     
     public struct ObstacleComponent : IEntityComponent
     {
+        public UnitDefinition.ObstacleType obstacleType;        
+        
         public bool disabled;
         public float size;
-        public int priority;
+        // public int priority;
 
         public Rigidbody2D body;
-        public CircleCollider2D collider2d;
+        public Collider2D collider2d;
+
+        public bool isStatic;
     }
 }

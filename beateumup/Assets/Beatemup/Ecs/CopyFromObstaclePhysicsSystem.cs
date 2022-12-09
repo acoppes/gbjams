@@ -16,6 +16,12 @@ namespace Beatemup.Ecs
             {
                 // copy from body to position
                 var obstacleComponent = obstacleComponents.Get(entity);
+
+                if (obstacleComponent.body.bodyType == RigidbodyType2D.Static)
+                {
+                    continue;
+                }
+                
                 ref var positionComponent = ref positions.Get(entity);
 
                 var position = obstacleComponent.body.position;

@@ -34,7 +34,8 @@ namespace Beatemup.Definitions
         public enum ObstacleType
         {
             None = 0,
-            Basic = 1
+            Circle = 1,
+            Box = 2
         }
         
         [Separator("Health")]
@@ -83,8 +84,10 @@ namespace Beatemup.Definitions
         
         [Separator("Obstacle")]
         public ObstacleType obstacleType = ObstacleType.None;
-        [ConditionalField(nameof(obstacleType), false, ObstacleType.Basic)]
+        [ConditionalField(nameof(obstacleType), false, ObstacleType.Circle, ObstacleType.Box)]
         public float obstacleSize = 0.25f;
+        [ConditionalField(nameof(obstacleType), false, ObstacleType.Circle, ObstacleType.Box)]
+        public bool obstacleIsStatic;
 
         [Separator("Others")]
         public bool isVfx;
@@ -206,7 +209,8 @@ namespace Beatemup.Definitions
                 world.AddComponent(entity, new ObstacleComponent()
                 {
                     size = obstacleSize,
-                    priority = 0
+                    obstacleType = obstacleType,
+                    isStatic = obstacleIsStatic
                 });
             }
             

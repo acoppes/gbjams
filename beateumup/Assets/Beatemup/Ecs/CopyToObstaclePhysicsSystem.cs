@@ -21,6 +21,11 @@ namespace Beatemup.Ecs
                 
                 obstacleComponent.collider2d.enabled = !obstacleComponent.disabled;
                 obstacleComponent.body.position = positionComponent.value.ToVector2();
+
+                if (obstacleComponent.body.bodyType == RigidbodyType2D.Static)
+                {
+                    obstacleComponent.body.transform.position = positionComponent.value.ToVector2();
+                }
             }
         }
     }
