@@ -2,6 +2,7 @@
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Beatemup.Screens
 {
@@ -16,7 +17,9 @@ namespace Beatemup.Screens
         public string playerEntityName;
 
         public CanvasGroup canvasGroup;
-        
+
+        public Image healthBarCurrent;
+
         public void LateUpdate()
         {
             if (entity == Entity.NullEntity)
@@ -37,6 +40,20 @@ namespace Beatemup.Screens
             }
             
             canvasGroup.alpha = entity == Entity.NullEntity ? 0 : 1;
+
+            if (entity != Entity.NullEntity)
+            {
+                if (world.HasComponent<HitPointsComponent>(entity))
+                {
+                    var hitPoints = world.GetComponent<HitPointsComponent>(entity);
+                    healthBarCurrent.fillAmount = (float)hitPoints.current / hitPoints.total;
+
+                    if (hitPoints.current == 0)
+                    {
+                        entity = Entity.NullEntity;
+                    }
+                }
+            }
             
             // update bar, etc
         }
