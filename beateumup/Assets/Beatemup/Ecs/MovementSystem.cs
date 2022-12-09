@@ -7,8 +7,6 @@ namespace Beatemup.Ecs
 {
     public class MovementSystem : BaseSystem, IEcsRunSystem
     {
-        public Vector2 gamePerspective = new Vector2(1.0f, 0.75f);
-        
         public void Run(EcsSystems systems)
         {
             var movementComponents = world.GetComponents<HorizontalMovementComponent>();
@@ -36,9 +34,7 @@ namespace Beatemup.Ecs
                 
                 // velocity.z = direction.z * (movement.speed + movement.extraSpeed.z);
 
-                velocity = new Vector2(
-                    velocity.x * gamePerspective.x, 
-                    velocity.y * gamePerspective.y);
+                // velocity = new Vector2(velocity.x, velocity.y);
                     
                 // e.collider.rigidbody.velocity = velocity;
 

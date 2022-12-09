@@ -8,6 +8,8 @@ namespace Beatemup.Ecs
 {
     public class UnitModelSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
+        public static Vector2 gamePerspective = new Vector2(1.0f, 0.75f);
+        
         public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             // create model if model component
@@ -42,7 +44,6 @@ namespace Beatemup.Ecs
         {
             var modelComponents = world.GetComponents<UnitModelComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
-            var playerInputComponents = world.GetComponents<PlayerInputComponent>();
             
             var lookingDirectionComponents = world.GetComponents<LookingDirection>();
             
@@ -67,8 +68,8 @@ namespace Beatemup.Ecs
                 ref var modelComponent = ref modelComponents.Get(entity);
                 var positionComponent = positionComponents.Get(entity);
 
-                modelComponent.instance.transform.position = new Vector3(positionComponent.value.x, positionComponent.value.y, 0);
-                modelComponent.instance.model.transform.localPosition = new Vector3(0, positionComponent.value.z, 0);
+                modelComponent.instance.transform.position = new Vector3(positionComponent.value.x * gamePerspective.x, positionComponent.value.y * gamePerspective.y, 0);
+                modelComponent.instance.model.transform.localPosition = new Vector3(0, positionComponent.value.z * gamePerspective.y, 0);
             }
 
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<LookingDirection>().End())

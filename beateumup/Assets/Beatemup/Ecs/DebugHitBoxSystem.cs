@@ -19,6 +19,8 @@ namespace Beatemup.Ecs
             var debugHitBox = debugHitBoxInstance.GetComponent<DebugHitBox>();
             debugHitBox.debugHitBoxSystem = this;
             debugHitBox.type = type;
+
+            debugHitBox.gamePerspective = UnitModelSystem.gamePerspective;
             
             return debugHitBox;
         }

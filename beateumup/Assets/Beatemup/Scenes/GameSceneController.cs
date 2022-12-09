@@ -38,9 +38,6 @@ namespace Beatemup.Scenes
 
                 var position = Vector2.right.Rotate(spawnAngle * Mathf.Deg2Rad) * spawnDistanceToCenter;
                 spawnAngle += divAngle;
-                
-                // var position = UnityEngine.Random.insideUnitCircle * 4f;
-                position.y *= 0.75f;
 
                 ref var positionComponent = ref world.GetComponent<PositionComponent>(playerCharacterEntity);
                 positionComponent.value = position;
