@@ -88,7 +88,7 @@ namespace Beatemup.Ecs
             layerMask = LayerMask.GetMask("HurtBox")
         };
         
-        private static readonly List<Collider2D> colliders = new ();
+        private static readonly Collider[] colliders = new Collider[20];
 
         public static List<Target> GetTargets(this World world, Entity source)
         {
@@ -115,22 +115,24 @@ namespace Beatemup.Ecs
                 // collect targets using physics collider
                 var area = runtimeTargetingParameters.area;
 
-                colliders.Clear();
+                var colliderCount = Physics.OverlapBoxNonAlloc(area.position + area.offset, area.size3d, colliders,
+                    Quaternion.identity, HurtBoxContactFilter.layerMask,
+                    QueryTriggerInteraction.Collide);
 
-                if (Physics2D.OverlapBox(area.position + area.offset, area.size, 0, HurtBoxContactFilter,
-                        colliders) > 0)
+                if (colliderCount > 0)
                 {
-                    foreach (var collider in colliders)
+                    for (var i = 0; i < colliderCount; i++)
                     {
+                        var collider = colliders[i];
                         var targetEntityReference = collider.GetComponent<TargetReference>();
                         var target = targetEntityReference.target;
 
                         // check hitbox depth
-                        if (!area.IsInsideDepth(target.hurtBox))
-                        {
-                            continue;
-                        }
-                        
+                        // if (!area.IsInsideDepth(target.hurtBox))
+                        // {
+                        //     continue;
+                        // }
+
                         targets.Add(target);
                     }
                 }

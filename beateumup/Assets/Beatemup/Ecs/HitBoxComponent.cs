@@ -12,6 +12,8 @@ namespace Beatemup.Ecs
         public Vector2 size;
         public float depth;
 
+        public Vector3 size3d => new Vector3(size.x, size.y, depth);
+
         public static HitBox AllTheWorld => new HitBox()
         {
             position = Vector2.zero,
@@ -34,7 +36,7 @@ namespace Beatemup.Ecs
     
     public struct HurtBoxColliderComponent : IEntityComponent
     {
-        public BoxCollider2D collider;
+        public BoxCollider collider;
         public TargetReference targetReference;
     }
 }
