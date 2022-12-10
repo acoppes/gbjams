@@ -20,7 +20,7 @@ namespace Beatemup.Ecs
                 var targetReference = instance.AddComponent<TargetReference>();
                 
                 var boxCollider = instance.AddComponent<BoxCollider>();
-                boxCollider.size = new Vector3(hitBox.hurt.size.x, hitBox.hurt.size.y, hitBox.hurt.depth);
+                boxCollider.size = new Vector3(hitBox.hurt.size.x, hitBox.hurt.depth, hitBox.hurt.size.y);
                 boxCollider.isTrigger = true;
 
                 world.AddComponent(entity, new HurtBoxColliderComponent()
@@ -67,9 +67,9 @@ namespace Beatemup.Ecs
                 var hitBox = hitBoxes.Get(entity);
                 ref var hurtBoxColliderComponent = ref hurtBoxColliders.Get(entity);
                 
-                hurtBoxColliderComponent.targetReference.transform.position = hitBox.hurt.position + hitBox.hurt.offset;
+                hurtBoxColliderComponent.targetReference.transform.position = hitBox.hurt.position3d;
                 hurtBoxColliderComponent.collider.enabled = hitBox.hurt.size.SqrMagnitude() > Mathf.Epsilon;
-                hurtBoxColliderComponent.collider.size = new Vector3(hitBox.hurt.size.x, hitBox.hurt.size.y, hitBox.hurt.depth);
+                hurtBoxColliderComponent.collider.size = hitBox.hurt.size3d;
             }
         }
     }

@@ -12,7 +12,9 @@ namespace Beatemup.Ecs
         public Vector2 size;
         public float depth;
 
-        public Vector3 size3d => new Vector3(size.x, size.y, depth);
+        public Vector3 position3d => new Vector3(position.x + offset.x, position.y, offset.y);
+
+        public Vector3 size3d => new Vector3(size.x, depth, size.y);
 
         public static HitBox AllTheWorld => new HitBox()
         {

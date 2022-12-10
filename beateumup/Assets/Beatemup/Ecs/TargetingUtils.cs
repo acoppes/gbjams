@@ -115,7 +115,13 @@ namespace Beatemup.Ecs
                 // collect targets using physics collider
                 var area = runtimeTargetingParameters.area;
 
-                var colliderCount = Physics.OverlapBoxNonAlloc(area.position + area.offset, area.size3d, colliders,
+                var debugBoxObject = new GameObject("~DebugBoxObject");
+                var boxCollider = debugBoxObject.AddComponent<BoxCollider>();
+                boxCollider.transform.position = area.position3d;
+                boxCollider.size = area.size3d;
+                debugBoxObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+
+                var colliderCount = Physics.OverlapBoxNonAlloc(area.position3d, area.size3d * 0.5f, colliders,
                     Quaternion.identity, HurtBoxContactFilter.layerMask,
                     QueryTriggerInteraction.Collide);
 

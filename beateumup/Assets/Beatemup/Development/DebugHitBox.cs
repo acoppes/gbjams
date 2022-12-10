@@ -44,7 +44,7 @@ namespace Beatemup.Development
             spriteRenderer.transform.localScale = new Vector3(hitBox.size.x, hitBox.size.y, 1);
 
             depthSpriteRenderer.transform.localPosition = new Vector3(hitBox.offset.x, 0, 0);
-            depthSpriteRenderer.transform.localScale = new Vector3(hitBox.size.x, hitBox.depth * 2.0f, 1);
+            depthSpriteRenderer.transform.localScale = new Vector3(hitBox.size.x, hitBox.depth, 1);
 
             spriteRenderer.color = typeColors[type];
         }
