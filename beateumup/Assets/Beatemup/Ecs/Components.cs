@@ -243,8 +243,8 @@ namespace Beatemup.Ecs
         public float size;
         // public int priority;
 
-        public Rigidbody2D body;
-        public Collider2D collider2d;
+        public Rigidbody body;
+        public Collider collider;
 
         public bool isStatic;
     }

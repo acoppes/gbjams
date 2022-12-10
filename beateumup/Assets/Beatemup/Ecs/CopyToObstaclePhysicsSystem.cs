@@ -19,10 +19,10 @@ namespace Beatemup.Ecs
                 ref var obstacleComponent = ref obstacleComponents.Get(entity);
                 var positionComponent = positions.Get(entity);
                 
-                obstacleComponent.collider2d.enabled = !obstacleComponent.disabled;
+                obstacleComponent.collider.enabled = !obstacleComponent.disabled;
                 obstacleComponent.body.position = positionComponent.value.ToVector2();
 
-                if (obstacleComponent.body.bodyType == RigidbodyType2D.Static)
+                if (obstacleComponent.isStatic)
                 {
                     obstacleComponent.body.transform.position = positionComponent.value.ToVector2();
                 }

@@ -15,23 +15,29 @@ namespace Beatemup.Ecs
                 var obstacleGameObject = new GameObject("~Obstacle");
                 obstacleGameObject.layer = LayerMask.NameToLayer("Obstacle");
                 
-                obstacle.body = obstacleGameObject.AddComponent<Rigidbody2D>();
+                obstacle.body = obstacleGameObject.AddComponent<Rigidbody>();
 
-                obstacle.body.gravityScale = 0;
+                obstacle.body.drag = 1;
+                obstacle.body.useGravity = false;
                 obstacle.body.mass = obstacle.size;
 
-                obstacle.body.bodyType = obstacle.isStatic ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic; 
+                obstacle.body.constraints = RigidbodyConstraints.FreezeRotation;
+
+                if (obstacle.isStatic)
+                {
+                    obstacle.body.constraints = RigidbodyConstraints.FreezeAll;
+                }
                 
                 if (obstacle.obstacleType == UnitDefinition.ObstacleType.Circle)
                 {
-                    var collider2d = obstacleGameObject.AddComponent<CircleCollider2D>();
-                    collider2d.radius = obstacle.size;
-                    obstacle.collider2d = collider2d;
+                    var collider = obstacleGameObject.AddComponent<SphereCollider>();
+                    collider.radius = obstacle.size;
+                    obstacle.collider = collider;
                 } else if (obstacle.obstacleType == UnitDefinition.ObstacleType.Box)
                 {
-                    var collider2d = obstacleGameObject.AddComponent<BoxCollider2D>();
-                    collider2d.size = new Vector2(obstacle.size, obstacle.size);
-                    obstacle.collider2d = collider2d;
+                    var collider = obstacleGameObject.AddComponent<BoxCollider>();
+                    collider.size = new Vector4(obstacle.size, obstacle.size, obstacle.size);
+                    obstacle.collider = collider;
                 }
             }
         }
@@ -48,7 +54,7 @@ namespace Beatemup.Ecs
                 }
 
                 obstacle.body = null;
-                obstacle.collider2d = null;
+                obstacle.collider = null;
             }
         }
     }
