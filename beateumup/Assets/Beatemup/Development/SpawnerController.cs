@@ -20,6 +20,11 @@ public class SpawnerController : ControllerBase, IInit
     public int spawnsPerWave = 1;
 
     private int spawnedWaves = 0;
+
+    public float waveBaseDuration = 5;
+    public float waveIncrementDuration = 5;
+
+    private float currentWaveDuration;
     
     public void OnInit()
     {
@@ -29,6 +34,8 @@ public class SpawnerController : ControllerBase, IInit
     public override void OnUpdate(float dt)
     {
         var player = world.GetComponent<PlayerComponent>(entity);
+
+        currentWaveDuration -= dt;
         
         // var query = new Query()
         //     .CheckName("Enemy_Soldier")
@@ -50,7 +57,7 @@ public class SpawnerController : ControllerBase, IInit
         //     return;
         // }
 
-        if (targets.Count > 0)
+        if (targets.Count > 0 && currentWaveDuration > 0)
         {
             return;
         }
@@ -76,6 +83,8 @@ public class SpawnerController : ControllerBase, IInit
 
             spawnAreaIndex = (spawnAreaIndex + 1) % spawnAreas.Count;
         }
+
+        currentWaveDuration = waveBaseDuration + waveIncrementDuration * (spawnsPerWave - 1);
         
         spawnedWaves++;
 
