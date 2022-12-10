@@ -28,7 +28,8 @@ namespace Beatemup.Ecs
                 {
                     obstacle.body = obstacleGameObject.AddComponent<Rigidbody>();
 
-                    obstacle.body.drag = 1;
+                    obstacle.body.drag = 10;
+                    obstacle.body.angularDrag = 10;
                     obstacle.body.useGravity = false;
                     obstacle.body.mass = obstacle.size;
 
