@@ -19,8 +19,8 @@ namespace Beatemup.Development
         [NonSerialized]
         public int type;
 
-        [NonSerialized]
-        public Vector2 gamePerspective;
+        // [NonSerialized]
+        // public Vector2 gamePerspective;
 
         public void UpdateHitBox(HitBox hitBox)
         {
@@ -37,7 +37,8 @@ namespace Beatemup.Development
                 return;
             }
 
-            transform.position = new Vector3(hitBox.position.x * gamePerspective.x, hitBox.position.y * gamePerspective.y, 0);
+            // transform.position = new Vector3(hitBox.position.x * gamePerspective.x, hitBox.position.y * gamePerspective.y, 0);
+            transform.position = new Vector3(hitBox.position.x, hitBox.position.y, 0);
             
             spriteRenderer.transform.localPosition = new Vector3(hitBox.offset.x, hitBox.offset.y, 0);
             spriteRenderer.transform.localScale = new Vector3(hitBox.size.x, hitBox.size.y, 1);
