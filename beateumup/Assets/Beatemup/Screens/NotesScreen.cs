@@ -30,6 +30,8 @@ namespace Beatemup.Screens
         public event Action onClose;
 
         private bool closed;
+
+        private float touchDelay;
         
         private void OnEnable()
         {
@@ -39,8 +41,16 @@ namespace Beatemup.Screens
         
         private void Start()
         {
+            LoadText(file);
+            touchDelay = 1.0f;
+        }
+
+        public void LoadText(TextAsset textAsset)
+        {
+            file = textAsset;
+            
             // We assume first page is blank
-            var lines = file.text.Split(new string[]
+            var lines = textAsset.text.Split(new string[]
             {
                 "\r\n", "\r", "\n"
             }, StringSplitOptions.None);
@@ -62,6 +72,13 @@ namespace Beatemup.Screens
             }
             
             nextPageObject.SetActive(currentPage + 1 < pages.Count);
+            
+            touchDelay -= Time.deltaTime;
+            
+            if (touchDelay > 0)
+            {
+                return;
+            }
             
             if (nextPage.WasReleasedThisFrame() && nextPageObject.activeSelf)
             {
