@@ -25,7 +25,7 @@ namespace Beatemup.Ecs
                 ref var positionComponent = ref positions.Get(entity);
 
                 var position = obstacleComponent.body.position;
-                positionComponent.value = new Vector3(position.x, position.y, positionComponent.value.z);
+                positionComponent.value = new Vector3(position.x, position.z, position.y);
             }
         }
     }

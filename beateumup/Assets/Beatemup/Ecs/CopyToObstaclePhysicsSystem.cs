@@ -20,11 +20,16 @@ namespace Beatemup.Ecs
                 var positionComponent = positions.Get(entity);
                 
                 obstacleComponent.collider.enabled = !obstacleComponent.disabled;
-                obstacleComponent.body.position = positionComponent.value.ToVector2();
-
+                
                 if (obstacleComponent.isStatic)
                 {
-                    obstacleComponent.body.transform.position = positionComponent.value.ToVector2();
+                    obstacleComponent.collider.transform.position = new Vector3(positionComponent.value.x, positionComponent.value.z, 
+                        positionComponent.value.y);
+                }
+                else
+                {
+                    obstacleComponent.body.position = new Vector3(positionComponent.value.x, positionComponent.value.z, 
+                        positionComponent.value.y);
                 }
             }
         }

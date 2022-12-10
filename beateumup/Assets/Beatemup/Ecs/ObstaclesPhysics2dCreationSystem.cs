@@ -14,18 +14,25 @@ namespace Beatemup.Ecs
                 
                 var obstacleGameObject = new GameObject("~Obstacle");
                 obstacleGameObject.layer = LayerMask.NameToLayer("Obstacle");
-                
-                obstacle.body = obstacleGameObject.AddComponent<Rigidbody>();
 
-                obstacle.body.drag = 1;
-                obstacle.body.useGravity = false;
-                obstacle.body.mass = obstacle.size;
-
-                obstacle.body.constraints = RigidbodyConstraints.FreezeRotation;
+              
 
                 if (obstacle.isStatic)
                 {
-                    obstacle.body.constraints = RigidbodyConstraints.FreezeAll;
+                    obstacle.body = null;
+                    obstacleGameObject.isStatic = true;
+                 
+                    // obstacle.body.constraints = RigidbodyConstraints.FreezeAll;
+                }
+                else
+                {
+                    obstacle.body = obstacleGameObject.AddComponent<Rigidbody>();
+
+                    obstacle.body.drag = 1;
+                    obstacle.body.useGravity = false;
+                    obstacle.body.mass = obstacle.size;
+
+                    obstacle.body.constraints = RigidbodyConstraints.FreezeRotation;
                 }
                 
                 if (obstacle.obstacleType == UnitDefinition.ObstacleType.Circle)
@@ -48,9 +55,9 @@ namespace Beatemup.Ecs
             {
                 ref var obstacle = ref world.GetComponent<ObstacleComponent>(entity);
 
-                if (obstacle.body != null)
+                if (obstacle.collider != null)
                 {
-                    GameObject.Destroy(obstacle.body.gameObject);
+                    GameObject.Destroy(obstacle.collider.gameObject);
                 }
 
                 obstacle.body = null;
