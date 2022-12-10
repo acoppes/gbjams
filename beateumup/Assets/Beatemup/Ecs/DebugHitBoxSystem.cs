@@ -20,7 +20,7 @@ namespace Beatemup.Ecs
             debugHitBox.debugHitBoxSystem = this;
             debugHitBox.type = type;
 
-            debugHitBox.gamePerspective = UnitModelSystem.gamePerspective;
+            // debugHitBox.gamePerspective = UnitModelSystem.gamePerspective;
             
             return debugHitBox;
         }
