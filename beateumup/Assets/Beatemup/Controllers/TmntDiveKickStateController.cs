@@ -12,7 +12,7 @@ namespace Beatemup.Controllers
     {
         public Vector3 diveKickSpeed;
 
-        public void OnEnter()
+        public void OnEnterState()
         {
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
@@ -26,7 +26,7 @@ namespace Beatemup.Controllers
             }
         }
 
-        public void OnExit()
+        public void OnExitState()
         {
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);;
             

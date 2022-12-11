@@ -114,7 +114,7 @@ namespace Beatemup.Controllers
             }
         }
         
-        public void OnEnter()
+        public void OnEnterState()
         {
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             
@@ -231,7 +231,7 @@ namespace Beatemup.Controllers
             }
         }
 
-        public void OnExit()
+        public void OnExitState()
         {
             var states = world.GetComponent<StatesComponent>(entity);
             
