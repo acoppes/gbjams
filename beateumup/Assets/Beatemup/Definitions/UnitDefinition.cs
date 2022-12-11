@@ -116,7 +116,8 @@ namespace Beatemup.Definitions
                 {
                     prefab = modelPrefab,
                     hasShadow = hasShadow,
-                    remapTexturesPerPlayer = remapTexturesPerPlayer
+                    remapTexturesPerPlayer = remapTexturesPerPlayer, 
+                    color = Color.white
                 });
             }
 

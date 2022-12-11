@@ -146,6 +146,8 @@ namespace Beatemup.Ecs
         public bool hasShadow;
         
         public Texture2D[] remapTexturesPerPlayer;
+
+        public Color color;
     }
     
     public struct HorizontalMovementComponent : IEntityComponent

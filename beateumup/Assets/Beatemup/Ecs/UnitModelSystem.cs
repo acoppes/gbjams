@@ -59,6 +59,8 @@ namespace Beatemup.Ecs
                 {
                     modelComponent.instance.playerIndicator.enabled = false;
                 }
+
+                modelComponent.instance.model.color = modelComponent.color;
             }
             
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<PositionComponent>().End())
