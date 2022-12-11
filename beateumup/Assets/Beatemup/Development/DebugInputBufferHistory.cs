@@ -24,13 +24,28 @@ namespace Beatemup.Development
         }
         private void Update()
         {
-            var entity = _world.GetEntityByName(playerName);
-            if (entity == Entity.NullEntity)
+            // var entity = _world.GetEntityByName(playerName);
+
+            var target = _world.GetFirstTarget(new TargetingUtils.RuntimeTargetingParameters()
+            {
+                checkAreaType = TargetingUtils.RuntimeTargetingParameters.CheckAreaType.Nothing,
+                name = playerName,
+                aliveType = HitPointsComponent.AliveType.None,
+                player = 0,
+                playerAllianceType = TargetingUtils.PlayerAllianceType.Everything
+            });
+
+            if (target == null)
+            {
+                return;
+            }
+            
+            if (target.entity == Entity.NullEntity)
             {
                 return;
             }
 
-            var controlComponent = _world.GetComponent<ControlComponent>(entity);
+            var controlComponent = _world.GetComponent<ControlComponent>(target.entity);
 
             if (controlComponent.buffer.Count == 0)
             {

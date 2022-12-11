@@ -104,7 +104,18 @@ namespace Beatemup.Ecs
                 aliveType = HitPointsComponent.AliveType.Alive
             });
         }
+
+        public static Target GetFirstTarget(this World world, RuntimeTargetingParameters runtimeTargetingParameters)
+        {
+            var targets = GetTargets(world, runtimeTargetingParameters);
+            if (targets.Count > 0)
+            {
+                return targets[0];
+            }
+            return null;
+        }
         
+
         public static List<Target> GetTargets(this World world, RuntimeTargetingParameters runtimeTargetingParameters)
         {
             var result = new List<Target>();
