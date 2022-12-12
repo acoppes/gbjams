@@ -98,7 +98,16 @@ namespace Beatemup.Ecs
                     direction.x -= 1.0f;
                 }
 
-                controlComponent.direction = direction;
+                if (playerInput.currentControlScheme.Equals("Gamepad"))
+                {
+                    var movement = playerInput.actions.FindAction("Movement");
+                    controlComponent.direction = movement.ReadValue<Vector2>();
+                }
+                else
+                {
+                    controlComponent.direction = direction;
+                }
+                    
             }
             
             foreach (var entity in world.GetFilter<ControlComponent>().End())
