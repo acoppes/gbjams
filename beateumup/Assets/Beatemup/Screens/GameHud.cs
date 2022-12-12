@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,11 @@ namespace Beatemup.Screens
         private float playTime;
         private int seconds;
         private int minutes;
+
+        public World world;
+
+        public Text totalKillCountText;
+        private int totalKillCount;
         
         // Start is called before the first frame update
         void Start()
@@ -26,8 +32,11 @@ namespace Beatemup.Screens
 
             //  name = $"Character_Player_{i}",
 
-            var world = World.Instance;
-
+            if (world == null)
+            {
+                world = World.Instance;
+            }
+            
             for (int i = 0; i < portraits.Count; i++)
             {
                 portraits[i].playerEntityName = $"{playerPrefix}{i}";
@@ -49,6 +58,28 @@ namespace Beatemup.Screens
                 minutes = time.Minutes;
                 
                 timerText.text = $"{minutes:00}:{seconds:00}";
+            }
+
+            var targets = world.GetTargets(new TargetingUtils.RuntimeTargetingParameters()
+            {
+                player = 0,
+                playerAllianceType = TargetingUtils.PlayerAllianceType.Allies
+            });
+
+            var newCount = 0;
+            
+            foreach (var target in targets)
+            {
+                if (world.Exists(target.entity) && world.HasComponent<KillCountComponent>(target.entity))
+                {
+                    newCount += world.GetComponent<KillCountComponent>(target.entity).count;
+                }
+            }
+
+            if (newCount != totalKillCount)
+            {
+                totalKillCountText.text = $"{newCount}";
+                totalKillCount = newCount;
             }
         }
     }
