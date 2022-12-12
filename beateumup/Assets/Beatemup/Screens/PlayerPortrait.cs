@@ -44,10 +44,12 @@ namespace Beatemup.Screens
             }
             
             healthBarCurrent.fillAmount = 0;
-            
-            // canvasGroup.alpha = entity == Entity.NullEntity ? 0 : 1;
 
-            if (entity != Entity.NullEntity && world.Exists(entity))
+            var isNullOrDeath = entity == Entity.NullEntity || !world.Exists(entity);
+            
+            canvasGroup.alpha = isNullOrDeath ? 0.25f : 1;
+
+            if (!isNullOrDeath)
             {
                 if (world.HasComponent<HitPointsComponent>(entity))
                 {
