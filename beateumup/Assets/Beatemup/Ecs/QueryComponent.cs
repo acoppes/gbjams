@@ -58,7 +58,7 @@ namespace Beatemup.Ecs
 
                 found++;
 
-                results?.Add(entity);
+                results?.Add(world.GetEntity(entity));
             }
 
             return found > 0;

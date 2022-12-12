@@ -28,10 +28,7 @@ namespace Beatemup.Development
 
             var target = _world.GetFirstTarget(new TargetingUtils.RuntimeTargetingParameters()
             {
-                checkAreaType = TargetingUtils.RuntimeTargetingParameters.CheckAreaType.Nothing,
                 name = playerName,
-                aliveType = HitPointsComponent.AliveType.None,
-                player = 0,
                 playerAllianceType = TargetingUtils.PlayerAllianceType.Everything
             });
 

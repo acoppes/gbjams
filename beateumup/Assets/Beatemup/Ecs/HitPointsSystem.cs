@@ -23,7 +23,7 @@ namespace Beatemup.Ecs
                     hitPoints.current -= hit.hitPoints;
                 }
                 
-                hitPoints.OnHit(world, entity);
+                hitPoints.OnHit(world, world.GetEntity(entity));
 
                 hitPoints.hits.Clear();
             }

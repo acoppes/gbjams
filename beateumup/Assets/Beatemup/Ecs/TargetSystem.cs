@@ -20,7 +20,7 @@ namespace Beatemup.Ecs
                 var positionComponent = positions.Get(entity);
 
                 ref var target = ref targetComponent.target;
-                target.entity = entity;
+                target.entity = world.GetEntity(entity);
                 target.position = positionComponent.value;
             }
             

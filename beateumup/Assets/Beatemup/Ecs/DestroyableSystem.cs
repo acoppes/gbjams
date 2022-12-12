@@ -14,7 +14,7 @@ namespace Beatemup.Ecs
                 var destroyable = destroyables.Get(entity);
                 if (destroyable.destroy)
                 {
-                    world.DestroyEntity(entity);
+                    world.DestroyEntity(world.GetEntity(entity));
                 }
             }
         }
