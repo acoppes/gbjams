@@ -167,34 +167,43 @@ namespace Beatemup.Ecs
             // filter valid targets
             foreach (var target in targets)
             {
-                if (!runtimeTargetingParameters.playerAllianceType.CheckPlayerAlliance(runtimeTargetingParameters.player, target.player))
+                if (ValidateTarget(target, runtimeTargetingParameters))
                 {
-                    continue;
+                    result.Add(target);
                 }
-                
-                if (runtimeTargetingParameters.name != null && 
-                    !runtimeTargetingParameters.name.Equals(target.name, StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                if (runtimeTargetingParameters.aliveType != HitPointsComponent.AliveType.None)
-                {
-                    if (target.aliveType == HitPointsComponent.AliveType.None)
-                    {
-                        continue;
-                    }
-                    
-                    if (!runtimeTargetingParameters.aliveType.HasFlag(target.aliveType))
-                    {
-                        continue;
-                    }
-                }
-
-                result.Add(target);
             }
 
             return result;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ValidateTarget(Target target, RuntimeTargetingParameters runtimeTargetingParameters)
+        {
+            if (!runtimeTargetingParameters.playerAllianceType.CheckPlayerAlliance(runtimeTargetingParameters.player, target.player))
+            {
+                return false;
+            }
+                
+            if (runtimeTargetingParameters.name != null && 
+                !runtimeTargetingParameters.name.Equals(target.name, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            if (runtimeTargetingParameters.aliveType != HitPointsComponent.AliveType.None)
+            {
+                if (target.aliveType == HitPointsComponent.AliveType.None)
+                {
+                    return false;
+                }
+                    
+                if (!runtimeTargetingParameters.aliveType.HasFlag(target.aliveType))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
