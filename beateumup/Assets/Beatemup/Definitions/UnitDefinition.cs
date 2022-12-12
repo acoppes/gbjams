@@ -88,6 +88,9 @@ namespace Beatemup.Definitions
         public float obstacleSize = 0.25f;
         [ConditionalField(nameof(obstacleType), false, ObstacleType.Circle, ObstacleType.Box)]
         public bool obstacleIsStatic;
+        
+        [Separator("KillCount")]
+        public bool hasKillCount = false;
 
         [Separator("Others")]
         public bool isVfx;
@@ -213,6 +216,11 @@ namespace Beatemup.Definitions
                     obstacleType = obstacleType,
                     isStatic = obstacleIsStatic
                 });
+            }
+
+            if (hasKillCount)
+            {
+                world.AddComponent(entity, new KillCountComponent());
             }
             
             // world.AddComponent(entity, new QueryComponent()

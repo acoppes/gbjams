@@ -20,6 +20,10 @@ namespace Beatemup.Screens
 
         public Image healthBarCurrent;
 
+        public Text killCountText;
+
+        private int cachedKillCount;
+
         public void LateUpdate()
         {
             if (entity == Entity.NullEntity)
@@ -43,16 +47,21 @@ namespace Beatemup.Screens
             
             // canvasGroup.alpha = entity == Entity.NullEntity ? 0 : 1;
 
-            if (entity != Entity.NullEntity)
+            if (entity != Entity.NullEntity && world.Exists(entity))
             {
                 if (world.HasComponent<HitPointsComponent>(entity))
                 {
                     var hitPoints = world.GetComponent<HitPointsComponent>(entity);
                     healthBarCurrent.fillAmount = (float)hitPoints.current / hitPoints.total;
-
-                    if (hitPoints.current == 0)
+                }
+                
+                if (killCountText != null && world.HasComponent<KillCountComponent>(entity))
+                {
+                    var killCountComponent = world.GetComponent<KillCountComponent>(entity);
+                    if (killCountComponent.count != cachedKillCount)
                     {
-                        entity = Entity.NullEntity;
+                        killCountText.text = $"{killCountComponent.count}";
+                        cachedKillCount = killCountComponent.count;
                     }
                 }
             }

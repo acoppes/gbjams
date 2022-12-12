@@ -94,8 +94,17 @@ namespace Beatemup.Controllers
                 lookingDirection.value = (hitPosition - position.value).normalized;
                 
                 knockback = knockback || hit.knockback;
+                
+                if (hitPointsComponent.current <= 0)
+                {
+                    if (world.Exists(hit.source) && world.HasComponent<KillCountComponent>(hit.source))
+                    {
+                        ref var killCount = ref world.GetComponent<KillCountComponent>(hit.source);
+                        killCount.count++;
+                    }
+                }
             }
-            
+
             if (!knockback)
             {
                 if (hitPointsComponent.current <= 0)
@@ -607,7 +616,8 @@ namespace Beatemup.Controllers
                         {
                             position = position.value,
                             knockback = currentComboAttack >= comboAttacks,
-                            hitPoints = 1
+                            hitPoints = 1,
+                            source = entity
                         });
                         
                         var targetPosition = world.GetComponent<PositionComponent>(hitTarget.entity);

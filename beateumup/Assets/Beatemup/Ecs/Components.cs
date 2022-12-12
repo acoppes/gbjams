@@ -196,6 +196,7 @@ namespace Beatemup.Ecs
         public Vector3 position;
         public int hitPoints;
         public bool knockback;
+        public Entity source;
     }
 
     public struct HitPointsComponent : IEntityComponent
@@ -249,5 +250,10 @@ namespace Beatemup.Ecs
         public Collider collider;
 
         public bool isStatic;
+    }
+
+    public struct KillCountComponent : IEntityComponent
+    {
+        public int count;
     }
 }
