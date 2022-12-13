@@ -23,6 +23,11 @@ namespace Beatemup.Definitions
         public string startingAnimation;
         [ConditionalField(nameof(overrideAnimation))]
         public bool randomizeStartFrame;
+        
+        [Separator("HitPoints")]
+        public bool overrideHitPoints;
+        [ConditionalField(nameof(overrideHitPoints))]
+        public int hitPoints;
 
         public void Apply(World world, Entity entity)
         {
@@ -47,6 +52,13 @@ namespace Beatemup.Definitions
                 var animation = animationComponent.animationsAsset.FindByName(startingAnimation);
                 var totalFrames = animationComponent.animationsAsset.animations[animation].frames.Count;
                 animationComponent.Play(animation, UnityEngine.Random.Range(0, totalFrames), -1);
+            }
+
+            if (overrideHitPoints && world.HasComponent<HitPointsComponent>(entity))
+            {
+                ref var hitPointsComponent = ref world.GetComponent<HitPointsComponent>(entity);
+                hitPointsComponent.total = hitPoints;
+                hitPointsComponent.current = hitPoints;
             }
         }
     }
