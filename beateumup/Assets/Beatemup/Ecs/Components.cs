@@ -155,6 +155,8 @@ namespace Beatemup.Ecs
         public float duration;
         public float time;
 
+        public Vector3 currentOffset;
+
         public void Shake(float t)
         {
             duration = t;
