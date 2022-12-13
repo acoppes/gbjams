@@ -194,6 +194,7 @@ namespace Beatemup.Ecs
     {
         public bool disabled;
         public float scale;
+        public bool inContactWithGround;
     }
     
     public struct JumpComponent : IEntityComponent

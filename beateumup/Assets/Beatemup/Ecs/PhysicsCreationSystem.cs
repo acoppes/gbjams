@@ -6,6 +6,8 @@ namespace Beatemup.Ecs
 {
     public class PhysicsCreationSystem : BaseSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
+        public PhysicMaterial defaultMaterial;
+        
         public void OnEntityCreated(World world, Entity entity)
         {
             if (world.HasComponent<PhysicsComponent>(entity))
@@ -28,7 +30,7 @@ namespace Beatemup.Ecs
 
                     // physicsComponent.body.drag = 0;
                     physicsComponent.body.angularDrag = 10;
-                    // physicsComponent.body.useGravity = false;
+                    physicsComponent.body.useGravity = false;
                     physicsComponent.body.mass = physicsComponent.size;
 
                     physicsComponent.body.constraints = RigidbodyConstraints.FreezeRotation;
@@ -39,11 +41,14 @@ namespace Beatemup.Ecs
                     var collider = physicsGameObject.AddComponent<SphereCollider>();
                     collider.radius = physicsComponent.size;
                     collider.center = new Vector3(0, collider.radius, 0);
+                    collider.sharedMaterial = defaultMaterial;
+                    
                     physicsComponent.collider = collider;
                 } else if (physicsComponent.shapeType == PhysicsComponent.ShapeType.Box)
                 {
                     var collider = physicsGameObject.AddComponent<BoxCollider>();
                     collider.size = new Vector4(physicsComponent.size, physicsComponent.size, physicsComponent.size);
+                    collider.sharedMaterial = defaultMaterial;
                     physicsComponent.collider = collider;
                 }
             }

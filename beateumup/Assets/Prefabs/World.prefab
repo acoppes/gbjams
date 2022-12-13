@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4ef386d7544ae09ddbc57bae3d08a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 13400000, guid: 7b9d192f9cf3bbd4e8de28191a0408a0, type: 2}
 --- !u!1 &3992266775116264727
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,7 +380,7 @@ GameObject:
   - component: {fileID: 7618337946194906968}
   - component: {fileID: 1265682033041010995}
   m_Layer: 0
-  m_Name: GravitySystem
+  m_Name: PhysicsGravitySystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -412,8 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787d1eb9d852407a9405d2dc078bc8a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxFallingSpeed: -30
-  g: -9.81
+  gravity: {x: 0, y: -9.81, z: 0}
 --- !u!1 &5790322012869816279
 GameObject:
   m_ObjectHideFlags: 0

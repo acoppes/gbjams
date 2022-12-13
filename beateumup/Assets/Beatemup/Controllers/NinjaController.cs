@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
@@ -227,7 +227,7 @@ namespace Beatemup.Controllers
             {
                 animation.Play("KnockdownAscending");
 
-                gravityComponent.disabled = true;
+                gravityComponent.disabled = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
                 
                 var knockbackDirection = new Vector2(-lookingDirection.value.x, 0);
@@ -311,7 +311,7 @@ namespace Beatemup.Controllers
             
             if (states.statesExited.Contains("Knockback"))
             {
-                gravityComponent.disabled = false;
+                // gravityComponent.disabled = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.Both;
                 position.value.z = 0;
             }
