@@ -31,12 +31,7 @@ namespace Beatemup.Definitions
             Basic = 1
         }
         
-        public enum ObstacleType
-        {
-            None = 0,
-            Circle = 1,
-            Box = 2
-        }
+
         
         [Separator("Health")]
         public HealthType healthType = HealthType.Normal;
@@ -83,10 +78,10 @@ namespace Beatemup.Definitions
         public float gravityScale = 1;
         
         [Separator("Obstacle")]
-        public ObstacleType obstacleType = ObstacleType.None;
-        [ConditionalField(nameof(obstacleType), false, ObstacleType.Circle, ObstacleType.Box)]
+        public ObstacleComponent.ObstacleType obstacleType = ObstacleComponent.ObstacleType.None;
+        [ConditionalField(nameof(obstacleType), false, ObstacleComponent.ObstacleType.Circle, ObstacleComponent.ObstacleType.Box)]
         public float obstacleSize = 0.25f;
-        [ConditionalField(nameof(obstacleType), false, ObstacleType.Circle, ObstacleType.Box)]
+        [ConditionalField(nameof(obstacleType), false, ObstacleComponent.ObstacleType.Circle, ObstacleComponent.ObstacleType.Box)]
         public bool obstacleIsStatic;
         
         [Separator("KillCount")]
@@ -212,7 +207,7 @@ namespace Beatemup.Definitions
                 });
             }
 
-            if (obstacleType != ObstacleType.None)
+            if (obstacleType != ObstacleComponent.ObstacleType.None)
             {
                 world.AddComponent(entity, new ObstacleComponent()
                 {

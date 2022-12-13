@@ -36,12 +36,12 @@ namespace Beatemup.Ecs
                     obstacle.body.constraints = RigidbodyConstraints.FreezeRotation;
                 }
                 
-                if (obstacle.obstacleType == UnitDefinition.ObstacleType.Circle)
+                if (obstacle.obstacleType == ObstacleComponent.ObstacleType.Circle)
                 {
                     var collider = obstacleGameObject.AddComponent<SphereCollider>();
                     collider.radius = obstacle.size;
                     obstacle.collider = collider;
-                } else if (obstacle.obstacleType == UnitDefinition.ObstacleType.Box)
+                } else if (obstacle.obstacleType == ObstacleComponent.ObstacleType.Box)
                 {
                     var collider = obstacleGameObject.AddComponent<BoxCollider>();
                     collider.size = new Vector4(obstacle.size, obstacle.size, obstacle.size);

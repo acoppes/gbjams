@@ -259,7 +259,14 @@ namespace Beatemup.Ecs
     
     public struct ObstacleComponent : IEntityComponent
     {
-        public UnitDefinition.ObstacleType obstacleType;        
+        public enum ObstacleType
+        {
+            None = 0,
+            Circle = 1,
+            Box = 2
+        }
+        
+        public ObstacleType obstacleType;        
         
         public bool disabled;
         public float size;
