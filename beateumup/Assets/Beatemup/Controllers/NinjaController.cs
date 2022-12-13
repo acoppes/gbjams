@@ -61,6 +61,8 @@ namespace Beatemup.Controllers
         public float knockbackDownTime = 1.0f;
 
         public float knockbackRandomAngle = 0;
+
+        public float knockbackHorizontalIntensity = 1;
         private Vector2 knockbackDirection;
 
         public GameObject deathBodyDefinition;
@@ -149,6 +151,7 @@ namespace Beatemup.Controllers
             
             var states = world.GetComponent<StatesComponent>(entity);
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
+            ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
             
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
@@ -156,7 +159,7 @@ namespace Beatemup.Controllers
             var lookingDirection = world.GetComponent<LookingDirection>(entity);
             var control = world.GetComponent<ControlComponent>(entity);
             
-            ref var obstacle = ref world.GetComponent<ObstacleComponent>(entity);
+            ref var obstacle = ref world.GetComponent<PhysicsComponent>(entity);
 
             if (states.statesEntered.Contains("Moving"))
             {
@@ -225,10 +228,14 @@ namespace Beatemup.Controllers
                 animation.Play("KnockdownAscending");
 
                 gravityComponent.disabled = true;
+                physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
                 
-                knockbackDirection = new Vector2(-lookingDirection.value.x, 0);
+                var knockbackDirection = new Vector2(-lookingDirection.value.x, 0);
                 knockbackDirection = knockbackDirection.Rotate(UnityEngine.Random.Range(-knockbackRandomAngle, knockbackRandomAngle) *
                                                             Mathf.Deg2Rad);
+                knockbackDirection *= knockbackHorizontalIntensity;
+                
+                physicsComponent.body.AddForce(new Vector3(knockbackDirection.x, knockbackMaxHeight, knockbackDirection.y), ForceMode.Impulse);
                 
                 // knockbackRandomY = UnityEngine.Random.Range(-0.25f, 0.25f);
                 
@@ -268,8 +275,9 @@ namespace Beatemup.Controllers
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var position = ref world.GetComponent<PositionComponent>(entity);
             
-            ref var obstacle = ref world.GetComponent<ObstacleComponent>(entity);
-             
+            ref var obstacle = ref world.GetComponent<PhysicsComponent>(entity);
+            ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
+            
             if (states.statesExited.Contains("DashBackJump"))
             {
                 position.value.z = 0;
@@ -304,6 +312,7 @@ namespace Beatemup.Controllers
             if (states.statesExited.Contains("Knockback"))
             {
                 gravityComponent.disabled = false;
+                physicsComponent.syncType = PhysicsComponent.SyncType.Both;
                 position.value.z = 0;
             }
         }
@@ -324,6 +333,7 @@ namespace Beatemup.Controllers
             
             ref var position = ref world.GetComponent<PositionComponent>(entity);
             ref var hitPoints = ref world.GetComponent<HitPointsComponent>(entity);
+            ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
             
             // ref var jump = ref world.GetComponent<JumpComponent>(entity);
 
@@ -382,12 +392,14 @@ namespace Beatemup.Controllers
             if (states.TryGetState("Knockback", out state))
             {
                 // movement.baseSpeed = new Vector2(knockbackBaseSpeed, 0);
-                movement.movingDirection = knockbackDirection;
+                movement.movingDirection = Vector2.zero;
 
-                position.value.z = knockbackCurve.Evaluate(state.time * knockbackCurveSpeed) 
-                                   * knockbackMaxHeight;
-
-                movement.baseSpeed = knockbackHorizontalCurve.Evaluate(state.time * knockbackCurveSpeed) * knockbackBaseSpeed;
+                // movement.movingDirection = knockbackDirection;
+                //
+                // position.value.z = knockbackCurve.Evaluate(state.time * knockbackCurveSpeed) 
+                //                    * knockbackMaxHeight;
+                //
+                // movement.baseSpeed = knockbackHorizontalCurve.Evaluate(state.time * knockbackCurveSpeed) * knockbackBaseSpeed;
 
                 if (state.time * knockbackCurveSpeed > 1.0f)
                 {

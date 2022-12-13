@@ -5,6 +5,7 @@ using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
 using MyBox;
 using UnityEngine;
+using UnityEngine.Serialization;
 using LookingDirection = Beatemup.Ecs.LookingDirection;
 using TargetComponent = Beatemup.Ecs.TargetComponent;
 using TargetingUtils = Beatemup.Ecs.TargetingUtils;
@@ -77,11 +78,11 @@ namespace Beatemup.Definitions
         [ConditionalField(nameof(hasGravity))]
         public float gravityScale = 1;
         
-        [Separator("Obstacle")]
-        public ObstacleComponent.ObstacleType obstacleType = ObstacleComponent.ObstacleType.None;
-        [ConditionalField(nameof(obstacleType), false, ObstacleComponent.ObstacleType.Circle, ObstacleComponent.ObstacleType.Box)]
+        [FormerlySerializedAs("obstacleType")] [Separator("Obstacle")]
+        public PhysicsComponent.ShapeType shapeType = PhysicsComponent.ShapeType.None;
+        [ConditionalField(nameof(shapeType), false, PhysicsComponent.ShapeType.Circle, PhysicsComponent.ShapeType.Box)]
         public float obstacleSize = 0.25f;
-        [ConditionalField(nameof(obstacleType), false, ObstacleComponent.ObstacleType.Circle, ObstacleComponent.ObstacleType.Box)]
+        [ConditionalField(nameof(shapeType), false, PhysicsComponent.ShapeType.Circle, PhysicsComponent.ShapeType.Box)]
         public bool obstacleIsStatic;
         
         [Separator("KillCount")]
@@ -207,12 +208,12 @@ namespace Beatemup.Definitions
                 });
             }
 
-            if (obstacleType != ObstacleComponent.ObstacleType.None)
+            if (shapeType != PhysicsComponent.ShapeType.None)
             {
-                world.AddComponent(entity, new ObstacleComponent()
+                world.AddComponent(entity, new PhysicsComponent()
                 {
                     size = obstacleSize,
-                    obstacleType = obstacleType,
+                    shapeType = shapeType,
                     isStatic = obstacleIsStatic
                 });
             }

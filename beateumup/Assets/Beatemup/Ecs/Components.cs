@@ -257,16 +257,25 @@ namespace Beatemup.Ecs
         public TargetingUtils.Target target;
     }
     
-    public struct ObstacleComponent : IEntityComponent
+    public struct PhysicsComponent : IEntityComponent
     {
-        public enum ObstacleType
+        public enum ShapeType
         {
             None = 0,
             Circle = 1,
             Box = 2
         }
         
-        public ObstacleType obstacleType;        
+        public enum SyncType
+        {
+            Both = 0,
+            FromPhysics = 1,
+            // ToPhyiscs = 2
+        }
+        
+        public ShapeType shapeType;
+
+        public SyncType syncType;
         
         public bool disabled;
         public float size;

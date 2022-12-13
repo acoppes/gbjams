@@ -9,22 +9,22 @@ namespace Beatemup.Ecs
     {
         public void Run(EcsSystems systems)
         {
-            var obstacleComponents = world.GetComponents<ObstacleComponent>();
+            var physicsComponents = world.GetComponents<PhysicsComponent>();
             var positions = world.GetComponents<PositionComponent>();
             
-            foreach (var entity in world.GetFilter<ObstacleComponent>().Inc<PositionComponent>().End())
+            foreach (var entity in world.GetFilter<PhysicsComponent>().Inc<PositionComponent>().End())
             {
                 // copy from body to position
-                var obstacleComponent = obstacleComponents.Get(entity);
+                var physicsComponent = physicsComponents.Get(entity);
 
-                if (obstacleComponent.isStatic)
+                if (physicsComponent.isStatic)
                 {
                     continue;
                 }
                 
                 ref var positionComponent = ref positions.Get(entity);
 
-                var position = obstacleComponent.body.position;
+                var position = physicsComponent.body.position;
                 positionComponent.value = new Vector3(position.x, position.z, position.y);
             }
         }

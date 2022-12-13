@@ -10,25 +10,30 @@ namespace Beatemup.Ecs
     {
         public void Run(EcsSystems systems)
         {
-            var obstacleComponents = world.GetComponents<ObstacleComponent>();
+            var physicsComponents = world.GetComponents<PhysicsComponent>();
             var positions = world.GetComponents<PositionComponent>();
             
-            foreach (var entity in world.GetFilter<ObstacleComponent>().Inc<PositionComponent>().End())
+            foreach (var entity in world.GetFilter<PhysicsComponent>().Inc<PositionComponent>().End())
             {
                 // copy from position to body
-                ref var obstacleComponent = ref obstacleComponents.Get(entity);
+                ref var physicsComponent = ref physicsComponents.Get(entity);
                 var positionComponent = positions.Get(entity);
-                
-                obstacleComponent.collider.enabled = !obstacleComponent.disabled;
-                
-                if (obstacleComponent.isStatic)
+
+                if (physicsComponent.syncType == PhysicsComponent.SyncType.FromPhysics)
                 {
-                    obstacleComponent.collider.transform.position = new Vector3(positionComponent.value.x, positionComponent.value.z, 
+                    continue;
+                }
+                
+                physicsComponent.collider.enabled = !physicsComponent.disabled;
+                
+                if (physicsComponent.isStatic)
+                {
+                    physicsComponent.collider.transform.position = new Vector3(positionComponent.value.x, positionComponent.value.z, 
                         positionComponent.value.y);
                 }
                 else
                 {
-                    obstacleComponent.body.position = new Vector3(positionComponent.value.x, positionComponent.value.z, 
+                    physicsComponent.body.position = new Vector3(positionComponent.value.x, positionComponent.value.z, 
                         positionComponent.value.y);
                 }
             }
