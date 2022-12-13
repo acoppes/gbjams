@@ -122,6 +122,10 @@ namespace Beatemup.Definitions
                     remapTexturesPerPlayer = remapTexturesPerPlayer, 
                     color = Color.white
                 });
+                world.AddComponent(entity, new ModelShakeComponent()
+                {
+                    
+                });
             }
 
             if (movementType == MovementType.Basic)

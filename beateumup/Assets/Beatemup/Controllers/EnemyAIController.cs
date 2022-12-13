@@ -51,6 +51,11 @@ namespace Beatemup.Controllers
         {
             // var mainPlayer = world.GetEntityByName("Character_Player_0");
 
+            if (world.HasComponent<PlayerInputComponent>(entity))
+            {
+                return;
+            }
+            
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             ref var control = ref world.GetComponent<ControlComponent>(entity);
             

@@ -149,6 +149,18 @@ namespace Beatemup.Ecs
 
         public Color color;
     }
+
+    public struct ModelShakeComponent : IEntityComponent
+    {
+        public float duration;
+        public float time;
+
+        public void Shake(float t)
+        {
+            duration = t;
+            time = 0;
+        }
+    }
     
     public struct HorizontalMovementComponent : IEntityComponent
     {
