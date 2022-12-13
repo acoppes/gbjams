@@ -66,6 +66,8 @@ namespace Beatemup.Controllers
         public GameObject deathBodyDefinition;
 
         public float hitStopTime = TmntConstants.HitAnimationPauseTime;
+
+        private bool hitStopKnockback = false;
         
         public void OnInit()
         {
@@ -109,32 +111,36 @@ namespace Beatemup.Controllers
                 // }
             }
 
-            if (!knockback)
+            hitStopKnockback = knockback || hitPointsComponent.current <= 0;
+            
+            if (states.HasState("HitStun"))
             {
-                if (hitPointsComponent.current <= 0)
-                {
-                    states.EnterState("Knockback");
-                    // states.EnterState("Death");
-                }
-                else
-                {
-                    if (states.HasState("HitStun"))
-                    {
-                        // reset anim
-                        animationComponent.Play("HitStun", 1);
-                        animationComponent.pauseTime = hitStopTime;
-                        modelShakeComponent.Shake(hitStopTime);
-                    }
-                    else
-                    {
-                        states.EnterState("HitStun");   
-                    }
-                }
+                // reset anim
+                animationComponent.Play("HitStun", 1);
+                animationComponent.pauseTime = hitStopTime;
+                modelShakeComponent.Shake(hitStopTime);
             }
             else
             {
-                states.EnterState("Knockback");
+                states.EnterState("HitStun");   
             }
+
+            // if (!knockback)
+            // {
+            //     if (hitPointsComponent.current <= 0)
+            //     {
+            //         states.EnterState("Knockback");
+            //         // states.EnterState("Death");
+            //     }
+            //     else
+            //     {
+            //
+            //     }
+            // }
+            // else
+            // {
+            //     states.EnterState("Knockback");
+            // }
         }
         
         public void OnEnterState()
@@ -414,6 +420,12 @@ namespace Beatemup.Controllers
 
                 if (animationComponent.state == AnimationComponent.State.Completed)
                 {
+                    if (hitStopKnockback)
+                    {
+                        hitStopKnockback = false;
+                        states.EnterState("Knockback");
+                    }
+                    
                     states.ExitState("HitStun");
                 }
                 

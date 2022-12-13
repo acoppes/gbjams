@@ -155,6 +155,8 @@ namespace Beatemup.Ecs
         public float duration;
         public float time;
 
+        public float updateTime;
+
         public bool restart;
         
         public Vector3 currentOffset;

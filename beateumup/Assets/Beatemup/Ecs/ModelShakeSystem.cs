@@ -9,7 +9,6 @@ namespace Beatemup.Ecs
         public float maxIntensityMultiplier = 0.5f;
 
         public float frameUpdateTime = 2.0f / 15.0f;
-        private float frameUpdateCurrent = 0;
 
         public AnimationCurve intensityCurve = 
             AnimationCurve.Linear(0, 1, 0, 0);
@@ -21,24 +20,24 @@ namespace Beatemup.Ecs
 
             var dt = Time.deltaTime;
 
-            frameUpdateCurrent += dt;
-            
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<ModelShakeComponent>().End())
             {
                 ref var modelComponent = ref modelComponents.Get(entity);
                 ref var modelShakeComponent = ref modelShakeComponents.Get(entity);
 
                 modelShakeComponent.time += dt;
+                modelShakeComponent.updateTime += dt;
 
                 if (modelShakeComponent.restart)
                 {
+                    modelShakeComponent.updateTime = frameUpdateTime;
                     modelShakeComponent.currentOffset = new Vector3(UnityEngine.Random.Range(-1, 1), 0 , 0);
                     modelShakeComponent.restart = false;
                 }
 
                 if (modelShakeComponent.time < modelShakeComponent.duration)
                 {
-                    if (frameUpdateCurrent >= frameUpdateTime)
+                    if (modelShakeComponent.updateTime >= frameUpdateTime)
                     {
                         var intensity =
                             intensityCurve.Evaluate(modelShakeComponent.time / modelShakeComponent.duration);
@@ -48,6 +47,8 @@ namespace Beatemup.Ecs
                         var randomPosition = Vector2.right * maxIntensityMultiplier * intensity * direction;
 
                         modelShakeComponent.currentOffset = new Vector3(randomPosition.x, 0, 0);
+
+                        modelShakeComponent.updateTime = 0;
                     }
                 }
                 else
@@ -57,11 +58,6 @@ namespace Beatemup.Ecs
                 
                 modelComponent.instance.model.transform.localPosition += 
                     modelShakeComponent.currentOffset;
-            }
-
-            if (frameUpdateCurrent >= frameUpdateTime)
-            {
-                frameUpdateCurrent = 0;
             }
         }
     }
