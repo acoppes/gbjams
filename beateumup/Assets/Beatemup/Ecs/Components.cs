@@ -161,11 +161,14 @@ namespace Beatemup.Ecs
         
         public Vector3 currentOffset;
 
-        public void Shake(float t)
+        public float intensity;
+
+        public void Shake(float t, float intensity = 1)
         {
             duration = t;
             time = 0;
             restart = true;
+            this.intensity = intensity;
         }
     }
     

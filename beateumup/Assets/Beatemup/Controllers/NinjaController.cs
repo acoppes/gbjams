@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
@@ -669,6 +669,7 @@ namespace Beatemup.Controllers
                         states.EnterState("Combo");
 
                         animationComponent.pauseTime = hitStopTime;
+                        modelShakeComponent.Shake(hitStopTime, 0.25f);
 
                         teleportLastHitPosition = targetPosition.value;
                     }

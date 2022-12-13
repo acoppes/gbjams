@@ -40,7 +40,8 @@ namespace Beatemup.Ecs
                     if (modelShakeComponent.updateTime >= frameUpdateTime)
                     {
                         var intensity =
-                            intensityCurve.Evaluate(modelShakeComponent.time / modelShakeComponent.duration);
+                            intensityCurve.Evaluate(modelShakeComponent.time / modelShakeComponent.duration) * 
+                            modelShakeComponent.intensity;
 
                         // flip
                         var direction = modelShakeComponent.currentOffset.x < 0 ? 1.0f : -1.0f;
