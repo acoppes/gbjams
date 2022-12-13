@@ -95,14 +95,14 @@ namespace Beatemup.Controllers
                 
                 knockback = knockback || hit.knockback;
                 
-                if (hitPointsComponent.current <= 0)
-                {
-                    if (world.Exists(hit.source) && world.HasComponent<KillCountComponent>(hit.source))
-                    {
-                        ref var killCount = ref world.GetComponent<KillCountComponent>(hit.source);
-                        killCount.count++;
-                    }
-                }
+                // if (hitPointsComponent.current <= 0)
+                // {
+                //     if (world.Exists(hit.source) && world.HasComponent<KillCountComponent>(hit.source))
+                //     {
+                //         ref var killCount = ref world.GetComponent<KillCountComponent>(hit.source);
+                //         killCount.count++;
+                //     }
+                // }
             }
 
             if (!knockback)

@@ -12,6 +12,8 @@ namespace Beatemup.Screens
         private List<PlayerPortrait> portraits = new List<PlayerPortrait>();
         
         public string playerPrefix = "Character_Player_";
+        
+        public string killCountEntityName = "Players_KillCount";
 
         public Text timerText;
 
