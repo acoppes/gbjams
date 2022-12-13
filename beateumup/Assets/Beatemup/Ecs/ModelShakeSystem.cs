@@ -30,6 +30,12 @@ namespace Beatemup.Ecs
 
                 modelShakeComponent.time += dt;
 
+                if (modelShakeComponent.restart)
+                {
+                    modelShakeComponent.currentOffset = new Vector3(UnityEngine.Random.Range(-1, 1), 0 , 0);
+                    modelShakeComponent.restart = false;
+                }
+
                 if (modelShakeComponent.time < modelShakeComponent.duration)
                 {
                     if (frameUpdateCurrent >= frameUpdateTime)
