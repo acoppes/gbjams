@@ -1,8 +1,6 @@
 ﻿using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Leopotam.EcsLite;
-using MyBox;
-using UnityEngine;
 
 namespace Beatemup.Ecs
 {
@@ -28,13 +26,11 @@ namespace Beatemup.Ecs
 
                 if (physicsComponent.isStatic)
                 {
-                    physicsComponent.obstacleCollider.transform.position = new Vector3(positionComponent.value.x, positionComponent.value.z, 
-                        positionComponent.value.y);
+                    physicsComponent.obstacleCollider.transform.position = positionComponent.value;
                 }
                 else
                 {
-                    physicsComponent.body.position = new Vector3(positionComponent.value.x, positionComponent.value.z, 
-                        positionComponent.value.y);
+                    physicsComponent.body.position = positionComponent.value;
                 }
             }
         }

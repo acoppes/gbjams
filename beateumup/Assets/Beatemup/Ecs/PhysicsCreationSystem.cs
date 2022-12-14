@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Beatemup.Definitions;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
 

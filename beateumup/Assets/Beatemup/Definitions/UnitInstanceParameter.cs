@@ -9,6 +9,8 @@ namespace Beatemup.Definitions
 {
     public class UnitInstanceParameter : MonoBehaviour, IEntityInstanceParameter
     {
+        public GamePerspectiveAsset gamePerspective;
+        
         public bool controllable = false;
         
         [ConditionalField(nameof(controllable))]
@@ -32,7 +34,7 @@ namespace Beatemup.Definitions
         public void Apply(World world, Entity entity)
         {
             ref var position = ref world.GetComponent<PositionComponent>(entity);
-            position.value = new Vector3(transform.position.x, transform.position.y, 0);
+            position.value = gamePerspective.ConvertToWorld(new Vector3(transform.position.x, transform.position.y, 0));
             
             if (controllable)
             {

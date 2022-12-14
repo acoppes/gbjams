@@ -31,9 +31,7 @@ namespace Beatemup.Definitions
             None = 0,
             Basic = 1
         }
-        
 
-        
         [Separator("Health")]
         public HealthType healthType = HealthType.Normal;
         [ConditionalField(nameof(healthType), false, HealthType.Normal)]

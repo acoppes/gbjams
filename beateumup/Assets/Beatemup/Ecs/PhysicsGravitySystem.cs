@@ -1,6 +1,5 @@
 ﻿using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
-using Gemserk.Leopotam.Gameplay.Events;
 using Leopotam.EcsLite;
 using UnityEngine;
 
@@ -62,15 +61,15 @@ namespace Beatemup.Ecs
                 ref var position = ref positionComponents.Get(entity);
                 ref var vertical = ref verticalMovements.Get(entity);
 
-                position.value.z += vertical.speed * Time.deltaTime;
+                position.value.y += vertical.speed * Time.deltaTime;
                 
-                if (position.value.z <= 0)
+                if (position.value.y <= 0)
                 {
-                    position.value.z = 0;
+                    position.value.y = 0;
                     vertical.speed = 0;
                 }
                 
-                vertical.isOverGround = position.value.z <= Mathf.Epsilon;
+                vertical.isOverGround = position.value.y <= Mathf.Epsilon;
             }
         }
 

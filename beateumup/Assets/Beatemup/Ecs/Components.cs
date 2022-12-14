@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Beatemup.Definitions;
 using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;

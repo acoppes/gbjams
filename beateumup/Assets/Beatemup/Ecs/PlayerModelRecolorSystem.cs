@@ -1,6 +1,5 @@
 ﻿using Gemserk.Leopotam.Ecs;
 using Leopotam.EcsLite;
-using UnityEngine;
 
 namespace Beatemup.Ecs
 {
