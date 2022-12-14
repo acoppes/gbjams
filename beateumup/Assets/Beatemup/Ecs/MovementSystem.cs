@@ -29,7 +29,7 @@ namespace Beatemup.Ecs
 
                 var newPosition = position.value;
 
-                var velocity = direction.normalized * movement.baseSpeed * movement.speedMultiplier;
+                var velocity = direction.normalized * movement.speed * movement.speedMultiplier;
 
                 // velocity.x = direction.x * movement.baseSpeed.x * movement.speedMultiplier;
                 // velocity.y = direction.y * movement.baseSpeed.y * movement.speedMultiplier;

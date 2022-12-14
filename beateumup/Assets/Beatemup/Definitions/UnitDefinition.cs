@@ -44,6 +44,8 @@ namespace Beatemup.Definitions
         
         [Separator("Movement")] 
         public MovementType movementType = MovementType.Basic;
+        [ConditionalField(nameof(movementType), false, MovementType.Basic)]
+        public float baseSpeed;
 
         [Separator("Model")]
         public bool hasModel = true;
@@ -128,6 +130,7 @@ namespace Beatemup.Definitions
             {
                 world.AddComponent(entity, new HorizontalMovementComponent
                 {
+                    baseSpeed = baseSpeed,
                     speedMultiplier = 1.0f
                 });
                 world.AddComponent(entity, new VerticalMovementComponent()

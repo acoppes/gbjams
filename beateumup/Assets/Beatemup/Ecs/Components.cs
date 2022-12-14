@@ -179,6 +179,7 @@ namespace Beatemup.Ecs
         public float speedMultiplier;
 
         public float baseSpeed;
+        public float speed;
         
         public Vector2 currentVelocity;
         public Vector2 movingDirection;

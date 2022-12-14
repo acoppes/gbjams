@@ -161,7 +161,7 @@ namespace Beatemup.Controllers
             
             if (states.statesExited.Contains(SprintState))
             {
-                movement.baseSpeed = 0;
+                movement.speed = 0;
             }
             
             if (states.statesExited.Contains("Knockback"))
@@ -219,7 +219,7 @@ namespace Beatemup.Controllers
                 position.value.z = knockbackCurve.Evaluate(state.time * knockbackCurveSpeed) 
                                    * knockbackMaxHeight;
 
-                movement.baseSpeed = knockbackHorizontalCurve.Evaluate(state.time * knockbackCurveSpeed) * knockbackBaseSpeed;
+                movement.speed = knockbackHorizontalCurve.Evaluate(state.time * knockbackCurveSpeed) * knockbackBaseSpeed;
 
                 if (state.time * knockbackCurveSpeed > 1.0f)
                 {
@@ -654,7 +654,7 @@ namespace Beatemup.Controllers
                     (control.right.isPressed && control.left.isPressed) || control.backward.isPressed)
                 {
                     // modelState.sprinting = false;
-                    movement.baseSpeed = sprintSpeed.x;
+                    movement.speed = sprintSpeed.x;
                     movement.movingDirection = Vector2.zero;
                     
                     animation.Play("SprintStop", 1);
@@ -680,7 +680,7 @@ namespace Beatemup.Controllers
                     
                     animation.Play("Sprint");
                     // modelState.sprinting = true;
-                    movement.baseSpeed = sprintSpeed.x;
+                    movement.speed = sprintSpeed.x;
                     states.EnterState(SprintState);
                     states.ExitState("Moving");
                     return;
@@ -692,7 +692,7 @@ namespace Beatemup.Controllers
                 // }
             }
 
-            movement.baseSpeed = baseSpeed.x;
+            movement.speed = baseSpeed.x;
             movement.movingDirection = control.direction;
 
             if (states.HasState("Moving"))

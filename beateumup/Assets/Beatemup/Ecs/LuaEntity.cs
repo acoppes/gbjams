@@ -66,11 +66,11 @@ namespace Beatemup.Ecs
 
         public float speed
         {
-            get => world.GetComponent<HorizontalMovementComponent>(entity).baseSpeed;
+            get => world.GetComponent<HorizontalMovementComponent>(entity).speed;
             set
             {
                 ref var p = ref world.GetComponent<HorizontalMovementComponent>(entity);
-                p.baseSpeed = value;
+                p.speed = value;
             }
         }
         public HorizontalMovementComponent movement
