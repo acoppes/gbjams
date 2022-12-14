@@ -394,6 +394,8 @@ namespace Beatemup.Controllers
                 // movement.baseSpeed = new Vector2(knockbackBaseSpeed, 0);
                 movement.movingDirection = Vector2.zero;
 
+                lookingDirection.value = new Vector2(-physicsComponent.velocity.x, 0).normalized;
+                
                 // movement.movingDirection = knockbackDirection;
                 //
                 // position.value.z = knockbackCurve.Evaluate(state.time * knockbackCurveSpeed) 

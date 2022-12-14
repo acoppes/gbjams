@@ -289,6 +289,8 @@ namespace Beatemup.Ecs
         public Collider collider;
 
         public bool isStatic;
+
+        public Vector3 velocity;
     }
 
     public struct KillCountComponent : IEntityComponent

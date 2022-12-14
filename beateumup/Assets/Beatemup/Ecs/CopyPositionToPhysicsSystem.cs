@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Beatemup.Ecs
 {
-    public class CopyToObstaclePhysicsSystem : BaseSystem, IEcsRunSystem
+    public class CopyPositionToPhysicsSystem : BaseSystem, IEcsRunSystem
     {
         public void Run(EcsSystems systems)
         {
