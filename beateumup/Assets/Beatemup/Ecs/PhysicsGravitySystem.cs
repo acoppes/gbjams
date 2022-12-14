@@ -25,7 +25,7 @@ namespace Beatemup.Ecs
             
             foreach (var entity in world.GetFilter<GravityComponent>().Inc<PhysicsComponent>().End())
             {
-                var gravityComponent = gravityComponents.Get(entity);
+                ref var gravityComponent = ref gravityComponents.Get(entity);
                 ref var physicsComponent = ref physicsComponents.Get(entity);
 
                 if (gravityComponent.disabled)

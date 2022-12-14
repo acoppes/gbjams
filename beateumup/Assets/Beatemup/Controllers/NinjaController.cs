@@ -12,7 +12,8 @@ namespace Beatemup.Controllers
     public class NinjaController : ControllerBase, IInit, IStateChanged
     {
         public float baseSpeed = 8.0f;
-        
+
+        public float dashFrontIntensity = 1.0f;
         public float dashFrontTime = 0.1f;
         public float dashBackTime = 0.1f;
 
@@ -194,10 +195,10 @@ namespace Beatemup.Controllers
             
             if (states.statesEntered.Contains("DashFront"))
             {
-                gravityComponent.disabled = true;
+                // gravityComponent.disabled = true;
                 animation.Play("DashFront", 1);
                 
-                obstacle.disabled = true;
+                // obstacle.disabled = true;
 
                 // var directionX = control.direction.x;
                 //
@@ -212,6 +213,15 @@ namespace Beatemup.Controllers
                 {
                     movement.movingDirection = lookingDirection.value;
                 }
+                
+                gravityComponent.disabled = false;
+                physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
+
+                var impulse = new Vector3(movement.movingDirection.x * dashFrontIntensity, 1, movement.movingDirection.y * dashFrontIntensity);
+
+                physicsComponent.body.AddForce(impulse, ForceMode.Impulse);
+                
+                movement.movingDirection = Vector2.zero;
             }
             
             if (states.statesEntered.Contains("HitStun"))
@@ -303,10 +313,13 @@ namespace Beatemup.Controllers
             {
                 position.value.z = 0;
                 movement.baseSpeed = 0;
-                gravityComponent.disabled = false;
+                // gravityComponent.disabled = false;
                 
-                obstacle.disabled = false;
+                // obstacle.disabled = false;
                 // movement.movingDirection.y = 0;
+                
+                // gravityComponent.disabled = ;
+                physicsComponent.syncType = PhysicsComponent.SyncType.Both;
             }
             
             if (states.statesExited.Contains("Knockback"))
@@ -462,12 +475,14 @@ namespace Beatemup.Controllers
                 
                 if (state.time > dashRecoveryTime)
                 {
+                    physicsComponent.body.velocity = Vector3.zero;
                     states.ExitState("DashBackRecovery");
                     dashBackRecoveryCanFlip = true;
                 }
 
                 if (control.HasBufferedAction(control.button1) && attackCooldownCurrent <= 0)
                 {
+                    physicsComponent.body.velocity = Vector3.zero;
                     states.ExitState("DashBackRecovery");
                     dashBackRecoveryCanFlip = true;
 
@@ -589,11 +604,11 @@ namespace Beatemup.Controllers
                 dashFrontCooldownCurrent = dashFrontCooldown;
                 
                 // movement.movingDirection = new Vector2(lookingDirection.value.x, control.direction.y);
-                movement.baseSpeed = dashSpeed;
+                // movement.baseSpeed = dashSpeed;
                 
-                position.value.z = dashHeightCurve.Evaluate(state.time / dashFrontTime);
-
-                if (state.time > dashFrontTime)
+                // position.value.z = dashHeightCurve.Evaluate(state.time / dashFrontTime);
+                
+                if (state.time > dashFrontTime && gravityComponent.inContactWithGround)
                 {
                     states.ExitState(state.name);
                     states.EnterState("DashBackRecovery");
