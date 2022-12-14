@@ -8,6 +8,7 @@ namespace Beatemup.Ecs
 {
     public class PhysicsGravitySystem : BaseSystem, IEcsRunSystem, IInit
     {
+        public float distanceToGround = 0.1f;
         public Vector3 gravity = new Vector3(0, -9.81f, 0);
         
         public void OnInit()
@@ -42,7 +43,7 @@ namespace Beatemup.Ecs
                 if (physicsComponent.body.SweepTest(new Vector3(0, -1, 0), out var hit, 5.0f, QueryTriggerInteraction.Ignore))
                 {
                     // don't apply gravity if in contact with ground?
-                    gravityComponent.inContactWithGround = hit.distance < 0.01f;
+                    gravityComponent.inContactWithGround = hit.distance < distanceToGround;
                 }
 
                 if (!gravityComponent.inContactWithGround)
