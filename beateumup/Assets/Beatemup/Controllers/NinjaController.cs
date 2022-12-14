@@ -17,10 +17,6 @@ namespace Beatemup.Controllers
         public float dashFrontTime = 0.1f;
         public float dashBackTime = 0.1f;
 
-        public AnimationCurve dashHeightCurve = AnimationCurve.Constant(0, 1, 0);
-
-        public float dashSpeed = 20.0f;
-        
         public Vector2 dashBackJumpSpeed = new Vector2(10f, 10f);
         
         public float dashBackJumpMaxHeight = 3;
@@ -54,11 +50,9 @@ namespace Beatemup.Controllers
 
         private Vector3 teleportLastHitPosition;
         
-        public float knockbackBaseSpeed;
         public float knockbackCurveSpeed = 1.0f;
         public float knockbackMaxHeight = 1.0f;
-        public AnimationCurve knockbackHorizontalCurve = AnimationCurve.Linear(1, 1, 0, 0);
-        public AnimationCurve knockbackCurve = AnimationCurve.Linear(1, 1, 0, 0);
+
         public float knockbackDownTime = 1.0f;
 
         public float knockbackRandomAngle = 0;
@@ -103,15 +97,6 @@ namespace Beatemup.Controllers
                 lookingDirection.value = (hitPosition - position.value).normalized;
                 
                 knockback = knockback || hit.knockback;
-                
-                // if (hitPointsComponent.current <= 0)
-                // {
-                //     if (world.Exists(hit.source) && world.HasComponent<KillCountComponent>(hit.source))
-                //     {
-                //         ref var killCount = ref world.GetComponent<KillCountComponent>(hit.source);
-                //         killCount.count++;
-                //     }
-                // }
             }
 
             hitStopKnockback = knockback || hitPointsComponent.current <= 0;
@@ -127,23 +112,6 @@ namespace Beatemup.Controllers
             {
                 states.EnterState("HitStun");   
             }
-
-            // if (!knockback)
-            // {
-            //     if (hitPointsComponent.current <= 0)
-            //     {
-            //         states.EnterState("Knockback");
-            //         // states.EnterState("Death");
-            //     }
-            //     else
-            //     {
-            //
-            //     }
-            // }
-            // else
-            // {
-            //     states.EnterState("Knockback");
-            // }
         }
         
         public void OnEnterState()
@@ -175,12 +143,16 @@ namespace Beatemup.Controllers
             
             if (states.statesEntered.Contains("DashBack"))
             {
-                gravityComponent.disabled = true;
                 animation.Play("DashBack", 1);
+                movement.movingDirection = Vector2.zero;
                 
-                movement.movingDirection = new Vector2(-lookingDirection.value.x, control.direction.y);
+                var direction = new Vector2(-lookingDirection.value.x, control.direction.y);
+                
+                physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
 
-                obstacle.disabled = true;
+                var impulse = new Vector3(direction.x * dashFrontIntensity, 1, direction.y * dashFrontIntensity);
+
+                physicsComponent.body.AddForce(impulse, ForceMode.Impulse);
             }
             
             if (states.statesEntered.Contains("DashBackJump"))
@@ -303,22 +275,13 @@ namespace Beatemup.Controllers
             {
                 position.value.z = 0;
                 movement.baseSpeed = 0;
-                gravityComponent.disabled = false;
-
-                obstacle.disabled = false;
-                //movement.movingDirection.y = 0;
+                physicsComponent.syncType = PhysicsComponent.SyncType.Both;
             }
             
             if (states.statesExited.Contains("DashFront"))
             {
                 position.value.z = 0;
                 movement.baseSpeed = 0;
-                // gravityComponent.disabled = false;
-                
-                // obstacle.disabled = false;
-                // movement.movingDirection.y = 0;
-                
-                // gravityComponent.disabled = ;
                 physicsComponent.syncType = PhysicsComponent.SyncType.Both;
             }
             
@@ -584,13 +547,8 @@ namespace Beatemup.Controllers
             if (states.TryGetState("DashBack", out state))
             {
                 dashBackCooldownCurrent = dashBackCooldown;
-                
-                // movement.movingDirection = new Vector2(-lookingDirection.value.x, control.direction.y);
-                movement.baseSpeed = dashSpeed;
-                
-                position.value.z = dashHeightCurve.Evaluate(state.time / dashBackTime);
 
-                if (state.time > dashBackTime)
+                if (state.time > dashBackTime && gravityComponent.inContactWithGround)
                 {
                     states.ExitState(state.name);
                     states.EnterState("DashBackRecovery");
@@ -602,12 +560,7 @@ namespace Beatemup.Controllers
             if (states.TryGetState("DashFront", out state))
             {
                 dashFrontCooldownCurrent = dashFrontCooldown;
-                
-                // movement.movingDirection = new Vector2(lookingDirection.value.x, control.direction.y);
-                // movement.baseSpeed = dashSpeed;
-                
-                // position.value.z = dashHeightCurve.Evaluate(state.time / dashFrontTime);
-                
+
                 if (state.time > dashFrontTime && gravityComponent.inContactWithGround)
                 {
                     states.ExitState(state.name);
