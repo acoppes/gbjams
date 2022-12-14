@@ -144,6 +144,8 @@ namespace Beatemup.Controllers
                 movement.movingDirection = Vector2.zero;
 
                 var direction = new Vector2(-lookingDirection.value.x, control.direction.y);
+                direction.Normalize();
+                
                 var impulse = new Vector3(direction.x * dashFrontIntensity, dashHeight, direction.y * dashFrontIntensity);
                 
                 physicsComponent.disableCollideWithObstacles = true;
@@ -165,12 +167,17 @@ namespace Beatemup.Controllers
             {
                 animation.Play("DashFront", 1);
                 
-                movement.movingDirection = new Vector2(control.direction.x, control.direction.y);
-                if (movement.movingDirection.SqrMagnitude() < 0.01f)
+                var direction = new Vector2(control.direction.x, control.direction.y);
+                if (direction.SqrMagnitude() < 0.01f)
                 {
-                    movement.movingDirection = lookingDirection.value;
+                    direction = lookingDirection.value;
                 }
-                var impulse = new Vector3(movement.movingDirection.x * dashFrontIntensity, dashHeight, movement.movingDirection.y * 0.75f * dashFrontIntensity);
+                
+                direction.Normalize();
+                
+                // BUG: create a normalized direction 
+                
+                var impulse = new Vector3(direction.x * dashFrontIntensity, dashHeight, direction.y * dashFrontIntensity);
                 
                 physicsComponent.disableCollideWithObstacles = true;
                 physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
