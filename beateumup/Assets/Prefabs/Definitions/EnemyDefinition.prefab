@@ -46,42 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 8
+  dashFrontIntensity: 1
   dashFrontTime: 0.15
   dashBackTime: 0.15
-  dashHeightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.6828916
-      outSlope: 0.6828916
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.22255963
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.034957644
-      outSlope: -0.034957644
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.813007
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  dashSpeed: 15
   dashBackJumpSpeed: {x: 15, y: 20}
   dashBackJumpMaxHeight: 5
   dashRecoverySpeed: 10
@@ -115,77 +82,11 @@ MonoBehaviour:
   comboAnimations:
   - AttackFinisher
   attackCooldown: 0.2
-  knockbackBaseSpeed: 15
-  knockbackCurveSpeed: 3
-  knockbackMaxHeight: 1.5
-  knockbackHorizontalCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -0.25
-      outSlope: -0.25
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.75
-      inSlope: -0.25
-      outSlope: -3.233018
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0.057802014
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  knockbackCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 10.1107
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.059578974
-    - serializedVersion: 3
-      time: 0.16897091
-      value: 0.81709313
-      inSlope: 1.6642463
-      outSlope: 1.6642463
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.20704347
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: -0.24587251
-      outSlope: -0.24587251
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.20134223
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -3.6991072
-      outSlope: -2
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.06375837
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  knockbackCurveSpeed: 1
+  knockbackMaxHeight: 3
   knockbackDownTime: 1
   knockbackRandomAngle: 10
+  knockbackHorizontalIntensity: 5
   deathBodyDefinition: {fileID: 5504142449425449193, guid: 177a2598b39663b4cadb2195e0da17d1, type: 3}
   hitStopTime: 0.2666667
 --- !u!114 &8767590918142153676
@@ -279,8 +180,8 @@ MonoBehaviour:
   controllerObject: {fileID: 0}
   hasGravity: 1
   gravityStartsDisabled: 0
-  gravityScale: 7.5
-  obstacleType: 1
+  gravityScale: 5
+  shapeType: 1
   obstacleSize: 0.35
   obstacleIsStatic: 0
   hasKillCount: 0
