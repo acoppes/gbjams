@@ -133,8 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1859028}
   - component: {fileID: 1859027}
-  m_Layer: 7
-  m_Name: Plane
+  m_Layer: 8
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,8 +151,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 100, y: 1, z: 100}
-  m_Center: {x: 0, y: -0.5, z: 0}
+  m_Size: {x: 100, y: 100, z: 100}
+  m_Center: {x: 0, y: -50, z: 0}
 --- !u!4 &1859028
 Transform:
   m_ObjectHideFlags: 0
@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 11400000, guid: 8ec8529ac415ee54d9f44161aeed17f5, type: 2}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
@@ -1078,6 +1079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 11400000, guid: 8ec8529ac415ee54d9f44161aeed17f5, type: 2}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
@@ -1179,6 +1181,7 @@ MonoBehaviour:
   hitPoints: 10
   targetType: 1
   movementType: 0
+  baseSpeed: 0
   hasModel: 0
   modelPrefab: {fileID: 0}
   hasShadow: 0
@@ -1345,6 +1348,7 @@ MonoBehaviour:
   hitPoints: 10
   targetType: 1
   movementType: 0
+  baseSpeed: 0
   hasModel: 0
   modelPrefab: {fileID: 0}
   hasShadow: 0
@@ -1407,6 +1411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 11400000, guid: 8ec8529ac415ee54d9f44161aeed17f5, type: 2}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
@@ -1575,6 +1580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 11400000, guid: 8ec8529ac415ee54d9f44161aeed17f5, type: 2}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
@@ -1613,6 +1619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 11400000, guid: 8ec8529ac415ee54d9f44161aeed17f5, type: 2}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0

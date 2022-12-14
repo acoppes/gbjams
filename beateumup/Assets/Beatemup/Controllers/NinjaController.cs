@@ -262,7 +262,7 @@ namespace Beatemup.Controllers
             
             if (states.statesExited.Contains("DashBack"))
             {
-                position.value.z = 0;
+                position.value.y = 0;
                 movement.speed = 0;
                 physicsComponent.disableCollideWithObstacles = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.Both;
@@ -270,7 +270,7 @@ namespace Beatemup.Controllers
             
             if (states.statesExited.Contains("DashFront"))
             {
-                position.value.z = 0;
+                position.value.y = 0;
                 movement.speed = 0;
                 physicsComponent.disableCollideWithObstacles = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.Both;
@@ -280,7 +280,7 @@ namespace Beatemup.Controllers
             {
                 // gravityComponent.disabled = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.Both;
-                position.value.z = 0;
+                position.value.y = 0;
             }
         }
 

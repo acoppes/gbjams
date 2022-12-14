@@ -40,7 +40,7 @@ namespace Beatemup.Scenes
                 spawnAngle += divAngle;
 
                 ref var positionComponent = ref world.GetComponent<PositionComponent>(playerCharacterEntity);
-                positionComponent.value = position;
+                positionComponent.value = new Vector3(position.x, 0, position.y);
 
                 // set in position, configure controllable, etc
             }

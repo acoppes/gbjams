@@ -125,7 +125,8 @@ namespace Beatemup.Controllers
                 var side = Mathf.Sign(position.value.x - mainTarget.position.x);
                 
                 var desiredPosition = mainTarget.position + new Vector3(side * attackDetection.offset.x, 0, 0);
-                control.direction = (desiredPosition - position.value).normalized;
+                var desiredDirection = (desiredPosition - position.value).normalized;
+                control.direction = desiredDirection.XZ();
                 
                 // lookingDirection.value.x = Mathf.Sign(mainTarget.position.x - position.value.x);
                 
@@ -183,32 +184,6 @@ namespace Beatemup.Controllers
                 states.EnterState("FollowingTarget");
                 return;
             }
-            
-            // if (states.TryGetState("MovingDown", out state))
-            // {
-            //     control.direction = Vector2.down;
-            //
-            //     if (state.time > timeToChangeDirection)
-            //     {
-            //         states.ExitState("MovingDown");
-            //         states.EnterState("MovingUp");
-            //     }
-            //     
-            //     return;
-            // }
-            //
-            // if (states.TryGetState("MovingUp", out state))
-            // {
-            //     control.direction = Vector2.up;
-            //
-            //     if (state.time > timeToChangeDirection)
-            //     {
-            //         states.ExitState("MovingUp");
-            //         states.EnterState("MovingDown");
-            //     }
-            //     
-            //     return;
-            // }
         }
 
     }
