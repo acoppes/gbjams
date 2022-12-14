@@ -282,12 +282,14 @@ namespace Beatemup.Ecs
 
         public SyncType syncType;
         
-        public bool disabled;
+        public bool disableCollideWithObstacles;
         public float size;
         // public int priority;
 
         public Rigidbody body;
-        public Collider collider;
+        
+        public Collider obstacleCollider;
+        public Collider collideWithStaticCollider;
 
         public bool isStatic;
 

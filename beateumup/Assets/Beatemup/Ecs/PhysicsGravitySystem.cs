@@ -6,16 +6,19 @@ using UnityEngine;
 
 namespace Beatemup.Ecs
 {
-    public class PhysicsGravitySystem : BaseSystem, IEcsRunSystem, IInit
+    public class PhysicsGravitySystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
     {
         public float distanceToGround = 0.1f;
         public Vector3 gravity = new Vector3(0, -9.81f, 0);
         
-        public void OnInit()
+        private LayerMask groundContactLayerMask;
+        
+        public void Init(EcsSystems systems)
         {
             Physics.gravity = Vector3.zero;
+            groundContactLayerMask = LayerMask.GetMask("StaticObstacle");
         }
-        
+
         public void Run(EcsSystems systems)
         {
             var gravityComponents = world.GetComponents<GravityComponent>();
@@ -40,7 +43,9 @@ namespace Beatemup.Ecs
 
                 gravityComponent.inContactWithGround = false;
 
-                if (physicsComponent.body.SweepTest(new Vector3(0, -1, 0), out var hit, 5.0f, QueryTriggerInteraction.Ignore))
+                var ray = new Ray(physicsComponent.body.position + new Vector3(0, 0.1f, 0), Vector3.down);
+                
+                if (Physics.Raycast(ray, out var hit, 2f, groundContactLayerMask, QueryTriggerInteraction.Ignore))
                 {
                     // don't apply gravity if in contact with ground?
                     gravityComponent.inContactWithGround = hit.distance < distanceToGround;
@@ -68,5 +73,7 @@ namespace Beatemup.Ecs
                 vertical.isOverGround = position.value.z <= Mathf.Epsilon;
             }
         }
+
+
     }
 }

@@ -14,6 +14,7 @@ namespace Beatemup.Controllers
         public float dashFrontIntensity = 1.0f;
         public float dashFrontTime = 0.1f;
         public float dashBackTime = 0.1f;
+        public float dashHeight = 1.0f;
 
         public Vector2 dashBackJumpSpeed = new Vector2(10f, 10f);
         
@@ -126,8 +127,6 @@ namespace Beatemup.Controllers
             var lookingDirection = world.GetComponent<LookingDirection>(entity);
             var control = world.GetComponent<ControlComponent>(entity);
             
-            ref var obstacle = ref world.GetComponent<PhysicsComponent>(entity);
-
             if (states.statesEntered.Contains("Moving"))
             {
                 animation.Play("Walk");
@@ -143,13 +142,12 @@ namespace Beatemup.Controllers
             {
                 animation.Play("DashBack", 1);
                 movement.movingDirection = Vector2.zero;
-                
+
                 var direction = new Vector2(-lookingDirection.value.x, control.direction.y);
+                var impulse = new Vector3(direction.x * dashFrontIntensity, dashHeight, direction.y * dashFrontIntensity);
                 
+                physicsComponent.disableCollideWithObstacles = true;
                 physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
-
-                var impulse = new Vector3(direction.x * dashFrontIntensity, 1, direction.y * dashFrontIntensity);
-
                 physicsComponent.body.AddForce(impulse, ForceMode.Impulse);
             }
             
@@ -165,30 +163,17 @@ namespace Beatemup.Controllers
             
             if (states.statesEntered.Contains("DashFront"))
             {
-                // gravityComponent.disabled = true;
                 animation.Play("DashFront", 1);
                 
-                // obstacle.disabled = true;
-
-                // var directionX = control.direction.x;
-                //
-                // if (Mathf.Abs(directionX) < 0.01f)
-                // {
-                //     directionX = lookingDirection.value.x;
-                // }
-                
                 movement.movingDirection = new Vector2(control.direction.x, control.direction.y);
-
                 if (movement.movingDirection.SqrMagnitude() < 0.01f)
                 {
                     movement.movingDirection = lookingDirection.value;
                 }
+                var impulse = new Vector3(movement.movingDirection.x * dashFrontIntensity, dashHeight, movement.movingDirection.y * 0.75f * dashFrontIntensity);
                 
-                gravityComponent.disabled = false;
+                physicsComponent.disableCollideWithObstacles = true;
                 physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
-
-                var impulse = new Vector3(movement.movingDirection.x * dashFrontIntensity, 1, movement.movingDirection.y * dashFrontIntensity);
-
                 physicsComponent.body.AddForce(impulse, ForceMode.Impulse);
                 
                 movement.movingDirection = Vector2.zero;
@@ -255,7 +240,6 @@ namespace Beatemup.Controllers
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             ref var position = ref world.GetComponent<PositionComponent>(entity);
             
-            ref var obstacle = ref world.GetComponent<PhysicsComponent>(entity);
             ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
             
             if (states.statesExited.Contains("DashBackJump"))
@@ -273,6 +257,7 @@ namespace Beatemup.Controllers
             {
                 position.value.z = 0;
                 movement.speed = 0;
+                physicsComponent.disableCollideWithObstacles = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.Both;
             }
             
@@ -280,6 +265,7 @@ namespace Beatemup.Controllers
             {
                 position.value.z = 0;
                 movement.speed = 0;
+                physicsComponent.disableCollideWithObstacles = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.Both;
             }
             

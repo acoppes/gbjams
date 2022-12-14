@@ -1,12 +1,45 @@
-﻿using Beatemup.Definitions;
+﻿using System.Diagnostics.CodeAnalysis;
+using Beatemup.Definitions;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
 
 namespace Beatemup.Ecs
 {
+    [SuppressMessage("ReSharper", "LocalVariableHidesMember")]
     public class PhysicsCreationSystem : BaseSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
         public PhysicMaterial defaultMaterial;
+
+        private Collider CreateCollider(int layer, PhysicsComponent physicsComponent)
+        {
+            if (physicsComponent.shapeType == PhysicsComponent.ShapeType.Circle)
+            {
+                var colliderObject = new GameObject("DynamicCollider");
+                colliderObject.layer = layer;
+                
+                // colliderObject.transform.parent = physicsComponent.transform;
+
+                var collider = colliderObject.AddComponent<SphereCollider>();
+                collider.radius = physicsComponent.size;
+                collider.center = new Vector3(0, collider.radius, 0);
+                collider.sharedMaterial = defaultMaterial;
+
+                return collider;
+            } else if (physicsComponent.shapeType == PhysicsComponent.ShapeType.Box)
+            {
+                var colliderObject = new GameObject("DynamicCollider");
+                colliderObject.layer = layer;
+                // colliderObject.transform.parent = physicsGameObject.transform;
+                    
+                var collider = colliderObject.AddComponent<BoxCollider>();
+                collider.size = new Vector4(physicsComponent.size, physicsComponent.size, physicsComponent.size);
+                collider.sharedMaterial = defaultMaterial;
+                
+                return collider;
+            }
+
+            return null;
+        }
         
         public void OnEntityCreated(World world, Entity entity)
         {
@@ -15,8 +48,9 @@ namespace Beatemup.Ecs
                 ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
                 
                 var physicsGameObject = new GameObject("~PhysicsObject");
-                physicsGameObject.layer = LayerMask.NameToLayer("Obstacle");
-
+                var layer = physicsComponent.isStatic ? LayerMask.NameToLayer("StaticObstacle") : 
+                    LayerMask.NameToLayer("DynamicObstacle");
+                
                 if (physicsComponent.isStatic)
                 {
                     physicsComponent.body = null;
@@ -35,21 +69,15 @@ namespace Beatemup.Ecs
 
                     physicsComponent.body.constraints = RigidbodyConstraints.FreezeRotation;
                 }
+
+                physicsComponent.obstacleCollider = CreateCollider(layer, physicsComponent);
+                physicsComponent.obstacleCollider.transform.parent = physicsGameObject.transform;
                 
-                if (physicsComponent.shapeType == PhysicsComponent.ShapeType.Circle)
+                if (!physicsComponent.isStatic)
                 {
-                    var collider = physicsGameObject.AddComponent<SphereCollider>();
-                    collider.radius = physicsComponent.size;
-                    collider.center = new Vector3(0, collider.radius, 0);
-                    collider.sharedMaterial = defaultMaterial;
-                    
-                    physicsComponent.collider = collider;
-                } else if (physicsComponent.shapeType == PhysicsComponent.ShapeType.Box)
-                {
-                    var collider = physicsGameObject.AddComponent<BoxCollider>();
-                    collider.size = new Vector4(physicsComponent.size, physicsComponent.size, physicsComponent.size);
-                    collider.sharedMaterial = defaultMaterial;
-                    physicsComponent.collider = collider;
+                    physicsComponent.collideWithStaticCollider =
+                        CreateCollider(LayerMask.NameToLayer("CollideWithStaticObstacles"), physicsComponent);
+                    physicsComponent.collideWithStaticCollider.transform.parent = physicsGameObject.transform;
                 }
             }
         }
@@ -60,13 +88,13 @@ namespace Beatemup.Ecs
             {
                 ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
 
-                if (physicsComponent.collider != null)
+                if (physicsComponent.obstacleCollider != null)
                 {
-                    GameObject.Destroy(physicsComponent.collider.gameObject);
+                    GameObject.Destroy(physicsComponent.obstacleCollider.gameObject);
                 }
 
                 physicsComponent.body = null;
-                physicsComponent.collider = null;
+                physicsComponent.obstacleCollider = null;
             }
         }
     }

@@ -19,16 +19,16 @@ namespace Beatemup.Ecs
                 ref var physicsComponent = ref physicsComponents.Get(entity);
                 var positionComponent = positions.Get(entity);
 
+                physicsComponent.obstacleCollider.enabled = !physicsComponent.disableCollideWithObstacles;
+                
                 if (physicsComponent.syncType == PhysicsComponent.SyncType.FromPhysics)
                 {
                     continue;
                 }
-                
-                physicsComponent.collider.enabled = !physicsComponent.disabled;
-                
+
                 if (physicsComponent.isStatic)
                 {
-                    physicsComponent.collider.transform.position = new Vector3(positionComponent.value.x, positionComponent.value.z, 
+                    physicsComponent.obstacleCollider.transform.position = new Vector3(positionComponent.value.x, positionComponent.value.z, 
                         positionComponent.value.y);
                 }
                 else
