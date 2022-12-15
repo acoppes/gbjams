@@ -7,19 +7,15 @@ namespace Beatemup.Ecs
 {
     public struct HitBox
     {
-        public Vector2 position;
-        public Vector2 offset;
-        public Vector2 size;
-        public float depth;
+        public Vector3 position;
+        public Vector3 offset;
+        public Vector3 size;
 
-        public Vector3 position3d => new Vector3(position.x + offset.x, position.y, offset.y);
-
-        public Vector3 size3d => new Vector3(size.x, depth, size.y);
+        public Vector3 position3d => position + offset;
 
         public static HitBox AllTheWorld => new HitBox()
         {
             position = Vector2.zero,
-            depth = Mathf.Infinity,
             offset = Vector2.zero,
             size = Vector2.positiveInfinity
         };

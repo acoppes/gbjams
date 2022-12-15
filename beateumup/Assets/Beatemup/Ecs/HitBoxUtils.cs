@@ -17,16 +17,9 @@ namespace Beatemup.Ecs
             return new HitBox
             {
                 size = hitBoxAsset.size,
-                position = new Vector2(position.value.x, position.value.y),
-                offset = offset + new Vector2(0, position.value.z), 
-                depth = hitBoxAsset.depth
+                position = position.value,
+                offset = offset
             };
-        }
-
-        public static bool IsInsideDepth(this HitBox source, HitBox target)
-        {
-            return Mathf.Abs(source.position.y - target.position.y) <=
-                   source.depth + target.depth;
         }
     }
 }

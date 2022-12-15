@@ -19,6 +19,9 @@ namespace Beatemup.Development
         [NonSerialized]
         public int type;
 
+        [NonSerialized] 
+        public GamePerspectiveAsset gamePerspective;
+
         // [NonSerialized]
         // public Vector2 gamePerspective;
 
@@ -38,13 +41,17 @@ namespace Beatemup.Development
             }
 
             // transform.position = new Vector3(hitBox.position.x * gamePerspective.x, hitBox.position.y * gamePerspective.y, 0);
-            transform.position = new Vector3(hitBox.position.x, hitBox.position.y, 0);
+            var position = gamePerspective.ConvertFromWorld(hitBox.position);
+            var offset = hitBox.offset;
+            var size = hitBox.size;
             
-            spriteRenderer.transform.localPosition = new Vector3(hitBox.offset.x, hitBox.offset.y, 0);
-            spriteRenderer.transform.localScale = new Vector3(hitBox.size.x, hitBox.size.y, 1);
+            transform.position = position;
+            
+            spriteRenderer.transform.localPosition = new Vector3(offset.x, offset.y, 0);
+            spriteRenderer.transform.localScale = new Vector3(size.x, size.y, 1);
 
-            depthSpriteRenderer.transform.localPosition = new Vector3(hitBox.offset.x, 0, 0);
-            depthSpriteRenderer.transform.localScale = new Vector3(hitBox.size.x, hitBox.depth, 1);
+            depthSpriteRenderer.transform.localPosition = new Vector3(offset.x, 0, 0);
+            depthSpriteRenderer.transform.localScale = new Vector3(size.x, size.z, 1);
 
             spriteRenderer.color = typeColors[type];
         }

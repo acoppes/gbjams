@@ -10,6 +10,8 @@ namespace Beatemup.Ecs
         public bool debugHitBoxesEnabled;
         
         public GameObject hitBoxDebugPrefab;
+
+        public GamePerspectiveAsset gamePerspective;
         
         public DebugHitBox CreateDebugHitBox(int type)
         {
@@ -19,6 +21,8 @@ namespace Beatemup.Ecs
             var debugHitBox = debugHitBoxInstance.GetComponent<DebugHitBox>();
             debugHitBox.debugHitBoxSystem = this;
             debugHitBox.type = type;
+
+            debugHitBox.gamePerspective = gamePerspective;
 
             // debugHitBox.gamePerspective = UnitModelSystem.gamePerspective;
             

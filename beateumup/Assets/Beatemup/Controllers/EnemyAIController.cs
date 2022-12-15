@@ -80,15 +80,9 @@ namespace Beatemup.Controllers
                 var targets = TargetingUtils.GetTargets(world, new TargetingUtils.RuntimeTargetingParameters
                 {
                     player = player.player,
-                    area = new HitBox
-                    {
-                        position = position.value,
-                        depth = 100,
-                        offset = Vector2.zero,
-                        size = new Vector2(100, 100)
-                    }, 
-                    checkAreaType = TargetingUtils.RuntimeTargetingParameters.CheckAreaType.HitBox,
-                    playerAllianceType = TargetingUtils.PlayerAllianceType.Enemies
+                    checkAreaType = TargetingUtils.RuntimeTargetingParameters.CheckAreaType.Nothing,
+                    playerAllianceType = TargetingUtils.PlayerAllianceType.Enemies,
+                    aliveType = HitPointsComponent.AliveType.Alive
                 });
 
                 if (targets.Count > 0)

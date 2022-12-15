@@ -2,11 +2,14 @@
 using Gemserk.Leopotam.Ecs;
 using Leopotam.EcsLite;
 using UnityEngine;
+using Vertx.Debugging;
 
 namespace Beatemup.Ecs
 {
     public class HurtBoxColliderSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
+        public GamePerspectiveAsset gamePerspective;
+        
         public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
             var hitBoxes = world.GetComponents<HitBoxComponent>();
@@ -20,7 +23,7 @@ namespace Beatemup.Ecs
                 var targetReference = instance.AddComponent<TargetReference>();
                 
                 var boxCollider = instance.AddComponent<BoxCollider>();
-                boxCollider.size = new Vector3(hitBox.hurt.size.x, hitBox.hurt.depth, hitBox.hurt.size.y);
+                boxCollider.size = hitBox.hurt.size;
                 boxCollider.isTrigger = true;
 
                 world.AddComponent(entity, new HurtBoxColliderComponent()
@@ -68,8 +71,17 @@ namespace Beatemup.Ecs
                 ref var hurtBoxColliderComponent = ref hurtBoxColliders.Get(entity);
                 
                 hurtBoxColliderComponent.targetReference.transform.position = hitBox.hurt.position3d;
-                hurtBoxColliderComponent.collider.enabled = hitBox.hurt.size.SqrMagnitude() > Mathf.Epsilon;
-                hurtBoxColliderComponent.collider.size = hitBox.hurt.size3d;
+                hurtBoxColliderComponent.collider.enabled = hitBox.hurt.size.sqrMagnitude > Mathf.Epsilon;
+                hurtBoxColliderComponent.collider.size = hitBox.hurt.size;
+
+                var position = gamePerspective.ConvertFromWorld(hitBox.hurt.position3d);
+                var size = hitBox.hurt.size;
+
+                // position.y *= gamePerspective.gamePerspectiveY;
+                // size.y *= gamePerspective.gamePerspectiveY;
+                
+                D.raw(new Shape.Box(position, size * 0.5f), Color.green);
+                // D.raw(new Shape.Text(Vector3.zero, "Hola"), Color.red, Color.green);
             }
         }
     }

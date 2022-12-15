@@ -5,6 +5,7 @@ using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using UnityEngine;
+using Vertx.Debugging;
 
 namespace Beatemup.Ecs
 {
@@ -132,9 +133,11 @@ namespace Beatemup.Ecs
                 // boxCollider.size = area.size3d;
                 // debugBoxObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 
-                var colliderCount = Physics.OverlapBoxNonAlloc(area.position3d, area.size3d * 0.5f, colliders,
+                var colliderCount = DrawPhysics.OverlapBoxNonAlloc(area.position3d, area.size * 0.5f, colliders,
                     Quaternion.identity, HurtBoxContactFilter.layerMask,
                     QueryTriggerInteraction.Collide);
+                
+                // DrawPhysics.OverlapBoxNonAlloc()
 
                 if (colliderCount > 0)
                 {
