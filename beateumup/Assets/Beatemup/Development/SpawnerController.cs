@@ -8,7 +8,7 @@ using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
 using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
-public class SpawnerController : ControllerBase, IInit
+public class SpawnerController : ControllerBase
 {
     public GameObject enemyDefinition;
     public GameObject enemyParameters;
@@ -25,12 +25,7 @@ public class SpawnerController : ControllerBase, IInit
     public float waveIncrementDuration = 5;
 
     private float currentWaveDuration;
-    
-    public void OnInit()
-    {
 
-    }
-    
     public override void OnUpdate(float dt)
     {
         var player = world.GetComponent<PlayerComponent>(entity);
@@ -43,7 +38,7 @@ public class SpawnerController : ControllerBase, IInit
         
         // if there are still enemies...
 
-        var targets = TargetingUtils.GetTargets(world, new TargetingUtils.RuntimeTargetingParameters
+        var targets = world.GetTargets(new TargetingUtils.RuntimeTargetingParameters
         {
             player = player.player,
             checkAreaType = TargetingUtils.RuntimeTargetingParameters.CheckAreaType.Nothing,
@@ -74,7 +69,7 @@ public class SpawnerController : ControllerBase, IInit
             var spawnArea = spawnAreas[spawnAreaIndex];
 
             enemyPosition.value = new Vector3(UnityEngine.Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x), 
-                UnityEngine.Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y), 0);
+                0, UnityEngine.Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y));
             
             ref var instancePlayer = ref world.GetComponent<PlayerComponent>(enemyEntity);
 
