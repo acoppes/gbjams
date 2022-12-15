@@ -1,3 +1,4 @@
+using System;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
@@ -17,10 +18,19 @@ namespace Beatemup.Definitions
         public int playerInput;
 
         public float startingLookingDirectionAngle = 0;
+        
+        [Separator("Identify")] 
+        public string entityName;
+        [ConditionalField(nameof(entityName), true, "")]
+        public bool singleton;
+
+        [Separator("Player Team")] 
+        public bool overridePlayer;
+        [ConditionalField(nameof(overridePlayer))]
+        public int team;
 
         [Separator("Animation")]
         public bool overrideAnimation;
-
         [ConditionalField(nameof(overrideAnimation))]
         public string startingAnimation;
         [ConditionalField(nameof(overrideAnimation))]
@@ -61,6 +71,29 @@ namespace Beatemup.Definitions
                 ref var hitPointsComponent = ref world.GetComponent<HitPointsComponent>(entity);
                 hitPointsComponent.total = hitPoints;
                 hitPointsComponent.current = hitPoints;
+            }
+
+            if (overridePlayer)
+            {
+                ref var playerComponent = ref world.GetComponent<PlayerComponent>(entity);
+                playerComponent.player = team;
+            }
+
+            if (!string.IsNullOrEmpty(entityName))
+            {
+                world.AddComponent(entity, new NameComponent
+                {
+                    name = entityName,
+                    singleton = singleton
+                });
+            }
+        }
+
+        private void OnValidate()
+        {
+            if (!string.IsNullOrEmpty(entityName))
+            {
+                gameObject.name = $"Spawn({entityName})";
             }
         }
     }
