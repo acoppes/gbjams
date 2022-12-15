@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class Shadow : MonoBehaviour
+namespace Beatemup.Models
 {
-    public SpriteRenderer source;
-    public SpriteRenderer target;
-
-    void LateUpdate()
+    public class Shadow : MonoBehaviour
     {
-        target.sprite = source.sprite;
+        public SpriteRenderer source;
+        public SpriteRenderer target;
+
+        private void LateUpdate()
+        {
+            target.sprite = source.sprite;
+        }
     }
 }

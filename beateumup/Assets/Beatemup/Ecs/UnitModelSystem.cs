@@ -54,6 +54,8 @@ namespace Beatemup.Ecs
                 if (modelComponent.instance.shadow != null)
                 {
                     modelComponent.instance.shadow.enabled = modelComponent.hasShadow;
+                    modelComponent.instance.shadow.transform.localScale = new Vector3(1, 
+                        modelComponent.shadowPerspective, 1);
                 }
                 
                 // disable by default

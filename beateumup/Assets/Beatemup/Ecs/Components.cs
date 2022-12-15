@@ -143,6 +143,7 @@ namespace Beatemup.Ecs
         public bool IsVisible => visiblity == Visiblity.Visible;
 
         public bool hasShadow;
+        public float shadowPerspective;
         
         public Texture2D[] remapTexturesPerPlayer;
 

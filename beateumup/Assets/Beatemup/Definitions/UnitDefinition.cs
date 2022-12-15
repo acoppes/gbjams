@@ -51,6 +51,8 @@ namespace Beatemup.Definitions
         public GameObject modelPrefab;
         [ConditionalField(nameof(hasModel))]
         public bool hasShadow = true;
+        [ConditionalField(nameof(hasShadow))]
+        public float shadowPerspective = 0.2f;
         [ConditionalField(nameof(hasModel))] 
         public Texture2D[] remapTexturesPerPlayer; 
 
@@ -115,6 +117,7 @@ namespace Beatemup.Definitions
                 {
                     prefab = modelPrefab,
                     hasShadow = hasShadow,
+                    shadowPerspective = shadowPerspective,
                     remapTexturesPerPlayer = remapTexturesPerPlayer, 
                     color = Color.white
                 });
