@@ -285,6 +285,7 @@ namespace Beatemup.Ecs
         public float size;
         // public int priority;
 
+        public GameObject gameObject;
         public Rigidbody body;
         
         public Collider obstacleCollider;

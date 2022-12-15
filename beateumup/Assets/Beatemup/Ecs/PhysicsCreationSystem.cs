@@ -46,20 +46,20 @@ namespace Beatemup.Ecs
             {
                 ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
                 
-                var physicsGameObject = new GameObject("~PhysicsObject");
+                physicsComponent.gameObject = new GameObject("~PhysicsObject");
                 var layer = physicsComponent.isStatic ? LayerMask.NameToLayer("StaticObstacle") : 
                     LayerMask.NameToLayer("DynamicObstacle");
                 
                 if (physicsComponent.isStatic)
                 {
                     physicsComponent.body = null;
-                    physicsGameObject.isStatic = true;
+                    physicsComponent.gameObject.isStatic = true;
                  
                     // obstacle.body.constraints = RigidbodyConstraints.FreezeAll;
                 }
                 else
                 {
-                    physicsComponent.body = physicsGameObject.AddComponent<Rigidbody>();
+                    physicsComponent.body = physicsComponent.gameObject.AddComponent<Rigidbody>();
 
                     // physicsComponent.body.drag = 0;
                     physicsComponent.body.angularDrag = 10;
@@ -70,13 +70,13 @@ namespace Beatemup.Ecs
                 }
 
                 physicsComponent.obstacleCollider = CreateCollider(layer, physicsComponent);
-                physicsComponent.obstacleCollider.transform.parent = physicsGameObject.transform;
+                physicsComponent.obstacleCollider.transform.parent = physicsComponent.gameObject.transform;
                 
                 if (!physicsComponent.isStatic)
                 {
                     physicsComponent.collideWithStaticCollider =
                         CreateCollider(LayerMask.NameToLayer("CollideWithStaticObstacles"), physicsComponent);
-                    physicsComponent.collideWithStaticCollider.transform.parent = physicsGameObject.transform;
+                    physicsComponent.collideWithStaticCollider.transform.parent = physicsComponent.gameObject.transform;
                 }
             }
         }
@@ -87,13 +87,15 @@ namespace Beatemup.Ecs
             {
                 ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
 
-                if (physicsComponent.obstacleCollider != null)
+                if (physicsComponent.gameObject != null)
                 {
-                    GameObject.Destroy(physicsComponent.obstacleCollider.gameObject);
+                    GameObject.Destroy(physicsComponent.gameObject);
                 }
 
+                physicsComponent.gameObject = null;
                 physicsComponent.body = null;
                 physicsComponent.obstacleCollider = null;
+                physicsComponent.collideWithStaticCollider = null;
             }
         }
     }
