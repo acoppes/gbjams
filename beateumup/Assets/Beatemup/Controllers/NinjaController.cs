@@ -185,14 +185,13 @@ namespace Beatemup.Controllers
             {
                 animation.Play("KnockdownAscending");
 
-                gravityComponent.disabled = false;
-                physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
-                
                 var knockbackDirection = new Vector2(-lookingDirection.value.x, 0);
                 knockbackDirection = knockbackDirection.Rotate(UnityEngine.Random.Range(-knockbackRandomAngle, knockbackRandomAngle) *
                                                             Mathf.Deg2Rad);
                 knockbackDirection *= knockbackHorizontalIntensity;
                 
+                physicsComponent.disableCollideWithObstacles = true;
+                physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
                 physicsComponent.body.AddForce(new Vector3(knockbackDirection.x, knockbackMaxHeight, knockbackDirection.y), ForceMode.Impulse);
                 
                 // knockbackRandomY = UnityEngine.Random.Range(-0.25f, 0.25f);
@@ -265,6 +264,7 @@ namespace Beatemup.Controllers
             if (states.statesExited.Contains("Knockback"))
             {
                 // gravityComponent.disabled = false;
+                physicsComponent.disableCollideWithObstacles = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.Both;
                 position.value.y = 0;
             }
