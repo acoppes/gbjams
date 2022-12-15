@@ -4,7 +4,7 @@ using Gemserk.Leopotam.Gameplay.Events;
 
 namespace Beatemup.Controllers
 {
-    public class HitVfxController : ControllerBase, IInit
+    public class HitVfxController : ControllerBase, IInit, IUpdate
     {
         public void OnInit()
         {
@@ -22,7 +22,7 @@ namespace Beatemup.Controllers
             }
         }
         
-        public override void OnUpdate(float dt)
+        public void OnUpdate(float dt)
         {
             ref var destroyable = ref world.GetComponent<DestroyableComponent>(entity);
             if (destroyable.destroy)

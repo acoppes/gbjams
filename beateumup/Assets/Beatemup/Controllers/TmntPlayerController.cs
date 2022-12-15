@@ -11,7 +11,7 @@ using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
 namespace Beatemup.Controllers
 {
-    public class TmntPlayerController : ControllerBase, IInit, IStateChanged
+    public class TmntPlayerController : ControllerBase, IInit, IStateChanged, IUpdate
     {
         public Vector2 baseSpeed;
 
@@ -170,7 +170,7 @@ namespace Beatemup.Controllers
             }
         }
 
-        public override void OnUpdate(float dt)
+        public void OnUpdate(float dt)
         {
             var control = world.GetComponent<ControlComponent>(entity);
 

@@ -4,7 +4,7 @@ using Gemserk.Leopotam.Gameplay.Events;
 
 namespace Beatemup.Controllers
 {
-    public class FootSoldierMotorcycleController : ControllerBase, IInit
+    public class FootSoldierMotorcycleController : ControllerBase, IInit, IUpdate
     {
         public void OnInit()
         {
@@ -15,7 +15,7 @@ namespace Beatemup.Controllers
             animationComponent.Play("MotorcycleRoll");
         }
 
-        public override void OnUpdate(float dt)
+        public void OnUpdate(float dt)
         {
             var control = world.GetComponent<ControlComponent>(entity);
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);

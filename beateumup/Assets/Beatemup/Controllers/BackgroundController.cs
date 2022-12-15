@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Beatemup.Controllers
 {
-    public class BackgroundController : ControllerBase
+    public class BackgroundController : ControllerBase, IUpdate
     {
-        public override void OnUpdate(float dt)
+        public void OnUpdate(float dt)
         {
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
             movement.movingDirection = Vector2.left;

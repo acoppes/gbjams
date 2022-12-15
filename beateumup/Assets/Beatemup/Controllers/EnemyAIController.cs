@@ -10,7 +10,7 @@ using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
 namespace Beatemup.Controllers
 {
-    public class EnemyAIController : ControllerBase, IInit, IEntityDestroyed
+    public class EnemyAIController : ControllerBase, IInit, IEntityDestroyed, IUpdate
     {
         public float targetReachedDelayToAttack = 0.5f;
         
@@ -47,7 +47,7 @@ namespace Beatemup.Controllers
             }
         }
         
-        public override void OnUpdate(float dt)
+        public void OnUpdate(float dt)
         {
             // var mainPlayer = world.GetEntityByName("Character_Player_0");
 

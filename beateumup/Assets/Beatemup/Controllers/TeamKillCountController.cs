@@ -50,11 +50,5 @@ namespace Beatemup.Controllers
                 }
             }
         }
-
-        public override void OnUpdate(float dt)
-        {
-            
-        }
-
     }
 }

@@ -8,7 +8,7 @@ using Gemserk.Leopotam.Gameplay.Events;
 using UnityEngine;
 using TargetingUtils = Beatemup.Ecs.TargetingUtils;
 
-public class SpawnerController : ControllerBase
+public class SpawnerController : ControllerBase, IUpdate
 {
     public GameObject enemyDefinition;
     public GameObject enemyParameters;
@@ -26,7 +26,7 @@ public class SpawnerController : ControllerBase
 
     private float currentWaveDuration;
 
-    public override void OnUpdate(float dt)
+    public void OnUpdate(float dt)
     {
         var player = world.GetComponent<PlayerComponent>(entity);
 

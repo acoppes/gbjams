@@ -9,7 +9,7 @@ using LookingDirection = Beatemup.Ecs.LookingDirection;
 
 namespace Beatemup.Controllers
 {
-    public class NinjaController : ControllerBase, IInit, IStateChanged
+    public class NinjaController : ControllerBase, IInit, IStateChanged, IUpdate
     {
         public float dashFrontIntensity = 1.0f;
         public float dashFrontTime = 0.1f;
@@ -269,7 +269,7 @@ namespace Beatemup.Controllers
             }
         }
 
-        public override void OnUpdate(float dt)
+        public void OnUpdate(float dt)
         {
             var control = world.GetComponent<ControlComponent>(entity);
 

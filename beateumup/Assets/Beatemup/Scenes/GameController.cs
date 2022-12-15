@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Beatemup.Scenes
 {
-    public class GameController : ControllerBase, IInit
+    public class GameController : ControllerBase, IInit, IUpdate
     {
         public float startingTime;
         public float gameOverTime;
@@ -17,7 +17,7 @@ namespace Beatemup.Scenes
             states.EnterState("Starting");
         }
         
-        public override void OnUpdate(float dt)
+        public void OnUpdate(float dt)
         {
             ref var states = ref world.GetComponent<StatesComponent>(entity);
 
