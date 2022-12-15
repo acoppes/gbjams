@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3788651709889826613}
   - component: {fileID: 3788651709889826610}
   - component: {fileID: 3788651709889826611}
-  - component: {fileID: 3788651709889826612}
   m_Layer: 0
   m_Name: TeamKillCountDefinition
   m_TagString: Untagged
@@ -63,6 +62,7 @@ MonoBehaviour:
   hitPoints: 1000
   targetType: 1
   movementType: 0
+  baseSpeed: 0
   hasModel: 0
   modelPrefab: {fileID: 0}
   hasShadow: 0
@@ -72,30 +72,17 @@ MonoBehaviour:
   defaultHurtBoxAsset: {fileID: 0}
   spritesMetadata: {fileID: 0}
   hasStates: 0
-  hasController: 0
-  controllerObject: {fileID: 0}
+  hasController: 1
+  controllerObject: {fileID: 3788651711030416191}
   hasGravity: 0
   gravityStartsDisabled: 0
   gravityScale: 7.5
-  obstacleType: 0
+  shapeType: 0
   obstacleSize: 0.35
   obstacleIsStatic: 0
   hasKillCount: 1
   isVfx: 0
   jumpSpeed: 0
---- !u!114 &3788651709889826612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3788651709889826614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22fed36fba5545a590bfd73117b22da7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controllerObject: {fileID: 3788651711030416191}
 --- !u!1 &3788651711030416191
 GameObject:
   m_ObjectHideFlags: 0

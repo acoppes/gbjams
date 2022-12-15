@@ -57,7 +57,7 @@ namespace Utils.Editor
             }
         }
 
-        [MenuItem("Refactor/Unused")]
+        [MenuItem("Refactor/Move controller to unit definition")]
         public static void RefactorMethod1()
         {
             RefactorTools.RefactorMonoBehaviour<PrefabEntityDefinition>(true, delegate(GameObject o)

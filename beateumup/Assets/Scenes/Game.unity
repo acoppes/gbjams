@@ -534,7 +534,7 @@ GameObject:
   - component: {fileID: 411734141}
   - component: {fileID: 411734142}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: Spawn()
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1154,7 +1154,6 @@ GameObject:
   - component: {fileID: 913019745}
   - component: {fileID: 913019748}
   - component: {fileID: 913019747}
-  - component: {fileID: 913019746}
   m_Layer: 0
   m_Name: EnemiesSpawnerDefinition
   m_TagString: Untagged
@@ -1178,19 +1177,6 @@ Transform:
   m_Father: {fileID: 1418367925}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &913019746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913019744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22fed36fba5545a590bfd73117b22da7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controllerObject: {fileID: 1569869850}
 --- !u!114 &913019747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,8 +1203,8 @@ MonoBehaviour:
   defaultHurtBoxAsset: {fileID: 0}
   spritesMetadata: {fileID: 0}
   hasStates: 1
-  hasController: 0
-  controllerObject: {fileID: 0}
+  hasController: 1
+  controllerObject: {fileID: 1569869850}
   hasGravity: 1
   gravityStartsDisabled: 0
   gravityScale: 0

@@ -1284,7 +1284,6 @@ GameObject:
   - component: {fileID: 3877063928650567355}
   - component: {fileID: 3877063928650567356}
   - component: {fileID: 3877063928650567357}
-  - component: {fileID: 3877063928650567354}
   m_Layer: 0
   m_Name: WarriorDefinition
   m_TagString: Untagged
@@ -1292,19 +1291,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &3877063928650567354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3877063928650567352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22fed36fba5545a590bfd73117b22da7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controllerObject: {fileID: 3877063927510504113}
 --- !u!4 &3877063928650567355
 Transform:
   m_ObjectHideFlags: 0
@@ -1363,8 +1349,8 @@ MonoBehaviour:
   defaultHurtBoxAsset: {fileID: 11400000, guid: 741438423c630254aa7fc8fdddbc517d, type: 2}
   spritesMetadata: {fileID: 11400000, guid: bc2e91ebf33e15441855e72c9293ddab, type: 2}
   hasStates: 1
-  hasController: 0
-  controllerObject: {fileID: 0}
+  hasController: 1
+  controllerObject: {fileID: 3877063927510504113}
   hasGravity: 1
   gravityStartsDisabled: 0
   gravityScale: 5

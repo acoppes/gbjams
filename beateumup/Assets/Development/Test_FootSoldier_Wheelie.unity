@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 747388688}
   - component: {fileID: 747388686}
   m_Layer: 0
-  m_Name: BackgroundInstance
+  m_Name: Spawn()
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -468,14 +468,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityName: 
+  singleton: 0
+  positionType: 1
   gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
-  startingLookingDirectionAngle: 0
-  entityName: 
-  singleton: 0
   overridePlayer: 0
   team: 0
+  overrideLookingDirection: 1
+  startingLookingDirectionAngle: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
@@ -653,14 +655,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityName: Character_Player_0
+  singleton: 1
+  positionType: 1
   gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
-  startingLookingDirectionAngle: 0
-  entityName: Character_Player_0
-  singleton: 1
   overridePlayer: 1
   team: 0
+  overrideLookingDirection: 1
+  startingLookingDirectionAngle: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
@@ -1131,7 +1135,6 @@ GameObject:
   - component: {fileID: 1814637028}
   - component: {fileID: 1814637031}
   - component: {fileID: 1814637030}
-  - component: {fileID: 1814637029}
   m_Layer: 0
   m_Name: BackgroundDefinition
   m_TagString: Untagged
@@ -1155,19 +1158,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1814637029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1814637027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22fed36fba5545a590bfd73117b22da7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controllerObject: {fileID: 2002651695}
 --- !u!114 &1814637030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1194,8 +1184,8 @@ MonoBehaviour:
   defaultHurtBoxAsset: {fileID: 0}
   spritesMetadata: {fileID: 0}
   hasStates: 1
-  hasController: 0
-  controllerObject: {fileID: 0}
+  hasController: 1
+  controllerObject: {fileID: 2002651695}
   hasGravity: 1
   gravityStartsDisabled: 0
   gravityScale: 1

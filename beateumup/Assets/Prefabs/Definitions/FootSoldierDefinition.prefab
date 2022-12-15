@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 478210605849480811}
   - component: {fileID: 478210605849480810}
   - component: {fileID: 478210605849480852}
-  - component: {fileID: -5211198163020410229}
   m_Layer: 0
   m_Name: FootSoldierDefinition
   m_TagString: Untagged
@@ -59,30 +58,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa08ba5941e4c2690b898d38e0ded1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthType: 0
+  hitPoints: 10
+  targetType: 1
+  movementType: 1
+  baseSpeed: 0
+  hasModel: 1
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
-  spritesMetadata: {fileID: 11400000, guid: 5d2ec2dbd3c56da409735d6b33dc9229, type: 2}
-  defaultHurtBoxAsset: {fileID: 11400000, guid: 1b3c90d96e6ca2443804c24c01661a41, type: 2}
-  isVfx: 0
-  gravityStartsDisabled: 1
-  gravityScale: 1
-  jumpSpeed: 10
+  remapTexturesPerPlayer: []
   hasAnimation: 1
   animationsAsset: {fileID: 11400000, guid: 013ac21cc4b0da14e8fd674abe32d94a, type: 2}
-  animationFps: 15
---- !u!114 &-5211198163020410229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478210605849480809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22fed36fba5545a590bfd73117b22da7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  defaultHurtBoxAsset: {fileID: 11400000, guid: 1b3c90d96e6ca2443804c24c01661a41, type: 2}
+  spritesMetadata: {fileID: 11400000, guid: 5d2ec2dbd3c56da409735d6b33dc9229, type: 2}
+  hasStates: 1
+  hasController: 1
   controllerObject: {fileID: 723953293149301519}
+  hasGravity: 1
+  gravityStartsDisabled: 1
+  gravityScale: 1
+  shapeType: 0
+  obstacleSize: 0.25
+  obstacleIsStatic: 0
+  hasKillCount: 0
+  isVfx: 0
+  jumpSpeed: 10
 --- !u!1 &723953293149301519
 GameObject:
   m_ObjectHideFlags: 0
