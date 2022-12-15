@@ -4,6 +4,7 @@ using System.Linq;
 using Beatemup.Definitions;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
+using Gemserk.Leopotam.Gameplay.Controllers;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -59,42 +60,30 @@ namespace Utils.Editor
         [MenuItem("Refactor/Unused")]
         public static void RefactorMethod1()
         {
-            // RefactorTools.RefactorMonoBehaviour<EntityPrefabInstance>(true, delegate(GameObject o)
-            // {
-            //     var modified = false;
-            //     
-            //     var unitInstanceParameter = o.GetComponent<UnitInstanceParameter>();
-            //     var nameInstanceParameter = o.GetComponent<NameInstanceParameter>();
-            //     var playerTeamInstanceParameter = o.GetComponent<PlayerTeamInstanceParameter>();
-            //
-            //     if (nameInstanceParameter != null || playerTeamInstanceParameter != null)
-            //     {
-            //         if (unitInstanceParameter == null)
-            //         {
-            //             unitInstanceParameter = o.AddComponent<UnitInstanceParameter>();
-            //         }
-            //     }
-            //     
-            //     if (nameInstanceParameter != null)
-            //     {
-            //         unitInstanceParameter.entityName = nameInstanceParameter.entityName;
-            //         unitInstanceParameter.singleton = nameInstanceParameter.singleton;
-            //
-            //         Object.DestroyImmediate(nameInstanceParameter);
-            //         modified = true;
-            //     }
-            //     
-            //     if (playerTeamInstanceParameter != null)
-            //     {
-            //         unitInstanceParameter.overridePlayer = true;
-            //         unitInstanceParameter.team = playerTeamInstanceParameter.team;
-            //
-            //         Object.DestroyImmediate(playerTeamInstanceParameter);
-            //         modified = true;
-            //     }
-            //     
-            //     return modified;
-            // });
+            RefactorTools.RefactorMonoBehaviour<PrefabEntityDefinition>(true, delegate(GameObject o)
+            {
+                var modified = false;
+                
+                var unitDefinition = o.GetComponent<UnitDefinition>();
+                var controllerDefinition = o.GetComponent<ControllerDefinition>();
+                
+                if (controllerDefinition != null && unitDefinition == null)
+                {
+                    unitDefinition = o.AddComponent<UnitDefinition>();
+                }
+                
+                if (controllerDefinition != null)
+                {
+                    unitDefinition.hasController = true;
+                    unitDefinition.controllerObject = controllerDefinition.controllerObject;
+                    
+                    Object.DestroyImmediate(controllerDefinition);
+                    
+                    modified = true;
+                }
+
+                return modified;
+            });
             
             // RefactorTools.RefactorAsset(delegate(HitboxAsset asset)
             // {
