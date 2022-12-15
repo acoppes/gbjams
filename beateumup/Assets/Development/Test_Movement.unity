@@ -328,7 +328,6 @@ GameObject:
   - component: {fileID: 267033971}
   - component: {fileID: 267033970}
   - component: {fileID: 267033969}
-  - component: {fileID: 267033968}
   m_Layer: 0
   m_Name: TargetPractice (4)
   m_TagString: Untagged
@@ -336,19 +335,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &267033968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 267033967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 1
 --- !u!114 &267033969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,9 +347,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 0
+  gamePerspective: {fileID: 0}
   controllable: 0
+  playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &267033970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,7 +484,6 @@ GameObject:
   - component: {fileID: 535375682}
   - component: {fileID: 535375681}
   - component: {fileID: 535375680}
-  - component: {fileID: 535375679}
   m_Layer: 0
   m_Name: TargetPractice (2)
   m_TagString: Untagged
@@ -496,19 +491,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &535375679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 535375678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 1
 --- !u!114 &535375680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,9 +503,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 0
+  gamePerspective: {fileID: 0}
   controllable: 0
+  playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &535375681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,10 +674,9 @@ GameObject:
   m_Component:
   - component: {fileID: 809613851}
   - component: {fileID: 809613850}
-  - component: {fileID: 809613849}
   - component: {fileID: 809613848}
   m_Layer: 0
-  m_Name: PlayerCharacter (1)
+  m_Name: Spawn(Character_Player_1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -703,23 +694,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 1
+  gamePerspective: {fileID: 0}
   controllable: 1
+  playerInput: 1
   startingLookingDirectionAngle: 180
---- !u!114 &809613849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 809613847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   entityName: Character_Player_1
   singleton: 1
+  overridePlayer: 0
+  team: 0
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &809613850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,11 +746,9 @@ GameObject:
   m_Component:
   - component: {fileID: 826438697}
   - component: {fileID: 826438696}
-  - component: {fileID: 826438698}
   - component: {fileID: 826438699}
-  - component: {fileID: 826438700}
   m_Layer: 0
-  m_Name: PlayerCharacter
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -798,20 +783,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &826438698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826438695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
 --- !u!114 &826438699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,22 +795,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 0
+  gamePerspective: {fileID: 0}
   controllable: 1
+  playerInput: 0
   startingLookingDirectionAngle: 0
---- !u!114 &826438700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826438695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &874927740
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +819,6 @@ GameObject:
   - component: {fileID: 874927742}
   - component: {fileID: 874927741}
   - component: {fileID: 874927743}
-  - component: {fileID: 874927744}
   m_Layer: 0
   m_Name: TargetPractice
   m_TagString: Untagged
@@ -900,22 +867,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 0
+  gamePerspective: {fileID: 0}
   controllable: 0
+  playerInput: 0
   startingLookingDirectionAngle: 180
---- !u!114 &874927744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 874927740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 1
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &902410104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,29 +1142,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1595395282}
   - component: {fileID: 1595395281}
-  - component: {fileID: 1595395280}
   - component: {fileID: 1595395279}
-  - component: {fileID: 1595395278}
   m_Layer: 0
-  m_Name: PlayerCharacter (4)
+  m_Name: Spawn(Character_Player_1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1595395278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595395277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 0
 --- !u!114 &1595395279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,23 +1162,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 1
+  gamePerspective: {fileID: 0}
   controllable: 1
+  playerInput: 1
   startingLookingDirectionAngle: 0
---- !u!114 &1595395280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595395277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   entityName: Character_Player_1
   singleton: 1
+  overridePlayer: 1
+  team: 0
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1595395281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,7 +1215,6 @@ GameObject:
   - component: {fileID: 1731622978}
   - component: {fileID: 1731622977}
   - component: {fileID: 1731622976}
-  - component: {fileID: 1731622975}
   m_Layer: 0
   m_Name: TargetPractice (3)
   m_TagString: Untagged
@@ -1278,19 +1222,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1731622975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731622974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 1
 --- !u!114 &1731622976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1303,9 +1234,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 0
+  gamePerspective: {fileID: 0}
   controllable: 0
+  playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1731622977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1346,7 +1287,6 @@ GameObject:
   - component: {fileID: 1835204079}
   - component: {fileID: 1835204078}
   - component: {fileID: 1835204077}
-  - component: {fileID: 1835204076}
   m_Layer: 0
   m_Name: TargetPractice (1)
   m_TagString: Untagged
@@ -1354,19 +1294,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1835204076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835204075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 1
 --- !u!114 &1835204077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1379,9 +1306,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 0
+  gamePerspective: {fileID: 0}
   controllable: 0
+  playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1835204078
 MonoBehaviour:
   m_ObjectHideFlags: 0

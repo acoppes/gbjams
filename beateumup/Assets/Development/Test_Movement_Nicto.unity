@@ -328,7 +328,6 @@ GameObject:
   - component: {fileID: 16739458}
   - component: {fileID: 16739461}
   - component: {fileID: 16739460}
-  - component: {fileID: 16739459}
   m_Layer: 0
   m_Name: Enemy (10)
   m_TagString: Untagged
@@ -351,19 +350,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &16739459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16739457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &16739460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,12 +362,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &16739461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,11 +466,9 @@ GameObject:
   m_Component:
   - component: {fileID: 34886692}
   - component: {fileID: 34886696}
-  - component: {fileID: 34886695}
   - component: {fileID: 34886694}
-  - component: {fileID: 34886693}
   m_Layer: 0
-  m_Name: PlayerCharacterInstance
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -498,19 +489,6 @@ Transform:
   m_Father: {fileID: 1601265609}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &34886693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 34886691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &34886694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,26 +501,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &34886695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 34886691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &34886696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,11 +538,9 @@ GameObject:
   m_Component:
   - component: {fileID: 62019162}
   - component: {fileID: 62019166}
-  - component: {fileID: 62019165}
   - component: {fileID: 62019164}
-  - component: {fileID: 62019163}
   m_Layer: 0
-  m_Name: PlayerCharacterInstance
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -592,19 +561,6 @@ Transform:
   m_Father: {fileID: 1620363500}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &62019163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 62019161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &62019164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,26 +573,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &62019165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 62019161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &62019166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,10 +611,8 @@ GameObject:
   - component: {fileID: 65036742}
   - component: {fileID: 65036746}
   - component: {fileID: 65036745}
-  - component: {fileID: 65036744}
-  - component: {fileID: 65036743}
   m_Layer: 0
-  m_Name: TargetPractice (2)
+  m_Name: Spawn(Enemy_Character)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -686,33 +633,6 @@ Transform:
   m_Father: {fileID: 1646299522}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &65036743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 65036741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Enemy_Character
-  singleton: 1
---- !u!114 &65036744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 65036741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &65036745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,12 +645,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 180
+  entityName: Enemy_Character
+  singleton: 1
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &65036746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1518,11 +1445,9 @@ GameObject:
   m_Component:
   - component: {fileID: 146761414}
   - component: {fileID: 146761418}
-  - component: {fileID: 146761417}
   - component: {fileID: 146761416}
-  - component: {fileID: 146761415}
   m_Layer: 0
-  m_Name: PlayerCharacter (4)
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,19 +1468,6 @@ Transform:
   m_Father: {fileID: 1352424860}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &146761415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 146761413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &146761416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1568,26 +1480,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &146761417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 146761413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &146761418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1612,11 +1517,9 @@ GameObject:
   m_Component:
   - component: {fileID: 208857332}
   - component: {fileID: 208857336}
-  - component: {fileID: 208857335}
   - component: {fileID: 208857334}
-  - component: {fileID: 208857333}
   m_Layer: 0
-  m_Name: PlayerCharacterInstance
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1637,19 +1540,6 @@ Transform:
   m_Father: {fileID: 1773042941}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &208857333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 208857331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &208857334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1662,26 +1552,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &208857335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 208857331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &208857336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2444,10 +2327,8 @@ GameObject:
   m_Component:
   - component: {fileID: 294205971}
   - component: {fileID: 294205974}
-  - component: {fileID: 294205973}
-  - component: {fileID: 294205975}
   m_Layer: 0
-  m_Name: Parameters
+  m_Name: Spawn(Enemy_Soldier)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2468,19 +2349,6 @@ Transform:
   m_Father: {fileID: 6875636742205885258}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &294205973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294205970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &294205974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2493,26 +2361,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Enemy_Soldier
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &294205975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294205970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Enemy_Soldier
-  singleton: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &321795730
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,7 +2385,6 @@ GameObject:
   - component: {fileID: 321795731}
   - component: {fileID: 321795734}
   - component: {fileID: 321795733}
-  - component: {fileID: 321795732}
   m_Layer: 0
   m_Name: Enemy (6)
   m_TagString: Untagged
@@ -2547,19 +2407,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &321795732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 321795730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &321795733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2572,12 +2419,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &321795734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3056,7 +2910,6 @@ GameObject:
   - component: {fileID: 360279489}
   - component: {fileID: 360279492}
   - component: {fileID: 360279491}
-  - component: {fileID: 360279490}
   m_Layer: 0
   m_Name: Enemy (4)
   m_TagString: Untagged
@@ -3079,19 +2932,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &360279490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360279488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &360279491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3104,12 +2944,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &360279492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3210,11 +3057,9 @@ GameObject:
   m_Component:
   - component: {fileID: 381216742}
   - component: {fileID: 381216746}
-  - component: {fileID: 381216745}
   - component: {fileID: 381216744}
-  - component: {fileID: 381216743}
   m_Layer: 0
-  m_Name: PlayerCharacter (4)
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3235,19 +3080,6 @@ Transform:
   m_Father: {fileID: 287686710}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &381216743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381216741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &381216744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3260,26 +3092,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &381216745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381216741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &381216746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3305,7 +3130,6 @@ GameObject:
   - component: {fileID: 381912509}
   - component: {fileID: 381912512}
   - component: {fileID: 381912511}
-  - component: {fileID: 381912510}
   m_Layer: 0
   m_Name: Enemy (11)
   m_TagString: Untagged
@@ -3328,19 +3152,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &381912510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381912508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &381912511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3353,12 +3164,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &381912512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3439,11 +3257,9 @@ GameObject:
   m_Component:
   - component: {fileID: 392901883}
   - component: {fileID: 392901887}
-  - component: {fileID: 392901886}
   - component: {fileID: 392901885}
-  - component: {fileID: 392901884}
   m_Layer: 0
-  m_Name: PlayerCharacterInstance
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3464,19 +3280,6 @@ Transform:
   m_Father: {fileID: 797650867}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &392901884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392901882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &392901885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3489,26 +3292,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &392901886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392901882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &392901887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3925,7 +3721,6 @@ GameObject:
   - component: {fileID: 449039461}
   - component: {fileID: 449039465}
   - component: {fileID: 449039463}
-  - component: {fileID: 449039462}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -3948,19 +3743,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &449039462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449039460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &449039463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3973,12 +3755,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &449039465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4157,6 +3946,7 @@ MonoBehaviour:
   hitPoints: 10
   targetType: 1
   movementType: 1
+  baseSpeed: 0
   hasModel: 1
   modelPrefab: {fileID: 0}
   hasShadow: 0
@@ -4171,9 +3961,10 @@ MonoBehaviour:
   hasGravity: 1
   gravityStartsDisabled: 0
   gravityScale: 0
-  obstacleType: 0
+  shapeType: 0
   obstacleSize: 0.25
   obstacleIsStatic: 0
+  hasKillCount: 0
   isVfx: 0
   jumpSpeed: 0
 --- !u!114 &468582988
@@ -4343,42 +4134,13 @@ GameObject:
   - component: {fileID: 483068600}
   - component: {fileID: 483068599}
   - component: {fileID: 483068598}
-  - component: {fileID: 483068597}
-  - component: {fileID: 483068596}
   m_Layer: 0
-  m_Name: TargetPractice (2)
+  m_Name: Spawn(Enemy_Character)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &483068596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483068595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Enemy_Character
-  singleton: 1
---- !u!114 &483068597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483068595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &483068598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4391,12 +4153,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 180
+  entityName: Enemy_Character
+  singleton: 1
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &483068599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4806,45 +4575,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bafb20f59894a6cb19240412654a424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 8
+  dashFrontIntensity: 1
   dashFrontTime: 0.15
   dashBackTime: 0.15
-  dashHeightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.6828916
-      outSlope: 0.6828916
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.22255963
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.034957644
-      outSlope: -0.034957644
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.813007
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  dashSpeed: 15
-  dashBackJumpSpeed: {x: 15, y: 20}
-  dashBackJumpMaxHeight: 5
+  dashHeight: 1
   dashRecoverySpeed: 10
   dashRecoveryTime: 0.2
   dashRecoverySpeedCurve:
@@ -4877,78 +4611,13 @@ MonoBehaviour:
   - Attack2
   - AttackFinisher
   attackCooldown: 0.2
-  knockbackBaseSpeed: 15
   knockbackCurveSpeed: 3
   knockbackMaxHeight: 1.5
-  knockbackHorizontalCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -0.25
-      outSlope: -0.25
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.75
-      inSlope: -0.25
-      outSlope: -3.233018
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0.057802014
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  knockbackCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 10.1107
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.059578974
-    - serializedVersion: 3
-      time: 0.16897091
-      value: 0.81709313
-      inSlope: 1.6642463
-      outSlope: 1.6642463
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.20704347
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: -0.24587251
-      outSlope: -0.24587251
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.20134223
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -3.6991072
-      outSlope: -2
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.06375837
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   knockbackDownTime: 0.25
   knockbackRandomAngle: 10
+  knockbackHorizontalIntensity: 1
   deathBodyDefinition: {fileID: 5504142449425449193, guid: 177a2598b39663b4cadb2195e0da17d1, type: 3}
+  hitStopTime: 0.13333334
 --- !u!1 &532949543
 GameObject:
   m_ObjectHideFlags: 0
@@ -6001,7 +5670,6 @@ GameObject:
   - component: {fileID: 669877919}
   - component: {fileID: 669877922}
   - component: {fileID: 669877921}
-  - component: {fileID: 669877920}
   m_Layer: 0
   m_Name: Enemy (5)
   m_TagString: Untagged
@@ -6024,19 +5692,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &669877920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 669877918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &669877921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6049,12 +5704,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &669877922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6164,7 +5826,6 @@ GameObject:
   - component: {fileID: 690483637}
   - component: {fileID: 690483640}
   - component: {fileID: 690483639}
-  - component: {fileID: 690483638}
   m_Layer: 0
   m_Name: Enemy (14)
   m_TagString: Untagged
@@ -6187,19 +5848,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &690483638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690483636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &690483639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6212,12 +5860,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &690483640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6327,7 +5982,6 @@ GameObject:
   - component: {fileID: 692928492}
   - component: {fileID: 692928495}
   - component: {fileID: 692928494}
-  - component: {fileID: 692928493}
   m_Layer: 0
   m_Name: Enemy (13)
   m_TagString: Untagged
@@ -6350,19 +6004,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &692928493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692928491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &692928494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6375,12 +6016,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &692928495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7161,7 +6809,6 @@ GameObject:
   - component: {fileID: 725352947}
   - component: {fileID: 725352950}
   - component: {fileID: 725352949}
-  - component: {fileID: 725352948}
   m_Layer: 0
   m_Name: Enemy (7)
   m_TagString: Untagged
@@ -7184,19 +6831,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &725352948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 725352946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &725352949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7209,12 +6843,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &725352950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7909,6 +7550,7 @@ MonoBehaviour:
   hitPoints: 10
   targetType: 1
   movementType: 1
+  baseSpeed: 0
   hasModel: 1
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
@@ -7923,9 +7565,10 @@ MonoBehaviour:
   hasGravity: 1
   gravityStartsDisabled: 0
   gravityScale: 7.5
-  obstacleType: 0
+  shapeType: 0
   obstacleSize: 0.25
   obstacleIsStatic: 0
+  hasKillCount: 0
   isVfx: 0
   jumpSpeed: 0
 --- !u!114 &792263099
@@ -8060,45 +7703,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bafb20f59894a6cb19240412654a424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 8
+  dashFrontIntensity: 1
   dashFrontTime: 0.15
   dashBackTime: 0.15
-  dashHeightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.6828916
-      outSlope: 0.6828916
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.22255963
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.034957644
-      outSlope: -0.034957644
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.813007
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  dashSpeed: 15
-  dashBackJumpSpeed: {x: 15, y: 20}
-  dashBackJumpMaxHeight: 5
+  dashHeight: 1
   dashRecoverySpeed: 10
   dashRecoveryTime: 0.2
   dashRecoverySpeedCurve:
@@ -8131,60 +7739,13 @@ MonoBehaviour:
   - Attack2
   - AttackFinisher
   attackCooldown: 0.2
-  knockbackBaseSpeed: 0
   knockbackCurveSpeed: 1
   knockbackMaxHeight: 1
-  knockbackHorizontalCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  knockbackCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   knockbackDownTime: 1
   knockbackRandomAngle: 0
+  knockbackHorizontalIntensity: 1
   deathBodyDefinition: {fileID: 0}
+  hitStopTime: 0.13333334
 --- !u!1 &803355692
 GameObject:
   m_ObjectHideFlags: 0
@@ -8195,10 +7756,8 @@ GameObject:
   m_Component:
   - component: {fileID: 803355693}
   - component: {fileID: 803355696}
-  - component: {fileID: 803355695}
-  - component: {fileID: 803355694}
   m_Layer: 0
-  m_Name: Parameters
+  m_Name: Spawn(Enemy_Soldier)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8219,33 +7778,6 @@ Transform:
   m_Father: {fileID: 1366759769}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &803355694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803355692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Enemy_Soldier
-  singleton: 0
---- !u!114 &803355695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803355692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &803355696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8258,12 +7790,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Enemy_Soldier
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1001 &815458540
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8785,7 +8324,6 @@ GameObject:
   - component: {fileID: 841687958}
   - component: {fileID: 841687961}
   - component: {fileID: 841687960}
-  - component: {fileID: 841687959}
   m_Layer: 0
   m_Name: Enemy (12)
   m_TagString: Untagged
@@ -8808,19 +8346,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &841687959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841687957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &841687960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8833,12 +8358,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &841687961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8864,7 +8396,6 @@ GameObject:
   - component: {fileID: 850376338}
   - component: {fileID: 850376341}
   - component: {fileID: 850376340}
-  - component: {fileID: 850376339}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -8887,19 +8418,6 @@ Transform:
   m_Father: {fileID: 1507477127}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &850376339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 850376337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &850376340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8912,12 +8430,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &850376341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9333,6 +8858,7 @@ MonoBehaviour:
   hitPoints: 10
   targetType: 1
   movementType: 0
+  baseSpeed: 0
   hasModel: 0
   modelPrefab: {fileID: 0}
   hasShadow: 0
@@ -9347,9 +8873,10 @@ MonoBehaviour:
   hasGravity: 0
   gravityStartsDisabled: 0
   gravityScale: 0
-  obstacleType: 0
+  shapeType: 0
   obstacleSize: 0.25
   obstacleIsStatic: 0
+  hasKillCount: 0
   isVfx: 0
   jumpSpeed: 0
 --- !u!114 &913019748
@@ -9638,6 +9165,7 @@ MonoBehaviour:
   hitPoints: 10
   targetType: 1
   movementType: 1
+  baseSpeed: 0
   hasModel: 1
   modelPrefab: {fileID: 0}
   hasShadow: 0
@@ -9652,9 +9180,10 @@ MonoBehaviour:
   hasGravity: 1
   gravityStartsDisabled: 0
   gravityScale: 0
-  obstacleType: 0
+  shapeType: 0
   obstacleSize: 0.25
   obstacleIsStatic: 0
+  hasKillCount: 0
   isVfx: 0
   jumpSpeed: 0
 --- !u!114 &966480787
@@ -10036,11 +9565,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1001510966}
   - component: {fileID: 1001510970}
-  - component: {fileID: 1001510969}
   - component: {fileID: 1001510968}
-  - component: {fileID: 1001510967}
   m_Layer: 0
-  m_Name: PlayerCharacter (4)
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10061,19 +9588,6 @@ Transform:
   m_Father: {fileID: 1646299522}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1001510967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001510965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &1001510968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10086,26 +9600,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &1001510969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001510965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1001510970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10141,7 +9648,6 @@ GameObject:
   - component: {fileID: 1023011561}
   - component: {fileID: 1023011564}
   - component: {fileID: 1023011563}
-  - component: {fileID: 1023011562}
   m_Layer: 0
   m_Name: Enemy (2)
   m_TagString: Untagged
@@ -10164,19 +9670,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1023011562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023011560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1023011563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10189,12 +9682,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1023011564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10219,10 +9719,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1026286877}
   - component: {fileID: 1026286880}
-  - component: {fileID: 1026286879}
-  - component: {fileID: 1026286878}
   m_Layer: 0
-  m_Name: Parameters
+  m_Name: Spawn(Enemy_Soldier)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10243,33 +9741,6 @@ Transform:
   m_Father: {fileID: 1569869851}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1026286878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026286876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Enemy_Soldier
-  singleton: 0
---- !u!114 &1026286879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026286876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1026286880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10282,12 +9753,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Enemy_Soldier
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &1029331926
 GameObject:
   m_ObjectHideFlags: 0
@@ -10936,7 +10414,6 @@ GameObject:
   - component: {fileID: 1074641171}
   - component: {fileID: 1074641174}
   - component: {fileID: 1074641173}
-  - component: {fileID: 1074641172}
   m_Layer: 0
   m_Name: Enemy (9)
   m_TagString: Untagged
@@ -10959,19 +10436,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1074641172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074641170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1074641173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10984,12 +10448,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1074641174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11014,11 +10485,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1082387372}
   - component: {fileID: 1082387376}
-  - component: {fileID: 1082387375}
   - component: {fileID: 1082387374}
-  - component: {fileID: 1082387373}
   m_Layer: 0
-  m_Name: PlayerCharacterInstance
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11039,19 +10508,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1082387373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1082387371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &1082387374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11064,26 +10520,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &1082387375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1082387371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1082387376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11480,11 +10929,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1128711310}
   - component: {fileID: 1128711314}
-  - component: {fileID: 1128711313}
   - component: {fileID: 1128711312}
-  - component: {fileID: 1128711311}
   m_Layer: 0
-  m_Name: PlayerCharacterInstance
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11505,19 +10952,6 @@ Transform:
   m_Father: {fileID: 1507477127}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1128711311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128711309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &1128711312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11530,26 +10964,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &1128711313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128711309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1128711314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12064,29 +11491,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1173806592}
   - component: {fileID: 1173806591}
-  - component: {fileID: 1173806590}
   - component: {fileID: 1173806589}
-  - component: {fileID: 1173806588}
   m_Layer: 0
-  m_Name: PlayerCharacter (4)
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1173806588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173806587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &1173806589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12099,26 +11511,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &1173806590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173806587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1173806591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12322,11 +11727,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1186166957}
   - component: {fileID: 1186166961}
-  - component: {fileID: 1186166960}
   - component: {fileID: 1186166959}
-  - component: {fileID: 1186166958}
   m_Layer: 0
-  m_Name: TrainingTarget
+  m_Name: Spawn(Enemy_Character)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12347,19 +11750,6 @@ Transform:
   m_Father: {fileID: 1773042941}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1186166958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186166956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1186166959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12372,26 +11762,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Enemy_Character
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &1186166960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186166956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Enemy_Character
-  singleton: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1186166961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14818,11 +14201,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1407458110}
   - component: {fileID: 1407458114}
-  - component: {fileID: 1407458113}
   - component: {fileID: 1407458112}
-  - component: {fileID: 1407458111}
   m_Layer: 0
-  m_Name: PlayerCharacterInstance (1)
+  m_Name: Spawn(Character_Player_1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14843,19 +14224,6 @@ Transform:
   m_Father: {fileID: 1620363500}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1407458111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1407458109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1407458112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14868,26 +14236,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 1
   startingLookingDirectionAngle: 180
+  entityName: Character_Player_1
+  singleton: 1
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &1407458113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1407458109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_1
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1407458114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15474,11 +14835,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1465324018}
   - component: {fileID: 1465324022}
-  - component: {fileID: 1465324021}
   - component: {fileID: 1465324020}
-  - component: {fileID: 1465324019}
   m_Layer: 0
-  m_Name: PlayerCharacterInstance
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15499,19 +14858,6 @@ Transform:
   m_Father: {fileID: 1308591876}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1465324019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465324017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &1465324020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15524,26 +14870,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &1465324021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465324017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1465324022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15569,10 +14908,8 @@ GameObject:
   - component: {fileID: 1468095958}
   - component: {fileID: 1468095962}
   - component: {fileID: 1468095961}
-  - component: {fileID: 1468095960}
-  - component: {fileID: 1468095959}
   m_Layer: 0
-  m_Name: TargetPractice (2)
+  m_Name: Spawn(Enemy_Character)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15593,33 +14930,6 @@ Transform:
   m_Father: {fileID: 1352424860}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1468095959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468095957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Enemy_Character
-  singleton: 1
---- !u!114 &1468095960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468095957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1468095961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15632,12 +14942,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 180
+  entityName: Enemy_Character
+  singleton: 1
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1468095962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16239,11 +15556,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1555119730}
   - component: {fileID: 1555119734}
-  - component: {fileID: 1555119733}
   - component: {fileID: 1555119732}
-  - component: {fileID: 1555119731}
   m_Layer: 0
-  m_Name: PlayerCharacterInstance
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16264,19 +15579,6 @@ Transform:
   m_Father: {fileID: 997173960}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1555119731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555119729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &1555119732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16289,26 +15591,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 1
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &1555119733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555119729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1555119734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16676,7 +15971,6 @@ GameObject:
   - component: {fileID: 1585564941}
   - component: {fileID: 1585564944}
   - component: {fileID: 1585564943}
-  - component: {fileID: 1585564942}
   m_Layer: 0
   m_Name: Enemy (3)
   m_TagString: Untagged
@@ -16699,19 +15993,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1585564942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1585564940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1585564943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16724,12 +16005,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1585564944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17353,7 +16641,6 @@ GameObject:
   - component: {fileID: 1663626369}
   - component: {fileID: 1663626372}
   - component: {fileID: 1663626371}
-  - component: {fileID: 1663626370}
   m_Layer: 0
   m_Name: Enemy (15)
   m_TagString: Untagged
@@ -17376,19 +16663,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1663626370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663626368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1663626371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17401,12 +16675,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1663626372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17946,10 +17227,8 @@ GameObject:
   - component: {fileID: 1732120353}
   - component: {fileID: 1732120357}
   - component: {fileID: 1732120356}
-  - component: {fileID: 1732120355}
-  - component: {fileID: 1732120354}
   m_Layer: 0
-  m_Name: TargetPractice (2)
+  m_Name: Spawn(Enemy_Character)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17970,33 +17249,6 @@ Transform:
   m_Father: {fileID: 287686710}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1732120354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732120352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Enemy_Character
-  singleton: 1
---- !u!114 &1732120355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732120352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1732120356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18009,12 +17261,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 180
+  entityName: Enemy_Character
+  singleton: 1
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1732120357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18073,45 +17332,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bafb20f59894a6cb19240412654a424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 8
+  dashFrontIntensity: 1
   dashFrontTime: 0.15
   dashBackTime: 0.15
-  dashHeightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.6828916
-      outSlope: 0.6828916
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.22255963
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.034957644
-      outSlope: -0.034957644
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.813007
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  dashSpeed: 15
-  dashBackJumpSpeed: {x: 15, y: 20}
-  dashBackJumpMaxHeight: 5
+  dashHeight: 1
   dashRecoverySpeed: 10
   dashRecoveryTime: 0.2
   dashRecoverySpeedCurve:
@@ -18144,78 +17368,13 @@ MonoBehaviour:
   - Attack2
   - AttackFinisher
   attackCooldown: 0.2
-  knockbackBaseSpeed: 15
   knockbackCurveSpeed: 3
   knockbackMaxHeight: 1.5
-  knockbackHorizontalCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -0.25
-      outSlope: -0.25
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.75
-      inSlope: -0.25
-      outSlope: -3.233018
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0.057802014
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  knockbackCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 10.1107
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.059578974
-    - serializedVersion: 3
-      time: 0.16897091
-      value: 0.81709313
-      inSlope: 1.6642463
-      outSlope: 1.6642463
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.20704347
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: -0.24587251
-      outSlope: -0.24587251
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.20134223
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -3.6991072
-      outSlope: -2
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.06375837
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   knockbackDownTime: 0.25
   knockbackRandomAngle: 10
+  knockbackHorizontalIntensity: 1
   deathBodyDefinition: {fileID: 5504142449425449193, guid: 177a2598b39663b4cadb2195e0da17d1, type: 3}
+  hitStopTime: 0.13333334
 --- !u!1001 &1769891371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18816,6 +17975,7 @@ MonoBehaviour:
   hitPoints: 2222
   targetType: 1
   movementType: 1
+  baseSpeed: 0
   hasModel: 1
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
@@ -18830,9 +17990,10 @@ MonoBehaviour:
   hasGravity: 1
   gravityStartsDisabled: 1
   gravityScale: 7.5
-  obstacleType: 1
+  shapeType: 1
   obstacleSize: 0.5
   obstacleIsStatic: 0
+  hasKillCount: 0
   isVfx: 0
   jumpSpeed: 0
 --- !u!114 &1813882318
@@ -19021,10 +18182,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1836419727}
   - component: {fileID: 1836419730}
-  - component: {fileID: 1836419729}
-  - component: {fileID: 1836419728}
   m_Layer: 0
-  m_Name: Parameters
+  m_Name: Spawn(Enemy_Soldier)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19045,33 +18204,6 @@ Transform:
   m_Father: {fileID: 390593037}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1836419728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836419726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Enemy_Soldier
-  singleton: 0
---- !u!114 &1836419729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836419726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1836419730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19084,12 +18216,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Enemy_Soldier
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &1860497927
 GameObject:
   m_ObjectHideFlags: 0
@@ -19268,7 +18407,6 @@ GameObject:
   - component: {fileID: 1906894258}
   - component: {fileID: 1906894261}
   - component: {fileID: 1906894260}
-  - component: {fileID: 1906894259}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -19291,19 +18429,6 @@ Transform:
   m_Father: {fileID: 797650867}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1906894259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906894257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1906894260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19316,12 +18441,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1906894261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20163,11 +19295,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1999415269}
   - component: {fileID: 1999415273}
-  - component: {fileID: 1999415272}
   - component: {fileID: 1999415271}
-  - component: {fileID: 1999415270}
   m_Layer: 0
-  m_Name: TrainingTarget
+  m_Name: Spawn(Enemy_Character)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20188,19 +19318,6 @@ Transform:
   m_Father: {fileID: 1620363500}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1999415270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1999415268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1999415271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20213,26 +19330,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: Enemy_Character
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
---- !u!114 &1999415272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1999415268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Enemy_Character
-  singleton: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &1999415273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20258,7 +19368,6 @@ GameObject:
   - component: {fileID: 2003518112}
   - component: {fileID: 2003518115}
   - component: {fileID: 2003518114}
-  - component: {fileID: 2003518113}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Untagged
@@ -20281,19 +19390,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2003518113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2003518111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &2003518114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20306,12 +19402,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &2003518115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20693,7 +19796,6 @@ GameObject:
   - component: {fileID: 2053708267}
   - component: {fileID: 2053708270}
   - component: {fileID: 2053708269}
-  - component: {fileID: 2053708268}
   m_Layer: 0
   m_Name: Enemy (8)
   m_TagString: Untagged
@@ -20716,19 +19818,6 @@ Transform:
   m_Father: {fileID: 1237332594}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2053708268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053708266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &2053708269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20741,12 +19830,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
   controllable: 0
   playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
   overrideAnimation: 1
   startingAnimation: Idle
   randomizeStartFrame: 1
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &2053708270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20966,6 +20062,7 @@ MonoBehaviour:
   hitPoints: 2222
   targetType: 1
   movementType: 1
+  baseSpeed: 0
   hasModel: 1
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
@@ -20980,9 +20077,10 @@ MonoBehaviour:
   hasGravity: 1
   gravityStartsDisabled: 1
   gravityScale: 7.5
-  obstacleType: 1
+  shapeType: 1
   obstacleSize: 0.5
   obstacleIsStatic: 0
+  hasKillCount: 0
   isVfx: 0
   jumpSpeed: 0
 --- !u!114 &2086675999
@@ -21364,6 +20462,7 @@ MonoBehaviour:
   hitPoints: 10
   targetType: 1
   movementType: 1
+  baseSpeed: 0
   hasModel: 1
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
@@ -21378,9 +20477,10 @@ MonoBehaviour:
   hasGravity: 1
   gravityStartsDisabled: 0
   gravityScale: 7.5
-  obstacleType: 0
+  shapeType: 0
   obstacleSize: 0.25
   obstacleIsStatic: 0
+  hasKillCount: 0
   isVfx: 0
   jumpSpeed: 0
 --- !u!114 &478210606166349212
@@ -21506,45 +20606,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bafb20f59894a6cb19240412654a424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 8
+  dashFrontIntensity: 1
   dashFrontTime: 0.15
   dashBackTime: 0.15
-  dashHeightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.6828916
-      outSlope: 0.6828916
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.22255963
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.034957644
-      outSlope: -0.034957644
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.813007
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  dashSpeed: 15
-  dashBackJumpSpeed: {x: 15, y: 20}
-  dashBackJumpMaxHeight: 5
+  dashHeight: 1
   dashRecoverySpeed: 10
   dashRecoveryTime: 0.2
   dashRecoverySpeedCurve:
@@ -21577,78 +20642,13 @@ MonoBehaviour:
   - Attack2
   - AttackFinisher
   attackCooldown: 0.2
-  knockbackBaseSpeed: 15
   knockbackCurveSpeed: 3
   knockbackMaxHeight: 1.5
-  knockbackHorizontalCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -0.25
-      outSlope: -0.25
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.75
-      inSlope: -0.25
-      outSlope: -3.233018
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0.057802014
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  knockbackCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 10.1107
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.059578974
-    - serializedVersion: 3
-      time: 0.16897091
-      value: 0.81709313
-      inSlope: 1.6642463
-      outSlope: 1.6642463
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.20704347
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: -0.24587251
-      outSlope: -0.24587251
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.20134223
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -3.6991072
-      outSlope: -2
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.06375837
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   knockbackDownTime: 0.25
   knockbackRandomAngle: 10
+  knockbackHorizontalIntensity: 1
   deathBodyDefinition: {fileID: 5504142449425449193, guid: 177a2598b39663b4cadb2195e0da17d1, type: 3}
+  hitStopTime: 0.13333334
 --- !u!1 &828525774108503393
 GameObject:
   m_ObjectHideFlags: 0
@@ -21699,6 +20699,7 @@ MonoBehaviour:
   hitPoints: 6
   targetType: 1
   movementType: 1
+  baseSpeed: 0
   hasModel: 1
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
@@ -21713,9 +20714,10 @@ MonoBehaviour:
   hasGravity: 1
   gravityStartsDisabled: 1
   gravityScale: 7.5
-  obstacleType: 1
+  shapeType: 1
   obstacleSize: 0.5
   obstacleIsStatic: 0
+  hasKillCount: 0
   isVfx: 0
   jumpSpeed: 0
 --- !u!114 &828525774108503397
@@ -21752,45 +20754,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bafb20f59894a6cb19240412654a424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 8
+  dashFrontIntensity: 1
   dashFrontTime: 0.2
   dashBackTime: 0.2
-  dashHeightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.6828916
-      outSlope: 0.6828916
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.22255963
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.034957644
-      outSlope: -0.034957644
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.813007
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  dashSpeed: 15
-  dashBackJumpSpeed: {x: 15, y: 20}
-  dashBackJumpMaxHeight: 5
+  dashHeight: 1
   dashRecoverySpeed: 10
   dashRecoveryTime: 0.2
   dashRecoverySpeedCurve:
@@ -21823,60 +20790,13 @@ MonoBehaviour:
   - Attack2
   - AttackFinisher
   attackCooldown: 0.2
-  knockbackBaseSpeed: 0
   knockbackCurveSpeed: 1
   knockbackMaxHeight: 1
-  knockbackHorizontalCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  knockbackCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   knockbackDownTime: 1
   knockbackRandomAngle: 0
+  knockbackHorizontalIntensity: 1
   deathBodyDefinition: {fileID: 0}
+  hitStopTime: 0.13333334
 --- !u!1001 &3877063927533490409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22071,6 +20991,7 @@ MonoBehaviour:
   hitPoints: 10
   targetType: 1
   movementType: 1
+  baseSpeed: 0
   hasModel: 1
   modelPrefab: {fileID: 0}
   hasShadow: 0
@@ -22085,9 +21006,10 @@ MonoBehaviour:
   hasGravity: 1
   gravityStartsDisabled: 0
   gravityScale: 0
-  obstacleType: 0
+  shapeType: 0
   obstacleSize: 0.25
   obstacleIsStatic: 0
+  hasKillCount: 0
   isVfx: 0
   jumpSpeed: 0
 --- !u!1001 &6848213690532328228

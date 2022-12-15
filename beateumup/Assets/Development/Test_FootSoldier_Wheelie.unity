@@ -468,9 +468,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 0
+  gamePerspective: {fileID: 0}
   controllable: 0
+  playerInput: 0
   startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 0
+  team: 0
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!114 &747388688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,11 +604,9 @@ GameObject:
   m_Component:
   - component: {fileID: 826438697}
   - component: {fileID: 826438696}
-  - component: {fileID: 826438698}
   - component: {fileID: 826438699}
-  - component: {fileID: 826438700}
   m_Layer: 0
-  m_Name: PlayerCharacter
+  m_Name: Spawn(Character_Player_0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -633,20 +641,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &826438698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826438695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Character_Player_0
-  singleton: 1
 --- !u!114 &826438699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,22 +653,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 0
+  gamePerspective: {fileID: 0}
   controllable: 1
+  playerInput: 0
   startingLookingDirectionAngle: 0
---- !u!114 &826438700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826438695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 0
+  entityName: Character_Player_0
+  singleton: 1
+  overridePlayer: 1
+  team: 0
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &902410104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,14 +1180,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa08ba5941e4c2690b898d38e0ded1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthType: 0
+  hitPoints: 10
+  targetType: 1
+  movementType: 1
+  baseSpeed: 0
+  hasModel: 1
   modelPrefab: {fileID: 469385399}
   hasShadow: 1
+  remapTexturesPerPlayer: []
+  hasAnimation: 1
   animationsAsset: {fileID: 0}
-  spritesMetadata: {fileID: 0}
   defaultHurtBoxAsset: {fileID: 0}
-  isVfx: 0
+  spritesMetadata: {fileID: 0}
+  hasStates: 1
+  hasController: 0
+  controllerObject: {fileID: 0}
+  hasGravity: 1
   gravityStartsDisabled: 0
   gravityScale: 1
+  shapeType: 0
+  obstacleSize: 0.25
+  obstacleIsStatic: 0
+  hasKillCount: 0
+  isVfx: 0
   jumpSpeed: 1
 --- !u!114 &1814637031
 MonoBehaviour:

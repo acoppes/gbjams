@@ -61,18 +61,32 @@ namespace Utils.Editor
         {
             RefactorTools.RefactorMonoBehaviour<UnitInstanceParameter>(true, delegate(GameObject o)
             {
+                var modified = false;
+                
                 var unitInstanceParameter = o.GetComponent<UnitInstanceParameter>();
                 var nameInstanceParameter = o.GetComponent<NameInstanceParameter>();
+                
                 if (nameInstanceParameter != null)
                 {
                     unitInstanceParameter.entityName = nameInstanceParameter.entityName;
                     unitInstanceParameter.singleton = nameInstanceParameter.singleton;
 
                     Object.DestroyImmediate(nameInstanceParameter);
-                    return true;
+                    modified = true;
                 }
                 
-                return false;
+                var playerTeamInstanceParameter = o.GetComponent<PlayerTeamInstanceParameter>();
+                
+                if (playerTeamInstanceParameter != null)
+                {
+                    unitInstanceParameter.overridePlayer = true;
+                    unitInstanceParameter.team = playerTeamInstanceParameter.team;
+
+                    Object.DestroyImmediate(playerTeamInstanceParameter);
+                    modified = true;
+                }
+                
+                return modified;
             });
             
             // RefactorTools.RefactorAsset(delegate(HitboxAsset asset)
