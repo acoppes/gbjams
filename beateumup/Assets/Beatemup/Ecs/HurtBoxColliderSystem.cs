@@ -81,7 +81,7 @@ namespace Beatemup.Ecs
                 // size.y *= gamePerspective.gamePerspectiveY;
                 
                 D.raw(new Shape.Box(position + hitBox.hurt.offset, size * 0.5f), Color.green);
-                // D.raw(new Shape.Text(Vector3.zero, "Hola"), Color.red, Color.green);
+                // D.raw(new Shape.Text(position + hitBox.hurt.offset, "HURT"), Color.green, Color.black);
             }
         }
     }

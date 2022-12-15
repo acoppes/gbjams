@@ -347,8 +347,11 @@ namespace Beatemup.Controllers
                 // movement.baseSpeed = new Vector2(knockbackBaseSpeed, 0);
                 movement.movingDirection = Vector2.zero;
 
-                lookingDirection.value = new Vector2(-physicsComponent.velocity.x, 0).normalized;
-
+                if (Mathf.Abs(physicsComponent.velocity.x) > 0)
+                {
+                    lookingDirection.value = new Vector2(-physicsComponent.velocity.x, 0).normalized;
+                }
+                
                 if (state.time * knockbackCurveSpeed > 1.0f)
                 {
                     // states.ExitState("Knockback.Descending");

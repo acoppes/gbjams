@@ -128,7 +128,7 @@ namespace Beatemup.Ecs
                 controlComponent.forward.UpdatePressed(false);
                 controlComponent.backward.UpdatePressed(false);
                 
-                if (controlComponent.direction.x > 0 && lookingDirection.value.x > 0)
+                if (controlComponent.direction.x > 0 && lookingDirection.value.x >= 0)
                 {
                     controlComponent.forward.name = controlComponent.right.name;
                     controlComponent.backward.name = controlComponent.left.name;
@@ -138,7 +138,7 @@ namespace Beatemup.Ecs
                     controlComponent.forward.name = controlComponent.left.name;
                     controlComponent.backward.name = controlComponent.right.name;
                     controlComponent.forward.UpdatePressed(true);
-                } else if (controlComponent.direction.x < 0 && lookingDirection.value.x > 0)
+                } else if (controlComponent.direction.x < 0 && lookingDirection.value.x >= 0)
                 {
                     controlComponent.backward.name = controlComponent.left.name;
                     controlComponent.forward.name = controlComponent.right.name;
