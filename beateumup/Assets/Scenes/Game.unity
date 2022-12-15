@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 214107247}
   - component: {fileID: 214107249}
   m_Layer: 0
-  m_Name: Border1
+  m_Name: Spawn(Screen_Bounds_Right)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,11 +334,12 @@ MonoBehaviour:
   gamePerspective: {fileID: 11400000, guid: 8ec8529ac415ee54d9f44161aeed17f5, type: 2}
   controllable: 0
   playerInput: 0
-  startingLookingDirectionAngle: 0
-  entityName: 
+  entityName: Screen_Bounds_Right
   singleton: 0
   overridePlayer: 0
   team: 0
+  overrideLookingDirection: 0
+  startingLookingDirectionAngle: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
@@ -530,7 +531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 411734139}
   - component: {fileID: 411734141}
-  - component: {fileID: 411734140}
+  - component: {fileID: 411734142}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -553,19 +554,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &411734140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411734138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &411734141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,6 +568,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityDefinition: {fileID: 913019744}
   instanceType: 0
+--- !u!114 &411734142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411734138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
+  controllable: 0
+  playerInput: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
+  overrideLookingDirection: 0
+  startingLookingDirectionAngle: 0
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &432064299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,7 +1079,7 @@ GameObject:
   - component: {fileID: 842105278}
   - component: {fileID: 842105277}
   m_Layer: 0
-  m_Name: Border4
+  m_Name: Spawn(Screen_Bounds_Top)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1086,11 +1100,12 @@ MonoBehaviour:
   gamePerspective: {fileID: 11400000, guid: 8ec8529ac415ee54d9f44161aeed17f5, type: 2}
   controllable: 0
   playerInput: 0
-  startingLookingDirectionAngle: 0
-  entityName: 
+  entityName: Screen_Bounds_Top
   singleton: 0
   overridePlayer: 0
   team: 0
+  overrideLookingDirection: 0
+  startingLookingDirectionAngle: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
@@ -1401,7 +1416,7 @@ GameObject:
   - component: {fileID: 1003645924}
   - component: {fileID: 1003645923}
   m_Layer: 0
-  m_Name: Border2
+  m_Name: Spawn(Screen_Bounds_Left)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1422,11 +1437,12 @@ MonoBehaviour:
   gamePerspective: {fileID: 11400000, guid: 8ec8529ac415ee54d9f44161aeed17f5, type: 2}
   controllable: 0
   playerInput: 0
-  startingLookingDirectionAngle: 0
-  entityName: 
+  entityName: Screen_Bounds_Left
   singleton: 0
   overridePlayer: 0
   team: 0
+  overrideLookingDirection: 0
+  startingLookingDirectionAngle: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
@@ -1566,11 +1582,12 @@ MonoBehaviour:
   gamePerspective: {fileID: 11400000, guid: 8ec8529ac415ee54d9f44161aeed17f5, type: 2}
   controllable: 0
   playerInput: 0
-  startingLookingDirectionAngle: 0
   entityName: Enemy_Soldier
   singleton: 0
   overridePlayer: 1
   team: 1
+  overrideLookingDirection: 0
+  startingLookingDirectionAngle: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
@@ -1588,7 +1605,7 @@ GameObject:
   - component: {fileID: 1050864382}
   - component: {fileID: 1050864381}
   m_Layer: 0
-  m_Name: Border3
+  m_Name: Spawn(Screen_Bounds_Bottom)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1609,11 +1626,12 @@ MonoBehaviour:
   gamePerspective: {fileID: 11400000, guid: 8ec8529ac415ee54d9f44161aeed17f5, type: 2}
   controllable: 0
   playerInput: 0
-  startingLookingDirectionAngle: 0
-  entityName: 
+  entityName: Screen_Bounds_Bottom
   singleton: 0
   overridePlayer: 0
   team: 0
+  overrideLookingDirection: 0
+  startingLookingDirectionAngle: 0
   overrideAnimation: 0
   startingAnimation: 
   randomizeStartFrame: 0
@@ -1791,42 +1809,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1244725160}
   - component: {fileID: 1244725159}
-  - component: {fileID: 1244725158}
-  - component: {fileID: 1244725157}
+  - component: {fileID: 1244725161}
   m_Layer: 0
-  m_Name: PlayersKillCount
+  m_Name: Spawn(Players_KillCount)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1244725157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1244725156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19973607c0b84bae84ade4e549534fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: Players_KillCount
-  singleton: 1
---- !u!114 &1244725158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1244725156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
 --- !u!114 &1244725159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,6 +1846,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1244725161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244725156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
+  controllable: 0
+  playerInput: 0
+  entityName: Players_KillCount
+  singleton: 1
+  overridePlayer: 1
+  team: 0
+  overrideLookingDirection: 0
+  startingLookingDirectionAngle: 0
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &1276492603
 GameObject:
   m_ObjectHideFlags: 0

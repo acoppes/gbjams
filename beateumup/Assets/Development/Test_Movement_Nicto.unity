@@ -3404,7 +3404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 411734139}
   - component: {fileID: 411734141}
-  - component: {fileID: 411734140}
+  - component: {fileID: 411734142}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -3427,19 +3427,6 @@ Transform:
   m_Father: {fileID: 1308591876}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &411734140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411734138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &411734141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3454,6 +3441,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityDefinition: {fileID: 913019744}
   instanceType: 0
+--- !u!114 &411734142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411734138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
+  controllable: 0
+  playerInput: 0
+  startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &417012922
 GameObject:
   m_ObjectHideFlags: 0
@@ -4073,7 +4085,7 @@ GameObject:
   m_Component:
   - component: {fileID: 480227681}
   - component: {fileID: 480227683}
-  - component: {fileID: 480227682}
+  - component: {fileID: 480227684}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -4096,19 +4108,6 @@ Transform:
   m_Father: {fileID: 1601265609}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &480227682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 480227680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &480227683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4123,6 +4122,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityDefinition: {fileID: 6035428902734048827}
   instanceType: 0
+--- !u!114 &480227684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480227680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
+  controllable: 0
+  playerInput: 0
+  startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &483068595
 GameObject:
   m_ObjectHideFlags: 0
@@ -14057,7 +14081,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1393386263}
   - component: {fileID: 1393386265}
-  - component: {fileID: 1393386264}
+  - component: {fileID: 1393386266}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -14080,19 +14104,6 @@ Transform:
   m_Father: {fileID: 1620363500}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1393386264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1393386262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1393386265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14107,6 +14118,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityDefinition: {fileID: 6035428902734048827}
   instanceType: 0
+--- !u!114 &1393386266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393386262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
+  controllable: 0
+  playerInput: 0
+  startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &1399801393
 GameObject:
   m_ObjectHideFlags: 0
@@ -15910,7 +15946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1574605238}
   - component: {fileID: 1574605240}
-  - component: {fileID: 1574605239}
+  - component: {fileID: 1574605241}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -15933,19 +15969,6 @@ Transform:
   m_Father: {fileID: 1773042941}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1574605239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574605237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b579f4b8e6470ca1e9037fa42bc1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
 --- !u!114 &1574605240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15960,6 +15983,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityDefinition: {fileID: 6035428902734048827}
   instanceType: 0
+--- !u!114 &1574605241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574605237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d792ac5fd4a1886f799ab8e6ba4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePerspective: {fileID: 0}
+  controllable: 0
+  playerInput: 0
+  startingLookingDirectionAngle: 0
+  entityName: 
+  singleton: 0
+  overridePlayer: 1
+  team: 1
+  overrideAnimation: 0
+  startingAnimation: 
+  randomizeStartFrame: 0
+  overrideHitPoints: 0
+  hitPoints: 0
 --- !u!1 &1585564940
 GameObject:
   m_ObjectHideFlags: 0

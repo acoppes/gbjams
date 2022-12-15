@@ -56,32 +56,39 @@ namespace Utils.Editor
             }
         }
 
-        [MenuItem("Refactor/Switch to UnitInstanceParameter")]
+        [MenuItem("Refactor/Convert to UnitInstanceParameters")]
         public static void RefactorMethod1()
         {
-            RefactorTools.RefactorMonoBehaviour<UnitInstanceParameter>(true, delegate(GameObject o)
+            RefactorTools.RefactorMonoBehaviour<EntityPrefabInstance>(true, delegate(GameObject o)
             {
                 var modified = false;
                 
                 var unitInstanceParameter = o.GetComponent<UnitInstanceParameter>();
                 var nameInstanceParameter = o.GetComponent<NameInstanceParameter>();
+                var playerTeamInstanceParameter = o.GetComponent<PlayerTeamInstanceParameter>();
+
+                if (nameInstanceParameter != null || playerTeamInstanceParameter != null)
+                {
+                    if (unitInstanceParameter == null)
+                    {
+                        unitInstanceParameter = o.AddComponent<UnitInstanceParameter>();
+                    }
+                }
                 
                 if (nameInstanceParameter != null)
                 {
                     unitInstanceParameter.entityName = nameInstanceParameter.entityName;
                     unitInstanceParameter.singleton = nameInstanceParameter.singleton;
-
+            
                     Object.DestroyImmediate(nameInstanceParameter);
                     modified = true;
                 }
-                
-                var playerTeamInstanceParameter = o.GetComponent<PlayerTeamInstanceParameter>();
                 
                 if (playerTeamInstanceParameter != null)
                 {
                     unitInstanceParameter.overridePlayer = true;
                     unitInstanceParameter.team = playerTeamInstanceParameter.team;
-
+            
                     Object.DestroyImmediate(playerTeamInstanceParameter);
                     modified = true;
                 }

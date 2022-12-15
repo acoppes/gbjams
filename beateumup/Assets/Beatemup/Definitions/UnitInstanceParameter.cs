@@ -16,8 +16,6 @@ namespace Beatemup.Definitions
         [ConditionalField(nameof(controllable))]
         public int playerInput;
 
-        public float startingLookingDirectionAngle = 0;
-        
         [Separator("Identify")] 
         public string entityName;
         [ConditionalField(nameof(entityName), true, "")]
@@ -27,6 +25,11 @@ namespace Beatemup.Definitions
         public bool overridePlayer;
         [ConditionalField(nameof(overridePlayer))]
         public int team;
+        
+        [Separator("Looking Direction")] 
+        public bool overrideLookingDirection = true;
+        [ConditionalField(nameof(overrideLookingDirection))]
+        public float startingLookingDirectionAngle = 0;
 
         [Separator("Animation")]
         public bool overrideAnimation;
@@ -43,7 +46,16 @@ namespace Beatemup.Definitions
         public void Apply(World world, Entity entity)
         {
             ref var position = ref world.GetComponent<PositionComponent>(entity);
-            position.value = gamePerspective.ConvertToWorld(new Vector3(transform.position.x, transform.position.y, 0));
+            
+            if (gamePerspective != null)
+            {
+                position.value =
+                    gamePerspective.ConvertToWorld(new Vector3(transform.position.x, transform.position.y, 0));
+            }
+            else
+            {
+                position.value = new Vector3(transform.position.x, transform.position.y, 0);
+            }
             
             if (controllable)
             {
@@ -54,9 +66,12 @@ namespace Beatemup.Definitions
                 });
             }
 
-            ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
-            lookingDirection.value = Vector2.right.Rotate(startingLookingDirectionAngle * Mathf.Deg2Rad);
-
+            if (overrideAnimation && world.HasComponent<LookingDirection>(entity))
+            {
+                ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
+                lookingDirection.value = Vector2.right.Rotate(startingLookingDirectionAngle * Mathf.Deg2Rad);
+            }
+            
             if (overrideAnimation && world.HasComponent<AnimationComponent>(entity))
             {
                 ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
