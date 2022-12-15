@@ -17,6 +17,8 @@ namespace Beatemup.Controllers
         {
             ref var states = ref GetComponent<StatesComponent>();
             states.EnterState("Travel");
+            
+            
         }
         
         public void OnEnterState()
@@ -44,6 +46,8 @@ namespace Beatemup.Controllers
                 physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
                 physicsComponent.body.position = position.value;
                 physicsComponent.body.velocity = new Vector3(velocity.x, 0, velocity.y);
+
+                physicsComponent.body.constraints = RigidbodyConstraints.None;
             }
             
             if (states.statesEntered.Contains("Falling"))
