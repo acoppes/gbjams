@@ -50,6 +50,8 @@ namespace Beatemup.Definitions
         [ConditionalField(nameof(hasModel))]
         public GameObject modelPrefab;
         [ConditionalField(nameof(hasModel))]
+        public UnitModelComponent.RotationType rotationType = UnitModelComponent.RotationType.FlipToLookingDirection;
+        [ConditionalField(nameof(hasModel))]
         public bool hasShadow = true;
         [ConditionalField(nameof(hasShadow))]
         public float shadowPerspective = 0.2f;
@@ -120,7 +122,8 @@ namespace Beatemup.Definitions
                     hasShadow = hasShadow,
                     shadowPerspective = shadowPerspective,
                     remapTexturesPerPlayer = remapTexturesPerPlayer, 
-                    color = Color.white
+                    color = Color.white,
+                    rotation = rotationType
                 });
                 world.AddComponent(entity, new ModelShakeComponent()
                 {

@@ -133,10 +133,16 @@ namespace Beatemup.Ecs
             Hidden = 1
         }
         
+        public enum RotationType
+        {
+            FlipToLookingDirection = 0,
+            Rotate = 1
+        }
+        
         public GameObject prefab;
         public Model instance;
 
-        public bool rotateToDirection;
+        public RotationType rotation;
 
         public Visiblity visiblity;
 

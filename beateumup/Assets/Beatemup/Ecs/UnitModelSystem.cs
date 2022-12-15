@@ -87,7 +87,7 @@ namespace Beatemup.Ecs
 
                 var scale = modelInstance.transform.localScale;
 
-                if (!modelComponent.rotateToDirection)
+                if (modelComponent.rotation == UnitModelComponent.RotationType.FlipToLookingDirection)
                 {
                     if (Mathf.Abs(lookingDirection.value.x) > 0)
                     {
@@ -96,10 +96,14 @@ namespace Beatemup.Ecs
                     
                     modelInstance.transform.localScale = scale;
                 }
-                else
+                else if (modelComponent.rotation == UnitModelComponent.RotationType.Rotate)
                 {
                     var angle = Mathf.Atan2(lookingDirection.value.y, lookingDirection.value.x) * Mathf.Rad2Deg;
-                    // modelComponent.subModel.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                    modelComponent.instance.model.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                    if (modelComponent.hasShadow)
+                    {
+                        modelComponent.instance.shadow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                    }
                 }
             }
         }
