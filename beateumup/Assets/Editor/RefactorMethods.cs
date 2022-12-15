@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Beatemup.Definitions;
 using Beatemup.Ecs;
+using Gemserk.Leopotam.Ecs;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -54,18 +56,34 @@ namespace Utils.Editor
             }
         }
 
-        // [MenuItem("Refactor/Convert Hitboxes to 3d")]
-        // public static void RefactorMethod1()
-        // {
-        //     RefactorTools.RefactorAsset(delegate(HitboxAsset asset)
-        //     {
-        //         // var modified = false;
-        //
-        //         // asset.offset = new Vector3(asset.offset.x, asset.offset.y, asset.offset.z);
-        //         asset.size = new Vector3(asset.size.x, asset.size.y, asset.depth);
-        //
-        //         return true;
-        //     });
-        // }
+        [MenuItem("Refactor/Switch to UnitInstanceParameter")]
+        public static void RefactorMethod1()
+        {
+            RefactorTools.RefactorMonoBehaviour<UnitInstanceParameter>(true, delegate(GameObject o)
+            {
+                var unitInstanceParameter = o.GetComponent<UnitInstanceParameter>();
+                var nameInstanceParameter = o.GetComponent<NameInstanceParameter>();
+                if (nameInstanceParameter != null)
+                {
+                    unitInstanceParameter.entityName = nameInstanceParameter.entityName;
+                    unitInstanceParameter.singleton = nameInstanceParameter.singleton;
+
+                    Object.DestroyImmediate(nameInstanceParameter);
+                    return true;
+                }
+                
+                return false;
+            });
+            
+            // RefactorTools.RefactorAsset(delegate(HitboxAsset asset)
+            // {
+            //     // var modified = false;
+            //
+            //     // asset.offset = new Vector3(asset.offset.x, asset.offset.y, asset.offset.z);
+            //     asset.size = new Vector3(asset.size.x, asset.size.y, asset.depth);
+            //
+            //     return true;
+            // });
+        }
     }
 }
