@@ -117,9 +117,16 @@ namespace Beatemup.Definitions
 
         private void OnValidate()
         {
+            if (!gameObject.IsSafeToModifyName())
+                return;
+            
             if (!string.IsNullOrEmpty(entityName))
             {
                 gameObject.name = $"Spawn({entityName})";
+            }
+            else
+            {
+                gameObject.name = $"Spawn()"; 
             }
         }
     }
