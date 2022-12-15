@@ -93,7 +93,6 @@ namespace Beatemup.Controllers
         { 
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
-            ref var jump = ref world.GetComponent<JumpComponent>(entity);
             
             var states = world.GetComponent<StatesComponent>(entity);
             
@@ -105,15 +104,15 @@ namespace Beatemup.Controllers
                 gravityComponent.disabled = true;
             }
 
-            if (states.statesEntered.Contains("Jump"))
-            {
-                states.ExitState(SprintState);
-                
-                animation.Play("JumpUp", 1);
-                
-                jump.isActive = true;
-                gravityComponent.disabled = true;
-            }
+            // if (states.statesEntered.Contains("Jump"))
+            // {
+            //     states.ExitState(SprintState);
+            //     
+            //     animation.Play("JumpUp", 1);
+            //     
+            //     jump.isActive = true;
+            //     gravityComponent.disabled = true;
+            // }
             
             if (states.statesEntered.Contains("HitStun"))
             {
@@ -176,7 +175,6 @@ namespace Beatemup.Controllers
             var control = world.GetComponent<ControlComponent>(entity);
 
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
-            ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
 
             ref var animation = ref world.GetComponent<AnimationComponent>(entity);
@@ -184,7 +182,6 @@ namespace Beatemup.Controllers
             ref var states = ref world.GetComponent<StatesComponent>(entity);
             
             ref var position = ref world.GetComponent<PositionComponent>(entity);
-            ref var jump = ref world.GetComponent<JumpComponent>(entity);
 
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
@@ -248,126 +245,126 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (states.TryGetState("DiveKick", out state))
-            {
-                if (animation.IsPlaying("DivekickStartup") && animation.state == AnimationComponent.State.Completed)
-                {
-                    animation.Play("DivekickLoop");
-                    return;
-                }
-            
-                if (currentAnimationFrame.currentFrameHit)
-                {
-                    var hitTargets = TargetingUtils.GetTargets(world, entity);
-            
-                    foreach (var hitTarget in hitTargets)
-                    {
-                        ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
-                        hitComponent.hits.Add(new HitData
-                        {
-                            position = position.value
-                        });
-                            
-                        animation.pauseTime = TmntConstants.HitAnimationPauseTime;
-                    }
-                }
-            
-                // gravityComponent.disabled = true;
-                
-                movement.movingDirection.y = diveKickSpeed.y;
-                movement.movingDirection.x = lookingDirection.value.x * diveKickSpeed.x;
-            
-                verticalMovement.speed = diveKickSpeed.z;
-                
-                if (control.HasBufferedAction(control.button2))
-                {
-                    control.ConsumeBuffer();
-                        
-                    states.EnterState("Jump");
-                    states.ExitState("DiveKick");
-                        
-                    return;
-                }
-                
-                if (verticalMovement.isOverGround)
-                {
-                    states.ExitState("DiveKick");
-                    // gravityComponent.disabled = false;
-                }
-            
-                return;
-            }
+            // if (states.TryGetState("DiveKick", out state))
+            // {
+            //     if (animation.IsPlaying("DivekickStartup") && animation.state == AnimationComponent.State.Completed)
+            //     {
+            //         animation.Play("DivekickLoop");
+            //         return;
+            //     }
+            //
+            //     if (currentAnimationFrame.currentFrameHit)
+            //     {
+            //         var hitTargets = TargetingUtils.GetTargets(world, entity);
+            //
+            //         foreach (var hitTarget in hitTargets)
+            //         {
+            //             ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
+            //             hitComponent.hits.Add(new HitData
+            //             {
+            //                 position = position.value
+            //             });
+            //                 
+            //             animation.pauseTime = TmntConstants.HitAnimationPauseTime;
+            //         }
+            //     }
+            //
+            //     // gravityComponent.disabled = true;
+            //     
+            //     movement.movingDirection.y = diveKickSpeed.y;
+            //     movement.movingDirection.x = lookingDirection.value.x * diveKickSpeed.x;
+            //
+            //     verticalMovement.speed = diveKickSpeed.z;
+            //     
+            //     if (control.HasBufferedAction(control.button2))
+            //     {
+            //         control.ConsumeBuffer();
+            //             
+            //         states.EnterState("Jump");
+            //         states.ExitState("DiveKick");
+            //             
+            //         return;
+            //     }
+            //     
+            //     if (verticalMovement.isOverGround)
+            //     {
+            //         states.ExitState("DiveKick");
+            //         // gravityComponent.disabled = false;
+            //     }
+            //
+            //     return;
+            // }
 
-            if (states.TryGetState("Jump", out state))
-            {
-                movement.movingDirection = control.direction;
-                
-                if (control.backward.isPressed)
-                {
-                    lookingDirection.value.x = control.direction.x;
-                }
-                
-                if (animation.IsPlaying("JumpUp"))
-                {
-                    if (!control.button2.isPressed || Mathf.Abs(verticalMovement.speed) < Mathf.Epsilon)
-                    {
-                        jump.isActive = false;
-                        gravityComponent.disabled = false;
-
-                        verticalMovement.speed = 0;
-                        
-                        animation.Play("JumpRoll", 1);
-                    }
-
-                    return;
-                }
-                
-                if (animation.IsPlaying("JumpRoll"))
-                {
-                    if (animation.state == AnimationComponent.State.Completed)
-                    {
-                        animation.Play("JumpFall");
-                        return;
-                    }
-
-                    if (control.HasBufferedAction(control.button1))
-                    {
-                        control.ConsumeBuffer();
-                        
-                        states.ExitState("Jump");
-                        states.EnterState("DiveKick");
-                        
-                        return;
-                    }
-                    
-                    if (verticalMovement.isOverGround)
-                    {
-                        states.ExitState("Jump");
-                    }
-
-                    return;
-                }
-                
-                if (animation.IsPlaying("JumpFall"))
-                {
-                    if (control.HasBufferedAction(control.button1))
-                    {
-                        control.ConsumeBuffer();
-
-                        states.ExitState("Jump");
-                        states.EnterState("DiveKick");
-                    }
-
-                    if (verticalMovement.isOverGround)
-                    {
-                        states.ExitState("Jump");
-                    }
-
-                    return;
-                }
-                
-                return;
-            }
+            // if (states.TryGetState("Jump", out state))
+            // {
+            //     movement.movingDirection = control.direction;
+            //     
+            //     if (control.backward.isPressed)
+            //     {
+            //         lookingDirection.value.x = control.direction.x;
+            //     }
+            //     
+            //     if (animation.IsPlaying("JumpUp"))
+            //     {
+            //         if (!control.button2.isPressed || Mathf.Abs(verticalMovement.speed) < Mathf.Epsilon)
+            //         {
+            //             jump.isActive = false;
+            //             gravityComponent.disabled = false;
+            //
+            //             verticalMovement.speed = 0;
+            //             
+            //             animation.Play("JumpRoll", 1);
+            //         }
+            //
+            //         return;
+            //     }
+            //     
+            //     if (animation.IsPlaying("JumpRoll"))
+            //     {
+            //         if (animation.state == AnimationComponent.State.Completed)
+            //         {
+            //             animation.Play("JumpFall");
+            //             return;
+            //         }
+            //
+            //         if (control.HasBufferedAction(control.button1))
+            //         {
+            //             control.ConsumeBuffer();
+            //             
+            //             states.ExitState("Jump");
+            //             states.EnterState("DiveKick");
+            //             
+            //             return;
+            //         }
+            //         
+            //         if (verticalMovement.isOverGround)
+            //         {
+            //             states.ExitState("Jump");
+            //         }
+            //
+            //         return;
+            //     }
+            //     
+            //     if (animation.IsPlaying("JumpFall"))
+            //     {
+            //         if (control.HasBufferedAction(control.button1))
+            //         {
+            //             control.ConsumeBuffer();
+            //
+            //             states.ExitState("Jump");
+            //             states.EnterState("DiveKick");
+            //         }
+            //
+            //         if (verticalMovement.isOverGround)
+            //         {
+            //             states.ExitState("Jump");
+            //         }
+            //
+            //         return;
+            //     }
+            //     
+            //     return;
+            // }
 
             if (states.TryGetState("HeavySwing", out state))
             {
@@ -635,18 +632,18 @@ namespace Beatemup.Controllers
                 return;
             }
             
-            if (verticalMovement.isOverGround && control.HasBufferedAction(control.button2))
-            {
-                control.ConsumeBuffer();
-                
-                // states.ExitState(SprintState);
-                // movement.extraSpeed.x = 0;
-                //
-                // animation.Play("JumpUp", 1);
-                states.EnterState("Jump");
-
-                return;
-            }
+            // if (verticalMovement.isOverGround && control.HasBufferedAction(control.button2))
+            // {
+            //     control.ConsumeBuffer();
+            //     
+            //     // states.ExitState(SprintState);
+            //     // movement.extraSpeed.x = 0;
+            //     //
+            //     // animation.Play("JumpUp", 1);
+            //     states.EnterState("Jump");
+            //
+            //     return;
+            // }
 
             if (states.HasState(SprintState))
             {

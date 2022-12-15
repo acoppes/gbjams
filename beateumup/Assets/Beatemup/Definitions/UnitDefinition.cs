@@ -80,7 +80,8 @@ namespace Beatemup.Definitions
         [ConditionalField(nameof(hasGravity))]
         public float gravityScale = 1;
         
-        [FormerlySerializedAs("obstacleType")] [Separator("Obstacle")]
+        [Separator("Physics")]
+        [FormerlySerializedAs("obstacleType")] 
         public PhysicsComponent.ShapeType shapeType = PhysicsComponent.ShapeType.None;
         [ConditionalField(nameof(shapeType), false, PhysicsComponent.ShapeType.Circle, PhysicsComponent.ShapeType.Box)]
         public float obstacleSize = 0.25f;
@@ -134,10 +135,6 @@ namespace Beatemup.Definitions
                     baseSpeed = baseSpeed,
                     speedMultiplier = 1.0f
                 });
-                world.AddComponent(entity, new VerticalMovementComponent()
-                {
-                    speed = 0
-                });
             }
             
             if (hasGravity)
@@ -148,11 +145,6 @@ namespace Beatemup.Definitions
                     scale = gravityScale
                 });
             }
-            
-            world.AddComponent(entity, new JumpComponent
-            {
-                upSpeed = jumpSpeed
-            });
 
             if (hasAnimation)
             {

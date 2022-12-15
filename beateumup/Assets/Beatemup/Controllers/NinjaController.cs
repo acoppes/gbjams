@@ -118,7 +118,6 @@ namespace Beatemup.Controllers
             ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
             
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
-            ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
 
             var lookingDirection = world.GetComponent<LookingDirection>(entity);
             var control = world.GetComponent<ControlComponent>(entity);
@@ -275,7 +274,6 @@ namespace Beatemup.Controllers
             var control = world.GetComponent<ControlComponent>(entity);
 
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
-            ref var verticalMovement = ref world.GetComponent<VerticalMovementComponent>(entity);
             ref var gravityComponent = ref world.GetComponent<GravityComponent>(entity);
 
             ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);

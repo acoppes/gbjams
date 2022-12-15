@@ -22,7 +22,6 @@ namespace Beatemup.Ecs
         {
             var gravityComponents = world.GetComponents<GravityComponent>();
             var positionComponents = world.GetComponents<PositionComponent>();
-            var verticalMovements = world.GetComponents<VerticalMovementComponent>();
             var physicsComponents = world.GetComponents<PhysicsComponent>();
             
             foreach (var entity in world.GetFilter<GravityComponent>().Inc<PhysicsComponent>().End())
@@ -54,22 +53,6 @@ namespace Beatemup.Ecs
                 {
                     physicsComponent.body.AddForce(gravity * gravityComponent.scale, ForceMode.Acceleration);
                 }
-            }
-
-            foreach (var entity in world.GetFilter<VerticalMovementComponent>().Inc<PositionComponent>().End())
-            {
-                ref var position = ref positionComponents.Get(entity);
-                ref var vertical = ref verticalMovements.Get(entity);
-
-                position.value.y += vertical.speed * Time.deltaTime;
-                
-                if (position.value.y <= 0)
-                {
-                    position.value.y = 0;
-                    vertical.speed = 0;
-                }
-                
-                vertical.isOverGround = position.value.y <= Mathf.Epsilon;
             }
         }
 

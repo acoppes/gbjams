@@ -184,12 +184,6 @@ namespace Beatemup.Ecs
         public Vector2 currentVelocity;
         public Vector2 movingDirection;
     }
-    
-    public struct VerticalMovementComponent : IEntityComponent
-    {
-        public bool isOverGround;
-        public float speed;
-    }
 
     public struct GravityComponent : IEntityComponent
     {
@@ -197,15 +191,7 @@ namespace Beatemup.Ecs
         public float scale;
         public bool inContactWithGround;
     }
-    
-    public struct JumpComponent : IEntityComponent
-    {
-        public bool isActive;
-        
-        public float upSpeed;
-        public float upTime;
-    }
-    
+
     public struct CurrentAnimationAttackComponent : IEntityComponent
     {
         public int animation;
