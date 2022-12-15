@@ -18,7 +18,8 @@ namespace Beatemup.Controllers
             ref var states = ref GetComponent<StatesComponent>();
             states.EnterState("Travel");
             
-            
+            ref var animationComponent = ref GetComponent<AnimationComponent>();
+            animationComponent.Play("Idle");
         }
         
         public void OnEnterState()
