@@ -792,7 +792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1142246642
 Transform:
   m_ObjectHideFlags: 0
@@ -1285,7 +1285,7 @@ GameObject:
   - component: {fileID: 3877063928650567356}
   - component: {fileID: 3877063928650567357}
   m_Layer: 0
-  m_Name: WarriorDefinition
+  m_Name: ProjectileDefinition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1331,31 +1331,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa08ba5941e4c2690b898d38e0ded1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthType: 0
+  healthType: 1
   hitPoints: 2000
-  targetType: 1
+  targetType: 0
   movementType: 1
-  baseSpeed: 8
+  baseSpeed: 15
   hasModel: 1
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   hasShadow: 1
-  remapTexturesPerPlayer:
-  - {fileID: 2800000, guid: a46c4eb0f2369564485a7019654a8e02, type: 3}
-  - {fileID: 2800000, guid: 3fd6477302d4efd4cb34739f93de9699, type: 3}
-  - {fileID: 2800000, guid: 4efe4c89edce7a84caa4e9faaba38d4e, type: 3}
-  - {fileID: 2800000, guid: e38e826504abc3549bda04e1e5289747, type: 3}
+  remapTexturesPerPlayer: []
   hasAnimation: 1
-  animationsAsset: {fileID: 11400000, guid: 2b03046d1308fa148b16d04e6db5bf16, type: 2}
-  defaultHurtBoxAsset: {fileID: 11400000, guid: 741438423c630254aa7fc8fdddbc517d, type: 2}
+  animationsAsset: {fileID: 11400000, guid: a2fd37162465b7446b48c156a6226c69, type: 2}
+  defaultHurtBoxAsset: {fileID: 0}
   spritesMetadata: {fileID: 11400000, guid: bc2e91ebf33e15441855e72c9293ddab, type: 2}
   hasStates: 1
   hasController: 1
   controllerObject: {fileID: 3877063927510504113}
   hasGravity: 1
   gravityStartsDisabled: 0
-  gravityScale: 5
+  gravityScale: 1
   shapeType: 1
-  obstacleSize: 0.35
+  obstacleSize: 0.1
   obstacleIsStatic: 0
   hasKillCount: 0
   isVfx: 0
@@ -1373,7 +1369,7 @@ PrefabInstance:
       objectReference: {fileID: 3877063928650567352}
     - target: {fileID: 9070944182295245042, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
       propertyPath: m_Name
-      value: Spawn()
+      value: Spawn(Projectile1)
       objectReference: {fileID: 0}
     - target: {fileID: 9070944182295245044, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
       propertyPath: hitPoints
@@ -1385,7 +1381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9070944182295245044, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
       propertyPath: entityName
-      value: 
+      value: Projectile1
       objectReference: {fileID: 0}
     - target: {fileID: 9070944182295245044, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
       propertyPath: controllable
@@ -1396,8 +1392,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9070944182295245044, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
+      propertyPath: overrideAnimation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070944182295245044, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
       propertyPath: overrideHitPoints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070944182295245044, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
+      propertyPath: startingAnimation
+      value: Idle
       objectReference: {fileID: 0}
     - target: {fileID: 9070944182295245044, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
       propertyPath: overrideLookingDirection
@@ -1409,7 +1413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9070944182295245045, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9070944182295245045, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1417,7 +1421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9070944182295245045, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9070944182295245045, guid: b6f0a1ac9fb7ae6458b4b8a0de19b568, type: 3}
       propertyPath: m_LocalRotation.w

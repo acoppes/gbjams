@@ -61,7 +61,7 @@ namespace Beatemup.Definitions
                 if (gamePerspective != null)
                 {
                     position.value =
-                        gamePerspective.ConvertToWorld(new Vector3(transform.position.x, transform.position.y, 0));
+                        gamePerspective.ConvertToWorld(transform.position);
                 }
                 else
                 {
