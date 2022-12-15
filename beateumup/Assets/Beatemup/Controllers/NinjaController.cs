@@ -15,11 +15,7 @@ namespace Beatemup.Controllers
         public float dashFrontTime = 0.1f;
         public float dashBackTime = 0.1f;
         public float dashHeight = 1.0f;
-
-        public Vector2 dashBackJumpSpeed = new Vector2(10f, 10f);
         
-        public float dashBackJumpMaxHeight = 3;
-
         private Vector2 dashRecoveryDirection;
         
         public float dashRecoverySpeed = 10.0f;
@@ -152,17 +148,7 @@ namespace Beatemup.Controllers
                 physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
                 physicsComponent.body.AddForce(impulse, ForceMode.Impulse);
             }
-            
-            if (states.statesEntered.Contains("DashBackJump"))
-            {
-                // jump.isActive = true;
-                verticalMovement.speed = dashBackJumpSpeed.y;
-                
-                gravityComponent.disabled = true;
-                animation.Play("DashBack", 1);
-                states.EnterState("DashBackJump.Up");
-            }
-            
+
             if (states.statesEntered.Contains("DashFront"))
             {
                 animation.Play("DashFront", 1);
@@ -362,13 +348,6 @@ namespace Beatemup.Controllers
                 movement.movingDirection = Vector2.zero;
 
                 lookingDirection.value = new Vector2(-physicsComponent.velocity.x, 0).normalized;
-                
-                // movement.movingDirection = knockbackDirection;
-                //
-                // position.value.z = knockbackCurve.Evaluate(state.time * knockbackCurveSpeed) 
-                //                    * knockbackMaxHeight;
-                //
-                // movement.baseSpeed = knockbackHorizontalCurve.Evaluate(state.time * knockbackCurveSpeed) * knockbackBaseSpeed;
 
                 if (state.time * knockbackCurveSpeed > 1.0f)
                 {
@@ -459,82 +438,7 @@ namespace Beatemup.Controllers
                 
                 return;
             }
-            
-            if (states.TryGetState("DashBackJump", out state))
-            {
-                if (states.HasState("DashBackJump.Attack"))
-                {
-                    movement.movingDirection = -lookingDirection.value;
-                    movement.speed = dashBackJumpSpeed.x;
 
-                    // check for event to fire kunais!
-
-                    if (position.value.z >= dashBackJumpMaxHeight)
-                    {
-                        position.value.z = dashBackJumpMaxHeight;
-                        gravityComponent.disabled = false;
-                        verticalMovement.speed = 0;
-                    }
-                    
-                    if (animationComponent.state == AnimationComponent.State.Completed)
-                    {
-                        animationComponent.Play("BackJump");
-                        
-                        states.ExitState("DashBackJump.Attack");
-                        states.EnterState("DashBackJump.Fall");
-                    }
-
-                    return;
-                }
-                
-                if (states.HasState("DashBackJump.Up"))
-                {
-                    movement.movingDirection = -lookingDirection.value;
-                    movement.speed = dashBackJumpSpeed.x;
-
-                    if (control.HasBufferedActions(control.button1.name))
-                    {
-                        animationComponent.Play("AirAttack", 1);
-                        states.ExitState("DashBackJump.Up");
-                        states.EnterState("DashBackJump.Attack");
-                        
-                        return;
-                    }
-                    
-                    if (position.value.z >= dashBackJumpMaxHeight)
-                    {
-                        position.value.z = dashBackJumpMaxHeight;
-                        
-                        gravityComponent.disabled = false;
-                        verticalMovement.speed = 0;
-
-                        animationComponent.Play("BackJump");
-                        
-                        states.ExitState("DashBackJump.Up");
-                        states.EnterState("DashBackJump.Fall");
-                    }
-
-                    return;
-                }
-                
-                if (states.HasState("DashBackJump.Fall"))
-                {
-                    movement.movingDirection = -lookingDirection.value;
-                    movement.speed = dashBackJumpSpeed.x * 0.75f;
-                    
-                    if (verticalMovement.isOverGround)
-                    {
-                        states.EnterState("DashBackRecovery");
-                        states.ExitState("DashBackJump");
-                        states.ExitState("DashBackJump.Fall");
-                    }
-
-                    return;
-                }
-                
-                return;
-            }
-            
             if (states.TryGetState("DashBack", out state))
             {
                 dashBackCooldownCurrent = dashBackCooldown;
