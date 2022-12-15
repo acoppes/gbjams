@@ -15,9 +15,6 @@ namespace Beatemup.Controllers
         
         public void OnInit()
         {
-            // var gravity = world.GetComponent<GravityComponent>(entity);
-            // var gravity = GetEntityComponent<GravityComponent>();
-            
             ref var states = ref GetComponent<StatesComponent>();
             states.EnterState("Travel");
         }
@@ -29,25 +26,34 @@ namespace Beatemup.Controllers
             ref var movement = ref GetComponent<HorizontalMovementComponent>();
             ref var gravity = ref GetComponent<GravityComponent>();
             ref var physicsComponent = ref GetComponent<PhysicsComponent>();
-
+            ref var lookingDirection = ref GetComponent<LookingDirection>();
+            
             if (states.statesEntered.Contains("Travel"))
             {
                 gravity.disabled = true;
 
-                movement.speed = movement.baseSpeed;
+                // movement.speed = movement.baseSpeed;
 
                 startingPosition = position.value;
 
                 physicsComponent.disableCollideWithObstacles = true;
+
+                var direction = lookingDirection.value;
+                var velocity = direction * movement.baseSpeed;
+                
+                physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
+                physicsComponent.body.position = position.value;
+                physicsComponent.body.velocity = new Vector3(velocity.x, 0, velocity.y);
             }
             
             if (states.statesEntered.Contains("Falling"))
             {
                 gravity.disabled = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
-                movement.speed = 0;
+                
+                // movement.speed = 0;
 
-                physicsComponent.body.velocity = new Vector3(movement.currentVelocity.x, 0, movement.currentVelocity.y);
+                // physicsComponent.body.velocity = new Vector3(movement.currentVelocity.x, 0, movement.currentVelocity.y);
             }
         }
 
@@ -61,14 +67,22 @@ namespace Beatemup.Controllers
             ref var states = ref GetComponent<StatesComponent>();
             ref var movement = ref GetComponent<HorizontalMovementComponent>();
             ref var lookingDirection = ref GetComponent<LookingDirection>();
-            
+            ref var physicsComponent = ref GetComponent<PhysicsComponent>();
             ref var position = ref GetComponent<PositionComponent>();
             
             State state;
             
             if (states.TryGetState("Travel", out state))
             {
-                movement.movingDirection = lookingDirection.value;
+                // movement.movingDirection = lookingDirection.value;
+
+                var velocity = physicsComponent.velocity;
+                var direction = new Vector2(velocity.x, velocity.z);
+                
+                if (direction.sqrMagnitude > 0.1f)
+                {
+                    lookingDirection.value = direction.normalized;
+                }
 
                 if (Vector3.Distance(position.value, startingPosition) > maxTravelDistance)
                 {
@@ -76,6 +90,20 @@ namespace Beatemup.Controllers
                     states.EnterState("Falling");
                 } 
             }
+            
+            if (states.TryGetState("Falling", out state))
+            {
+                // movement.movingDirection = lookingDirection.value;
+
+                var velocity = physicsComponent.velocity;
+                var direction = new Vector2(velocity.x, velocity.z);
+                
+                if (direction.sqrMagnitude > 0.1f)
+                {
+                    lookingDirection.value = direction.normalized;
+                }
+            }
+            
         }
 
 
