@@ -78,7 +78,7 @@ namespace Beatemup.Definitions
                 });
             }
 
-            if (overrideAnimation && world.HasComponent<LookingDirection>(entity))
+            if (overrideLookingDirection && world.HasComponent<LookingDirection>(entity))
             {
                 ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
                 lookingDirection.value = Vector2.right.Rotate(startingLookingDirectionAngle * Mathf.Deg2Rad);
