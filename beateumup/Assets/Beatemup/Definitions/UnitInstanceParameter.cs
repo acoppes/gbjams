@@ -9,17 +9,26 @@ namespace Beatemup.Definitions
 {
     public class UnitInstanceParameter : MonoBehaviour, IEntityInstanceParameter
     {
-        public GamePerspectiveAsset gamePerspective;
+        public enum PositionType
+        {
+            None = 0,
+            OverrideFromTransform = 1,
+        }
         
-        public bool controllable = false;
-        
-        [ConditionalField(nameof(controllable))]
-        public int playerInput;
-
         [Separator("Identify")] 
         public string entityName;
         [ConditionalField(nameof(entityName), true, "")]
         public bool singleton;
+
+        [Separator("Location")] 
+        public PositionType positionType = PositionType.OverrideFromTransform;
+        [ConditionalField(nameof(positionType), false, PositionType.OverrideFromTransform)]
+        public GamePerspectiveAsset gamePerspective;
+        
+        [Separator("Control")] 
+        public bool controllable = false;
+        [ConditionalField(nameof(controllable))]
+        public int playerInput;
 
         [Separator("Player Team")] 
         public bool overridePlayer;
@@ -45,16 +54,19 @@ namespace Beatemup.Definitions
 
         public void Apply(World world, Entity entity)
         {
-            ref var position = ref world.GetComponent<PositionComponent>(entity);
-            
-            if (gamePerspective != null)
+            if (positionType == PositionType.OverrideFromTransform)
             {
-                position.value =
-                    gamePerspective.ConvertToWorld(new Vector3(transform.position.x, transform.position.y, 0));
-            }
-            else
-            {
-                position.value = new Vector3(transform.position.x, transform.position.y, 0);
+                ref var position = ref world.GetComponent<PositionComponent>(entity);
+
+                if (gamePerspective != null)
+                {
+                    position.value =
+                        gamePerspective.ConvertToWorld(new Vector3(transform.position.x, transform.position.y, 0));
+                }
+                else
+                {
+                    position.value = new Vector3(transform.position.x, transform.position.y, 0);
+                }
             }
             
             if (controllable)
