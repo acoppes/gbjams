@@ -122,7 +122,6 @@ namespace Beatemup.Ecs
     public struct LookingDirection : IEntityComponent
     {
         public Vector2 value;
-        public bool locked;
     }
 
     public struct UnitModelComponent : IEntityComponent

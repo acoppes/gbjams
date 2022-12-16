@@ -63,9 +63,6 @@ namespace Beatemup.Controllers
         
         public void OnInit()
         {
-            ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
-            lookingDirection.locked = true;
-            
             ref var hitComponent = ref world.GetComponent<HitPointsComponent>(entity);
             hitComponent.OnHitEvent += OnHit;
         }
