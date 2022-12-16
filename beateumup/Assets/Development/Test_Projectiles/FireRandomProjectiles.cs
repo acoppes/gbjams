@@ -14,25 +14,28 @@ public class FireRandomProjectiles : MonoBehaviour
     
     public void Update()
     {
-        var projectile = world.CreateEntity(projectilePrefab.GetInterface<IEntityDefinition>(),
-            parametersObject.GetComponentsInChildren<IEntityInstanceParameter>());
-        
-        if (world.HasComponent<LookingDirection>(projectile))
+        if (Mouse.current.leftButton.isPressed)
         {
-            var direction = Vector2.right.Rotate(UnityEngine.Random.Range(0, 360) * Mathf.Deg2Rad);
-            
-            ref var lookingDirection = ref world.GetComponent<LookingDirection>(projectile);
-            lookingDirection.value = new Vector3(direction.x, 0, direction.y);
-        }
-        
-        if (world.HasComponent<PositionComponent>(projectile))
-        {
-            var mousePosition = Mouse.current.position.ReadValue();
-            var position = Camera.main.ScreenToWorldPoint(mousePosition);
-            
-            ref var positionComponent = ref world.GetComponent<PositionComponent>(projectile);
-            positionComponent.value = new Vector3(position.x,  UnityEngine.Random.Range(2f, 8f), 
-                position.y);
+            var projectile = world.CreateEntity(projectilePrefab.GetInterface<IEntityDefinition>(),
+                parametersObject.GetComponentsInChildren<IEntityInstanceParameter>());
+
+            if (world.HasComponent<LookingDirection>(projectile))
+            {
+                var direction = Vector2.right.Rotate(UnityEngine.Random.Range(0, 360) * Mathf.Deg2Rad);
+
+                ref var lookingDirection = ref world.GetComponent<LookingDirection>(projectile);
+                lookingDirection.value = new Vector3(direction.x, UnityEngine.Random.Range(0.15f, 0.4f), direction.y);
+            }
+
+            if (world.HasComponent<PositionComponent>(projectile))
+            {
+                var mousePosition = Mouse.current.position.ReadValue();
+                var position = Camera.main.ScreenToWorldPoint(mousePosition);
+
+                ref var positionComponent = ref world.GetComponent<PositionComponent>(projectile);
+                positionComponent.value = new Vector3(position.x, 0,
+                    position.y);
+            }
         }
     }
 }
