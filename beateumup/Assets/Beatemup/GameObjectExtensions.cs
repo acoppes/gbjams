@@ -6,6 +6,10 @@ namespace Beatemup
     {
         public static bool IsSafeToModifyName(this GameObject gameObject)
         {
+            #if !UNITY_EDITOR
+                return false;
+            #else 
+            
 #if UNITY_2021_1_OR_NEWER
             if ( UnityEditor.SceneManagement.PrefabStageUtility.GetPrefabStage(gameObject) != null)
                 return false;
@@ -20,6 +24,8 @@ namespace Beatemup
             }
 
             return true;
+            
+            #endif
         }
     }
 }
