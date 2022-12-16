@@ -100,15 +100,25 @@ namespace Beatemup.Ecs
                 {
                     var angle = Mathf.Atan2(lookingDirection.value.z, lookingDirection.value.x) * Mathf.Rad2Deg;
                     var angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
+
                     var eulerAngles = angleAxis.eulerAngles;
 
+                    // if (eulerAngles.z > 180)
+                    // {
+                    //     eulerAngles.z -= 360;
+                    // }
+                    //
                     // eulerAngles.x = eulerAngles.z * 0.75f;
 
                     modelComponent.instance.model.transform.localEulerAngles = eulerAngles;
+                    
+                    // var rotation = Quaternion.LookRotation(lookingDirection.value, Vector3.forward);
+                    // modelComponent.instance.model.transform.rotation = rotation;
 
                     if (modelComponent.hasShadow)
                     {
                         modelComponent.instance.shadow.transform.localEulerAngles = eulerAngles;
+                        // modelComponent.instance.shadow.transform.rotation = rotation;
                     }
                 }
             }

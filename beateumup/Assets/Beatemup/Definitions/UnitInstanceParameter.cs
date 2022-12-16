@@ -37,8 +37,9 @@ namespace Beatemup.Definitions
         
         [Separator("Looking Direction")] 
         public bool overrideLookingDirection = true;
+
         [ConditionalField(nameof(overrideLookingDirection))]
-        public float startingLookingDirectionAngle = 0;
+        public Vector3 startLookingDirection;
 
         [Separator("Animation")]
         public bool overrideAnimation;
@@ -80,10 +81,8 @@ namespace Beatemup.Definitions
 
             if (overrideLookingDirection && world.HasComponent<LookingDirection>(entity))
             {
-                var direction = Vector2.right.Rotate(startingLookingDirectionAngle * Mathf.Deg2Rad);
-                
                 ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
-                lookingDirection.value = new Vector3(direction.x, 0, direction.y);
+                lookingDirection.value = startLookingDirection.normalized;
             }
             
             if (overrideAnimation && world.HasComponent<AnimationComponent>(entity))
