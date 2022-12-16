@@ -10,6 +10,7 @@ namespace Beatemup.Controllers
     public class ProjectileController : ControllerBase, IInit, IUpdate, IStateChanged
     {
         public float maxTravelDistance;
+        public float hitStopTime = 4f / 15f;
         
         private Vector3 startingPosition;
         
@@ -70,26 +71,52 @@ namespace Beatemup.Controllers
         public void OnUpdate(float dt)
         {
             ref var states = ref GetComponent<StatesComponent>();
-            ref var movement = ref GetComponent<HorizontalMovementComponent>();
             ref var lookingDirection = ref GetComponent<LookingDirection>();
             ref var physicsComponent = ref GetComponent<PhysicsComponent>();
             ref var position = ref GetComponent<PositionComponent>();
+            ref var modelShakeComponent = ref GetComponent<ModelShakeComponent>();
+            ref var movement = ref GetComponent<HorizontalMovementComponent>();
             
             State state;
             
             if (states.TryGetState("Travel", out state))
             {
-                // movement.movingDirection = lookingDirection.value;
+                if (world.HasComponent<PlayerInputComponent>(entity))
+                {
+                    var control = GetComponent<ControlComponent>();
+                    var direction = control.direction3d;
 
+                    if (direction.sqrMagnitude > 0.1f)
+                    {
+                        physicsComponent.body.velocity = direction * movement.baseSpeed;
+                    }
+                }
+                
+                var hitTargets = world.GetTargets(entity);
+
+                foreach (var hitTarget in hitTargets)
+                {
+                    ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
+                    hitComponent.hits.Add(new HitData
+                    {
+                        position = position.value,
+                        knockback = true,
+                        hitPoints = 1,
+                        source = entity
+                    });
+                        
+                    var targetPosition = world.GetComponent<PositionComponent>(hitTarget.entity);
+                    modelShakeComponent.Shake(hitStopTime, 0.25f);
+                }
+                
                 var velocity = physicsComponent.velocity;
-                // var direction = new Vector2(velocity.x, velocity.z);
                 
                 if (velocity.sqrMagnitude > 0.1f)
                 {
                     lookingDirection.value = velocity.normalized;
                 }
 
-                if (Vector3.Distance(position.value, startingPosition) > maxTravelDistance)
+                if (hitTargets.Count > 0 || Vector3.Distance(position.value, startingPosition) > maxTravelDistance)
                 {
                     states.ExitState("Travel");
                     states.EnterState("Falling");
