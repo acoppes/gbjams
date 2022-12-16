@@ -123,7 +123,7 @@ namespace Beatemup.Ecs
     
     public struct LookingDirection : IEntityComponent
     {
-        public Vector2 value;
+        public Vector3 value;
     }
 
     public struct UnitModelComponent : IEntityComponent

@@ -46,7 +46,7 @@ namespace Beatemup.Controllers
                 
                 physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
                 physicsComponent.body.position = position.value;
-                physicsComponent.body.velocity = new Vector3(velocity.x, 0, velocity.y);
+                physicsComponent.body.velocity = velocity;
 
                 physicsComponent.body.constraints = RigidbodyConstraints.None;
             }
@@ -82,11 +82,11 @@ namespace Beatemup.Controllers
                 // movement.movingDirection = lookingDirection.value;
 
                 var velocity = physicsComponent.velocity;
-                var direction = new Vector2(velocity.x, velocity.z);
+                // var direction = new Vector2(velocity.x, velocity.z);
                 
-                if (direction.sqrMagnitude > 0.1f)
+                if (velocity.sqrMagnitude > 0.1f)
                 {
-                    lookingDirection.value = direction.normalized;
+                    lookingDirection.value = velocity.normalized;
                 }
 
                 if (Vector3.Distance(position.value, startingPosition) > maxTravelDistance)
@@ -101,11 +101,11 @@ namespace Beatemup.Controllers
                 // movement.movingDirection = lookingDirection.value;
 
                 var velocity = physicsComponent.velocity;
-                var direction = new Vector2(velocity.x, velocity.z);
+                // var direction = new Vector2(velocity.x, velocity.z);
                 
-                if (direction.sqrMagnitude > 0.1f)
+                if (velocity.sqrMagnitude > 0.1f)
                 {
-                    lookingDirection.value = direction.normalized;
+                    lookingDirection.value = velocity.normalized;
                 }
             }
             

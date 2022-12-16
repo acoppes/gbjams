@@ -80,8 +80,10 @@ namespace Beatemup.Definitions
 
             if (overrideLookingDirection && world.HasComponent<LookingDirection>(entity))
             {
+                var direction = Vector2.right.Rotate(startingLookingDirectionAngle * Mathf.Deg2Rad);
+                
                 ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
-                lookingDirection.value = Vector2.right.Rotate(startingLookingDirectionAngle * Mathf.Deg2Rad);
+                lookingDirection.value = new Vector3(direction.x, 0, direction.y);
             }
             
             if (overrideAnimation && world.HasComponent<AnimationComponent>(entity))

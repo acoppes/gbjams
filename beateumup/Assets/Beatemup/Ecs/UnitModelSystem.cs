@@ -98,8 +98,7 @@ namespace Beatemup.Ecs
                 }
                 else if (modelComponent.rotation == UnitModelComponent.RotationType.Rotate)
                 {
-                    var angle = Mathf.Atan2(lookingDirection.value.y, lookingDirection.value.x) * Mathf.Rad2Deg;
-
+                    var angle = Mathf.Atan2(lookingDirection.value.z, lookingDirection.value.x) * Mathf.Rad2Deg;
                     var angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
                     var eulerAngles = angleAxis.eulerAngles;
 
