@@ -5,17 +5,25 @@ using UnityEngine;
 
 namespace Beatemup.Ecs
 {
-    public class DebugHitBoxSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
+    public class DebugHitBoxSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler, IEcsInitSystem
     {
         public bool debugHitBoxesEnabled;
         
         public GameObject hitBoxDebugPrefab;
 
         public GamePerspectiveAsset gamePerspective;
+
+        private GameObject debugParent;
+        
+        public void Init(EcsSystems systems)
+        {
+            debugParent = new GameObject("~HitBoxDebugObjects");
+        }
         
         public DebugHitBox CreateDebugHitBox(int type)
         {
             var debugHitBoxInstance = GameObject.Instantiate(hitBoxDebugPrefab);
+            debugHitBoxInstance.gameObject.transform.parent = debugParent.transform;
             debugHitBoxInstance.SetActive(true);
 
             var debugHitBox = debugHitBoxInstance.GetComponent<DebugHitBox>();
@@ -73,5 +81,6 @@ namespace Beatemup.Ecs
                 hitBox.debugHurtBox.UpdateHitBox(hitBox.hurt);
             }
         }
+
     }
 }
