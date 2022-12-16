@@ -95,7 +95,6 @@ namespace Beatemup.Definitions
 
         [Separator("Others")]
         public bool isVfx;
-        public float jumpSpeed = 1;
 
         public void Apply(World world, Entity entity)
         {
