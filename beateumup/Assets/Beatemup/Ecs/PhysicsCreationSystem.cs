@@ -1,13 +1,21 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Gemserk.Leopotam.Ecs;
+using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace Beatemup.Ecs
 {
     [SuppressMessage("ReSharper", "LocalVariableHidesMember")]
-    public class PhysicsCreationSystem : BaseSystem, IEntityCreatedHandler, IEntityDestroyedHandler
+    public class PhysicsCreationSystem : BaseSystem, IEntityCreatedHandler, IEntityDestroyedHandler, IEcsInitSystem
     {
+        private GameObject physicsObjectsParent;
+        
         public PhysicMaterial defaultMaterial;
+        
+        public void Init(EcsSystems systems)
+        {
+            physicsObjectsParent = new GameObject("~PhysicsObjects");
+        }
 
         private Collider CreateCollider(int layer, PhysicsComponent physicsComponent)
         {
@@ -47,6 +55,8 @@ namespace Beatemup.Ecs
                 ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
                 
                 physicsComponent.gameObject = new GameObject("~PhysicsObject");
+                physicsComponent.gameObject.transform.parent = physicsObjectsParent.transform;
+                
                 var layer = physicsComponent.isStatic ? LayerMask.NameToLayer("StaticObstacle") : 
                     LayerMask.NameToLayer("DynamicObstacle");
                 
@@ -98,5 +108,7 @@ namespace Beatemup.Ecs
                 physicsComponent.collideWithStaticCollider = null;
             }
         }
+
+
     }
 }
