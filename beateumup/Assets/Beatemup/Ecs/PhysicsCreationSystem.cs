@@ -8,13 +8,17 @@ namespace Beatemup.Ecs
     [SuppressMessage("ReSharper", "LocalVariableHidesMember")]
     public class PhysicsCreationSystem : BaseSystem, IEntityCreatedHandler, IEntityDestroyedHandler, IEcsInitSystem
     {
-        private GameObject physicsObjectsParent;
-        
         public PhysicMaterial defaultMaterial;
+     
+        private GameObject instancesParent;
         
         public void Init(EcsSystems systems)
         {
-            physicsObjectsParent = new GameObject("~PhysicsObjects");
+            instancesParent = GameObject.Find("~PhysicsObjects");
+            if (instancesParent == null)
+            {
+                instancesParent = new GameObject("~PhysicsObjects");
+            }
         }
 
         private Collider CreateCollider(int layer, PhysicsComponent physicsComponent)
@@ -55,7 +59,7 @@ namespace Beatemup.Ecs
                 ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
                 
                 physicsComponent.gameObject = new GameObject("~PhysicsObject");
-                physicsComponent.gameObject.transform.parent = physicsObjectsParent.transform;
+                physicsComponent.gameObject.transform.parent = instancesParent.transform;
                 
                 var layer = physicsComponent.isStatic ? LayerMask.NameToLayer("StaticObstacle") : 
                     LayerMask.NameToLayer("DynamicObstacle");

@@ -9,8 +9,8 @@ namespace Beatemup.Controllers
 {
     public class ProjectileController : ControllerBase, IInit, IUpdate, IStateChanged
     {
-        public float maxTravelDistance;
-        public float hitStopTime = 4f / 15f;
+        public float maxTravelTime;
+        public float ttlAfterFalling = 2.0f;
         
         private Vector3 startingPosition;
         
@@ -40,7 +40,7 @@ namespace Beatemup.Controllers
 
                 startingPosition = position.value;
 
-                physicsComponent.disableCollideWithObstacles = true;
+                physicsComponent.disableCollideWithObstacles = false;
 
                 var direction = lookingDirection.value;
                 var velocity = direction * movement.baseSpeed;
@@ -79,6 +79,16 @@ namespace Beatemup.Controllers
             
             State state;
             
+            if (states.TryGetState("Death", out state))
+            {
+                movement.movingDirection = Vector2.zero;
+
+                ref var destroyable = ref world.GetComponent<DestroyableComponent>(entity);
+                destroyable.destroy = true;
+                
+                return;
+            }
+            
             if (states.TryGetState("Travel", out state))
             {
                 if (world.HasComponent<PlayerInputComponent>(entity))
@@ -104,9 +114,6 @@ namespace Beatemup.Controllers
                         hitPoints = 1,
                         source = entity
                     });
-                        
-                    var targetPosition = world.GetComponent<PositionComponent>(hitTarget.entity);
-                    modelShakeComponent.Shake(hitStopTime, 0.25f);
                 }
                 
                 var velocity = physicsComponent.velocity;
@@ -116,11 +123,21 @@ namespace Beatemup.Controllers
                     lookingDirection.value = velocity.normalized;
                 }
 
-                if (hitTargets.Count > 0 || Vector3.Distance(position.value, startingPosition) > maxTravelDistance)
+                if (hitTargets.Count > 0)
+                {
+                    states.ExitState("Travel");
+                    states.EnterState("Death");
+                    return;
+                }
+
+                if (state.time > maxTravelTime)
                 {
                     states.ExitState("Travel");
                     states.EnterState("Falling");
-                } 
+                    return;
+                }
+
+                return;
             }
             
             if (states.TryGetState("Falling", out state))
@@ -133,6 +150,12 @@ namespace Beatemup.Controllers
                 if (velocity.sqrMagnitude > 0.1f)
                 {
                     lookingDirection.value = velocity.normalized;
+                }
+
+                if (state.time > ttlAfterFalling)
+                {
+                    states.ExitState("Falling");
+                    states.EnterState("Death");
                 }
             }
             

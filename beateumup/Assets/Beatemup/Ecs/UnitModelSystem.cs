@@ -6,9 +6,16 @@ using UnityEngine;
 
 namespace Beatemup.Ecs
 {
-    public class UnitModelSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
+    public class UnitModelSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler, IEcsInitSystem
     {
         public GamePerspectiveAsset gamePerspective;
+        
+        private GameObject instancesParent;
+        
+        public void Init(EcsSystems systems)
+        {
+            instancesParent = new GameObject("~Models");
+        }
         
         public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
@@ -18,10 +25,10 @@ namespace Beatemup.Ecs
             {
                 ref var model = ref models.Get(entity);
                 var modelInstance = Instantiate(model.prefab);
+                modelInstance.transform.parent = instancesParent.transform;
                 
                 model.instance = modelInstance.GetComponent<Model>();
                 model.instance.gameObject.SetActive(true);
-                // model.subModel = model.instance.transform.Find("Model");
             }
         }
 

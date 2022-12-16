@@ -6,9 +6,20 @@ using Vertx.Debugging;
 
 namespace Beatemup.Ecs
 {
-    public class HurtBoxColliderSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler
+    public class HurtBoxColliderSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler, IEcsInitSystem
     {
         public GamePerspectiveAsset gamePerspective;
+        
+        private GameObject instancesParent;
+        
+        public void Init(EcsSystems systems)
+        {
+            instancesParent = GameObject.Find("~PhysicsObjects");
+            if (instancesParent == null)
+            {
+                instancesParent = new GameObject("~PhysicsObjects");
+            }
+        }
         
         public void OnEntityCreated(Gemserk.Leopotam.Ecs.World world, Entity entity)
         {
@@ -18,6 +29,7 @@ namespace Beatemup.Ecs
                 ref var hitBox = ref hitBoxes.Get(entity);
 
                 var instance = new GameObject("HurtBox");
+                instance.transform.parent = instancesParent.transform;
                 instance.layer = LayerMask.NameToLayer("HurtBox");
                 
                 var targetReference = instance.AddComponent<TargetReference>();

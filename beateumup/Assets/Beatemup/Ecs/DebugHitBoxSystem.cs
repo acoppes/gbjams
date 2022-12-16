@@ -13,17 +13,17 @@ namespace Beatemup.Ecs
 
         public GamePerspectiveAsset gamePerspective;
 
-        private GameObject debugParent;
+        private GameObject instancesParent;
         
         public void Init(EcsSystems systems)
         {
-            debugParent = new GameObject("~HitBoxDebugObjects");
+            instancesParent = new GameObject("~HitBoxDebugObjects");
         }
         
         public DebugHitBox CreateDebugHitBox(int type)
         {
             var debugHitBoxInstance = GameObject.Instantiate(hitBoxDebugPrefab);
-            debugHitBoxInstance.gameObject.transform.parent = debugParent.transform;
+            debugHitBoxInstance.gameObject.transform.parent = instancesParent.transform;
             debugHitBoxInstance.SetActive(true);
 
             var debugHitBox = debugHitBoxInstance.GetComponent<DebugHitBox>();
