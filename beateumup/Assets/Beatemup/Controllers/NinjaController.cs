@@ -16,7 +16,7 @@ namespace Beatemup.Controllers
         public float dashBackTime = 0.1f;
         public float dashHeight = 1.0f;
         
-        private Vector2 dashRecoveryDirection;
+        private Vector3 dashRecoveryDirection;
         
         public float dashRecoverySpeed = 10.0f;
         
@@ -684,7 +684,7 @@ namespace Beatemup.Controllers
             // }
             
             movement.speed = movement.baseSpeed;
-            movement.movingDirection = control.direction;
+            movement.movingDirection = control.direction3d;
 
             if (states.HasState("Moving"))
             {

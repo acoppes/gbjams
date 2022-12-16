@@ -47,6 +47,8 @@ namespace Beatemup.Ecs
         public const int MaxBufferCount = 15;
         
         public Vector2 direction;
+
+        public Vector3 direction3d => new Vector3(direction.x, 0, direction.y);
         
         public Button right;
         public Button left;

@@ -29,7 +29,7 @@ namespace Beatemup.Ecs
 
                 var velocity = direction.normalized * movement.speed * movement.speedMultiplier;
 
-                newPosition += new Vector3(velocity.x, 0, velocity.y) * Time.deltaTime;
+                newPosition += velocity * Time.deltaTime;
                 
                 position.value = newPosition;
 

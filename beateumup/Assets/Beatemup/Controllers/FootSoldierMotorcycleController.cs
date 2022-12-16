@@ -24,7 +24,7 @@ namespace Beatemup.Controllers
             
             // ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
             
-            movement.movingDirection = control.direction;
+            movement.movingDirection = control.direction3d;
 
             if (states.TryGetState("Wheelie", out var state))
             {

@@ -662,7 +662,7 @@ namespace Beatemup.Controllers
                     animation.Play("Sprint");
                 }
                 
-                movement.movingDirection = control.direction;
+                movement.movingDirection = control.direction3d;
 
                 return;
             }
@@ -687,7 +687,7 @@ namespace Beatemup.Controllers
             }
 
             movement.speed = baseSpeed.x;
-            movement.movingDirection = control.direction;
+            movement.movingDirection = control.direction3d;
 
             if (states.HasState("Moving"))
             {
