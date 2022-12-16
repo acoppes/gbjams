@@ -92,18 +92,26 @@ namespace Beatemup.Controllers
             }
 
             hitStopKnockback = knockback || hitPointsComponent.current <= 0;
-            
-            if (states.HasState("HitStun"))
+
+            if (knockback)
             {
-                // reset anim
-                animationComponent.Play("HitStun", 1);
-                animationComponent.pauseTime = hitStopTime;
-                modelShakeComponent.Shake(hitStopTime);
+                states.EnterState("Knockback");
             }
             else
             {
-                states.EnterState("HitStun");   
+                if (states.HasState("HitStun"))
+                {
+                    // reset anim
+                    animationComponent.Play("HitStun", 1);
+                    animationComponent.pauseTime = hitStopTime;
+                    modelShakeComponent.Shake(hitStopTime);
+                }
+                else
+                {
+                    states.EnterState("HitStun");   
+                } 
             }
+            
         }
         
         public void OnEnterState()
