@@ -17,11 +17,11 @@ namespace Beatemup.Ecs
                 ref var movement = ref movementComponents.Get(entity);
                 ref var position = ref positionComponents.Get(entity);
                 
-                if (movement.disabled)
-                {
-                    movement.currentVelocity = Vector2.zero;
-                    continue;
-                }
+                // if (movement.disabled)
+                // {
+                //     movement.currentVelocity = Vector2.zero;
+                //     continue;
+                // }
 
                 var direction = movement.movingDirection;
 

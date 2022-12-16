@@ -10,6 +10,9 @@ namespace Beatemup.Controllers
         {
             ref var animationComponent = ref world.GetComponent<AnimationComponent>(entity);
             animationComponent.Play("MotorcycleRoll");
+            
+            ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
+            movement.speed = movement.baseSpeed;
         }
 
         public void OnUpdate(float dt)

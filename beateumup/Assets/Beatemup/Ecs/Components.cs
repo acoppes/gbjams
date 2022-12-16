@@ -179,15 +179,13 @@ namespace Beatemup.Ecs
     
     public struct HorizontalMovementComponent : IEntityComponent
     {
-        public bool disabled;
-        
         public float speedMultiplier;
 
         public float baseSpeed;
         public float speed;
         
-        public Vector2 currentVelocity;
-        public Vector2 movingDirection;
+        public Vector3 currentVelocity;
+        public Vector3 movingDirection;
     }
 
     public struct GravityComponent : IEntityComponent

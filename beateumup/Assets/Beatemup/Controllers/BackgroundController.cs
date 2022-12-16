@@ -9,7 +9,8 @@ namespace Beatemup.Controllers
         public void OnUpdate(float dt)
         {
             ref var movement = ref world.GetComponent<HorizontalMovementComponent>(entity);
-            movement.movingDirection = Vector2.left;
+            movement.speed = movement.baseSpeed;
+            movement.movingDirection = Vector3.left;
         }
     }
 }
