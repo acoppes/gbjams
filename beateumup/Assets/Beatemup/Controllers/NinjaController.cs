@@ -57,10 +57,10 @@ namespace Beatemup.Controllers
 
         public GameObject deathBodyDefinition;
 
+        public GameObject projectileDefinition;
+        
         public float hitStopTime = TmntConstants.HitAnimationPauseTime;
 
-        private bool hitStopKnockback = false;
-        
         public void OnInit()
         {
             ref var hitComponent = ref world.GetComponent<HitPointsComponent>(entity);
@@ -90,8 +90,6 @@ namespace Beatemup.Controllers
                 
                 knockback = knockback || hit.knockback;
             }
-
-            hitStopKnockback = knockback || hitPointsComponent.current <= 0;
 
             if (knockback)
             {
@@ -130,6 +128,13 @@ namespace Beatemup.Controllers
             if (states.statesEntered.Contains("Moving"))
             {
                 animation.Play("Walk");
+            }
+            
+            if (states.statesEntered.Contains("RangeAttack"))
+            {
+                animation.Play("RangeAttack",1);
+                movement.speed = 0;
+                movement.movingDirection = Vector3.zero;
             }
             
             if (states.statesEntered.Contains("DashBackRecovery"))
@@ -291,7 +296,7 @@ namespace Beatemup.Controllers
             ref var hitPoints = ref world.GetComponent<HitPointsComponent>(entity);
             ref var physicsComponent = ref world.GetComponent<PhysicsComponent>(entity);
             
-            // ref var jump = ref world.GetComponent<JumpComponent>(entity);
+            ref var player = ref world.GetComponent<PlayerComponent>(entity);
 
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
 
@@ -386,15 +391,41 @@ namespace Beatemup.Controllers
 
                 if (animationComponent.state == AnimationComponent.State.Completed)
                 {
-                    if (hitStopKnockback)
-                    {
-                        hitStopKnockback = false;
-                        states.EnterState("Knockback");
-                    }
-                    
                     states.ExitState("HitStun");
+                    
+                    if (hitPoints.current <= 0)
+                    {
+                        states.EnterState("Death");
+                    }
                 }
                 
+                return;
+            }
+            
+            if (states.TryGetState("RangeAttack", out state))
+            {
+                if (animationComponent.state == AnimationComponent.State.Completed)
+                {
+                    // fire projectile in with direction lookingdirection
+
+                    var projectileEntity = world.CreateEntity(projectileDefinition);
+                    
+                    ref var projectileLookingDirection = ref world.GetComponent<LookingDirection>(projectileEntity);
+                    projectileLookingDirection.value = control.direction3d;
+
+                    if (control.direction3d.sqrMagnitude < 0.1f)
+                    {
+                        projectileLookingDirection.value = lookingDirection.value;
+                    }
+                    
+                    ref var projectilePosition = ref world.GetComponent<PositionComponent>(projectileEntity);
+                    projectilePosition.value = position.value + new Vector3(0, 1f, 0);
+                    
+                    ref var projectilePlayer = ref world.GetComponent<PlayerComponent>(projectileEntity);
+                    projectilePlayer.player = player.player;
+
+                    states.ExitState("RangeAttack");
+                }
                 return;
             }
 
@@ -690,6 +721,13 @@ namespace Beatemup.Controllers
             //         return;
             //     }
             // }
+            
+            if (control.HasBufferedAction(control.button3))
+            {
+                control.ConsumeBuffer();
+                states.EnterState("RangeAttack");
+                return;
+            }
             
             movement.speed = movement.baseSpeed;
             movement.movingDirection = control.direction3d;

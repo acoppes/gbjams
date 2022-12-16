@@ -11,36 +11,41 @@ namespace Beatemup.Controllers
     {
         public float maxTravelTime;
         public float ttlAfterFalling = 2.0f;
-        
-        private Vector3 startingPosition;
-        
+
+        public float deathDuration = 1.0f;
+
         public void OnInit()
         {
-            ref var states = ref GetComponent<StatesComponent>();
+            ref var states = ref Get<StatesComponent>();
             states.EnterState("Travel");
             
-            ref var animationComponent = ref GetComponent<AnimationComponent>();
+            ref var animationComponent = ref Get<AnimationComponent>();
             animationComponent.Play("Idle");
         }
         
         public void OnEnterState()
         {
-            ref var states = ref GetComponent<StatesComponent>();
-            ref var position = ref GetComponent<PositionComponent>();
-            ref var movement = ref GetComponent<HorizontalMovementComponent>();
-            ref var gravity = ref GetComponent<GravityComponent>();
-            ref var physicsComponent = ref GetComponent<PhysicsComponent>();
-            ref var lookingDirection = ref GetComponent<LookingDirection>();
+            ref var states = ref Get<StatesComponent>();
+            ref var position = ref Get<PositionComponent>();
+            ref var movement = ref Get<HorizontalMovementComponent>();
+            ref var gravity = ref Get<GravityComponent>();
+            ref var physicsComponent = ref Get<PhysicsComponent>();
+            ref var lookingDirection = ref Get<LookingDirection>();
+            ref var modelComponent = ref Get<UnitModelComponent>();
             
+            if (states.statesEntered.Contains("Death"))
+            {
+                gravity.disabled = true;
+                physicsComponent.syncType = PhysicsComponent.SyncType.Both;
+                physicsComponent.disableCollideWithObstacles = true;
+                physicsComponent.body.constraints = RigidbodyConstraints.FreezeAll;
+            }
+
             if (states.statesEntered.Contains("Travel"))
             {
                 gravity.disabled = true;
 
-                // movement.speed = movement.baseSpeed;
-
-                startingPosition = position.value;
-
-                physicsComponent.disableCollideWithObstacles = false;
+                physicsComponent.disableCollideWithObstacles = true;
 
                 var direction = lookingDirection.value;
                 var velocity = direction * movement.baseSpeed;
@@ -57,6 +62,8 @@ namespace Beatemup.Controllers
                 gravity.disabled = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
                 
+                modelComponent.color = new Color(0.75f, 0.75f, 0.75f, 1.0f);
+                
                 // movement.speed = 0;
 
                 // physicsComponent.body.velocity = new Vector3(movement.currentVelocity.x, 0, movement.currentVelocity.y);
@@ -70,30 +77,41 @@ namespace Beatemup.Controllers
         
         public void OnUpdate(float dt)
         {
-            ref var states = ref GetComponent<StatesComponent>();
-            ref var lookingDirection = ref GetComponent<LookingDirection>();
-            ref var physicsComponent = ref GetComponent<PhysicsComponent>();
-            ref var position = ref GetComponent<PositionComponent>();
-            ref var modelShakeComponent = ref GetComponent<ModelShakeComponent>();
-            ref var movement = ref GetComponent<HorizontalMovementComponent>();
+            ref var states = ref Get<StatesComponent>();
+            ref var lookingDirection = ref Get<LookingDirection>();
+            ref var physicsComponent = ref Get<PhysicsComponent>();
+            ref var position = ref Get<PositionComponent>();
+            ref var movement = ref Get<HorizontalMovementComponent>();
+            
+            ref var modelComponent= ref Get<UnitModelComponent>();
             
             State state;
             
             if (states.TryGetState("Death", out state))
             {
                 movement.movingDirection = Vector2.zero;
-
-                ref var destroyable = ref world.GetComponent<DestroyableComponent>(entity);
-                destroyable.destroy = true;
+                
+                if (deathDuration > 0)
+                {
+                    var color = modelComponent.color;
+                    color.a = 1.0f - (state.time / deathDuration);
+                    modelComponent.color = color;
+                }
+                
+                if (state.time > deathDuration)
+                {
+                    ref var destroyable = ref Get<DestroyableComponent>();
+                    destroyable.destroy = true;
+                }
                 
                 return;
             }
             
             if (states.TryGetState("Travel", out state))
             {
-                if (world.HasComponent<PlayerInputComponent>(entity))
+                if (Has<PlayerInputComponent>())
                 {
-                    var control = GetComponent<ControlComponent>();
+                    var control = Get<ControlComponent>();
                     var direction = control.direction3d;
 
                     if (direction.sqrMagnitude > 0.1f)
@@ -101,35 +119,39 @@ namespace Beatemup.Controllers
                         physicsComponent.body.velocity = direction * movement.baseSpeed;
                     }
                 }
-                
-                var hitTargets = world.GetTargets(entity);
-
-                foreach (var hitTarget in hitTargets)
-                {
-                    ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
-                    hitComponent.hits.Add(new HitData
-                    {
-                        position = position.value,
-                        knockback = true,
-                        hitPoints = 1,
-                        source = entity
-                    });
-                }
-                
                 var velocity = physicsComponent.velocity;
                 
                 if (velocity.sqrMagnitude > 0.1f)
                 {
                     lookingDirection.value = velocity.normalized;
                 }
-
-                if (hitTargets.Count > 0)
+                
+                if (Has<HitBoxComponent>())
                 {
-                    states.ExitState("Travel");
-                    states.EnterState("Death");
-                    return;
-                }
+                    var hitTargets = world.GetTargets(entity);
 
+                    foreach (var hitTarget in hitTargets)
+                    {
+                        ref var hitComponent = ref world.GetComponent<HitPointsComponent>(hitTarget.entity);
+                        hitComponent.hits.Add(new HitData
+                        {
+                            position = position.value,
+                            knockback = false,
+                            hitPoints = 1,
+                            source = entity
+                        });
+                    }
+                    
+                    if (hitTargets.Count > 0)
+                    {
+                        physicsComponent.body.velocity = physicsComponent.body.velocity * -0.25f;
+                    
+                        states.ExitState("Travel");
+                        states.EnterState("Falling");
+                        return;
+                    }
+                }
+                
                 if (state.time > maxTravelTime)
                 {
                     states.ExitState("Travel");
