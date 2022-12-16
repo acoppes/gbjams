@@ -60,6 +60,7 @@ namespace Beatemup.Ecs
         
         public Button button1;
         public Button button2;
+        public Button button3;
 
         public List<string> buffer;
         public float bufferTime;
@@ -76,6 +77,7 @@ namespace Beatemup.Ecs
                 backward = new Button(nameof(backward)),
                 button1 = new Button(nameof(button1)),
                 button2 = new Button(nameof(button2)),
+                button3 = new Button(nameof(button3)),
                 buffer = new List<string>()
             };
         }
