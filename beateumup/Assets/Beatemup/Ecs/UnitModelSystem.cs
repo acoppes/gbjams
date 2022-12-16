@@ -8,6 +8,8 @@ namespace Beatemup.Ecs
 {
     public class UnitModelSystem : BaseSystem, IEcsRunSystem, IEntityCreatedHandler, IEntityDestroyedHandler, IEcsInitSystem
     {
+        public float baseShadowOpacity = 0.4f;
+        
         public GamePerspectiveAsset gamePerspective;
         
         private GameObject instancesParent;
@@ -58,20 +60,26 @@ namespace Beatemup.Ecs
             {
                 var modelComponent = modelComponents.Get(entity);
 
-                if (modelComponent.instance.shadow != null)
+                var model = modelComponent.instance;
+                
+                if (model.shadow != null)
                 {
-                    modelComponent.instance.shadow.enabled = modelComponent.hasShadow;
-                    modelComponent.instance.shadow.transform.localScale = new Vector3(1, 
+                    model.shadow.enabled = modelComponent.hasShadow;
+                    model.shadow.transform.localScale = new Vector3(1, 
                         modelComponent.shadowPerspective, 1);
+
+                    var shadowColor = model.shadow.color;
+                    shadowColor.a = baseShadowOpacity * modelComponent.color.a;
+                    model.shadow.color = shadowColor;
                 }
                 
                 // disable by default
-                if (modelComponent.instance.playerIndicator != null)
+                if (model.playerIndicator != null)
                 {
-                    modelComponent.instance.playerIndicator.enabled = false;
+                    model.playerIndicator.enabled = false;
                 }
 
-                modelComponent.instance.model.color = modelComponent.color;
+                model.model.color = modelComponent.color;
             }
             
             foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<PositionComponent>().End())
