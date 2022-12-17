@@ -1,5 +1,4 @@
 ﻿using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Gameplay;
 using Leopotam.EcsLite;
 using UnityEngine;
 
@@ -21,7 +20,6 @@ namespace Beatemup.Ecs
         public void Run(EcsSystems systems)
         {
             var gravityComponents = world.GetComponents<GravityComponent>();
-            var positionComponents = world.GetComponents<PositionComponent>();
             var physicsComponents = world.GetComponents<PhysicsComponent>();
             
             foreach (var entity in world.GetFilter<GravityComponent>().Inc<PhysicsComponent>().End())
@@ -41,7 +39,9 @@ namespace Beatemup.Ecs
 
                 gravityComponent.inContactWithGround = false;
 
-                var ray = new Ray(physicsComponent.body.position + new Vector3(0, 0.1f, 0), Vector3.down);
+                var position3d = physicsComponent.body.position;
+                
+                var ray = new Ray(position3d + new Vector3(0, 0.1f, 0), Vector3.down);
                 
                 if (Physics.Raycast(ray, out var hit, 2f, groundContactLayerMask, QueryTriggerInteraction.Ignore))
                 {
@@ -55,7 +55,5 @@ namespace Beatemup.Ecs
                 }
             }
         }
-
-
     }
 }
