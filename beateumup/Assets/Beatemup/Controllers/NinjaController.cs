@@ -746,6 +746,11 @@ namespace Beatemup.Controllers
             
             if (control.HasBufferedAction(control.button3))
             {
+                if (control.backward.isPressed)
+                {
+                    lookingDirection.value.x = control.direction.x;
+                }
+                
                 control.ConsumeBuffer();
                 states.EnterState("RangeAttack");
                 return;
