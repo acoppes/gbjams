@@ -61,6 +61,9 @@ namespace Beatemup.Controllers
         
         public float hitStopTime = TmntConstants.HitAnimationPauseTime;
 
+        public bool rangeAttackFired;
+        public float rangeAttackTime = 2 / 15f;
+
         public void OnInit()
         {
             ref var hitComponent = ref world.GetComponent<HitPointsComponent>(entity);
@@ -133,6 +136,7 @@ namespace Beatemup.Controllers
             if (states.statesEntered.Contains("RangeAttack"))
             {
                 animation.Play("RangeAttack",1);
+                rangeAttackFired = false;
                 movement.speed = 0;
                 movement.movingDirection = Vector3.zero;
             }
@@ -404,10 +408,8 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("RangeAttack", out state))
             {
-                if (animationComponent.state == AnimationComponent.State.Completed)
+                if (!rangeAttackFired && animationComponent.playingTime > rangeAttackTime)
                 {
-                    // fire projectile in with direction lookingdirection
-
                     var projectileEntity = world.CreateEntity(projectileDefinition);
                     
                     ref var projectileLookingDirection = ref world.GetComponent<LookingDirection>(projectileEntity);
@@ -423,7 +425,13 @@ namespace Beatemup.Controllers
                     
                     ref var projectilePlayer = ref world.GetComponent<PlayerComponent>(projectileEntity);
                     projectilePlayer.player = player.player;
-
+                    
+                    rangeAttackFired = true;
+                }
+                
+                if (animationComponent.state == AnimationComponent.State.Completed)
+                {
+                    // fire projectile in with direction lookingdirection
                     states.ExitState("RangeAttack");
                 }
                 return;
