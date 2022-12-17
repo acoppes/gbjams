@@ -14,7 +14,11 @@ namespace Beatemup.Development
         
         public InputAction toggleHitBoxes;
 
+        public InputAction toggleInputBufferDebug;
+        
         public Text debugTimeScale;
+
+        public GameObject debugInputBufferObject;
 
         private Coroutine _showTextCoroutine;
 
@@ -28,11 +32,20 @@ namespace Beatemup.Development
             slowerTimeScale.Enable();
             fasterTimeScale.Enable();
             toggleHitBoxes.Enable();
+            toggleInputBufferDebug.Enable();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (toggleInputBufferDebug.WasReleasedThisFrame())
+            {
+                if (debugInputBufferObject != null)
+                {
+                    debugInputBufferObject.SetActive(!debugInputBufferObject.activeInHierarchy);
+                }
+            }
+            
             if (toggleHitBoxes.WasReleasedThisFrame())
             {
                 var debugHitBoxSystem = FindObjectOfType<DebugHitBoxSystem>();
