@@ -128,6 +128,17 @@ namespace Beatemup.Ecs
         public Vector3 value;
     }
 
+    public struct LookingDirectionParameter : IEntityInstanceParameter
+    {
+        public Vector3 value;
+
+        public void Apply(World world, Entity entity)
+        {
+            ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
+            lookingDirection.value = value;
+        }
+    }
+
     public struct UnitModelComponent : IEntityComponent
     {
         public enum Visiblity

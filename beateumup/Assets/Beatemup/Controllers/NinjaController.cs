@@ -63,6 +63,7 @@ namespace Beatemup.Controllers
 
         public bool rangeAttackFired;
         public float rangeAttackTime = 2 / 15f;
+        public Vector3 rangeAttackDirection;
 
         public void OnInit()
         {
@@ -139,6 +140,13 @@ namespace Beatemup.Controllers
                 rangeAttackFired = false;
                 movement.speed = 0;
                 movement.movingDirection = Vector3.zero;
+                
+                rangeAttackDirection = control.direction3d;
+                    
+                if (control.direction3d.sqrMagnitude < 0.1f)
+                {
+                    rangeAttackDirection = lookingDirection.value;
+                }
             }
             
             if (states.statesEntered.Contains("DashBackRecovery"))
@@ -410,15 +418,21 @@ namespace Beatemup.Controllers
             {
                 if (!rangeAttackFired && animationComponent.playingTime > rangeAttackTime)
                 {
-                    var projectileEntity = world.CreateEntity(projectileDefinition);
-                    
-                    ref var projectileLookingDirection = ref world.GetComponent<LookingDirection>(projectileEntity);
-                    projectileLookingDirection.value = control.direction3d;
-
-                    if (control.direction3d.sqrMagnitude < 0.1f)
+                    var projectileEntity = world.CreateEntity(projectileDefinition, new IEntityInstanceParameter[]
                     {
-                        projectileLookingDirection.value = lookingDirection.value;
-                    }
+                        new LookingDirectionParameter()
+                        {
+                            value = rangeAttackDirection
+                        }
+                    });
+                    
+                    // ref var projectileLookingDirection = ref world.GetComponent<LookingDirection>(projectileEntity);
+                    // projectileLookingDirection.value = control.direction3d;
+                    //
+                    // if (control.direction3d.sqrMagnitude < 0.1f)
+                    // {
+                    //     projectileLookingDirection.value = lookingDirection.value;
+                    // }
                     
                     ref var projectilePosition = ref world.GetComponent<PositionComponent>(projectileEntity);
                     projectilePosition.value = position.value + new Vector3(0, 1f, 0);
