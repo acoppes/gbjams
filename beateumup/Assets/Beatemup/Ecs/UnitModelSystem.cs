@@ -65,9 +65,17 @@ namespace Beatemup.Ecs
                 if (model.shadow != null)
                 {
                     model.shadow.enabled = modelComponent.hasShadow;
-                    model.shadow.transform.localScale = new Vector3(1, 
-                        modelComponent.shadowPerspective, 1);
-
+                    
+                    
+                    if (modelComponent.rotation == UnitModelComponent.RotationType.FlipToLookingDirection)
+                    {
+                        model.shadow.transform.localScale = new Vector3(1,
+                            modelComponent.shadowPerspective, 1);
+                    } else if (modelComponent.rotation == UnitModelComponent.RotationType.Rotate)
+                    {
+                        model.shadow.transform.localScale = Vector3.one;
+                    }
+                    
                     var shadowColor = model.shadow.color;
                     shadowColor.a = baseShadowOpacity * modelComponent.color.a;
                     model.shadow.color = shadowColor;
@@ -113,28 +121,42 @@ namespace Beatemup.Ecs
                 }
                 else if (modelComponent.rotation == UnitModelComponent.RotationType.Rotate)
                 {
-                    var angle = Mathf.Atan2(lookingDirection.value.z, lookingDirection.value.x) * Mathf.Rad2Deg;
-                    var angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
-
-                    var eulerAngles = angleAxis.eulerAngles;
-
-                    // if (eulerAngles.z > 180)
-                    // {
-                    //     eulerAngles.z -= 360;
-                    // }
-                    //
-                    // eulerAngles.x = eulerAngles.z * 0.75f;
-
-                    modelComponent.instance.model.transform.localEulerAngles = eulerAngles;
+                    var direction3d = lookingDirection.value;
+                    var objectModel = modelComponent.instance;
                     
-                    // var rotation = Quaternion.LookRotation(lookingDirection.value, Vector3.forward);
-                    // modelComponent.instance.model.transform.rotation = rotation;
+                    var modelAngleForward = Vector2.SignedAngle(Vector2.right, new Vector2(direction3d.x, direction3d.y + direction3d.z));
+                    var modelAngleRight = Vector2.Angle(Vector2.right, new Vector2(Mathf.Abs(direction3d.x) + 0.25f, direction3d.z * 0.75f));
+            
+                    var shadowAngleForward = Vector2.SignedAngle(Vector2.right, new Vector2(direction3d.x, direction3d.y + direction3d.z));
+                    // var shadowAngleRight = Vector2.Angle(Vector2.right, new Vector2(Mathf.Abs(direction3d.z) + 0.25f, direction3d.x * 0.75f));
 
+                    var angleAxis = Quaternion.AngleAxis(modelAngleForward, Vector3.forward);
+                    var angleRightAxis = Quaternion.AngleAxis(modelAngleRight, Vector3.right);
+                    
+                    // var angleAxis2 = Quaternion.AngleAxis(shadowAngleRight, Vector3.right);
+                    var angleRightAxis2 = Quaternion.AngleAxis(shadowAngleForward, Vector3.forward);
+                    
+                    objectModel.model.transform.localEulerAngles = angleAxis.eulerAngles + angleRightAxis.eulerAngles;
+                    
                     if (modelComponent.hasShadow)
                     {
-                        modelComponent.instance.shadow.transform.localEulerAngles = eulerAngles;
-                        // modelComponent.instance.shadow.transform.rotation = rotation;
+                        objectModel.shadow.transform.localEulerAngles =
+                            angleRightAxis2.eulerAngles + new Vector3(70, 0, 0);
                     }
+                    
+                    // var eulerAngles = angleAxis.eulerAngles;
+                    //
+                    //
+                    // modelComponent.instance.model.transform.localEulerAngles = eulerAngles;
+                    //
+                    // // var rotation = Quaternion.LookRotation(lookingDirection.value, Vector3.forward);
+                    // // modelComponent.instance.model.transform.rotation = rotation;
+                    //
+                    // if (modelComponent.hasShadow)
+                    // {
+                    //     modelComponent.instance.shadow.transform.localEulerAngles = eulerAngles;
+                    //     // modelComponent.instance.shadow.transform.rotation = rotation;
+                    // }
                 }
             }
         }

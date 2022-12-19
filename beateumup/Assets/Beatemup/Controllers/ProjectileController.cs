@@ -109,16 +109,17 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("Travel", out state))
             {
-                if (Has<PlayerInputComponent>())
-                {
-                    var control = Get<ControlComponent>();
-                    var direction = control.direction3d;
-
-                    if (direction.sqrMagnitude > 0.1f)
-                    {
-                        physicsComponent.body.velocity = direction * movement.baseSpeed;
-                    }
-                }
+                // if (Has<PlayerInputComponent>())
+                // {
+                //     var control = Get<ControlComponent>();
+                //     var direction = control.direction3d;
+                //
+                //     if (direction.sqrMagnitude > 0.1f)
+                //     {
+                //         physicsComponent.body.velocity = direction * movement.baseSpeed;
+                //     }
+                // }
+                
                 var velocity = physicsComponent.velocity;
                 
                 if (velocity.sqrMagnitude > 0.1f)
