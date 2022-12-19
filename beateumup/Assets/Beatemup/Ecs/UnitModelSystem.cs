@@ -101,11 +101,12 @@ namespace Beatemup.Ecs
                 modelComponent.instance.model.transform.localPosition = new Vector3(0, position.z, 0);
             }
 
-            foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<LookingDirection>().End())
+            foreach (var entity in world.GetFilter<UnitModelComponent>().Inc<PositionComponent>().Inc<LookingDirection>().End())
             {
                 var modelComponent = modelComponents.Get(entity);
                 var lookingDirection = lookingDirectionComponents.Get(entity);
-
+                var positionComponent = positionComponents.Get(entity);
+                
                 var modelInstance = modelComponent.instance;
 
                 var scale = modelInstance.transform.localScale;
@@ -122,27 +123,27 @@ namespace Beatemup.Ecs
                 else if (modelComponent.rotation == UnitModelComponent.RotationType.Rotate)
                 {
                     var direction3d = lookingDirection.value;
-                    var objectModel = modelComponent.instance;
-                    
-                    var modelAngleForward = Vector2.SignedAngle(Vector2.right, new Vector2(direction3d.x, direction3d.y + direction3d.z));
-                    var modelAngleRight = Vector2.Angle(Vector2.right, new Vector2(Mathf.Abs(direction3d.x) + 0.25f, direction3d.z * 0.75f));
-            
-                    var shadowAngleForward = Vector2.SignedAngle(Vector2.right, new Vector2(direction3d.x, direction3d.y + direction3d.z));
-                    // var shadowAngleRight = Vector2.Angle(Vector2.right, new Vector2(Mathf.Abs(direction3d.z) + 0.25f, direction3d.x * 0.75f));
+                    var direction2d = gamePerspective.ProjectFromWorld(direction3d);
 
-                    var angleAxis = Quaternion.AngleAxis(modelAngleForward, Vector3.forward);
-                    var angleRightAxis = Quaternion.AngleAxis(modelAngleRight, Vector3.right);
+                    var p0 = gamePerspective.ProjectFromWorld(positionComponent.value);
+                    var p1 = p0 + direction2d;
+
+                    var angle = Vector2.SignedAngle(Vector2.right, p1 - p0);
                     
-                    // var angleAxis2 = Quaternion.AngleAxis(shadowAngleRight, Vector3.right);
-                    var angleRightAxis2 = Quaternion.AngleAxis(shadowAngleForward, Vector3.forward);
+                    var objectModel = modelComponent.instance;
+
+                    scale = new Vector3(direction2d.magnitude * Mathf.Sign(direction2d.x), 1, 1);
+
+                    var t = objectModel.model.transform;
                     
-                    objectModel.model.transform.localEulerAngles = angleAxis.eulerAngles + angleRightAxis.eulerAngles;
+                    t.localEulerAngles = new Vector3(0, 0, angle);
+                    t.localScale = scale;
                     
-                    if (modelComponent.hasShadow)
-                    {
-                        objectModel.shadow.transform.localEulerAngles =
-                            angleRightAxis2.eulerAngles + new Vector3(70, 0, 0);
-                    }
+                    // if (modelComponent.hasShadow)
+                    // {
+                    //     objectModel.shadow.transform.localEulerAngles = angleRightAxis2.eulerAngles;
+                    //     objectModel.shadow.transform.localScale = scale;
+                    // }
                     
                     // var eulerAngles = angleAxis.eulerAngles;
                     //

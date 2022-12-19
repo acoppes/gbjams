@@ -16,5 +16,10 @@ namespace Beatemup.Ecs
         {
             return new Vector3(v.x, v.z * gamePerspectiveY, v.y);
         }
+        
+        public Vector2 ProjectFromWorld(Vector3 v)
+        {
+            return new Vector2(v.x, v.y + v.z * gamePerspectiveY);
+        }
     }
 }
