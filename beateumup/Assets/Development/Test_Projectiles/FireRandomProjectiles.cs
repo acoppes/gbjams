@@ -14,17 +14,19 @@ public class FireRandomProjectiles : MonoBehaviour
     
     public void Update()
     {
-        if (Mouse.current.leftButton.isPressed)
+        if (Mouse.current.leftButton.isPressed || Mouse.current.rightButton.wasPressedThisFrame)
         {
             var projectile = world.CreateEntity(projectilePrefab.GetInterface<IEntityDefinition>(),
                 parametersObject.GetComponentsInChildren<IEntityInstanceParameter>());
 
             if (world.HasComponent<LookingDirection>(projectile))
             {
-                var direction = Vector2.right.Rotate(UnityEngine.Random.Range(0, 360) * Mathf.Deg2Rad);
+                // var direction = Vector2.right.Rotate(UnityEngine.Random.Range(0, 360) * Mathf.Deg2Rad);
+                //
+                // UnityEngine.Random.insideUnitSphere;
 
                 ref var lookingDirection = ref world.GetComponent<LookingDirection>(projectile);
-                lookingDirection.value = new Vector3(direction.x, UnityEngine.Random.Range(0.15f, 0.4f), direction.y);
+                lookingDirection.value = UnityEngine.Random.insideUnitSphere.normalized;
             }
 
             if (world.HasComponent<PositionComponent>(projectile))
@@ -32,9 +34,11 @@ public class FireRandomProjectiles : MonoBehaviour
                 var mousePosition = Mouse.current.position.ReadValue();
                 var position = Camera.main.ScreenToWorldPoint(mousePosition);
 
+                position.z = 0;
+
                 ref var positionComponent = ref world.GetComponent<PositionComponent>(projectile);
-                positionComponent.value = new Vector3(position.x, 0,
-                    position.y);
+                positionComponent.value = new Vector3(position.x, 2,
+                    (position.y / 0.75f) - 2);
             }
         }
     }

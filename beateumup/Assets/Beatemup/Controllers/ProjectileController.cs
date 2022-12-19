@@ -39,6 +39,8 @@ namespace Beatemup.Controllers
                 physicsComponent.syncType = PhysicsComponent.SyncType.Both;
                 physicsComponent.disableCollideWithObstacles = true;
                 physicsComponent.body.constraints = RigidbodyConstraints.FreezeAll;
+                
+                modelComponent.color = new Color(0.75f, 0.75f, 0.75f, 1.0f);
             }
 
             if (states.statesEntered.Contains("Travel"))
@@ -62,7 +64,7 @@ namespace Beatemup.Controllers
                 gravity.disabled = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.FromPhysics;
                 
-                modelComponent.color = new Color(0.75f, 0.75f, 0.75f, 1.0f);
+            
                 
                 // movement.speed = 0;
 
@@ -174,12 +176,16 @@ namespace Beatemup.Controllers
                 {
                     lookingDirection.value = velocity.normalized;
                 }
-
-                if (state.time > ttlAfterFalling)
+                else
                 {
                     states.ExitState("Falling");
                     states.EnterState("Death");
                 }
+
+                // if (state.time > ttlAfterFalling)
+                // {
+                //
+                // }
             }
             
         }

@@ -153,20 +153,6 @@ namespace Beatemup.Ecs
                         var shadowScale = t.localScale;
                         t.localScale = new Vector3(Mathf.Clamp(direction2d.magnitude, 0.1f, 1.0f), shadowScale.y, shadowScale.z);
                     }
-                    
-                    // var eulerAngles = angleAxis.eulerAngles;
-                    //
-                    //
-                    // modelComponent.instance.model.transform.localEulerAngles = eulerAngles;
-                    //
-                    // // var rotation = Quaternion.LookRotation(lookingDirection.value, Vector3.forward);
-                    // // modelComponent.instance.model.transform.rotation = rotation;
-                    //
-                    // if (modelComponent.hasShadow)
-                    // {
-                    //     modelComponent.instance.shadow.transform.localEulerAngles = eulerAngles;
-                    //     // modelComponent.instance.shadow.transform.rotation = rotation;
-                    // }
                 }
             }
         }
