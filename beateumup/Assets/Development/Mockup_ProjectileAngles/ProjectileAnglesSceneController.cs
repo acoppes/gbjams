@@ -54,9 +54,19 @@ namespace Development
 
             t.localEulerAngles = new Vector3(0, 0, angle);
             t.localScale = new Vector3(direction2d.magnitude, 1, 1);
+            
+            direction3d = new Vector3(x, 0, z).normalized;
+            direction2d = new Vector2(x, y * 0.1f + z * 0.75f);
 
-            // objectModel.shadow.transform.localEulerAngles = angleAxis.eulerAngles;
-            // objectModel.shadow.transform.localScale = scale;
+            p0 = new Vector2(objectModel.transform.position.x, 0 + objectModel.transform.position.y * 0.75f);
+            p1 = p0 + direction2d;
+
+            angle = Vector2.SignedAngle(Vector2.right, p1 - p0);
+
+            t = objectModel.shadow.transform;
+
+            t.localEulerAngles = new Vector3(0, 0, angle);
+            t.localScale = new Vector3(Mathf.Clamp(direction2d.magnitude, 0.1f, 1.0f), t.localScale.y, t.localScale.z);
         }
     }
 }

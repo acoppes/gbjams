@@ -132,18 +132,27 @@ namespace Beatemup.Ecs
                     
                     var objectModel = modelComponent.instance;
 
-                    scale = new Vector3(direction2d.magnitude * Mathf.Sign(direction2d.x), 1, 1);
-
                     var t = objectModel.model.transform;
                     
                     t.localEulerAngles = new Vector3(0, 0, angle);
-                    t.localScale = scale;
+                    var modelScale = t.localScale;
+                    t.localScale = new Vector3(direction2d.magnitude, modelScale.y, modelScale.z);
                     
-                    // if (modelComponent.hasShadow)
-                    // {
-                    //     objectModel.shadow.transform.localEulerAngles = angleRightAxis2.eulerAngles;
-                    //     objectModel.shadow.transform.localScale = scale;
-                    // }
+                    if (modelComponent.hasShadow)
+                    {
+                        direction2d = gamePerspective.ProjectFromWorld(new Vector3(direction3d.x, direction3d.y * 0.1f, direction3d.z));
+
+                        p0 = gamePerspective.ProjectFromWorld(new Vector3(positionComponent.value.x, 0, positionComponent.value.z));
+                        p1 = p0 + direction2d;
+
+                        angle = Vector2.SignedAngle(Vector2.right, p1 - p0);
+
+                        t = objectModel.shadow.transform;
+
+                        t.localEulerAngles = new Vector3(0, 0, angle);
+                        var shadowScale = t.localScale;
+                        t.localScale = new Vector3(Mathf.Clamp(direction2d.magnitude, 0.1f, 1.0f), shadowScale.y, shadowScale.z);
+                    }
                     
                     // var eulerAngles = angleAxis.eulerAngles;
                     //
