@@ -10,8 +10,10 @@ namespace Beatemup.Controllers
     public class ProjectileController : ControllerBase, IInit, IUpdate, IStateChanged
     {
         public float maxTravelTime;
-        public float ttlAfterFalling = 2.0f;
-
+        
+        private float travelTime;
+        private float controlTravelY = 0;
+        
         public float deathDuration = 1.0f;
 
         public void OnInit()
@@ -45,6 +47,8 @@ namespace Beatemup.Controllers
 
             if (states.statesEntered.Contains("Travel"))
             {
+                travelTime = 0;
+                
                 gravity.disabled = true;
 
                 physicsComponent.disableCollideWithObstacles = true;
@@ -111,16 +115,30 @@ namespace Beatemup.Controllers
             
             if (states.TryGetState("Travel", out state))
             {
-                // if (Has<PlayerInputComponent>())
-                // {
-                //     var control = Get<ControlComponent>();
-                //     var direction = control.direction3d;
-                //
-                //     if (direction.sqrMagnitude > 0.1f)
-                //     {
-                //         physicsComponent.body.velocity = direction * movement.baseSpeed;
-                //     }
-                // }
+                travelTime += dt;
+                
+                if (Has<PlayerInputComponent>())
+                {
+                    var control = Get<ControlComponent>();
+                    var direction = control.direction3d;
+                    
+                    if (control.button1.isPressed)
+                    {
+                        controlTravelY += 0.1f * dt;
+                    } else if (control.button2.isPressed)
+                    {
+                        controlTravelY -= 0.1f * dt;
+                    }
+                    
+                    direction.y = controlTravelY;
+                    
+                    if (direction.sqrMagnitude > 0.1f)
+                    {
+                        physicsComponent.body.velocity = direction * movement.baseSpeed;
+                    }
+
+                    travelTime = 0;
+                }
                 
                 var velocity = physicsComponent.velocity;
                 
@@ -155,7 +173,7 @@ namespace Beatemup.Controllers
                     }
                 }
                 
-                if (state.time > maxTravelTime)
+                if (travelTime > maxTravelTime)
                 {
                     states.ExitState("Travel");
                     states.EnterState("Falling");
