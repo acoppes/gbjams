@@ -708,21 +708,7 @@ namespace Beatemup.Controllers
                 
                 return;
             }
-            
-            // if (dashBackCooldownCurrent <= 0)
-            // {
-            //     if (control.HasBufferedActions(control.up.name, control.button2.name) ||
-            //         control.HasBufferedActions(control.button2.name, control.up.name))
-            //     {
-            //         control.ConsumeBuffer();
-            //         states.EnterState("DashBackJump");
-            //         return;
-            //     }
-            // }
-            
-            // var validDashFrontDirections =
-            //     control.forward.isPressed || control.up.isPressed || control.down.isPressed;
-            
+
             if (dashFrontCooldownCurrent <= 0)
             {
                 
@@ -734,16 +720,6 @@ namespace Beatemup.Controllers
                 }
             }
 
-            // if (dashBackCooldownCurrent <= 0)
-            // {
-            //     if (control.HasBufferedAction(control.button2) && !validDashFrontDirections)
-            //     {
-            //         control.ConsumeBuffer();
-            //         states.EnterState("DashBack");
-            //         return;
-            //     }
-            // }
-            
             if (control.HasBufferedAction(control.button3))
             {
                 if (control.backward.isPressed)
