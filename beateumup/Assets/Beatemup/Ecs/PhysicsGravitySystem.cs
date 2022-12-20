@@ -41,12 +41,17 @@ namespace Beatemup.Ecs
 
                 var position3d = physicsComponent.body.position;
                 
-                var ray = new Ray(position3d + new Vector3(0, 0.1f, 0), Vector3.down);
+                var ray = new Ray(position3d + new Vector3(0, distanceToGround * 0.5f, 0), Vector3.down);
                 
                 if (Physics.Raycast(ray, out var hit, 2f, groundContactLayerMask, QueryTriggerInteraction.Ignore))
                 {
                     // don't apply gravity if in contact with ground?
                     gravityComponent.inContactWithGround = hit.distance < distanceToGround;
+
+                    if (gravityComponent.inContactWithGround)
+                    {
+                        physicsComponent.body.position = hit.point;
+                    }
                 }
 
                 if (!gravityComponent.inContactWithGround)
