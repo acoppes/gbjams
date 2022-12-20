@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Gemserk.Gameplay;
 using Gemserk.Leopotam.Ecs;
 using Leopotam.EcsLite;
 using UnityEngine;
@@ -60,7 +61,7 @@ namespace Beatemup.Ecs
                 
                 physicsComponent.gameObject = new GameObject("~PhysicsObject");
                 physicsComponent.gameObject.transform.parent = instancesParent.transform;
-                
+
                 var layer = physicsComponent.isStatic ? LayerMask.NameToLayer("StaticObstacle") : 
                     LayerMask.NameToLayer("DynamicObstacle");
                 
@@ -85,6 +86,8 @@ namespace Beatemup.Ecs
 
                 physicsComponent.obstacleCollider = CreateCollider(layer, physicsComponent);
                 physicsComponent.obstacleCollider.transform.parent = physicsComponent.gameObject.transform;
+                
+                physicsComponent.collisionsEventsDelegate = physicsComponent.obstacleCollider.gameObject.AddComponent<PhysicsCollisionsDelegate>();
                 
                 if (!physicsComponent.isStatic)
                 {

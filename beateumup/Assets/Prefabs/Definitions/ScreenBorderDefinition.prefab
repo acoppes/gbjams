@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1948365256624751054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6412378664386942492}
+  - component: {fileID: 2365669094324275788}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6412378664386942492
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948365256624751054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6022954723828580859}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2365669094324275788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948365256624751054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d1429f048c64123ba7ab05cf36a438e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionCameraShakeAsset: {fileID: 11400000, guid: afdedc5725759bb47b64ea12f13bd6d5, type: 2}
 --- !u!1 &6022954723828580836
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +74,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6412378664386942492}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -61,17 +107,20 @@ MonoBehaviour:
   hitPoints: 10
   targetType: 0
   movementType: 0
+  baseSpeed: 0
   hasModel: 0
   modelPrefab: {fileID: 0}
+  rotationType: 0
   hasShadow: 0
+  shadowPerspective: 0.2
   remapTexturesPerPlayer: []
   hasAnimation: 0
   animationsAsset: {fileID: 0}
   defaultHurtBoxAsset: {fileID: 0}
   spritesMetadata: {fileID: 0}
   hasStates: 0
-  hasController: 0
-  controllerObject: {fileID: 0}
+  hasController: 1
+  controllerObject: {fileID: 1948365256624751054}
   hasGravity: 0
   gravityStartsDisabled: 0
   gravityScale: 0
@@ -80,4 +129,4 @@ MonoBehaviour:
   obstacleIsStatic: 1
   hasKillCount: 0
   isVfx: 0
-  jumpSpeed: 0
+  isCameraShakeProvider: 1

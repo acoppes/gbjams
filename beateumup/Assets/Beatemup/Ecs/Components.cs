@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Beatemup.Definitions;
 using Beatemup.Models;
+using Gemserk.Gameplay;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
 
@@ -300,6 +301,8 @@ namespace Beatemup.Ecs
         public bool isStatic;
 
         public Vector3 velocity;
+
+        public PhysicsCollisionsDelegate collisionsEventsDelegate;
     }
 
     public struct KillCountComponent : IEntityComponent
