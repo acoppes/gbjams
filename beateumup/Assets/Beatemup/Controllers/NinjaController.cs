@@ -43,6 +43,8 @@ namespace Beatemup.Controllers
         
         private int comboAttacks => comboAnimations.Count;
         private int currentComboAttack;
+        
+        public CameraShakeAsset attackHitCameraShakeAsset;
 
         private Vector3 teleportLastHitPosition;
         
@@ -627,6 +629,11 @@ namespace Beatemup.Controllers
                         modelShakeComponent.Shake(hitStopTime, 0.25f);
 
                         teleportLastHitPosition = targetPosition.value;
+                    }
+
+                    if (hitTargets.Count > 0)
+                    {
+                        cameraShakeProvider.AddShake(attackHitCameraShakeAsset);
                     }
                 }
                 
