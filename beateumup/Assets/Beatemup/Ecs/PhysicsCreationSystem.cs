@@ -1,12 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Gemserk.Gameplay;
+﻿using Gemserk.Gameplay;
 using Gemserk.Leopotam.Ecs;
 using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace Beatemup.Ecs
 {
-    [SuppressMessage("ReSharper", "LocalVariableHidesMember")]
     public class PhysicsCreationSystem : BaseSystem, IEntityCreatedHandler, IEntityDestroyedHandler, IEcsInitSystem
     {
         public PhysicMaterial defaultMaterial;
@@ -35,9 +33,13 @@ namespace Beatemup.Ecs
                 collider.radius = physicsComponent.size;
                 collider.center = new Vector3(0, collider.radius, 0);
                 collider.sharedMaterial = defaultMaterial;
+                
+                colliderObject.AddComponent<PhysicsCollisionsDelegate>();
 
                 return collider;
-            } else if (physicsComponent.shapeType == PhysicsComponent.ShapeType.Box)
+            }
+
+            if (physicsComponent.shapeType == PhysicsComponent.ShapeType.Box)
             {
                 var colliderObject = new GameObject("DynamicCollider");
                 colliderObject.layer = layer;
@@ -46,6 +48,8 @@ namespace Beatemup.Ecs
                 var collider = colliderObject.AddComponent<BoxCollider>();
                 collider.size = new Vector4(physicsComponent.size, physicsComponent.size, physicsComponent.size);
                 collider.sharedMaterial = defaultMaterial;
+                
+                colliderObject.AddComponent<PhysicsCollisionsDelegate>();
                 
                 return collider;
             }
@@ -61,6 +65,9 @@ namespace Beatemup.Ecs
                 
                 physicsComponent.gameObject = new GameObject("~PhysicsObject");
                 physicsComponent.gameObject.transform.parent = instancesParent.transform;
+
+                var entityReference = physicsComponent.gameObject.AddComponent<EntityReference>();
+                entityReference.entity = entity;
 
                 var layer = physicsComponent.isStatic ? LayerMask.NameToLayer("StaticObstacle") : 
                     LayerMask.NameToLayer("DynamicObstacle");
@@ -86,15 +93,15 @@ namespace Beatemup.Ecs
 
                 physicsComponent.obstacleCollider = CreateCollider(layer, physicsComponent);
                 physicsComponent.obstacleCollider.transform.parent = physicsComponent.gameObject.transform;
-                
-                physicsComponent.collisionsEventsDelegate = physicsComponent.obstacleCollider.gameObject.AddComponent<PhysicsCollisionsDelegate>();
-                
+
                 if (!physicsComponent.isStatic)
                 {
                     physicsComponent.collideWithStaticCollider =
                         CreateCollider(LayerMask.NameToLayer("CollideWithStaticObstacles"), physicsComponent);
                     physicsComponent.collideWithStaticCollider.transform.parent = physicsComponent.gameObject.transform;
                 }
+                
+                physicsComponent.collisionsEventsDelegate = physicsComponent.gameObject.AddComponent<EntityCollisionDelegate>();
             }
         }
         

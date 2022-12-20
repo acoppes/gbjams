@@ -15,14 +15,14 @@ namespace Beatemup.Controllers
         public void OnInit()
         {
             var physicsComponent = Get<PhysicsComponent>();
-            physicsComponent.collisionsEventsDelegate.onCollisionEnter += OnCollisionEnter;
+            physicsComponent.collisionsEventsDelegate.onCollisionEnter += OnEntityCollisionEnter;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnEntityCollisionEnter(EntityCollisionDelegate.EntityCollision collision)
         {
-            // Debug.Log($"SOMETHING HIT BORDER {collision.rigidbody.velocity.sqrMagnitude}");
-
-            if (collision.rigidbody.velocity.sqrMagnitude > minImpactSpeedToShake)
+            var physicsComponent = world.GetComponent<PhysicsComponent>(collision.entity);
+            
+            if (physicsComponent.velocity.sqrMagnitude > minImpactSpeedToShake)
             {
                 Get<CameraShakeProvider>().AddShake(collisionCameraShakeAsset);
             }

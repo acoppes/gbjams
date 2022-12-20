@@ -302,7 +302,7 @@ namespace Beatemup.Ecs
 
         public Vector3 velocity;
 
-        public PhysicsCollisionsDelegate collisionsEventsDelegate;
+        public EntityCollisionDelegate collisionsEventsDelegate;
     }
 
     public struct KillCountComponent : IEntityComponent
