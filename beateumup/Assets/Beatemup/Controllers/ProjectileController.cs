@@ -1,4 +1,5 @@
-﻿using Beatemup.Ecs;
+﻿using Beatemup.Definitions;
+using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Gemserk.Leopotam.Gameplay.Controllers;
 using Gemserk.Leopotam.Gameplay.Events;
@@ -15,6 +16,8 @@ namespace Beatemup.Controllers
         private float controlTravelY = 0;
         
         public float deathDuration = 1.0f;
+        
+        public CameraShakeAsset hitCameraShakeAsset;
 
         public void OnInit()
         {
@@ -90,6 +93,7 @@ namespace Beatemup.Controllers
             ref var movement = ref Get<HorizontalMovementComponent>();
             
             ref var modelComponent= ref Get<UnitModelComponent>();
+            ref var cameraShakeProvider= ref Get<CameraShakeProvider>();
             
             State state;
             
@@ -165,7 +169,9 @@ namespace Beatemup.Controllers
                     
                     if (hitTargets.Count > 0)
                     {
-                        physicsComponent.body.velocity = physicsComponent.body.velocity * -0.25f;
+                        cameraShakeProvider.AddShake(hitCameraShakeAsset);
+
+                        physicsComponent.body.velocity *= -0.25f;
                     
                         states.ExitState("Travel");
                         states.EnterState("Falling");
