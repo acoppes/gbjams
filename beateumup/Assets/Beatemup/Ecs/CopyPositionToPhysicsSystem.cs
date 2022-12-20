@@ -1,6 +1,7 @@
 ﻿using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
 using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace Beatemup.Ecs
 {
@@ -31,6 +32,7 @@ namespace Beatemup.Ecs
                 else
                 {
                     physicsComponent.body.position = positionComponent.value;
+                    physicsComponent.body.velocity = Vector3.zero;
                 }
             }
         }
