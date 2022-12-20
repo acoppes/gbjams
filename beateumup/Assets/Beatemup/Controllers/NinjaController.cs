@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Beatemup.Definitions;
 using Beatemup.Ecs;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Gameplay;
@@ -54,6 +55,8 @@ namespace Beatemup.Controllers
 
         public float knockbackHorizontalIntensity = 1;
         private Vector2 knockbackDirection;
+
+        public CameraShakeAsset knockbackGroundHitCameraShake;
 
         public GameObject deathBodyDefinition;
 
@@ -217,7 +220,7 @@ namespace Beatemup.Controllers
                 
                 // knockbackRandomY = UnityEngine.Random.Range(-0.25f, 0.25f);
                 
-                // states.EnterState("Knockback.Ascending");
+                states.EnterState("Knockback.Up");
 
                 states.ExitState("Attack");
                 states.ExitState("Combo");
@@ -288,6 +291,9 @@ namespace Beatemup.Controllers
                 physicsComponent.disableCollideWithObstacles = false;
                 physicsComponent.syncType = PhysicsComponent.SyncType.Both;
                 position.value.y = 0;
+                
+                states.ExitState("Knockback.Up");
+                states.ExitState("Knockback.Down");
             }
         }
 
@@ -311,6 +317,8 @@ namespace Beatemup.Controllers
             ref var player = ref world.GetComponent<PlayerComponent>(entity);
 
             ref var lookingDirection = ref world.GetComponent<LookingDirection>(entity);
+            
+            ref var cameraShakeProvider = ref world.GetComponent<CameraShakeProvider>(entity);
 
             State state;
             
@@ -367,25 +375,48 @@ namespace Beatemup.Controllers
                 // movement.baseSpeed = new Vector2(knockbackBaseSpeed, 0);
                 movement.movingDirection = Vector2.zero;
 
-                if (Mathf.Abs(physicsComponent.velocity.x) > 0)
+                var moving = Mathf.Abs(physicsComponent.velocity.x) > 0;
+
+                if (moving)
                 {
                     lookingDirection.value = new Vector2(-physicsComponent.velocity.x, 0).normalized;
                 }
-                
-                if (state.time * knockbackCurveSpeed > 1.0f)
+
+                if (states.HasState("Knockback.Up"))
                 {
-                    // states.ExitState("Knockback.Descending");
-                    states.ExitState("Knockback");
-                    
-                    if (hitPoints.current <= 0)
+                    if (physicsComponent.velocity.y < 0 && state.time > 2f/15f)
                     {
-                        states.EnterState("Death");
+                        states.ExitState("Knockback.Up");
+                        states.EnterState("Knockback.Down");
                     }
-                    else
+                    
+                    return;
+                }
+                
+                if (states.HasState("Knockback.Down"))
+                {
+                    if (gravityComponent.inContactWithGround)
                     {
-                        states.EnterState("Down");
+                        states.ExitState("Knockback.Down");
+                        states.ExitState("Knockback");
+
+                        if (knockbackGroundHitCameraShake != null)
+                        {
+                            cameraShakeProvider.AddShake(knockbackGroundHitCameraShake);
+                        }
+                    
+                        if (hitPoints.current <= 0)
+                        {
+                            states.EnterState("Death");
+                        }
+                        else
+                        {
+                            states.EnterState("Down");
+                        }
                     }
                 }
+                
+             
                 
                 return;
             }

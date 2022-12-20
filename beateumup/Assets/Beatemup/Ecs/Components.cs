@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Beatemup.Definitions;
 using Beatemup.Models;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
@@ -304,5 +305,23 @@ namespace Beatemup.Ecs
     public struct KillCountComponent : IEntityComponent
     {
         public int count;
+    }
+
+    public struct CameraShakeProvider : IEntityComponent
+    {
+        public CameraShake shake;
+
+        public void AddShake(CameraShake shake)
+        {
+            this.shake = shake;
+        }
+        
+        public void AddShake(CameraShakeAsset shake)
+        {
+            if (shake != null)
+            {
+                AddShake(shake.shake);
+            }
+        }
     }
 }

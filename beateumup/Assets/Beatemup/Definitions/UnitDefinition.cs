@@ -96,6 +96,8 @@ namespace Beatemup.Definitions
         [Separator("Others")]
         public bool isVfx;
 
+        public bool isCameraShakeProvider;
+
         public void Apply(World world, Entity entity)
         {
             world.AddComponent(entity, new DestroyableComponent());
@@ -219,6 +221,11 @@ namespace Beatemup.Definitions
             if (hasKillCount)
             {
                 world.AddComponent(entity, new KillCountComponent());
+            }
+
+            if (isCameraShakeProvider)
+            {
+                world.AddComponent(entity, new CameraShakeProvider());
             }
             
             // world.AddComponent(entity, new QueryComponent()

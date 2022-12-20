@@ -85,8 +85,13 @@ MonoBehaviour:
   knockbackDownTime: 1
   knockbackRandomAngle: 10
   knockbackHorizontalIntensity: 5
+  knockbackGroundHitCameraShake: {fileID: 11400000, guid: 567a0e072a8813b4e83ec2fcf46b5124, type: 2}
   deathBodyDefinition: {fileID: 5504142449425449193, guid: 177a2598b39663b4cadb2195e0da17d1, type: 3}
+  projectileDefinition: {fileID: 0}
   hitStopTime: 0.2666667
+  rangeAttackFired: 0
+  rangeAttackTime: 0.13333334
+  rangeAttackDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &8767590918142153676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +172,9 @@ MonoBehaviour:
   baseSpeed: 8
   hasModel: 1
   modelPrefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
+  rotationType: 0
   hasShadow: 1
+  shadowPerspective: 0.2
   remapTexturesPerPlayer: []
   hasAnimation: 1
   animationsAsset: {fileID: 11400000, guid: fd08338ee7e7db64a8660238ab97b224, type: 2}
@@ -184,4 +191,4 @@ MonoBehaviour:
   obstacleIsStatic: 0
   hasKillCount: 0
   isVfx: 0
-  jumpSpeed: 0
+  isCameraShakeProvider: 1
