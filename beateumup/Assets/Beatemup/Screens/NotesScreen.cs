@@ -31,7 +31,8 @@ namespace Beatemup.Screens
 
         private bool closed;
 
-        private float touchDelay;
+        public float touchDelay = 1.0f;
+        private float touchDelayCurrent;
         
         private void OnEnable()
         {
@@ -42,7 +43,7 @@ namespace Beatemup.Screens
         private void Start()
         {
             LoadText(file);
-            touchDelay = 1.0f;
+            touchDelayCurrent = touchDelay;
         }
 
         public void LoadText(TextAsset textAsset)
@@ -73,9 +74,9 @@ namespace Beatemup.Screens
             
             nextPageObject.SetActive(currentPage + 1 < pages.Count);
             
-            touchDelay -= Time.deltaTime;
+            touchDelayCurrent -= Time.deltaTime;
             
-            if (touchDelay > 0)
+            if (touchDelayCurrent > 0)
             {
                 return;
             }
