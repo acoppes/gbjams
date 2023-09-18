@@ -12,6 +12,7 @@ namespace GBJAM11.Components
     public struct WeaponsComponent : IEntityComponent
     {
         public Weapon weapon;
+        public Entity lastFiredProjectile;
     }
     
     public class WeaponsComponentDefinition : ComponentDefinitionBase
@@ -29,8 +30,9 @@ namespace GBJAM11.Components
             {
                 weapon = new Weapon()
                 {
-                    projectileDefinition = projectileDefinition.GetInterface<IEntityDefinition>()
-                }
+                    projectileDefinition = projectileDefinition.GetInterface<IEntityDefinition>(),
+                },
+                lastFiredProjectile = Entity.NullEntity
             });
         }
     }
