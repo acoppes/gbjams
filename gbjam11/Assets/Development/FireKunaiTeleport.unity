@@ -206,9 +206,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 8792184caf35a114ca537f6764ebade8, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: WorldCamera
   m_TagString: WorldCamera
@@ -295,7 +296,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: cd64c6c1029cfb74d9abbc066fca2ff4, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 0
   m_HDR: 1
@@ -327,7 +328,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
   m_Name: 
@@ -335,11 +336,25 @@ MonoBehaviour:
   m_AssetsPPU: 16
   m_RefResolutionX: 160
   m_RefResolutionY: 144
-  m_UpscaleRT: 1
+  m_UpscaleRT: 0
   m_PixelSnapping: 0
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b552a479472417ca58156d8cab880de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lutTexture: {fileID: 2800000, guid: e373b5e3152135342a333ee35923acf9, type: 3}
+  shader: {fileID: 4800000, guid: 9671e42383994a7b98de000543b59cb9, type: 3}
 --- !u!1 &905696577 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8521158781532276117, guid: a2741966e3fd915449fa3f30aa1b5700, type: 3}
@@ -507,7 +522,6 @@ GameObject:
   - component: {fileID: 1822402370}
   - component: {fileID: 1822402369}
   - component: {fileID: 1822402368}
-  - component: {fileID: 1822402367}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -515,23 +529,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1822402367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822402366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &1822402368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,12 +564,12 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 1
+  m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1962,6 +1959,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 55004209}
     m_Modifications:
+    - target: {fileID: 1061605521947529321, guid: a2741966e3fd915449fa3f30aa1b5700, type: 3}
+      propertyPath: baseSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061605521947529321, guid: a2741966e3fd915449fa3f30aa1b5700, type: 3}
+      propertyPath: normalizeDirection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4248029010508984263, guid: a2741966e3fd915449fa3f30aa1b5700, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
