@@ -121,18 +121,12 @@ GameObject:
   - component: {fileID: 3149100661241589788}
   - component: {fileID: 4583347492029808468}
   - component: {fileID: 2110351117323856589}
-  - component: {fileID: 2198810639095645627}
-  - component: {fileID: 681159954141171007}
-  - component: {fileID: 1061605521947529321}
-  - component: {fileID: 7861386473218596465}
   - component: {fileID: 4615072467248349765}
-  - component: {fileID: 2932566269948911821}
-  - component: {fileID: 1156152439643068138}
-  - component: {fileID: 1219051113732413914}
-  - component: {fileID: 1627601165340635011}
-  - component: {fileID: 2469341287461843709}
+  - component: {fileID: 2712383786676626764}
+  - component: {fileID: 6850584321419177417}
+  - component: {fileID: 4407411804383369536}
   m_Layer: 0
-  m_Name: Character_Definition
+  m_Name: Kunai_Definition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe29b734c2044168b5af8f9992825ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationsAsset: {fileID: 11400000, guid: 16356484c2f388942b6b9924d631cc88, type: 2}
+  animationsAsset: {fileID: 11400000, guid: 4930ee62f73f56d42b9c50e2b0b1cc4f, type: 2}
   spritesMetadata: {fileID: 0}
   defaultAnimation: Idle
   defaultAnimationLoop: 1
@@ -209,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
-  rotationType: 0
+  rotationType: 1
   startingColor: {r: 1, g: 1, b: 1, a: 1}
   sortingLayerType: 0
   sortingOrder: 0
@@ -226,62 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96123f8bf3aa4ef381716d018af7ff95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2198810639095645627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521158781532276117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb0d5d8ea9314bf5a2bcf1085f1e1c84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controllableType: 1
-  playerControlId: 0
---- !u!114 &681159954141171007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521158781532276117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e1697fc398943fdabb54d864dddf20e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  customButtonMap: []
-  bufferTime: 0.2
---- !u!114 &1061605521947529321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521158781532276117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 212b7d8bf65b48b297c83c75461f1e2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed: 3.5
-  constraints: 0
-  initialSpeedType: 1
-  normalizeDirection: 1
---- !u!114 &7861386473218596465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521158781532276117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc36e41330a74639b7ca005628c460af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4615072467248349765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultLookingDirection: {x: 1, y: 0, z: 0}
---- !u!114 &2932566269948911821
+--- !u!114 &2712383786676626764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,13 +242,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8521158781532276117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8f50e4b2f4e45aca78cd8c29deb85e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e2ea86b19eb4fdc8abecc088b7cb545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerObject: {fileID: 1379520970054438690}
-  sharedInstance: 0
-  hasStateController: 1
---- !u!114 &1156152439643068138
+  shadowCustomPrefab: {fileID: 2227714749881783075, guid: 73e8a94f94b2cea48af90822fae24d75, type: 3}
+  shadowPerspective: 1
+  shadowCopyFromModel: 0
+  copyFromPositionType: 0
+  shadowDefinitionPrefab: {fileID: 0}
+--- !u!114 &6850584321419177417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -319,10 +259,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8521158781532276117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9132cb92238e4596b5be0e886e321473, type: 3}
+  m_Script: {fileID: 11500000, guid: bc869422a8da40c59e944c7929ff5105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1219051113732413914
+  projectileType: 0
+  trajectoryType: 1
+  initialOffset: 0
+  maxDistance: 0
+  initialSpeed: 10
+--- !u!114 &4407411804383369536
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -331,35 +276,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8521158781532276117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe43ae9f4bc4658a12d27dca71ced3f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b2d7edd28434b1ba18bdd30d4d765bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityDefinitions: []
-  abilitiesParent: {fileID: 2629702390085352169}
---- !u!114 &1627601165340635011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521158781532276117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d61184da8a7c4e3db68e227b21f6fb50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingStates: []
-  debugTransitions: 0
---- !u!114 &2469341287461843709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521158781532276117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fdc1acd732c4d00a98ed0bdca861464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileDefinition: {fileID: 8521158781532276117, guid: 0ff42fd2dbf6d2f44a5ef3e60797ef87, type: 3}
+  prefab: {fileID: 0}
+  physicsComponentType: 0
+  shapeType: 1
+  size: {x: 0.1, y: 0.1, z: 0.1}
+  centerType: 0
+  center: {x: 0, y: 0, z: 0}
+  mass: 0.25
+  isStatic: 0
+  isTrigger: 1
+  defaultSyncType: 0
+  colliderType: 3

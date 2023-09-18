@@ -1,9 +1,11 @@
 ﻿using Game.Components;
 using Game.Controllers;
+using GBJAM11.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
+using UnityEngine;
 
 namespace GBJAM11.Controllers
 {
@@ -37,6 +39,16 @@ namespace GBJAM11.Controllers
                 if (animations.IsPlaying("Attack") && animations.isCompleted)
                 {
                     // fire kunai
+
+                    ref var weapons = ref entity.Get<WeaponsComponent>();
+                    var weapon = weapons.weapon;
+
+                    var projectileEntity = world.CreateEntity(weapon.projectileDefinition);
+                    projectileEntity.Get<PositionComponent>().value = entity.Get<PositionComponent>().value + new Vector3(0, 0.35f, 0);
+                    
+                    ref var projectile = ref projectileEntity.Get<ProjectileComponent>();
+                    projectile.initialVelocity = entity.Get<LookingDirection>().value;
+                    
                     ExitAttack(entity);
                 }
 
