@@ -1,3 +1,4 @@
+using Game.Components;
 using Game.Controllers;
 using Game.Utilities;
 using GBJAM11.Systems;
@@ -14,6 +15,8 @@ namespace GBJAM11.Controllers
         {
             Debug.Log("COLLISION!!");
             // change state, stop travelling, etc...
+            
+            // entity.Get<ProjectileComponent>().
         }
     }
 }

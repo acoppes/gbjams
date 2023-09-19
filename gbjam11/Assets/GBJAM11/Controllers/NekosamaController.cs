@@ -1,10 +1,13 @@
-﻿using Game.Components;
+﻿using Game;
+using Game.Components;
 using Game.Controllers;
+using Game.Queries;
 using GBJAM11.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
+using Gemserk.Triggers.Queries;
 using UnityEngine;
 
 namespace GBJAM11.Controllers
@@ -59,7 +62,7 @@ namespace GBJAM11.Controllers
                     ref var projectile = ref projectileEntity.Get<ProjectileComponent>();
                     projectile.initialVelocity = entity.Get<LookingDirection>().value;
 
-                    weapons.lastFiredProjectile = projectileEntity;
+                   // weapons.lastFiredProjectile = projectileEntity;
                     
                     ExitAttack(entity);
                 }
@@ -69,10 +72,12 @@ namespace GBJAM11.Controllers
 
             if (bufferedInput.HasBufferedAction(input.button1()))
             {
-                if (weapons.lastFiredProjectile.Exists())
+                var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
+                
+                if (teleportKunaiList.Count > 0)
                 {
                     bufferedInput.ConsumeBuffer();
-                    EnterTeleport(entity);
+                    EnterTeleport(entity, teleportKunaiList[0]);
                     return;
                 }
                 else
@@ -126,7 +131,7 @@ namespace GBJAM11.Controllers
             states.ExitState("Attacking");
         }
 
-        private void EnterTeleport(Entity entity)
+        private void EnterTeleport(Entity entity, Entity kunaiEntity)
         {
             ref var states = ref entity.Get<StatesComponent>();
             ref var animations = ref entity.Get<AnimationComponent>();
@@ -142,12 +147,12 @@ namespace GBJAM11.Controllers
             
             // spawn teleport particle in position
             
-            var teleportPosition = weapons.lastFiredProjectile.Get<PositionComponent>().value;
+            var teleportPosition = kunaiEntity.Get<PositionComponent>().value;
             teleportPosition.y = 0;
             entity.Get<PositionComponent>().value = teleportPosition;
 
-            weapons.lastFiredProjectile.Get<DestroyableComponent>().destroy = true;
-            weapons.lastFiredProjectile = Entity.NullEntity;
+            kunaiEntity.Get<DestroyableComponent>().destroy = true;
+            // weapons.lastFiredProjectile = Entity.NullEntity;
         }
 
         private void ExitTeleport(Entity entity)
