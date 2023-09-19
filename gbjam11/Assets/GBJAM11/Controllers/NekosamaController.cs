@@ -53,9 +53,11 @@ namespace GBJAM11.Controllers
 
                    
                     var weapon = weapons.weapon;
+                    
+                    ref var attachPoints = ref entity.Get<AttachPointsComponent>();
 
                     var projectileEntity = world.CreateEntity(weapon.projectileDefinition);
-                    projectileEntity.Get<PositionComponent>().value = entity.Get<PositionComponent>().value + new Vector3(0, 0.35f, 0);
+                    projectileEntity.Get<PositionComponent>().value = attachPoints.Get("weapon").position;
                     
                     ref var projectile = ref projectileEntity.Get<ProjectileComponent>();
                     projectile.initialVelocity = entity.Get<LookingDirection>().value;
