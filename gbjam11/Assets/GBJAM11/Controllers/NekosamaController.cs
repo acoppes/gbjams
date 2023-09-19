@@ -49,9 +49,6 @@ namespace GBJAM11.Controllers
             {
                 if (animations.IsPlaying("Attack") && animations.isCompleted)
                 {
-                    // fire kunai
-
-                   
                     var weapon = weapons.weapon;
                     
                     ref var attachPoints = ref entity.Get<AttachPointsComponent>();
@@ -88,6 +85,9 @@ namespace GBJAM11.Controllers
                 // fire attack
 
             }
+
+            // ref var movement = ref entity.Get<MovementComponent>();
+            // movement.movingDirection = input.direction3d();
             
             // if (bufferedInput.HasBufferedAction(input.button2()))
             // {
