@@ -49,7 +49,7 @@ namespace GBJAM11.Controllers
                 newKunaiEntity.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
             }
             
-            // newKunaiEntity.Get<LookingDirection>().value = entity.Get<LookingDirection>().value;
+            newKunaiEntity.Get<LookingDirection>().value = entity.Get<LookingDirection>().value;
             
             entity.Get<DestroyableComponent>().destroy = true;
         }
