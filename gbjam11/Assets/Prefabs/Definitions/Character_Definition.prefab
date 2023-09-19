@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 4614472097903863941}
   - component: {fileID: 3628497270748371039}
   - component: {fileID: 443728659064515271}
+  - component: {fileID: 2872288249877542203}
+  - component: {fileID: 3741584653806421168}
   m_Layer: 0
   m_Name: Character_Definition
   m_TagString: Untagged
@@ -285,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc36e41330a74639b7ca005628c460af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fixedAngles: 0
 --- !u!114 &4615072467248349765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,3 +413,43 @@ MonoBehaviour:
   attachPointDefinitions:
   - name: weapon
     position: {x: 0, y: 0.45, z: 0}
+--- !u!114 &2872288249877542203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521158781532276117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b2d7edd28434b1ba18bdd30d4d765bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  physicsComponentType: 0
+  shapeType: 3
+  size: {x: 0.3, y: 0.5, z: 0.3}
+  centerType: 0
+  center: {x: 0, y: 0, z: 0}
+  mass: 50
+  isStatic: 0
+  isTrigger: 0
+  defaultSyncType: 0
+  colliderType: 3
+--- !u!114 &3741584653806421168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521158781532276117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fd9a52409f4515875edaddf42a165b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decalDefinition: {fileID: 5895877602177367948, guid: 76b13c0bdd4089e4e84922c4d68cb39a, type: 3}
+  spawnDistance: 0.5
+  randomOffset: 0.3
+  sfxDefinition: {fileID: 0}
+  particlesPrefab: {fileID: 0}

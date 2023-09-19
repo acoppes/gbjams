@@ -62,6 +62,8 @@ namespace GBJAM11.Controllers
                     ref var projectile = ref projectileEntity.Get<ProjectileComponent>();
                     projectile.initialVelocity = entity.Get<LookingDirection>().value;
 
+                    projectileEntity.Get<PlayerComponent>().player = entity.Get<PlayerComponent>().player;
+
                    // weapons.lastFiredProjectile = projectileEntity;
                     
                     ExitAttack(entity);
@@ -146,6 +148,13 @@ namespace GBJAM11.Controllers
             states.EnterState("Teleporting");
             
             // spawn teleport particle in position
+
+            var kunaiComponent = kunaiEntity.Get<KunaiComponent>();
+            if (kunaiComponent.stuckEntity.Exists())
+            {
+                // swap places!!
+                kunaiComponent.stuckEntity.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
+            }
             
             var teleportPosition = kunaiEntity.Get<PositionComponent>().value;
             teleportPosition.y = 0;

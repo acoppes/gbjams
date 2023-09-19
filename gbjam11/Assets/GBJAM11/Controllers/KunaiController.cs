@@ -1,4 +1,5 @@
 using Game.Utilities;
+using GBJAM11.Components;
 using GBJAM11.Systems;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
@@ -15,21 +16,41 @@ namespace GBJAM11.Controllers
         {
             if (entity.Get<DestroyableComponent>().destroy)
                 return;
+
+            var targetEntity = entityCollision.entity;
+
+            // not sure if want to handle collision with non entities yet..
+            if (!targetEntity.Exists())
+            {
+                return;
+            }
+
+            if (targetEntity.Has<PlayerComponent>())
+            {
+                if (entity.Get<PlayerComponent>().player == targetEntity.Get<PlayerComponent>().player)
+                    return;
+            }
             
-            // Debug.Log("COLLISION!!");
-            // change state, stop travelling, etc...
-            
-            // entity.Get<ProjectileComponent>().
+            // TODO: ignore nekosama collision
             
             // if static obstacle, then spawn stuck kunai!!
-
-            var targetPosition = entityCollision.entity.Get<PositionComponent>().value;
-            targetPosition.y = entity.Get<PositionComponent>().value.y;
-
+            
             var newKunaiEntity = world.CreateEntity(stuckDefinition);
-            newKunaiEntity.Get<PositionComponent>().value = targetPosition;
-            newKunaiEntity.Get<LookingDirection>().value = entity.Get<LookingDirection>().value;
-
+            
+            if (targetEntity.Has<SwapableComponent>())
+            {
+                var targetPosition = entityCollision.entity.Get<PositionComponent>().value;
+                targetPosition.y = entity.Get<PositionComponent>().value.y;
+                newKunaiEntity.Get<KunaiComponent>().stuckEntity = targetEntity;
+                newKunaiEntity.Get<PositionComponent>().value = targetPosition;
+            }
+            else
+            {
+                newKunaiEntity.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
+            }
+            
+            // newKunaiEntity.Get<LookingDirection>().value = entity.Get<LookingDirection>().value;
+            
             entity.Get<DestroyableComponent>().destroy = true;
         }
     }
