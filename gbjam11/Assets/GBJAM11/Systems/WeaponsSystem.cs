@@ -9,6 +9,8 @@ namespace GBJAM11.Systems
     public class WeaponsSystem : BaseSystem, IEntityCreatedHandler, IEcsRunSystem
     {
         readonly EcsFilterInject<Inc<AttachPointsComponent, WeaponsComponent>, Exc<DisabledComponent>> filter = default;
+        readonly EcsFilterInject<Inc<WeaponComponent, HasLookingDirectionIndicatorComponent>, Exc<DisabledComponent>> 
+            weaponIndicatorFilter = default;
         
         public void OnEntityCreated(World world, Entity entity)
         {
@@ -27,6 +29,15 @@ namespace GBJAM11.Systems
                 ref var attachPoints = ref filter.Pools.Inc1.Get(entity);
                 ref var weapons = ref filter.Pools.Inc2.Get(entity);
                 weapons.weaponEntity.Get<PositionComponent>().value = attachPoints.Get("weapon").position; 
+            }
+            
+            foreach (var entity in weaponIndicatorFilter.Value)
+            {
+                var weapon = weaponIndicatorFilter.Pools.Inc1.Get(entity);
+                ref var lookingIndicator = ref weaponIndicatorFilter.Pools.Inc2.Get(entity);
+
+                lookingIndicator.visiblity =
+                    weapon.charging ? ModelComponent.Visiblity.Visible : ModelComponent.Visiblity.Hidden; 
             }
         }
 

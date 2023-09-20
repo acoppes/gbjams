@@ -9,6 +9,7 @@ namespace GBJAM11.Components
         public IEntityDefinition projectileDefinition;
 
         public Entity holder;
+        public bool charging;
     }
     
     public class WeaponComponentDefinition : ComponentDefinitionBase
