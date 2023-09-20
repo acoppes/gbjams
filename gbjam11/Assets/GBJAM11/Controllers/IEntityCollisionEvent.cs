@@ -1,7 +1,7 @@
 ﻿using Game.Utilities;
 using Gemserk.Leopotam.Ecs;
 
-namespace GBJAM11.Systems
+namespace GBJAM11.Controllers
 {
     public interface IEntityCollisionEvent
     {
