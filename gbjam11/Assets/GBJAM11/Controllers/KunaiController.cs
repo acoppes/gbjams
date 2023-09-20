@@ -5,6 +5,7 @@ using GBJAM11.Systems;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace GBJAM11.Controllers
@@ -47,8 +48,13 @@ namespace GBJAM11.Controllers
 
                 if (!entityCollision.isTrigger)
                 {
-                    newKunaiEntity.Get<KunaiComponent>().onRoof =
-                        entityCollision.collision2D.contacts[0].normal.y < -0.6f;
+                    var normal = entityCollision.collision2D.contacts[0].normal;
+                    
+                    newKunaiEntity.Get<KunaiComponent>().ceilingCollision = Mathf.Abs(normal.x) < 0.2f && normal.y < -0.8f;
+                    newKunaiEntity.Get<KunaiComponent>().floorCollision = Mathf.Abs(normal.x) < 0.2f && normal.y > 0.8f;
+                    newKunaiEntity.Get<KunaiComponent>().wallCollision = Mathf.Abs(normal.y) < 0.2f && Mathf.Abs(normal.x) > 0.8f;
+                    newKunaiEntity.Get<KunaiComponent>().normal = normal;
+                    
                     newKunaiEntity.Get<PositionComponent>().value = entityCollision.collision2D.contacts[0].point;
                 }
             }

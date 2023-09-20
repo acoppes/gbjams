@@ -6,7 +6,8 @@ namespace GBJAM11.Components
 {
     public struct WallStickComponent: IEntityComponent
     {
-        public bool inContactWithRoof;
+        public bool roof;
+        public bool wall;
     }
     
     public class WallStickComponentDefinition : ComponentDefinitionBase

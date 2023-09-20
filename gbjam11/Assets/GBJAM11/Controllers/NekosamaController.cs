@@ -338,7 +338,7 @@ namespace GBJAM11.Controllers
             
             entity.Get<Physics2dComponent>().body.velocity = Vector2.zero;
 
-            if (kunaiComponent.onRoof)
+            if (kunaiComponent.ceilingCollision)
             {
                 EnterOnRoof(entity, kunaiEntity.Get<PositionComponent>().value);
             }

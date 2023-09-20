@@ -1,11 +1,15 @@
 ﻿using Gemserk.Leopotam.Ecs;
+using UnityEngine;
 
 namespace GBJAM11.Components
 {
     public struct KunaiComponent : IEntityComponent
     {
         public Entity stuckEntity;
-        public bool onRoof;
+        public bool ceilingCollision;
+        public bool wallCollision;
+        public bool floorCollision;
+        public Vector2 normal;
     }
     
     public class KunaiComponentDefinition : ComponentDefinitionBase
