@@ -142,31 +142,31 @@ namespace GBJAM11.Controllers
 
             if (bufferedInput.HasBufferedAction(input.button1()))
             {
-                // var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
-                //
-                // if (teleportKunaiList.Count > 0)
-                // {
-                //     bufferedInput.ConsumeBuffer();
-                //     EnterTeleport(entity, teleportKunaiList[0]);
-                //     return;
-                // }
-                // else
-                // {
-                //     bufferedInput.ConsumeBuffer();
-                //     EnterAttack(entity);
-                //     return;
-                // }
-                
                 var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
                 
                 if (teleportKunaiList.Count > 0)
                 {
-                    teleportKunaiList[0].Get<DestroyableComponent>().destroy = true;
+                    bufferedInput.ConsumeBuffer();
+                    EnterTeleport(entity, teleportKunaiList[0]);
+                    return;
+                }
+                else
+                {
+                    bufferedInput.ConsumeBuffer();
+                    EnterAttack(entity);
+                    return;
                 }
                 
-                bufferedInput.ConsumeBuffer();
-                EnterAttack(entity);
-                return;
+                // var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
+                //
+                // if (teleportKunaiList.Count > 0)
+                // {
+                //     teleportKunaiList[0].Get<DestroyableComponent>().destroy = true;
+                // }
+                //
+                // bufferedInput.ConsumeBuffer();
+                // EnterAttack(entity);
+                // return;
                 // fire attack
 
             }
@@ -177,8 +177,10 @@ namespace GBJAM11.Controllers
                 
                 if (teleportKunaiList.Count > 0)
                 {
-                    bufferedInput.ConsumeBuffer();
-                    EnterTeleport(entity, teleportKunaiList[0]);
+                    teleportKunaiList[0].Get<DestroyableComponent>().destroy = true;
+                    
+                    // bufferedInput.ConsumeBuffer();
+                    // EnterTeleport(entity, teleportKunaiList[0]);
                     return;
                 }
             }
