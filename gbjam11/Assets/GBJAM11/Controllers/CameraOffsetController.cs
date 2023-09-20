@@ -1,6 +1,7 @@
 ﻿using Game.Components;
 using GBJAM11.Components;
 using Gemserk.Leopotam.Ecs;
+using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
 using UnityEngine;
@@ -23,6 +24,9 @@ namespace GBJAM11.Controllers
             if (gravity.inContactWithGround)
             {
                 offset.y = cameraOffsetMaxValue.y;
+            } else if (entity.Get<StatesComponent>().HasState("OnRoof"))
+            {
+                offset.y = -cameraOffsetMaxValue.y;
             }
             
             // TODO: if on wall or on roof, then set the offset differently.
