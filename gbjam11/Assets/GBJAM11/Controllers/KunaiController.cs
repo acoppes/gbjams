@@ -1,3 +1,4 @@
+using Game.Components;
 using Game.Utilities;
 using GBJAM11.Components;
 using GBJAM11.Systems;
@@ -43,6 +44,13 @@ namespace GBJAM11.Controllers
             else
             {
                 newKunaiEntity.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
+
+                if (!entityCollision.isTrigger)
+                {
+                    newKunaiEntity.Get<KunaiComponent>().onRoof =
+                        entityCollision.collision2D.contacts[0].normal.y < -0.6f;
+                    newKunaiEntity.Get<PositionComponent>().value = entityCollision.collision2D.contacts[0].point;
+                }
             }
             
             newKunaiEntity.Get<LookingDirection>().value = entity.Get<LookingDirection>().value;

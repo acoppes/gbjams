@@ -13,21 +13,21 @@ using UnityEngine;
 
 namespace GBJAM11.Controllers
 {
-    public class NekosamaController : ControllerBase, IUpdate, IActiveController, IEntityCollisionEvent
+    public class NekosamaController : ControllerBase, IUpdate, IActiveController
     {
-        public void OnEntityCollision(World world, Entity entity, IEntityCollisionDelegate.EntityCollision entityCollision)
-        {
-            if (!entityCollision.isTrigger)
-            {
-                var contact = entityCollision.collision2D.contacts[0];
-                if (contact.normal.y < 0.5f)
-                {
-                    Debug.Log("ROOF");
-                    EnterOnRoof(entity, contact.point);
-                }
-            }
-                
-        }
+        // public void OnEntityCollision(World world, Entity entity, IEntityCollisionDelegate.EntityCollision entityCollision)
+        // {
+        //     if (!entityCollision.isTrigger)
+        //     {
+        //         var contact = entityCollision.collision2D.contacts[0];
+        //         if (contact.normal.y < -0.9f)
+        //         {
+        //             Debug.Log("ROOF");
+        //             EnterOnRoof(entity, contact.point);
+        //         }
+        //     }
+        //         
+        // }
         
         public bool CanBeInterrupted(Entity entity, IActiveController activeController)
         {
@@ -184,6 +184,16 @@ namespace GBJAM11.Controllers
                     return;
                 }
             }
+            
+            if (bufferedInput.HasBufferedAction(input.down()))
+            {
+                if (states.HasState("OnRoof"))
+                {
+                    ExitOnRoof(entity);
+                    entity.Get<PositionComponent>().value -= new Vector3(0, 0.5f, 0);
+                    return;
+                }
+            }
 
             // ref var movement = ref entity.Get<MovementComponent>();
             // movement.movingDirection = input.direction3d();
@@ -303,6 +313,11 @@ namespace GBJAM11.Controllers
             // weapons.lastFiredProjectile = Entity.NullEntity;
             
             entity.Get<Physics2dComponent>().body.velocity = Vector2.zero;
+
+            if (kunaiComponent.onRoof)
+            {
+                EnterOnRoof(entity, kunaiEntity.Get<PositionComponent>().value);
+            }
         }
 
         private void ExitTeleport(Entity entity)
