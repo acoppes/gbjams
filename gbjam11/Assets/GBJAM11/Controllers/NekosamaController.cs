@@ -58,6 +58,18 @@ namespace GBJAM11.Controllers
             
             var gravity = entity.Get<GravityComponent>();
             
+            if (states.TryGetState("OnRoof", out var roofState))
+            {
+                var physics = entity.Get<Physics2dComponent>();
+                if (physics.contacts.Count == 0)
+                {
+                    // Debug.Log("Should fall");
+                    entity.Get<PositionComponent>().value -= new Vector3(0, 0.5f, 0);
+                    ExitOnRoof(entity);
+                    EnterFalling(entity);
+                }
+            }
+            
             if (states.TryGetState("Teleporting", out var teleportState))
             {
                 if (animations.IsPlaying("Teleport") && animations.isCompleted)
@@ -132,11 +144,7 @@ namespace GBJAM11.Controllers
                 // and not on roof either!!
                 if (!gravity.inContactWithGround)
                 {
-                    // enter falling
-                    animations.Play("Fall");
-                    entity.Get<AutoAnimationComponent>().disabled = true;
-                    
-                    states.EnterState("Falling");
+                    EnterFalling(entity);
                 }
             }
 
@@ -204,6 +212,18 @@ namespace GBJAM11.Controllers
             //     EnterTeleport(entity);
             //     return;
             // }
+        }
+
+        private void EnterFalling(Entity entity)
+        {
+            ref var states = ref entity.Get<StatesComponent>();
+            ref var animations = ref entity.Get<AnimationComponent>();
+            
+            // enter falling
+            animations.Play("Fall");
+            entity.Get<AutoAnimationComponent>().disabled = true;
+                    
+            states.EnterState("Falling");
         }
 
         private void EnterOnRoof(Entity entity, Vector2 position)
