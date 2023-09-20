@@ -7,17 +7,23 @@ namespace GBJAM11.Components
     public struct Weapon
     {
         public IEntityDefinition projectileDefinition;
+        public IEntityDefinition directionIndicatorDefinition;
+        public Entity directionIndicatorInstance;
     }
     
     public struct WeaponsComponent : IEntityComponent
     {
         public Weapon weapon;
-       // public Entity lastFiredProjectile;
+
+        public Vector2 direction;
+        
+        // public Entity lastFiredProjectile;
     }
     
     public class WeaponsComponentDefinition : ComponentDefinitionBase
     {
         public Object projectileDefinition;
+        public Object directionIndicatorDefinition;
         
         public override string GetComponentName()
         {
@@ -31,6 +37,8 @@ namespace GBJAM11.Components
                 weapon = new Weapon()
                 {
                     projectileDefinition = projectileDefinition.GetInterface<IEntityDefinition>(),
+                    directionIndicatorDefinition = directionIndicatorDefinition.GetInterface<IEntityDefinition>(),
+                    directionIndicatorInstance = Entity.NullEntity
                 },
                 // lastFiredProjectile = Entity.NullEntity
             });
