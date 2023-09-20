@@ -14,18 +14,14 @@ namespace GBJAM11.Controllers
         
         public void OnEntityCollision(World world, Entity entity, IEntityCollisionDelegate.EntityCollision entityCollision)
         {
+            // Debug.Log("DETECTION!");
+            
             if (entity.Get<DestroyableComponent>().destroy)
                 return;
 
             var targetEntity = entityCollision.entity;
 
-            // not sure if want to handle collision with non entities yet..
-            if (!targetEntity.Exists())
-            {
-                return;
-            }
-
-            if (targetEntity.Has<PlayerComponent>())
+            if (targetEntity.Exists() && targetEntity.Has<PlayerComponent>())
             {
                 if (entity.Get<PlayerComponent>().player == targetEntity.Get<PlayerComponent>().player)
                     return;
@@ -37,7 +33,7 @@ namespace GBJAM11.Controllers
             
             var newKunaiEntity = world.CreateEntity(stuckDefinition);
             
-            if (targetEntity.Has<SwapableComponent>())
+            if (targetEntity.Exists() && targetEntity.Has<SwapableComponent>())
             {
                 var targetPosition = entityCollision.entity.Get<PositionComponent>().value;
                 targetPosition.y = entity.Get<PositionComponent>().value.y;

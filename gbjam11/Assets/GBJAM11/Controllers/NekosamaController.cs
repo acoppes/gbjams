@@ -1,5 +1,4 @@
-﻿using Game;
-using Game.Components;
+﻿using Game.Components;
 using Game.Controllers;
 using Game.Queries;
 using GBJAM11.Components;
@@ -8,7 +7,6 @@ using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
 using Gemserk.Triggers.Queries;
-using UnityEngine;
 
 namespace GBJAM11.Controllers
 {
@@ -157,7 +155,7 @@ namespace GBJAM11.Controllers
             }
             
             var teleportPosition = kunaiEntity.Get<PositionComponent>().value;
-            teleportPosition.y = 0;
+            // teleportPosition.y = 0;
             entity.Get<PositionComponent>().value = teleportPosition;
 
             kunaiEntity.Get<DestroyableComponent>().destroy = true;

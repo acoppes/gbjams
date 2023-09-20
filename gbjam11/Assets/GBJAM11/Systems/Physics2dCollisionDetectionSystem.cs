@@ -5,13 +5,13 @@ using Gemserk.Leopotam.Ecs.Controllers;
 
 namespace GBJAM11.Systems
 {
-    public class PhysicsCollisionDetectionSystem : BaseSystem, IEntityCreatedHandler, IEntityDestroyedHandler
+    public class Physics2dCollisionDetectionSystem : BaseSystem, IEntityCreatedHandler, IEntityDestroyedHandler
     {
         public void OnEntityCreated(World world, Entity entity)
         {
-            if (world.HasComponent<PhysicsComponent>(entity))
+            if (world.HasComponent<Physics2dComponent>(entity))
             {
-                ref var physics = ref entity.Get<PhysicsComponent>();
+                ref var physics = ref entity.Get<Physics2dComponent>();
                 
                 if (physics.collisionsEventsDelegate != null)
                 {
@@ -22,9 +22,9 @@ namespace GBJAM11.Systems
         
         public void OnEntityDestroyed(World world, Entity entity)
         {
-            if (world.HasComponent<PhysicsComponent>(entity))
+            if (world.HasComponent<Physics2dComponent>(entity))
             {
-                ref var physics = ref entity.Get<PhysicsComponent>();
+                ref var physics = ref entity.Get<Physics2dComponent>();
                 
                 if (physics.collisionsEventsDelegate != null)
                 {
