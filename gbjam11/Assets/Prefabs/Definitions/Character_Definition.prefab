@@ -136,7 +136,6 @@ GameObject:
   - component: {fileID: 443728659064515271}
   - component: {fileID: 2872288249877542203}
   - component: {fileID: 3741584653806421168}
-  - component: {fileID: 2745557292072122029}
   m_Layer: 0
   m_Name: Character_Definition
   m_TagString: Untagged
@@ -216,6 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
   rotationType: 0
+  flipUseRotation: 0
   startingColor: {r: 1, g: 1, b: 1, a: 1}
   sortingLayerType: 0
   sortingOrder: 0
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fdc1acd732c4d00a98ed0bdca861464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileDefinition: {fileID: 8521158781532276117, guid: 0ff42fd2dbf6d2f44a5ef3e60797ef87, type: 3}
+  defaultWeaponDefinition: {fileID: 0}
 --- !u!114 &4614472097903863941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,7 +437,6 @@ MonoBehaviour:
   isTrigger: 0
   defaultSyncType: 0
   colliderType: 3
-  rigidbodyConstraints: 256
 --- !u!114 &3741584653806421168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,15 +454,3 @@ MonoBehaviour:
   randomOffset: 0.3
   sfxDefinition: {fileID: 0}
   particlesPrefab: {fileID: 0}
---- !u!114 &2745557292072122029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521158781532276117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcb8b22a6a0f473d84203ff9220ad947, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
