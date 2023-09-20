@@ -1,18 +1,34 @@
 ﻿using Game.Components;
 using Game.Controllers;
 using Game.Queries;
+using Game.Utilities;
 using GBJAM11.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
 using Gemserk.Triggers.Queries;
+using MyBox;
 using UnityEngine;
 
 namespace GBJAM11.Controllers
 {
-    public class NekosamaController : ControllerBase, IUpdate, IActiveController
+    public class NekosamaController : ControllerBase, IUpdate, IActiveController, IEntityCollisionEvent
     {
+        public void OnEntityCollision(World world, Entity entity, IEntityCollisionDelegate.EntityCollision entityCollision)
+        {
+            if (!entityCollision.isTrigger)
+            {
+                var contact = entityCollision.collision2D.contacts[0];
+                if (contact.normal.y < 0.5f)
+                {
+                    Debug.Log("ROOF");
+                    EnterOnRoof(entity, contact.point);
+                }
+            }
+                
+        }
+        
         public bool CanBeInterrupted(Entity entity, IActiveController activeController)
         {
             return true;
@@ -36,6 +52,9 @@ namespace GBJAM11.Controllers
             
             // if attacking 
             // fire attack
+
+            ref var movement = ref entity.Get<MovementComponent>();
+            movement.movingDirection = input.direction().vector2.SetY(0);
             
             var gravity = entity.Get<GravityComponent>();
             
@@ -96,20 +115,23 @@ namespace GBJAM11.Controllers
             
             if (states.HasState("Falling"))
             {
-                if (!animations.IsPlaying("Fall"))
-                {
-                    animations.Play("Fall");
-                }
-                
-                if (gravity.inContactWithGround)
+                if (gravity.inContactWithGround || states.HasState("OnRoof"))
                 {
                     entity.Get<AutoAnimationComponent>().disabled = false;
                     states.ExitState("Falling");
                 }
+                else
+                {
+                    if (!animations.IsPlaying("Fall"))
+                    {
+                        animations.Play("Fall");
+                    }
+                }
             }
             
-            if (!states.HasState("Falling"))
+            if (!states.HasState("Falling") && !states.HasState("OnRoof"))
             {
+                // and not on roof either!!
                 if (!gravity.inContactWithGround)
                 {
                     // enter falling
@@ -174,6 +196,30 @@ namespace GBJAM11.Controllers
             // }
         }
 
+        private void EnterOnRoof(Entity entity, Vector2 position)
+        {
+            entity.Get<StatesComponent>().EnterState("OnRoof");
+            entity.Get<GravityComponent>().disabled = true;
+            entity.Get<Physics2dComponent>().body.velocity = Vector2.zero;
+            // force position to touch
+            entity.Get<MovementComponent>().speedMultiplier = 0.5f;
+
+            entity.Get<Physics2dComponent>().body.transform.localScale = new Vector3(1, -1, 1);
+            entity.Get<ModelComponent>().instance.spriteRenderer.flipY = true;
+
+            entity.Get<Physics2dComponent>().body.position = position;
+        }
+
+        private void ExitOnRoof(Entity entity)
+        {
+            entity.Get<StatesComponent>().ExitState("OnRoof");
+            entity.Get<GravityComponent>().disabled = false;
+            entity.Get<MovementComponent>().speedMultiplier = 1.0f;
+            
+            entity.Get<Physics2dComponent>().body.transform.localScale = new Vector3(1, 1, 1);
+            entity.Get<ModelComponent>().instance.spriteRenderer.flipY = false;
+        }
+
         private void EnterAttack(Entity entity)
         {
             // start anim, start state, etc...
@@ -197,6 +243,10 @@ namespace GBJAM11.Controllers
             {
                 weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
             }
+            else
+            {
+                weapons.weaponEntity.Get<LookingDirection>().value = entity.Get<LookingDirection>().value;
+            }
 
             entity.Get<GravityComponent>().disabled = true;
             entity.Get<Physics2dComponent>().body.velocity = Vector2.zero;
@@ -214,7 +264,10 @@ namespace GBJAM11.Controllers
             movement.speed = movement.baseSpeed;
             states.ExitState("Attacking");
             
-            entity.Get<GravityComponent>().disabled = false;
+            if (!states.HasState("OnRoof"))
+            {
+                entity.Get<GravityComponent>().disabled = false;
+            }
         }
 
         private void EnterTeleport(Entity entity, Entity kunaiEntity)
@@ -224,6 +277,8 @@ namespace GBJAM11.Controllers
             ref var activeController = ref entity.Get<ActiveControllerComponent>();
             ref var movement = ref entity.Get<MovementComponent>();
             ref var weapons = ref entity.Get<WeaponsComponent>();
+            
+            ExitOnRoof(entity);
             
             activeController.TakeControl(entity, this);
             movement.speed = 0;
@@ -260,6 +315,7 @@ namespace GBJAM11.Controllers
             movement.speed = movement.baseSpeed;
             states.ExitState("Teleporting");
         }
+
 
 
     }
