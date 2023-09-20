@@ -1,25 +1,29 @@
 ﻿using Game.Components;
+using GBJAM11.Components;
 using Gemserk.Leopotam.Ecs;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 
-namespace RtsGame.Systems
+namespace GBJAM11.Systems
 {
     public class AutoUnitAnimationsSystem : BaseSystem, IEcsRunSystem
     {
         private const string WALK_ANIMATION = "Walk";
         private const string IDLE_ANIMATION = "Idle";
 
-        readonly EcsFilterInject<Inc<MovementComponent, AnimationComponent>, Exc<DisabledComponent>> animationFilter = default;
+        readonly EcsFilterInject<Inc<MovementComponent, AnimationComponent, AutoAnimationComponent>, Exc<DisabledComponent>> animationFilter = default;
         readonly EcsFilterInject<Inc<MovementComponent, LookingDirection>, Exc<DisabledComponent>> lookingDirectionFilter = default;
-        readonly EcsFilterInject<Inc<ActiveControllerComponent, AnimationComponent, MovementComponent>, Exc<DisabledComponent>> abilitiesFilter = default;
+        readonly EcsFilterInject<Inc<ActiveControllerComponent, AnimationComponent, MovementComponent, AutoAnimationComponent>, Exc<DisabledComponent>> abilitiesFilter = default;
 
         public void Run(EcsSystems systems)
         {
-            foreach (var entity in animationFilter.Value)
+            foreach (var e in animationFilter.Value)
             {
-                ref var movement = ref animationFilter.Pools.Inc1.Get(entity);
-                ref var animation = ref animationFilter.Pools.Inc2.Get(entity);
+                ref var movement = ref animationFilter.Pools.Inc1.Get(e);
+                ref var animations = ref animationFilter.Pools.Inc2.Get(e);
+
+                if (animationFilter.Pools.Inc3.Get(e).disabled)
+                    continue;
 
                 if (movement.isMoving)
                 {
@@ -27,17 +31,17 @@ namespace RtsGame.Systems
                     //     animation.animationsAsset.GetDirectionalAnimation(WALK_ANIMATION, 
                     //         movement.movingDirection);
 
-                    if (!animation.IsPlaying(WALK_ANIMATION))
+                    if (!animations.IsPlaying(WALK_ANIMATION))
                     {
-                        animation.Play(WALK_ANIMATION);
+                        animations.Play(WALK_ANIMATION);
                     }
                 }
             }
             
-            foreach (var entity in lookingDirectionFilter.Value)
+            foreach (var e in lookingDirectionFilter.Value)
             {
-                ref var movement = ref lookingDirectionFilter.Pools.Inc1.Get(entity);
-                ref var lookingDirection = ref lookingDirectionFilter.Pools.Inc2.Get(entity);
+                ref var movement = ref lookingDirectionFilter.Pools.Inc1.Get(e);
+                ref var lookingDirection = ref lookingDirectionFilter.Pools.Inc2.Get(e);
 
                 if (movement.isMoving)
                 {
@@ -50,6 +54,9 @@ namespace RtsGame.Systems
                 var activeController = abilitiesFilter.Pools.Inc1.Get(e);
                 ref var animations = ref abilitiesFilter.Pools.Inc2.Get(e);
                 var movement = abilitiesFilter.Pools.Inc3.Get(e);
+                
+                if (abilitiesFilter.Pools.Inc4.Get(e).disabled)
+                    continue;
                 
                 // var executingAbility = !activeController.IsControlled();
                 

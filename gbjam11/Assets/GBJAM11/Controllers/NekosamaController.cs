@@ -32,11 +32,7 @@ namespace GBJAM11.Controllers
             ref var bufferedInput = ref entity.Get<BufferedInputComponent>();
             ref var animations = ref entity.Get<AnimationComponent>();
             ref var weapons = ref entity.Get<WeaponsComponent>();
-
-            if (input.direction().vector2.SqrMagnitude() > 0)
-            {
-                weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
-            }
+            
             // if attacking 
             // fire attack
             
@@ -49,9 +45,19 @@ namespace GBJAM11.Controllers
 
                 return;
             }
+
+            var gravity = entity.Get<GravityComponent>();
             
             if (states.TryGetState("ChargingAttack", out var chargingState))
             {
+             
+                
+                if (input.direction().vector2.SqrMagnitude() > 0)
+                {
+                    weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
+                    entity.Get<LookingDirection>().value = input.direction().vector2;
+                }
+                
                 if (!input.button1().isPressed)
                 {
                     // enter attack
@@ -59,6 +65,8 @@ namespace GBJAM11.Controllers
                     states.ExitState("ChargingAttack");
                     states.EnterState("Attacking");
                 }
+
+                return;
             }
             
             if (states.TryGetState("Attacking", out var attackState))
@@ -85,6 +93,32 @@ namespace GBJAM11.Controllers
                 }
 
                 return;
+            }
+            
+            if (states.HasState("Falling"))
+            {
+                if (!animations.IsPlaying("Fall"))
+                {
+                    animations.Play("Fall");
+                }
+                
+                if (gravity.inContactWithGround)
+                {
+                    entity.Get<AutoAnimationComponent>().disabled = false;
+                    states.ExitState("Falling");
+                }
+            }
+            
+            if (!states.HasState("Falling"))
+            {
+                if (!gravity.inContactWithGround)
+                {
+                    // enter falling
+                    animations.Play("Fall");
+                    entity.Get<AutoAnimationComponent>().disabled = true;
+                    
+                    states.EnterState("Falling");
+                }
             }
 
             if (bufferedInput.HasBufferedAction(input.button1()))
@@ -128,7 +162,7 @@ namespace GBJAM11.Controllers
             ref var animations = ref entity.Get<AnimationComponent>();
             ref var activeController = ref entity.Get<ActiveControllerComponent>();
             ref var movement = ref entity.Get<MovementComponent>();
-            
+            ref var input = ref entity.Get<InputComponent>();
             ref var weapons = ref entity.Get<WeaponsComponent>();
             
             activeController.TakeControl(entity, this);
@@ -137,10 +171,11 @@ namespace GBJAM11.Controllers
             states.EnterState("ChargingAttack");
 
             weapons.weaponEntity.Get<WeaponComponent>().charging = true;
-
-            // weapons.weapon.directionIndicatorInstance = entity.world.CreateEntity(weapons.weapon.directionIndicatorDefinition);
-            // weapons.weapon.directionIndicatorInstance.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
-            // weapons.weapon.directionIndicatorInstance.Get<LookingDirection>().value = weapons.direction;
+            
+            if (input.direction().vector2.SqrMagnitude() > 0)
+            {
+                weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
+            }
         }
 
         private void ExitAttack(Entity entity)
