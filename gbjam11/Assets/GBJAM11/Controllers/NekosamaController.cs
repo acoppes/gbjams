@@ -92,11 +92,9 @@ namespace GBJAM11.Controllers
                 if (animations.IsPlaying("Attack") && animations.isCompleted)
                 {
                     var weaponEntity = weapons.weaponEntity;
-                    
-                    ref var attachPoints = ref entity.Get<AttachPointsComponent>();
 
                     var projectileEntity = world.CreateEntity(weaponEntity.Get<WeaponComponent>().projectileDefinition);
-                    projectileEntity.Get<PositionComponent>().value = attachPoints.Get("weapon").position;
+                    projectileEntity.Get<PositionComponent>().value = weaponEntity.Get<PositionComponent>().value;
                     
                     ref var projectile = ref projectileEntity.Get<ProjectileComponent>();
                     projectile.initialVelocity = weaponEntity.Get<LookingDirection>().value;
@@ -218,6 +216,8 @@ namespace GBJAM11.Controllers
             entity.Get<ModelComponent>().instance.spriteRenderer.flipY = true;
 
             entity.Get<Physics2dComponent>().body.position = position;
+
+            entity.Get<WeaponsComponent>().inverted = true;
         }
 
         private void ExitOnRoof(Entity entity)
@@ -228,6 +228,8 @@ namespace GBJAM11.Controllers
             
             entity.Get<Physics2dComponent>().body.transform.localScale = new Vector3(1, 1, 1);
             entity.Get<ModelComponent>().instance.spriteRenderer.flipY = false;
+            
+            entity.Get<WeaponsComponent>().inverted = false;
         }
 
         private void EnterAttack(Entity entity)

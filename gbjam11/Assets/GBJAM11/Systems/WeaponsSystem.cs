@@ -28,7 +28,18 @@ namespace GBJAM11.Systems
             {
                 ref var attachPoints = ref filter.Pools.Inc1.Get(entity);
                 ref var weapons = ref filter.Pools.Inc2.Get(entity);
-                weapons.weaponEntity.Get<PositionComponent>().value = attachPoints.Get("weapon").position; 
+
+                var attachPoint = attachPoints.Get("weapon");
+                ref var weaponPosition = ref weapons.weaponEntity.Get<PositionComponent>();
+
+                if (weapons.inverted)
+                {
+                    weaponPosition.value = attachPoint.entityPosition + attachPoint.localPosition * -1f;
+                }
+                else
+                {
+                    weaponPosition.value = attachPoint.position;
+                }
             }
             
             foreach (var entity in weaponIndicatorFilter.Value)

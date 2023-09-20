@@ -8,6 +8,7 @@ namespace GBJAM11.Components
     {
         public IEntityDefinition defaultWeaponDefinition;
         public Entity weaponEntity;
+        public bool inverted;
     }
     
     public class WeaponsComponentDefinition : ComponentDefinitionBase
