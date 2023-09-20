@@ -200,6 +200,10 @@ namespace GBJAM11.Controllers
                     ExitOnRoof(entity);
                     entity.Get<PositionComponent>().value -= new Vector3(0, 0.5f, 0);
                     return;
+                } else if (states.HasState("WallStick"))
+                {
+                    ExitWallStick(entity);
+                    return;
                 }
             }
 
@@ -241,6 +245,16 @@ namespace GBJAM11.Controllers
 
             entity.Get<WeaponsComponent>().inverted = true;
         }
+        
+        private void EnterWallStick(Entity entity, Vector2 position)
+        {
+            entity.Get<StatesComponent>().EnterState("WallStick");
+            entity.Get<GravityComponent>().disabled = true;
+            entity.Get<Physics2dComponent>().body.velocity = Vector2.zero;
+            // force position to touch
+            entity.Get<MovementComponent>().speedMultiplier = 0;
+            entity.Get<PositionComponent>().value = position;
+        }
 
         private void ExitOnRoof(Entity entity)
         {
@@ -252,6 +266,13 @@ namespace GBJAM11.Controllers
             entity.Get<ModelComponent>().instance.spriteRenderer.flipY = false;
             
             entity.Get<WeaponsComponent>().inverted = false;
+        }
+        
+        private void ExitWallStick(Entity entity)
+        {
+            entity.Get<StatesComponent>().ExitState("WallStick");
+            entity.Get<GravityComponent>().disabled = false;
+            entity.Get<MovementComponent>().speedMultiplier = 1.0f;
         }
 
         private void EnterAttack(Entity entity)
@@ -298,7 +319,7 @@ namespace GBJAM11.Controllers
             movement.speed = movement.baseSpeed;
             states.ExitState("Attacking");
             
-            if (!states.HasState("OnRoof"))
+            if (!states.HasState("OnRoof") && !states.HasState("WallStick"))
             {
                 entity.Get<GravityComponent>().disabled = false;
             }
@@ -341,6 +362,9 @@ namespace GBJAM11.Controllers
             if (kunaiComponent.ceilingCollision)
             {
                 EnterOnRoof(entity, kunaiEntity.Get<PositionComponent>().value);
+            } else if (kunaiComponent.wallCollision)
+            {
+                EnterWallStick(entity, kunaiEntity.Get<PositionComponent>().value);
             }
         }
 
