@@ -4,26 +4,15 @@ using UnityEngine;
 
 namespace GBJAM11.Components
 {
-    public struct Weapon
-    {
-        public IEntityDefinition projectileDefinition;
-        public IEntityDefinition directionIndicatorDefinition;
-        public Entity directionIndicatorInstance;
-    }
-    
     public struct WeaponsComponent : IEntityComponent
     {
-        public Weapon weapon;
-
-        public Vector2 direction;
-        
-        // public Entity lastFiredProjectile;
+        public IEntityDefinition defaultWeaponDefinition;
+        public Entity weaponEntity;
     }
     
     public class WeaponsComponentDefinition : ComponentDefinitionBase
     {
-        public Object projectileDefinition;
-        public Object directionIndicatorDefinition;
+        public Object defaultWeaponDefinition;
         
         public override string GetComponentName()
         {
@@ -34,13 +23,8 @@ namespace GBJAM11.Components
         {
             world.AddComponent(entity, new WeaponsComponent()
             {
-                weapon = new Weapon()
-                {
-                    projectileDefinition = projectileDefinition.GetInterface<IEntityDefinition>(),
-                    directionIndicatorDefinition = directionIndicatorDefinition.GetInterface<IEntityDefinition>(),
-                    directionIndicatorInstance = Entity.NullEntity
-                },
-                // lastFiredProjectile = Entity.NullEntity
+                defaultWeaponDefinition =  defaultWeaponDefinition.GetInterface<IEntityDefinition>(),
+                weaponEntity = Entity.NullEntity
             });
         }
     }

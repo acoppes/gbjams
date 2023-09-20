@@ -12,8 +12,6 @@ namespace GBJAM11.Controllers
 {
     public class NekosamaController : ControllerBase, IUpdate, IActiveController
     {
-        
-        
         public bool CanBeInterrupted(Entity entity, IActiveController activeController)
         {
             return true;
@@ -39,7 +37,7 @@ namespace GBJAM11.Controllers
 
             if (input.direction().vector2.SqrMagnitude() > 0)
             {
-                weapons.direction = input.direction().vector2;
+                weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
             }
             // if attacking 
             // fire attack
@@ -56,8 +54,10 @@ namespace GBJAM11.Controllers
             
             if (states.TryGetState("ChargingAttack", out var chargingState))
             {
-                weapons.weapon.directionIndicatorInstance.Get<PositionComponent>().value = position.value;
-                weapons.weapon.directionIndicatorInstance.Get<LookingDirection>().value = weapons.direction;
+                var weapon = weapons.weaponEntity.Get<WeaponComponent>();
+                
+                // weapon.directionIndicatorInstance.Get<PositionComponent>().value = position.value;
+                // weapon.directionIndicatorInstance.Get<LookingDirection>().value = weapons.direction;
                 
                 if (!input.button1().isPressed)
                 {
@@ -66,7 +66,7 @@ namespace GBJAM11.Controllers
                     states.ExitState("ChargingAttack");
                     states.EnterState("Attacking");
 
-                    weapons.weapon.directionIndicatorInstance.Get<DestroyableComponent>().destroy = true;
+                    // weapons.weapon.directionIndicatorInstance.Get<DestroyableComponent>().destroy = true;
                 }
             }
             
@@ -74,15 +74,15 @@ namespace GBJAM11.Controllers
             {
                 if (animations.IsPlaying("Attack") && animations.isCompleted)
                 {
-                    var weapon = weapons.weapon;
+                    var weaponEntity = weapons.weaponEntity;
                     
                     ref var attachPoints = ref entity.Get<AttachPointsComponent>();
 
-                    var projectileEntity = world.CreateEntity(weapon.projectileDefinition);
+                    var projectileEntity = world.CreateEntity(weaponEntity.Get<WeaponComponent>().projectileDefinition);
                     projectileEntity.Get<PositionComponent>().value = attachPoints.Get("weapon").position;
                     
                     ref var projectile = ref projectileEntity.Get<ProjectileComponent>();
-                    projectile.initialVelocity = weapons.direction;
+                    projectile.initialVelocity = weaponEntity.Get<LookingDirection>().value;
 
                     projectileEntity.Get<PlayerComponent>().player = entity.Get<PlayerComponent>().player;
 
@@ -135,17 +135,17 @@ namespace GBJAM11.Controllers
             ref var animations = ref entity.Get<AnimationComponent>();
             ref var activeController = ref entity.Get<ActiveControllerComponent>();
             ref var movement = ref entity.Get<MovementComponent>();
-            ref var weapons = ref entity.Get<WeaponsComponent>();
-            ref var input = ref entity.Get<InputComponent>();
+            // ref var weapons = ref entity.Get<WeaponsComponent>();
+            // ref var input = ref entity.Get<InputComponent>();
             
             activeController.TakeControl(entity, this);
             movement.speed = 0;
             animations.Play("Charge");
             states.EnterState("ChargingAttack");
 
-            weapons.weapon.directionIndicatorInstance = entity.world.CreateEntity(weapons.weapon.directionIndicatorDefinition);
-            weapons.weapon.directionIndicatorInstance.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
-            weapons.weapon.directionIndicatorInstance.Get<LookingDirection>().value = weapons.direction;
+            // weapons.weapon.directionIndicatorInstance = entity.world.CreateEntity(weapons.weapon.directionIndicatorDefinition);
+            // weapons.weapon.directionIndicatorInstance.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
+            // weapons.weapon.directionIndicatorInstance.Get<LookingDirection>().value = weapons.direction;
         }
 
         private void ExitAttack(Entity entity)
