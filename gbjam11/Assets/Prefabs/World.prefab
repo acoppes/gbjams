@@ -1317,6 +1317,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4834030897679544552}
   - {fileID: 8039486159638572418}
   - {fileID: 6095999579149641620}
   - {fileID: 7121620892431879904}
@@ -2729,6 +2730,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableSimulation: 0
+--- !u!1 &4827102223931372596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4834030897679544552}
+  - component: {fileID: 7737846312375103611}
+  m_Layer: 0
+  m_Name: CameraOffsetSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4834030897679544552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4827102223931372596}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2005433259968241225}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7737846312375103611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4827102223931372596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea0e03058f647c9affd726770a8cb3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraOffsetDefinition: {fileID: 6093511433425176401, guid: 4694ad5c554a6274b98e4f5c44c18974, type: 3}
+  defaultName: Player_Camera_Offset
 --- !u!1 &5390114808031746225
 GameObject:
   m_ObjectHideFlags: 0

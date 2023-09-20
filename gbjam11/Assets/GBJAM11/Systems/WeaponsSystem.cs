@@ -40,6 +40,5 @@ namespace GBJAM11.Systems
                     weapon.charging ? ModelComponent.Visiblity.Visible : ModelComponent.Visiblity.Hidden; 
             }
         }
-
     }
 }

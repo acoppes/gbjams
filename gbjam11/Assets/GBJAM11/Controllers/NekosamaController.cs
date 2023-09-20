@@ -7,11 +7,14 @@ using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
 using Gemserk.Triggers.Queries;
+using UnityEngine;
 
 namespace GBJAM11.Controllers
 {
     public class NekosamaController : ControllerBase, IUpdate, IActiveController
     {
+        public Vector2 cameraOffsetMaxValue = new Vector2(1.5f, 1.5f);
+        
         public bool CanBeInterrupted(Entity entity, IActiveController activeController)
         {
             return true;
@@ -36,6 +39,22 @@ namespace GBJAM11.Controllers
             // if attacking 
             // fire attack
             
+            var gravity = entity.Get<GravityComponent>();
+
+            ref var cameraOffset = ref entity.Get<CameraOffsetComponent>();
+            var offset = new Vector2();
+
+            offset.x = entity.Get<LookingDirection>().value.x >= 0 ? cameraOffsetMaxValue.x : -cameraOffsetMaxValue.x;
+
+            if (gravity.inContactWithGround)
+            {
+                offset.y = cameraOffsetMaxValue.y;
+            }
+            
+            // TODO: if on wall or on roof, then set the offset differently.
+
+            cameraOffset.offset = offset;
+            
             if (states.TryGetState("Teleporting", out var teleportState))
             {
                 if (animations.IsPlaying("Teleport") && animations.isCompleted)
@@ -46,12 +65,10 @@ namespace GBJAM11.Controllers
                 return;
             }
 
-            var gravity = entity.Get<GravityComponent>();
+          
             
             if (states.TryGetState("ChargingAttack", out var chargingState))
             {
-             
-                
                 if (input.direction().vector2.SqrMagnitude() > 0)
                 {
                     weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
