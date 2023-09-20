@@ -13,8 +13,6 @@ namespace GBJAM11.Controllers
 {
     public class NekosamaController : ControllerBase, IUpdate, IActiveController
     {
-        public Vector2 cameraOffsetMaxValue = new Vector2(1.5f, 1.5f);
-        
         public bool CanBeInterrupted(Entity entity, IActiveController activeController)
         {
             return true;
@@ -40,20 +38,6 @@ namespace GBJAM11.Controllers
             // fire attack
             
             var gravity = entity.Get<GravityComponent>();
-
-            ref var cameraOffset = ref entity.Get<CameraOffsetComponent>();
-            var offset = new Vector2();
-
-            offset.x = entity.Get<LookingDirection>().value.x >= 0 ? cameraOffsetMaxValue.x : -cameraOffsetMaxValue.x;
-
-            if (gravity.inContactWithGround)
-            {
-                offset.y = cameraOffsetMaxValue.y;
-            }
-            
-            // TODO: if on wall or on roof, then set the offset differently.
-
-            cameraOffset.offset = offset;
             
             if (states.TryGetState("Teleporting", out var teleportState))
             {
@@ -64,8 +48,6 @@ namespace GBJAM11.Controllers
 
                 return;
             }
-
-          
             
             if (states.TryGetState("ChargingAttack", out var chargingState))
             {
@@ -140,6 +122,37 @@ namespace GBJAM11.Controllers
 
             if (bufferedInput.HasBufferedAction(input.button1()))
             {
+                // var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
+                //
+                // if (teleportKunaiList.Count > 0)
+                // {
+                //     bufferedInput.ConsumeBuffer();
+                //     EnterTeleport(entity, teleportKunaiList[0]);
+                //     return;
+                // }
+                // else
+                // {
+                //     bufferedInput.ConsumeBuffer();
+                //     EnterAttack(entity);
+                //     return;
+                // }
+                
+                var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
+                
+                if (teleportKunaiList.Count > 0)
+                {
+                    teleportKunaiList[0].Get<DestroyableComponent>().destroy = true;
+                }
+                
+                bufferedInput.ConsumeBuffer();
+                EnterAttack(entity);
+                return;
+                // fire attack
+
+            }
+            
+            if (bufferedInput.HasBufferedAction(input.button2()))
+            {
                 var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
                 
                 if (teleportKunaiList.Count > 0)
@@ -148,15 +161,6 @@ namespace GBJAM11.Controllers
                     EnterTeleport(entity, teleportKunaiList[0]);
                     return;
                 }
-                else
-                {
-                    bufferedInput.ConsumeBuffer();
-                    EnterAttack(entity);
-                    return;
-                }
-                
-                // fire attack
-
             }
 
             // ref var movement = ref entity.Get<MovementComponent>();
@@ -193,6 +197,9 @@ namespace GBJAM11.Controllers
             {
                 weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
             }
+
+            entity.Get<GravityComponent>().disabled = true;
+            entity.Get<Physics2dComponent>().body.velocity = Vector2.zero;
         }
 
         private void ExitAttack(Entity entity)
@@ -206,6 +213,8 @@ namespace GBJAM11.Controllers
             activeController.ReleaseControl(this);
             movement.speed = movement.baseSpeed;
             states.ExitState("Attacking");
+            
+            entity.Get<GravityComponent>().disabled = false;
         }
 
         private void EnterTeleport(Entity entity, Entity kunaiEntity)
@@ -237,6 +246,8 @@ namespace GBJAM11.Controllers
 
             kunaiEntity.Get<DestroyableComponent>().destroy = true;
             // weapons.lastFiredProjectile = Entity.NullEntity;
+            
+            entity.Get<Physics2dComponent>().body.velocity = Vector2.zero;
         }
 
         private void ExitTeleport(Entity entity)
