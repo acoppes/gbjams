@@ -51,19 +51,6 @@ namespace GBJAM11.Controllers
 
                 return;
             }
-            
-         
-            movement.movingDirection = input.direction().vector2;
-            
-            if (input.direction().vector2.SqrMagnitude() > 0)
-            {
-                entity.Get<LookingDirection>().value = input.direction().vector2;
-            }
-            
-            if (Mathf.Abs(input.direction().vector2.x) > 0)
-            {
-                weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2.SetY(0);
-            }
 
             if (states.TryGetState("ChargingAttack", out var chargingState))
             {
@@ -95,6 +82,18 @@ namespace GBJAM11.Controllers
                 }
 
                 return;
+            }
+            
+            movement.movingDirection = input.direction().vector2;
+            
+            if (input.direction().vector2.SqrMagnitude() > 0)
+            {
+                entity.Get<LookingDirection>().value = input.direction().vector2;
+            }
+            
+            if (Mathf.Abs(input.direction().vector2.x) > 0)
+            {
+                weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2.SetY(0);
             }
             
             if (bufferedInput.HasBufferedAction(input.button1()))
@@ -198,7 +197,11 @@ namespace GBJAM11.Controllers
 
             animations.Play("Roll", 0);
             states.EnterState("Rolling");
+            
+            // disable dynamic collisions!!
 
+            entity.Get<Physics2dComponent>().body.transform.Find("Collider").gameObject.SetActive(false);
+            
             movement.movingDirection = entity.Get<LookingDirection>().value;
         }
 
@@ -214,6 +217,8 @@ namespace GBJAM11.Controllers
             movement.speedMultiplier = 1;
             
             entity.Get<AutoAnimationComponent>().disabled = false;
+            
+            entity.Get<Physics2dComponent>().body.transform.Find("Collider").gameObject.SetActive(true);
             
             states.ExitState("Rolling");
         }
