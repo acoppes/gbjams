@@ -18,6 +18,7 @@ namespace GBJAM11.Controllers
             var offset = Vector2.zero;
             
             offset.x = entity.Get<LookingDirection>().value.x >= 0 ? cameraOffsetMaxValue.x : -cameraOffsetMaxValue.x;
+            offset.y = entity.Get<LookingDirection>().value.y >= 0 ? cameraOffsetMaxValue.y : -cameraOffsetMaxValue.y;
 
             cameraOffset.offset = offset;
         }

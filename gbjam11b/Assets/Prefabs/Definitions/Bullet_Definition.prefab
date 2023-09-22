@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2170058414648816352}
   - component: {fileID: 417399357934194873}
   m_Layer: 0
-  m_Name: Kunai
+  m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0e0b8fe02c84e118016cc1dfa5f42cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stuckDefinition: {fileID: 1256315110621404565, guid: 8375f6ad4b375b7468b330b04dfd400d, type: 3}
 --- !u!1 &8521158781532276117
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,12 +94,10 @@ GameObject:
   - component: {fileID: 6850584321419177417}
   - component: {fileID: 4407411804383369536}
   - component: {fileID: 1832879584300658956}
-  - component: {fileID: 976879808140352758}
   - component: {fileID: 58543111389325430}
-  - component: {fileID: 4340588855738829074}
   - component: {fileID: 7496084407828877718}
   m_Layer: 0
-  m_Name: Kunai2d_Definition
+  m_Name: Bullet_Definition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe29b734c2044168b5af8f9992825ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationsAsset: {fileID: 11400000, guid: 4930ee62f73f56d42b9c50e2b0b1cc4f, type: 2}
+  animationsAsset: {fileID: 11400000, guid: 414cce0afc9373d41b45de84d5eb6fa5, type: 2}
   spritesMetadata: {fileID: 0}
   defaultAnimation: Idle
   defaultAnimationLoop: 1
@@ -176,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4258507774620910417, guid: 8090dfebe4bc6ac4883671456b55daaa, type: 3}
-  rotationType: 1
+  rotationType: 0
   flipUseRotation: 0
   startingColor: {r: 1, g: 1, b: 1, a: 1}
   sortingLayerType: 0
@@ -221,9 +218,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileType: 0
   trajectoryType: 1
-  initialOffset: 0
+  initialOffset: 0.2
   maxDistance: 0
-  initialSpeed: 10
+  initialSpeed: 4
 --- !u!114 &4407411804383369536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,21 +259,6 @@ MonoBehaviour:
   controllerObject: {fileID: 1379520970054438690}
   sharedInstance: 0
   hasStateController: 0
---- !u!114 &976879808140352758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521158781532276117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb9c0e67bf5244308ab24bd9d16bf9b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  types:
-  - teleport_kunai
-  forceLowerCase: 1
 --- !u!114 &58543111389325430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,18 +269,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7071695e6b84d6fa02b37da9eb1d58d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4340588855738829074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521158781532276117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdba3b7a0f214cdcb46cb3faca104241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7496084407828877718
