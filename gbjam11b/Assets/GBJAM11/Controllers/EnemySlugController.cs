@@ -7,6 +7,7 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
+using UnityEngine;
 
 namespace GBJAM11.Controllers
 {
@@ -35,16 +36,15 @@ namespace GBJAM11.Controllers
                 // follow target
                 var abilityTarget = chaseAbility.abilityTargets[0];
 
+                //if (!chaseAbility.IsValidTarget(abilityTarget.target))
                 if (!abilityTarget.valid)
                 {
                     ExitChase(world, entity);
                     return;
                 }
-                else
-                {
-                    movement.movingDirection = (abilityTarget.position - position.value).normalized;
-                    return;
-                }
+                
+                movement.movingDirection = (abilityTarget.position - position.value).normalized;
+                return;
             }
             
             if (chaseAbility.CalculateTargets(world))
@@ -70,10 +70,14 @@ namespace GBJAM11.Controllers
         {
             ref var states = ref entity.Get<StatesComponent>();
             ref var abilities = ref entity.Get<AbilitiesComponent>();
+            ref var movement = ref entity.Get<MovementComponent>();
             
             var chaseAbility = abilities.GetAbilityNoNullCheck("Chase");
             chaseAbility.targetsLocked = false;
             chaseAbility.Stop(Ability.StopType.Completed);
+            chaseAbility.abilityTargets.Clear();
+            
+            movement.movingDirection = Vector2.zero;
             
             states.ExitState("Chase");
         }
