@@ -7,6 +7,7 @@ using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
 using MyBox;
+using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
 namespace GBJAM11.Controllers
@@ -36,14 +37,24 @@ namespace GBJAM11.Controllers
 
             ref var movement = ref entity.Get<MovementComponent>();
             movement.movingDirection = input.direction().vector2;
+            
+            if (input.direction().vector2.SqrMagnitude() > 0)
+            {
+                entity.Get<LookingDirection>().value = input.direction().vector2;
+            }
+            
+            if (Mathf.Abs(input.direction().vector2.x) > 0)
+            {
+                weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2.SetY(0);
+            }
 
             if (states.TryGetState("ChargingAttack", out var chargingState))
             {
-                if (input.direction().vector2.SqrMagnitude() > 0)
-                {
-                    weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
-                    entity.Get<LookingDirection>().value = input.direction().vector2;
-                }
+                // if (input.direction().vector2.SqrMagnitude() > 0)
+                // {
+                //     weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
+                //     entity.Get<LookingDirection>().value = input.direction().vector2;
+                // }
                 
                 if (!input.button1().isPressed)
                 {
