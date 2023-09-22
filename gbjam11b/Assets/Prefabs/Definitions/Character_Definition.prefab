@@ -27,8 +27,9 @@ GameObject:
   - component: {fileID: 6897008795157052497}
   - component: {fileID: 5307168803474585638}
   - component: {fileID: 5530396788256778102}
-  - component: {fileID: -4466594136890422495}
   - component: {fileID: -1403377865952269057}
+  - component: {fileID: -960250778688344145}
+  - component: {fileID: -63831026076179392}
   m_Layer: 0
   m_Name: Character_Definition
   m_TagString: Untagged
@@ -312,18 +313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfa4de6526d4926bd4736e2fd2236b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4466594136890422495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180397264594804995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9132cb92238e4596b5be0e886e321473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-1403377865952269057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +328,37 @@ MonoBehaviour:
   duration: 0.2
   speedMultiplierAir: 1.5
   speedMultiplierGround: 1
+--- !u!114 &-960250778688344145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180397264594804995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de7c4458b6b4054826767f915b3af39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-63831026076179392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180397264594804995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ca57faa7304bf2848a5d81649027d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  invulnerabilityTime: 0
+  autoDestroyOnDeath: 0
+  autoDisableOnDeath: 0
+  hasHealthBar: 1
+  healthBarOffset: {x: 0, y: 0.4, z: 0}
+  healthBarSize: 0
 --- !u!1 &1920152693772211596
 GameObject:
   m_ObjectHideFlags: 0
