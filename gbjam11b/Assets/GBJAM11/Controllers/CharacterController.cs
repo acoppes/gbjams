@@ -44,9 +44,17 @@ namespace GBJAM11.Controllers
                     return;
                 }
                 
-                if (animations.IsPlaying("RollEnd") && animations.isCompleted)
+                if (animations.IsPlaying("RollEnd"))
                 {
-                    ExitRoll(entity);
+                    if (input.direction().vector2.SqrMagnitude() > 0)
+                    {
+                        entity.Get<LookingDirection>().value = input.direction().vector2;
+                    }
+                    
+                    if (animations.isCompleted)
+                    {
+                        ExitRoll(entity);
+                    }
                 }
 
                 return;
