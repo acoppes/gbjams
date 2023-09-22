@@ -150,26 +150,11 @@ namespace GBJAM11.Controllers
             
             activeController.TakeControl(entity, this);
             movement.speed = 0;
-            
-            // animations.Play("Charge");
-            // states.EnterState("ChargingAttack");
 
             animations.Play("Attack", 0);
             states.EnterState("Attacking");
             
             FireProjectile(world, entity);
-            
-            // weapons.weaponEntity.Get<WeaponComponent>().charging = true;
-            //
-            // if (input.direction().vector2.SqrMagnitude() > 0)
-            // {
-            //     weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
-            // }
-            // else
-            // {
-            //     weapons.weaponEntity.Get<LookingDirection>().value = entity.Get<LookingDirection>().value;
-            // }
-
             entity.Get<Physics2dComponent>().body.velocity = Vector2.zero;
         }
 
