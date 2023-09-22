@@ -31,11 +31,28 @@ namespace GBJAM11.Controllers
             ref var bufferedInput = ref entity.Get<BufferedInputComponent>();
             ref var animations = ref entity.Get<AnimationComponent>();
             ref var weapons = ref entity.Get<WeaponsComponent>();
-            
+            ref var movement = ref entity.Get<MovementComponent>();
             // if attacking 
             // fire attack
+            
+            if (states.TryGetState("Rolling", out var rollingState))
+            {
+                if (animations.IsPlaying("Roll") && rollingState.time > entity.Get<RollComponent>().duration)
+                {
+                    movement.speedMultiplier = entity.Get<RollComponent>().speedMultiplierGround;
+                    animations.Play("RollEnd", 0);
+                    return;
+                }
+                
+                if (animations.IsPlaying("RollEnd") && animations.isCompleted)
+                {
+                    ExitRoll(entity);
+                }
 
-            ref var movement = ref entity.Get<MovementComponent>();
+                return;
+            }
+            
+         
             movement.movingDirection = input.direction().vector2;
             
             if (input.direction().vector2.SqrMagnitude() > 0)
@@ -83,6 +100,12 @@ namespace GBJAM11.Controllers
             if (bufferedInput.HasBufferedAction(input.button1()))
             {
                 EnterAttack(world, entity);
+                return;
+            }
+            
+            if (bufferedInput.HasBufferedAction(input.button2()))
+            {
+                EnterRoll(world, entity);
                 return;
             }
         }
@@ -155,6 +178,44 @@ namespace GBJAM11.Controllers
             movement.speed = movement.baseSpeed;
             
             states.ExitState("Attacking");
+        }
+        
+        private void EnterRoll(World world, Entity entity)
+        {
+            // start anim, start state, etc...
+            // lock looking direction, movement, etc..
+            
+            ref var states = ref entity.Get<StatesComponent>();
+            ref var animations = ref entity.Get<AnimationComponent>();
+            ref var activeController = ref entity.Get<ActiveControllerComponent>();
+            ref var movement = ref entity.Get<MovementComponent>();
+            ref var input = ref entity.Get<InputComponent>();
+            
+            activeController.TakeControl(entity, this);
+            movement.speedMultiplier = entity.Get<RollComponent>().speedMultiplierAir;
+
+            entity.Get<AutoAnimationComponent>().disabled = true;
+
+            animations.Play("Roll", 0);
+            states.EnterState("Rolling");
+
+            movement.movingDirection = entity.Get<LookingDirection>().value;
+        }
+
+        private void ExitRoll(Entity entity)
+        {
+            // exit state, stop anim, etc...
+            
+            ref var states = ref entity.Get<StatesComponent>();
+            ref var activeController = ref entity.Get<ActiveControllerComponent>();
+            ref var movement = ref entity.Get<MovementComponent>();
+
+            activeController.ReleaseControl(this);
+            movement.speedMultiplier = 1;
+            
+            entity.Get<AutoAnimationComponent>().disabled = false;
+            
+            states.ExitState("Rolling");
         }
     }
 }
