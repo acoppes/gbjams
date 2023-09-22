@@ -50,17 +50,6 @@ namespace GBJAM11.Controllers
                     // enter attack
                     animations.Play("Attack", 0);
                     
-                    states.ExitState("ChargingAttack");
-                    states.EnterState("Attacking");
-                }
-
-                return;
-            }
-            
-            if (states.TryGetState("Attacking", out var attackState))
-            {
-                if (animations.IsPlaying("Attack") && animations.isCompleted)
-                {
                     var weaponEntity = weapons.weaponEntity;
 
                     var projectileEntity = world.CreateEntity(weaponEntity.Get<WeaponComponent>().projectileDefinition);
@@ -75,6 +64,17 @@ namespace GBJAM11.Controllers
                    
                     weapons.weaponEntity.Get<WeaponComponent>().charging = false;
                     
+                    states.ExitState("ChargingAttack");
+                    states.EnterState("Attacking");
+                }
+
+                return;
+            }
+            
+            if (states.TryGetState("Attacking", out var attackState))
+            {
+                if (animations.IsPlaying("Attack") && animations.isCompleted)
+                {
                     ExitAttack(entity);
                 }
 
