@@ -61,19 +61,7 @@ namespace GBJAM11.Controllers
                     // enter attack
                     animations.Play("Attack", 0);
                     
-                    var weaponEntity = weapons.weaponEntity;
-
-                    var projectileEntity = world.CreateEntity(weaponEntity.Get<WeaponComponent>().projectileDefinition);
-                    projectileEntity.Get<PositionComponent>().value = weaponEntity.Get<PositionComponent>().value;
-                    
-                    ref var projectile = ref projectileEntity.Get<ProjectileComponent>();
-                    projectile.initialVelocity = weaponEntity.Get<LookingDirection>().value;
-
-                    projectileEntity.Get<PlayerComponent>().player = entity.Get<PlayerComponent>().player;
-
-                    // weapons.lastFiredProjectile = projectileEntity;
-                   
-                    weapons.weaponEntity.Get<WeaponComponent>().charging = false;
+                    FireProjectile(world, entity);
                     
                     states.ExitState("ChargingAttack");
                     states.EnterState("Attacking");
@@ -94,12 +82,31 @@ namespace GBJAM11.Controllers
             
             if (bufferedInput.HasBufferedAction(input.button1()))
             {
-                EnterAttack(entity);
+                EnterAttack(world, entity);
                 return;
             }
         }
+
+        private void FireProjectile(World world, Entity entity)
+        {
+            ref var weapons = ref entity.Get<WeaponsComponent>();
+            
+            var weaponEntity = weapons.weaponEntity;
+
+            var projectileEntity = world.CreateEntity(weaponEntity.Get<WeaponComponent>().projectileDefinition);
+            projectileEntity.Get<PositionComponent>().value = weaponEntity.Get<PositionComponent>().value;
+                    
+            ref var projectile = ref projectileEntity.Get<ProjectileComponent>();
+            projectile.initialVelocity = weaponEntity.Get<LookingDirection>().value;
+
+            projectileEntity.Get<PlayerComponent>().player = entity.Get<PlayerComponent>().player;
+
+            // weapons.lastFiredProjectile = projectileEntity;
+                   
+            weapons.weaponEntity.Get<WeaponComponent>().charging = false;
+        }
         
-        private void EnterAttack(Entity entity)
+        private void EnterAttack(World world, Entity entity)
         {
             // start anim, start state, etc...
             // lock looking direction, movement, etc..
@@ -109,14 +116,19 @@ namespace GBJAM11.Controllers
             ref var activeController = ref entity.Get<ActiveControllerComponent>();
             ref var movement = ref entity.Get<MovementComponent>();
             ref var input = ref entity.Get<InputComponent>();
-            ref var weapons = ref entity.Get<WeaponsComponent>();
+          
             
             activeController.TakeControl(entity, this);
             movement.speed = 0;
             
-            animations.Play("Charge");
-            states.EnterState("ChargingAttack");
+            // animations.Play("Charge");
+            // states.EnterState("ChargingAttack");
 
+            animations.Play("Attack", 0);
+            states.EnterState("Attacking");
+            
+            FireProjectile(world, entity);
+            
             // weapons.weaponEntity.Get<WeaponComponent>().charging = true;
             //
             // if (input.direction().vector2.SqrMagnitude() > 0)
