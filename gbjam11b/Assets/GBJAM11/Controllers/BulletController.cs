@@ -25,6 +25,10 @@ namespace GBJAM11.Controllers
             if (targetEntity.Exists() && targetEntity.Has<HealthComponent>())
             {
                 ref var health = ref targetEntity.Get<HealthComponent>();
+
+                if (health.aliveType == HealthComponent.AliveType.Death)
+                    return;
+                
                 var damage = entity.Get<ProjectileDamageComponent>();
                 
                 health.damages.Add(new DamageData()
