@@ -35,8 +35,13 @@ namespace GBJAM11.Controllers
             {
                 if (animations.IsPlaying("Death") && animations.isCompleted)
                 {
-                    entity.Get<DestroyableComponent>().destroy = true;
+                    if (entity.Get<HealthComponent>().autoDestroyOnDeath)
+                    {
+                        entity.Get<DestroyableComponent>().destroy = true;
+                    }
                 }
+
+                return;
             }
         }
 

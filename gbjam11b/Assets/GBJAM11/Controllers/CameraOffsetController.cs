@@ -1,26 +1,24 @@
-﻿using Game.Components;
-using GBJAM11.Components;
+﻿using GBJAM11.Components;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
-using UnityEngine;
+using MyBox;
 
 namespace GBJAM11.Controllers
 {
     public class CameraOffsetController : ControllerBase, IUpdate
     {
-        public Vector2 cameraOffsetMaxValue = new Vector2(1.5f, 1.5f);
+        public float offsetDistance = 1.5f;
         
         public void OnUpdate(World world, Entity entity, float dt)
         {
             ref var cameraOffset = ref entity.Get<CameraOffsetComponent>();
-            var offset = Vector2.zero;
+            var lookingDirection = entity.Get<LookingDirection>().value.ToVector2();
             
-            offset.x = entity.Get<LookingDirection>().value.x >= 0 ? cameraOffsetMaxValue.x : -cameraOffsetMaxValue.x;
-            offset.y = entity.Get<LookingDirection>().value.y >= 0 ? cameraOffsetMaxValue.y : -cameraOffsetMaxValue.y;
-
-            cameraOffset.offset = offset;
+            if (lookingDirection.sqrMagnitude > 0)
+            {
+                cameraOffset.offset = lookingDirection.normalized * offsetDistance;
+            }
         }
     }
 }

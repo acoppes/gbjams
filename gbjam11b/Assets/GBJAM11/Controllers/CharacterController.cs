@@ -16,12 +16,23 @@ namespace GBJAM11.Controllers
     {
         public bool CanBeInterrupted(Entity entity, IActiveController activeController)
         {
-            throw new System.NotImplementedException();
+            return activeController is DeathController;
         }
 
         public void OnInterrupt(Entity entity, IActiveController activeController)
         {
-            throw new System.NotImplementedException();
+            ref var states = ref entity.Get<StatesComponent>();
+
+            if (states.HasState("ChargingAttack") || states.HasState("Attack"))
+            {
+                ExitAttack(entity);
+                return;
+            }
+
+            if (states.HasState("Rolling"))
+            {
+                ExitRoll(entity);
+            }
         }
         
         public void OnUpdate(World world, Entity entity, float dt)
@@ -34,6 +45,11 @@ namespace GBJAM11.Controllers
             ref var movement = ref entity.Get<MovementComponent>();
             // if attacking 
             // fire attack
+
+            if (entity.Get<HealthComponent>().aliveType == HealthComponent.AliveType.Death)
+            {
+                return;
+            }
             
             if (states.TryGetState("Rolling", out var rollingState))
             {

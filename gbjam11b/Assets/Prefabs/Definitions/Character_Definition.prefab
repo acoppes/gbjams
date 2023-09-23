@@ -357,8 +357,52 @@ MonoBehaviour:
   autoDestroyOnDeath: 0
   autoDisableOnDeath: 0
   hasHealthBar: 1
-  healthBarOffset: {x: 0, y: 0.4, z: 0}
+  healthBarOffset: {x: 0, y: 0.6, z: 0}
   healthBarSize: 0
+--- !u!1 &1766765674257675667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4760668533998214660}
+  - component: {fileID: 2428872252416017359}
+  m_Layer: 0
+  m_Name: Death
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4760668533998214660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766765674257675667}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4854046788931664650}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2428872252416017359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766765674257675667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc1a238c2064994895a059aa179551b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1920152693772211596
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +476,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4760668533998214660}
   - {fileID: 6196299382289099019}
   - {fileID: 3564014964510604405}
   m_Father: {fileID: 6797734088087699778}
@@ -447,7 +492,7 @@ GameObject:
   - component: {fileID: 6196299382289099019}
   - component: {fileID: 3331433172769490659}
   m_Layer: 0
-  m_Name: CameraOffset
+  m_Name: CameraOffset_Passive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,7 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5465c0a7c7ea417bbc17908d3e6779b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraOffsetMaxValue: {x: 1, y: 1}
+  offsetDistance: 2
 --- !u!1 &8637665532065094291
 GameObject:
   m_ObjectHideFlags: 0
