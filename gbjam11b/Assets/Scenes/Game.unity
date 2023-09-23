@@ -131,9 +131,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1760687782}
     m_Modifications:
+    - target: {fileID: 172256632712555125, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_Name
+      value: Spawn(Door)
+      objectReference: {fileID: 0}
     - target: {fileID: 4746818586377726532, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_Name
       value: Room_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746818586377726532, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_LocalPosition.x
@@ -174,6 +182,10 @@ PrefabInstance:
     - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374197151094808258, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_Name
+      value: Spawn(Exit_Door)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -344,6 +356,8 @@ Transform:
   - {fileID: 990665676}
   - {fileID: 831025610}
   - {fileID: 1687094328}
+  - {fileID: 1548083904}
+  - {fileID: 255204722}
   m_Father: {fileID: 1576332209}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &131443531
@@ -616,6 +630,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room_02
       objectReference: {fileID: 0}
+    - target: {fileID: 4746818586377726532, guid: adfb7ae7a8a198f4cad603f4616541d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6071485984172175290, guid: adfb7ae7a8a198f4cad603f4616541d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22
@@ -666,6 +684,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6071485984172175290, guid: adfb7ae7a8a198f4cad603f4616541d8, type: 3}
   m_PrefabInstance: {fileID: 227596849}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &231660086 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6374197151094808258, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+  m_PrefabInstance: {fileID: 664139765}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &255204721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 255204722}
+  - component: {fileID: 255204723}
+  m_Layer: 0
+  m_Name: InstantiateEntity(Spawn(Exit_Door))
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &255204722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255204721}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 76384964}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &255204723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255204721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af75044c063416f8b7a530181619b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityInstance: {fileID: 231660086}
 --- !u!1 &325528829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,6 +1168,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawn(Door1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6772670206864558817, guid: 1cbd0c3df27422248938b6583ae14644, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6890249453904934437, guid: 1cbd0c3df27422248938b6583ae14644, type: 3}
       propertyPath: entityName
       value: Door1
@@ -1207,6 +1279,72 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2094814754766523897, guid: d4206e4a083f28344adc68e509791725, type: 3}
   m_PrefabInstance: {fileID: 658765494}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &664139765
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1760687782}
+    m_Modifications:
+    - target: {fileID: 4746818586377726532, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_Name
+      value: Room_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374197151094808258, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_Name
+      value: Spawn(Exit_Door)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+--- !u!4 &664139766 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+  m_PrefabInstance: {fileID: 664139765}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &672613181
 GameObject:
@@ -1402,6 +1540,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateType: 3
+--- !u!4 &741798871 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+  m_PrefabInstance: {fileID: 957230966}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &830119029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1585,7 +1728,7 @@ GameObject:
   - component: {fileID: 862986709}
   - component: {fileID: 862986710}
   m_Layer: 0
-  m_Name: Q(name:Door1)
+  m_Name: Q(name:Exit_Door)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1615,7 +1758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ced4079912b8840b6d6ac59d2ebf5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Door1
+  name: Exit_Door
 --- !u!4 &862986711
 Transform:
   m_ObjectHideFlags: 0
@@ -1733,57 +1876,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1760687782}
     m_Modifications:
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_TileAssetArray.Array.data[9].m_Data
-      value: 
-      objectReference: {fileID: 11400000, guid: b34c7c7e2765b6746b6602e828bdd80e, type: 2}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_TileSpriteArray.Array.data[9].m_Data
-      value: 
-      objectReference: {fileID: -656521471, guid: 504222b47eb50374bb507eed85967c3a, type: 3}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_Tiles.Array.data[5].second.m_TileIndex
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_Tiles.Array.data[8].second.m_TileIndex
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_TileAssetArray.Array.data[9].m_RefCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_TileAssetArray.Array.data[10].m_RefCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_TileAssetArray.Array.data[12].m_RefCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_TileSpriteArray.Array.data[9].m_RefCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_TileSpriteArray.Array.data[10].m_RefCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_TileSpriteArray.Array.data[12].m_RefCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_Tiles.Array.data[5].second.m_AllTileFlags
-      value: 1073741825
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_Tiles.Array.data[5].second.m_TileSpriteIndex
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653181158279031440, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
-      propertyPath: m_Tiles.Array.data[8].second.m_TileSpriteIndex
-      value: 10
+    - target: {fileID: 405121793700845453, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
+      propertyPath: m_Name
+      value: Spawn(Exit_Door)
       objectReference: {fileID: 0}
     - target: {fileID: 4746818586377726532, guid: f8830bea45f347d4996beb4cc2e45573, type: 3}
       propertyPath: m_Name
@@ -2033,11 +2128,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1760687782}
     m_Modifications:
+    - target: {fileID: 172256632712555125, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_Name
+      value: Spawn(Door)
+      objectReference: {fileID: 0}
     - target: {fileID: 4746818586377726532, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_Name
       value: Room_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746818586377726532, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2057,15 +2160,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2078,6 +2181,10 @@ PrefabInstance:
     - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374197151094808258, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_Name
+      value: Spawn(Exit_Door)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2331,6 +2438,10 @@ PrefabInstance:
     - target: {fileID: 6772670206864558817, guid: 1cbd0c3df27422248938b6583ae14644, type: 3}
       propertyPath: m_Name
       value: Spawn(Door1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772670206864558817, guid: 1cbd0c3df27422248938b6583ae14644, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6890249453904934437, guid: 1cbd0c3df27422248938b6583ae14644, type: 3}
       propertyPath: entityName
@@ -3918,6 +4029,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room_03
       objectReference: {fileID: 0}
+    - target: {fileID: 4746818586377726532, guid: a008ca79c9a38564db65544715fdd8ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6071485984172175290, guid: a008ca79c9a38564db65544715fdd8ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38
@@ -4158,6 +4273,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateType: 3
+--- !u!1 &1548083903
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1548083904}
+  - component: {fileID: 1548083905}
+  m_Layer: 0
+  m_Name: WaitTime(1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1548083904
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548083903}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 76384964}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1548083905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548083903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09dcca5ef66142249e0834916bc1360f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionType: 0
+  time: 1
+  fixedFrames: 0
 --- !u!1 &1576332208
 GameObject:
   m_ObjectHideFlags: 0
@@ -4213,9 +4375,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1760687782}
     m_Modifications:
+    - target: {fileID: 172256632712555125, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_Name
+      value: Spawn(Door)
+      objectReference: {fileID: 0}
     - target: {fileID: 4746818586377726532, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_Name
       value: Room_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746818586377726532, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4256,6 +4426,10 @@ PrefabInstance:
     - target: {fileID: 6071485984172175290, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374197151094808258, guid: feafeee9e525276489d666d5d85b4b58, type: 3}
+      propertyPath: m_Name
+      value: Spawn(Exit_Door)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4362,7 +4536,7 @@ GameObject:
   - component: {fileID: 1687094328}
   - component: {fileID: 1687094329}
   m_Layer: 0
-  m_Name: ExecuteAbility(Open, name:Door1)
+  m_Name: ExecuteAbility(Open, name:Exit_Door)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4516,6 +4690,8 @@ Transform:
   - {fileID: 2792355}
   - {fileID: 227596850}
   - {fileID: 1444619885}
+  - {fileID: 741798871}
+  - {fileID: 664139766}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1764210801
@@ -4757,6 +4933,10 @@ PrefabInstance:
     - target: {fileID: 6772670206864558817, guid: 1cbd0c3df27422248938b6583ae14644, type: 3}
       propertyPath: m_Name
       value: Spawn(Door1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772670206864558817, guid: 1cbd0c3df27422248938b6583ae14644, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6890249453904934437, guid: 1cbd0c3df27422248938b6583ae14644, type: 3}
       propertyPath: entityName
@@ -6075,4 +6255,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 1276421072}
   - {fileID: 1760687782}
-  - {fileID: 957230966}
