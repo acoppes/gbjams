@@ -15,12 +15,12 @@ namespace GBJAM11.Controllers
     {
         public bool CanBeInterrupted(Entity entity, IActiveController activeController)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public void OnInterrupt(Entity entity, IActiveController activeController)
         {
-            throw new System.NotImplementedException();
+            ExitAttack(entity.world, entity);
         }
         
         public void OnUpdate(World world, Entity entity, float dt)

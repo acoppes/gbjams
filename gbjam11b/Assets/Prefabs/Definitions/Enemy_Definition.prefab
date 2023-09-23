@@ -72,7 +72,7 @@ MonoBehaviour:
     distanceType: 1
     range:
       Min: 0
-      Max: 0.5
+      Max: 0.3
     playerAllianceType: 1
     aliveType: 2
     angle:
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   invulnerabilityTime: 0
-  autoDestroyOnDeath: 0
+  autoDestroyOnDeath: 1
   autoDisableOnDeath: 0
   hasHealthBar: 1
   healthBarOffset: {x: 0, y: 0.45, z: 0}
@@ -757,6 +757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1a238c2064994895a059aa179551b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyOnAnimationCompleted: 1
 --- !u!1 &7876048132372713993
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,7 +829,7 @@ MonoBehaviour:
   targeting:
     distanceType: 1
     range:
-      Min: 0.4
+      Min: 0.3
       Max: 3.5
     playerAllianceType: 1
     aliveType: 2

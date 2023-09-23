@@ -9,6 +9,8 @@ namespace GBJAM11.Controllers
 {
     public class DeathController : ControllerBase, IUpdate, IActiveController, IInit, IDestroyed
     {
+        public bool destroyOnAnimationCompleted; 
+        
         public void OnInit(World world, Entity entity)
         {
             ref var health = ref entity.Get<HealthComponent>();
@@ -35,7 +37,7 @@ namespace GBJAM11.Controllers
             {
                 if (animations.IsPlaying("Death") && animations.isCompleted)
                 {
-                    if (entity.Get<HealthComponent>().autoDestroyOnDeath)
+                    if (destroyOnAnimationCompleted)
                     {
                         entity.Get<DestroyableComponent>().destroy = true;
                     }
