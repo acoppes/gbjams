@@ -19,7 +19,7 @@ namespace GBJAM11.Controllers
             
             var openAbility = abilities.GetAbilityNoNullCheck("Open");
 
-            if (states.TryGetState("Open", out var openState))
+            if (states.TryGetState("Opening", out var openState))
             {
                 if (animations.isCompleted)
                 {
@@ -46,7 +46,9 @@ namespace GBJAM11.Controllers
             var ability = abilities.GetAbilityNoNullCheck("Open");
             ability.Start();
             animations.Play("Open", 0);
-            states.EnterState("Chase");
+            
+            states.EnterState("Opening");
+            states.EnterState("Open");
 
             entity.Get<Physics2dComponent>().disableCollisions = true;
         }
@@ -59,7 +61,7 @@ namespace GBJAM11.Controllers
             var ability = abilities.GetAbilityNoNullCheck("Open");
             ability.Stop(Ability.StopType.Completed);
             
-            states.ExitState("Open");
+            states.ExitState("Opening");
         }
     }
 }
