@@ -5,11 +5,7 @@ namespace GBJAM11.Components
 {
     public struct RoomComponent : IEntityComponent
     {
-        // enter, exit 
-        public Entity nextRoom;
-        public Entity exitDoor;
-
-        public List<Entity> spawners;
+        
     }
     
     public class RoomComponentDefinition : ComponentDefinitionBase
@@ -23,9 +19,7 @@ namespace GBJAM11.Components
         {
             world.AddComponent(entity, new RoomComponent()
             {
-                nextRoom = Entity.NullEntity,
-                exitDoor = Entity.NullEntity,
-                spawners = new List<Entity>()
+
             });
         }
     }

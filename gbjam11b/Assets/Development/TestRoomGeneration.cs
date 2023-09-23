@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GBJAM11.Components;
 using GBJAM11.LevelDesign;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Utilities;
@@ -13,6 +14,13 @@ public class TestRoomGeneration : MonoBehaviour
     public List<GameObject> roomPrefabs;
 
     public int total;
+
+    private Room startingRoom;
+    private Room exitRoom;
+    
+    private Room currentRoom;
+    private Room nextRoom;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -24,23 +32,57 @@ public class TestRoomGeneration : MonoBehaviour
         {
             var roomGameObject = GameObject.Instantiate(roomStartPrefab);
             roomGameObject.transform.position = position;
-            var roomData = roomGameObject.GetComponent<RoomData>();
-            position = roomData.exitPosition.position;
+            var room = roomGameObject.GetComponent<Room>();
+            position = room.exitPosition.position;
+
+            currentRoom = room;
+            startingRoom = room;
+            
+            ActivateRoom(roomGameObject);
         }
+        
+        var previousRoom = currentRoom;
         
         for (var i = 0; i < total; i++)
         {
             var roomGameObject = GameObject.Instantiate(roomPrefabs.Random());
             roomGameObject.transform.position = position;
-            var roomData = roomGameObject.GetComponent<RoomData>();
-            position = roomData.exitPosition.position;
+            var room = roomGameObject.GetComponent<Room>();
+            position = room.exitPosition.position;
+
+            if (i == 0)
+            {
+                nextRoom = room;
+            }
+            
+            previousRoom.nextRoom = room;
+            room.previousRoom = previousRoom;
+
+            previousRoom = room;
         }   
         
         {
             var roomGameObject = GameObject.Instantiate(roomEndPrefab);
             roomGameObject.transform.position = position;
-            var roomData = roomGameObject.GetComponent<RoomData>();
-            position = roomData.exitPosition.position;
+
+            exitRoom = roomGameObject.GetComponent<Room>();
+        }
+    }
+
+    private void ActivateRoom(GameObject roomGameObject)
+    {
+        roomGameObject.transform.Find("LevelDesign").BroadcastMessage("InstantiateEntity", SendMessageOptions.DontRequireReceiver);
+    }
+    
+    public void ActivateNextRoom()
+    {
+        nextRoom.transform.Find("LevelDesign").BroadcastMessage("InstantiateEntity", SendMessageOptions.DontRequireReceiver);
+        
+        // move to next room
+        if (nextRoom.nextRoom != null)
+        {
+            currentRoom = nextRoom;
+            nextRoom = nextRoom.nextRoom;
         }
     }
 

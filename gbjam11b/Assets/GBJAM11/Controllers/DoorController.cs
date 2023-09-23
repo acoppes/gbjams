@@ -29,11 +29,14 @@ namespace GBJAM11.Controllers
                 return;
             }
             
-
+            
             if (openAbility.pendingExecution)
             {
-                EnterOpen(world, entity);
-                return;
+                if (!states.HasState("Open"))
+                {
+                    EnterOpen(world, entity);
+                    return;
+                }
             }
         }
         
