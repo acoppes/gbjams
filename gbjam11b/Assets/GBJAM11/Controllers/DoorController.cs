@@ -23,7 +23,7 @@ namespace GBJAM11.Controllers
             {
                 if (animations.isCompleted)
                 {
-                    ExitOpen(world, entity);
+                    ExitOpening(world, entity);
                 }
 
                 return;
@@ -34,10 +34,37 @@ namespace GBJAM11.Controllers
             {
                 if (!states.HasState("Open"))
                 {
-                    EnterOpen(world, entity);
+                    EnterOpening(world, entity);
                     return;
                 }
             }
+        }
+        
+        private void EnterOpening(World world, Entity entity)
+        {
+            ref var states = ref entity.Get<StatesComponent>();
+            ref var abilities = ref entity.Get<AbilitiesComponent>();
+            ref var animations = ref entity.Get<AnimationComponent>();
+            
+            var ability = abilities.GetAbilityNoNullCheck("Open");
+            ability.Start();
+            animations.Play("Opening", 0);
+            
+            states.EnterState("Opening");
+
+            entity.Get<Physics2dComponent>().disableCollisions = true;
+        }
+
+        private void ExitOpening(World world, Entity entity)
+        {
+            ref var states = ref entity.Get<StatesComponent>();
+            ref var abilities = ref entity.Get<AbilitiesComponent>();
+            
+            var ability = abilities.GetAbilityNoNullCheck("Open");
+            ability.Stop(Ability.StopType.Completed);
+            
+            states.ExitState("Opening");
+            states.EnterState("Open");
         }
         
         private void EnterOpen(World world, Entity entity)
@@ -51,20 +78,8 @@ namespace GBJAM11.Controllers
             animations.Play("Open", 0);
             
             states.EnterState("Opening");
-            states.EnterState("Open");
 
             entity.Get<Physics2dComponent>().disableCollisions = true;
-        }
-
-        private void ExitOpen(World world, Entity entity)
-        {
-            ref var states = ref entity.Get<StatesComponent>();
-            ref var abilities = ref entity.Get<AbilitiesComponent>();
-            
-            var ability = abilities.GetAbilityNoNullCheck("Open");
-            ability.Stop(Ability.StopType.Completed);
-            
-            states.ExitState("Opening");
         }
     }
 }
