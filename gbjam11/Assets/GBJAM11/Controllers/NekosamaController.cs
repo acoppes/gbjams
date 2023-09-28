@@ -183,18 +183,6 @@ namespace GBJAM11.Controllers
             
             if (bufferedInput.HasBufferedAction(input.button2()))
             {
-                if (teleportKunaiList.Count > 0)
-                {
-                    teleportKunaiList[0].Get<DestroyableComponent>().destroy = true;
-                    
-                    // bufferedInput.ConsumeBuffer();
-                    // EnterTeleport(entity, teleportKunaiList[0]);
-                    return;
-                }
-            }
-            
-            if (bufferedInput.HasBufferedAction(input.down()))
-            {
                 if (states.HasState("OnRoof"))
                 {
                     ExitOnRoof(entity);
@@ -205,7 +193,30 @@ namespace GBJAM11.Controllers
                     ExitWallStick(entity);
                     return;
                 }
+                
+                // if (teleportKunaiList.Count > 0)
+                // {
+                //     teleportKunaiList[0].Get<DestroyableComponent>().destroy = true;
+                //     
+                //     // bufferedInput.ConsumeBuffer();
+                //     // EnterTeleport(entity, teleportKunaiList[0]);
+                //     return;
+                // }
             }
+            
+            // if (bufferedInput.HasBufferedAction(input.down()))
+            // {
+            //     if (states.HasState("OnRoof"))
+            //     {
+            //         ExitOnRoof(entity);
+            //         entity.Get<PositionComponent>().value -= new Vector3(0, 0.5f, 0);
+            //         return;
+            //     } else if (states.HasState("WallStick"))
+            //     {
+            //         ExitWallStick(entity);
+            //         return;
+            //     }
+            // }
 
             if (teleportKunaiList.Count > 0)
             {
