@@ -50,6 +50,7 @@ namespace GBJAM11.Controllers
             ref var animations = ref entity.Get<AnimationComponent>();
             ref var weapons = ref entity.Get<WeaponsComponent>();
             
+            ref var lookingDirection = ref entity.Get<LookingDirection>();
             // if attacking 
             // fire attack
 
@@ -79,13 +80,14 @@ namespace GBJAM11.Controllers
 
                 return;
             }
+
             
             if (states.TryGetState("ChargingAttack", out var chargingState))
             {
                 if (input.direction().vector2.SqrMagnitude() > 0)
                 {
                     weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
-                    entity.Get<LookingDirection>().value = input.direction().vector2;
+                    lookingDirection.value = input.direction().vector2;
                 }
                 
                 if (!input.button1().isPressed)
@@ -226,6 +228,14 @@ namespace GBJAM11.Controllers
             //     EnterTeleport(entity);
             //     return;
             // }
+            
+            if (states.TryGetState("WallStick", out var wallStickState))
+            {
+                // var wallStick = entity.Get<WallStickComponent>();
+                lookingDirection.value = new Vector3(1, 0, 0);
+                
+                
+            }
         }
 
         private void EnterFalling(Entity entity)
@@ -246,7 +256,7 @@ namespace GBJAM11.Controllers
             entity.Get<GravityComponent>().disabled = true;
             entity.Get<Physics2dComponent>().body.velocity = Vector2.zero;
             // force position to touch
-            entity.Get<MovementComponent>().speedMultiplier = 0.5f;
+            entity.Get<MovementComponent>().speedMultiplier = 0.85f;
 
             entity.Get<Physics2dComponent>().body.transform.localScale = new Vector3(1, -1, 1);
             entity.Get<ModelComponent>().instance.spriteRenderer.flipY = true;

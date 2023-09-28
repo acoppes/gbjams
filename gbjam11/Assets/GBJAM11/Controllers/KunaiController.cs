@@ -34,12 +34,14 @@ namespace GBJAM11.Controllers
             // if static obstacle, then spawn stuck kunai!!
             
             var newKunaiEntity = world.CreateEntity(stuckDefinition);
+
+            ref var kunaiComponent = ref newKunaiEntity.Get<KunaiComponent>();
             
             if (targetEntity.Exists() && targetEntity.Has<SwapableComponent>())
             {
                 var targetPosition = entityCollision.entity.Get<PositionComponent>().value;
                 targetPosition.y = entity.Get<PositionComponent>().value.y;
-                newKunaiEntity.Get<KunaiComponent>().stuckEntity = targetEntity;
+                kunaiComponent.stuckEntity = targetEntity;
                 newKunaiEntity.Get<PositionComponent>().value = targetPosition;
             }
             else
@@ -50,10 +52,10 @@ namespace GBJAM11.Controllers
                 {
                     var normal = entityCollision.collision2D.contacts[0].normal;
                     
-                    newKunaiEntity.Get<KunaiComponent>().ceilingCollision = Mathf.Abs(normal.x) < 0.2f && normal.y < -0.8f;
-                    newKunaiEntity.Get<KunaiComponent>().floorCollision = Mathf.Abs(normal.x) < 0.2f && normal.y > 0.8f;
-                    newKunaiEntity.Get<KunaiComponent>().wallCollision = Mathf.Abs(normal.y) < 0.2f && Mathf.Abs(normal.x) > 0.8f;
-                    newKunaiEntity.Get<KunaiComponent>().normal = normal;
+                    kunaiComponent.ceilingCollision = Mathf.Abs(normal.x) < 0.2f && normal.y < -0.8f;
+                    kunaiComponent.floorCollision = Mathf.Abs(normal.x) < 0.2f && normal.y > 0.8f;
+                    kunaiComponent.wallCollision = Mathf.Abs(normal.y) < 0.2f && Mathf.Abs(normal.x) > 0.8f;
+                    kunaiComponent.normal = normal;
                     
                     newKunaiEntity.Get<PositionComponent>().value = entityCollision.collision2D.contacts[0].point;
                 }
