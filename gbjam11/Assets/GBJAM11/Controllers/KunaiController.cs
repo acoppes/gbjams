@@ -28,6 +28,11 @@ namespace GBJAM11.Controllers
                 if (entity.Get<PlayerComponent>().player == targetEntity.Get<PlayerComponent>().player)
                     return;
             }
+
+            if (targetEntity.Exists() && targetEntity.Has<KunaiTunnelComponent>())
+            {
+                return;
+            }
             
             // TODO: ignore nekosama collision
             

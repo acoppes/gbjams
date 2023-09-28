@@ -10,6 +10,8 @@ namespace GBJAM11.Components
         public bool wallCollision;
         public bool floorCollision;
         public Vector2 normal;
+
+        public Entity lastTeleportLocation;
     }
     
     public class KunaiComponentDefinition : ComponentDefinitionBase

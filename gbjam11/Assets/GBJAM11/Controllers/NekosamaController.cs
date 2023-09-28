@@ -240,13 +240,13 @@ namespace GBJAM11.Controllers
             //     return;
             // }
             
-            if (states.TryGetState("WallStick", out var wallStickState))
-            {
-                // var wallStick = entity.Get<WallStickComponent>();
-                lookingDirection.value = new Vector3(1, 0, 0);
-                
-                
-            }
+            // if (states.TryGetState("WallStick", out var wallStickState))
+            // {
+            //     // var wallStick = entity.Get<WallStickComponent>();
+            //     lookingDirection.value = new Vector3(1, 0, 0);
+            //     
+            //     
+            // }
         }
 
         private void EnterFalling(Entity entity)
