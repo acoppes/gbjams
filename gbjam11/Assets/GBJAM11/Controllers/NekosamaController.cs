@@ -147,16 +147,16 @@ namespace GBJAM11.Controllers
                     EnterFalling(entity);
                 }
             }
+            
+            var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
 
             if (bufferedInput.HasBufferedAction(input.button1()))
             {
-                var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
-                
                 if (teleportKunaiList.Count > 0)
                 {
-                    bufferedInput.ConsumeBuffer();
-                    EnterTeleport(entity, teleportKunaiList[0]);
-                    return;
+                    // bufferedInput.ConsumeBuffer();
+                    // EnterTeleport(entity, teleportKunaiList[0]);
+                    // return;
                 }
                 else
                 {
@@ -181,8 +181,6 @@ namespace GBJAM11.Controllers
             
             if (bufferedInput.HasBufferedAction(input.button2()))
             {
-                var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
-                
                 if (teleportKunaiList.Count > 0)
                 {
                     teleportKunaiList[0].Get<DestroyableComponent>().destroy = true;
@@ -203,6 +201,18 @@ namespace GBJAM11.Controllers
                 } else if (states.HasState("WallStick"))
                 {
                     ExitWallStick(entity);
+                    return;
+                }
+            }
+
+            if (teleportKunaiList.Count > 0)
+            {
+                var teleportKunai = teleportKunaiList[0];
+                
+                // it is the kunai in the wall
+                if (!teleportKunai.Has<Physics2dComponent>())
+                {
+                    EnterTeleport(entity, teleportKunaiList[0]);
                     return;
                 }
             }
