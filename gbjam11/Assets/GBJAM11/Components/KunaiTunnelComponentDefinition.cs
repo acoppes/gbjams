@@ -5,10 +5,13 @@ namespace GBJAM11.Components
     public struct KunaiTunnelComponent : IEntityComponent
     {
         public Entity exitEntity;
+        public float exitDistance;
     }
     
     public class KunaiTunnelComponentDefinition : ComponentDefinitionBase
     {
+        public float exitDistance;
+        
         public override string GetComponentName()
         {
             return nameof(KunaiTunnelComponent);
@@ -16,7 +19,10 @@ namespace GBJAM11.Components
 
         public override void Apply(World world, Entity entity)
         {
-            world.AddComponent(entity, new KunaiTunnelComponent());
+            world.AddComponent(entity, new KunaiTunnelComponent()
+            {
+                exitDistance = exitDistance
+            });
         }
     }
 }
