@@ -8,12 +8,13 @@ using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
 using Gemserk.Triggers.Queries;
+using Gemserk.Utilities;
 using MyBox;
 using UnityEngine;
 
 namespace GBJAM11.Controllers
 {
-    public class NekosamaController : ControllerBase, IUpdate, IActiveController
+    public class MainCharacterController : ControllerBase, IUpdate, IActiveController
     {
         // public void OnEntityCollision(World world, Entity entity, IEntityCollisionDelegate.EntityCollision entityCollision)
         // {
@@ -86,8 +87,8 @@ namespace GBJAM11.Controllers
             {
                 if (input.direction().vector2.SqrMagnitude() > 0)
                 {
-                    weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
-                    lookingDirection.value = input.direction().vector2;
+                    weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2.normalized.FixToAngles(45);
+                    lookingDirection.value = input.direction().vector2.normalized;
                 }
                 
                 if (!input.button1().isPressed)
@@ -127,8 +128,8 @@ namespace GBJAM11.Controllers
             
             if (input.direction().vector2.SqrMagnitude() > 0)
             {
-                weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
-                lookingDirection.value = input.direction().vector2;
+                weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2.normalized.FixToAngles(45);
+                lookingDirection.value = input.direction().vector2.normalized;
             }
             
             if (states.HasState("Falling"))
