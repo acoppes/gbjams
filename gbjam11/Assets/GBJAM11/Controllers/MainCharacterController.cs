@@ -163,9 +163,9 @@ namespace GBJAM11.Controllers
             {
                 if (teleportKunaiList.Count > 0)
                 {
-                    // bufferedInput.ConsumeBuffer();
-                    // EnterTeleport(entity, teleportKunaiList[0]);
-                    // return;
+                    bufferedInput.ConsumeBuffer();
+                    EnterTeleport(entity, teleportKunaiList[0]);
+                    return;
                 }
                 else
                 {
