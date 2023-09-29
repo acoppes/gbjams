@@ -11,6 +11,7 @@ using Gemserk.Triggers.Queries;
 using Gemserk.Utilities;
 using MyBox;
 using UnityEngine;
+using JumpComponent = GBJAM11.Components.JumpComponent;
 
 namespace GBJAM11.Controllers
 {
@@ -54,15 +55,16 @@ namespace GBJAM11.Controllers
             ref var lookingDirection = ref entity.Get<LookingDirection>();
             // if attacking 
             // fire attack
+            ref var jumpComponent = ref entity.Get<JumpComponent>();
 
             ref var movement = ref entity.Get<MovementComponent>();
             movement.movingDirection = input.direction().vector2.SetY(0);
             
-            var gravity = entity.Get<GravityComponent>();
+            ref var physics = ref entity.Get<Physics2dComponent>();
+            ref var gravity = ref entity.Get<GravityComponent>();
             
             if (states.TryGetState("OnRoof", out var roofState))
             {
-                var physics = entity.Get<Physics2dComponent>();
                 if (physics.contacts.Count == 0)
                 {
                     // Debug.Log("Should fall");
@@ -148,15 +150,6 @@ namespace GBJAM11.Controllers
                 }
             }
             
-            if (!states.HasState("Falling") && !states.HasState("OnRoof"))
-            {
-                // and not on roof either!!
-                if (!gravity.inContactWithGround)
-                {
-                    EnterFalling(entity);
-                }
-            }
-            
             var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
 
             if (bufferedInput.HasBufferedAction(input.button1()))
@@ -173,19 +166,44 @@ namespace GBJAM11.Controllers
                     EnterAttack(entity);
                     return;
                 }
-                
-                // var teleportKunaiList = world.GetEntities(new EntityQuery(new TypesParameter("teleport_kunai")));
-                //
-                // if (teleportKunaiList.Count > 0)
-                // {
-                //     teleportKunaiList[0].Get<DestroyableComponent>().destroy = true;
-                // }
-                //
-                // bufferedInput.ConsumeBuffer();
-                // EnterAttack(entity);
-                // return;
-                // fire attack
 
+            }
+            
+            if (states.TryGetState("Jumping", out var jumpingState))
+            {
+                if (jumpComponent.state == JumpComponent.State.Starting)
+                {
+                    if (jumpingState.updateCount >= jumpComponent.durationInFrames || !input.button2().isPressed)
+                    {
+                        gravity.disabled = false;
+                        physics.body.drag = jumpComponent.tempDrag;
+
+                        jumpComponent.state = JumpComponent.State.Ending;
+
+                        jumpComponent.tempDrag = 0;
+                        return;
+                    }
+                }
+
+                if (jumpComponent.state == JumpComponent.State.Ending)
+                {
+                    if (physics.body.velocity.y < 0)
+                    {
+                        ExitJumping(entity);
+                        EnterFalling(entity);
+                    }
+                }
+
+                return;
+            }
+            
+            if (!states.HasState("Falling") && !states.HasState("OnRoof"))
+            {
+                // and not on roof either!!
+                if (!gravity.inContactWithGround)
+                {
+                    EnterFalling(entity);
+                }
             }
             
             if (bufferedInput.HasBufferedAction(input.button2()))
@@ -200,30 +218,14 @@ namespace GBJAM11.Controllers
                     ExitWallStick(entity);
                     return;
                 }
-                
-                // if (teleportKunaiList.Count > 0)
-                // {
-                //     teleportKunaiList[0].Get<DestroyableComponent>().destroy = true;
-                //     
-                //     // bufferedInput.ConsumeBuffer();
-                //     // EnterTeleport(entity, teleportKunaiList[0]);
-                //     return;
-                // }
+                else if (jumpComponent.jumps < jumpComponent.totalJumps)
+                {
+                    bufferedInput.ConsumeBuffer();
+                    EnterJumping(entity);
+                    return;
+                    // jump
+                }
             }
-            
-            // if (bufferedInput.HasBufferedAction(input.down()))
-            // {
-            //     if (states.HasState("OnRoof"))
-            //     {
-            //         ExitOnRoof(entity);
-            //         entity.Get<PositionComponent>().value -= new Vector3(0, 0.5f, 0);
-            //         return;
-            //     } else if (states.HasState("WallStick"))
-            //     {
-            //         ExitWallStick(entity);
-            //         return;
-            //     }
-            // }
 
             if (teleportKunaiList.Count > 0)
             {
@@ -237,23 +239,49 @@ namespace GBJAM11.Controllers
                 }
             }
 
-            // ref var movement = ref entity.Get<MovementComponent>();
-            // movement.movingDirection = input.direction3d();
+            if (gravity.inContactWithGround)
+            {
+                jumpComponent.jumps = 0;
+            }
+        }
+
+        private void EnterJumping(Entity entity)
+        {
+            ref var states = ref entity.Get<StatesComponent>();
+            ref var animations = ref entity.Get<AnimationComponent>();
+            ref var activeController = ref entity.Get<ActiveControllerComponent>();
+            ref var jumpComponent = ref entity.Get<JumpComponent>();
             
-            // if (bufferedInput.HasBufferedAction(input.button2()))
-            // {
-            //     // teleport to kunai
-            //     EnterTeleport(entity);
-            //     return;
-            // }
+            activeController.TakeControl(entity, this);
             
-            // if (states.TryGetState("WallStick", out var wallStickState))
-            // {
-            //     // var wallStick = entity.Get<WallStickComponent>();
-            //     lookingDirection.value = new Vector3(1, 0, 0);
-            //     
-            //     
-            // }
+            animations.Play("Jumping");
+            states.EnterState("Jumping");
+
+            jumpComponent.state = JumpComponent.State.Starting;
+
+            entity.Get<GravityComponent>().disabled = true;
+            entity.Get<Physics2dComponent>().body.velocity = new Vector2(0, jumpComponent.initialSpeed);
+
+            jumpComponent.tempDrag = entity.Get<Physics2dComponent>().body.drag;
+            entity.Get<Physics2dComponent>().body.drag = 0;
+
+            entity.Get<AutoAnimationComponent>().disabled = true;
+
+            jumpComponent.jumps++;
+        }
+
+        private void ExitJumping(Entity entity)
+        {
+            ref var states = ref entity.Get<StatesComponent>();
+            ref var activeController = ref entity.Get<ActiveControllerComponent>();
+            ref var jumpComponent = ref entity.Get<JumpComponent>();
+            
+            activeController.ReleaseControl(this);
+            states.ExitState("Jumping");
+
+            jumpComponent.state = JumpComponent.State.None;
+            
+            entity.Get<AutoAnimationComponent>().disabled = false;
         }
 
         private void EnterFalling(Entity entity)
