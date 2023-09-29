@@ -125,6 +125,12 @@ namespace GBJAM11.Controllers
                 return;
             }
             
+            if (input.direction().vector2.SqrMagnitude() > 0)
+            {
+                weapons.weaponEntity.Get<LookingDirection>().value = input.direction().vector2;
+                lookingDirection.value = input.direction().vector2;
+            }
+            
             if (states.HasState("Falling"))
             {
                 if (gravity.inContactWithGround || states.HasState("OnRoof"))
