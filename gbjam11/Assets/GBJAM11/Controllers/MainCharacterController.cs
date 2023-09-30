@@ -197,7 +197,7 @@ namespace GBJAM11.Controllers
                 return;
             }
             
-            if (!states.HasState("Falling") && !states.HasState("OnRoof"))
+            if (!states.HasState("Falling") && !states.HasState("OnRoof")  && !states.HasState("WallStick"))
             {
                 // and not on roof either!!
                 if (!gravity.inContactWithGround)
@@ -295,6 +295,13 @@ namespace GBJAM11.Controllers
                     
             states.EnterState("Falling");
         }
+        
+        private void ExitFalling(Entity entity)
+        {
+            ref var states = ref entity.Get<StatesComponent>();
+            entity.Get<AutoAnimationComponent>().disabled = false;
+            states.ExitState("Falling");
+        }
 
         private void EnterOnRoof(Entity entity, Vector2 position)
         {
@@ -314,12 +321,22 @@ namespace GBJAM11.Controllers
         
         private void EnterWallStick(Entity entity, Vector2 position)
         {
-            entity.Get<StatesComponent>().EnterState("WallStick");
+            ref var states = ref entity.Get<StatesComponent>();
+            
+            if (states.HasState("Falling"))
+            {
+                ExitFalling(entity);
+            }
+            
+            states.EnterState("WallStick");
+            
             entity.Get<GravityComponent>().disabled = true;
             entity.Get<Physics2dComponent>().body.velocity = Vector2.zero;
             // force position to touch
             entity.Get<MovementComponent>().speedMultiplier = 0;
             entity.Get<PositionComponent>().value = position;
+
+            entity.Get<JumpComponent>().jumps = 0;
         }
 
         private void ExitOnRoof(Entity entity)
