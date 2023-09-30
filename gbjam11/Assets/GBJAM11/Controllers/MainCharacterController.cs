@@ -1,7 +1,6 @@
 ﻿using Game.Components;
 using Game.Controllers;
 using Game.Queries;
-using Game.Utilities;
 using GBJAM11.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
@@ -243,6 +242,14 @@ namespace GBJAM11.Controllers
             {
                 jumpComponent.jumps = 0;
             }
+
+            if (states.HasState("WallStick"))
+            {
+                if (physics.contacts.Count > 0)
+                {
+                    lookingDirection.value = physics.contacts[0].normal;
+                }
+            }
         }
 
         private void EnterJumping(Entity entity)
@@ -414,7 +421,6 @@ namespace GBJAM11.Controllers
             ref var animations = ref entity.Get<AnimationComponent>();
             ref var activeController = ref entity.Get<ActiveControllerComponent>();
             ref var movement = ref entity.Get<MovementComponent>();
-            ref var weapons = ref entity.Get<WeaponsComponent>();
             
             ExitOnRoof(entity);
             
@@ -448,6 +454,8 @@ namespace GBJAM11.Controllers
             } else if (kunaiComponent.wallCollision)
             {
                 EnterWallStick(entity, kunaiEntity.Get<PositionComponent>().value);
+
+                entity.Get<LookingDirection>().value = kunaiComponent.normal;
             }
         }
 
