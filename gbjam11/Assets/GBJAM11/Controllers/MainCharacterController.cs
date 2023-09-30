@@ -1,6 +1,7 @@
 ﻿using Game.Components;
 using Game.Controllers;
 using Game.Queries;
+using Game.Utilities;
 using GBJAM11.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
@@ -15,17 +16,33 @@ using JumpComponent = GBJAM11.Components.JumpComponent;
 namespace GBJAM11.Controllers
 {
     public class MainCharacterController : ControllerBase, IUpdate, IActiveController
+        // , IEntityCollisionEvent
     {
         // public void OnEntityCollision(World world, Entity entity, IEntityCollisionDelegate.EntityCollision entityCollision)
         // {
         //     if (!entityCollision.isTrigger)
         //     {
-        //         var contact = entityCollision.collision2D.contacts[0];
-        //         if (contact.normal.y < -0.9f)
+        //         var states = entity.Get<StatesComponent>();
+        //
+        //         if (!states.HasState("WallStick"))
         //         {
-        //             Debug.Log("ROOF");
-        //             EnterOnRoof(entity, contact.point);
+        //             var contact = entityCollision.collision2D.contacts[0];
+        //             var angle1 = Vector2.Angle(Vector2.right, contact.normal);
+        //             var angle2 = Vector2.Angle(Vector2.left, contact.normal);
+        //             
+        //             if (angle1 < 10.0f || angle2 < 10.0f)
+        //             {
+        //                 EnterWallStick(entity, contact.point);
+        //             }
+        //             
+        //             // if (contact.normal.y < -0.9f)
+        //             // {
+        //             //     Debug.Log("ROOF");
+        //             //     EnterOnRoof(entity, contact.point);
+        //             // }
         //         }
+        //         
+        //
         //     }
         //         
         // }
@@ -155,9 +172,9 @@ namespace GBJAM11.Controllers
             {
                 if (teleportKunaiList.Count > 0)
                 {
-                    bufferedInput.ConsumeBuffer();
-                    EnterTeleport(entity, teleportKunaiList[0]);
-                    return;
+                    // bufferedInput.ConsumeBuffer();
+                    // EnterTeleport(entity, teleportKunaiList[0]);
+                    // return;
                 }
                 else
                 {
@@ -209,21 +226,26 @@ namespace GBJAM11.Controllers
             {
                 if (states.HasState("OnRoof"))
                 {
+                    bufferedInput.ConsumeBuffer();
                     ExitOnRoof(entity);
                     entity.Get<PositionComponent>().value -= new Vector3(0, 0.5f, 0);
                     return;
-                } else if (states.HasState("WallStick"))
-                {
-                    ExitWallStick(entity);
-                    return;
-                }
-                else if (jumpComponent.jumps < jumpComponent.totalJumps)
+                } 
+                
+                if (jumpComponent.jumps < jumpComponent.totalJumps)
                 {
                     bufferedInput.ConsumeBuffer();
                     EnterJumping(entity);
                     return;
                     // jump
                 }
+                
+                // if (states.HasState("WallStick"))
+                // {
+                //     bufferedInput.ConsumeBuffer();
+                //     ExitWallStick(entity);
+                //     return;
+                // }
             }
 
             if (teleportKunaiList.Count > 0)
@@ -259,6 +281,22 @@ namespace GBJAM11.Controllers
             ref var activeController = ref entity.Get<ActiveControllerComponent>();
             ref var jumpComponent = ref entity.Get<JumpComponent>();
             
+            var direction = Vector2.up;
+
+            ref var physics = ref entity.Get<Physics2dComponent>();
+
+            if (states.HasState("WallStick"))
+            {
+                // modify direction
+                // if (physics.contacts.Count > 0)
+                // {
+                //     var contact = physics.contacts[0];
+                //     direction += contact.normal * 0.25f;
+                // }
+                
+                ExitWallStick(entity);
+            }
+            
             activeController.TakeControl(entity, this);
             
             animations.Play("Jumping");
@@ -267,10 +305,11 @@ namespace GBJAM11.Controllers
             jumpComponent.state = JumpComponent.State.Starting;
 
             entity.Get<GravityComponent>().disabled = true;
-            entity.Get<Physics2dComponent>().body.velocity = new Vector2(0, jumpComponent.initialSpeed);
+            
+            physics.body.velocity = direction.normalized * jumpComponent.initialSpeed;
 
-            jumpComponent.tempDrag = entity.Get<Physics2dComponent>().body.drag;
-            entity.Get<Physics2dComponent>().body.drag = 0;
+            jumpComponent.tempDrag = physics.body.drag;
+            physics.body.drag = 0;
 
             entity.Get<AutoAnimationComponent>().disabled = true;
 
@@ -329,6 +368,11 @@ namespace GBJAM11.Controllers
         private void EnterWallStick(Entity entity, Vector2 position)
         {
             ref var states = ref entity.Get<StatesComponent>();
+
+            if (states.HasState("Jumping"))
+            {
+                ExitJumping(entity);
+            }
             
             if (states.HasState("Falling"))
             {
