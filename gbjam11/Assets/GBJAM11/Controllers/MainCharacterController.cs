@@ -189,6 +189,11 @@ namespace GBJAM11.Controllers
             {
                 if (jumpComponent.state == JumpComponent.State.Starting)
                 {
+                    // force jump velocity all the time
+                    var v = physics.body.velocity;
+                    v.y = jumpComponent.initialSpeed;
+                    physics.body.velocity = v;
+                    
                     if (!jumpComponent.jumpReleased)
                     {
                         jumpComponent.jumpReleased = !input.button2().isPressed;
