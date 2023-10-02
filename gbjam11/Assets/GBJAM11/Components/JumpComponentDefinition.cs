@@ -12,6 +12,7 @@ namespace GBJAM11.Components
         }
         
         public int durationInFrames;
+        public int minDurationInFrames;
         public float initialSpeed;
 
         public State state;
@@ -20,11 +21,14 @@ namespace GBJAM11.Components
 
         public int jumps;
         public int totalJumps;
+
+        public bool jumpReleased;
     }
     
     public class JumpComponentDefinition : ComponentDefinitionBase
     {
         public int durationInFrames;
+        public int minDurationInFrames;
         public float initialSpeed;
         public int totalJumps;
         
@@ -38,6 +42,7 @@ namespace GBJAM11.Components
             world.AddComponent(entity, new JumpComponent()
             {
                 durationInFrames = durationInFrames,
+                minDurationInFrames = minDurationInFrames,
                 initialSpeed = initialSpeed,
                 totalJumps = totalJumps
             });

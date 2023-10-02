@@ -189,7 +189,15 @@ namespace GBJAM11.Controllers
             {
                 if (jumpComponent.state == JumpComponent.State.Starting)
                 {
-                    if (jumpingState.updateCount >= jumpComponent.durationInFrames || !input.button2().isPressed)
+                    if (!jumpComponent.jumpReleased)
+                    {
+                        jumpComponent.jumpReleased = !input.button2().isPressed;
+                    } 
+                    
+                    var interruptJump = jumpComponent.jumpReleased &&
+                                        jumpingState.updateCount >= jumpComponent.minDurationInFrames;
+                    
+                    if (jumpingState.updateCount >= jumpComponent.durationInFrames || interruptJump)
                     {
                         gravity.disabled = false;
                         physics.body.drag = jumpComponent.tempDrag;
@@ -313,6 +321,7 @@ namespace GBJAM11.Controllers
 
             entity.Get<AutoAnimationComponent>().disabled = true;
 
+            jumpComponent.jumpReleased = false;
             jumpComponent.jumps++;
         }
 
