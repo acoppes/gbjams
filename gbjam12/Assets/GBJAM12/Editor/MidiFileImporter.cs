@@ -13,9 +13,39 @@ namespace GBJAM12.Editor
             var midiDataAsset = ScriptableObject.CreateInstance<MidiDataAsset>();
             var midiFile = new MidiFile(ctx.assetPath);
 
+            midiDataAsset.ppq = midiFile.TicksPerQuarterNote;
+
+            // 60000 / (BPM * PPQ) 
+            // midiDataAsset.bpm = 60000 / midiDataAsset.ppq;
+
             foreach (var track in midiFile.Tracks)
             {
                 var midiTrack = new MidiDataAsset.MidiTrack();
+                
+                foreach (var midiEvent in track.MidiEvents)
+                {
+                    var trackMidiEvent = new MidiDataAsset.MidiEvent()
+                    {
+                        value = midiEvent.Value,
+                        time = midiEvent.Time,
+                        type = midiEvent.MidiEventType,
+                        note = midiEvent.Note
+                    };
+
+                    if (trackMidiEvent.type == MidiEventType.NoteOn)
+                    {
+                        midiTrack.events.Add(trackMidiEvent);
+                    } else if (trackMidiEvent.type == MidiEventType.NoteOff)
+                    {
+                        midiTrack.events.Add(trackMidiEvent);
+                    }
+                    
+                    if (trackMidiEvent.type == MidiEventType.MetaEvent && midiDataAsset.tempo == 0)
+                    {
+                        midiDataAsset.tempo = midiEvent.Arg1;
+                        midiDataAsset.bpm = midiEvent.Arg2;
+                    }
+                }
                 
                 foreach (var textEvent in track.TextEvents)
                 {
@@ -32,12 +62,7 @@ namespace GBJAM12.Editor
                     }
                     else
                     {
-                        midiTrack.textEvents.Add(new MidiDataAsset.MidiTrackTextEvent()
-                        {
-                            value = textEvent.Value,
-                            time = textEvent.Time,
-                            type = textEvent.TextEventType,
-                        });
+                        midiTrack.textEvents.Add(trackEvent);
                     }
                 }
                 

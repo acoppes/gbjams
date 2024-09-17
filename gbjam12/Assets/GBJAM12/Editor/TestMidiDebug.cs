@@ -18,6 +18,18 @@ namespace GBJAM12.Editor
                 Debug.Log($"MIDI TRACKS: {midiFile.TracksCount}");
                 Debug.Log($"MIDI FORMAT: {midiFile.Format}");
                 Debug.Log($"MIDI TICKS: {midiFile.TicksPerQuarterNote}");
+
+                foreach (var track in midiFile.Tracks)
+                {
+                    foreach (var midiEvent in track.MidiEvents)
+                    {
+                        if (midiEvent.MidiEventType == MidiEventType.MetaEvent)
+                        {
+                            Debug.Log($"Tempo: {midiEvent.Arg1}");
+                            Debug.Log($"BPM: {midiEvent.Arg2}");
+                        }
+                    }
+                }
                 
                 var json = JsonConvert.SerializeObject(midiFile, Formatting.Indented);
                 Debug.Log(json);
