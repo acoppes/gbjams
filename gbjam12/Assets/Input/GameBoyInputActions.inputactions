@@ -2,14 +2,14 @@
     "name": "GameBoyInputActions",
     "maps": [
         {
-            "name": "Character",
+            "name": "GameBoy",
             "id": "16de78f5-d456-49f0-821d-3d4a744248f5",
             "actions": [
                 {
                     "name": "Up",
                     "type": "Button",
                     "id": "d781f6c3-2f15-4a35-a3bd-61151aa2f9c1",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -18,7 +18,7 @@
                     "name": "Right",
                     "type": "Button",
                     "id": "e0bc8798-31f3-47e2-8406-8d3463f17b52",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -27,7 +27,7 @@
                     "name": "Down",
                     "type": "Button",
                     "id": "1982915a-e699-4d54-88fc-e63d9f749edf",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -36,7 +36,7 @@
                     "name": "Left",
                     "type": "Button",
                     "id": "ad20fc0f-f0c4-49c3-9405-c7c8f03eaab6",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -45,7 +45,7 @@
                     "name": "Button1",
                     "type": "Button",
                     "id": "86c47f45-60d9-42a4-ab58-fd482d1c06b2",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -54,16 +54,25 @@
                     "name": "Button2",
                     "type": "Button",
                     "id": "44272d21-b996-4b3e-ba1e-2e252e0c2587",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Button3",
+                    "name": "Select",
                     "type": "Button",
                     "id": "db366363-2c63-458e-8e24-a236198c19e3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Start",
+                    "type": "Button",
+                    "id": "46c7bb6c-3ffa-40ea-989b-8251f362f863",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -83,6 +92,17 @@
                     "name": "",
                     "id": "a5171f63-b69e-49f4-a9b2-cbbe72614646",
                     "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Button2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80cbaa72-ac62-41d7-8155-c78d80747ca5",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -290,6 +310,17 @@
                 },
                 {
                     "name": "",
+                    "id": "18711dad-9186-4070-b705-130e39cb8b9a",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Button1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5127ed7e-4abe-4c8c-a8cf-7e6b106c37b7",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
@@ -302,22 +333,44 @@
                 {
                     "name": "",
                     "id": "b3217ca2-cbaf-40da-9ce7-cb6b4e1f1e40",
-                    "path": "<Keyboard>/l",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Button3",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "949afaf4-ebdd-428b-b21a-10284d08e2c2",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Button3",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7b1a58bf-c6ad-4554-965f-36a9b6d3f78f",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f56e6884-caf2-4e39-ad82-4583355323d8",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Start",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
