@@ -16,6 +16,8 @@ namespace GBJAM12
 
         private AudioSource musicTrack;
         private MidiDataAsset midiDataAsset;
+
+        private float internalTimeUsingDt;
         
         public void Spawn(MidiDataAsset midiDataAsset, AudioSource musicTrack, string trackName, int[] notes)
         {
@@ -41,8 +43,10 @@ namespace GBJAM12
 
         public void LateUpdate()
         {
-            var time = musicTrack.time;
-            var currentTick = Mathf.CeilToInt(midiDataAsset.ticksPerSecond * time);
+            internalTimeUsingDt += Time.deltaTime;
+            
+            // var time = musicTrack.time;
+            var currentTick = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * internalTimeUsingDt);
             
             notesParent.localPosition = new Vector3(0, -currentTick * distancePerTick, 0);
         }
