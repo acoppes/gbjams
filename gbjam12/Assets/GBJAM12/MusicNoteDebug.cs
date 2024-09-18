@@ -19,21 +19,53 @@ namespace GBJAM12
         
         private List<MidiNoteDebug> midiNoteDebugList = new List<MidiNoteDebug>();
 
+        public bool fillNotesOnStart;
+        
         private void Awake()
         {
             GetComponentsInChildren(midiNoteDebugList);
+        }
+        
+        private void Start()
+        {
+            if (fillNotesOnStart)
+            {
+                foreach (var midiNoteDebug in midiNoteDebugList)
+                {
+                    if (midiNoteDebug.notes.Length > 0)
+                    {
+                        continue;
+                    }
+                    
+                    var track = midiDataAsset.GetByName(midiNoteDebug.track);
+
+                    if (track == null)
+                    {
+                        continue;
+                    }
+
+                    var notes = new HashSet<int>();
+                    foreach (var midiEvent in track.events)
+                    {
+                        if (midiEvent.type == MidiEventType.NoteOn || midiEvent.type == MidiEventType.NoteOff)
+                        {
+                            notes.Add(midiEvent.note);
+                        }
+                    }
+
+                    midiNoteDebug.notes = notes.Select(n => new MidiNoteDebug.TrackNote()
+                    {
+                        note = n
+                    }).ToArray();
+                }
+            }
         }
 
         private void Update()
         {
             var musicTimeInSeconds = music.time;
             
-            currentTick = Mathf.FloorToInt(midiDataAsset.ticksPerSecond * musicTimeInSeconds);
-            
-            //
-            // currentTick = Mathf.FloorToInt(musicTimeInSeconds / secondsPerTick);
-            
-            // seconds = ticks * seconds per tick
+            currentTick = Mathf.CeilToInt(midiDataAsset.ticksPerSecond * musicTimeInSeconds);
             
             foreach (var midiNoteDebug in midiNoteDebugList)
             {
@@ -41,32 +73,21 @@ namespace GBJAM12
                 
                 foreach (var midiEvent in track.events)
                 {
-                    // var seconds = trackTimeInTicks * secondsPerTick;
-                    //
-                    // if (musicTimeInSeconds > seconds)
-                    // {
-                    //     break;
-                    // }
-
-                    if (midiEvent.note != midiNoteDebug.note)
-                    {
-                        continue;
-                    }
-                    
                     if (midiEvent.timeInTicks > currentTick)
                     {
                         break;
                     }
-
-                    if (midiEvent.type == MidiEventType.NoteOn)
-                        midiNoteDebug.isPlaying = true;
-                    else if (midiEvent.type == MidiEventType.NoteOff)
-                        midiNoteDebug.isPlaying = false;
-                }
-                
-                if (midiNoteDebug.isPlaying)
-                {
-                    break;
+                    
+                    foreach (var trackNote in midiNoteDebug.notes)
+                    {
+                        if (midiEvent.note == trackNote.note)
+                        {
+                            if (midiEvent.type == MidiEventType.NoteOn)
+                                trackNote.on = true;
+                            else if (midiEvent.type == MidiEventType.NoteOff)
+                                trackNote.on = false;
+                        }
+                    }
                 }
             }
         }
