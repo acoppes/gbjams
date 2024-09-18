@@ -24,26 +24,44 @@ namespace GBJAM12.Editor
                 
                 foreach (var midiEvent in track.MidiEvents)
                 {
-                    var trackMidiEvent = new MidiDataAsset.MidiEvent()
+                    if (midiEvent.MidiEventType == MidiEventType.NoteOn)
                     {
-                        value = midiEvent.Value,
-                        time = midiEvent.Time,
-                        type = midiEvent.MidiEventType,
-                        note = midiEvent.Note
-                    };
-
-                    if (trackMidiEvent.type == MidiEventType.NoteOn)
+                        midiTrack.events.Add(new MidiDataAsset.MidiEvent()
+                        {
+                            time = midiEvent.Time,
+                            type = midiEvent.MidiEventType,
+                            channel = midiEvent.Channel,
+                            note = midiEvent.Note,
+                            velocity = midiEvent.Velocity,
+                        });
+                    } else if (midiEvent.MidiEventType == MidiEventType.NoteOff)
                     {
-                        midiTrack.events.Add(trackMidiEvent);
-                    } else if (trackMidiEvent.type == MidiEventType.NoteOff)
+                        midiTrack.events.Add(new MidiDataAsset.MidiEvent()
+                        {
+                            time = midiEvent.Time,
+                            type = midiEvent.MidiEventType,
+                            channel = midiEvent.Channel,
+                            note = midiEvent.Note,
+                            velocity = midiEvent.Velocity,
+                        });
+                    } else if (midiEvent.MidiEventType == MidiEventType.ControlChange)
                     {
-                        midiTrack.events.Add(trackMidiEvent);
+                        midiTrack.events.Add(new MidiDataAsset.MidiEvent()
+                        {
+                            time = midiEvent.Time,
+                            type = midiEvent.MidiEventType,
+                            channel = midiEvent.Channel,
+                            bankSelect = midiEvent.Arg2,
+                            value= midiEvent.Value,
+                        });
                     }
                     
-                    if (trackMidiEvent.type == MidiEventType.MetaEvent && midiDataAsset.tempo == 0)
+                    if (midiEvent.MidiEventType == MidiEventType.MetaEvent && midiDataAsset.bpm == 0)
                     {
-                        midiDataAsset.tempo = midiEvent.Arg1;
-                        midiDataAsset.bpm = midiEvent.Arg2;
+                        if (midiEvent.MetaEventType == MetaEventType.Tempo)
+                        {
+                            midiDataAsset.bpm = midiEvent.Arg2;
+                        }
                     }
                 }
                 

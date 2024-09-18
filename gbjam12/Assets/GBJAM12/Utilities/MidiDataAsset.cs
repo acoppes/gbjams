@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MidiParser;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace GBJAM12.Utilities
     public class MidiDataAsset : ScriptableObject
     {
         [Serializable]
-        public class MidiTrackTextEvent
+        public struct MidiTrackTextEvent
         {
             public int time;
             public TextEventType type;
@@ -16,12 +17,15 @@ namespace GBJAM12.Utilities
         }
         
         [Serializable]
-        public class MidiEvent
+        public struct MidiEvent
         {
             public int time;
             public MidiEventType type;
             public int value;
             public int note;
+            public int channel;
+            public int velocity;
+            public int bankSelect;
         }
         
         [Serializable]
@@ -36,8 +40,12 @@ namespace GBJAM12.Utilities
         
         public int ppq;
         public int bpm;
-        public int tempo;
         
         public List<MidiTrack> tracks = new List<MidiTrack>();
+
+        public MidiTrack GetByName(string trackName)
+        {
+            return tracks.FirstOrDefault(t => t.name.Equals(trackName, StringComparison.OrdinalIgnoreCase));
+        }
     }
 }
