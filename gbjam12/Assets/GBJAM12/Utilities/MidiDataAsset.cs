@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MidiParser;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GBJAM12.Utilities
 {
@@ -19,7 +20,15 @@ namespace GBJAM12.Utilities
         [Serializable]
         public struct MidiEvent
         {
-            public int time;
+            [FormerlySerializedAs("time")] 
+            public int timeInTicks;
+
+            public int beatNumber;
+
+            // public int absoluteTimeInTicks;
+
+            public float timeInSeconds;
+            
             public MidiEventType type;
             public int value;
             public int note;
@@ -40,6 +49,12 @@ namespace GBJAM12.Utilities
         
         public int ppq;
         public int bpm;
+
+        public int ticksPerMinute => bpm * ppq;
+        public int ticksPerSecond => ticksPerMinute / 60;
+        
+        //  var ticksPerMinute = midiDataAsset.bpm * midiDataAsset.ppq;
+        // ticksPerSeconds = ticksPerMinute / 60f;
         
         public List<MidiTrack> tracks = new List<MidiTrack>();
 

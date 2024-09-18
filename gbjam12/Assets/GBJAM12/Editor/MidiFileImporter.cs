@@ -21,14 +21,29 @@ namespace GBJAM12.Editor
             foreach (var track in midiFile.Tracks)
             {
                 var midiTrack = new MidiDataAsset.MidiTrack();
+
+                var absoluteTimeInTicks = 0;
                 
                 foreach (var midiEvent in track.MidiEvents)
                 {
+                    absoluteTimeInTicks += midiEvent.Time;
+                    
+                    if (midiEvent.MidiEventType == MidiEventType.MetaEvent && midiDataAsset.bpm == 0)
+                    {
+                        if (midiEvent.MetaEventType == MetaEventType.Tempo)
+                        {
+                            midiDataAsset.bpm = midiEvent.Arg2;
+                        }
+                    }
+                    
                     if (midiEvent.MidiEventType == MidiEventType.NoteOn)
                     {
                         midiTrack.events.Add(new MidiDataAsset.MidiEvent()
                         {
-                            time = midiEvent.Time,
+                            timeInTicks = midiEvent.Time,
+                            beatNumber = midiEvent.Time / midiDataAsset.ppq,
+                            // absoluteTimeInTicks = absoluteTimeInTicks,
+                            timeInSeconds = midiEvent.Time / (float) midiDataAsset.ticksPerSecond,
                             type = midiEvent.MidiEventType,
                             channel = midiEvent.Channel,
                             note = midiEvent.Note,
@@ -38,7 +53,10 @@ namespace GBJAM12.Editor
                     {
                         midiTrack.events.Add(new MidiDataAsset.MidiEvent()
                         {
-                            time = midiEvent.Time,
+                            timeInTicks = midiEvent.Time,
+                            beatNumber = midiEvent.Time / midiDataAsset.ppq,
+                            // absoluteTimeInTicks = absoluteTimeInTicks,
+                            timeInSeconds = absoluteTimeInTicks / (float) midiDataAsset.ticksPerSecond,
                             type = midiEvent.MidiEventType,
                             channel = midiEvent.Channel,
                             note = midiEvent.Note,
@@ -48,7 +66,10 @@ namespace GBJAM12.Editor
                     {
                         midiTrack.events.Add(new MidiDataAsset.MidiEvent()
                         {
-                            time = midiEvent.Time,
+                            timeInTicks = midiEvent.Time,
+                            beatNumber = midiEvent.Time / midiDataAsset.ppq,
+                            // absoluteTimeInTicks = absoluteTimeInTicks,
+                            timeInSeconds = absoluteTimeInTicks / (float) midiDataAsset.ticksPerSecond,
                             type = midiEvent.MidiEventType,
                             channel = midiEvent.Channel,
                             bankSelect = midiEvent.Arg2,
@@ -56,13 +77,7 @@ namespace GBJAM12.Editor
                         });
                     }
                     
-                    if (midiEvent.MidiEventType == MidiEventType.MetaEvent && midiDataAsset.bpm == 0)
-                    {
-                        if (midiEvent.MetaEventType == MetaEventType.Tempo)
-                        {
-                            midiDataAsset.bpm = midiEvent.Arg2;
-                        }
-                    }
+
                 }
                 
                 foreach (var textEvent in track.TextEvents)
