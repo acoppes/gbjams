@@ -7,5 +7,6 @@ namespace GBJAM12
     {
         public float distancePerTick = 1/16f;
         public int minDurationInTicksToShow = 960;
+        public int latencyOffsetInTicks = 400;
     }
 }

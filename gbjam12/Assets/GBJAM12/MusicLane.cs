@@ -3,6 +3,7 @@ using System.Linq;
 using GBJAM12.Utilities;
 using MidiParser;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GBJAM12
 {
@@ -13,10 +14,13 @@ namespace GBJAM12
         public Transform notesParent;
         public GameObject notePrefab;
 
-        public int latencyOffsetInTicks = 0;
+        public Image inactiveImage;
+        public Image activeImage;
 
         private AudioSource musicTrack;
         private MidiDataAsset midiDataAsset;
+
+        public bool isActive;
         
         public void SpawnNotes(MidiDataAsset midiDataAsset, AudioSource musicTrack, string trackName, int[] notes)
         {
@@ -35,7 +39,7 @@ namespace GBJAM12
                     {
                         var noteInstance = GameObject.Instantiate(notePrefab, notesParent);
                         noteInstance.transform.localPosition =
-                            new Vector3(0, (midiEvent.timeInTicks + latencyOffsetInTicks) * musicLaneConfiguration.distancePerTick, 0);
+                            new Vector3(0, (midiEvent.timeInTicks + musicLaneConfiguration.latencyOffsetInTicks) * musicLaneConfiguration.distancePerTick, 0);
                         noteInstance.SetActive(true);
 
                         var musicLaneNote = noteInstance.GetComponent<MusicLaneNote>();
@@ -63,12 +67,18 @@ namespace GBJAM12
 
         public void LateUpdate()
         {
-            // internalTimeUsingDt += Time.deltaTime;
+            // updates scroll based on track position
+            if (musicTrack != null)
+            {
+                var time = musicTrack.time;
+                var currentTick = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * time);
+
+                notesParent.localPosition = new Vector3(0, -currentTick * musicLaneConfiguration.distancePerTick, 0);
+            }
+
+            inactiveImage.enabled = !isActive;
+            activeImage.enabled = isActive;
             
-            var time = musicTrack.time;
-            var currentTick = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * time);
-            
-            notesParent.localPosition = new Vector3(0, -currentTick * musicLaneConfiguration.distancePerTick, 0);
         }
     }
 }
