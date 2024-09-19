@@ -32,13 +32,15 @@ namespace GBJAM12
             activeDuration.gameObject.SetActive(false);
             activeNote.gameObject.SetActive(false);
             
-            if (durationInSixteenth >= musicLaneConfiguration.minDurationInFragmentToShow)
+            if (durationInTicks >= musicLaneConfiguration.minDurationInTicksToShow)
             {
                 inactiveDuration.gameObject.SetActive(true);
                 // activeDuration.gameObject.SetActive(true);
+
+                var durationHeight = musicLaneConfiguration.distancePerTick * (durationInTicks - musicLaneConfiguration.minDurationInTicksToShow);
                 
-                inactiveDuration.rectTransform.SetHeight(musicLaneConfiguration.distancePerTick * durationInTicks);
-                activeDuration.rectTransform.SetHeight(musicLaneConfiguration.distancePerTick * durationInTicks);
+                inactiveDuration.rectTransform.SetHeight(durationHeight);
+                activeDuration.rectTransform.SetHeight(durationHeight);
             }
         }
     }

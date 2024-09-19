@@ -6,6 +6,6 @@ namespace GBJAM12
     public class MusicLaneConfiguration : ScriptableObject
     {
         public float distancePerTick = 1/16f;
-        public int minDurationInFragmentToShow = 2;
+        public int minDurationInTicksToShow = 960;
     }
 }
