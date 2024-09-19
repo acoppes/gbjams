@@ -18,7 +18,7 @@ namespace GBJAM12
         private void Start()
         {
             notes = notesArray.Split(",").Select(int.Parse).ToArray();
-            musicLane.Spawn(midiDataAsset, musicTrack, trackName, notes);
+            musicLane.SpawnNotes(midiDataAsset, musicTrack, trackName, notes);
         }
     }
 }

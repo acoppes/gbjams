@@ -22,11 +22,11 @@ namespace GBJAM12.Editor
             {
                 var midiTrack = new MidiDataAsset.MidiTrack();
 
-                var absoluteTimeInTicks = 0;
+                // var absoluteTimeInTicks = 0;
                 
                 foreach (var midiEvent in track.MidiEvents)
                 {
-                    absoluteTimeInTicks += midiEvent.Time;
+                    // absoluteTimeInTicks += midiEvent.Time;
                     
                     if (midiEvent.MidiEventType == MidiEventType.MetaEvent && midiDataAsset.bpm == 0)
                     {
@@ -43,7 +43,7 @@ namespace GBJAM12.Editor
                             timeInTicks = midiEvent.Time,
                             beatNumber = midiEvent.Time / midiDataAsset.ppq,
                             // absoluteTimeInTicks = absoluteTimeInTicks,
-                            timeInSeconds = midiEvent.Time / (float) midiDataAsset.ticksPerSecond,
+                            timeInSeconds = midiDataAsset.ticksPerSecond > 0 ? midiEvent.Time / (float) midiDataAsset.ticksPerSecond : 0,
                             type = midiEvent.MidiEventType,
                             channel = midiEvent.Channel,
                             note = midiEvent.Note,
@@ -56,7 +56,7 @@ namespace GBJAM12.Editor
                             timeInTicks = midiEvent.Time,
                             beatNumber = midiEvent.Time / midiDataAsset.ppq,
                             // absoluteTimeInTicks = absoluteTimeInTicks,
-                            timeInSeconds = absoluteTimeInTicks / (float) midiDataAsset.ticksPerSecond,
+                            timeInSeconds = midiDataAsset.ticksPerSecond > 0 ? midiEvent.Time / (float) midiDataAsset.ticksPerSecond : 0,
                             type = midiEvent.MidiEventType,
                             channel = midiEvent.Channel,
                             note = midiEvent.Note,
@@ -69,7 +69,7 @@ namespace GBJAM12.Editor
                             timeInTicks = midiEvent.Time,
                             beatNumber = midiEvent.Time / midiDataAsset.ppq,
                             // absoluteTimeInTicks = absoluteTimeInTicks,
-                            timeInSeconds = absoluteTimeInTicks / (float) midiDataAsset.ticksPerSecond,
+                            timeInSeconds = midiDataAsset.ticksPerSecond > 0 ? midiEvent.Time / (float) midiDataAsset.ticksPerSecond : 0,
                             type = midiEvent.MidiEventType,
                             channel = midiEvent.Channel,
                             bankSelect = midiEvent.Arg2,
