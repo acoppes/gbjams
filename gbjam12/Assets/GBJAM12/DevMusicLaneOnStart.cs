@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using GBJAM12.Utilities;
 using UnityEngine;
 
@@ -10,10 +11,13 @@ namespace GBJAM12
         public MidiDataAsset midiDataAsset;
         public AudioSource musicTrack;
         public string trackName;
+
+        public string notesArray;
         public int[] notes;
 
         private void Start()
         {
+            notes = notesArray.Split(",").Select(int.Parse).ToArray();
             musicLane.Spawn(midiDataAsset, musicTrack, trackName, notes);
         }
     }
