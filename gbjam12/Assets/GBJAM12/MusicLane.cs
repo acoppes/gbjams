@@ -17,15 +17,14 @@ namespace GBJAM12
         public Image inactiveImage;
         public Image activeImage;
 
-        private AudioSource musicTrack;
+        public AudioSource songAudioSource;
         private MidiDataAsset midiDataAsset;
 
         public bool isActive;
         
-        public void SpawnNotes(MidiDataAsset midiDataAsset, AudioSource musicTrack, string trackName, int[] notes)
+        public void SpawnNotes(MidiDataAsset midiDataAsset, string trackName, int[] notes)
         {
             this.midiDataAsset = midiDataAsset;
-            this.musicTrack = musicTrack;
             
             var track = midiDataAsset.GetByName(trackName);
             var openNotes = new Dictionary<int, MusicLaneNote>();
@@ -68,9 +67,9 @@ namespace GBJAM12
         public void LateUpdate()
         {
             // updates scroll based on track position
-            if (musicTrack != null)
+            if (songAudioSource != null)
             {
-                var time = musicTrack.time;
+                var time = songAudioSource.time;
                 var currentTick = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * time);
 
                 notesParent.localPosition = new Vector3(0, -currentTick * musicLaneConfiguration.distancePerTick, 0);
