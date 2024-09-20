@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2912366354848275999}
   - component: {fileID: 2567315257426902300}
+  - component: {fileID: 2200241961669838793}
   m_Layer: 0
   m_Name: LeftNotePrefab
   m_TagString: Untagged
@@ -53,11 +54,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicLaneConfiguration: {fileID: 11400000, guid: 2a5c6a4d4ae3e45468a3310f3faa22de, type: 2}
-  durationInTicks: 0
-  durationInSixteenth: 0
   inactiveDuration: {fileID: 3174428054896383107}
   activeDuration: {fileID: 6662962181576982608}
   activeNote: {fileID: 3026398869694429729}
+  isActive: 0
+--- !u!114 &2200241961669838793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785057999173186274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62eb3bbb01434ed1b4be3f489b3ca795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  note: {fileID: 2567315257426902300}
+  inactiveDuration: {fileID: 3174428054896383107}
+  activeDuration: {fileID: 6662962181576982608}
+  activeNote: {fileID: 3026398869694429729}
+  isActive: 0
 --- !u!1 &1857115372163920945
 GameObject:
   m_ObjectHideFlags: 0

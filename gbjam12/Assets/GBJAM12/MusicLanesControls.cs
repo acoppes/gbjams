@@ -18,7 +18,7 @@ namespace GBJAM12
             {
                 var lane = lanes[i];
                 var laneAction = laneActions[i];
-                lane.isActive = laneAction.action.IsPressed();
+                lane.buttonPressed = laneAction.action.IsPressed();
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GBJAM12.Utilities;
 using MidiParser;
@@ -20,7 +21,10 @@ namespace GBJAM12
         public AudioSource songAudioSource;
         private MidiDataAsset midiDataAsset;
 
-        public bool isActive;
+        [NonSerialized]
+        public bool buttonPressed;
+
+        private List<MusicLaneNote> laneNotes = new List<MusicLaneNote>();
         
         public void SpawnNotes(MidiDataAsset midiDataAsset, string trackName, int[] notes)
         {
@@ -44,6 +48,8 @@ namespace GBJAM12
                         var musicLaneNote = noteInstance.GetComponent<MusicLaneNote>();
                         musicLaneNote.midiEvent = midiEvent;
                         openNotes[note] = musicLaneNote;
+                        
+                        laneNotes.Add(musicLaneNote);
                     }
                 }
                 
@@ -55,8 +61,9 @@ namespace GBJAM12
                         var musicLaneNote = openNotes[note];
                         
                         musicLaneNote.durationInTicks = midiEvent.timeInTicks - musicLaneNote.midiEvent.timeInTicks;
-                        var sixteenth = midiDataAsset.ppq / 4;
-                        musicLaneNote.durationInSixteenth = Mathf.RoundToInt(musicLaneNote.durationInTicks / (float) sixteenth);
+                        
+                        // var sixteenth = midiDataAsset.ppq / 4;
+                        // musicLaneNote.durationInSixteenth = Mathf.RoundToInt(musicLaneNote.durationInTicks / (float) sixteenth);
                         
                         openNotes.Remove(note);
                     }
@@ -66,6 +73,8 @@ namespace GBJAM12
 
         public void LateUpdate()
         {
+ 
+            
             // updates scroll based on track position
             if (songAudioSource != null)
             {
@@ -73,11 +82,29 @@ namespace GBJAM12
                 var currentTick = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * time);
 
                 notesParent.localPosition = new Vector3(0, -currentTick * musicLaneConfiguration.distancePerTick, 0);
+                
+                if (buttonPressed)
+                {
+                    foreach (var note in laneNotes)
+                    {
+                        if (!note.isActive)
+                        {
+                            if (Mathf.Abs(currentTick - musicLaneConfiguration.latencyOffsetInTicks - note.midiEvent.timeInTicks) <
+                                musicLaneConfiguration.noteTicksThresholdToPress)
+                            {
+                                note.isActive = true;
+                            }
+                        }
+                        else
+                        {
+                            // if pressed properly, activate duration activation
+                        }
+                    }
+                }
             }
 
-            inactiveImage.enabled = !isActive;
-            activeImage.enabled = isActive;
-            
+            inactiveImage.enabled = !buttonPressed;
+            activeImage.enabled = buttonPressed;
         }
     }
 }
