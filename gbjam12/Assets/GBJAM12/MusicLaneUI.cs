@@ -12,8 +12,8 @@ namespace GBJAM12
 
         public void Update()
         {
-            inactiveImage.enabled = !musicLane.buttonPressed;
-            activeImage.enabled = musicLane.buttonPressed;
+            inactiveImage.enabled = !musicLane.pressed;
+            activeImage.enabled = musicLane.pressed;
         }
     }
 }

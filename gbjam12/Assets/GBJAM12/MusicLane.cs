@@ -17,11 +17,8 @@ namespace GBJAM12
         public AudioSource songAudioSource;
         private MidiDataAsset midiDataAsset;
 
-        // [NonSerialized]
-        public bool buttonPressed => pressedBuffer > 0;
-
         [NonSerialized]
-        public bool wasPressed;
+        public bool pressed;
 
         [NonSerialized]
         public int pressedTimeInTicks;
@@ -76,24 +73,29 @@ namespace GBJAM12
             }
         }
         
+        public void StorePressedInTicks()
+        {
+            pressedTimeInTicks = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * songAudioSource.time);
+        }
+        
         public void Update()
         {
-            if (!wasPressed && buttonPressed)
-            {
-                wasPressed = true;
-
-                if (songAudioSource != null)
-                {
-                    pressedTimeInTicks = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * songAudioSource.time);
-                }
-
-            } else if (wasPressed && !buttonPressed)
-            {
-                wasPressed = false;
-            }
+            // if (!wasPressed && pressed)
+            // {
+            //     wasPressed = true;
+            //
+            //     if (songAudioSource != null)
+            //     {
+            //         pressedTimeInTicks = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * songAudioSource.time);
+            //     }
+            //
+            // } else if (wasPressed && !pressed)
+            // {
+            //     wasPressed = false;
+            // }
             
             // updates scroll based on track position
-            if (songAudioSource != null)
+            if (songAudioSource != null && songAudioSource.isPlaying)
             {
                 var time = songAudioSource.time;
                 var currentTick = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * time);
@@ -113,11 +115,11 @@ namespace GBJAM12
                     // I am before the note but inside some valid trheshold to activate?
                     var inDistanceToPress = distanceInTicks < 0 && Mathf.Abs(distanceInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
                     
-                    if (!note.isPressed && !note.wasActivated && buttonPressed && inDistanceToPress)
+                    if (!note.isPressed && !note.wasActivated && pressed && inDistanceToPress)
                     {
                         note.isPressed = true;
                         note.wasActivated = true;
-                    } else if (note.isPressed && !buttonPressed)
+                    } else if (note.isPressed && !pressed)
                     {
                         note.isPressed = false;
                     }
@@ -131,5 +133,7 @@ namespace GBJAM12
                 }
             }
         }
+
+
     }
 }

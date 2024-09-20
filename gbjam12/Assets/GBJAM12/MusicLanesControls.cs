@@ -21,14 +21,24 @@ namespace GBJAM12
                 var lane = lanes[i];
                 var laneAction = laneActions[i];
 
+                if (laneAction.action.WasPressedThisFrame())
+                {
+                    lane.StorePressedInTicks();
+                }
+
                 if (laneAction.action.IsPressed())
                 {
+                    // if (!lane.pressed)
+                    // {
+                    //     lane.StorePressedInTicks();
+                    // }
                     lane.pressedBuffer = musicLaneConfiguration.pressedTimeBuffer;
+                    lane.pressed = true;
                 }
                 else
                 {
-                    lane.wasPressed = false;
                     lane.pressedBuffer -= Time.deltaTime;
+                    lane.pressed = lane.pressedBuffer > 0;
                 }
             }
         }
