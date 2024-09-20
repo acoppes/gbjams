@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GBJAM12.Utilities;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace GBJAM12
         public AudioClip song;
         public MidiDataAsset midi;
 
-        public GameTrackLane[] lanes;
+        public GameTrackLaneAsset laneAsset;
+        public List<GameTrackLane> lanes => laneAsset.lanes;
     }
 }
