@@ -1,56 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2251776912463146734
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8972207951245242439}
-  - component: {fileID: 2949484757779663599}
-  m_Layer: 0
-  m_Name: Bass
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8972207951245242439
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2251776912463146734}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8379579818668265758}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2949484757779663599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2251776912463146734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0557f64e03d842e9b81e13f1d21cc6fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lanes:
-  - track: BASS
-    notes: 35,40
-  - track: BASS
-    notes: 37
-  - track: BASS
-    notes: 42
 --- !u!1 &5438317338778952043
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8379579818668265758}
-  - component: {fileID: -1897737929309807784}
+  - component: {fileID: 3995396765057511564}
   m_Layer: 0
-  m_Name: ThrillerSongConfigurationV2
+  m_Name: ThrillerSongConfigurationOldTwoInstruments
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,11 +30,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8972207951245242439}
-  - {fileID: 8104880559589595353}
+  - {fileID: 3290811216017473209}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1897737929309807784
+--- !u!114 &3995396765057511564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,19 +42,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5438317338778952043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 318049ffe3f54e84ba03750267513eff, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a53aa8936084b96a67ea9e317f43c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   song: {fileID: 8300000, guid: c4bd05ef7bc92334ca2391060d843371, type: 3}
   midi: {fileID: 5022602860645237092, guid: 1eb2d99878e3c19449b9aac1ac9bf0e6, type: 3}
-  segments:
-  - startCompass: 0
-    endCompass: 9
-    laneAsset: {fileID: 2949484757779663599}
-  - startCompass: 9
-    endCompass: 9999
-    laneAsset: {fileID: 1656485650624445896}
---- !u!1 &7837091582031957446
+  laneAsset: {fileID: 8549705982062212973}
+--- !u!1 &8143293809460402849
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,22 +56,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8104880559589595353}
-  - component: {fileID: 1656485650624445896}
+  - component: {fileID: 3290811216017473209}
+  - component: {fileID: 8549705982062212973}
   m_Layer: 0
-  m_Name: Melody1
+  m_Name: BassAndMelody1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8104880559589595353
+--- !u!4 &3290811216017473209
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7837091582031957446}
+  m_GameObject: {fileID: 8143293809460402849}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -138,22 +80,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8379579818668265758}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1656485650624445896
+--- !u!114 &8549705982062212973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7837091582031957446}
+  m_GameObject: {fileID: 8143293809460402849}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0557f64e03d842e9b81e13f1d21cc6fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lanes:
+  - track: BASS
+    notes: 35,40
+  - track: BASS
+    notes: 37,42
   - track: MELODY1
-    notes: 71,76,78,82
+    notes: 71,73,75,76
   - track: MELODY1
-    notes: 73,68,83,79
-  - track: MELODY1
-    notes: 75,80,85
+    notes: 68,80,78,83,85,82,79

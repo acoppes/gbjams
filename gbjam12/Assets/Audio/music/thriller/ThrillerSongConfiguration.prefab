@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8972207951245242439}
   - component: {fileID: 2949484757779663599}
   m_Layer: 0
-  m_Name: Piano
+  m_Name: Bass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,12 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lanes:
-  - track: PIANO
-    notes: 76,77,74,88
-  - track: PIANO
-    notes: 89,79,81,82
-  - track: PIANO
-    notes: 84,85,86,83
+  - track: BASS
+    notes: 35,40
+  - track: BASS
+    notes: 37
+  - track: BASS
+    notes: 42
 --- !u!1 &5438317338778952043
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 8379579818668265758}
   - component: {fileID: -1897737929309807784}
   m_Layer: 0
-  m_Name: GooseBumpsConfiguration
+  m_Name: ThrillerSongConfiguration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,14 +97,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318049ffe3f54e84ba03750267513eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  song: {fileID: 8300000, guid: 14fe6ed2cc3bc97428beff74aceb7b5f, type: 3}
-  midi: {fileID: 5022602860645237092, guid: 9eb4e60c68cde0e4d836735f02426bec, type: 3}
+  song: {fileID: 8300000, guid: c4bd05ef7bc92334ca2391060d843371, type: 3}
+  midi: {fileID: 5022602860645237092, guid: 1eb2d99878e3c19449b9aac1ac9bf0e6, type: 3}
   segments:
-  - startCompass: 10
-    endCompass: 10000
-    laneAsset: {fileID: 2949484757779663599}
   - startCompass: 0
-    endCompass: 10
+    endCompass: 9
+    laneAsset: {fileID: 2949484757779663599}
+  - startCompass: 9
+    endCompass: 9999
     laneAsset: {fileID: 1656485650624445896}
 --- !u!1 &7837091582031957446
 GameObject:
@@ -152,8 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lanes:
   - track: MELODY1
-    notes: 74,76,77,81,89,85
+    notes: 71,76,78,82
   - track: MELODY1
-    notes: 82,50,51,53,54,84,87,79,80
+    notes: 73,68,83,79
   - track: MELODY1
-    notes: 75,72,70,68,67,65,63,62,60,59,56,57,58
+    notes: 75,80,85
