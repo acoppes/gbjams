@@ -7,6 +7,8 @@ namespace GBJAM12
     public class MusicLanesControls : MonoBehaviour
     {
         // public PlayerInput playerInput;
+
+        public MusicLaneConfiguration musicLaneConfiguration;
         
         public List<InputActionReference> laneActions;
 
@@ -18,7 +20,15 @@ namespace GBJAM12
             {
                 var lane = lanes[i];
                 var laneAction = laneActions[i];
-                lane.buttonPressed = laneAction.action.IsPressed();
+
+                if (laneAction.action.IsPressed())
+                {
+                    lane.pressedBuffer = musicLaneConfiguration.pressedTimeBuffer;
+                }
+                else
+                {
+                    lane.pressedBuffer -= Time.deltaTime;
+                }
             }
         }
     }

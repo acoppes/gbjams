@@ -23,6 +23,12 @@ namespace GBJAM12
         public MidiDataAsset.MidiEvent midiEvent;
 
         [NonSerialized]
-        public bool isActive;
+        public bool isPressed;
+
+        [NonSerialized]
+        public bool wasActivated;
+
+        [NonSerialized]
+        public int activeTicks = 0;
     }
 }

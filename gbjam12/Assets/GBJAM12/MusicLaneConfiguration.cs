@@ -11,5 +11,7 @@ namespace GBJAM12
         public int minDurationInTicksToShow = DefaultTicksPerQuarter / 2;
         public int latencyOffsetInTicks = DefaultTicksPerQuarter / 2;
         public int noteTicksThresholdToPress = DefaultTicksPerQuarter / 4;
+        
+        public float pressedTimeBuffer;
     }
 }

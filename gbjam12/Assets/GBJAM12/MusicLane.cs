@@ -21,8 +21,11 @@ namespace GBJAM12
         public AudioSource songAudioSource;
         private MidiDataAsset midiDataAsset;
 
+        // [NonSerialized]
+        public bool buttonPressed => pressedBuffer > 0;
+
         [NonSerialized]
-        public bool buttonPressed;
+        public float pressedBuffer;
 
         private List<MusicLaneNote> laneNotes = new List<MusicLaneNote>();
         
@@ -70,11 +73,9 @@ namespace GBJAM12
                 }
             }
         }
-
-        public void LateUpdate()
+        
+        public void Update()
         {
- 
-            
             // updates scroll based on track position
             if (songAudioSource != null)
             {
@@ -83,22 +84,27 @@ namespace GBJAM12
 
                 notesParent.localPosition = new Vector3(0, -currentTick * musicLaneConfiguration.distancePerTick, 0);
                 
-                if (buttonPressed)
+                foreach (var note in laneNotes)
                 {
-                    foreach (var note in laneNotes)
+                    // var noteInDistanceToActivate = Mathf.Abs(currentTick - note.midiEvent.timeInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
+                    
+                    var noteInDistanceToActivate = Mathf.Abs(currentTick - musicLaneConfiguration.latencyOffsetInTicks - note.midiEvent.timeInTicks) <
+                                                   musicLaneConfiguration.noteTicksThresholdToPress;
+                    
+                    if (!note.isPressed && !note.wasActivated && buttonPressed && noteInDistanceToActivate)
                     {
-                        if (!note.isActive)
-                        {
-                            if (Mathf.Abs(currentTick - musicLaneConfiguration.latencyOffsetInTicks - note.midiEvent.timeInTicks) <
-                                musicLaneConfiguration.noteTicksThresholdToPress)
-                            {
-                                note.isActive = true;
-                            }
-                        }
-                        else
-                        {
-                            // if pressed properly, activate duration activation
-                        }
+                        note.isPressed = true;
+                        note.wasActivated = true;
+                    } else if (note.isPressed && !buttonPressed)
+                    {
+                        note.isPressed = false;
+                    }
+
+                    if (note.isPressed)
+                    {
+                        note.activeTicks = 0;
+                        var offset = currentTick - note.midiEvent.timeInTicks;
+                        note.activeTicks = Mathf.Max(0, Mathf.Min(offset, note.durationInTicks));
                     }
                 }
             }

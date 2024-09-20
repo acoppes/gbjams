@@ -21,7 +21,6 @@ namespace GBJAM12
 
         public AudioClip song;
         public MidiDataAsset midi;
-        public GameObject audioSourcePrefab;
 
         public GameTrackLane[] lanes;
     }

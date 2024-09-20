@@ -32,7 +32,14 @@ namespace GBJAM12
 
         private void LateUpdate()
         {
-            activeNote.gameObject.SetActive(note.isActive);
+            activeNote.gameObject.SetActive(note.wasActivated);
+            
+            if (note.activeTicks >= note.musicLaneConfiguration.minDurationInTicksToShow)
+            {
+                activeDuration.gameObject.SetActive(true);
+                var durationHeight = note.musicLaneConfiguration.distancePerTick * (note.activeTicks - note.musicLaneConfiguration.minDurationInTicksToShow);
+                activeDuration.rectTransform.SetHeight(durationHeight);
+            }
         }
     }
 }
