@@ -15,7 +15,7 @@ namespace GBJAM12
         public GameObject notePrefab;
         
         public AudioSource songAudioSource;
-        private MidiDataAsset midiDataAsset;
+        public MidiDataAsset midiDataAsset;
 
         [NonSerialized]
         public bool pressed;
@@ -28,15 +28,24 @@ namespace GBJAM12
 
         private List<MusicLaneNote> laneNotes = new List<MusicLaneNote>();
         
-        public void SpawnNotes(MidiDataAsset midiDataAsset, string trackName, int[] notes)
+        public void SpawnNotes(string trackName, int[] notes, float startCompass = 0, float endCompass = 99999)
         {
-            this.midiDataAsset = midiDataAsset;
-            
             var track = midiDataAsset.GetByName(trackName);
             var openNotes = new Dictionary<int, MusicLaneNote>();
+
+            var compassDurationInTicks = midiDataAsset.ppq * 4;
+            
+            var startCompassInTicks = Mathf.RoundToInt(compassDurationInTicks * startCompass);
+            var endCompassInTicks = Mathf.RoundToInt(compassDurationInTicks * endCompass);
             
             foreach (var midiEvent in track.events)
             {
+                // ignore events outside valid compass
+                if (midiEvent.timeInTicks < startCompassInTicks || midiEvent.timeInTicks > endCompassInTicks)
+                {
+                    continue;
+                }
+                
                 if (midiEvent.type == MidiEventType.NoteOn)
                 {
                     var note = midiEvent.note;
@@ -48,7 +57,10 @@ namespace GBJAM12
                         noteInstance.SetActive(true);
 
                         var musicLaneNote = noteInstance.GetComponent<MusicLaneNote>();
+                        
                         musicLaneNote.midiEvent = midiEvent;
+                        musicLaneNote.durationInTicks = midiDataAsset.ppq / 2;
+                        
                         openNotes[note] = musicLaneNote;
                         
                         laneNotes.Add(musicLaneNote);

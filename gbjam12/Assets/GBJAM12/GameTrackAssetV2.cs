@@ -10,7 +10,8 @@ namespace GBJAM12
         [Serializable]
         public class LaneSegment
         {
-            public int startCompass;
+            public float startCompass;
+            public float endCompass;
             public GameTrackLaneAsset laneAsset;
         }
 

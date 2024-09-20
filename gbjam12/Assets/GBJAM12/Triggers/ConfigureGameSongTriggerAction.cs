@@ -21,7 +21,8 @@ namespace GBJAM12.Triggers
             for (var i = 0; i < lanes.Length; i++)
             {
                 var gameTrackLane = gameTrack.lanes[i];
-                lanes[i].SpawnNotes(gameTrack.midi, gameTrackLane.track, gameTrackLane.GetNotesArray());
+                lanes[i].midiDataAsset = gameTrack.midi;
+                lanes[i].SpawnNotes(gameTrackLane.track, gameTrackLane.GetNotesArray());
             }
 
             source.clip = gameTrack.song;
