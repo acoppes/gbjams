@@ -27,6 +27,7 @@ namespace GBJAM12
                 }
                 else
                 {
+                    lane.wasPressed = false;
                     lane.pressedBuffer -= Time.deltaTime;
                 }
             }

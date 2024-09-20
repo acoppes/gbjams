@@ -4,7 +4,6 @@ using System.Linq;
 using GBJAM12.Utilities;
 using MidiParser;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GBJAM12
 {
@@ -14,16 +13,19 @@ namespace GBJAM12
         
         public Transform notesParent;
         public GameObject notePrefab;
-
-        public Image inactiveImage;
-        public Image activeImage;
-
+        
         public AudioSource songAudioSource;
         private MidiDataAsset midiDataAsset;
 
         // [NonSerialized]
         public bool buttonPressed => pressedBuffer > 0;
 
+        [NonSerialized]
+        public bool wasPressed;
+
+        [NonSerialized]
+        public int pressedTimeInTicks;
+        
         [NonSerialized]
         public float pressedBuffer;
 
@@ -76,6 +78,20 @@ namespace GBJAM12
         
         public void Update()
         {
+            if (!wasPressed && buttonPressed)
+            {
+                wasPressed = true;
+
+                if (songAudioSource != null)
+                {
+                    pressedTimeInTicks = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * songAudioSource.time);
+                }
+
+            } else if (wasPressed && !buttonPressed)
+            {
+                wasPressed = false;
+            }
+            
             // updates scroll based on track position
             if (songAudioSource != null)
             {
@@ -88,10 +104,16 @@ namespace GBJAM12
                 {
                     // var noteInDistanceToActivate = Mathf.Abs(currentTick - note.midiEvent.timeInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
                     
-                    var noteInDistanceToActivate = Mathf.Abs(currentTick - musicLaneConfiguration.latencyOffsetInTicks - note.midiEvent.timeInTicks) <
-                                                   musicLaneConfiguration.noteTicksThresholdToPress;
+                    // var noteInDistanceToActivate = Mathf.Abs(currentTick - musicLaneConfiguration.latencyOffsetInTicks - note.midiEvent.timeInTicks) <
+                    //                                musicLaneConfiguration.noteTicksThresholdToPress;
+
+                    var distanceInTicks = pressedTimeInTicks - musicLaneConfiguration.latencyOffsetInTicks -
+                                          note.midiEvent.timeInTicks;
                     
-                    if (!note.isPressed && !note.wasActivated && buttonPressed && noteInDistanceToActivate)
+                    // I am before the note but inside some valid trheshold to activate?
+                    var inDistanceToPress = distanceInTicks < 0 && Mathf.Abs(distanceInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
+                    
+                    if (!note.isPressed && !note.wasActivated && buttonPressed && inDistanceToPress)
                     {
                         note.isPressed = true;
                         note.wasActivated = true;
@@ -108,9 +130,6 @@ namespace GBJAM12
                     }
                 }
             }
-
-            inactiveImage.enabled = !buttonPressed;
-            activeImage.enabled = buttonPressed;
         }
     }
 }
