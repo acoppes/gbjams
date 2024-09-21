@@ -6,7 +6,7 @@ namespace GBJAM12.Scenes
 {
     public class MainMenuController : MonoBehaviour
     {
-        // public string musicObjectName;
+        public string musicObjectName = "MainMenuMusic";
         
         public void FadeOutMusic()
         {
@@ -15,12 +15,13 @@ namespace GBJAM12.Scenes
 
         private IEnumerator FadeMusicAndDestroy()
         {
-            var bgMusic = FindAnyObjectByType<AudioSource>();
-            if (bgMusic)
+            var musicGameObject = GameObject.Find(musicObjectName);
+            if (musicGameObject)
             {
-                LeanTweenExtensions.fadeAudio(bgMusic, 1, 0, 0.5f);
+                var audioSource = musicGameObject.GetComponent<AudioSource>();
+                LeanTweenExtensions.fadeAudio(audioSource, 1, 0, 0.5f);
                 yield return new WaitForSeconds(0.5f);
-                GameObject.Destroy(bgMusic.gameObject);
+                GameObject.Destroy(musicGameObject);
             }
         } 
     }
