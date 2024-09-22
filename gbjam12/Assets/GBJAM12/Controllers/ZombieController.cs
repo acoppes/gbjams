@@ -14,22 +14,29 @@ namespace GBJAM12.Controllers
             ref var animations = ref entity.Get<AnimationsComponent>();
             
             var danceMoves = world.GetSingleton<DanceMovesComponent>();
-
-            if (danceMoves.d1)
+            
+            if (danceMoves.n1 && danceMoves.n2 && danceMoves.n3)
+            {
+                if (!animations.IsPlaying("D10"))
+                {
+                    animations.Play("D10");
+                }
+            }
+            else if (danceMoves.n1)
             {
                 if (!animations.IsPlaying("D1"))
                 {
                     animations.Play("D1");
                 }
             }
-            else if (danceMoves.d2)
+            else if (danceMoves.n2)
             {
                 if (!animations.IsPlaying("D2"))
                 {
                     animations.Play("D2");
                 }
             }
-            else if (danceMoves.d3)
+            else if (danceMoves.n3)
             {
                 if (!animations.IsPlaying("D3"))
                 {

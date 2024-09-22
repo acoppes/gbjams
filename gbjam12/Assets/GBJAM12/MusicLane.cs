@@ -21,7 +21,13 @@ namespace GBJAM12
         public bool pressed;
 
         [NonSerialized]
-        public int distanceToClosestIncomingNote;
+        private int distanceToClosestIncomingNote;
+
+        [NonSerialized]
+        public bool hasNotePlaying;
+        
+        [NonSerialized]
+        public int closestIncomingNoteDurationInTicks;
 
         [NonSerialized]
         public int pressedTimeInTicks;
@@ -30,6 +36,8 @@ namespace GBJAM12
         public float pressedBuffer;
 
         private List<MusicLaneNote> laneNotes = new List<MusicLaneNote>();
+
+        private int currentTick = 0;
         
         public void SpawnNotes(string trackName, int[] notes, float startCompass = 0, float endCompass = 99999)
         {
@@ -108,57 +116,70 @@ namespace GBJAM12
             // {
             //     wasPressed = false;
             // }
-            
-            // updates scroll based on track position
+
             if (songAudioSource != null && songAudioSource.isPlaying)
             {
                 var time = songAudioSource.time;
-                var currentTick = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * time);
+                currentTick = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * time);
+            }
 
-                notesParent.localPosition = new Vector3(0, -currentTick * musicLaneConfiguration.distancePerTick, 0);
+            // updates scroll based on track position
+            notesParent.localPosition = new Vector3(0, -currentTick * musicLaneConfiguration.distancePerTick, 0);
 
-                distanceToClosestIncomingNote = 9999;
+            distanceToClosestIncomingNote = 9999;
+
+            hasNotePlaying = false;
+            
+            foreach (var note in laneNotes)
+            {
+                var distanceToBePlayedInTicks = currentTick - musicLaneConfiguration.latencyOffsetInTicks -
+                                                note.midiEvent.timeInTicks;
                 
-                foreach (var note in laneNotes)
+                var distanceToEndInTicks = (currentTick - musicLaneConfiguration.latencyOffsetInTicks) -
+                                                (note.midiEvent.timeInTicks + note.durationInTicks);
+
+                if (distanceToBePlayedInTicks >= 0 && distanceToEndInTicks <= 0)
                 {
-                    var distanceToBePlayedInTicks = currentTick - musicLaneConfiguration.latencyOffsetInTicks -
-                                                    note.midiEvent.timeInTicks;
+                    // in the middle of the note, then best note
+                    hasNotePlaying = true;
+                    distanceToClosestIncomingNote = 0;
+                    closestIncomingNoteDurationInTicks = note.durationInTicks;
+                } else if (distanceToBePlayedInTicks < 0 && Mathf.Abs(distanceToBePlayedInTicks) < distanceToClosestIncomingNote)
+                {
+                    distanceToClosestIncomingNote = Mathf.Abs(distanceToBePlayedInTicks);
+                    closestIncomingNoteDurationInTicks = note.durationInTicks;
+                    hasNotePlaying = distanceToClosestIncomingNote < 240;
+                }
+                
+                // hasNoteInDistance = hasNoteInDistance || Mathf.Abs(distanceToBePlayedInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
+                
+                // var noteInDistanceToActivate = Mathf.Abs(currentTick - note.midiEvent.timeInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
+                
+                // var noteInDistanceToActivate = Mathf.Abs(currentTick - musicLaneConfiguration.latencyOffsetInTicks - note.midiEvent.timeInTicks) <
+                //                                musicLaneConfiguration.noteTicksThresholdToPress;
 
-                    if (distanceToBePlayedInTicks < 0 && Mathf.Abs(distanceToBePlayedInTicks) < distanceToClosestIncomingNote)
-                    {
-                        distanceToClosestIncomingNote = Mathf.Abs(distanceToBePlayedInTicks);
-                    }
-                    
-                    // hasNoteInDistance = hasNoteInDistance || Mathf.Abs(distanceToBePlayedInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
-                    
-                    // var noteInDistanceToActivate = Mathf.Abs(currentTick - note.midiEvent.timeInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
-                    
-                    // var noteInDistanceToActivate = Mathf.Abs(currentTick - musicLaneConfiguration.latencyOffsetInTicks - note.midiEvent.timeInTicks) <
-                    //                                musicLaneConfiguration.noteTicksThresholdToPress;
+                var distanceInTicks = pressedTimeInTicks - musicLaneConfiguration.latencyOffsetInTicks -
+                                      note.midiEvent.timeInTicks;
+                
+                // I am before the note but inside some valid trheshold to activate?
+                var inDistanceToPress = distanceInTicks < 0 && Mathf.Abs(distanceInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
 
-                    var distanceInTicks = pressedTimeInTicks - musicLaneConfiguration.latencyOffsetInTicks -
-                                          note.midiEvent.timeInTicks;
-                    
-                    // I am before the note but inside some valid trheshold to activate?
-                    var inDistanceToPress = distanceInTicks < 0 && Mathf.Abs(distanceInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
+                
+                
+                if (!note.isPressed && !note.wasActivated && pressed && inDistanceToPress)
+                {
+                    note.isPressed = true;
+                    note.wasActivated = true;
+                } else if (note.isPressed && !pressed)
+                {
+                    note.isPressed = false;
+                }
 
-                    
-                    
-                    if (!note.isPressed && !note.wasActivated && pressed && inDistanceToPress)
-                    {
-                        note.isPressed = true;
-                        note.wasActivated = true;
-                    } else if (note.isPressed && !pressed)
-                    {
-                        note.isPressed = false;
-                    }
-
-                    if (note.isPressed)
-                    {
-                        note.activeTicks = 0;
-                        var offset = currentTick - note.midiEvent.timeInTicks;
-                        note.activeTicks = Mathf.Max(0, Mathf.Min(offset, note.durationInTicks));
-                    }
+                if (note.isPressed)
+                {
+                    note.activeTicks = 0;
+                    var offset = currentTick - note.midiEvent.timeInTicks;
+                    note.activeTicks = Mathf.Max(0, Mathf.Min(offset, note.durationInTicks));
                 }
             }
         }
