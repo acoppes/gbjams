@@ -20,6 +20,9 @@ namespace GBJAM12
         [NonSerialized]
         public bool pressed;
 
+        // [NonSerialized]
+        public bool hasNoteInSkull => pressed;
+
         [NonSerialized]
         public int pressedTimeInTicks;
         
