@@ -62,6 +62,13 @@ namespace GBJAM12.Scenes
                     };
                 }
 
+                danceMoves.currentMistakes = 0;
+                
+                foreach (var lane in lanes)
+                {
+                    danceMoves.currentMistakes += lane.failedNotes;
+                }
+
                 mistakesUI.SetMistakes(danceMoves.totalMistakes, danceMoves.currentMistakes);
 
             }

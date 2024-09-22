@@ -30,5 +30,14 @@ namespace GBJAM12
 
         [NonSerialized]
         public int activeTicks = 0;
+
+        [NonSerialized]
+        public bool inDistanceToBePlayed;
+        
+        [NonSerialized]
+        public bool wasInDistanceToBePlayed;
+
+        [NonSerialized]
+        public bool failedToBePlayed;
     }
 }

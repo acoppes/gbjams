@@ -42,6 +42,9 @@ namespace GBJAM12
         private List<MusicLaneNote> laneNotes = new List<MusicLaneNote>();
 
         private int currentTick = 0;
+
+        [NonSerialized]
+        public int failedNotes;
         
         public void SpawnNotes(string trackName, int[] notes, float startCompass = 0, float endCompass = 99999)
         {
@@ -165,13 +168,13 @@ namespace GBJAM12
 
                 var distanceInTicks = pressedTimeInTicks - gameConfiguration.latencyOffsetInTicks -
                                       note.midiEvent.timeInTicks;
+
+                note.inDistanceToBePlayed = distanceToBePlayedInTicks < gameConfiguration.noteTicksThresholdToPress;
                 
                 // I am before the note but inside some valid trheshold to activate?
-                var inDistanceToPress = distanceInTicks < 0 && Mathf.Abs(distanceInTicks) < gameConfiguration.noteTicksThresholdToPress;
-
+                var inDistancePress = distanceInTicks < 0 && Mathf.Abs(distanceInTicks) < gameConfiguration.noteTicksThresholdToPress;
                 
-                
-                if (!note.isPressed && !note.wasActivated && pressed && inDistanceToPress)
+                if (!note.isPressed && !note.wasActivated && pressed && inDistancePress)
                 {
                     note.isPressed = true;
                     note.wasActivated = true;
@@ -186,6 +189,17 @@ namespace GBJAM12
                     var offset = currentTick - note.midiEvent.timeInTicks;
                     note.activeTicks = Mathf.Max(0, Mathf.Min(offset, note.durationInTicks));
                 }
+
+                if (note.wasInDistanceToBePlayed && !note.inDistanceToBePlayed)
+                {
+                    note.failedToBePlayed = !note.wasActivated;
+                    if (note.failedToBePlayed)
+                    {
+                        failedNotes++;
+                    }
+                }
+
+                note.wasInDistanceToBePlayed = note.inDistanceToBePlayed;
             }
         }
 
