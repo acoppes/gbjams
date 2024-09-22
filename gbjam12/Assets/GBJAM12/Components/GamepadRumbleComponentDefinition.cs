@@ -1,6 +1,6 @@
 ﻿using Gemserk.Leopotam.Ecs;
 
-namespace ShipMiner.Components
+namespace GBJAM12.Components
 {
     public struct GamepadRumbleComponent : IEntityComponent
     {

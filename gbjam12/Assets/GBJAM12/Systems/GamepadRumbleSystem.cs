@@ -1,8 +1,8 @@
-﻿using Gemserk.Leopotam.Ecs;
+﻿using GBJAM12.Components;
+using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using ShipMiner.Components;
 using UnityEngine.InputSystem;
 
 namespace ShipMiner.Systems
