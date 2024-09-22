@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace GBJAM12
 {
@@ -8,7 +9,7 @@ namespace GBJAM12
     {
         // public PlayerInput playerInput;
 
-        public MusicLaneConfiguration musicLaneConfiguration;
+        [FormerlySerializedAs("musicLaneConfiguration")] public GameConfiguration gameConfiguration;
         
         public List<InputActionReference> laneActions;
 
@@ -32,7 +33,7 @@ namespace GBJAM12
                     // {
                     //     lane.StorePressedInTicks();
                     // }
-                    lane.pressedBuffer = musicLaneConfiguration.pressedTimeBuffer;
+                    lane.pressedBuffer = gameConfiguration.pressedTimeBuffer;
                     lane.pressed = true;
                 }
                 else

@@ -8,7 +8,7 @@ namespace GBJAM12
 {
     public class MusicLaneNote : MonoBehaviour
     {
-        public MusicLaneConfiguration musicLaneConfiguration;
+        public GameConfiguration gameConfiguration;
         
         [NonSerialized]
         public int durationInTicks;

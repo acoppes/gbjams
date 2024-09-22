@@ -1089,6 +1089,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145904610}
   m_CullTransparentMesh: 1
+--- !u!21 &165577988
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FixedPalette
+  m_Shader: {fileID: 4800000, guid: 0795321b5b6f90c4da0f493727292381, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PaletteTex:
+        m_Texture: {fileID: 978931268}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &167333419
 GameObject:
   m_ObjectHideFlags: 0
@@ -2406,6 +2442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212c36cb14ce4e6fa89566f3251ea7aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameConfiguration: {fileID: 11400000, guid: 2a5c6a4d4ae3e45468a3310f3faa22de, type: 2}
   worldReference:
     type: 0
     name: 
@@ -2414,6 +2451,7 @@ MonoBehaviour:
   - {fileID: 2018282841}
   - {fileID: 1036669056}
   - {fileID: 1372723326}
+  source: {fileID: 1848935395}
 --- !u!1001 &320725062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3919,7 +3957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &555815728
 Transform:
   m_ObjectHideFlags: 0
@@ -6358,7 +6396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667b071088774ce887fb1f5c7a1ba028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicLaneConfiguration: {fileID: 11400000, guid: 2a5c6a4d4ae3e45468a3310f3faa22de, type: 2}
+  gameConfiguration: {fileID: 11400000, guid: 2a5c6a4d4ae3e45468a3310f3faa22de, type: 2}
   laneActions:
   - {fileID: -8757424000982464853, guid: a7551745de0f2504999aba85335d2165, type: 3}
   - {fileID: 5939831232789928535, guid: a7551745de0f2504999aba85335d2165, type: 3}
@@ -6678,6 +6716,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateType: 0
+--- !u!28 &978931268
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 4
+  m_Height: 1
+  m_CompleteImageSize: 16
+  m_MipsStripped: 0
+  m_TextureFormat: 5
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 1
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 16
+  _typelessdata: ff0d1a1aff5b8c7cffadd9bcfff2fff2
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1 &989626299
 GameObject:
   m_ObjectHideFlags: 0
@@ -7737,6 +7821,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1216547225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1216547226}
+  - component: {fileID: 1216547227}
+  m_Layer: 0
+  m_Name: UnityEvent(~GameController.SpawnCurrentLevel)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1216547226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216547225}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1541533927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1216547227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216547225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdde331268fd41c0b25ef44882ac0d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 310669890}
+        m_TargetAssemblyTypeName: GBJAM12.Scenes.GameController, Assembly-CSharp
+        m_MethodName: SpawnCurrentLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1224336266
 GameObject:
   m_ObjectHideFlags: 0
@@ -10151,6 +10294,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1216547226}
   - {fileID: 555815728}
   - {fileID: 507839372}
   m_Father: {fileID: 680663952}
@@ -10836,7 +10980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667b071088774ce887fb1f5c7a1ba028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicLaneConfiguration: {fileID: 11400000, guid: 2a5c6a4d4ae3e45468a3310f3faa22de, type: 2}
+  gameConfiguration: {fileID: 11400000, guid: 2a5c6a4d4ae3e45468a3310f3faa22de, type: 2}
   laneActions:
   - {fileID: -8757424000982464853, guid: a7551745de0f2504999aba85335d2165, type: 3}
   - {fileID: 5939831232789928535, guid: a7551745de0f2504999aba85335d2165, type: 3}
@@ -13497,7 +13641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667b071088774ce887fb1f5c7a1ba028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicLaneConfiguration: {fileID: 11400000, guid: 2a5c6a4d4ae3e45468a3310f3faa22de, type: 2}
+  gameConfiguration: {fileID: 11400000, guid: 2a5c6a4d4ae3e45468a3310f3faa22de, type: 2}
   laneActions:
   - {fileID: -8757424000982464853, guid: a7551745de0f2504999aba85335d2165, type: 3}
   - {fileID: 5939831232789928535, guid: a7551745de0f2504999aba85335d2165, type: 3}

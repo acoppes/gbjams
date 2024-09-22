@@ -4,12 +4,13 @@ using System.Linq;
 using GBJAM12.Utilities;
 using MidiParser;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GBJAM12
 {
     public class MusicLane : MonoBehaviour
     {
-        public MusicLaneConfiguration musicLaneConfiguration;
+        [FormerlySerializedAs("musicLaneConfiguration")] public GameConfiguration gameConfiguration;
         
         public Transform notesParent;
         public GameObject notePrefab;
@@ -67,7 +68,7 @@ namespace GBJAM12
                     {
                         var noteInstance = GameObject.Instantiate(notePrefab, notesParent);
                         noteInstance.transform.localPosition =
-                            new Vector3(0, (midiEvent.timeInTicks + musicLaneConfiguration.latencyOffsetInTicks) * musicLaneConfiguration.distancePerTick, 0);
+                            new Vector3(0, (midiEvent.timeInTicks + gameConfiguration.latencyOffsetInTicks) * gameConfiguration.distancePerTick, 0);
                         noteInstance.SetActive(true);
 
                         var musicLaneNote = noteInstance.GetComponent<MusicLaneNote>();
@@ -127,7 +128,7 @@ namespace GBJAM12
             }
 
             // updates scroll based on track position
-            notesParent.localPosition = new Vector3(0, -currentTick * musicLaneConfiguration.distancePerTick, 0);
+            notesParent.localPosition = new Vector3(0, -currentTick * gameConfiguration.distancePerTick, 0);
 
             distanceToClosestIncomingNote = 9999;
 
@@ -135,10 +136,10 @@ namespace GBJAM12
             
             foreach (var note in laneNotes)
             {
-                var distanceToBePlayedInTicks = currentTick - musicLaneConfiguration.latencyOffsetInTicks -
+                var distanceToBePlayedInTicks = currentTick - gameConfiguration.latencyOffsetInTicks -
                                                 note.midiEvent.timeInTicks;
                 
-                var distanceToEndInTicks = (currentTick - musicLaneConfiguration.latencyOffsetInTicks) -
+                var distanceToEndInTicks = (currentTick - gameConfiguration.latencyOffsetInTicks) -
                                                 (note.midiEvent.timeInTicks + note.durationInTicks);
 
                 if (distanceToBePlayedInTicks >= 0 && distanceToEndInTicks <= 0)
@@ -162,11 +163,11 @@ namespace GBJAM12
                 // var noteInDistanceToActivate = Mathf.Abs(currentTick - musicLaneConfiguration.latencyOffsetInTicks - note.midiEvent.timeInTicks) <
                 //                                musicLaneConfiguration.noteTicksThresholdToPress;
 
-                var distanceInTicks = pressedTimeInTicks - musicLaneConfiguration.latencyOffsetInTicks -
+                var distanceInTicks = pressedTimeInTicks - gameConfiguration.latencyOffsetInTicks -
                                       note.midiEvent.timeInTicks;
                 
                 // I am before the note but inside some valid trheshold to activate?
-                var inDistanceToPress = distanceInTicks < 0 && Mathf.Abs(distanceInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
+                var inDistanceToPress = distanceInTicks < 0 && Mathf.Abs(distanceInTicks) < gameConfiguration.noteTicksThresholdToPress;
 
                 
                 

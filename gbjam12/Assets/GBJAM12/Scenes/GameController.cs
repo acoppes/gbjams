@@ -1,15 +1,47 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Game;
 using GBJAM12.Components;
 using Gemserk.Leopotam.Ecs;
+using Gemserk.Utilities;
 using UnityEngine;
 
 namespace GBJAM12.Scenes
 {
+    
     public class GameController : MonoBehaviour
     {
+        public static int currentLevel;
+
+        public GameConfiguration gameConfiguration;
+        
         public WorldReference worldReference;
         public List<MusicLane> lanes;
+
+        public AudioSource source;
+        
+        // on start, spawn current level
+
+        public void SpawnCurrentLevel()
+        {
+            var gameTrack = gameConfiguration.levels[currentLevel].GetInterface<GameTrackAssetV2>();
+            
+            foreach (var t in lanes)
+            {
+                t.midiDataAsset = gameTrack.midi;
+            }
+            
+            foreach (var segment in gameTrack.segments)
+            {
+                for (var i = 0; i < lanes.Count; i++)
+                {
+                    var gameTrackLane = segment.laneAsset.lanes[i];
+                    lanes[i].SpawnNotes(gameTrackLane.track, gameTrackLane.GetNotesArray(), segment.startCompass, segment.endCompass);
+                }
+            }
+            
+            source.clip = gameTrack.song;
+        }
 
         private void Update()
         {

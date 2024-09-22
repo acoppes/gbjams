@@ -18,12 +18,12 @@ namespace GBJAM12
             activeDuration.gameObject.SetActive(false);
             activeNote.gameObject.SetActive(false);
             
-            if (note.durationInTicks >= note.musicLaneConfiguration.minDurationInTicksToShow)
+            if (note.durationInTicks >= note.gameConfiguration.minDurationInTicksToShow)
             {
                 inactiveDuration.gameObject.SetActive(true);
                 // activeDuration.gameObject.SetActive(true);
 
-                var durationHeight = note.musicLaneConfiguration.distancePerTick * (note.durationInTicks - note.musicLaneConfiguration.minDurationInTicksToShow);
+                var durationHeight = note.gameConfiguration.distancePerTick * (note.durationInTicks - note.gameConfiguration.minDurationInTicksToShow);
                 
                 inactiveDuration.rectTransform.SetHeight(durationHeight);
                 activeDuration.rectTransform.SetHeight(durationHeight);
@@ -34,10 +34,10 @@ namespace GBJAM12
         {
             activeNote.gameObject.SetActive(note.wasActivated);
             
-            if (note.activeTicks >= note.musicLaneConfiguration.minDurationInTicksToShow)
+            if (note.activeTicks >= note.gameConfiguration.minDurationInTicksToShow)
             {
                 activeDuration.gameObject.SetActive(true);
-                var durationHeight = note.musicLaneConfiguration.distancePerTick * (note.activeTicks - note.musicLaneConfiguration.minDurationInTicksToShow);
+                var durationHeight = note.gameConfiguration.distancePerTick * (note.activeTicks - note.gameConfiguration.minDurationInTicksToShow);
                 activeDuration.rectTransform.SetHeight(durationHeight);
             }
         }
