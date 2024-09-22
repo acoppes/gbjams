@@ -11,6 +11,8 @@ namespace GBJAM12.Scenes
         public WorldReference worldReference;
         public List<MusicLane> lanes;
 
+        public int distanceToPlayInTicks = 240;
+
         private void Update()
         {
             var world = worldReference.GetReference(gameObject);
@@ -18,9 +20,9 @@ namespace GBJAM12.Scenes
             if (world.TryGetSingletonEntity<DanceMovesComponent>(out var danceMovesEntity))
             {
                 ref var danceMoves = ref danceMovesEntity.Get<DanceMovesComponent>();
-                danceMoves.d1 = lanes[0].hasNoteInSkull;
-                danceMoves.d2 = lanes[1].hasNoteInSkull;
-                danceMoves.d3 = lanes[2].hasNoteInSkull;
+                danceMoves.d1 = lanes[0].distanceToClosestIncomingNote < distanceToPlayInTicks;
+                danceMoves.d2 = lanes[1].distanceToClosestIncomingNote < distanceToPlayInTicks;
+                danceMoves.d3 = lanes[2].distanceToClosestIncomingNote < distanceToPlayInTicks;
             }
         }
     }

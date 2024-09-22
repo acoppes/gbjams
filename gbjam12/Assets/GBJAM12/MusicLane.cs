@@ -20,8 +20,8 @@ namespace GBJAM12
         [NonSerialized]
         public bool pressed;
 
-        // [NonSerialized]
-        public bool hasNoteInSkull => pressed;
+        [NonSerialized]
+        public int distanceToClosestIncomingNote;
 
         [NonSerialized]
         public int pressedTimeInTicks;
@@ -116,9 +116,21 @@ namespace GBJAM12
                 var currentTick = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * time);
 
                 notesParent.localPosition = new Vector3(0, -currentTick * musicLaneConfiguration.distancePerTick, 0);
+
+                distanceToClosestIncomingNote = 9999;
                 
                 foreach (var note in laneNotes)
                 {
+                    var distanceToBePlayedInTicks = currentTick - musicLaneConfiguration.latencyOffsetInTicks -
+                                                    note.midiEvent.timeInTicks;
+
+                    if (distanceToBePlayedInTicks < 0 && Mathf.Abs(distanceToBePlayedInTicks) < distanceToClosestIncomingNote)
+                    {
+                        distanceToClosestIncomingNote = Mathf.Abs(distanceToBePlayedInTicks);
+                    }
+                    
+                    // hasNoteInDistance = hasNoteInDistance || Mathf.Abs(distanceToBePlayedInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
+                    
                     // var noteInDistanceToActivate = Mathf.Abs(currentTick - note.midiEvent.timeInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
                     
                     // var noteInDistanceToActivate = Mathf.Abs(currentTick - musicLaneConfiguration.latencyOffsetInTicks - note.midiEvent.timeInTicks) <
@@ -129,6 +141,8 @@ namespace GBJAM12
                     
                     // I am before the note but inside some valid trheshold to activate?
                     var inDistanceToPress = distanceInTicks < 0 && Mathf.Abs(distanceInTicks) < musicLaneConfiguration.noteTicksThresholdToPress;
+
+                    
                     
                     if (!note.isPressed && !note.wasActivated && pressed && inDistanceToPress)
                     {
