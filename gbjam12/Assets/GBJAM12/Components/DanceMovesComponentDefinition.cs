@@ -5,7 +5,7 @@ namespace GBJAM12.Components
     public struct IncomingNote
     {
         public bool hasIncomingNote;
-        // public int durationInTicks;
+        public int distanceToEndInTicks;
     }
     
     public struct DanceMovesComponent : IEntityComponent
@@ -15,6 +15,26 @@ namespace GBJAM12.Components
         public bool n1 => incomingNotes[0].hasIncomingNote;
         public bool n2 => incomingNotes[1].hasIncomingNote;
         public bool n3 => incomingNotes[2].hasIncomingNote;
+
+        public int GetLongerNote()
+        {
+            var longerNote = -1;
+            var note = -1;
+            
+            for (var i = 0; i < incomingNotes.Length; i++)
+            {
+                if (!incomingNotes[i].hasIncomingNote)
+                    continue;
+                
+                if (incomingNotes[i].distanceToEndInTicks > longerNote)
+                {
+                    longerNote = incomingNotes[i].distanceToEndInTicks;
+                    note = i;
+                }
+            }
+
+            return note;
+        }
         
     }
     

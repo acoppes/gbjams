@@ -24,6 +24,7 @@ namespace GBJAM12.Scenes
                     danceMoves.incomingNotes[i] = new IncomingNote()
                     {
                         hasIncomingNote = lanes[i].hasNotePlaying,
+                        distanceToEndInTicks = lanes[i].distanceToEndNoteInTicks
                         // durationInTicks = 960
                     };
                 }

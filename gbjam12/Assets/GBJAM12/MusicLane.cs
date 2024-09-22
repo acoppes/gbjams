@@ -27,6 +27,9 @@ namespace GBJAM12
         public bool hasNotePlaying;
         
         [NonSerialized]
+        public int distanceToEndNoteInTicks;
+        
+        [NonSerialized]
         public int closestIncomingNoteDurationInTicks;
 
         [NonSerialized]
@@ -144,6 +147,7 @@ namespace GBJAM12
                     hasNotePlaying = true;
                     distanceToClosestIncomingNote = 0;
                     closestIncomingNoteDurationInTicks = note.durationInTicks;
+                    distanceToEndNoteInTicks = distanceToEndInTicks;
                 } else if (distanceToBePlayedInTicks < 0 && Mathf.Abs(distanceToBePlayedInTicks) < distanceToClosestIncomingNote)
                 {
                     distanceToClosestIncomingNote = Mathf.Abs(distanceToBePlayedInTicks);
