@@ -6,6 +6,9 @@ namespace GBJAM12.Components
     {
         public bool hasIncomingNote;
         public int distanceToEndInTicks;
+
+        public int totalMistakes;
+        public int currentMistakes;
     }
     
     public struct DanceMovesComponent : IEntityComponent

@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5487187390920888873}
+  - component: {fileID: 3863548949880899141}
   - component: {fileID: 8588328624676624197}
+  - component: {fileID: 7063134528960705502}
   m_Layer: 0
   m_Name: MistakesUI
   m_TagString: Untagged
@@ -40,8 +42,21 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -15, y: 64}
-  m_SizeDelta: {x: 10, y: 14}
+  m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3863548949880899141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6829527834239835452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd3a8f0481142369e6be4ef43a51370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mistakeUIPrefab: {fileID: 169843373724899075, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
 --- !u!114 &8588328624676624197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +83,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &7063134528960705502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6829527834239835452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 1
+  m_VerticalFit: 0
 --- !u!1001 &436792912209672625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,7 +107,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 169843373724899075, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
       propertyPath: m_Name
-      value: MistakeJawUI (3)
+      value: MistakeJawUI
       objectReference: {fileID: 0}
     - target: {fileID: 3510879618672287347, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
       propertyPath: m_Pivot.x
@@ -180,7 +209,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 169843373724899075, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
       propertyPath: m_Name
-      value: MistakeJawUI (4)
+      value: MistakeJawUI
       objectReference: {fileID: 0}
     - target: {fileID: 3510879618672287347, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
       propertyPath: m_Pivot.x
@@ -282,7 +311,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 169843373724899075, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
       propertyPath: m_Name
-      value: MistakeJawUI (2)
+      value: MistakeJawUI
       objectReference: {fileID: 0}
     - target: {fileID: 3510879618672287347, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
       propertyPath: m_Pivot.x
@@ -384,7 +413,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 169843373724899075, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
       propertyPath: m_Name
-      value: MistakeJawUI (1)
+      value: MistakeJawUI
       objectReference: {fileID: 0}
     - target: {fileID: 3510879618672287347, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
       propertyPath: m_Pivot.x
@@ -588,7 +617,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 169843373724899075, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
       propertyPath: m_Name
-      value: MistakeJawUI (5)
+      value: MistakeJawUI
       objectReference: {fileID: 0}
     - target: {fileID: 3510879618672287347, guid: 4cb6c508a804a9246b53abdc39baee1c, type: 3}
       propertyPath: m_Pivot.x
