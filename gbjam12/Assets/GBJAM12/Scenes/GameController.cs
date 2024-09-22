@@ -19,7 +19,8 @@ namespace GBJAM12.Scenes
         public List<MusicLane> lanes;
 
         public AudioSource source;
-        
+
+        public MistakesUI mistakesUI;
         // on start, spawn current level
 
         public void SpawnCurrentLevel()
@@ -60,6 +61,9 @@ namespace GBJAM12.Scenes
                         // durationInTicks = 960
                     };
                 }
+
+                mistakesUI.SetMistakes(danceMoves.totalMistakes, danceMoves.currentMistakes);
+
             }
         }
     }

@@ -6,15 +6,15 @@ namespace GBJAM12.Components
     {
         public bool hasIncomingNote;
         public int distanceToEndInTicks;
-
-        public int totalMistakes;
-        public int currentMistakes;
     }
     
     public struct DanceMovesComponent : IEntityComponent
     {
         public IncomingNote[] incomingNotes;
 
+        public int totalMistakes;
+        public int currentMistakes;
+        
         public bool n1 => incomingNotes[0].hasIncomingNote;
         public bool n2 => incomingNotes[1].hasIncomingNote;
         public bool n3 => incomingNotes[2].hasIncomingNote;
@@ -43,11 +43,15 @@ namespace GBJAM12.Components
     
     public class DanceMovesComponentDefinition : ComponentDefinitionBase
     {
+        public int totalMistakes;
+        
         public override void Apply(World world, Entity entity)
         {
             entity.Add(new DanceMovesComponent()
             {
-                incomingNotes = new IncomingNote[3]
+                incomingNotes = new IncomingNote[3],
+                totalMistakes = totalMistakes,
+                currentMistakes = 0
             });
         }
     }
