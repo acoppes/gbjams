@@ -51,57 +51,6 @@ MonoBehaviour:
     notes: 84
   - track: PIANO2
     notes: 83
---- !u!1 &3289792616041000708
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2112359040181824773}
-  - component: {fileID: 7219062816930429804}
-  m_Layer: 0
-  m_Name: Melody1_2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2112359040181824773
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3289792616041000708}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8379579818668265758}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7219062816930429804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3289792616041000708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0557f64e03d842e9b81e13f1d21cc6fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lanes:
-  - track: MELODY1
-    notes: 84,80,70
-  - track: MELODY1
-    notes: 87,75,68
-  - track: MELODY1
-    notes: 79,72,67
 --- !u!1 &5438317338778952043
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +83,6 @@ Transform:
   m_Children:
   - {fileID: 8972207951245242439}
   - {fileID: 8104880559589595353}
-  - {fileID: 2112359040181824773}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-1897737929309807784
@@ -175,7 +123,7 @@ MonoBehaviour:
     laneAsset: {fileID: 2949484757779663599}
   - startCompass: 15
     endCompass: 20
-    laneAsset: {fileID: 7219062816930429804}
+    laneAsset: {fileID: 1656485650624445896}
   - startCompass: 20
     endCompass: 22
     laneAsset: {fileID: 1656485650624445896}
@@ -237,8 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lanes:
   - track: MELODY1
-    notes: 74,85,53
+    notes: 74,85,53,84,80,70
   - track: MELODY1
-    notes: 76,89,82,51
+    notes: 76,89,82,51,87,75,68
   - track: MELODY1
-    notes: 81,50,54
+    notes: 81,50,54,79,72,67
