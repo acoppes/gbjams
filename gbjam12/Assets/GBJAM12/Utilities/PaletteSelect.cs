@@ -27,7 +27,8 @@ namespace GBJAM12.Utilities
                 Keyboard.current.digit5Key,
                 Keyboard.current.digit6Key,
                 Keyboard.current.digit7Key,
-                Keyboard.current.digit8Key
+                Keyboard.current.digit8Key,
+                Keyboard.current.digit9Key,
             };
 
             for (var i = 0; i < keys.Length; i++)
