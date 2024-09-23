@@ -1661,6 +1661,52 @@ MonoBehaviour:
     name: 
     tag: 
   entityDefinition: {fileID: 1464201116831523547, guid: dd534cf01a3d2f14daed5572243bf508, type: 3}
+--- !u!28 &448824276
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 4
+  m_Height: 1
+  m_CompleteImageSize: 16
+  m_MipsStripped: 0
+  m_TextureFormat: 5
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 1
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 16
+  _typelessdata: ff0d1a1aff5b8c7cffadd9bcfff2fff2
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1 &485393119
 GameObject:
   m_ObjectHideFlags: 0
@@ -2482,6 +2528,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: LoadLevel
+--- !u!21 &650740944
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FixedPalette
+  m_Shader: {fileID: 4800000, guid: 0795321b5b6f90c4da0f493727292381, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PaletteTex:
+        m_Texture: {fileID: 448824276}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &680663951
 GameObject:
   m_ObjectHideFlags: 0
@@ -3533,42 +3615,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executionType: 0
   maxExecutions: 0
---- !u!21 &905800664
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: FixedPalette
-  m_Shader: {fileID: 4800000, guid: 0795321b5b6f90c4da0f493727292381, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _PaletteTex:
-        m_Texture: {fileID: 1670756159}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &928017428
 GameObject:
   m_ObjectHideFlags: 0
@@ -6903,52 +6949,6 @@ Transform:
   - {fileID: 2116749713}
   m_Father: {fileID: 9112942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!28 &1670756159
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 3
-  m_Width: 4
-  m_Height: 1
-  m_CompleteImageSize: 16
-  m_MipsStripped: 0
-  m_TextureFormat: 5
-  m_MipCount: 1
-  m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMipmapLimit: 1
-  m_MipmapLimitGroupName: 
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 0
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_LightmapFormat: 0
-  m_ColorSpace: 1
-  m_PlatformBlob: 
-  image data: 16
-  _typelessdata: ff0d1a1aff5b8c7cffadd9bcfff2fff2
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &1675523444
 GameObject:
   m_ObjectHideFlags: 0
@@ -8317,7 +8317,7 @@ GameObject:
   - component: {fileID: 2033595340}
   - component: {fileID: 2033595341}
   m_Layer: 0
-  m_Name: LoadScene(Splash)
+  m_Name: LoadScene(Victory)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8350,7 +8350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9488323bd61145df8786711264a8cabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Splash
+  sceneName: Victory
 --- !u!1 &2040354564
 GameObject:
   m_ObjectHideFlags: 0
