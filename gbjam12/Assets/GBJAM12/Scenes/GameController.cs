@@ -4,11 +4,11 @@ using Game;
 using GBJAM12.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Utilities;
+using Gemserk.Utilities.Signals;
 using UnityEngine;
 
 namespace GBJAM12.Scenes
 {
-    
     public class GameController : MonoBehaviour
     {
         public static int currentLevel;
@@ -22,6 +22,8 @@ namespace GBJAM12.Scenes
 
         public MistakesUI mistakesUI;
         // on start, spawn current level
+
+        public SignalAsset onAllMistakes;
 
         public void SpawnCurrentLevel()
         {
@@ -71,6 +73,12 @@ namespace GBJAM12.Scenes
 
                 mistakesUI.SetMistakes(danceMoves.totalMistakes, danceMoves.currentMistakes);
 
+                if (danceMoves.previousMistakes < danceMoves.totalMistakes && danceMoves.currentMistakes >= danceMoves.totalMistakes)
+                {
+                    onAllMistakes.Signal(danceMovesEntity);
+                }
+                
+                danceMoves.previousMistakes = danceMoves.currentMistakes;
             }
         }
     }

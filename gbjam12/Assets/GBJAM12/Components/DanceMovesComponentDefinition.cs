@@ -14,6 +14,7 @@ namespace GBJAM12.Components
 
         public int totalMistakes;
         public int currentMistakes;
+        public int previousMistakes;
         
         public bool n1 => incomingNotes[0].hasIncomingNote;
         public bool n2 => incomingNotes[1].hasIncomingNote;
