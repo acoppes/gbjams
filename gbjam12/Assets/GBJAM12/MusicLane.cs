@@ -105,7 +105,10 @@ namespace GBJAM12
         
         public void StorePressedInTicks()
         {
-            pressedTimeInTicks = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * songAudioSource.time);
+            if (midiDataAsset && songAudioSource)
+            {
+                pressedTimeInTicks = Mathf.RoundToInt(midiDataAsset.ticksPerSecond * songAudioSource.time);
+            }
         }
         
         public void Update()
