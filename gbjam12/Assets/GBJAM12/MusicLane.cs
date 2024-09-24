@@ -17,6 +17,8 @@ namespace GBJAM12
         
         public AudioSource songAudioSource;
         public MidiDataAsset midiDataAsset;
+        
+        public PlayerStatus playerStatus;
 
         [NonSerialized]
         public bool pressed;
@@ -42,9 +44,6 @@ namespace GBJAM12
         private List<MusicLaneNote> laneNotes = new List<MusicLaneNote>();
 
         private int currentTick = 0;
-
-        [NonSerialized]
-        public int failedNotes;
         
         public void SpawnNotes(string trackName, int[] notes, float startCompass = 0, float endCompass = 99999)
         {
@@ -181,6 +180,8 @@ namespace GBJAM12
                 {
                     note.isPressed = true;
                     note.wasActivated = true;
+                    
+                    playerStatus.OnCompletedNote();
                 } else if (note.isPressed && !pressed)
                 {
                     note.isPressed = false;
@@ -198,7 +199,7 @@ namespace GBJAM12
                     note.failedToBePlayed = !note.wasActivated;
                     if (note.failedToBePlayed)
                     {
-                        failedNotes++;
+                        playerStatus.OnFailedNote();
                     }
                 }
 

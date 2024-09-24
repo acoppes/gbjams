@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Game;
 using GBJAM12.Components;
 using Gemserk.Leopotam.Ecs;
@@ -16,6 +15,8 @@ namespace GBJAM12.Scenes
         public GameConfiguration gameConfiguration;
         
         public WorldReference worldReference;
+
+        public PlayerStatus playerStatus;
         public List<MusicLane> lanes;
 
         public AudioSource source;
@@ -65,12 +66,7 @@ namespace GBJAM12.Scenes
                     };
                 }
 
-                danceMoves.currentMistakes = 0;
-                
-                foreach (var lane in lanes)
-                {
-                    danceMoves.currentMistakes += lane.failedNotes;
-                }
+                danceMoves.currentMistakes = playerStatus.failedNotes;
 
                 mistakesUI.SetMistakes(danceMoves.totalMistakes, danceMoves.currentMistakes);
 
