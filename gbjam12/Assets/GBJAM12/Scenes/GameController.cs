@@ -24,6 +24,7 @@ namespace GBJAM12.Scenes
         // on start, spawn current level
 
         public SignalAsset onAllMistakes;
+        public SignalAsset onMistakeSignal;
 
         public void SpawnCurrentLevel()
         {
@@ -72,6 +73,11 @@ namespace GBJAM12.Scenes
                 }
 
                 mistakesUI.SetMistakes(danceMoves.totalMistakes, danceMoves.currentMistakes);
+
+                if (danceMoves.previousMistakes < danceMoves.currentMistakes)
+                {
+                    onMistakeSignal.Signal(danceMovesEntity);
+                }
 
                 if (danceMoves.previousMistakes < danceMoves.totalMistakes && danceMoves.currentMistakes >= danceMoves.totalMistakes)
                 {
