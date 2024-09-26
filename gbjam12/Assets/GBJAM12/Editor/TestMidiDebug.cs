@@ -82,9 +82,13 @@ namespace GBJAM12.Editor
 
             MidiDataAsset midiData = null;
 
-            if (selectedObject is GameTrackAssetV2 gameTrack)
+            if (selectedObject is GameObject gameObject)
             {
-                midiData = gameTrack.midi;
+                var gameTrack = gameObject.GetComponent<GameTrackAssetV2>();
+                if (gameTrack != null)
+                {
+                    midiData = gameTrack.midi;
+                }
             }
             
             if (selectedObject is MidiDataAsset asset)

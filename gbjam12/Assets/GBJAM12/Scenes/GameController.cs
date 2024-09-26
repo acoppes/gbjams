@@ -63,7 +63,7 @@ namespace GBJAM12.Scenes
                 
                 if (currentCompass != compass)
                 {
-                    Debug.Log($"COMPASS CHANGE: {compass}");
+                    Debug.Log($"COMPASS CHANGE: {compass}, {time}s");
                     currentCompass = compass;
                 }
             }
