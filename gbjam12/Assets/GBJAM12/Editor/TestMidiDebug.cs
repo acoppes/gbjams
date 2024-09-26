@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GBJAM12.Utilities;
 using MidiParser;
 using Newtonsoft.Json;
 using UnityEditor;
@@ -71,8 +72,57 @@ namespace GBJAM12.Editor
                     // var json = JsonConvert.SerializeObject(midiFile, Formatting.Indented);
                     Debug.Log($"{trackName}: [{string.Join(',', notes)}]");
                 }
-                
-                
+            }
+        }
+        
+        [MenuItem("GBJAM/Print Notes Per Track Per Compass")]
+        public static void PrintNotesPerTrackPerCompass()
+        {
+            var selectedObject = Selection.activeObject;
+
+            MidiDataAsset midiData = null;
+
+            if (selectedObject is GameTrackAssetV2 gameTrack)
+            {
+                midiData = gameTrack.midi;
+            }
+            
+            if (selectedObject is MidiDataAsset asset)
+            {
+                midiData = asset;
+            }
+
+            if (!midiData)
+                return;
+            
+            foreach (var track in midiData.tracks)
+            {
+                var compass = 0;
+
+                var notes = new HashSet<int>();
+                    
+                foreach (var midiEvent in track.events)
+                {
+                    var eventCompass = midiData.GetCurrentCompass(midiEvent.timeInTicks);
+
+                    if (eventCompass != compass)
+                    {
+                        // var json = JsonConvert.SerializeObject(midiFile, Formatting.Indented);
+                        Debug.Log($"{track.name}:{compass} [{string.Join(',', notes)}]");
+                        notes = new HashSet<int>();
+                        compass = eventCompass;
+                    }
+                            
+                    if (midiEvent.type == MidiEventType.NoteOn || midiEvent.type == MidiEventType.NoteOff)
+                    {
+                        notes.Add(midiEvent.note);
+                    }
+                }
+                    
+                if (notes.Count > 0)
+                {
+                    Debug.Log($"{track.name}:{compass} => [{string.Join(',', notes)}]");
+                }
             }
         }
         

@@ -62,5 +62,19 @@ namespace GBJAM12.Utilities
         {
             return tracks.FirstOrDefault(t => t.name.Equals(trackName, StringComparison.OrdinalIgnoreCase));
         }
+
+        public int GetCompassStartInTicks(int compass)
+        {
+            var compassDurationInTicks = ppq * 4;
+            var ticks = Mathf.RoundToInt(compassDurationInTicks * compass);
+            return ticks;
+        }
+        
+        public int GetCurrentCompass(int ticks)
+        {
+            var compassDurationInTicks = ppq * 4;
+            var compass = Mathf.FloorToInt(ticks / (float) compassDurationInTicks);
+            return compass;
+        }
     }
 }

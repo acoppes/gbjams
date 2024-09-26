@@ -27,9 +27,13 @@ namespace GBJAM12.Scenes
         public SignalAsset onAllMistakes;
         public SignalAsset onMistakeSignal;
 
+        private GameTrackAssetV2 gameTrack;
+
+        private int currentCompass = -1;
+
         public void SpawnCurrentLevel()
         {
-            var gameTrack = gameConfiguration.levels[currentLevel].GetInterface<GameTrackAssetV2>();
+            gameTrack = gameConfiguration.levels[currentLevel].GetInterface<GameTrackAssetV2>();
             
             foreach (var t in lanes)
             {
@@ -50,6 +54,20 @@ namespace GBJAM12.Scenes
 
         private void Update()
         {
+            // Debug compass changes
+            if (source != null && source.isPlaying)
+            {
+                var time = source.time;
+                var currentTick = Mathf.RoundToInt(gameTrack.midi.ticksPerSecond * time);
+                var compass = gameTrack.midi.GetCurrentCompass(currentTick);
+                
+                if (currentCompass != compass)
+                {
+                    Debug.Log($"COMPASS CHANGE: {compass}");
+                    currentCompass = compass;
+                }
+            }
+            
             var world = worldReference.GetReference(gameObject);
 
             if (world.TryGetSingletonEntity<DanceMovesComponent>(out var danceMovesEntity))
