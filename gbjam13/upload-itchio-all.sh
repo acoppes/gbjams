@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT_NAME=gbjam12
+PROJECT_NAME=gbjam13
 export GEMSERK_PROJECT_NAME=${PROJECT_NAME,,}
 
 butler.exe push --ignore "*_DoNotShip" builds/$GEMSERK_PROJECT_NAME/html5 arielsan/$GEMSERK_PROJECT_NAME:html5-latest
