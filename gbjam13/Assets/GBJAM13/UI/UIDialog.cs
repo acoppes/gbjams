@@ -1,21 +1,30 @@
 using System.Collections;
 using Game.Screens;
+using Gemserk.Utilities.UI;
 using UnityEngine;
 
 namespace GBJAM13.UI
 {
-    public class DialogUI : MonoBehaviour
+    public class UIDialog : MonoBehaviour
     {
+        public UIWindow window;
         public TextView dialogTextView;
 
         public float textSpeed = 1f;
-
+        
         private Coroutine showTextCoroutine;
 
         private string dialogText;
 
+        private void Awake()
+        {
+            window.onCloseAction.AddListener(Hide);
+        }
+
         public void ShowText(string text)
         {
+            window.Open();
+            
             dialogText = text;
             
             if (showTextCoroutine != null)
@@ -25,6 +34,15 @@ namespace GBJAM13.UI
             
             // ideally show step by step...
             showTextCoroutine = StartCoroutine(ShowTextOverTime());
+        }
+
+        private void Hide()
+        {
+            if (showTextCoroutine != null)
+            {
+                StopCoroutine(showTextCoroutine);
+            }
+            dialogTextView.SetText(string.Empty);
         }
 
         public void ForceComplete()

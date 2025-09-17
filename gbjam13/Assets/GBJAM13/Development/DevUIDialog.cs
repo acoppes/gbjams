@@ -1,32 +1,28 @@
-﻿using System;
-using GBJAM13.UI;
+﻿using GBJAM13.UI;
 using MyBox;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GBJAM13.Development
 {
-    public class DevDialogUI : MonoBehaviour
+    public class DevUIDialog : MonoBehaviour
     {
         [TextArea(2, 5)]
         public string text;
 
-        public DialogUI dialogUI;
-
-        private void Start()
-        {
-            ShowText();
-        }
+        [FormerlySerializedAs("dialogUI")] 
+        public UIDialog uiDialog;
 
         [ButtonMethod]
         public void ShowText()
         {
-            dialogUI.ShowText(text);
+            uiDialog.ShowText(text);
         }
 
         [ButtonMethod]
         public void ForceComplete()
         {
-            dialogUI.ForceComplete();
+            uiDialog.ForceComplete();
         }
     }
 }
