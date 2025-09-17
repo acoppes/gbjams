@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using Game.Components;
 using Game.Screens;
 using Gemserk.Utilities.UI;
+using MyBox;
 using UnityEngine;
 
 namespace GBJAM13.UI
@@ -13,13 +15,16 @@ namespace GBJAM13.UI
 
         public float textSpeed = 1f;
 
+        public AudioSource audioSource;
+        public SoundEffectAsset typeSoundEffect;
+
         [NonSerialized]
         public bool completed;
         
         private Coroutine showTextCoroutine;
 
         private string dialogText = string.Empty;
-
+        
         private void Awake()
         {
             window.onCloseAction.AddListener(Hide);
@@ -84,10 +89,23 @@ namespace GBJAM13.UI
             for (var i = start; i <= dialogText.Length; i++)
             {
                 dialogTextView.SetText(dialogText.Substring(0, i));
+                PlaySound(typeSoundEffect);
                 yield return new WaitForSeconds(textSpeed);
             }
             showTextCoroutine = null;
             completed = true;
+        }
+        
+        private void PlaySound(SoundEffectAsset asset)
+        {
+            if (!audioSource)
+                return;
+            
+            audioSource.pitch = asset.randomPitch.RandomInRange();
+            audioSource.clip = asset.clips.GetRandom();
+            audioSource.volume = asset.volume;
+            audioSource.outputAudioMixerGroup = asset.mixerGroup;
+            audioSource.PlayOneShot(asset.clips.GetRandom());
         }
     }
 }
