@@ -20,6 +20,11 @@ namespace GBJAM13.UI
 
         [NonSerialized]
         public bool completed;
+
+        [NonSerialized]
+        public bool waiting;
+
+        public GameObject waitingButton;
         
         private Coroutine showTextCoroutine;
 
@@ -28,11 +33,15 @@ namespace GBJAM13.UI
         private void Awake()
         {
             window.onCloseAction.AddListener(Hide);
+            waitingButton.SetActive(false);
         }
 
         public void ShowText(string text)
         {
+            waitingButton.SetActive(false);
+            
             completed = false;
+            waiting = false;
             
             window.Open();
             
@@ -49,8 +58,11 @@ namespace GBJAM13.UI
         
         public void AppendText(string text)
         {
+            waitingButton.SetActive(false);
+            
             // I assume it already started
             completed = false;
+            waiting = false;
             
             var currentLength = dialogText.Length;
             
@@ -82,6 +94,14 @@ namespace GBJAM13.UI
             }
             dialogTextView.SetText(dialogText);
             completed = true;
+            waiting = true;
+            
+            waitingButton.SetActive(true);
+        }
+
+        public void CompleteWaiting()
+        {
+            waiting = false;
         }
 
         private IEnumerator ShowTextOverTime(int start)
@@ -94,6 +114,9 @@ namespace GBJAM13.UI
             }
             showTextCoroutine = null;
             completed = true;
+            waiting = true;
+            
+            waitingButton.SetActive(true);
         }
         
         private void PlaySound(SoundEffectAsset asset)

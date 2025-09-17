@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace GBJAM13.UI
@@ -30,6 +29,10 @@ namespace GBJAM13.UI
             if (!uiDialog.completed)
             {
                 uiDialog.ForceComplete();
+            }
+            else
+            {
+                uiDialog.CompleteWaiting();
             }
         }
     }

@@ -9,7 +9,7 @@ namespace GBJAM13.Triggers.Actions
         {
             var dialog = FindFirstObjectByType<UIDialog>();
             
-            if (dialog && dialog.completed)
+            if (dialog && dialog.completed && !dialog.waiting)
             {
                 return ITrigger.ExecutionResult.Completed;
             }
