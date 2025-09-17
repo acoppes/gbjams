@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Game.Screens;
 using Gemserk.Utilities.UI;
@@ -11,10 +12,13 @@ namespace GBJAM13.UI
         public TextView dialogTextView;
 
         public float textSpeed = 1f;
+
+        [NonSerialized]
+        public bool completed;
         
         private Coroutine showTextCoroutine;
 
-        private string dialogText;
+        private string dialogText = string.Empty;
 
         private void Awake()
         {
@@ -23,6 +27,8 @@ namespace GBJAM13.UI
 
         public void ShowText(string text)
         {
+            completed = false;
+            
             window.Open();
             
             dialogText = text;
@@ -33,7 +39,25 @@ namespace GBJAM13.UI
             }
             
             // ideally show step by step...
-            showTextCoroutine = StartCoroutine(ShowTextOverTime());
+            showTextCoroutine = StartCoroutine(ShowTextOverTime(1));
+        }
+        
+        public void AppendText(string text)
+        {
+            // I assume it already started
+            completed = false;
+            
+            var currentLength = dialogText.Length;
+            
+            dialogText += text;
+            
+            if (showTextCoroutine != null)
+            {
+                StopCoroutine(showTextCoroutine);
+            }
+            
+            // ideally show step by step...
+            showTextCoroutine = StartCoroutine(ShowTextOverTime(currentLength));
         }
 
         private void Hide()
@@ -52,16 +76,18 @@ namespace GBJAM13.UI
                 StopCoroutine(showTextCoroutine);
             }
             dialogTextView.SetText(dialogText);
+            completed = true;
         }
 
-        private IEnumerator ShowTextOverTime()
+        private IEnumerator ShowTextOverTime(int start)
         {
-            for (var i = 0; i <= dialogText.Length; i++)
+            for (var i = start; i <= dialogText.Length; i++)
             {
                 dialogTextView.SetText(dialogText.Substring(0, i));
                 yield return new WaitForSeconds(textSpeed);
             }
             showTextCoroutine = null;
+            completed = true;
         }
     }
 }
