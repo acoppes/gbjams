@@ -1,4 +1,5 @@
 ﻿using System;
+using GBJAM13.Components;
 using Gemserk.Leopotam.Ecs;
 using MyBox;
 using UnityEngine;
@@ -39,12 +40,19 @@ namespace GBJAM13
                         {
                             var nodeEntity = world.CreateEntity(wormHoleDefinition);
                             nodeEntity.Get<PositionComponent>().value = transform.position.ToVector2() + nodePosition;
+
+                            nodeEntity.Get<MapElementComponent>().type = node.type;
+                            nodeEntity.Get<MapElementComponent>().element = node.element;
                         }
-                        
-                        if (node.type.Equals("planet", StringComparison.OrdinalIgnoreCase))
+
+                        if (!string.IsNullOrEmpty(node.type) &&
+                            !node.type.Equals("empty", StringComparison.OrdinalIgnoreCase))
                         {
                             var nodeEntity = world.CreateEntity(mapPlanetDefinition);
                             nodeEntity.Get<PositionComponent>().value = transform.position.ToVector2() + nodePosition;
+                            
+                            nodeEntity.Get<MapElementComponent>().type = node.type;
+                            nodeEntity.Get<MapElementComponent>().element = node.element;
                         }
                     }
 

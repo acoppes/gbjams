@@ -219,8 +219,9 @@ GameObject:
   - component: {fileID: 169986075}
   - component: {fileID: 169986074}
   - component: {fileID: 169986073}
+  - component: {fileID: 169986077}
   m_Layer: 0
-  m_Name: Map_Planet_Definition
+  m_Name: Map_Element_Definition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -255,8 +256,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game::Game.Components.AnimationsComponentDefinition
   animationsAsset: {fileID: 11400000, guid: add03f6ef7625ec44be106ba664d60eb, type: 2}
   spritesMetadata: {fileID: 0}
-  startingAnimationType: 1
-  defaultAnimation: planets
+  startingAnimationType: 0
+  defaultAnimation: planet1
   randomizeStartFrame: 1
   defaultAnimationLoop: 0
   hasMultipleDirectionsPerAnimation: 0
@@ -306,6 +307,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce8e965ed40431e993ca1982c595d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.ObjectEntityDefinition
+--- !u!114 &169986077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169986071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d681e54e9ec14b5c86e749fd9f7cbd14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Components.MapElementComponentDefinition
 --- !u!1 &198756729
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +492,7 @@ GameObject:
   - component: {fileID: 455622531}
   - component: {fileID: 455622532}
   - component: {fileID: 455622533}
+  - component: {fileID: 455622534}
   m_Layer: 0
   m_Name: Map_Wormhole_Definition
   m_TagString: Untagged
@@ -566,6 +580,18 @@ MonoBehaviour:
   randomizeStartFrame: 0
   defaultAnimationLoop: 1
   hasMultipleDirectionsPerAnimation: 0
+--- !u!114 &455622534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455622528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d681e54e9ec14b5c86e749fd9f7cbd14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Components.MapElementComponentDefinition
 --- !u!1 &470345183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,10 +1120,46 @@ MonoBehaviour:
     name: 
     tag: 
   data:
-    wormHoleType: wormhole
+    wormHoleType:
+      type: wormhole
+      disableTravel: 0
+      element:
+      - wormhole
     otherTypes:
-    - planet
-    - empty
+    - type: planet
+      disableTravel: 0
+      element:
+      - planet1
+      - planet2
+      - planet3
+      - planet4
+    - type: asteroids
+      disableTravel: 0
+      element:
+      - asteroids1
+      - asteroids2
+      - asteroids3
+    - type: ships
+      disableTravel: 0
+      element:
+      - ships1
+      - ships2
+      - ships3
+    - type: ships
+      disableTravel: 0
+      element:
+      - asteroids1
+      - asteroids2
+      - asteroids3
+    - type: empty
+      disableTravel: 1
+      element:
+      - empty
+    - type: empty
+      disableTravel: 1
+      element:
+      - empty
+    maxColumnDistance: 1
   totalJumps: 6
   wormHoleDefinition: {fileID: 455622528}
   mapPlanetDefinition: {fileID: 169986071}

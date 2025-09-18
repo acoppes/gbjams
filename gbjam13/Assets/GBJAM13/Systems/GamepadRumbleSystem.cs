@@ -5,7 +5,7 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine.InputSystem;
 
-namespace ShipMiner.Systems
+namespace GBJAM13.Systems
 {
     public class GamepadRumbleSystem : BaseSystem, IEcsRunSystem
     {
