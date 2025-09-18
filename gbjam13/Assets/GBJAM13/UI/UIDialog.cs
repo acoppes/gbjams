@@ -50,6 +50,7 @@ namespace GBJAM13.UI
             if (showTextCoroutine != null)
             {
                 StopCoroutine(showTextCoroutine);
+                showTextCoroutine = null;
             }
             
             // ideally show step by step...
@@ -71,6 +72,7 @@ namespace GBJAM13.UI
             if (showTextCoroutine != null)
             {
                 StopCoroutine(showTextCoroutine);
+                showTextCoroutine = null;
             }
             
             // ideally show step by step...
@@ -82,7 +84,9 @@ namespace GBJAM13.UI
             if (showTextCoroutine != null)
             {
                 StopCoroutine(showTextCoroutine);
+                showTextCoroutine = null;
             }
+            
             dialogTextView.SetText(string.Empty);
         }
 
@@ -91,7 +95,9 @@ namespace GBJAM13.UI
             if (showTextCoroutine != null)
             {
                 StopCoroutine(showTextCoroutine);
+                showTextCoroutine = null;
             }
+            
             dialogTextView.SetText(dialogText);
             completed = true;
             waiting = true;

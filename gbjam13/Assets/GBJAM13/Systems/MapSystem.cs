@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GBJAM13.Systems
 {
-    public class MapDestinationSystem : BaseSystem, IEcsRunSystem
+    public class MapSystem : BaseSystem, IEcsRunSystem
     {
         readonly EcsFilterInject<Inc<MapElementComponent, AnimationsComponent>, Exc<DisabledComponent>> 
             filter = default;

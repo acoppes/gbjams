@@ -1,0 +1,21 @@
+﻿using UnityEngine;
+using UnityEngine.Events;
+
+namespace GBJAM13
+{
+    public class MapGeneratorSceneController : MonoBehaviour
+    {
+        public GalaxyGenerator.GalaxyGeneratorData data;
+
+        public UnityEvent onMapGenerated;
+        
+        public void GenerateGalaxyMap()
+        {
+            var galaxyGenerator = new GalaxyGenerator();
+            GameParameters.galaxyData = galaxyGenerator.GenerateGalaxy(data, GameParameters.totalJumps);
+            onMapGenerated.Invoke();
+        }
+        
+        // TODO: not sure if generation should be slow or not, might be generated over time or something
+    }
+}

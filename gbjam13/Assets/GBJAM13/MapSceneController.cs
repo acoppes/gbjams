@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Scenes;
 using GBJAM13.Components;
 using Gemserk.Leopotam.Ecs;
 using MyBox;
@@ -7,23 +8,26 @@ using Object = UnityEngine.Object;
 
 namespace GBJAM13
 {
-    public class GalaxyGeneratorController : MonoBehaviour
+    public class MapSceneController : MonoBehaviour
     {
         public WorldReference worldReference;
         
-        public GalaxyGenerator.GalaxyGeneratorData data;
-        public int totalJumps;
-
         [EntityDefinition] 
         public Object mapPlanetDefinition;
 
         public Vector2 separation;
         
-        public void GenerateGalaxy()
+        public void GenerateMapFromData()
         {
-            var galaxyGenerator = new GalaxyGenerator();
-            var generatedGalaxy = galaxyGenerator.GenerateGalaxy(data, totalJumps);
+            var generatedGalaxy = GameParameters.galaxyData;
 
+            if (GameParameters.galaxyData == null)
+            {
+                GameParameters.totalJumps = GameParameters.DefaultTotalJumps;
+                GameSceneLoader.LoadNextScene("MapGenerator");
+                return;
+            }
+            
             var world = worldReference.GetReference(gameObject);
             var nodePosition = new Vector2();
             
@@ -33,15 +37,6 @@ namespace GBJAM13
                 {
                     if (node != null)
                     {
-                        // if (node.type.Equals("wormhole", StringComparison.OrdinalIgnoreCase))
-                        // {
-                        //     var nodeEntity = world.CreateEntity(wormHoleDefinition);
-                        //     nodeEntity.Get<PositionComponent>().value = transform.position.ToVector2() + nodePosition;
-                        //
-                        //     nodeEntity.Get<MapElementComponent>().type = node.type;
-                        //     nodeEntity.Get<MapElementComponent>().element = node.element;
-                        // }
-
                         if (!string.IsNullOrEmpty(node.type) &&
                             !node.type.Equals("empty", StringComparison.OrdinalIgnoreCase))
                         {
