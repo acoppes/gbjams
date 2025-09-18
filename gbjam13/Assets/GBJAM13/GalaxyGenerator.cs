@@ -160,6 +160,7 @@ namespace GBJAM13
             // prune forward
 
             PruneNodes(galaxy, generatorData.maxColumnDistance, true);
+            PruneNodes(galaxy, generatorData.maxColumnDistance, false);
 
             return galaxy;
         }
@@ -210,6 +211,7 @@ namespace GBJAM13
 
                     if (UnityEngine.Random.Range(0f, 1f) < chance)
                     {
+                        Debug.Log($"NODE [{i},{j}] REMOVED BECAUSE EMPTY CHANCE");
                         galaxy.columns[i].nodes[j] = null;
                     }
                 }
@@ -218,45 +220,71 @@ namespace GBJAM13
 
         public void PruneNodes(GalaxyData galaxy, int maxColumnDistance, bool forward)
         {
-            var start = 1;
-            var end = galaxy.columns.Length - 1;
-            var direction = 1;
-
-            // if (!forward)
-            // {
-            //     start = end;
-            //     var end = galaxy.columns.Length - 1;
-            //     var direction = 1;
-            // }
-            
-            for (var i = start; i < end; i += direction)
+            if (forward)
             {
-                var column = galaxy.columns[i];
-                var previousColumn = galaxy.columns[i - direction];
-            
-                for (var j = 0; j < GalaxyData.GalaxyColumn.RowsPerColumn; j++)
+                for (var i = 1; i < galaxy.columns.Length - 1; i++)
                 {
-                    var hasConnectionFromPreviousColumn = false;
+                    var column = galaxy.columns[i];
+                    var previousColumn = galaxy.columns[i - 1];
+            
+                    for (var j = 0; j < GalaxyData.GalaxyColumn.RowsPerColumn; j++)
+                    {
+                        var hasConnection = false;
                     
-                    for (var k = j - maxColumnDistance; k <= j + maxColumnDistance; k++)
-                    {
-                        // k outside valid ranges
-                        if (k < 0 || k >= GalaxyData.GalaxyColumn.RowsPerColumn)
-                            continue;
-            
-                        if (previousColumn.nodes[k] == null)
+                        for (var k = j - maxColumnDistance; k <= j + maxColumnDistance; k++)
                         {
-                            continue;
-                        }
-                        
-                        hasConnectionFromPreviousColumn = true;
-                        break;
-                    }
+                            // k outside valid ranges
+                            if (k < 0 || k >= GalaxyData.GalaxyColumn.RowsPerColumn)
+                                continue;
             
-                    if (!hasConnectionFromPreviousColumn)
+                            if (previousColumn.nodes[k] == null)
+                            {
+                                continue;
+                            }
+                        
+                            hasConnection = true;
+                            break;
+                        }
+            
+                        if (!hasConnection)
+                        {
+                            Debug.Log($"NODE [{i},{j}] PRUNED BECAUSE THERE WAS NO TRAVEL AVAILABLE");
+                            column.nodes[j] = null;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (var i = galaxy.columns.Length - 2; i > 0; i--)
+                {
+                    var column = galaxy.columns[i];
+                    var nextColumn = galaxy.columns[i + 1];
+            
+                    for (var j = 0; j < GalaxyData.GalaxyColumn.RowsPerColumn; j++)
                     {
-                        Debug.Log($"NODE [{i},{j}] PRUNED BECAUSE THERE WAS NO TRAVEL AVAILABLE");
-                        column.nodes[j] = null;
+                        var hasConnection = false;
+                    
+                        for (var k = j - maxColumnDistance; k <= j + maxColumnDistance; k++)
+                        {
+                            // k outside valid ranges
+                            if (k < 0 || k >= GalaxyData.GalaxyColumn.RowsPerColumn)
+                                continue;
+            
+                            if (nextColumn.nodes[k] == null)
+                            {
+                                continue;
+                            }
+                        
+                            hasConnection = true;
+                            break;
+                        }
+            
+                        if (!hasConnection)
+                        {
+                            Debug.Log($"NODE [{i},{j}] PRUNED BECAUSE THERE WAS NO TRAVEL AVAILABLE");
+                            column.nodes[j] = null;
+                        }
                     }
                 }
             }

@@ -14,6 +14,10 @@ namespace GBJAM13.Systems
         
         readonly EcsFilterInject<Inc<MapElementComponent, ModelComponent>, Exc<DisabledComponent>> 
             debugTempFilter = default;
+
+        public bool mainPathDebugEnabled;
+
+        public Color colorForDebug;
         
         public void Run(EcsSystems systems)
         {
@@ -28,18 +32,21 @@ namespace GBJAM13.Systems
                 }
             }
             
-            foreach (var e in debugTempFilter.Value)
+            if (mainPathDebugEnabled)
             {
-                ref var mapElement = ref debugTempFilter.Pools.Inc1.Get(e);
-                ref var model = ref debugTempFilter.Pools.Inc2.Get(e);
+                foreach (var e in debugTempFilter.Value)
+                {
+                    ref var mapElement = ref debugTempFilter.Pools.Inc1.Get(e);
+                    ref var model = ref debugTempFilter.Pools.Inc2.Get(e);
 
-                if (mapElement.mainPath)
-                {
-                    model.color = Color.blue;
-                }
-                else
-                {
-                    model.color = Color.white;
+                    if (mapElement.mainPath)
+                    {
+                        model.color = colorForDebug;
+                    }
+                    else
+                    {
+                        model.color = Color.white;
+                    }
                 }
             }
         }
