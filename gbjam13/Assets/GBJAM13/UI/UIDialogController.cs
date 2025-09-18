@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace GBJAM13.UI
@@ -10,9 +11,19 @@ namespace GBJAM13.UI
 
         private void Awake()
         {
-            pressAction.action.performed += OnPressAction;
+            if (pressAction)
+            {
+                pressAction.action.performed += OnPressAction;
+            }
         }
 
+        private void OnDestroy()
+        {
+            if (pressAction)
+            {
+                pressAction.action.performed -= OnPressAction;
+            }
+        }
 
         private void OnEnable()
         {
