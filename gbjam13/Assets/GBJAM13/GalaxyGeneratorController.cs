@@ -53,6 +53,7 @@ namespace GBJAM13
                             
                             nodeEntity.Get<MapElementComponent>().type = node.type;
                             nodeEntity.Get<MapElementComponent>().element = node.element;
+                            nodeEntity.Get<MapElementComponent>().mainPath = node.mainPath;
                         }
                     }
 

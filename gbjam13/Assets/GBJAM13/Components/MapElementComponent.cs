@@ -4,5 +4,6 @@
     {
         public string type;
         public string element;
+        public bool mainPath;
     }
 }
