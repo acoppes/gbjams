@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Game;
 using Game.Scenes;
 using GBJAM13.Components;
 using Gemserk.Leopotam.Ecs;
 using MyBox;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
 
 namespace GBJAM13
@@ -23,6 +25,13 @@ namespace GBJAM13
         public Object mapSelectionDefinition;
 
         public Vector2 separation;
+
+        public InputActionReference upAction;
+        public InputActionReference downAction;
+
+        private Entity mapSelectionEntity;
+        private Entity mapDestinationEntity;
+        private List<Entity> nextColumnEntities = new List<Entity>();
         
         public void GenerateMapFromData()
         {
@@ -83,31 +92,64 @@ namespace GBJAM13
             }
 
             var mapElementsFilter = world.GetFilter<MapElementComponent>().End();
-            var currentNextNode = Entity.NullEntity;
+            mapDestinationEntity = Entity.NullEntity;
             
             foreach (var e in mapElementsFilter)
             {
                 var mapElement = world.GetComponent<MapElementComponent>(e);
                 if (mapElement.column == GameParameters.currentColumn + 1)
                 {
-                    if (!currentNextNode)
+                    nextColumnEntities.Add(world.GetEntity(e));
+                    
+                    if (!mapDestinationEntity)
                     {
-                        currentNextNode = world.GetEntity(e);
+                        mapDestinationEntity = world.GetEntity(e);
                     }
                     else
                     {
-                        if (currentNextNode.Get<MapElementComponent>().row < mapElement.row)
+                        if (mapDestinationEntity.Get<MapElementComponent>().row < mapElement.row)
                         {
-                            currentNextNode = world.GetEntity(e);
+                            mapDestinationEntity = world.GetEntity(e);
                         }
                     }
                 }
             }
             
-            var mapSelectionEntity = world.CreateEntity(mapSelectionDefinition);
-            mapSelectionEntity.Get<PositionComponent>().value = currentNextNode.Get<PositionComponent>().value;
+            mapSelectionEntity = world.CreateEntity(mapSelectionDefinition);
         }
         
         // IF KEY UP/DOWN => swap selection
+
+        private void Update()
+        {
+            if (nextColumnEntities.Count == 0)
+            {
+                return;
+            }
+            
+            var currentIndex = nextColumnEntities.IndexOf(mapDestinationEntity);
+            
+            if (upAction.action.WasPerformedThisFrame())
+            {
+                currentIndex++;
+                if (currentIndex >= nextColumnEntities.Count)
+                {
+                    currentIndex = 0;
+                }
+            }
+
+            if (downAction.action.WasPerformedThisFrame())
+            {
+                currentIndex--;
+                if (currentIndex < 0)
+                {
+                    currentIndex = nextColumnEntities.Count - 1;
+                }
+            }
+
+            mapDestinationEntity = nextColumnEntities[currentIndex];
+            
+            mapSelectionEntity.Get<PositionComponent>().value = mapDestinationEntity.Get<PositionComponent>().value;
+        }
     }
 }
