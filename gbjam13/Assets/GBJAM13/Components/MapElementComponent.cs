@@ -7,8 +7,12 @@ namespace GBJAM13.Components
     {
         public string type;
         public string element;
+        
         public bool mainPath;
 
+        public int column;
+        public int row;
+        
         public Vector3 shipOffset;
     }
     
@@ -22,7 +26,7 @@ namespace GBJAM13.Components
         
     }
     
-    public struct SelectedComponent
+    public struct MapSelectedComponent
     {
         
     }

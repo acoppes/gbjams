@@ -14,6 +14,9 @@ namespace GBJAM13.Systems
         
         readonly EcsFilterInject<Inc<MapElementComponent, ModelComponent>, Exc<DisabledComponent>> 
             debugTempFilter = default;
+        
+        // readonly EcsFilterInject<Inc<MapElementComponent, MapSelectedComponent>, Exc<DisabledComponent, HasSelectionIndicatorComponent>> 
+        //     mapSelectedFilter = default;
 
         public bool mainPathDebugEnabled;
 
@@ -49,6 +52,21 @@ namespace GBJAM13.Systems
                     }
                 }
             }
+            
+            // foreach (var e in mapSelectedFilter.Value)
+            // {
+            //     ref var mapElement = ref mapSelectedFilter.Pools.Inc1.Get(e);
+            //     ref var model = ref mapSelectedFilter.Pools.Inc2.Get(e);
+            //
+            //     if (mapElement.mainPath)
+            //     {
+            //         model.color = colorForDebug;
+            //     }
+            //     else
+            //     {
+            //         model.color = Color.white;
+            //     }
+            // }
         }
 
 

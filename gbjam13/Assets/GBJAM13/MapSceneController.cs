@@ -1,4 +1,5 @@
 ﻿using System;
+using Game;
 using Game.Scenes;
 using GBJAM13.Components;
 using Gemserk.Leopotam.Ecs;
@@ -17,6 +18,9 @@ namespace GBJAM13
         
         [EntityDefinition] 
         public Object mapShipDefinition;
+        
+        [EntityDefinition] 
+        public Object mapSelectionDefinition;
 
         public Vector2 separation;
         
@@ -34,8 +38,6 @@ namespace GBJAM13
             var world = worldReference.GetReference(gameObject);
             var nodePosition = new Vector2();
 
-            var currentNodeEntity = Entity.NullEntity;
-
             for (var i = 0; i < generatedGalaxy.columns.Length; i++)
             {
                 var column = generatedGalaxy.columns[i];
@@ -50,14 +52,17 @@ namespace GBJAM13
                             var nodeEntity = world.CreateEntity(mapPlanetDefinition);
                             nodeEntity.Get<PositionComponent>().value = transform.position.ToVector2() + nodePosition;
 
-                            nodeEntity.Get<MapElementComponent>().type = node.type;
-                            nodeEntity.Get<MapElementComponent>().element = node.element;
-                            nodeEntity.Get<MapElementComponent>().mainPath = node.mainPath;
-
+                            ref var mapElementComponent = ref nodeEntity.Get<MapElementComponent>();
+                            mapElementComponent.type = node.type;
+                            mapElementComponent.element = node.element;
+                            mapElementComponent.mainPath = node.mainPath;
+                            mapElementComponent.column = i;
+                            mapElementComponent.row = j;
+                            
                             if (GameParameters.currentColumn == i && GameParameters.currentNode == j)
                             {
-                                // nodeEntity.Add(new MapShipNodeComponent());
-                                currentNodeEntity = nodeEntity;
+                                nodeEntity.Add(new MapShipNodeComponent());
+                                // nodeEntity.Get<MapElementComponent>().current = true;
                             }
                         }
                     }
@@ -69,13 +74,40 @@ namespace GBJAM13
                 nodePosition.y = 0;
             }
 
-            if (currentNodeEntity)
+            if (world.TryGetSingletonEntity<MapShipNodeComponent>(out var currentNodeEntity))
             {
                 var mapShipEntity = world.CreateEntity(mapShipDefinition);
                 mapShipEntity.Get<PositionComponent>().value = 
                     currentNodeEntity.Get<PositionComponent>().value + 
                     currentNodeEntity.Get<MapElementComponent>().shipOffset;
             }
+
+            var mapElementsFilter = world.GetFilter<MapElementComponent>().End();
+            var currentNextNode = Entity.NullEntity;
+            
+            foreach (var e in mapElementsFilter)
+            {
+                var mapElement = world.GetComponent<MapElementComponent>(e);
+                if (mapElement.column == GameParameters.currentColumn + 1)
+                {
+                    if (!currentNextNode)
+                    {
+                        currentNextNode = world.GetEntity(e);
+                    }
+                    else
+                    {
+                        if (currentNextNode.Get<MapElementComponent>().row < mapElement.row)
+                        {
+                            currentNextNode = world.GetEntity(e);
+                        }
+                    }
+                }
+            }
+            
+            var mapSelectionEntity = world.CreateEntity(mapSelectionDefinition);
+            mapSelectionEntity.Get<PositionComponent>().value = currentNextNode.Get<PositionComponent>().value;
         }
+        
+        // IF KEY UP/DOWN => swap selection
     }
 }
