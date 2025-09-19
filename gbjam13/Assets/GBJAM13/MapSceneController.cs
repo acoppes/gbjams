@@ -7,6 +7,7 @@ using GBJAM13.UI;
 using Gemserk.Leopotam.Ecs;
 using MyBox;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
 
@@ -29,12 +30,15 @@ namespace GBJAM13
 
         public InputActionReference upAction;
         public InputActionReference downAction;
-
+        public InputActionReference selectAction;
+        
         public UIMapSelection uiMapSelection;
         
         private Entity mapSelectionEntity;
         private Entity mapDestinationEntity;
         private List<Entity> nextColumnEntities = new List<Entity>();
+
+        public UnityEvent onDestinationSelection;
         
         public void GenerateMapFromData()
         {
@@ -49,6 +53,8 @@ namespace GBJAM13
             
             var world = worldReference.GetReference(gameObject);
             var nodePosition = new Vector2();
+
+            transform.position -= new Vector3(separation.x * GameParameters.currentColumn, 0, 0);
 
             for (var i = 0; i < generatedGalaxy.columns.Length; i++)
             {
@@ -75,7 +81,11 @@ namespace GBJAM13
                             if (GameParameters.currentColumn == i && GameParameters.currentNode == j)
                             {
                                 nodeEntity.Add(new MapShipNodeComponent());
-                                // nodeEntity.Get<MapElementComponent>().current = true;
+                            }
+                            
+                            if (GameParameters.currentColumn == i && GameParameters.currentNode != j)
+                            {
+                                mapElementComponent.outsideTravelPath = true;
                             }
                         }
                     }
@@ -156,6 +166,13 @@ namespace GBJAM13
             mapSelectionEntity.Get<PositionComponent>().value = mapDestinationEntity.Get<PositionComponent>().value;
             
             uiMapSelection.SetSelectedElementData(mapDestinationEntity.Get<MapElementComponent>().name);
+
+            if (selectAction.action.WasPerformedThisFrame())
+            {
+                GameParameters.nextNode = mapDestinationEntity.Get<MapElementComponent>().row;
+                
+                onDestinationSelection.Invoke();
+            }
         }
     }
 }

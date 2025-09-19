@@ -13,6 +13,8 @@ namespace GBJAM13.Components
 
         public int column;
         public int row;
+
+        public bool outsideTravelPath;
         
         public Vector3 shipOffset;
     }
@@ -20,20 +22,5 @@ namespace GBJAM13.Components
     public struct MapShipNodeComponent
     {
         
-    }
-    
-    public struct MapDestinationComponent
-    {
-        
-    }
-    
-    public struct MapSelectedComponent
-    {
-        
-    }
-    
-    public struct HasSelectionIndicatorComponent
-    {
-        public Entity selection;
     }
 }

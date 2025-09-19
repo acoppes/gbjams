@@ -13,6 +13,8 @@ namespace GBJAM13
         
         public static GalaxyData galaxyData;
         
+        public static int nextNode;
+        
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void OnBeforeSceneLoad()
         {
@@ -20,6 +22,7 @@ namespace GBJAM13
             GameParameters.galaxyData = null;
             GameParameters.currentColumn = 0;
             GameParameters.currentNode = 0;
+            GameParameters.nextNode = -1;
         }
     }
 }
