@@ -7,6 +7,10 @@ namespace GBJAM13
         public const int DefaultTotalJumps = 5;
         
         public static int totalJumps;
+
+        public static int currentColumn;
+        public static int currentNode;
+        
         public static GalaxyData galaxyData;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -14,6 +18,8 @@ namespace GBJAM13
         {
             GameParameters.totalJumps = DefaultTotalJumps;
             GameParameters.galaxyData = null;
+            GameParameters.currentColumn = 0;
+            GameParameters.currentNode = 0;
         }
     }
 }

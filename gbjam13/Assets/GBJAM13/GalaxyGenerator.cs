@@ -20,7 +20,10 @@ namespace GBJAM13
         }
         
         public int totalJumps;
-
+        
+        public int startingRow;
+        public int endingRow;
+        
         public GalaxyColumn[] columns;
     }
     
@@ -63,17 +66,17 @@ namespace GBJAM13
             var startingColumn = galaxy.columns[0];
             var endingColumn = galaxy.columns[^1];
 
-            var startingRow = UnityEngine.Random.Range(0, GalaxyData.GalaxyColumn.RowsPerColumn);
-            var endingRow = UnityEngine.Random.Range(0, GalaxyData.GalaxyColumn.RowsPerColumn);
+            galaxy.startingRow = UnityEngine.Random.Range(0, GalaxyData.GalaxyColumn.RowsPerColumn);
+            galaxy.endingRow = UnityEngine.Random.Range(0, GalaxyData.GalaxyColumn.RowsPerColumn);
             
-            startingColumn.nodes[startingRow] = new GalaxyData.GalaxyNode()
+            startingColumn.nodes[galaxy.startingRow] = new GalaxyData.GalaxyNode()
             {
                 type = generatorData.wormHoleType.type,
                 element =  generatorData.wormHoleType.element[0],
                 mainPath = true
             };
             
-            endingColumn.nodes[endingRow] = new GalaxyData.GalaxyNode()
+            endingColumn.nodes[galaxy.endingRow] = new GalaxyData.GalaxyNode()
             {
                 type = generatorData.wormHoleType.type,
                 element =  generatorData.wormHoleType.element[0],
@@ -100,16 +103,16 @@ namespace GBJAM13
 
             var totalTries = 100;
             
-            var lastMainPathRow = GenerateMainPath(galaxy, startingRow, endingRow, generatorData.maxColumnDistance);
+            var lastMainPathRow = GenerateMainPath(galaxy, galaxy.startingRow, galaxy.endingRow, generatorData.maxColumnDistance);
 
-            while (Mathf.Abs(lastMainPathRow - endingRow) > generatorData.maxColumnDistance)
+            while (Mathf.Abs(lastMainPathRow - galaxy.endingRow) > generatorData.maxColumnDistance)
             {
                 if (totalTries < 0)
                 {
                     break;
                 }
                 
-                lastMainPathRow = GenerateMainPath(galaxy, startingRow, endingRow, generatorData.maxColumnDistance);
+                lastMainPathRow = GenerateMainPath(galaxy, galaxy.startingRow, galaxy.endingRow, generatorData.maxColumnDistance);
                 totalTries--;
             }
 
@@ -119,45 +122,6 @@ namespace GBJAM13
             }
             
             RemoveRandomNodes(galaxy, generatorData.emptyChance);
-            
-            // prune backwards
-            
-            // for (var i = galaxy.columns.Length - 1; i > 0; i--)
-            // {
-            //     var column = galaxy.columns[i];
-            //     var previousColumn = galaxy.columns[i];
-            //
-            //     for (var j = 0; j < GalaxyData.GalaxyColumn.NodesPerColumn; j++)
-            //     {
-            //         var hasConnectionFromPreviousColumn = false;
-            //         
-            //         for (var k = j-generatorData.maxColumnDistance; k < j+generatorData.maxColumnDistance; k++)
-            //         {
-            //             // k outside valid ranges
-            //             if (k < 0 || k >= GalaxyData.GalaxyColumn.NodesPerColumn)
-            //                 continue;
-            //
-            //             if (previousColumn.nodes[k] == null)
-            //             {
-            //                 continue;
-            //             }
-            //             
-            //             if (!previousColumn.nodes[k].disableTravel)
-            //             {
-            //                 hasConnectionFromPreviousColumn = true;
-            //                 break;
-            //             }
-            //         }
-            //
-            //         if (!hasConnectionFromPreviousColumn)
-            //         {
-            //             Debug.Log($"NODE [{i},{j}] PRUNED BECAUSE THERE WAS NO TRAVEL AVAILABLE");
-            //             column.nodes[j] = null;
-            //         }
-            //     }
-            // }
-            
-            // prune forward
 
             PruneNodes(galaxy, generatorData.maxColumnDistance, true);
             PruneNodes(galaxy, generatorData.maxColumnDistance, false);

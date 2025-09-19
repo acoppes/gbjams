@@ -14,6 +14,9 @@ namespace GBJAM13
         
         [EntityDefinition] 
         public Object mapPlanetDefinition;
+        
+        [EntityDefinition] 
+        public Object mapShipDefinition;
 
         public Vector2 separation;
         
@@ -30,11 +33,15 @@ namespace GBJAM13
             
             var world = worldReference.GetReference(gameObject);
             var nodePosition = new Vector2();
-            
-            foreach (var column in generatedGalaxy.columns)
+
+            var currentNodeEntity = Entity.NullEntity;
+
+            for (var i = 0; i < generatedGalaxy.columns.Length; i++)
             {
-                foreach (var node in column.nodes)
+                var column = generatedGalaxy.columns[i];
+                for (var j = 0; j < column.nodes.Length; j++)
                 {
+                    var node = column.nodes[j];
                     if (node != null)
                     {
                         if (!string.IsNullOrEmpty(node.type) &&
@@ -42,10 +49,16 @@ namespace GBJAM13
                         {
                             var nodeEntity = world.CreateEntity(mapPlanetDefinition);
                             nodeEntity.Get<PositionComponent>().value = transform.position.ToVector2() + nodePosition;
-                            
+
                             nodeEntity.Get<MapElementComponent>().type = node.type;
                             nodeEntity.Get<MapElementComponent>().element = node.element;
                             nodeEntity.Get<MapElementComponent>().mainPath = node.mainPath;
+
+                            if (GameParameters.currentColumn == i && GameParameters.currentNode == j)
+                            {
+                                // nodeEntity.Add(new MapShipNodeComponent());
+                                currentNodeEntity = nodeEntity;
+                            }
                         }
                     }
 
@@ -54,6 +67,14 @@ namespace GBJAM13
 
                 nodePosition.x += separation.x;
                 nodePosition.y = 0;
+            }
+
+            if (currentNodeEntity)
+            {
+                var mapShipEntity = world.CreateEntity(mapShipDefinition);
+                mapShipEntity.Get<PositionComponent>().value = 
+                    currentNodeEntity.Get<PositionComponent>().value + 
+                    currentNodeEntity.Get<MapElementComponent>().shipOffset;
             }
         }
     }

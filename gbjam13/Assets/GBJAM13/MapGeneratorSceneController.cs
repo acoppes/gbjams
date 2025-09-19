@@ -13,6 +13,10 @@ namespace GBJAM13
         {
             var galaxyGenerator = new GalaxyGenerator();
             GameParameters.galaxyData = galaxyGenerator.GenerateGalaxy(data, GameParameters.totalJumps);
+            
+            GameParameters.currentColumn = 0;
+            GameParameters.currentNode = GameParameters.galaxyData.startingRow;
+            
             onMapGenerated.Invoke();
         }
         
