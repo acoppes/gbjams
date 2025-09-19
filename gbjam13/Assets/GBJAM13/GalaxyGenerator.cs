@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using GBJAM13.Data;
+using Gemserk.Utilities;
 using MyBox;
 using UnityEngine;
 
@@ -10,6 +13,7 @@ namespace GBJAM13
         {
             public string type;
             public string element;
+            public string name;
             public bool mainPath;
         }
 
@@ -46,6 +50,8 @@ namespace GBJAM13
             public int maxColumnDistance;
             public float emptyChance;
         }
+
+        public IObjectList mapElementsDatabase;
         
         public GalaxyData GenerateGalaxy(GalaxyGeneratorData generatorData, int totalJumps)
         {
@@ -89,6 +95,10 @@ namespace GBJAM13
                 for (var j = 0; j < GalaxyData.GalaxyColumn.RowsPerColumn; j++)
                 {
                     var nodeData = generatorData.otherTypes.GetRandom();
+
+                    var elementsDb = mapElementsDatabase.Get<MapElementData>()
+                        .Where(e => e.type.Equals(nodeData.type, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
                     
                     column.nodes[j] = new GalaxyData.GalaxyNode()
                     {
@@ -96,6 +106,13 @@ namespace GBJAM13
                         element = nodeData.element.GetRandom(),
                         mainPath = false
                     };
+
+                    var elementDbItem = elementsDb.Random();
+
+                    if (elementDbItem)
+                    {
+                        column.nodes[j].name = elementDbItem.GenerateName();
+                    }
                 }
             }
             

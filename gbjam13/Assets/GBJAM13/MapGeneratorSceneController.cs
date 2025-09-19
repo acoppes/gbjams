@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Gemserk.Utilities;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace GBJAM13
@@ -8,10 +9,17 @@ namespace GBJAM13
         public GalaxyGenerator.GalaxyGeneratorData data;
 
         public UnityEvent onMapGenerated;
+
+        [ObjectType(typeof(IObjectList), filterString = "Database")]
+        public Object mapElementsDatabase;
         
         public void GenerateGalaxyMap()
         {
-            var galaxyGenerator = new GalaxyGenerator();
+            var galaxyGenerator = new GalaxyGenerator
+            {
+                mapElementsDatabase = mapElementsDatabase.GetInterface<IObjectList>()
+            };
+            
             GameParameters.galaxyData = galaxyGenerator.GenerateGalaxy(data, GameParameters.totalJumps);
             
             GameParameters.currentColumn = 0;

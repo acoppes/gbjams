@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game;
 using Game.Scenes;
 using GBJAM13.Components;
+using GBJAM13.UI;
 using Gemserk.Leopotam.Ecs;
 using MyBox;
 using UnityEngine;
@@ -29,6 +30,8 @@ namespace GBJAM13
         public InputActionReference upAction;
         public InputActionReference downAction;
 
+        public UIMapSelection uiMapSelection;
+        
         private Entity mapSelectionEntity;
         private Entity mapDestinationEntity;
         private List<Entity> nextColumnEntities = new List<Entity>();
@@ -65,6 +68,7 @@ namespace GBJAM13
                             mapElementComponent.type = node.type;
                             mapElementComponent.element = node.element;
                             mapElementComponent.mainPath = node.mainPath;
+                            mapElementComponent.name = node.name;
                             mapElementComponent.column = i;
                             mapElementComponent.row = j;
                             
@@ -150,6 +154,8 @@ namespace GBJAM13
             mapDestinationEntity = nextColumnEntities[currentIndex];
             
             mapSelectionEntity.Get<PositionComponent>().value = mapDestinationEntity.Get<PositionComponent>().value;
+            
+            uiMapSelection.SetSelectedElementData(mapDestinationEntity.Get<MapElementComponent>().name);
         }
     }
 }

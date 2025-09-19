@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIDialog
       objectReference: {fileID: 0}
+    - target: {fileID: 3099219199503044782, guid: 2ad5586f49525064899c8a0978278de7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6145090302230240064, guid: 2ad5586f49525064899c8a0978278de7, type: 3}
       propertyPath: startsOpen
       value: 1
@@ -1397,6 +1401,46 @@ Transform:
   - {fileID: 883879393}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1871716326
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3099219199503044782, guid: 2b11d8c8552d05d45989f5151bde6327, type: 3}
+      propertyPath: m_Name
+      value: UIMapSelection
+      objectReference: {fileID: 0}
+    - target: {fileID: 7443510229050466894, guid: 2b11d8c8552d05d45989f5151bde6327, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7443510229050466894, guid: 2b11d8c8552d05d45989f5151bde6327, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7443510229050466894, guid: 2b11d8c8552d05d45989f5151bde6327, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2b11d8c8552d05d45989f5151bde6327, type: 3}
+--- !u!114 &1871716327 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4132163660795513284, guid: 2b11d8c8552d05d45989f5151bde6327, type: 3}
+  m_PrefabInstance: {fileID: 1871716326}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a0b092daa74dd690abf500fd090fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.UI.UIMapSelection
 --- !u!1 &1872365838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,6 +1649,7 @@ MonoBehaviour:
   separation: {x: 4, y: 1.3}
   upAction: {fileID: -6628919204599771996, guid: a7551745de0f2504999aba85335d2165, type: 3}
   downAction: {fileID: 5939831232789928535, guid: a7551745de0f2504999aba85335d2165, type: 3}
+  uiMapSelection: {fileID: 1871716327}
 --- !u!1 &2036348093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1653,3 +1698,4 @@ SceneRoots:
   - {fileID: 1872365839}
   - {fileID: 2036348094}
   - {fileID: 2006519641}
+  - {fileID: 1871716326}

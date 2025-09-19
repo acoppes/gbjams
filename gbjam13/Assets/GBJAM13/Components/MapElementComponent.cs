@@ -7,6 +7,7 @@ namespace GBJAM13.Components
     {
         public string type;
         public string element;
+        public string name;
         
         public bool mainPath;
 
