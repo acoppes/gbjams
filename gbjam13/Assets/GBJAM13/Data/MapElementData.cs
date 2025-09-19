@@ -7,7 +7,8 @@ namespace GBJAM13.Data
     public class MapElementData : ScriptableObject
     {
         public string type;
-        public string elementName;
+        
+        public string[] elementNames;
         
         public string[] prefixes;
         public string[] suffixes;
@@ -17,7 +18,7 @@ namespace GBJAM13.Data
             var randomPrefix = prefixes.Random();
             var randomSuffix = suffixes.Random();
 
-            var generatedName = elementName;
+            var generatedName = elementNames.Random();
             
             if (!string.IsNullOrEmpty(randomPrefix))
             {
