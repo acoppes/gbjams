@@ -1,16 +1,16 @@
 ﻿using Game.Scenes;
+using GBJAM13.Components;
 using Gemserk.Leopotam.Ecs;
+using MyBox;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace GBJAM13
 {
     public class GameSceneController : MonoBehaviour
     {
         public WorldReference worldReference;
-        
-        [EntityDefinition] 
-        public Object shipDefinition;
+
+        public EntityPrefabInstance elementInstance;
         
         public void StartGame()
         {
@@ -27,7 +27,22 @@ namespace GBJAM13
                 return;
             }
 
+            var world = worldReference.GetReference(gameObject);
+            var elementEntity = world.CreateEntity(elementInstance.entityDefinition);
 
+            elementEntity.Get<PositionComponent>().value = elementInstance.transform.position;
+            
+            ref var mapElementComponent = ref elementEntity.Get<MapElementComponent>();
+
+            var node = GameParameters.galaxyData.columns[GameParameters.currentColumn + 1].nodes[GameParameters.nextNode];
+            mapElementComponent.name = node.name;
+            mapElementComponent.type = node.type;
+            mapElementComponent.element = node.element;
+            mapElementComponent.mainPath = node.mainPath;
+
+            // elementInstance.InstantiateEntity();
+
+            // on complete =>
             GameParameters.currentColumn++;
             GameParameters.currentNode = GameParameters.nextNode;
         }
