@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.Components;
 using GBJAM13.Data;
 using Gemserk.Utilities.UI;
+using MyBox;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -25,6 +27,9 @@ namespace GBJAM13.UI
         // public InputActionReference downAction;
         // public InputActionReference selectAction;
 
+        public AudioSource audioSource;
+        public SoundEffectAsset confirmSoundEffect;
+        
         public UnityEvent onOptionSelected;
 
         private UIEventOption selectedUIOption;
@@ -64,17 +69,17 @@ namespace GBJAM13.UI
             }
         }
         
-        // private void PlaySound(SoundEffectAsset asset)
-        // {
-        //     if (!audioSource)
-        //         return;
-        //     
-        //     audioSource.pitch = asset.randomPitch.RandomInRange();
-        //     audioSource.clip = asset.clips.GetRandom();
-        //     audioSource.volume = asset.volume;
-        //     audioSource.outputAudioMixerGroup = asset.mixerGroup;
-        //     audioSource.PlayOneShot(asset.clips.GetRandom());
-        // }
+        private void PlaySound(SoundEffectAsset asset)
+        {
+            if (!audioSource)
+                return;
+            
+            audioSource.pitch = asset.randomPitch.RandomInRange();
+            audioSource.clip = asset.clips.GetRandom();
+            audioSource.volume = asset.volume;
+            audioSource.outputAudioMixerGroup = asset.mixerGroup;
+            audioSource.PlayOneShot(asset.clips.GetRandom());
+        }
 
         public void OnSubmit(BaseEventData eventData)
         {
@@ -90,6 +95,8 @@ namespace GBJAM13.UI
                 }
             }
             onOptionSelected.Invoke();
+            
+            PlaySound(confirmSoundEffect);
         }
     }
 }
