@@ -48,7 +48,7 @@ namespace GBJAM13
                             var nodeEntity = world.CreateEntity(mapPlanetDefinition);
                             nodeEntity.Get<PositionComponent>().value = transform.position.ToVector2() + nodePosition;
                             
-                            nodeEntity.Get<MapElementComponent>().type = node.type;
+                            nodeEntity.Get<MapElementComponent>().eventType = node.type;
                             nodeEntity.Get<MapElementComponent>().eventVariant = node.eventVariant;
                             nodeEntity.Get<MapElementComponent>().mainPath = node.mainPath;
                         }

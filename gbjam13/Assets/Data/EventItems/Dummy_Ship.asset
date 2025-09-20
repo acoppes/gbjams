@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: Dummy_Ship
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Data.EventElementData
   type: {fileID: 11400000, guid: b9ad8f00a4ac0ae479122fd6aa704a3f, type: 2}
-  description: 
-  options: []
-  outcomes: []
+  description: Found a Ship
+  options:
+  - description: Accept scrap
+    type: 1
+    resourceType: {fileID: 11400000, guid: 4acce0b1fb1dfe24aabfca033c94a093, type: 2}
+  - description: Ignore request
+    type: 0
+    resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
+  outcomes:
+  - description: It was a test, you failed it
+    type: 0
+    resourceType: {fileID: 11400000, guid: a27cfb7a6001b75429489818cba3134c, type: 2}

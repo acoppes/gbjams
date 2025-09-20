@@ -5,7 +5,8 @@ namespace GBJAM13.Components
 {
     public struct MapElementComponent
     {
-        public string type;
+        public string eventType;
+        public string eventName;
         public string eventVariant;
         public string name;
         

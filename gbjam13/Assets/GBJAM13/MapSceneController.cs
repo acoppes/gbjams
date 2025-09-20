@@ -71,7 +71,7 @@ namespace GBJAM13
                             nodeEntity.Get<PositionComponent>().value = transform.position.ToVector2() + nodePosition;
 
                             ref var mapElementComponent = ref nodeEntity.Get<MapElementComponent>();
-                            mapElementComponent.type = node.type;
+                            mapElementComponent.eventType = node.type;
                             mapElementComponent.eventVariant = node.eventVariant;
                             mapElementComponent.mainPath = node.mainPath;
                             mapElementComponent.name = node.name;

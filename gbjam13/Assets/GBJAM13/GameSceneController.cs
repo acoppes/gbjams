@@ -1,8 +1,12 @@
 ﻿using Game.Scenes;
 using GBJAM13.Components;
+using GBJAM13.Data;
+using GBJAM13.UI;
 using Gemserk.Leopotam.Ecs;
+using Gemserk.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace GBJAM13
 {
@@ -11,9 +15,24 @@ namespace GBJAM13
         public WorldReference worldReference;
 
         public EntityPrefabInstance elementInstance;
+        
+        public UIDialog dialog;
 
         public UnityEvent onEventCompleted;
         public UnityEvent onGalaxyCompleted;
+        
+        [ObjectType(typeof(IObjectList), filterString = "Database")]
+        public Object eventsDb;
+        
+        [ObjectType(typeof(IObjectList), filterString = "Database")]
+        public Object eventVariantsDb;
+        
+        [FormerlySerializedAs("mapElementsDatabase")] 
+        [ObjectType(typeof(IObjectList), filterString = "Database")]
+        public Object eventNamesDb;
+
+        private Entity currentEventEntity;
+
         
         public void StartGame()
         {
@@ -31,15 +50,16 @@ namespace GBJAM13
             }
 
             var world = worldReference.GetReference(gameObject);
-            var elementEntity = world.CreateEntity(elementInstance.entityDefinition);
+            currentEventEntity = world.CreateEntity(elementInstance.entityDefinition);
 
-            elementEntity.Get<PositionComponent>().value = elementInstance.transform.position;
+            currentEventEntity.Get<PositionComponent>().value = elementInstance.transform.position;
             
-            ref var mapElementComponent = ref elementEntity.Get<MapElementComponent>();
+            ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
 
             var node = GameParameters.galaxyData.columns[GameParameters.currentColumn + 1].nodes[GameParameters.nextNode];
             mapElementComponent.name = node.name;
-            mapElementComponent.type = node.type;
+            mapElementComponent.eventName = node.eventName;
+            mapElementComponent.eventType = node.type;
             mapElementComponent.eventVariant = node.eventVariant;
             mapElementComponent.mainPath = node.mainPath;
 
@@ -47,18 +67,42 @@ namespace GBJAM13
             // on complete =>
         }
 
+        public void DisplayCurrentEventDescription()
+        {
+            ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
+
+            var eventData = eventsDb.GetInterface<IObjectList>()
+                .FindByName<EventElementData>(mapElementComponent.eventName);
+            
+            dialog.ShowText(eventData.description);
+        }
+        
+        public void DisplayCurrentEventOptions()
+        {
+            ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
+
+            var eventData = eventsDb.GetInterface<IObjectList>()
+                .FindByName<EventElementData>(mapElementComponent.eventName);
+            
+            dialog.ShowText(eventData.options[0].description);
+        }
+        
+        // ON OPTION ACCEPTED FROM DIALOG UI (OR CREATE ANOTHER UI)
+
         public void OnCurrentEventCompleted()
         {
+            dialog.window.Close();
+            
             GameParameters.currentColumn++;
             GameParameters.currentNode = GameParameters.nextNode;
 
             if (GameParameters.currentColumn == GameParameters.galaxyData.columns.Length - 1)
             {
+                GameParameters.totalJumps += GameParameters.JumpIncrementPerRun;
                 onGalaxyCompleted.Invoke();
             }
             else
             {
-                GameParameters.totalJumps += GameParameters.JumpIncrementPerRun;
                 onEventCompleted.Invoke();
             }
         }
