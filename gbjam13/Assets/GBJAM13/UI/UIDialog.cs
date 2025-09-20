@@ -15,7 +15,6 @@ namespace GBJAM13.UI
 
         public float textSpeed = 1f;
 
-        public AudioSource audioSource;
         public SoundEffectAsset typeSoundEffect;
 
         [NonSerialized]
@@ -112,10 +111,12 @@ namespace GBJAM13.UI
 
         private IEnumerator ShowTextOverTime(int start)
         {
+            var uiSoundEffects = FindAnyObjectByType<UISoundEffects>();
+                
             for (var i = start; i <= dialogText.Length; i++)
             {
                 dialogTextView.SetText(dialogText.Substring(0, i));
-                PlaySound(typeSoundEffect);
+                uiSoundEffects.PlaySound(typeSoundEffect);
                 yield return new WaitForSeconds(textSpeed);
             }
             showTextCoroutine = null;
@@ -123,18 +124,6 @@ namespace GBJAM13.UI
             waiting = true;
             
             waitingButton.SetActive(true);
-        }
-        
-        private void PlaySound(SoundEffectAsset asset)
-        {
-            if (!audioSource)
-                return;
-            
-            audioSource.pitch = asset.randomPitch.RandomInRange();
-            audioSource.clip = asset.clips.GetRandom();
-            audioSource.volume = asset.volume;
-            audioSource.outputAudioMixerGroup = asset.mixerGroup;
-            audioSource.PlayOneShot(asset.clips.GetRandom());
         }
     }
 }

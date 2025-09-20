@@ -41,7 +41,6 @@ namespace GBJAM13
 
         public UnityEvent onDestinationSelection;
         
-        public AudioSource audioSource;
         public SoundEffectAsset moveSoundEffect;
         
         public void GenerateMapFromData()
@@ -158,7 +157,7 @@ namespace GBJAM13
                     currentIndex = 0;
                 }
                 
-                PlaySound(moveSoundEffect);
+                FindAnyObjectByType<UISoundEffects>().PlaySound(moveSoundEffect);
             }
 
             if (downAction.action.WasPerformedThisFrame())
@@ -169,7 +168,7 @@ namespace GBJAM13
                     currentIndex = nextColumnEntities.Count - 1;
                 }
                 
-                PlaySound(moveSoundEffect);
+                FindAnyObjectByType<UISoundEffects>().PlaySound(moveSoundEffect);
             }
 
             mapDestinationEntity = nextColumnEntities[currentIndex];
@@ -184,18 +183,6 @@ namespace GBJAM13
                 
                 onDestinationSelection.Invoke();
             }
-        }
-        
-        private void PlaySound(SoundEffectAsset asset)
-        {
-            if (!audioSource)
-                return;
-            
-            audioSource.pitch = asset.randomPitch.RandomInRange();
-            audioSource.clip = asset.clips.GetRandom();
-            audioSource.volume = asset.volume;
-            audioSource.outputAudioMixerGroup = asset.mixerGroup;
-            audioSource.PlayOneShot(asset.clips.GetRandom());
         }
     }
 }

@@ -19,7 +19,6 @@ namespace GBJAM13.UI
         [NonSerialized]
         public bool selected;
         
-        public AudioSource audioSource;
         public SoundEffectAsset selectedSoundEffect;
 
         [NonSerialized]
@@ -40,24 +39,12 @@ namespace GBJAM13.UI
         public void OnSelect(BaseEventData eventData)
         {
             selected = true;
-            PlaySound(selectedSoundEffect);
+            FindAnyObjectByType<UISoundEffects>().PlaySound(selectedSoundEffect);
         }
 
         public void OnDeselect(BaseEventData eventData)
         {
             selected = false;
-        }
-        
-        private void PlaySound(SoundEffectAsset asset)
-        {
-            if (!audioSource)
-                return;
-            
-            audioSource.pitch = asset.randomPitch.RandomInRange();
-            audioSource.clip = asset.clips.GetRandom();
-            audioSource.volume = asset.volume;
-            audioSource.outputAudioMixerGroup = asset.mixerGroup;
-            audioSource.PlayOneShot(asset.clips.GetRandom());
         }
     }
 }

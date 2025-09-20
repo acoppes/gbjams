@@ -27,7 +27,6 @@ namespace GBJAM13.UI
         // public InputActionReference downAction;
         // public InputActionReference selectAction;
 
-        public AudioSource audioSource;
         public SoundEffectAsset confirmSoundEffect;
         
         public UnityEvent onOptionSelected;
@@ -68,18 +67,7 @@ namespace GBJAM13.UI
                 EventSystem.current.SetSelectedGameObject(options[0].gameObject);
             }
         }
-        
-        private void PlaySound(SoundEffectAsset asset)
-        {
-            if (!audioSource)
-                return;
-            
-            audioSource.pitch = asset.randomPitch.RandomInRange();
-            audioSource.clip = asset.clips.GetRandom();
-            audioSource.volume = asset.volume;
-            audioSource.outputAudioMixerGroup = asset.mixerGroup;
-            audioSource.PlayOneShot(asset.clips.GetRandom());
-        }
+
 
         public void OnSubmit(BaseEventData eventData)
         {
@@ -96,7 +84,7 @@ namespace GBJAM13.UI
             }
             onOptionSelected.Invoke();
             
-            PlaySound(confirmSoundEffect);
+            FindAnyObjectByType<UISoundEffects>().PlaySound(confirmSoundEffect);
         }
     }
 }
