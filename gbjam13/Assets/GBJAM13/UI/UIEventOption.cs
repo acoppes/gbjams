@@ -27,7 +27,8 @@ namespace GBJAM13.UI
         public void SetOption(EventElementData.Option eventOption)
         {
             option = eventOption;
-            text.SetText(option.description);
+            var number = UnityEngine.Random.Range(1, 4);
+            text.SetText($"{option.description} (-{number} {eventOption.resourceType.name})");
         }
 
         private void LateUpdate()

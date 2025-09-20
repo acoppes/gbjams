@@ -4,6 +4,7 @@ using GBJAM13.Data;
 using GBJAM13.UI;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Utilities;
+using MyBox;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -95,6 +96,22 @@ namespace GBJAM13
         
         // ON OPTION ACCEPTED FROM DIALOG UI (OR CREATE ANOTHER UI)
 
+        public void DisplayCurrentOutcome()
+        {
+            uiOptions.window.Close();
+            
+            ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
+
+            var eventData = eventsDb.GetInterface<IObjectList>()
+                .FindByName<EventElementData>(mapElementComponent.eventName);
+         
+            // uiOptions.ShowOptions(eventData.options);
+
+            var outcome = eventData.outcomes.GetRandom();
+            var randomNumber = UnityEngine.Random.Range(1, 5);
+            uiDialog.ShowText($"{outcome.description} (+{randomNumber} {outcome.resourceType.name})");
+        }
+        
         public void OnCurrentEventCompleted()
         {
             uiDialog.window.Close();
