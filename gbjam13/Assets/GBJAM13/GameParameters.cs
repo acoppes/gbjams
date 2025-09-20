@@ -5,6 +5,7 @@ namespace GBJAM13
     public static class GameParameters
     {
         public const int DefaultTotalJumps = 5;
+        public const int JumpIncrementPerRun = 2;
         
         public static int totalJumps;
 

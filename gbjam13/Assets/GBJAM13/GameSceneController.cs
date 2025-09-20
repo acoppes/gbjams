@@ -1,8 +1,8 @@
 ﻿using Game.Scenes;
 using GBJAM13.Components;
 using Gemserk.Leopotam.Ecs;
-using MyBox;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GBJAM13
 {
@@ -11,6 +11,9 @@ namespace GBJAM13
         public WorldReference worldReference;
 
         public EntityPrefabInstance elementInstance;
+
+        public UnityEvent onEventCompleted;
+        public UnityEvent onGalaxyCompleted;
         
         public void StartGame()
         {
@@ -41,10 +44,23 @@ namespace GBJAM13
             mapElementComponent.mainPath = node.mainPath;
 
             // elementInstance.InstantiateEntity();
-
             // on complete =>
+        }
+
+        public void OnCurrentEventCompleted()
+        {
             GameParameters.currentColumn++;
             GameParameters.currentNode = GameParameters.nextNode;
+
+            if (GameParameters.currentColumn == GameParameters.galaxyData.columns.Length - 1)
+            {
+                onGalaxyCompleted.Invoke();
+            }
+            else
+            {
+                GameParameters.totalJumps += GameParameters.JumpIncrementPerRun;
+                onEventCompleted.Invoke();
+            }
         }
         
         // IF KEY UP/DOWN => swap selection

@@ -104,7 +104,12 @@ namespace GBJAM13
                     currentNodeEntity.Get<PositionComponent>().value + 
                     currentNodeEntity.Get<MapElementComponent>().shipOffset;
             }
+        }
 
+        public void InitializeNextDestination()
+        {
+            var world = worldReference.GetReference(gameObject);
+            
             var mapElementsFilter = world.GetFilter<MapElementComponent>().End();
             mapDestinationEntity = Entity.NullEntity;
             
@@ -131,8 +136,6 @@ namespace GBJAM13
             
             mapSelectionEntity = world.CreateEntity(mapSelectionDefinition);
         }
-        
-        // IF KEY UP/DOWN => swap selection
 
         private void Update()
         {

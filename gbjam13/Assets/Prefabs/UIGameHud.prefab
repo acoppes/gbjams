@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6776054187917273926}
+  - component: {fileID: 54719267327852667}
   m_Layer: 0
   m_Name: UIGameHud
   m_TagString: Untagged
@@ -32,6 +33,28 @@ Transform:
   - {fileID: 1144719516525742004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &54719267327852667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934856640012569885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e8ac19b9ba4e50add76e7fad45d6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Utilities::Gemserk.Utilities.UI.UIWindow
+  startsOpen: 0
+  canvasObject: {fileID: 5124432629998140424}
+  canvasGroup: {fileID: 9073127230654732269}
+  windowAnimator: {fileID: 0}
+  onOpenAction:
+    m_PersistentCalls:
+      m_Calls: []
+  onCloseAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5124432629998140424
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,6 +66,7 @@ GameObject:
   - component: {fileID: 1144719516525742004}
   - component: {fileID: 9181817525112813693}
   - component: {fileID: 5897258401029450796}
+  - component: {fileID: 9073127230654732269}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -120,6 +144,18 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 16
   m_PresetInfoIsWorld: 1
+--- !u!225 &9073127230654732269
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5124432629998140424}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &2206727944043472313
 PrefabInstance:
   m_ObjectHideFlags: 0
