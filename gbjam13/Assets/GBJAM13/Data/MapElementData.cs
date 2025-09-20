@@ -6,7 +6,7 @@ namespace GBJAM13.Data
     [CreateAssetMenu(menuName = "GBJAM13/MapElementData")]
     public class MapElementData : ScriptableObject
     {
-        public string type;
+        public EventTypeData type;
         
         public string[] elementNames;
         

@@ -40,7 +40,7 @@ namespace GBJAM13
             var node = GameParameters.galaxyData.columns[GameParameters.currentColumn + 1].nodes[GameParameters.nextNode];
             mapElementComponent.name = node.name;
             mapElementComponent.type = node.type;
-            mapElementComponent.element = node.element;
+            mapElementComponent.eventVariant = node.eventVariant;
             mapElementComponent.mainPath = node.mainPath;
 
             // elementInstance.InstantiateEntity();

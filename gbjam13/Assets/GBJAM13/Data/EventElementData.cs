@@ -31,7 +31,8 @@ namespace GBJAM13.Data
             public ResourceTypeData resourceType;
         }   
         
-        public string type;
+        public EventTypeData type;
+        
         [TextArea(2, 5)]
         public string description;
         public Option[] options;

@@ -72,7 +72,7 @@ namespace GBJAM13
 
                             ref var mapElementComponent = ref nodeEntity.Get<MapElementComponent>();
                             mapElementComponent.type = node.type;
-                            mapElementComponent.element = node.element;
+                            mapElementComponent.eventVariant = node.eventVariant;
                             mapElementComponent.mainPath = node.mainPath;
                             mapElementComponent.name = node.name;
                             mapElementComponent.column = i;

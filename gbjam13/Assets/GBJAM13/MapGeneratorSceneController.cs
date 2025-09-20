@@ -1,6 +1,7 @@
 ﻿using Gemserk.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace GBJAM13
 {
@@ -11,14 +12,22 @@ namespace GBJAM13
         public UnityEvent onMapGenerated;
 
         [ObjectType(typeof(IObjectList), filterString = "Database")]
-        public Object mapElementsDatabase;
+        public Object eventsDb;
+        
+        [ObjectType(typeof(IObjectList), filterString = "Database")]
+        public Object eventVariantsDb;
+        
+        [FormerlySerializedAs("mapElementsDatabase")] 
+        [ObjectType(typeof(IObjectList), filterString = "Database")]
+        public Object eventNamesDb;
         
         public void GenerateGalaxyMap()
         {
-            var galaxyGenerator = new GalaxyGenerator
-            {
-                mapElementsDatabase = mapElementsDatabase.GetInterface<IObjectList>()
-            };
+            var galaxyGenerator = new GalaxyGenerator();
+
+            data.eventsDb = eventsDb.GetInterface<IObjectList>();
+            data.eventsVariantsDb = eventVariantsDb.GetInterface<IObjectList>();
+            data.eventNamesDb = eventNamesDb.GetInterface<IObjectList>();
             
             GameParameters.galaxyData = galaxyGenerator.GenerateGalaxy(data, GameParameters.totalJumps);
             

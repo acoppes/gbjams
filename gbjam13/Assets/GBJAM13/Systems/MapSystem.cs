@@ -33,9 +33,9 @@ namespace GBJAM13.Systems
                 ref var mapElement = ref filter.Pools.Inc1.Get(e);
                 ref var animations = ref filter.Pools.Inc2.Get(e);
 
-                if (!animations.IsPlaying(mapElement.element))
+                if (!animations.IsPlaying(mapElement.eventVariant))
                 {
-                    animations.Play(mapElement.element);
+                    animations.Play(mapElement.eventVariant);
                 }
             }
             

@@ -590,32 +590,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.MapGeneratorSceneController
   data:
-    wormHoleType:
-      type: wormhole
-      element:
-      - wormhole
-    otherTypes:
-    - type: planet
-      element:
-      - planet1
-      - planet2
-      - planet3
-      - planet4
-    - type: asteroids
-      element:
-      - asteroids1
-      - asteroids2
-      - asteroids3
-    - type: ships
-      element:
-      - ships1
-      - ships2
-      - ships3
-    - type: asteroids
-      element:
-      - asteroids1
-      - asteroids2
-      - asteroids3
     maxColumnDistance: 1
     emptyChance: 0.5
   onMapGenerated:
@@ -633,7 +607,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  mapElementsDatabase: {fileID: 11400000, guid: 020759fec45c66142a23ef00ed929a97, type: 2}
+  eventsDb: {fileID: 11400000, guid: ed87403a0ffac114288f1b5e89ace98e, type: 2}
+  eventVariantsDb: {fileID: 11400000, guid: 30cb7c6b67005c446a7b13ef45cc84ff, type: 2}
+  eventNamesDb: {fileID: 11400000, guid: 020759fec45c66142a23ef00ed929a97, type: 2}
 --- !u!1 &1533604993
 GameObject:
   m_ObjectHideFlags: 0
