@@ -47,6 +47,9 @@ namespace GBJAM13
             public NodeData wormHoleType;
             public NodeData[] otherTypes;
 
+            public IObjectList elementsDb;
+            public IObjectList elementVariantsDb;
+            
             public int maxColumnDistance;
             public float emptyChance;
         }
@@ -74,6 +77,9 @@ namespace GBJAM13
 
             galaxy.startingRow = UnityEngine.Random.Range(0, GalaxyData.GalaxyColumn.RowsPerColumn);
             galaxy.endingRow = UnityEngine.Random.Range(0, GalaxyData.GalaxyColumn.RowsPerColumn);
+
+            // var wormholeEvents = mapElementsDatabase.Get<EventElementData>()
+            //     .Where(e => e.type.Equals("wormhole", StringComparison.OrdinalIgnoreCase)).ToList();
             
             startingColumn.nodes[galaxy.startingRow] = new GalaxyData.GalaxyNode()
             {

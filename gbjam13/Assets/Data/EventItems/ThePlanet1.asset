@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5139c9d6f004936b4b61d38336512fb, type: 3}
+  m_Name: ThePlanet1
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Data.EventElementData
+  type: planet
+  description: A group of Heroes is asking for help to find some kind of cheerleader,
+    they say they need to find her to save the world.
+  options:
+  - description: Scan the planet and send a map
+    type: 0
+    resourceType: {fileID: 11400000, guid: 418bdd25dc271684689ae1a6a6730d50, type: 2}
+  - description: Send pizza so they don't starve
+    type: 0
+    resourceType: {fileID: 11400000, guid: bbc7e7b67dfdb6d499e966379ef94cc9, type: 2}
+  - description: There is no such thing as a cheerleader, fly away
+    type: 0
+    resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
+  outcomes:
+  - description: The found the Cheerleader but couldn't save the world.
+    type: 1
+    resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
+  - description: The Cheerleader was a myth, we ended up losing time and resources.
+    type: 2
+    resourceType: {fileID: 0}
