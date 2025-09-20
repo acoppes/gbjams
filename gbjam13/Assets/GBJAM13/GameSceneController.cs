@@ -16,8 +16,10 @@ namespace GBJAM13
 
         public EntityPrefabInstance elementInstance;
         
-        public UIDialog dialog;
-
+        [FormerlySerializedAs("dialog")] 
+        public UIDialog uiDialog;
+        public UIEventOptions uiOptions;
+        
         public UnityEvent onEventCompleted;
         public UnityEvent onGalaxyCompleted;
         
@@ -74,24 +76,29 @@ namespace GBJAM13
             var eventData = eventsDb.GetInterface<IObjectList>()
                 .FindByName<EventElementData>(mapElementComponent.eventName);
             
-            dialog.ShowText(eventData.description);
+            uiDialog.ShowText(eventData.description);
         }
         
         public void DisplayCurrentEventOptions()
         {
+            uiDialog.window.Close();
+            
             ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
 
             var eventData = eventsDb.GetInterface<IObjectList>()
                 .FindByName<EventElementData>(mapElementComponent.eventName);
+         
+            uiOptions.ShowOptions(eventData.options);
             
-            dialog.ShowText(eventData.options[0].description);
+            // dialog.ShowText(eventData.options[0].description);
         }
         
         // ON OPTION ACCEPTED FROM DIALOG UI (OR CREATE ANOTHER UI)
 
         public void OnCurrentEventCompleted()
         {
-            dialog.window.Close();
+            uiDialog.window.Close();
+            uiOptions.window.Close();
             
             GameParameters.currentColumn++;
             GameParameters.currentNode = GameParameters.nextNode;

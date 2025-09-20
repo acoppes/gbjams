@@ -3,13 +3,13 @@ using Gemserk.Triggers;
 
 namespace GBJAM13.Triggers.Actions
 {
-    public class WaitForDialogCompletedTriggerAction : TriggerAction
+    public class WaitForOptionSelectedTriggerAction : TriggerAction
     {
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
-            var uiDialog = FindFirstObjectByType<UIDialog>();
+            var uiEventOptions = FindFirstObjectByType<UIEventOptions>();
             
-            if (uiDialog && uiDialog.completed && !uiDialog.waiting)
+            if (uiEventOptions && uiEventOptions.optionSelected)
             {
                 return ITrigger.ExecutionResult.Completed;
             }
