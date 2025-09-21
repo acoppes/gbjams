@@ -23,6 +23,21 @@ namespace GBJAM13
         };
 
         public readonly List<string> stats = new List<string>();
+
+        public void ModifyStat(string rawStat)
+        {
+            var statName = rawStat.Substring(1).ToLowerInvariant();
+                    
+            if (rawStat.StartsWith("+") && !stats.Contains(statName))
+            {
+                stats.Add(statName);
+            }
+                    
+            if (rawStat.StartsWith("-") && stats.Contains(statName))
+            {
+                stats.Remove(statName);
+            }
+        }
     }
     
     public static class GameParameters

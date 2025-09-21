@@ -25,6 +25,7 @@ namespace GBJAM13
         
         public UnityEvent onEventCompleted;
         public UnityEvent onGalaxyCompleted;
+        public UnityEvent onGameCompleted;
         
         // [ObjectType(typeof(IObjectList), filterString = "Database")]
         // public Object eventsDb;
@@ -173,6 +174,11 @@ namespace GBJAM13
                 {
                     saveGame.resources[randomOutcome.resourceType.value] = 0;
                 }
+
+                foreach (var stat in randomOutcome.stats)
+                {
+                    saveGame.ModifyStat(stat);
+                }
             }
 
             temporaryResourceNumber = 0;
@@ -190,8 +196,15 @@ namespace GBJAM13
 
             if (saveGame.currentColumn == saveGame.galaxyData.columns.Length - 1)
             {
-                saveGame.totalJumps += SaveGame.JumpIncrementPerRun;
-                onGalaxyCompleted.Invoke();
+                if (saveGame.stats.Contains("game_completed"))
+                {
+                    onGameCompleted.Invoke();
+                }
+                else
+                {
+                    saveGame.totalJumps += SaveGame.JumpIncrementPerRun;
+                    onGalaxyCompleted.Invoke();
+                }
             }
             else
             {
