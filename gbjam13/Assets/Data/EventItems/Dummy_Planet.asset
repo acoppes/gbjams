@@ -16,26 +16,34 @@ MonoBehaviour:
   description: Found a Planet
   options:
   - description: Explore
-    type: 0
-    resourceType: {fileID: 11400000, guid: 418bdd25dc271684689ae1a6a6730d50, type: 2}
+    resourceType: {fileID: 11400000, guid: bbc7e7b67dfdb6d499e966379ef94cc9, type: 2}
+    numberRange:
+      Min: -1
+      Max: -2
     outcomes:
     - description: Failed
-      type: 0
       resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
+      numberRange:
+        Min: -1
+        Max: -3
     - description: Success
-      type: 1
       resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
+      numberRange:
+        Min: 2
+        Max: 5
   - description: Ignore the planet
-    type: 0
     resourceType: {fileID: 11400000, guid: 418bdd25dc271684689ae1a6a6730d50, type: 2}
+    numberRange:
+      Min: -1
+      Max: -3
     outcomes:
-    - description: Failed
-      type: 0
+    - description: Our scientist weren't happy about that...
       resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
-    - description: Success
-      type: 1
-      resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
-  outcomes:
-  - description: Success
-    type: 1
-    resourceType: {fileID: 11400000, guid: a27cfb7a6001b75429489818cba3134c, type: 2}
+      numberRange:
+        Min: -1
+        Max: -3
+    - description: On the way out we found a satellite with interesting data.
+      resourceType: {fileID: 11400000, guid: 418bdd25dc271684689ae1a6a6730d50, type: 2}
+      numberRange:
+        Min: 2
+        Max: 5

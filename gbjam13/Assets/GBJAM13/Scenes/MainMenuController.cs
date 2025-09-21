@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using GBJAM13.UI;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace GBJAM13.Scenes
 {
@@ -9,31 +11,38 @@ namespace GBJAM13.Scenes
     {
         public int startingTotalJumps;
 
-        public UnityEvent onGameStarted;
-
+        [FormerlySerializedAs("onGameStarted")] 
+        public UnityEvent onNewGameSelected;
+        public UnityEvent onContinueGameSelected;
+        
         public UIOptions options;
         
         public void StartGame()
         {
 
             // onGameStarted.Invoke();
-            
-            options.ShowOptions(new List<string>()
+
+            var optionNames = new List<string>()
             {
                 "CONTINUE",
                 "NEW GAME"
-            });
+            };
+            
+            options.ShowOptions(optionNames.Select(n => new Option()
+            {
+                name = n, disabled = false, userData = null
+            }).ToList());
             
             options.onOptionSelected.AddListener(OnOptionSelected);
         }
 
         private void OnOptionSelected()
         {
-            if (options.selectedOption == 0)
+            if (options.selectedOptionIndex == 0)
             {
                 // TODO: LOAD SAVEGAME FROM FILE
                 GameParameters.saveGame = new SaveGame();
-                onGameStarted.Invoke();
+                onContinueGameSelected.Invoke();
             }
             else
             {
@@ -48,7 +57,7 @@ namespace GBJAM13.Scenes
                         UnityEngine.Random.Range(5, 16),
                     }
                 };
-                onGameStarted.Invoke();
+                onNewGameSelected.Invoke();
             }
         }
     }

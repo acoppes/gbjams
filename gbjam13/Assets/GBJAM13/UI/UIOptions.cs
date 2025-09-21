@@ -11,6 +11,13 @@ using UnityEngine.Serialization;
 
 namespace GBJAM13.UI
 {
+    public class Option
+    {
+        public string name;
+        public bool disabled;
+        public object userData;
+    }
+    
     public class UIOptions : MonoBehaviour, ISubmitHandler
     {
         public UIWindow window;
@@ -33,12 +40,15 @@ namespace GBJAM13.UI
         
         public UnityEvent onOptionSelected;
 
-        public int selectedOption;
+        [NonSerialized]
+        public int selectedOptionIndex;
+
+        public Option selectedOption => uiOptions[selectedOptionIndex].option;
         
-        public void ShowOptions(List<string> options)
+        public void ShowOptions(List<Option> options)
         {
             optionSelected = false;
-            selectedOption = -1;
+            selectedOptionIndex = -1;
             
             var previousOptions = contentParent.GetComponentsInChildren<UIOption>();
             foreach (var previousOption in previousOptions)
@@ -80,7 +90,7 @@ namespace GBJAM13.UI
                 var option = optionsList[i];
                 if (option.selected)
                 {
-                    selectedOption = i;
+                    selectedOptionIndex = i;
                     // selectedUIOption = option;
                 }
             }

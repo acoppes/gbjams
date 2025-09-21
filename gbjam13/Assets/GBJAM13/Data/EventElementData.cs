@@ -1,4 +1,5 @@
 ﻿using System;
+using MyBox;
 using UnityEngine;
 
 namespace GBJAM13.Data
@@ -6,33 +7,27 @@ namespace GBJAM13.Data
     [CreateAssetMenu(menuName = "GBJAM13/EventElementData")]
     public class EventElementData : ScriptableObject
     {
-        public enum ResourceIncomeType
-        {
-            Negative = 0,
-            Positive = 1,
-            None = 2
-        }
-        
         [Serializable]
         public struct Option
         {
             [TextArea(2, 5)]
             public string description;
-            public ResourceIncomeType type;
             public ResourceTypeData resourceType;
+
+            public RangedInt numberRange;
             
             public Outcome[] outcomes;
 
             public string GenerateDescription(int number)
             {
-                if (type == ResourceIncomeType.Positive)
+                if (number > 0)
                 {
                     return $"{description} (+{number} {resourceType.name})";
                 } 
                 
-                if (type == ResourceIncomeType.Negative)
+                if (number < 0)
                 {
-                    return $"{description} (-{number} {resourceType.name})";
+                    return $"{description} ({number} {resourceType.name})";
                 }
                 
                 return $"{description}";
@@ -44,19 +39,20 @@ namespace GBJAM13.Data
         {
             [TextArea(2, 5)]
             public string description;
-            public ResourceIncomeType type;
             public ResourceTypeData resourceType;
+            
+            public RangedInt numberRange;
             
             public string GenerateDescription(int number)
             {
-                if (type == ResourceIncomeType.Positive)
+                if (number > 0)
                 {
                     return $"{description} (+{number} {resourceType.name})";
                 } 
                 
-                if (type == ResourceIncomeType.Negative)
+                if (number < 0)
                 {
-                    return $"{description} (-{number} {resourceType.name})";
+                    return $"{description} ({number} {resourceType.name})";
                 }
                 
                 return $"{description}";
