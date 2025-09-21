@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7152924517700219365}
   - component: {fileID: 6507901346569355359}
   - component: {fileID: 1243255192870132658}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 6696093608107228578}
   - component: {fileID: 6397719070568384985}
   - component: {fileID: 7602028507652661360}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 1183492450907474600}
   - component: {fileID: 1362295494740459237}
   - component: {fileID: 6909151802937574233}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 6145090302230240064}
   - component: {fileID: 4351919421602005106}
   - component: {fileID: 8203705639860546163}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 6734567109394160057}
   - component: {fileID: 6095633985514956199}
   - component: {fileID: 7373596054864432915}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WaitingButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -487,7 +487,8 @@ GameObject:
   - component: {fileID: 5073409394243707503}
   - component: {fileID: 1329737152413497758}
   - component: {fileID: 3908858644807932021}
-  m_Layer: 0
+  - component: {fileID: 5387799877269485255}
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,20 +502,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7144910474461713472}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0625, y: 0.0625, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6696093608107228578}
   - {fileID: 3514345073874743540}
   m_Father: {fileID: 7443510229050466894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 144}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!223 &5073409394243707503
 Canvas:
   m_ObjectHideFlags: 0
@@ -524,10 +525,10 @@ Canvas:
   m_GameObject: {fileID: 7144910474461713472}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -560,7 +561,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!225 &3908858644807932021
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -573,3 +574,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &5387799877269485255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144910474461713472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc93af53690b42b887e8996551a19f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Utilities.ConfigureCanvasCamera
+  canvas: {fileID: 5073409394243707503}
+  findType: 0
+  cameraTag: UICamera
