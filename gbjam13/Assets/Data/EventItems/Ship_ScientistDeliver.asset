@@ -17,26 +17,40 @@ MonoBehaviour:
     sample to a planet lab.
   options:
   - description: Accept, even though we don't have a containment system.
-    type: 1
     resourceType: {fileID: 11400000, guid: 418bdd25dc271684689ae1a6a6730d50, type: 2}
+    numberRange:
+      Min: -1
+      Max: -2
     outcomes:
     - description: The new species creature escaped and ate part of our crew.
-      type: 0
       resourceType: {fileID: 11400000, guid: a27cfb7a6001b75429489818cba3134c, type: 2}
+      numberRange:
+        Min: -1
+        Max: -2
     - description: We are now traveling with an unknown creature, what could go wrong?
-      type: 2
-      resourceType: {fileID: 0}
+      resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
+      numberRange:
+        Min: -1
+        Max: 1
     - description: The new species have some bacteria that replicates food.
-      type: 1
       resourceType: {fileID: 11400000, guid: bbc7e7b67dfdb6d499e966379ef94cc9, type: 2}
+      numberRange:
+        Min: 2
+        Max: 4
   - description: Send them a scientist to help them deal with the samples.
-    type: 0
     resourceType: {fileID: 11400000, guid: a27cfb7a6001b75429489818cba3134c, type: 2}
+    numberRange:
+      Min: -1
+      Max: -1
     outcomes:
     - description: The scientist team wasn't so happy but they stayed for something
         in return.
-      type: 0
       resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
+      numberRange:
+        Min: -1
+        Max: -3
     - description: They accepted the offer and gave us some reward.
-      type: 1
       resourceType: {fileID: 11400000, guid: 4acce0b1fb1dfe24aabfca033c94a093, type: 2}
+      numberRange:
+        Min: 2
+        Max: 6

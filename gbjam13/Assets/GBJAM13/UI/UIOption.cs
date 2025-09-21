@@ -11,9 +11,12 @@ namespace GBJAM13.UI
     public class UIOption : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         public TextView text;
-
+        
         public Image selectedImage;
         public Image notSelectedImage;
+
+        public Color enabledColor;
+        public Color disabledColor;
         
         [NonSerialized]
         public bool selected;
@@ -40,6 +43,8 @@ namespace GBJAM13.UI
         {
             selectedImage.enabled = selected;
             notSelectedImage.enabled = !selected;
+            
+            text.color = option.disabled ? disabledColor : enabledColor;
         }
 
         public void OnSelect(BaseEventData eventData)

@@ -89,6 +89,8 @@ namespace GBJAM13
         
         public void DisplayCurrentEventOptions()
         {
+            var saveGame = GameParameters.saveGame;
+            
             uiDialog.window.Close();
             
             ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
@@ -101,11 +103,13 @@ namespace GBJAM13
             uiOptions.ShowOptions(eventData.options.Select(o =>
             {
                 var number = o.numberRange.RandomInRangeInclusive();
+                var current = saveGame.resources[o.resourceType.value];
+                
                 return new Option()
                 {
                     name = o.GenerateDescription(number),
                     userData = number,
-                    disabled = false
+                    disabled = (current + number) < 0
                 };
             }).ToList());
             
@@ -137,6 +141,10 @@ namespace GBJAM13
             if (selectedOptionResourceNumber != 0)
             {
                 saveGame.resources[selectedOption.resourceType.value] += selectedOptionResourceNumber;
+                if (saveGame.resources[selectedOption.resourceType.value] < 0)
+                {
+                    saveGame.resources[selectedOption.resourceType.value] = 0;
+                }
             }
             
             randomOutcome = selectedOption.outcomes.GetRandom();

@@ -19,6 +19,8 @@ TODO
 * Add a way to complete the game + Complete Sequence + go to main menu.
   - Probably something with using lots of luckies to escape.
 
+* Savegame to json and load from json
+
 * MAIN MENU SCREEN
 
 * Configure itch page with some intro and instructions? and a GIF to show the game.

@@ -81,8 +81,6 @@ namespace GBJAM13.UI
 
         public void OnSubmit(BaseEventData eventData)
         {
-            optionSelected = true;
-            
             // get selected option, invoke callback
             var optionsList = contentParent.GetComponentsInChildren<UIOption>();
             for (var i = 0; i < optionsList.Length; i++)
@@ -90,14 +88,20 @@ namespace GBJAM13.UI
                 var option = optionsList[i];
                 if (option.selected)
                 {
-                    selectedOptionIndex = i;
-                    // selectedUIOption = option;
+                    if (!option.option.disabled)
+                    {
+                        selectedOptionIndex = i;
+                        // selectedUIOption = option;
+                        optionSelected = true;
+                        onOptionSelected.Invoke();
+                        FindAnyObjectByType<UISoundEffects>().PlaySound(confirmSoundEffect);
+                        return;
+                    }
+          
                 }
             }
-
-            onOptionSelected.Invoke();
             
-            FindAnyObjectByType<UISoundEffects>().PlaySound(confirmSoundEffect);
+
         }
     }
 }
