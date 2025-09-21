@@ -37,7 +37,17 @@ namespace GBJAM13.Scenes
             }
             else
             {
-                GameParameters.saveGame = new SaveGame();
+                GameParameters.saveGame = new SaveGame()
+                {
+                    resources = new int[]
+                    {
+                        UnityEngine.Random.Range(5, 16),
+                        UnityEngine.Random.Range(5, 11),
+                        UnityEngine.Random.Range(10, 21),
+                        UnityEngine.Random.Range(10, 21),
+                        UnityEngine.Random.Range(5, 16),
+                    }
+                };
                 onGameStarted.Invoke();
             }
         }

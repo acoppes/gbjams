@@ -16,7 +16,10 @@ namespace GBJAM13
         
         public int nextNode = -1;
 
-        public int[] resources = new int[5];
+        public int[] resources = new int[]
+        {
+            10, 5, 5, 15, 10
+        };
     }
     
     public static class GameParameters
