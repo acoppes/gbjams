@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using GBJAM13.Data;
@@ -16,7 +17,7 @@ namespace GBJAM13
     {
         // LOAD EVENTS AT START FROM CSV AND OTHER DATABASE
 
-        public TextAsset eventsCsvDatabase;
+        public string eventsDatabasePath;
         
         public TypeSetAsset eventTypes;
         public TypeSetAsset resourceTypes;
@@ -25,8 +26,12 @@ namespace GBJAM13
         
         private void Awake()
         {
+            var eventsDatabaseFile = Path.Combine(Application.streamingAssetsPath, eventsDatabasePath);
+
+            var csvText = File.ReadAllText(eventsDatabaseFile);
+            
             // LOAD FROM CSV AND FROM OTHER AND BUILD DATABASE
-            LoadEventsFromCsv(eventsCsvDatabase.text);
+            LoadEventsFromCsv(csvText);
             
             // var eventsFromAssets = eventsDb.GetInterface<IObjectList>().Get<EventElementData>();
             //

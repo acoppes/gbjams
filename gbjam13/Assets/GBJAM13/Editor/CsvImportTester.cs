@@ -11,7 +11,7 @@ namespace GBJAM13.Editor
 {
     public static class CsvImportTester
     {
-        public const string DatabaseCvsPath = "Assets/Resources/events-database.csv";
+        public const string DatabaseCvsPath = "Assets/StreamingAssets/events-database.csv";
         public const string DatabaseCsvUrl = "https://docs.google.com/spreadsheets/d/1ah4HiY2auJAIFUvCpX3j1OHHKYMAItzqYMnjiO7BuJc/export?format=csv";
             
         [MenuItem("GBJAM/GBJAM13/Download Events Database CSV")]
