@@ -2,12 +2,11 @@ TODO
 
 * BUGS:
   - Text for numbers is broken in web gl
-  - CANT START FIRST EVENT
 
 * Separate the main menu container from the bottom.
 
 * Intro
-  - Add Camera Shake and some SFX
+  - Add some error SFX on shake
 
 * Show in gray options if not enough resources.
   - Same for CONTINUE game if there was no previous save game.
