@@ -14,8 +14,8 @@ namespace GBJAM13.Editor
         public const string DatabaseCvsPath = "Assets/Resources/events-database.csv";
         public const string DatabaseCsvUrl = "https://docs.google.com/spreadsheets/d/1ah4HiY2auJAIFUvCpX3j1OHHKYMAItzqYMnjiO7BuJc/export?format=csv";
             
-        [MenuItem("GBJAM/GBJAM13/Load From CSV")]
-        public static void LoadColorSetFromPaletteFile()
+        [MenuItem("GBJAM/GBJAM13/Download Events Database CSV")]
+        public static void DownloadDatabaseFromSpreadsheet()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture; 
