@@ -1,47 +1,69 @@
-TYPE,EVENT_TYPE,NAME,VALUE,MIN,MAX
-event,planet,Maki Donats,Crew is getting hungrier by the second and having some fast food is never a bad option. What should we eat captain?,-,-
-event_option,,Double Sloorg Meat Combo,SCRAP,0,-2
-event_option_outcome,,One of the engineers was indigested and died.,PEOPLE,-1,-1
-event_option_outcome,,"Food wasn't bad, but the bathroom is a mess.",SCRAP,3,5
-event_option,,Suncream with extra mini metoerites,SCRAP,-1,-1
-event_option_outcome,,"We discovered a new flavour, crew is happy.",KNOWLEDGE,2,3
-event_option,,Just free water please,NONE,0,0
-event_option_outcome,,We lost the chance of trying something new.,LUCKIES,0,0
-event,ship,The Explorer,"A ship is asking us for help finding its lost pairs that went far away ahead, probably in a different solar system by now.",-,-
-event_option,,"Tell them to surrender already, there is no way to reach them.",KNOWLEDGE,-1,-2
-event_option_outcome,,They accept and stop trying.,LUCKIES,2,4
-event_option_outcome,,They seem to accept but rename the ship to The Edge,SCRAP,-1,1
-event_option_outcome,,They ignore us and just follow their path.,LUCKIES,-2,-3
-event_option,,Give them one of our best vibe coders.,PEOPLE,-1,-1
-event_option_outcome,,Our vibe coder redirect them to the opposite direction.,LUCKIES,1,2
-event_option_outcome,,They don't like the option and instead they give us their best vibe coder.,PEOPLE,2,2
-event,wormhole,Space Troll Tax,It seems we found a way to escape the galaxy but the Space Troll is asking us luckies tax,,
-event_option,,Pay luckies and see if we can leave the galaxy safe,LUCKIES,-15,-15
-event_option_outcome,,"The Space Troll cheated and he ate the crew, but we escaped.",PEOPLE,-2,-4
-event_option_outcome,,The Space Troll accepted..... but the wormhole is somehow cursed.,LUCKIES,-4,-8
-event_option_outcome,,"We did it, we escaped the galaxy.",LUCKIES,5,10
-event_option,,Fire torpedoes at the Space Troll and escape fast.,SCRAP,-4,-8
-event_option_outcome,,"The Space Troll had a planetary shield, he is angry but we escaped.",LUCKIES,-2,-6
-event_option_outcome,,We managed to escape safe while the Space Troll was blinded by the torpedoes.,KNOWLEDGE,4,8
-event_option,,Propose a riddle and if he fails we can pass without paying.,KNOWLEDGE,-1,-2
-event_option_outcome,,"It took some time but he managed to solve it, now we had to pay double.",LUCKIES,-4,-8
-event_option_outcome,,"While he was distracted solving the riddle, we activated invisibility and escaped.",SCRAP,-5,-10
-event_option_outcome,,"The Space Troll failed to solve the riddle, he paid us and allowed us to continue.",LUCKIES,5,10
-event,planet,Pyramidus Aurelius,A successful farmer offers us an investment package raising Sloorgs.,-,-
-event_option,,Looks like a deal. But let's invest a little.,SCRAP,-3,-4
-event_option_outcome,,The sloorgs were sold for a profit and we got our share!,SCRAP,3,9
-event_option_outcome,,After a while the merchants dissapear with our savings,SCRAP,-5,-5
-event_option,,"I don't know, seems fishy",NONE,0,0
-event_option_outcome,,Aurelius tells us we are making the worst decision of our lives.,NONE,0,0
-event_option,,Go all in,SCRAP,-7,-7
-event_option_outcome,,The sloorgs were sold for a profit and we got our share!,SCRAP,9,10
-event_option_outcome,,After a while the merchants dissapear with our savings,SCRAP,-7,-7
-,,,,,
-event,ship,Scientist Deliver,The Captain of the ship is asking if we can deliver a new species sample to a planet lab.,,
-event_option,,"Accept, even though we don't have a containment system.",KNOWLEDGE,-1,-2
-event_option_outcome,,The new species creature escaped and has eaten part of our crew.,PEOPLE,-1,-2
-event_option_outcome,,"We are now traveling with an unknown creature, what could go wrong?",LUCKIES,-2,2
-event_option_outcome,,The new species have some bacteria that replicates food.,FOOD,5,10
-event_option,,Send them a scientist to help them deal with the samples.,PEOPLE,-1,-1
-event_option_outcome,,The scientist team wasn't so happy but they stayed for something in return.,LUCKIES,-1,-2
-event_option_outcome,,They accepted the offer and gave us some reward.,SCRAP,3,6
+TYPE,EVENT_TYPE,NAME,VALUE,MIN,MAX,CHECK_STATS,ADD_STATS
+event,planet,Maki Donats,Crew is getting hungrier by the second and having some fast food is never a bad option. What should we eat captain?,,,,
+event_option,,Double Sloorg Meat Combo,SCRAP,0,-2,,
+event_option_outcome,,One of the engineers was indigested and died.,PEOPLE,-1,-1,,
+event_option_outcome,,"Food wasn't bad, but the bathroom is a mess.",SCRAP,3,5,,
+event_option,,Suncream with extra mini metoerites,SCRAP,-1,-1,,
+event_option_outcome,,"We discovered a new flavour, crew is happy.",KNOWLEDGE,2,3,,
+event_option,,Just free water please,NONE,0,0,,
+event_option_outcome,,We lost the chance of trying something new.,LUCKIES,0,0,,
+,,,,,,,
+event,ship,The Explorer,"A ship is asking us for help finding its lost pairs that went far away ahead, probably in a different solar system by now.",,,,
+event_option,,"Tell them to surrender already, there is no way to reach them.",KNOWLEDGE,-1,-2,,
+event_option_outcome,,They accept and stop trying.,LUCKIES,2,4,,
+event_option_outcome,,They seem to accept but rename the ship to The Edge,SCRAP,-1,1,,
+event_option_outcome,,They ignore us and just follow their path.,LUCKIES,-2,-3,,
+event_option,,Give them one of our best vibe coders.,PEOPLE,-1,-1,,
+event_option_outcome,,Our vibe coder redirect them to the opposite direction.,LUCKIES,1,2,,
+event_option_outcome,,They don't like the option and instead they give us their best vibe coder.,PEOPLE,2,2,,
+,,,,,,,
+event,wormhole,Space Troll Tax,It seems we found a way to escape the galaxy but the Space Troll is asking us luckies tax,,,,+reached_end
+event_option,,Pay luckies and see if we can leave the galaxy safe,LUCKIES,-15,-15,,
+event_option_outcome,,"The Space Troll cheated and he ate the crew, that gave us time to enter the wormhole.",PEOPLE,-2,-4,,
+event_option_outcome,,The Space Troll accepted..... but the wormhole is somehow cursed.,LUCKIES,-4,-8,,
+event_option_outcome,,"We did it, we escaped the galaxy.",LUCKIES,5,10,,
+event_option,,Fire torpedoes at the Space Troll and escape fast.,SCRAP,-4,-8,,
+event_option_outcome,,"The Space Troll had a planetary shield, he is angry but we escaped.",LUCKIES,-2,-6,,
+event_option_outcome,,We managed to escape safe while the Space Troll was blinded by the torpedoes.,KNOWLEDGE,4,8,,
+event_option,,Propose a riddle and if he fails we can pass without paying.,KNOWLEDGE,-1,-2,,
+event_option_outcome,,"It took some time but he managed to solve it, now we had to pay double.",LUCKIES,-4,-8,,
+event_option_outcome,,"While he was distracted solving the riddle, we activated invisibility and escaped.",SCRAP,-5,-10,,
+event_option_outcome,,"The Space Troll failed to solve the riddle, he paid us and allowed us to continue.",LUCKIES,5,10,,
+,,,,,,,
+event,planet,Pyramidus Aurelius,A successful farmer offers us an investment package raising Sloorgs.,-,-,,
+event_option,,Looks like a deal. But let's invest a little.,SCRAP,-3,-4,,
+event_option_outcome,,The sloorgs were sold for a profit and we got our share!,SCRAP,3,9,,
+event_option_outcome,,After a while the merchants dissapear with our savings,SCRAP,-5,-5,,
+event_option,,"I don't know, seems fishy",NONE,0,0,,
+event_option_outcome,,Aurelius tells us we are making the worst decision of our lives.,NONE,0,0,,
+event_option,,Go all in,SCRAP,-7,-7,,
+event_option_outcome,,The sloorgs were sold for a profit and we got our share!,SCRAP,9,10,,
+event_option_outcome,,After a while the merchants dissapear with our savings,SCRAP,-7,-7,,
+,,,,,,,
+event,ship,Scientist Deliver,The Captain of the ship is asking if we can deliver a new species sample to a planet lab.,,,,
+event_option,,"Accept, even though we don't have a containment system.",KNOWLEDGE,-1,-2,,
+event_option_outcome,,The new species creature escaped and has eaten part of our crew.,PEOPLE,-1,-2,,
+event_option_outcome,,"We are now traveling with an unknown creature, what could go wrong?",LUCKIES,-2,2,,
+event_option_outcome,,The new species have some bacteria that replicates food.,FOOD,5,10,,
+event_option,,Send them a scientist to help them deal with the samples.,PEOPLE,-1,-1,,
+event_option_outcome,,The scientist team wasn't so happy but they stayed for something in return.,LUCKIES,-1,-2,,
+event_option_outcome,,They accepted the offer and gave us some reward.,SCRAP,3,6,,
+event,asteroid,Guitarrius Center,A music label from Madonus II offers us a chance to participate in a contest remixing the latest song from the closest galaxy biggest pop star : Glatubela.,,,,
+event_option,"Lets make a banger, baby.",Some of us are experimented musicians and we ready for the challenge.,KNOWLEDGE,-1,-2,,
+event_option_outcome,,Our guitarrist strums his guitar and creates the most beautiful melody in that asteroid belt but the judges don't care. We finished last,LUCKIES,-2,2,,
+event_option_outcome,,Meltron Gion (the most important judge) thinks our song is beautiful. We won 1st place,SCRAP,3,6,,
+event_option_outcome,,Our drummer dies from a heart attack.,PEOPLE,-1,-1,,
+event_option,"We don't play any instruments, sorry.",,NONE,0,0,,
+event_option_outcome,,Nothing happens but the crew remains unhappy because music is life,NONE,0,0,,
+event_option_outcome,,Simon Cowell Teleports to our ship and steals our food,FOOD,-1,-1,,
+event_option,Who's Glatubela?,"Accept, even though we don't have any idea about music",SCRAP,-1,-2,,
+event_option_outcome,,Our song sounds like a thousand little Sytrulius dying in unison. We won the contest and the price is old chopped slurg meat ,FOOD,3,6,,
+event_option_outcome,, Porter Robinson twits about our song and makes fun of us.,LUCKIES,-1,-2,,
+event,planet,Prometheus IV,The planet seems to be empty but found some empty ships suggesting it was visited before. Should we explore to see what happened here?,,,,
+event_option,,Send someone to explore but avoid opening eggs please.,NONE,0,0,,
+event_option_outcome,,"They obviously opened the eggs, got infected and died.",PEOPLE,-1,-2,,
+event_option_outcome,,"There were no strange eggs in this planet, but we found out some old ships and dead people.",SCRAP,7,14,,
+event_options,,"Clearly, this is not a planet to explore, ignore and leave.",LUCKIES,0,2,,
+event_option_outcome,,"The crew is bored for now going down, they decided to play some games and ended up breaking stuff.",SCRAP,-2,-4,,
+event_option_outcome,,"Our scientist team is not happy, they obviously wanted to explore new planets.",FOOD,-1,-2,,
+event_option_outcome,,"We were indeed lucky, we found out other scientist teams died on this planet, our crew is happy we didn't go down.",LUCKIES,2,4,,

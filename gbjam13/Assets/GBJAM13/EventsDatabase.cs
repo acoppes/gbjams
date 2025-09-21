@@ -118,14 +118,20 @@ namespace GBJAM13
                     {
                         Debug.LogError($"Failed to get resource type {row[3]}");
                     }
-                    
-                    currentOption = new EventElementData.Option()
+
+                    try
                     {
-                        description = row[2],
-                        resourceType = resourceType,
-                        numberRange = new RangedInt(int.Parse(row[4]), int.Parse(row[5])),
-                        outcomes = new List<EventElementData.Outcome>()
-                    };
+                        currentOption = new EventElementData.Option()
+                        {
+                            description = row[2],
+                            resourceType = resourceType,
+                            numberRange = new RangedInt(int.Parse(row[4]), int.Parse(row[5])),
+                            outcomes = new List<EventElementData.Outcome>()
+                        };
+                    } catch
+                    {
+                        Debug.LogError($"Failed while parsing {row[4]} and {row[5]} from {row[1]}, {row[2]}");
+                    }
                     
                     currentEvent.options.Add(currentOption);
                 }
@@ -159,12 +165,18 @@ namespace GBJAM13
                         Debug.LogError($"Failed to get resource type {row[3]}");
                     }
                     
-                    currentOutcome = new EventElementData.Outcome()
+                    try
                     {
-                        description = row[2],
-                        resourceType = resourceType,
-                        numberRange = new RangedInt(int.Parse(row[4]), int.Parse(row[5]))
-                    };
+                        currentOutcome = new EventElementData.Outcome()
+                        {
+                            description = row[2],
+                            resourceType = resourceType,
+                            numberRange = new RangedInt(int.Parse(row[4]), int.Parse(row[5]))
+                        };
+                    } catch
+                    {
+                        Debug.LogError($"Failed while parsing {row[4]} and {row[5]} from {row[1]}, {row[2]}");
+                    }
                     
                     currentOption.outcomes.Add(currentOutcome);
                 }
