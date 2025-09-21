@@ -25,7 +25,8 @@ namespace GBJAM13
         {
             var galaxyGenerator = new GalaxyGenerator();
 
-            data.eventsDb = eventsDb.GetInterface<IObjectList>();
+            // data.eventsDb = eventsDb.GetInterface<IObjectList>();
+            data.eventsDatabase = EventsDatabase.Instance;
             data.eventsVariantsDb = eventVariantsDb.GetInterface<IObjectList>();
             data.eventNamesDb = eventNamesDb.GetInterface<IObjectList>();
 

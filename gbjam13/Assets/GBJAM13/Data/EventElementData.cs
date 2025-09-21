@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MyBox;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace GBJAM13.Data
 
             public RangedInt numberRange;
             
-            public Outcome[] outcomes;
+            public List<Outcome> outcomes;
 
             public string GenerateDescription(int number)
             {
@@ -57,12 +58,13 @@ namespace GBJAM13.Data
                 
                 return $"{description}";
             }
-        }   
-        
+        }
+
+        public string eventName;
         public EventTypeData type;
         
         [TextArea(2, 5)]
         public string description;
-        public Option[] options;
+        public List<Option> options = new List<Option>();
     }
 }

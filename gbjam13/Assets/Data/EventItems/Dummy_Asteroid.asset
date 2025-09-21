@@ -12,43 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5139c9d6f004936b4b61d38336512fb, type: 3}
   m_Name: Dummy_Asteroid
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Data.EventElementData
+  eventName: Dummy_Asteroid
   type: {fileID: 11400000, guid: 11a1c134cb5419c4c8ff4dbcf44b03c5, type: 2}
   description: Found an asteroid
   options:
   - description: Explore
-    type: 0
     resourceType: {fileID: 11400000, guid: a27cfb7a6001b75429489818cba3134c, type: 2}
     numberRange:
       Min: -1
       Max: -2
     outcomes:
     - description: Failed
-      type: 0
       resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
       numberRange:
         Min: -2
         Max: -5
     - description: Success
-      type: 1
       resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
       numberRange:
         Min: 2
         Max: 5
   - description: Escape
-    type: 0
     resourceType: {fileID: 11400000, guid: 418bdd25dc271684689ae1a6a6730d50, type: 2}
     numberRange:
       Min: -1
       Max: -2
     outcomes:
     - description: We managed to escape the nothingness without issues...
-      type: 1
       resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
       numberRange:
         Min: 0
         Max: 0
     - description: Hit some loose asteroiod rocks while escaping...
-      type: 0
       resourceType: {fileID: 11400000, guid: 4acce0b1fb1dfe24aabfca033c94a093, type: 2}
       numberRange:
         Min: -2

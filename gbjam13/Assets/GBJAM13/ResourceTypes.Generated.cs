@@ -15,18 +15,21 @@ namespace GBJAM13
     public partial class ResourceTypes
     {
         
-        public static int Luckies = 0;
+        public static int None = 0;
         
-        public static int People = 1;
+        public static int Luckies = 1;
         
-        public static int Food = 2;
+        public static int People = 2;
         
-        public static int Scrap = 3;
+        public static int Food = 3;
         
-        public static int Knowledge = 4;
+        public static int Scrap = 4;
+        
+        public static int Knowledge = 5;
         
         public static string ValueToName(int value)
         {
+            if (value == None) return nameof(None);
             if (value == Luckies) return nameof(Luckies);
             if (value == People) return nameof(People);
             if (value == Food) return nameof(Food);
@@ -37,6 +40,7 @@ namespace GBJAM13
         
         public static void GetNames(int mask, System.Collections.Generic.ICollection<string> collection)
         {
+            if ((mask & (1 << None)) == (1 << None)) collection.Add(nameof(None));
             if ((mask & (1 << Luckies)) == (1 << Luckies)) collection.Add(nameof(Luckies));
             if ((mask & (1 << People)) == (1 << People)) collection.Add(nameof(People));
             if ((mask & (1 << Food)) == (1 << Food)) collection.Add(nameof(Food));

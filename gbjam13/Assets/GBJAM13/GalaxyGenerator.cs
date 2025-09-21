@@ -48,8 +48,10 @@ namespace GBJAM13
             // public NodeData[] otherTypes;
 
             public IObjectList eventNamesDb;
-            public IObjectList eventsDb;
+            // public IObjectList eventsDb;
             public IObjectList eventsVariantsDb;
+
+            public EventsDatabase eventsDatabase;
             
             public int maxColumnDistance;
             public float emptyChance;
@@ -77,8 +79,10 @@ namespace GBJAM13
             galaxy.startingRow = UnityEngine.Random.Range(0, GalaxyData.GalaxyColumn.RowsPerColumn);
             galaxy.endingRow = UnityEngine.Random.Range(0, GalaxyData.GalaxyColumn.RowsPerColumn);
 
-            var wormholeEvents = generatorData.eventsDb.Get<EventElementData>()
-                .Where(e => e.type == EventTypes.Wormhole).ToList();
+            var wormholeEvents = generatorData.eventsDatabase.GetEventsOfType(EventTypes.Wormhole);
+
+            // var wormholeEvents = generatorData.eventsDb.Get<EventElementData>()
+            //     .Where(e => e.type == EventTypes.Wormhole).ToList();
             
             var wormholeVariants = generatorData.eventsVariantsDb.Get<EventElementVariantData>()
                 .First(e => e.eventType == EventTypes.Wormhole);
@@ -92,7 +96,7 @@ namespace GBJAM13
             startingColumn.nodes[galaxy.startingRow] = new GalaxyData.GalaxyNode()
             {
                 type = wormholeStart.type.name,
-                eventName = wormholeStart.name,
+                eventName = wormholeStart.eventName,
                 eventVariant = wormholeVariants.variants.Random(),
                 name = wormholeElements.GetRandom().GenerateName(),
                 mainPath = true
@@ -101,14 +105,17 @@ namespace GBJAM13
             endingColumn.nodes[galaxy.endingRow] = new GalaxyData.GalaxyNode()
             {
                 type = wormholeEnd.type.name,
-                eventName = wormholeEnd.name,
+                eventName = wormholeEnd.eventName,
                 eventVariant = wormholeVariants.variants.Random(),
                 name = wormholeElements.GetRandom().GenerateName(),
                 mainPath = true
             };
             
-            var otherEvents = generatorData.eventsDb.Get<EventElementData>()
-                .Where(e => e.type != EventTypes.Wormhole).ToList();
+            var otherEvents = 
+                generatorData.eventsDatabase.GetEventsNotOfType(EventTypes.Wormhole);
+            
+            // var otherEvents = generatorData.eventsDb.Get<EventElementData>()
+            //     .Where(e => e.type != EventTypes.Wormhole).ToList();
             
             for (var i = 1; i < galaxy.columns.Length - 1; i++)
             {
@@ -129,7 +136,7 @@ namespace GBJAM13
                     column.nodes[j] = new GalaxyData.GalaxyNode()
                     {
                         type = randomEvent.type.name,
-                        eventName = randomEvent.name,
+                        eventName = randomEvent.eventName,
                         eventVariant = randomEventVariants.variants.Random(),
                         name = randomEventNames.GetRandom().GenerateName(),
                         mainPath = false

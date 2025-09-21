@@ -26,8 +26,8 @@ namespace GBJAM13
         public UnityEvent onEventCompleted;
         public UnityEvent onGalaxyCompleted;
         
-        [ObjectType(typeof(IObjectList), filterString = "Database")]
-        public Object eventsDb;
+        // [ObjectType(typeof(IObjectList), filterString = "Database")]
+        // public Object eventsDb;
         
         [ObjectType(typeof(IObjectList), filterString = "Database")]
         public Object eventVariantsDb;
@@ -78,8 +78,11 @@ namespace GBJAM13
         {
             ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
 
-            var eventData = eventsDb.GetInterface<IObjectList>()
-                .FindByName<EventElementData>(mapElementComponent.eventName);
+            var eventsDatabase = EventsDatabase.Instance;
+            var eventData = eventsDatabase.eventsDictionary[mapElementComponent.eventName];
+            
+            // var eventData = eventsDb.GetInterface<IObjectList>()
+            //     .FindByName<EventElementData>(mapElementComponent.eventName);
             
             uiDialog.ShowText(eventData.description);
         }
@@ -95,8 +98,11 @@ namespace GBJAM13
             
             ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
 
-            var eventData = eventsDb.GetInterface<IObjectList>()
-                .FindByName<EventElementData>(mapElementComponent.eventName);
+            var eventsDatabase = EventsDatabase.Instance;
+            var eventData = eventsDatabase.eventsDictionary[mapElementComponent.eventName];
+            
+            // var eventData = eventsDb.GetInterface<IObjectList>()
+            //     .FindByName<EventElementData>(mapElementComponent.eventName);
          
             // temporaryResourceNumber = UnityEngine.Random.Range(1, 4);
             
@@ -131,8 +137,11 @@ namespace GBJAM13
             
             ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
 
-            var eventData = eventsDb.GetInterface<IObjectList>()
-                .FindByName<EventElementData>(mapElementComponent.eventName);
+            var eventsDatabase = EventsDatabase.Instance;
+            var eventData = eventsDatabase.eventsDictionary[mapElementComponent.eventName];
+            
+            // var eventData = eventsDb.GetInterface<IObjectList>()
+            //     .FindByName<EventElementData>(mapElementComponent.eventName);
 
             var selectedOption = eventData.options[uiOptions.selectedOptionIndex];
             var selectedOptionResourceNumber = (int) uiOptions.selectedOption.userData;
@@ -160,6 +169,10 @@ namespace GBJAM13
             if (temporaryResourceNumber != 0)
             {
                 saveGame.resources[randomOutcome.resourceType.value] += temporaryResourceNumber;
+                if (saveGame.resources[randomOutcome.resourceType.value] < 0)
+                {
+                    saveGame.resources[randomOutcome.resourceType.value] = 0;
+                }
             }
 
             temporaryResourceNumber = 0;

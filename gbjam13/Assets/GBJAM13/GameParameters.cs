@@ -18,7 +18,7 @@ namespace GBJAM13
 
         public int[] resources = new int[]
         {
-            10, 5, 5, 15, 10
+            0, 10, 5, 5, 15, 10
         };
     }
     
