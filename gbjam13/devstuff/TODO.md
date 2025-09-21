@@ -8,9 +8,6 @@ TODO
 
 * Show in gray options if not enough resources.
   - Same for CONTINUE game if there was no previous save game.
-* Resources should never go negative.
-* Add big image version of elements.
-* Control random min/max for each mineral in options and outcomes.
 
 * Events may want to define which "specific names" they want to use. So if a scientist mission appears, it wasn't from a destroyer ship.
 * Add MORE EVENTS/CONTENT
