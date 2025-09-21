@@ -5,6 +5,9 @@
 * Intro
   - Add some error SFX on shake
 
+* REDUCE CHANCE OF EVENTS (or remove them from list, if no more events, then reload and shuffle)
+* LONG TEXT SUPPORT
+
 * PREFER OTHER OUTCOMES IF NO MORE RESOURCE (EVEN POSITIVE ONES)
 
 * Events may want to define which "specific names" they want to use. So if a scientist mission appears, it wasn't from a destroyer ship.
