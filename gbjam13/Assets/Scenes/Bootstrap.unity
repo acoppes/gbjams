@@ -38,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -193,7 +193,7 @@ Texture2D:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_IsAlphaChannelOptional: 0
-  serializedVersion: 3
+  serializedVersion: 4
   m_Width: 4
   m_Height: 1
   m_CompleteImageSize: 16
@@ -361,7 +361,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Invert: 0
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
@@ -458,6 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ecbd19c645348f0b1626a9858c12d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionType: 0
 --- !u!1 &1001602708
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,6 +652,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Splash
+--- !u!1 &1844458656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1844458660}
+  - component: {fileID: 1844458659}
+  - component: {fileID: 1844458658}
+  - component: {fileID: 1844458657}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1844458657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844458656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9440bbdd7d3b470796200548d07d2189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Screens.FontFixer
+  font: {fileID: 12800000, guid: 91c55757610d4574887de2dda652a38d, type: 3}
+--- !u!114 &1844458658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844458656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9440bbdd7d3b470796200548d07d2189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Screens.FontFixer
+  font: {fileID: 12800000, guid: 42f985aa0ccf7654e8b629e233210574, type: 3}
+--- !u!114 &1844458659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844458656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9440bbdd7d3b470796200548d07d2189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Screens.FontFixer
+  font: {fileID: 12800000, guid: 8448195b782cf0143b0c1b1ea7a20911, type: 3}
+--- !u!4 &1844458660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844458656}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -657,3 +732,4 @@ SceneRoots:
   - {fileID: 1029811215}
   - {fileID: 1044539833}
   - {fileID: 805835136}
+  - {fileID: 1844458660}
