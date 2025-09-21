@@ -37,6 +37,7 @@ namespace GBJAM13.UI
         // public InputActionReference selectAction;
 
         public SoundEffectAsset confirmSoundEffect;
+        public SoundEffectAsset confirmFailSoundEffect;
         
         public UnityEvent onOptionSelected;
 
@@ -96,6 +97,10 @@ namespace GBJAM13.UI
                         onOptionSelected.Invoke();
                         FindAnyObjectByType<UISoundEffects>().PlaySound(confirmSoundEffect);
                         return;
+                    }
+                    else
+                    {
+                        FindAnyObjectByType<UISoundEffects>().PlaySound(confirmFailSoundEffect);
                     }
           
                 }
