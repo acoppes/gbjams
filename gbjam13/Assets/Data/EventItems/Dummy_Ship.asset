@@ -13,29 +13,30 @@ MonoBehaviour:
   m_Name: Dummy_Ship
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Data.EventElementData
   type: {fileID: 11400000, guid: b9ad8f00a4ac0ae479122fd6aa704a3f, type: 2}
-  description: Found a Ship
+  description: The Captain of the ship is asking if we can deliver a new species
+    sample to a planet lab.
   options:
-  - description: Accept scrap
+  - description: Accept, even though we don't have a containment system.
     type: 1
-    resourceType: {fileID: 11400000, guid: 4acce0b1fb1dfe24aabfca033c94a093, type: 2}
+    resourceType: {fileID: 11400000, guid: 418bdd25dc271684689ae1a6a6730d50, type: 2}
     outcomes:
-    - description: Failed
-      type: 0
-      resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
-    - description: Success
-      type: 1
-      resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
-  - description: Ignore request
-    type: 0
-    resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
-    outcomes:
-    - description: It was a test, you failed it
+    - description: The new species creature escaped and ate part of our crew.
       type: 0
       resourceType: {fileID: 11400000, guid: a27cfb7a6001b75429489818cba3134c, type: 2}
-    - description: Success
+    - description: We are now traveling with an unknown creature, what could go wrong?
+      type: 2
+      resourceType: {fileID: 0}
+    - description: The new species have some bacteria that replicates food.
       type: 1
-      resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
-  outcomes:
-  - description: It was a test, you failed it
+      resourceType: {fileID: 11400000, guid: bbc7e7b67dfdb6d499e966379ef94cc9, type: 2}
+  - description: Send them a scientist to help them deal with the samples.
     type: 0
     resourceType: {fileID: 11400000, guid: a27cfb7a6001b75429489818cba3134c, type: 2}
+    outcomes:
+    - description: The scientist team wasn't so happy but they stayed for something
+        in return.
+      type: 0
+      resourceType: {fileID: 11400000, guid: 4ca3a9fc733f2bd4ab8ad3113fd921a0, type: 2}
+    - description: They accepted the offer and gave us some reward.
+      type: 1
+      resourceType: {fileID: 11400000, guid: 4acce0b1fb1dfe24aabfca033c94a093, type: 2}
