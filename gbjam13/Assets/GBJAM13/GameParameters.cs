@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace GBJAM13
 {
@@ -20,6 +21,8 @@ namespace GBJAM13
         {
             0, 10, 5, 5, 15, 10
         };
+
+        public readonly List<string> stats = new List<string>();
     }
     
     public static class GameParameters

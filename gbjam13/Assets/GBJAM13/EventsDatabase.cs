@@ -116,7 +116,7 @@ namespace GBJAM13
                     
                     if (!resourceType)
                     {
-                        Debug.LogError($"Failed to get resource type {row[3]}");
+                        Debug.LogError($"Failed to get resource type {row[3]} from {row[1]}, {row[2]}");
                     }
 
                     try
@@ -162,7 +162,15 @@ namespace GBJAM13
                     
                     if (!resourceType)
                     {
-                        Debug.LogError($"Failed to get resource type {row[3]}");
+                        Debug.LogError($"Failed to get resource type {row[3]} from {row[1]}, {row[2]}");
+                    }
+
+                    var outcomeStats = new List<string>();
+                    
+                    if (!string.IsNullOrEmpty(row[7]))
+                    {
+                        var stats = row[7].Split(",");
+                        outcomeStats = stats.ToList();
                     }
                     
                     try
@@ -171,13 +179,14 @@ namespace GBJAM13
                         {
                             description = row[2],
                             resourceType = resourceType,
-                            numberRange = new RangedInt(int.Parse(row[4]), int.Parse(row[5]))
+                            numberRange = new RangedInt(int.Parse(row[4]), int.Parse(row[5])),
+                            stats = outcomeStats
                         };
                     } catch
                     {
                         Debug.LogError($"Failed while parsing {row[4]} and {row[5]} from {row[1]}, {row[2]}");
                     }
-                    
+                        
                     currentOption.outcomes.Add(currentOutcome);
                 }
             }
@@ -191,6 +200,11 @@ namespace GBJAM13
             var completeTime = Time.realtimeSinceStartupAsDouble;
             
             Debug.Log($"CSV PARSE AND BUILD EVENTS: {completeTime} seconds");
+
+            foreach (var eventData in eventsDictionary.Values)
+            {
+                Debug.Log(JsonUtility.ToJson(eventData));
+            }
         }
     }
 }

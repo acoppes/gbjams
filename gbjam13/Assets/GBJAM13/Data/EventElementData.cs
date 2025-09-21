@@ -43,6 +43,7 @@ namespace GBJAM13.Data
             public ResourceTypeData resourceType;
             
             public RangedInt numberRange;
+            public List<string> stats;
             
             public string GenerateDescription(int number)
             {
