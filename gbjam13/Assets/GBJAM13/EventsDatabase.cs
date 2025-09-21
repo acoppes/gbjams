@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using GBJAM13.Data;
 using Gemserk.BitmaskTypes;
 using Gemserk.Leopotam.Ecs;
@@ -57,6 +59,9 @@ namespace GBJAM13
 
         private void LoadEventsFromCsv(string csvText)
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; 
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture; 
+            
             var time = Time.realtimeSinceStartupAsDouble;
             
             var results = CSVParser.LoadFromString(csvText);
