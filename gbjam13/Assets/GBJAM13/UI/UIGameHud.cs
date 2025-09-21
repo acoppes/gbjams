@@ -9,18 +9,20 @@ namespace GBJAM13.UI
     {
         public UIWindow window;
 
-        [NonSerialized]
-        public List<UIResource> uiResources = new List<UIResource>();
+        private readonly List<UIResource> uiResources = new List<UIResource>();
         
         private void Awake()
         {
-            window.onOpenAction.AddListener(OnWindowOpen);
             GetComponentsInChildren(uiResources);
         }
-
-        private void OnWindowOpen()
+        
+        private void LateUpdate()
         {
-            // update resources from savegame?
+            if (!window.IsOpen())
+            {
+                return;
+            }
+            
             var saveGame = GameParameters.saveGame;
 
             foreach (var uiResource in uiResources)

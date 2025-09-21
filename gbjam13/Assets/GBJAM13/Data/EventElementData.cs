@@ -23,10 +23,19 @@ namespace GBJAM13.Data
             
             public Outcome[] outcomes;
 
-            public string GenerateDescription()
+            public string GenerateDescription(int number)
             {
-                var number = UnityEngine.Random.Range(1, 4);
-                return $"{description} (-{number} {resourceType.name})";
+                if (type == ResourceIncomeType.Positive)
+                {
+                    return $"{description} (+{number} {resourceType.name})";
+                } 
+                
+                if (type == ResourceIncomeType.Negative)
+                {
+                    return $"{description} (-{number} {resourceType.name})";
+                }
+                
+                return $"{description}";
             }
         }        
         
@@ -37,6 +46,21 @@ namespace GBJAM13.Data
             public string description;
             public ResourceIncomeType type;
             public ResourceTypeData resourceType;
+            
+            public string GenerateDescription(int number)
+            {
+                if (type == ResourceIncomeType.Positive)
+                {
+                    return $"{description} (+{number} {resourceType.name})";
+                } 
+                
+                if (type == ResourceIncomeType.Negative)
+                {
+                    return $"{description} (-{number} {resourceType.name})";
+                }
+                
+                return $"{description}";
+            }
         }   
         
         public EventTypeData type;

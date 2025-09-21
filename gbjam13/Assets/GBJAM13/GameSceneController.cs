@@ -82,6 +82,9 @@ namespace GBJAM13
             
             uiDialog.ShowText(eventData.description);
         }
+
+        private int temporaryResourceNumber;
+        private EventElementData.Outcome randomOutcome;
         
         public void DisplayCurrentEventOptions()
         {
@@ -92,7 +95,9 @@ namespace GBJAM13
             var eventData = eventsDb.GetInterface<IObjectList>()
                 .FindByName<EventElementData>(mapElementComponent.eventName);
          
-            uiOptions.ShowOptions(eventData.options.Select(o => o.GenerateDescription()).ToList());
+            temporaryResourceNumber = UnityEngine.Random.Range(1, 4);
+            
+            uiOptions.ShowOptions(eventData.options.Select(o => o.GenerateDescription(temporaryResourceNumber)).ToList());
             
             // dialog.ShowText(eventData.options[0].description);
         }
@@ -116,10 +121,35 @@ namespace GBJAM13
                 .FindByName<EventElementData>(mapElementComponent.eventName);
 
             var selectedOption = eventData.options[uiOptions.selectedOption];
+
+            var saveGame = GameParameters.saveGame;
+            if (selectedOption.type == EventElementData.ResourceIncomeType.Positive)
+            {
+                saveGame.resources[selectedOption.resourceType.value] += temporaryResourceNumber;
+            } else if (selectedOption.type == EventElementData.ResourceIncomeType.Negative)
+            {
+                saveGame.resources[selectedOption.resourceType.value] -= temporaryResourceNumber;
+            }
             
-            var outcome = selectedOption.outcomes.GetRandom();
-            var randomNumber = UnityEngine.Random.Range(1, 5);
-            uiDialog.ShowText($"{outcome.description} (+{randomNumber} {outcome.resourceType.name})");
+            randomOutcome = selectedOption.outcomes.GetRandom();
+            temporaryResourceNumber = UnityEngine.Random.Range(1, 5);
+            uiDialog.ShowText(randomOutcome.GenerateDescription(temporaryResourceNumber));
+        }
+        
+        public void ProcessOutcomeResources()
+        {
+            var saveGame = GameParameters.saveGame;
+            
+            // could have a temporary delay until the event is completed
+            if (randomOutcome.type == EventElementData.ResourceIncomeType.Positive)
+            {
+                saveGame.resources[randomOutcome.resourceType.value] += temporaryResourceNumber;
+            } else if (randomOutcome.type == EventElementData.ResourceIncomeType.Negative)
+            {
+                saveGame.resources[randomOutcome.resourceType.value] -= temporaryResourceNumber;
+            }
+
+            temporaryResourceNumber = 0;
         }
         
         public void OnCurrentEventCompleted()
@@ -141,13 +171,6 @@ namespace GBJAM13
             {
                 onEventCompleted.Invoke();
             }
-        }
-        
-        // IF KEY UP/DOWN => swap selection
-
-        private void Update()
-        {
-
         }
     }
 }
