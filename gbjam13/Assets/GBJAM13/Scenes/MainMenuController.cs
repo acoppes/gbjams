@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using GBJAM13.UI;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,11 +11,35 @@ namespace GBJAM13.Scenes
 
         public UnityEvent onGameStarted;
 
+        public UIOptions options;
+        
         public void StartGame()
         {
-            GameParameters.galaxyData = null;
-            GameParameters.totalJumps = startingTotalJumps;
-            onGameStarted.Invoke();
+
+            // onGameStarted.Invoke();
+            
+            options.ShowOptions(new List<string>()
+            {
+                "CONTINUE",
+                "NEW GAME"
+            });
+            
+            options.onOptionSelected.AddListener(OnOptionSelected);
+        }
+
+        private void OnOptionSelected()
+        {
+            if (options.selectedOption == 0)
+            {
+                // TODO: LOAD SAVEGAME FROM FILE
+                GameParameters.saveGame = new SaveGame();
+                onGameStarted.Invoke();
+            }
+            else
+            {
+                GameParameters.saveGame = new SaveGame();
+                onGameStarted.Invoke();
+            }
         }
     }
 }

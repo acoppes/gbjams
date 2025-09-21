@@ -45,11 +45,11 @@ namespace GBJAM13
         
         public void GenerateMapFromData()
         {
-            var generatedGalaxy = GameParameters.galaxyData;
-
-            if (GameParameters.galaxyData == null)
+            var saveGame = GameParameters.saveGame;
+            
+            if (saveGame == null)
             {
-                GameParameters.totalJumps = GameParameters.DefaultTotalJumps;
+                GameParameters.saveGame = new SaveGame();
                 GameSceneLoader.LoadNextScene("MapGenerator");
                 return;
             }
@@ -57,11 +57,11 @@ namespace GBJAM13
             var world = worldReference.GetReference(gameObject);
             var nodePosition = new Vector2();
 
-            transform.position -= new Vector3(separation.x * GameParameters.currentColumn, 0, 0);
+            transform.position -= new Vector3(separation.x * saveGame.currentColumn, 0, 0);
 
-            for (var i = 0; i < generatedGalaxy.columns.Length; i++)
+            for (var i = 0; i < saveGame.galaxyData.columns.Length; i++)
             {
-                var column = generatedGalaxy.columns[i];
+                var column = saveGame.galaxyData.columns[i];
                 for (var j = 0; j < column.nodes.Length; j++)
                 {
                     var node = column.nodes[j];
@@ -81,12 +81,12 @@ namespace GBJAM13
                             mapElementComponent.column = i;
                             mapElementComponent.row = j;
                             
-                            if (GameParameters.currentColumn == i && GameParameters.currentNode == j)
+                            if (saveGame.currentColumn == i && saveGame.currentNode == j)
                             {
                                 nodeEntity.Add(new MapShipNodeComponent());
                             }
                             
-                            if (GameParameters.currentColumn == i && GameParameters.currentNode != j)
+                            if (saveGame.currentColumn == i && saveGame.currentNode != j)
                             {
                                 mapElementComponent.outsideTravelPath = true;
                             }
@@ -119,7 +119,7 @@ namespace GBJAM13
             foreach (var e in mapElementsFilter)
             {
                 var mapElement = world.GetComponent<MapElementComponent>(e);
-                if (mapElement.column == GameParameters.currentColumn + 1)
+                if (mapElement.column == GameParameters.saveGame.currentColumn + 1)
                 {
                     nextColumnEntities.Add(world.GetEntity(e));
                     
@@ -179,8 +179,7 @@ namespace GBJAM13
 
             if (selectAction.action.WasPerformedThisFrame())
             {
-                GameParameters.nextNode = mapDestinationEntity.Get<MapElementComponent>().row;
-                
+                GameParameters.saveGame.nextNode = mapDestinationEntity.Get<MapElementComponent>().row;
                 onDestinationSelection.Invoke();
             }
         }

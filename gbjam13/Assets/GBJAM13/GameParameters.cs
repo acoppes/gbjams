@@ -2,28 +2,31 @@
 
 namespace GBJAM13
 {
-    public static class GameParameters
+    public class SaveGame
     {
         public const int DefaultTotalJumps = 5;
         public const int JumpIncrementPerRun = 2;
         
-        public static int totalJumps;
+        public int totalJumps = DefaultTotalJumps;
 
-        public static int currentColumn;
-        public static int currentNode;
+        public int currentColumn = 0;
+        public int currentNode = 0;
         
-        public static GalaxyData galaxyData;
+        public GalaxyData galaxyData = null;
         
-        public static int nextNode;
+        public int nextNode = -1;
+
+        public int[] resources = new int[5];
+    }
+    
+    public static class GameParameters
+    {
+        public static SaveGame saveGame;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void OnBeforeSceneLoad()
         {
-            GameParameters.totalJumps = DefaultTotalJumps;
-            GameParameters.galaxyData = null;
-            GameParameters.currentColumn = 0;
-            GameParameters.currentNode = 0;
-            GameParameters.nextNode = -1;
+            saveGame = null;
         }
     }
 }

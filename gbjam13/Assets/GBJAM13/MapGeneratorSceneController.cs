@@ -28,11 +28,13 @@ namespace GBJAM13
             data.eventsDb = eventsDb.GetInterface<IObjectList>();
             data.eventsVariantsDb = eventVariantsDb.GetInterface<IObjectList>();
             data.eventNamesDb = eventNamesDb.GetInterface<IObjectList>();
+
+            var saveGame = GameParameters.saveGame;
             
-            GameParameters.galaxyData = galaxyGenerator.GenerateGalaxy(data, GameParameters.totalJumps);
+            saveGame.galaxyData = galaxyGenerator.GenerateGalaxy(data, saveGame.totalJumps);
             
-            GameParameters.currentColumn = 0;
-            GameParameters.currentNode = GameParameters.galaxyData.startingRow;
+            saveGame.currentColumn = 0;
+            saveGame.currentNode = saveGame.galaxyData.startingRow;
             
             onMapGenerated.Invoke();
         }

@@ -7,7 +7,7 @@ namespace GBJAM13.Triggers.Actions
     {
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
-            var uiEventOptions = FindFirstObjectByType<UIEventOptions>();
+            var uiEventOptions = FindFirstObjectByType<UIOptions>();
             
             if (uiEventOptions && uiEventOptions.optionSelected)
             {

@@ -20,6 +20,14 @@ namespace GBJAM13.Data
             public string description;
             public ResourceIncomeType type;
             public ResourceTypeData resourceType;
+            
+            public Outcome[] outcomes;
+
+            public string GenerateDescription()
+            {
+                var number = UnityEngine.Random.Range(1, 4);
+                return $"{description} (-{number} {resourceType.name})";
+            }
         }        
         
         [Serializable]
@@ -36,6 +44,5 @@ namespace GBJAM13.Data
         [TextArea(2, 5)]
         public string description;
         public Option[] options;
-        public Outcome[] outcomes;
     }
 }

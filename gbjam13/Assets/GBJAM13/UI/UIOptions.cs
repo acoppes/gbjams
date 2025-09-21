@@ -7,21 +7,23 @@ using MyBox;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace GBJAM13.UI
 {
-    public class UIEventOptions : MonoBehaviour, ISubmitHandler
+    public class UIOptions : MonoBehaviour, ISubmitHandler
     {
         public UIWindow window;
 
         public RectTransform contentParent;
         
-        public GameObject uiEventOptionPrefab;
+        [FormerlySerializedAs("uiEventOptionPrefab")] 
+        public GameObject uiOptionPrefab;
         
         [NonSerialized]
         public bool optionSelected;
 
-        private readonly List<UIEventOption> options = new List<UIEventOption>();
+        private readonly List<UIOption> uiOptions = new List<UIOption>();
         
         // public InputActionReference upAction;
         // public InputActionReference downAction;
@@ -31,40 +33,38 @@ namespace GBJAM13.UI
         
         public UnityEvent onOptionSelected;
 
-        private UIEventOption selectedUIOption;
-
-        public EventElementData.Option selectedOption => selectedUIOption.option;
+        public int selectedOption;
         
-        public void ShowOptions(EventElementData.Option[] eventDataOptions)
+        public void ShowOptions(List<string> options)
         {
             optionSelected = false;
-            selectedUIOption = null;
+            selectedOption = -1;
             
-            var previousOptions = contentParent.GetComponentsInChildren<UIEventOption>();
+            var previousOptions = contentParent.GetComponentsInChildren<UIOption>();
             foreach (var previousOption in previousOptions)
             {
                 GameObject.Destroy(previousOption.gameObject);
             }
 
-            options.Clear();
+            uiOptions.Clear();
            
 
-            foreach (var option in eventDataOptions)
+            foreach (var option in options)
             {
-                var uiEventOptionGameObject = GameObject.Instantiate(uiEventOptionPrefab, contentParent, 
+                var uiEventOptionGameObject = GameObject.Instantiate(uiOptionPrefab, contentParent, 
                     false);
-                var uiEventOption = uiEventOptionGameObject.GetComponent<UIEventOption>();
+                var uiEventOption = uiEventOptionGameObject.GetComponent<UIOption>();
                 uiEventOption.SetOption(option);
                 
-                options.Add(uiEventOption);
+                uiOptions.Add(uiEventOption);
                 // uiEventOption.text.SetText(option);
             }
             
             window.Open();
             
-            if (options.Count > 0)
+            if (uiOptions.Count > 0)
             {
-                EventSystem.current.SetSelectedGameObject(options[0].gameObject);
+                EventSystem.current.SetSelectedGameObject(uiOptions[0].gameObject);
             }
         }
 
@@ -74,14 +74,17 @@ namespace GBJAM13.UI
             optionSelected = true;
             
             // get selected option, invoke callback
-            var optionsList = contentParent.GetComponentsInChildren<UIEventOption>();
-            foreach (var option in optionsList)
+            var optionsList = contentParent.GetComponentsInChildren<UIOption>();
+            for (var i = 0; i < optionsList.Length; i++)
             {
+                var option = optionsList[i];
                 if (option.selected)
                 {
-                    selectedUIOption = option;
+                    selectedOption = i;
+                    // selectedUIOption = option;
                 }
             }
+
             onOptionSelected.Invoke();
             
             FindAnyObjectByType<UISoundEffects>().PlaySound(confirmSoundEffect);

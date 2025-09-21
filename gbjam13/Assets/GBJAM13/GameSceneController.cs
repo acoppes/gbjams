@@ -1,4 +1,5 @@
-﻿using Game.Scenes;
+﻿using System.Linq;
+using Game.Scenes;
 using GBJAM13.Components;
 using GBJAM13.Data;
 using GBJAM13.UI;
@@ -19,7 +20,7 @@ namespace GBJAM13
         
         [FormerlySerializedAs("dialog")] 
         public UIDialog uiDialog;
-        public UIEventOptions uiOptions;
+        public UIOptions uiOptions;
         
         public UnityEvent onEventCompleted;
         public UnityEvent onGalaxyCompleted;
@@ -39,14 +40,16 @@ namespace GBJAM13
         
         public void StartGame()
         {
-            if (GameParameters.galaxyData == null)
+            var saveGame = GameParameters.saveGame;
+            
+            if (GameParameters.saveGame == null)
             {
-                GameParameters.totalJumps = GameParameters.DefaultTotalJumps;
+                GameParameters.saveGame = new SaveGame();
                 GameSceneLoader.LoadNextScene("MapGenerator");
                 return;
             }
             
-            if (GameParameters.nextNode == -1)
+            if (saveGame.nextNode == -1)
             {
                 GameSceneLoader.LoadNextScene("Map");
                 return;
@@ -59,7 +62,7 @@ namespace GBJAM13
             
             ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
 
-            var node = GameParameters.galaxyData.columns[GameParameters.currentColumn + 1].nodes[GameParameters.nextNode];
+            var node = saveGame.galaxyData.columns[saveGame.currentColumn + 1].nodes[saveGame.nextNode];
             mapElementComponent.name = node.name;
             mapElementComponent.eventName = node.eventName;
             mapElementComponent.eventType = node.type;
@@ -89,7 +92,7 @@ namespace GBJAM13
             var eventData = eventsDb.GetInterface<IObjectList>()
                 .FindByName<EventElementData>(mapElementComponent.eventName);
          
-            uiOptions.ShowOptions(eventData.options);
+            uiOptions.ShowOptions(eventData.options.Select(o => o.GenerateDescription()).ToList());
             
             // dialog.ShowText(eventData.options[0].description);
         }
@@ -100,14 +103,21 @@ namespace GBJAM13
         {
             uiOptions.window.Close();
             
+            // ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
+
+            // var eventData = eventsDb.GetInterface<IObjectList>()
+            //     .FindByName<EventElementData>(mapElementComponent.eventName);
+         
+            // uiOptions.ShowOptions(eventData.options);
+            
             ref var mapElementComponent = ref currentEventEntity.Get<MapElementComponent>();
 
             var eventData = eventsDb.GetInterface<IObjectList>()
                 .FindByName<EventElementData>(mapElementComponent.eventName);
-         
-            // uiOptions.ShowOptions(eventData.options);
 
-            var outcome = eventData.outcomes.GetRandom();
+            var selectedOption = eventData.options[uiOptions.selectedOption];
+            
+            var outcome = selectedOption.outcomes.GetRandom();
             var randomNumber = UnityEngine.Random.Range(1, 5);
             uiDialog.ShowText($"{outcome.description} (+{randomNumber} {outcome.resourceType.name})");
         }
@@ -116,13 +126,15 @@ namespace GBJAM13
         {
             uiDialog.window.Close();
             uiOptions.window.Close();
-            
-            GameParameters.currentColumn++;
-            GameParameters.currentNode = GameParameters.nextNode;
 
-            if (GameParameters.currentColumn == GameParameters.galaxyData.columns.Length - 1)
+            var saveGame = GameParameters.saveGame;
+            
+            saveGame.currentColumn++;
+            saveGame.currentNode = saveGame.nextNode;
+
+            if (saveGame.currentColumn == saveGame.galaxyData.columns.Length - 1)
             {
-                GameParameters.totalJumps += GameParameters.JumpIncrementPerRun;
+                saveGame.totalJumps += SaveGame.JumpIncrementPerRun;
                 onGalaxyCompleted.Invoke();
             }
             else
