@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 210089665}
   - component: {fileID: 210089666}
   m_Layer: 0
-  m_Name: WaitTime(0.5)
+  m_Name: WaitTime(0.25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gemserk.Triggers.Extensions::Gemserk.Triggers.WaitTriggerAction
   actionType: 0
-  time: 0.5
+  time: 0.25
   fixedFrames: 0
 --- !u!1 &216727417
 GameObject:
@@ -5278,6 +5278,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5523f6b9c104107a296398681e6015e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Triggers.Actions.WaitForDialogCompletedTriggerAction
+--- !u!1 &366786005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 366786006}
+  - component: {fileID: 366786007}
+  m_Layer: 0
+  m_Name: Activate(Thunder)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &366786006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366786005}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2087444071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &366786007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366786005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82287c876d214098bb7bd633ec2fa620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Triggers.Extensions::Gemserk.Triggers.GameObjectActivationTriggerAction
+  target: {fileID: 1267338724}
+  actionType: 0
 --- !u!1 &417321691
 GameObject:
   m_ObjectHideFlags: 0
@@ -5367,8 +5413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d6f7ec4ec5451989b2a1d71587ccf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Triggers.Actions.ShowDialogTriggerAction
-  text: ' again....'
-  append: 1
+  text: Thanks for playing the game, YOU WIN!
+  append: 0
 --- !u!1 &475019849
 GameObject:
   m_ObjectHideFlags: 0
@@ -10281,7 +10327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d6f7ec4ec5451989b2a1d71587ccf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Triggers.Actions.ShowDialogTriggerAction
-  text: Captain! It seems we weren't lucky enough and entered the Unfortunate Galaxy....
+  text: Captain! It seems we did it this time!
   append: 0
 --- !u!1 &575776138
 GameObject:
@@ -10502,6 +10548,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &635337939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 635337940}
+  - component: {fileID: 635337941}
+  m_Layer: 0
+  m_Name: WaitForDialogCompletedTriggerAction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &635337940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635337939}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2087444071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &635337941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635337939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5523f6b9c104107a296398681e6015e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Triggers.Actions.WaitForDialogCompletedTriggerAction
 --- !u!1 &664305641
 GameObject:
   m_ObjectHideFlags: 0
@@ -10548,6 +10638,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Triggers.Actions.ShowDialogTriggerAction
   text: Captain Lucky Pixels, we are aproaching a new galaxy....
   append: 0
+--- !u!1 &667003344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 667003345}
+  - component: {fileID: 667003346}
+  m_Layer: 0
+  m_Name: WaitTime(0.25)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &667003345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667003344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2087444071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &667003346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667003344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09dcca5ef66142249e0834916bc1360f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Triggers.Extensions::Gemserk.Triggers.WaitTriggerAction
+  actionType: 0
+  time: 0.25
+  fixedFrames: 0
 --- !u!1 &755419338
 GameObject:
   m_ObjectHideFlags: 0
@@ -10637,7 +10774,7 @@ GameObject:
   - component: {fileID: 819677599}
   - component: {fileID: 819677600}
   m_Layer: 0
-  m_Name: LoadScene(MapGenerator)
+  m_Name: LoadScene(Splash)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10670,7 +10807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9488323bd61145df8786711264a8cabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gemserk.Triggers.Extensions::Gemserk.Triggers.LoadSceneTriggerAction
-  sceneName: MapGenerator
+  sceneName: Splash
 --- !u!1 &839265492
 GameObject:
   m_ObjectHideFlags: 0
@@ -21662,6 +21799,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5523f6b9c104107a296398681e6015e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Triggers.Actions.WaitForDialogCompletedTriggerAction
+--- !u!1 &1659344409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1659344410}
+  - component: {fileID: 1659344411}
+  m_Layer: 0
+  m_Name: TweenSpriteAlpha(Thunder, 0.25, 1, 0, notUsed)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1659344410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659344409}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2087444071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1659344411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659344409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93513701b31140c0bea2bf918344bab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Triggers.TweenTriggerAction
+  actionType: 0
+  target: {fileID: 0}
+  fadeObject: {fileID: 1267338726}
+  tween:
+    from: {x: 1, y: 0, z: 0}
+    to: {x: 0, y: 0, z: 0}
+    time: 0.25
+    easing: 0
+    useEstimatedTime: 0
+    useCurrentValueForFrom: 0
+    loopCount: 0
+    pingPong: 0
 --- !u!1 &1741752137
 GameObject:
   m_ObjectHideFlags: 0
@@ -26704,6 +26897,108 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &1824895242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1824895243}
+  - component: {fileID: 1824895244}
+  m_Layer: 0
+  m_Name: ShowDialogTriggerAction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1824895243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824895242}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2087444071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1824895244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824895242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d6f7ec4ec5451989b2a1d71587ccf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.Triggers.Actions.ShowDialogTriggerAction
+  text: ... We escaped the Unfortunate Galaxy and found our way home!
+  append: 1
+--- !u!1 &1832491048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1832491049}
+  - component: {fileID: 1832491050}
+  m_Layer: 0
+  m_Name: TweenSpriteAlpha(Thunder, 0.25, 0, 1, notUsed)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1832491049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832491048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2087444071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1832491050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832491048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93513701b31140c0bea2bf918344bab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Triggers.TweenTriggerAction
+  actionType: 0
+  target: {fileID: 0}
+  fadeObject: {fileID: 1267338726}
+  tween:
+    from: {x: 0, y: 0, z: 0}
+    to: {x: 1, y: 0, z: 0}
+    time: 0.25
+    easing: 0
+    useEstimatedTime: 0
+    useCurrentValueForFrom: 0
+    loopCount: 0
+    pingPong: 0
 --- !u!1 &1849728507
 GameObject:
   m_ObjectHideFlags: 0
@@ -31876,12 +32171,18 @@ Transform:
   - {fileID: 968036849}
   - {fileID: 1473770913}
   - {fileID: 1917938481}
+  - {fileID: 366786006}
+  - {fileID: 1832491049}
   - {fileID: 417321692}
   - {fileID: 210089665}
+  - {fileID: 1659344410}
+  - {fileID: 667003345}
   - {fileID: 274384785}
   - {fileID: 1488211764}
   - {fileID: 555450177}
   - {fileID: 1591510766}
+  - {fileID: 1824895243}
+  - {fileID: 635337940}
   - {fileID: 1032762625}
   - {fileID: 445687610}
   - {fileID: 575776139}
