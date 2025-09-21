@@ -2,8 +2,6 @@
 
 # TODO
 
-* Dialog should adjust to max content.
-
 * Intro
   - Add some error SFX on shake
 
