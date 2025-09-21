@@ -1,9 +1,7 @@
 TODO
 
 * BUGS:
-  - Text for numbers is broken in web gl
-
-* Separate the main menu container from the bottom.
+  - 
 
 * Intro
   - Add some error SFX on shake
