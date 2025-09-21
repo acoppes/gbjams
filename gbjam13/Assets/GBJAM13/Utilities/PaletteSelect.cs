@@ -40,7 +40,7 @@ namespace GBJAM13.Utilities
                 }
             }
             
-            graphicPalette.colorSet = palettes[currentPalette];
+            graphicPalette.SetColorSet(palettes[currentPalette]);
         }
     }
 }
