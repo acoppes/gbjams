@@ -6,12 +6,9 @@ using System.Threading;
 using GBJAM13.Data;
 using Gemserk.BitmaskTypes;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Utilities;
 using MyBox;
 using UnityEngine;
-using UnityEngine.Assertions;
 using yutokun;
-using Object = UnityEngine.Object;
 
 namespace GBJAM13
 {
@@ -21,15 +18,6 @@ namespace GBJAM13
 
         public TextAsset eventsCsvDatabase;
         
-        [ObjectType(typeof(IObjectList), filterString = "Database")]
-        public Object eventsDb;
-        
-        [ObjectType(typeof(IObjectList), filterString = "Database")]
-        public Object eventVariantsDb;
-        
-        [ObjectType(typeof(IObjectList), filterString = "Database")]
-        public Object eventNamesDb;
-
         public TypeSetAsset eventTypes;
         public TypeSetAsset resourceTypes;
         
@@ -39,12 +27,13 @@ namespace GBJAM13
         {
             // LOAD FROM CSV AND FROM OTHER AND BUILD DATABASE
             LoadEventsFromCsv(eventsCsvDatabase.text);
-            var eventsFromAssets = eventsDb.GetInterface<IObjectList>().Get<EventElementData>();
-
-            foreach (var eventElementData in eventsFromAssets)
-            {
-                eventsDictionary[eventElementData.eventName] = eventElementData;
-            }
+            
+            // var eventsFromAssets = eventsDb.GetInterface<IObjectList>().Get<EventElementData>();
+            //
+            // foreach (var eventElementData in eventsFromAssets)
+            // {
+            //     eventsDictionary[eventElementData.eventName] = eventElementData;
+            // }
         }
 
         public List<EventElementData> GetEventsOfType(int eventType)

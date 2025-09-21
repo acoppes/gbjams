@@ -34,7 +34,7 @@ namespace GBJAM13.Editor
             {
                 case UnityWebRequest.Result.Success:
                     File.WriteAllText(DatabaseCvsPath, request.downloadHandler.text);
-                    // Debug.Log(request.downloadHandler.text);
+                    Debug.Log("DOWNLOADED DATABASE");
                     break;
                 default:
                     Debug.LogError("HTTP Error: " + request.error);
