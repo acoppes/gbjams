@@ -22,18 +22,32 @@ namespace GBJAM13.Scenes
 
             // onGameStarted.Invoke();
 
-            var optionNames = new List<string>()
+            // var optionNames = new List<string>()
+            // {
+            //     "CONTINUE",
+            //     "NEW GAME"
+            // };
+            //
+            // options.onOptionSelected.AddListener(OnOptionSelected);
+            // options.ShowOptions(optionNames.Select(n => new Option()
+            // {
+            //     name = n, disabled = false, userData = null
+            // }).ToList());
+            
+            GameParameters.saveGame = new SaveGame()
             {
-                "CONTINUE",
-                "NEW GAME"
+                resources = new int[]
+                {
+                    0,
+                    UnityEngine.Random.Range(5, 16),
+                    UnityEngine.Random.Range(5, 11),
+                    UnityEngine.Random.Range(10, 21),
+                    UnityEngine.Random.Range(10, 21),
+                    UnityEngine.Random.Range(5, 16),
+                }
             };
             
-            options.ShowOptions(optionNames.Select(n => new Option()
-            {
-                name = n, disabled = false, userData = null
-            }).ToList());
-            
-            options.onOptionSelected.AddListener(OnOptionSelected);
+            onNewGameSelected.Invoke();
         }
 
         private void OnOptionSelected()

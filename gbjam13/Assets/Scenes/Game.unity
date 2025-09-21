@@ -893,8 +893,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2123476193}
+  m_Children: []
   m_Father: {fileID: 1364220441}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &719211364
@@ -1785,7 +1784,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1809587354}
   - {fileID: 860083742}
   - {fileID: 461296874}
   - {fileID: 805931265}
@@ -2111,7 +2109,7 @@ GameObject:
   - component: {fileID: 1364220441}
   - component: {fileID: 1364220442}
   m_Layer: 0
-  m_Name: Temp_ReturnToMapNextNode
+  m_Name: GameSequence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2250,7 +2248,7 @@ GameObject:
   - component: {fileID: 1402484479}
   - component: {fileID: 1402484480}
   m_Layer: 0
-  m_Name: WaitTime(1.5)
+  m_Name: WaitTime(0.75)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2284,7 +2282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gemserk.Triggers.Extensions::Gemserk.Triggers.WaitTriggerAction
   actionType: 0
-  time: 1.5
+  time: 0.75
   fixedFrames: 0
 --- !u!1 &1467061177
 GameObject:
@@ -2741,53 +2739,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &1809587353
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1809587354}
-  - component: {fileID: 1809587355}
-  m_Layer: 0
-  m_Name: Invoke(ReturnToMap, force:True)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1809587354
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809587353}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1197968043}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1809587355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809587353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: debbe756444e46e1af0ef35ebb3884b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gemserk.Triggers::Gemserk.Triggers.Actions.InvokeTriggerAction
-  trigger: {fileID: 733015876}
-  forceExecution: 1
-  dontInvokeIfDisabled: 0
 --- !u!1 &1858652191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3102,7 +3053,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  eventsDb: {fileID: 11400000, guid: ed87403a0ffac114288f1b5e89ace98e, type: 2}
   eventVariantsDb: {fileID: 11400000, guid: 30cb7c6b67005c446a7b13ef45cc84ff, type: 2}
   eventNamesDb: {fileID: 11400000, guid: 020759fec45c66142a23ef00ed929a97, type: 2}
 --- !u!1 &2019140078
@@ -3303,69 +3253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e8ac19b9ba4e50add76e7fad45d6f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gemserk.Utilities::Gemserk.Utilities.UI.UIWindow
---- !u!1 &2123476192
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2123476193}
-  - component: {fileID: 2123476194}
-  m_Layer: 0
-  m_Name: ControlInputAction(Input[/Keyboard/anyKey])
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2123476193
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123476192}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 706324268}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2123476194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123476192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7780e3c506d5478d80cba82ee6fa655b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Triggers.ControlTriggerEvent
-  eventType: 1
-  inputAction:
-    m_Name: Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 8e9ab52e-9fdd-4f1d-af8d-881966d8f9c1
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 8ab639e8-0d11-46c8-ae6c-823d099bf36f
-      m_Path: <Keyboard>/anyKey
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Input
-      m_Flags: 0
-    m_Flags: 0
-  reference: {fileID: 0}
 --- !u!1001 &3103366771343596563
 PrefabInstance:
   m_ObjectHideFlags: 0
