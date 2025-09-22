@@ -174,11 +174,11 @@ namespace GBJAM13
                 {
                     saveGame.resources[randomOutcome.resourceType.value] = 0;
                 }
-
-                foreach (var stat in randomOutcome.stats)
-                {
-                    saveGame.ModifyStat(stat);
-                }
+            }
+            
+            foreach (var stat in randomOutcome.stats)
+            {
+                saveGame.ModifyStat(stat);
             }
 
             temporaryResourceNumber = 0;
