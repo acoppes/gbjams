@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -9,6 +10,7 @@ using Gemserk.BitmaskTypes;
 using Gemserk.Leopotam.Ecs;
 using MyBox;
 using UnityEngine;
+using UnityEngine.Networking;
 using yutokun;
 
 namespace GBJAM13
@@ -28,17 +30,39 @@ namespace GBJAM13
         {
             var eventsDatabaseFile = Path.Combine(Application.streamingAssetsPath, eventsDatabasePath);
 
-            var csvText = File.ReadAllText(eventsDatabaseFile);
+            // if (Application.platform == RuntimePlatform.WebGLPlayer)
+            // {
+            //     StartCoroutine()
+            // }
+            // var csvText = File.ReadAllText(eventsDatabaseFile);
             
             // LOAD FROM CSV AND FROM OTHER AND BUILD DATABASE
-            LoadEventsFromCsv(csvText);
-            
+            // LoadEventsFromCsv(csvText);
+
+            StartCoroutine(LoadDatabaseFile(eventsDatabaseFile));
+
             // var eventsFromAssets = eventsDb.GetInterface<IObjectList>().Get<EventElementData>();
             //
             // foreach (var eventElementData in eventsFromAssets)
             // {
             //     eventsDictionary[eventElementData.eventName] = eventElementData;
             // }
+        }
+
+        private IEnumerator LoadDatabaseFile(string path)
+        {
+            var request = UnityWebRequest.Get(path);
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                LoadEventsFromCsv(request.downloadHandler.text);
+            }
+            else
+            {
+                Debug.LogError($"FAILED TO LOAD EVENTS DATABASE: {request.responseCode} {request.error}");
+            }
         }
 
         public List<EventElementData> GetEventsOfType(int eventType)
