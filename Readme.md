@@ -3,6 +3,12 @@ Base project for our GBJAM entries.
 
 **Links**
 
+- [Faster than Luck - GBJAM13 Entry](https://arielsan.itch.io/gbjam13)
+- [GBJAM13 at itchio](https://itch.io/jam/gbjam-13)
+
+<img src="gbjam13/devstuff/itch_cover.gif" width="320" />
+<br/>
+
 - [Seedcity chasers - GBJAM10 Entry](https://arielsan.itch.io/seedcity-chasers)
 - [GBJAM10 at itchio](https://itch.io/jam/gbjam-10)
 
