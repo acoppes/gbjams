@@ -9,6 +9,12 @@ Base project for our GBJAM entries.
 <img src="gbjam13/devstuff/itch_cover.gif" width="320" />
 <br/>
 
+- [Dance Zombie Dance - GBJAM12 Entry](https://arielsan.itch.io/gbjam12)
+- [GBJAM12 at itchio](https://itch.io/jam/gbjam-12)
+
+<img src="gbjam12/devstuff/itch_cover.gif" width="320" />
+<br/>
+
 - [Seedcity chasers - GBJAM10 Entry](https://arielsan.itch.io/seedcity-chasers)
 - [GBJAM10 at itchio](https://itch.io/jam/gbjam-10)
 
