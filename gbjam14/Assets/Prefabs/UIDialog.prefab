@@ -301,6 +301,9 @@ GameObject:
   - component: {fileID: 6145090302230240064}
   - component: {fileID: 4351919421602005106}
   - component: {fileID: 8203705639860546163}
+  - component: {fileID: 6445307063351177045}
+  - component: {fileID: 7614785526431702658}
+  - component: {fileID: 1283254610051108772}
   m_Layer: 5
   m_Name: UIDialog
   m_TagString: Untagged
@@ -377,6 +380,74 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.UI.UIDialogController
   uiDialog: {fileID: 4351919421602005106}
   pressAction: {fileID: 5312968400490842732, guid: a7551745de0f2504999aba85335d2165, type: 3}
+--- !u!114 &6445307063351177045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3099219199503044782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9602ea937b4c425cb049a406efbc489e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.UI.OnWindowOpenPauseGame
+  window: {fileID: 6145090302230240064}
+--- !u!114 &7614785526431702658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3099219199503044782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3aff5429d6e48dc8dd012438c16539e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.UI.SelectObjectOnWindowOpen
+  window: {fileID: 6145090302230240064}
+  objectToAutoSelect: {fileID: 3099219199503044782}
+--- !u!114 &1283254610051108772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3099219199503044782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a98125502f715b4b83cfb77b434e436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Selectable
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
 --- !u!1 &7076755591538491170
 GameObject:
   m_ObjectHideFlags: 0

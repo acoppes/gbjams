@@ -1,10 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace GBJAM14.UI
 {
-    public class UIDialogController : MonoBehaviour
+    public class UIDialogController : MonoBehaviour, ISubmitHandler
     {
         public UIDialog uiDialog;
         public InputActionReference pressAction;
@@ -37,6 +37,11 @@ namespace GBJAM14.UI
 
         private void OnPressAction(InputAction.CallbackContext obj)
         {
+            OnActionPressed();
+        }
+
+        public void OnActionPressed()
+        {
             if (!uiDialog.completed)
             {
                 uiDialog.ForceComplete();
@@ -44,7 +49,13 @@ namespace GBJAM14.UI
             else
             {
                 uiDialog.CompleteWaiting();
+                uiDialog.window.Close();
             }
+        }
+
+        public void OnSubmit(BaseEventData eventData)
+        {
+            OnActionPressed();
         }
     }
 }

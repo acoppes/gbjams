@@ -116,7 +116,7 @@ namespace GBJAM14.UI
             {
                 dialogTextView.SetText(dialogText.Substring(0, i));
                 uiSoundEffects.PlaySound(typeSoundEffect);
-                yield return new WaitForSeconds(textSpeed);
+                yield return new WaitForSecondsRealtime(textSpeed);
             }
             showTextCoroutine = null;
             completed = true;

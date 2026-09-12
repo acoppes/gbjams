@@ -185,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &145909928
 Transform:
   m_ObjectHideFlags: 0
@@ -259,6 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb14594582b944b1a4348c63c67e2b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Controllers.MainCharacterController
+  targeting: {fileID: 0}
 --- !u!1 &248237330
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1280328048925223274, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
       propertyPath: overridePlayer
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5739119982886115354, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
       propertyPath: entityDefinition
@@ -320,11 +321,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471315008090089096, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.45
+      value: 1.368
       objectReference: {fileID: 0}
     - target: {fileID: 7471315008090089096, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.99
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7471315008090089096, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -624,6 +625,9 @@ GameObject:
   - component: {fileID: 632521222}
   - component: {fileID: 632521221}
   - component: {fileID: 632521229}
+  - component: {fileID: 632521230}
+  - component: {fileID: 632521231}
+  - component: {fileID: 632521232}
   m_Layer: 0
   m_Name: Npc_Definition
   m_TagString: Untagged
@@ -772,6 +776,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c422e22d9e8470ba7ed289fbceeaf0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.CanBeInteractedComponentDefinition
+--- !u!114 &632521230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632521219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a3565305be4d289fe329d8b8ab405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.CharacterIdComponentDefinition
+  characterId: sam
+--- !u!114 &632521231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632521219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de7c4458b6b4054826767f915b3af39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.TargetComponentDefinition
+  targetType: 1
+  targetTypeAsset: {fileID: 0}
+  size: 0
+--- !u!114 &632521232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632521219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f8f614944d4c61b3a23174e0d57427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.LookingDirectionComponentDefinition
+  defaultLookingDirectionType: 0
+  defaultLookingDirection: {x: 1, y: 0, z: 0}
+  copyFromPhysicsRotation: 0
 --- !u!1 &649200165
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,6 +835,8 @@ GameObject:
   - component: {fileID: 649200168}
   - component: {fileID: 649200167}
   - component: {fileID: 649200166}
+  - component: {fileID: 649200175}
+  - component: {fileID: 649200176}
   m_Layer: 0
   m_Name: Element_Definition
   m_TagString: Untagged
@@ -924,6 +973,36 @@ Transform:
   - {fileID: 1235296125}
   m_Father: {fileID: 1655511035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &649200175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649200165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de7c4458b6b4054826767f915b3af39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.TargetComponentDefinition
+  targetType: 1
+  targetTypeAsset: {fileID: 0}
+  size: 0
+--- !u!114 &649200176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649200165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f8f614944d4c61b3a23174e0d57427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.LookingDirectionComponentDefinition
+  defaultLookingDirectionType: 0
+  defaultLookingDirection: {x: 1, y: 0, z: 0}
+  copyFromPhysicsRotation: 0
 --- !u!1001 &879587242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1236,6 +1315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb14594582b944b1a4348c63c67e2b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Controllers.MainCharacterController
+  targeting: {fileID: 2111653170}
 --- !u!4 &1235296125
 Transform:
   m_ObjectHideFlags: 0
@@ -1248,7 +1328,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2111653169}
   m_Father: {fileID: 649200174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1238100190
@@ -1327,12 +1408,12 @@ GameObject:
   - component: {fileID: 1460699658}
   - component: {fileID: 1460699659}
   m_Layer: 0
-  m_Name: WaitTime(0)
+  m_Name: WaitTime(2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1460699658
 Transform:
   m_ObjectHideFlags: 0
@@ -1688,6 +1769,65 @@ Transform:
   - {fileID: 1238100192}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2111653168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2111653169}
+  - component: {fileID: 2111653170}
+  m_Layer: 0
+  m_Name: Targeting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2111653169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111653168}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1235296125}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2111653170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111653168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc53ac743191464ebbe35487a3290ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Utilities.Targeting
+  targeting:
+    targetTypes: -1
+    distanceType: 2
+    range:
+      Min: 0
+      Max: 2
+    playerAllianceType: -1
+    aliveType: 0
+    angleType: 0
+    angle:
+      Min: 0
+      Max: 180
+  targetTypeMask: {fileID: 0}
+  sorter: {fileID: 0}
+  customFilter: {fileID: 0}
 --- !u!114 &156484942868622592
 MonoBehaviour:
   m_ObjectHideFlags: 0
