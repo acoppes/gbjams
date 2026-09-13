@@ -28,13 +28,15 @@ namespace GBJAM14.Systems
         {
             characterDialogs.Add(new DialogData()
             {
-                id = "sam_dialog_start",
-                characterId = "sam",
+                id = "mrtoad_start",
+                characterId = "mrtoad",
                 texts = new List<string>()
                 {
-                    "Hey [0], come here!",
-                    "I have a secret to tell you!",
-                    "You know.... I see dead people... And also I know where their tresures are."
+                    "[1]: Hey [0], come here!",
+                    "[1]: I have a secret to tell you!",
+                    "[0]: Ok [1], I am listening!",
+                    "[1]: You know.... I see dead people...",
+                    "[1]: And also I know where their treasures are."
                 }
             });
             
