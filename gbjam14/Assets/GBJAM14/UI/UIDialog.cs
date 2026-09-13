@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using Game.Components;
 using Game.Screens;
 using GBJAM14.Systems;
+using Gemserk.Utilities;
 using Gemserk.Utilities.UI;
+using MyBox;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,6 +46,9 @@ namespace GBJAM14.UI
         private int currentText;
 
         private CharacterDB characterDB;
+
+        public SoundEffectAsset talkSoundEffectAsset;
+        public AudioSource talkAudioSource;
         
         private void Awake()
         {
@@ -80,6 +85,8 @@ namespace GBJAM14.UI
             }
             
             var dialogText = dialogData.texts[currentText];
+
+            CharacterDB.CharacterData currentCharacterData = null;
             
             // highlight talking
             for (int i = 0; i < indicators.Length; i++)
@@ -91,10 +98,10 @@ namespace GBJAM14.UI
                     
                     if (i < characters.Count)
                     {
-                        var characterData = characterDB.GetCharacterData(characters[i]);
-                        if (characterData != null)
+                        currentCharacterData = characterDB.GetCharacterData(characters[i]);
+                        if (currentCharacterData != null)
                         {
-                            dialogTextView.GetComponent<Text>().color = characterData.textColor;
+                            dialogTextView.GetComponent<Text>().color = currentCharacterData.textColor;
                         }
                     }
                 }
@@ -120,10 +127,10 @@ namespace GBJAM14.UI
                 }
             }
             
-            ShowText(dialogText);
+            ShowText(dialogText, currentCharacterData);
         }
 
-        private void ShowText(string text)
+        private void ShowText(string text, CharacterDB.CharacterData characterData)
         {
             waitingButton.SetActive(false);
             
@@ -139,30 +146,30 @@ namespace GBJAM14.UI
             }
             
             // ideally show step by step...
-            showTextCoroutine = StartCoroutine(ShowTextOverTime(1));
+            showTextCoroutine = StartCoroutine(ShowTextOverTime(1, characterData));
         }
         
-        private void AppendText(string text)
-        {
-            waitingButton.SetActive(false);
-            
-            // I assume it already started
-            completed = false;
-            waiting = false;
-            
-            var currentLength = dialogText.Length;
-            
-            dialogText += text;
-            
-            if (showTextCoroutine != null)
-            {
-                StopCoroutine(showTextCoroutine);
-                showTextCoroutine = null;
-            }
-            
-            // ideally show step by step...
-            showTextCoroutine = StartCoroutine(ShowTextOverTime(currentLength));
-        }
+        // private void AppendText(string text)
+        // {
+        //     waitingButton.SetActive(false);
+        //     
+        //     // I assume it already started
+        //     completed = false;
+        //     waiting = false;
+        //     
+        //     var currentLength = dialogText.Length;
+        //     
+        //     dialogText += text;
+        //     
+        //     if (showTextCoroutine != null)
+        //     {
+        //         StopCoroutine(showTextCoroutine);
+        //         showTextCoroutine = null;
+        //     }
+        //     
+        //     // ideally show step by step...
+        //     showTextCoroutine = StartCoroutine(ShowTextOverTime(currentLength, ));
+        // }
 
         private void Hide()
         {
@@ -195,14 +202,31 @@ namespace GBJAM14.UI
             waiting = false;
         }
 
-        private IEnumerator ShowTextOverTime(int start)
+        private IEnumerator ShowTextOverTime(int start, CharacterDB.CharacterData characterData)
         {
             var uiSoundEffects = FindAnyObjectByType<UISoundEffects>();
                 
             for (var i = start; i <= dialogText.Length; i++)
             {
                 dialogTextView.SetText(dialogText.Substring(0, i));
-                uiSoundEffects.PlaySound(typeSoundEffect);
+
+                if (characterData != null)
+                {
+                    if (!talkAudioSource.isPlaying)
+                    {
+                        talkAudioSource.clip = talkSoundEffectAsset.clips.Random();
+                        talkAudioSource.pitch = characterData.randomPitch.RandomInRange();
+                    
+                        talkAudioSource.volume = talkSoundEffectAsset.volume;
+                        talkAudioSource.outputAudioMixerGroup = talkSoundEffectAsset.mixerGroup;
+                        talkAudioSource.Play();
+                    }
+                }
+                else
+                {
+                    uiSoundEffects.PlaySound(typeSoundEffect);
+                }
+                
                 yield return new WaitForSecondsRealtime(textSpeed);
             }
             showTextCoroutine = null;
