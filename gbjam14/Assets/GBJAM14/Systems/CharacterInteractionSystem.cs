@@ -12,6 +12,9 @@ namespace GBJAM14.Systems
         private readonly EcsFilterInject<Inc<NpcComponent, CanBeInteractedComponent>, Exc<DisabledComponent>> 
             interactableCharacters = default;
         
+        private readonly EcsFilterInject<Inc<InteractActionComponent>, Exc<DisabledComponent>> 
+            interactActions = default;
+        
         private readonly EcsFilterInject<Inc<PickupActionComponent>, Exc<DisabledComponent>> 
             pickupActions = default;
 
@@ -29,30 +32,29 @@ namespace GBJAM14.Systems
         
         public void Run(EcsSystems systems)
         {
-            foreach (var e in interactableCharacters.Value)
+            foreach (var e in interactActions.Value)
             {
-                var character = interactableCharacters.Pools.Inc1.Get(e);
-                ref var interacted = ref interactableCharacters.Pools.Inc2.Get(e);
+                var interactAction = interactActions.Pools.Inc1.Get(e);
 
-                if (interacted.interactPending)
+                // ref var inventory = ref interactAction.source.Get<InventoryComponent>();
+                var npc = interactAction.target.Get<NpcComponent>();
+                
+                var dialogData = characterDialogsDB.GetDialog(npc.characterId);
+
+                if (dialogData != null)
                 {
-                    interacted.interactPending = false;
-                    
-                    if (uiDialog.window.IsClosed())
-                    {
-                        var dialogData = characterDialogsDB.GetDialog(character.characterId);
-                        uiDialog.ShowDialog(dialogData);
+                    uiDialog.ShowDialog(dialogData);
 
-                        var dialogEntity = world.CreateEntity();
-                        dialogEntity.Add(new DialogComponent()
-                        {
-                            characterId = character.characterId,
-                            dialogId = dialogData.id,
-                            completed = false
-                        });
-                    }
-                    return;
+                    var dialogEntity = world.CreateEntity();
+                    dialogEntity.Add(new DialogComponent()
+                    {
+                        characterId = npc.characterId,
+                        dialogId = dialogData.id,
+                        completed = false
+                    });   
                 }
+                
+                interactActions.Pools.Inc1.Del(e);
             }
             
             foreach (var e in pickupActions.Value)

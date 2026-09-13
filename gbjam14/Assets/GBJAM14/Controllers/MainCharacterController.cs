@@ -53,7 +53,15 @@ namespace GBJAM14.Controllers
                     
                     if (target.entity && target.entity.Has<CanBeInteractedComponent>())
                     {
-                        target.entity.Get<CanBeInteractedComponent>().interactPending = true;
+                        world.CreateEntity(null, null, (e) =>
+                        {
+                            e.Add(new InteractActionComponent()
+                            {
+                                source = entity,
+                                target = target.entity
+                            });
+                        });
+                        
                         break;
                     }
                 }

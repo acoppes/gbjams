@@ -4,7 +4,13 @@ namespace GBJAM14.Components
 {
     public struct CanBeInteractedComponent : IEntityComponent
     {
-        public bool interactPending;
+        
+    }
+    
+    public struct InteractActionComponent : IActionComponent
+    {
+        public Entity source;
+        public Entity target;
     }
     
     public class CanBeInteractedComponentDefinition : ComponentDefinitionBase

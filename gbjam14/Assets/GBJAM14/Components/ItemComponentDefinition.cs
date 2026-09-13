@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Gemserk.Leopotam.Ecs;
 
 namespace GBJAM14.Components
