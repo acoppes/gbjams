@@ -7,6 +7,7 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
+using UnityEngine;
 
 namespace GBJAM14.Controllers
 {
@@ -18,7 +19,8 @@ namespace GBJAM14.Controllers
         {
             var input = entity.Get<InputComponent>();
             ref var movement = ref entity.Get<MovementComponent>();
-            movement.movingDirection = input.direction3d();
+            var dir = input.direction3d();
+            movement.movingDirection = new Vector3(dir.x, dir.z, 0);
             
             // search for interactions
             

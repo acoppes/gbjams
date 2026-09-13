@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 7072372891241485753}
   - component: {fileID: 1373639805460788261}
   - component: {fileID: 1661433900961406820}
+  - component: {fileID: 2095348752006092436}
   m_Layer: 0
   m_Name: MainCharacter_Definition
   m_TagString: Untagged
@@ -225,8 +226,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0d5d8ea9314bf5a2bcf1085f1e1c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Components.ControllableComponentDefinition
-  controllableType: 0
+  controllableType: 1
   playerControlId: 0
+--- !u!114 &2095348752006092436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283440475417281190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b2d7edd28434b1ba18bdd30d4d765bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.PhysicsComponentDefinition
+  prefab: {fileID: 0}
+  physicsComponentType: 1
+  shapeType: 1
+  size: {x: 0.25, y: 0.25, z: 0}
+  centerType: 0
+  center: {x: 0, y: 0, z: 0}
+  mass: 100
+  isStatic: 0
+  startingBodyType: 0
+  isTrigger: 0
+  defaultSyncType: 0
+  colliderType: 3
+  disableContactsCalculations: 0
 --- !u!1 &6717865567067160048
 GameObject:
   m_ObjectHideFlags: 0
