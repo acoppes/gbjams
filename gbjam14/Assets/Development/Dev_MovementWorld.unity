@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 87212125}
   - component: {fileID: 87212124}
   - component: {fileID: 87212123}
+  - component: {fileID: 87212134}
   m_Layer: 0
   m_Name: MainCharacter_Definition
   m_TagString: Untagged
@@ -408,6 +409,19 @@ Transform:
   - {fileID: 304430497}
   m_Father: {fileID: 1304025005}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &87212134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87212122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a3565305be4d289fe329d8b8ab405d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.NpcComponentDefinition
+  characterId: main_character
 --- !u!1001 &136573508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -539,6 +553,7 @@ MonoBehaviour:
     characterId: 
     requirements: []
     status: []
+    characters: []
     texts: []
 --- !u!1 &173469817
 GameObject:
@@ -1295,6 +1310,7 @@ Transform:
   - {fileID: 1304025005}
   - {fileID: 1234903474}
   - {fileID: 1414571973}
+  - {fileID: 1528835778}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &536861246
@@ -2491,6 +2507,7 @@ MonoBehaviour:
     characterId: 
     requirements: []
     status: []
+    characters: []
     texts: []
 --- !u!1001 &1092904983
 PrefabInstance:
@@ -4236,7 +4253,7 @@ MonoBehaviour:
   animationsAsset: {fileID: 11400000, guid: c1623fdaaeb01f022933d09e0570ad20, type: 2}
   spritesMetadata: {fileID: 0}
   startingAnimationType: 1
-  defaultAnimation: idle
+  defaultAnimation: lostsoul
   randomizeStartFrame: 1
   defaultAnimationLoop: 0
   hasMultipleDirectionsPerAnimation: 0
@@ -4496,13 +4513,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528835776}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1676673769}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 512605195}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545356594
 GameObject:
@@ -6703,6 +6720,7 @@ MonoBehaviour:
     characterId: 
     requirements: []
     status: []
+    characters: []
     texts: []
 --- !u!1001 &2097098890
 PrefabInstance:
@@ -7144,4 +7162,3 @@ SceneRoots:
   - {fileID: 2046632592}
   - {fileID: 20367435}
   - {fileID: 512605195}
-  - {fileID: 1528835778}

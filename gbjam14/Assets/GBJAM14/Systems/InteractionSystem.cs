@@ -31,10 +31,10 @@ namespace GBJAM14.Systems
             {
                 var interactAction = interactActions.Pools.Inc1.Get(e);
 
-                if (interactAction.target.Has<NpcComponent>())
+                if (interactAction.target.Has<CharacterComponent>())
                 {
                     ref var inventory = ref interactAction.source.Get<InventoryComponent>();
-                    var npc = interactAction.target.Get<NpcComponent>();
+                    var npc = interactAction.target.Get<CharacterComponent>();
                 
                     var dialogData = characterDialogsDB.GetDialog(npc.characterId, inventory.items);
 
