@@ -42,6 +42,8 @@ namespace GBJAM14.Controllers
                         break;
                     }
                 }
+                
+                bufferedInput.ConsumeBuffer();
             }
         }
     }

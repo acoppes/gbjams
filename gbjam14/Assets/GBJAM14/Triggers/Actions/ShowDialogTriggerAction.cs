@@ -1,3 +1,4 @@
+using GBJAM14.Systems;
 using GBJAM14.UI;
 using Gemserk.Triggers;
 using UnityEngine;
@@ -6,22 +7,12 @@ namespace GBJAM14.Triggers.Actions
 {
     public class ShowDialogTriggerAction : TriggerAction
     {
-        [TextArea(2, 5)]
-        public string text;
-
-        public bool append;
+        public CharacterDialogsDB.DialogData dialogData;
         
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
             var dialog = FindFirstObjectByType<UIDialog>();
-            if (append)
-            {
-                dialog.AppendText(text);
-            }
-            else
-            {
-                dialog.ShowText(text);
-            }
+            dialog.ShowDialog(dialogData);
             return ITrigger.ExecutionResult.Completed;
         }
     }

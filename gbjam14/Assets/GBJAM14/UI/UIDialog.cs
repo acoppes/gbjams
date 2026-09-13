@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Game.Components;
 using Game.Screens;
+using GBJAM14.Systems;
 using Gemserk.Utilities.UI;
 using UnityEngine;
 
@@ -27,6 +28,10 @@ namespace GBJAM14.UI
         private Coroutine showTextCoroutine;
 
         private string dialogText = string.Empty;
+
+        private CharacterDialogsDB.DialogData dialogData;
+
+        private int currentText;
         
         private void Awake()
         {
@@ -34,14 +39,20 @@ namespace GBJAM14.UI
             waitingButton.SetActive(false);
         }
 
-        public void ShowText(string text)
+        public void ShowDialog(CharacterDialogsDB.DialogData dialogData)
+        {
+            window.Open();
+            this.dialogData = dialogData;
+            currentText = 0;
+            ShowText(dialogData.texts[currentText]);
+        }
+
+        private void ShowText(string text)
         {
             waitingButton.SetActive(false);
             
             completed = false;
             waiting = false;
-            
-            window.Open();
             
             dialogText = text;
             
@@ -55,7 +66,7 @@ namespace GBJAM14.UI
             showTextCoroutine = StartCoroutine(ShowTextOverTime(1));
         }
         
-        public void AppendText(string text)
+        private void AppendText(string text)
         {
             waitingButton.SetActive(false);
             
@@ -123,6 +134,17 @@ namespace GBJAM14.UI
             waiting = true;
             
             waitingButton.SetActive(true);
+        }
+
+        public bool HasPendingText()
+        {
+            return currentText + 1 < dialogData.texts.Count;
+        }
+
+        public void ShowNext()
+        {
+            currentText++;
+            ShowText(dialogData.texts[currentText]);
         }
     }
 }

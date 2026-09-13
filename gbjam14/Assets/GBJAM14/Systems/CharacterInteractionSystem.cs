@@ -33,7 +33,7 @@ namespace GBJAM14.Systems
                     if (dialog.window.IsClosed())
                     {
                         var text = characterDialogsDB.GetDialog(character.characterId);
-                        dialog.ShowText(text);
+                        dialog.ShowDialog(text);
                     }
                     
                     return;
