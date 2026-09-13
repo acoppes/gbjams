@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Game.Components;
+using MyBox;
 using UnityEngine;
 
 namespace GBJAM14.Systems
@@ -15,7 +15,7 @@ namespace GBJAM14.Systems
             public string dialogName;
             public Sprite portrait;
             public Color textColor = Color.black;
-            public SoundEffectAsset talkSoundEffect;
+            public MinMaxFloat randomPitch = new MinMaxFloat(1, 1);
         }
 
         public List<CharacterData> characters;
