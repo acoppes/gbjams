@@ -5,6 +5,7 @@ using Game.Screens;
 using GBJAM14.Systems;
 using Gemserk.Utilities.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GBJAM14.UI
 {
@@ -12,6 +13,8 @@ namespace GBJAM14.UI
     {
         public UIWindow window;
         public TextView dialogTextView;
+
+        public Image[] indicators;
 
         public float textSpeed = 1f;
 
@@ -49,9 +52,22 @@ namespace GBJAM14.UI
 
         private void ShowCurrentDialog()
         {
+            foreach (var indicator in indicators)
+            {
+                indicator.enabled = false;
+            }
+            
             var dialogText = dialogData.texts[currentText];
             if (dialogData.characters != null)
             {
+                for (int i = 0; i < indicators.Length; i++)
+                {
+                    if (dialogText.StartsWith($"[{i}]"))
+                    {
+                        indicators[i].enabled = true;
+                    }
+                }
+                
                 for (var i = 0; i < dialogData.characters.Length; i++)
                 {
                     dialogText = dialogText.Replace($"[{i}]", dialogData.characters[i]);
