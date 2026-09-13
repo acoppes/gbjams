@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Game.DataAssets;
 using UnityEditor;
 using UnityEngine;
@@ -50,16 +51,23 @@ namespace GBJAM14.Editor
                     
             Debug.Log($"Converting from palette {selectedFile} to selected colorSet");
                     
-            var colorsCount = int.Parse(palContents[2]);
+            // var colorsCount = int.Parse(palContents[2]);
+            
+            var parsedColors = new List<Color>();
 
-            colorSet.colors = new Color[colorsCount];
-                    
-            for (var i = 0; i < colorsCount; i++)
+            for (var i = 3; i < palContents.Length; i++)
             {
-                var colors = palContents[i + 3].Split(' ');
-                colorSet.colors[i] = 
-                    new Color(int.Parse(colors[0]) / 255f, int.Parse(colors[1]) / 255f, int.Parse(colors[2]) / 255f, 1f);
+                var colors = palContents[i].Split(' ');
+                var parsedColor = new Color(int.Parse(colors[0]) / 255f, int.Parse(colors[1]) / 255f, 
+                    int.Parse(colors[2]) / 255f, int.Parse(colors[3]) / 255f);
+                if (parsedColor.Equals(new Color(0, 0, 0, 0)))
+                {
+                    continue;
+                }
+                parsedColors.Add(parsedColor);
             }
+            
+            colorSet.colors = parsedColors.ToArray();
         }
         
         public static void SaveColorSetToPalFile(ColorSet colorSet, string selectedDestinationPath)
