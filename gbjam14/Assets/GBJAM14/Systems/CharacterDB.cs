@@ -13,6 +13,7 @@ namespace GBJAM14.Systems
             public string id;
             public string dialogName;
             public Sprite portrait;
+            public Color textColor = Color.black;
         }
 
         public List<CharacterData> characters;

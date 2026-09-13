@@ -66,6 +66,8 @@ namespace GBJAM14.UI
 
         private void ShowCurrentDialog()
         {
+            dialogTextView.GetComponent<Text>().color = Color.black;
+            
             foreach (var indicator in indicators)
             {
                 indicator.enabled = false;
@@ -86,6 +88,15 @@ namespace GBJAM14.UI
                 {
                     indicators[i].enabled = true;
                     portraits[i].rectTransform.localPosition = currentPortraitOffset;
+                    
+                    if (i < characters.Count)
+                    {
+                        var characterData = characterDB.GetCharacterData(characters[i]);
+                        if (characterData != null)
+                        {
+                            dialogTextView.GetComponent<Text>().color = characterData.textColor;
+                        }
+                    }
                 }
             }
                 
@@ -97,8 +108,11 @@ namespace GBJAM14.UI
                     var characterData = characterDB.GetCharacterData(characters[i]);
                     if (characterData != null)
                     {
-                        portraits[i].enabled = true;
-                        portraits[i].sprite = characterData.portrait;
+                        if (i < portraits.Length)
+                        {
+                            portraits[i].enabled = true;
+                            portraits[i].sprite = characterData.portrait;
+                        }
                         
                         dialogText = dialogText.Replace($"[{i}]", maximizeNames ? 
                             characterData.dialogName.ToUpperInvariant() : characterData.dialogName);
