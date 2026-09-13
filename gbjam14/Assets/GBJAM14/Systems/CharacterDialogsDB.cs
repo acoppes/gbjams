@@ -28,6 +28,20 @@ namespace GBJAM14.Systems
         {
             characterDialogs.Add(new DialogData()
             {
+                id = "game_start",
+                characterId = "main_character",
+                texts = new List<string>()
+                {
+                    "[0]: Ok, I finally arrived",
+                    "[0]: Grandma shared so many stories about Hollow island.",
+                    "[0]: Wish she was here with me to find it...",
+                    "[0]: The GOLDEN TREASURE...",
+                    "[0]: To finally become the best archeologist."
+                }
+            });
+            
+            characterDialogs.Add(new DialogData()
+            {
                 id = "mrtoad_start",
                 characterId = "mrtoad",
                 texts = new List<string>()

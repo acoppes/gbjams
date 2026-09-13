@@ -5,18 +5,22 @@ using Gemserk.Triggers;
 
 namespace GBJAM14.Triggers.Actions
 {
-    public class ShowDialogTriggerAction : TriggerAction
+    public class ShowDialogFromDBTriggerAction : TriggerAction
     {
-        public CharacterDialogsDB.DialogData dialogData;
+        public string dialogId;
         public List<string> characters = new List<string>();
-        
+
         public override string GetObjectName()
         {
-            return $"ShowDialogData({string.Join(';', characters)})";
+            return $"ShowDialogFromDB({dialogId}, {string.Join(';', characters)})";
         }
-        
+
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
+            var characterDialogsDB= FindFirstObjectByType<CharacterDialogsDB>();
+            var dialogData = characterDialogsDB.GetDialog(dialogId, new List<string>());
+            
+            
             var dialog = FindFirstObjectByType<UIDialog>();
             dialog.ShowDialog(dialogData, characters);
             return ITrigger.ExecutionResult.Completed;
