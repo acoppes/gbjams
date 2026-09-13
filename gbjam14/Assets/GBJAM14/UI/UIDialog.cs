@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Game.Components;
 using Game.Screens;
 using GBJAM14.Systems;
@@ -36,20 +37,28 @@ namespace GBJAM14.UI
         private string dialogText = string.Empty;
 
         private CharacterDialogsDB.DialogData dialogData;
+        private List<string> characters = new List<string>();
 
         private int currentText;
+
+        private CharacterDB characterDB;
         
         private void Awake()
         {
+            characterDB = FindFirstObjectByType<CharacterDB>(FindObjectsInactive.Exclude);
             window.onCloseAction.AddListener(Hide);
             waitingButton.SetActive(false);
         }
 
-        public void ShowDialog(CharacterDialogsDB.DialogData dialogData)
+        public void ShowDialog(CharacterDialogsDB.DialogData dialogData, List<string> characters)
         {
             window.Open();
             this.dialogData = dialogData;
             currentText = 0;
+            
+            this.characters.Clear();
+            this.characters.AddRange(characters);
+            
             ShowCurrentDialog();
         }
 
@@ -62,26 +71,38 @@ namespace GBJAM14.UI
 
             foreach (var portrait in portraits)
             {
+                portrait.enabled = false;
                 portrait.rectTransform.localPosition = Vector3.zero;
             }
             
             var dialogText = dialogData.texts[currentText];
-            if (dialogData.characters != null)
+            
+            // highlight talking
+            for (int i = 0; i < indicators.Length; i++)
             {
-                for (int i = 0; i < indicators.Length; i++)
+                if (dialogText.StartsWith($"[{i}]"))
                 {
-                    if (dialogText.StartsWith($"[{i}]"))
-                    {
-                        indicators[i].enabled = true;
-                        portraits[i].rectTransform.localPosition = currentPortraitOffset;
-                    }
-                }
-                
-                for (var i = 0; i < dialogData.characters.Length; i++)
-                {
-                    dialogText = dialogText.Replace($"[{i}]", dialogData.characters[i]);
+                    indicators[i].enabled = true;
+                    portraits[i].rectTransform.localPosition = currentPortraitOffset;
                 }
             }
+                
+            // show corresponding portrait 
+            for (var i = 0; i < characters.Count; i++)
+            {
+                if (i < characters.Count)
+                {
+                    var characterData = characterDB.GetCharacterData(characters[i]);
+                    if (characterData != null)
+                    {
+                        portraits[i].enabled = true;
+                        portraits[i].sprite = characterData.portrait;
+                        
+                        dialogText = dialogText.Replace($"[{i}]", characterData.dialogName);
+                    }
+                }
+            }
+            
             ShowText(dialogText);
         }
 

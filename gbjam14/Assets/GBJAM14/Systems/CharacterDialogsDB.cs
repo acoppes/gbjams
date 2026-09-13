@@ -15,7 +15,7 @@ namespace GBJAM14.Systems
             public string[] requirements;
             public string[] status;
             
-            public string[] characters;
+            // public string[] characters;
             
             public List<string> texts;
         }
@@ -73,9 +73,9 @@ namespace GBJAM14.Systems
                 requirements = new [] { "+robert_dialog_start" },
                 texts = new List<string>
                 {
-                    "So this is <The Box> Robert was talking about",
-                    "I must hurry and return it to him.",
-                    "He said something about a good reward."
+                    "[0]: So this is <The Box> Robert was talking about",
+                    "[0]: I must hurry and return it to him.",
+                    "[0]: He said something about a good reward."
                 }
             });
             
@@ -86,8 +86,32 @@ namespace GBJAM14.Systems
                 requirements = new [] { "-robert_dialog_start" },
                 texts = new List<string>
                 {
-                    "What is this thing? It looks important.",
-                    "I must ask people around."
+                    "[0]: What is this thing? It looks important.",
+                    "[0]: I must ask people around."
+                }
+            });
+            
+            characterDialogs.Add(new DialogData()
+            {
+                id = "random1",
+                characterId = "lost_soul1",
+                texts = new List<string>
+                {
+                    "[1]: Hey Stranger, Welcome to Hollow Island.",
+                    "[1]: What's your name?",
+                    "[0]: My name is [0] D. Topson, I am the best Archeologist.",
+                    "[1]: Oh, wow, that's ... ehm great. See ya around.",
+                }
+            });
+            
+            characterDialogs.Add(new DialogData()
+            {
+                id = "random2",
+                characterId = "lost_soul2",
+                texts = new List<string>
+                {
+                    "[1]: Hey, are you new in Hollow Island?",
+                    "[1]: We have the best ghost steaks!",
                 }
             });
         }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using GBJAM14.Components;
 using GBJAM14.UI;
@@ -34,9 +35,11 @@ namespace GBJAM14.Systems
                 if (interactAction.target.Has<CharacterComponent>())
                 {
                     ref var inventory = ref interactAction.source.Get<InventoryComponent>();
-                    var npc = interactAction.target.Get<CharacterComponent>();
+                    ref var characterA = ref interactAction.source.Get<CharacterComponent>();
+
+                    var characterB = interactAction.target.Get<CharacterComponent>();
                 
-                    var dialogData = characterDialogsDB.GetDialog(npc.characterId, inventory.items);
+                    var dialogData = characterDialogsDB.GetDialog(characterB.characterId, inventory.items);
 
                     if (dialogData != null)
                     {
@@ -57,12 +60,16 @@ namespace GBJAM14.Systems
                             }
                         }
                         
-                        uiDialog.ShowDialog(dialogData);
+                        uiDialog.ShowDialog(dialogData, new List<string>()
+                        {
+                            characterA.characterId,
+                            characterB.characterId
+                        });
 
                         var dialogEntity = world.CreateEntity();
                         dialogEntity.Add(new DialogComponent()
                         {
-                            characterId = npc.characterId,
+                            characterId = characterB.characterId,
                             dialogId = dialogData.id,
                             completed = false
                         });   
@@ -80,7 +87,10 @@ namespace GBJAM14.Systems
 
                     if (dialogData != null)
                     {
-                        uiDialog.ShowDialog(dialogData);
+                        uiDialog.ShowDialog(dialogData, new List<string>()
+                        {
+                            interactAction.source.Get<CharacterComponent>().characterId
+                        });
 
                         var dialogEntity = world.CreateEntity();
                         dialogEntity.Add(new DialogComponent()

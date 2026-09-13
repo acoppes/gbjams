@@ -12,17 +12,20 @@ namespace GBJAM14.Components
     public struct CharacterComponent : IEntityComponent
     {
         public string characterId;
+        // public string name;
     }
     
     public class CharacterComponentDefinition : ComponentDefinitionBase, IEntityInstanceParameter
     {
         public string characterId;
+        // public string characterName;
         
         public override void Apply(World world, Entity entity)
         {
             entity.Add(new CharacterComponent()
             {
-                characterId = characterId
+                characterId = characterId,
+                // name = characterName
             });
         }
     }

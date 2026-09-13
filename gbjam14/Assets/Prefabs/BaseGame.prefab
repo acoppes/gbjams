@@ -84,6 +84,7 @@ Transform:
   - {fileID: 754567297594307127}
   - {fileID: 5162492124368955076}
   - {fileID: 5562120432784283866}
+  - {fileID: 6788334635691034480}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1461629245600838772
@@ -699,6 +700,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.UI.UISoundEffects
   audioSource: {fileID: 2037746343455894371}
+--- !u!1 &8979502997387836718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6788334635691034480}
+  - component: {fileID: 1015541913429647467}
+  m_Layer: 0
+  m_Name: CharactersDB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6788334635691034480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8979502997387836718}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7170145219896799490}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1015541913429647467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8979502997387836718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29463c02dc243c9a3f217b5a47f3c22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Systems.CharacterDB
+  characters:
+  - id: main_character
+    dialogName: Eriq
+    portrait: {fileID: 21300000, guid: f0d46a4c3018da1ea8a6e52cfcd87b0c, type: 3}
+  - id: lost_soul1
+    dialogName: Thomas
+    portrait: {fileID: 21300000, guid: ca76bfb1fb50a4dffb9f7c27704be087, type: 3}
+  - id: lost_soul2
+    dialogName: Don
+    portrait: {fileID: 21300000, guid: ca76bfb1fb50a4dffb9f7c27704be087, type: 3}
 --- !u!1001 &1133726032775228865
 PrefabInstance:
   m_ObjectHideFlags: 0
