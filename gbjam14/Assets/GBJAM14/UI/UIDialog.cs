@@ -44,7 +44,20 @@ namespace GBJAM14.UI
             window.Open();
             this.dialogData = dialogData;
             currentText = 0;
-            ShowText(dialogData.texts[currentText]);
+            ShowCurrentDialog();
+        }
+
+        private void ShowCurrentDialog()
+        {
+            var dialogText = dialogData.texts[currentText];
+            if (dialogData.characters != null)
+            {
+                for (var i = 0; i < dialogData.characters.Length; i++)
+                {
+                    dialogText = dialogText.Replace($"[{i}]", dialogData.characters[i]);
+                }
+            }
+            ShowText(dialogText);
         }
 
         private void ShowText(string text)
@@ -144,7 +157,7 @@ namespace GBJAM14.UI
         public void ShowNext()
         {
             currentText++;
-            ShowText(dialogData.texts[currentText]);
+            ShowCurrentDialog();
         }
     }
 }

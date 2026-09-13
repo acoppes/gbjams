@@ -15,6 +15,8 @@ namespace GBJAM14.Systems
             public string[] requirements;
             public string[] status;
             
+            public string[] characters;
+            
             public List<string> texts;
         }
 
@@ -30,7 +32,7 @@ namespace GBJAM14.Systems
                 characterId = "sam",
                 texts = new List<string>()
                 {
-                    "Hey you, come here!",
+                    "Hey [0], come here!",
                     "I have a secret to tell you!",
                     "You know.... I see dead people... And also I know where their tresures are."
                 }

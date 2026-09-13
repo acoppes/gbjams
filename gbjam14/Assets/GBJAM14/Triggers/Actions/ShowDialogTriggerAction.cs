@@ -1,7 +1,6 @@
 using GBJAM14.Systems;
 using GBJAM14.UI;
 using Gemserk.Triggers;
-using UnityEngine;
 
 namespace GBJAM14.Triggers.Actions
 {
