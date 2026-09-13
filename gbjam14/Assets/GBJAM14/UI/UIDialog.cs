@@ -14,12 +14,15 @@ namespace GBJAM14.UI
         public UIWindow window;
         public TextView dialogTextView;
 
+        public Image[] portraits;
         public Image[] indicators;
-
+        
         public float textSpeed = 1f;
 
         public SoundEffectAsset typeSoundEffect;
 
+        public Vector3 currentPortraitOffset;
+        
         [NonSerialized]
         public bool completed;
 
@@ -56,6 +59,11 @@ namespace GBJAM14.UI
             {
                 indicator.enabled = false;
             }
+
+            foreach (var portrait in portraits)
+            {
+                portrait.rectTransform.localPosition = Vector3.zero;
+            }
             
             var dialogText = dialogData.texts[currentText];
             if (dialogData.characters != null)
@@ -65,6 +73,7 @@ namespace GBJAM14.UI
                     if (dialogText.StartsWith($"[{i}]"))
                     {
                         indicators[i].enabled = true;
+                        portraits[i].rectTransform.localPosition = currentPortraitOffset;
                     }
                 }
                 
