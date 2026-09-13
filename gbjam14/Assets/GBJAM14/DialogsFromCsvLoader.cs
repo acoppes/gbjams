@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using GBJAM14.Systems;
 using UnityEngine;
-using UnityEngine.Networking;
 using yutokun;
 
 namespace GBJAM14
