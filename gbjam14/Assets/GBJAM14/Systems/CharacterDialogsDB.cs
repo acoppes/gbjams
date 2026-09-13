@@ -38,6 +38,17 @@ namespace GBJAM14.Systems
                     "Good luck with that."
                 }
             };
+            
+            characterDialogs["the_box"] = new DialogData()
+            {
+                id = "the_box_picked",
+                texts = new List<string>()
+                {
+                    "So... this is <The Box>...",
+                    "I believe robert will be happy to see it.",
+                    "Will hurry before it's too late."
+                }
+            };
         }
 
         public DialogData GetDialog(string characterCharacterId)

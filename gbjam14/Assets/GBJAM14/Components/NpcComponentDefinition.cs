@@ -9,18 +9,18 @@ namespace GBJAM14.Components
         public bool completed;
     }
     
-    public struct CharacterIdComponent : IEntityComponent
+    public struct NpcComponent : IEntityComponent
     {
         public string characterId;
     }
     
-    public class CharacterIdComponentDefinition : ComponentDefinitionBase, IEntityInstanceParameter
+    public class NpcComponentDefinition : ComponentDefinitionBase, IEntityInstanceParameter
     {
         public string characterId;
         
         public override void Apply(World world, Entity entity)
         {
-            entity.Add(new CharacterIdComponent()
+            entity.Add(new NpcComponent()
             {
                 characterId = characterId
             });

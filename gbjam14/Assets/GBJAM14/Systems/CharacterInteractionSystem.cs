@@ -1,6 +1,7 @@
 using GBJAM14.Components;
 using GBJAM14.UI;
 using Gemserk.Leopotam.Ecs;
+using Gemserk.Leopotam.Ecs.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 
@@ -8,8 +9,11 @@ namespace GBJAM14.Systems
 {
     public class CharacterInteractionSystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
     {
-        private readonly EcsFilterInject<Inc<CharacterIdComponent, CanBeInteractedComponent>, Exc<DisabledComponent>> 
+        private readonly EcsFilterInject<Inc<NpcComponent, CanBeInteractedComponent>, Exc<DisabledComponent>> 
             interactableCharacters = default;
+        
+        private readonly EcsFilterInject<Inc<PickupActionComponent>, Exc<DisabledComponent>> 
+            pickupActions = default;
 
         private readonly EcsFilterInject<Inc<DialogComponent>, Exc<DisabledComponent>> 
             dialogs = default;
@@ -49,6 +53,35 @@ namespace GBJAM14.Systems
                     }
                     return;
                 }
+            }
+            
+            foreach (var e in pickupActions.Value)
+            {
+                var pickupAction = pickupActions.Pools.Inc1.Get(e);
+
+                ref var inventory = ref pickupAction.picker.Get<InventoryComponent>();
+                var item = pickupAction.pickup.Get<ItemComponent>();
+                
+                inventory.items.Add(item.itemId);
+
+                var dialogData = characterDialogsDB.GetDialog(item.itemId);
+
+                if (dialogData != null)
+                {
+                    uiDialog.ShowDialog(dialogData);
+
+                    var dialogEntity = world.CreateEntity();
+                    dialogEntity.Add(new DialogComponent()
+                    {
+                        characterId = item.itemId,
+                        dialogId = dialogData.id,
+                        completed = false
+                    });   
+                }
+                
+                pickupAction.pickup.Get<DestroyableComponent>().destroy = true;
+                
+                pickupActions.Pools.Inc1.Del(e);
             }
             
             foreach (var e in dialogs.Value)
