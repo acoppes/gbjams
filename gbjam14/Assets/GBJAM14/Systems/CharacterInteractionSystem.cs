@@ -11,11 +11,16 @@ namespace GBJAM14.Systems
         private readonly EcsFilterInject<Inc<CharacterIdComponent, CanBeInteractedComponent>, Exc<DisabledComponent>> 
             interactableCharacters = default;
 
+        private readonly EcsFilterInject<Inc<DialogComponent>, Exc<DisabledComponent>> 
+            dialogs = default;
+        
         private CharacterDialogsDB characterDialogsDB;
+        private UIDialog uiDialog;
         
         public void Init(EcsSystems systems)
         {
             characterDialogsDB = FindFirstObjectByType<CharacterDialogsDB>();
+            uiDialog = FindFirstObjectByType<UIDialog>();
         }
         
         public void Run(EcsSystems systems)
@@ -29,14 +34,32 @@ namespace GBJAM14.Systems
                 {
                     interacted.interactPending = false;
                     
-                    var dialog = FindFirstObjectByType<UIDialog>();
-                    if (dialog.window.IsClosed())
+                    if (uiDialog.window.IsClosed())
                     {
-                        var text = characterDialogsDB.GetDialog(character.characterId);
-                        dialog.ShowDialog(text);
+                        var dialogData = characterDialogsDB.GetDialog(character.characterId);
+                        uiDialog.ShowDialog(dialogData);
+
+                        var dialogEntity = world.CreateEntity();
+                        dialogEntity.Add(new DialogComponent()
+                        {
+                            characterId = character.characterId,
+                            dialogId = dialogData.id,
+                            completed = false
+                        });
                     }
-                    
                     return;
+                }
+            }
+            
+            foreach (var e in dialogs.Value)
+            {
+                ref var dialog = ref dialogs.Pools.Inc1.Get(e);
+                if (!dialog.completed)
+                {
+                    if (uiDialog.window.IsClosed())
+                    {
+                        dialog.completed = true;
+                    }
                 }
             }
         }

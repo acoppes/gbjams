@@ -9,13 +9,17 @@ namespace GBJAM14.Systems
         [Serializable]
         public class DialogData
         {
+            public string id;
             public List<string> texts;
         }
-        
-        public DialogData GetDialog(string characterCharacterId)
+
+        private Dictionary<string, DialogData> characterDialogs = new Dictionary<string, DialogData>();
+
+        private void Awake()
         {
-            return new DialogData()
+            characterDialogs["sam"] = new DialogData()
             {
+                id = "sam_dialog_start",
                 texts = new List<string>()
                 {
                     "Hey you, come here!",
@@ -23,6 +27,22 @@ namespace GBJAM14.Systems
                     "You know.... I see dead people... And also I know where their tresures are."
                 }
             };
+            
+            characterDialogs["robert"] = new DialogData()
+            {
+                id = "robert_dialog_start",
+                texts = new List<string>()
+                {
+                    "Oh, so you came here for <THE TREASURE>",
+                    "Well, you might encounter some... obstacles.",
+                    "Good luck with that."
+                }
+            };
+        }
+
+        public DialogData GetDialog(string characterCharacterId)
+        {
+            return characterDialogs.GetValueOrDefault(characterCharacterId);
         }
     }
 }
