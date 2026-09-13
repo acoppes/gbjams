@@ -2413,8 +2413,8 @@ GameObject:
   - component: {fileID: 1257705940}
   - component: {fileID: 1257705939}
   - component: {fileID: 1257705949}
-  - component: {fileID: 1257705950}
   - component: {fileID: 1257705951}
+  - component: {fileID: 1257705952}
   m_Layer: 0
   m_Name: Item_Definition
   m_TagString: Untagged
@@ -2564,18 +2564,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.ItemComponentDefinition
   itemId: the_box
---- !u!114 &1257705950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257705937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a48843e0bc54a2096fdf8f22bc1757d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.CanBePickedUpComponentDefinition
 --- !u!114 &1257705951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2590,6 +2578,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.DestroyableComponentDefinition
   framesToDestroy: 0
   signalOnDestroy: 0
+--- !u!114 &1257705952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257705937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c422e22d9e8470ba7ed289fbceeaf0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.CanBeInteractedComponentDefinition
 --- !u!1 &1268044305
 GameObject:
   m_ObjectHideFlags: 0

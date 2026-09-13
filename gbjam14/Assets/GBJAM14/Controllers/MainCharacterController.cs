@@ -37,20 +37,6 @@ namespace GBJAM14.Controllers
 
                 foreach (var target in results)
                 {
-                    if (target.entity && target.entity.Has<CanBePickedUpComponent>())
-                    {
-                        world.CreateEntity(null, null, (e) =>
-                        {
-                            e.Add(new PickupActionComponent()
-                            {
-                                picker = entity,
-                                pickup = target.entity
-                            });
-                        });
-                        
-                        break;
-                    }
-                    
                     if (target.entity && target.entity.Has<CanBeInteractedComponent>())
                     {
                         world.CreateEntity(null, null, (e) =>

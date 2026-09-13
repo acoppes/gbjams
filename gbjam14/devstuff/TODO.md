@@ -1,8 +1,10 @@
 # TODO
 
-* Dialog triggers quest/status
-* Dialog changes on item/status
-* Dialog with portraits
+* Dialogs
+    - Trigger quest/status
+    - Pickup item changes status
+    - Portraits
+    - Add/Remove custom status from interactions
 
 * Room loads dynamic
 * Room depends on items/status
