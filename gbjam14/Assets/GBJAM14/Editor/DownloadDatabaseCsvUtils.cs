@@ -2,38 +2,40 @@
 using System.Globalization;
 using System.IO;
 using System.Threading;
+using Gemserk;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using AssetDatabaseExt = Gemserk.RefactorTools.Editor.AssetDatabaseExt;
 
 namespace GBJAM14.Editor
 {
-    public static class CsvImportTester
+    public static class DownloadDatabaseCsvUtils
     {
-        public const string DatabaseCvsPath = "Assets/StreamingAssets/events-database.csv";
-        public const string DatabaseCsvUrl = "https://docs.google.com/spreadsheets/d/1ah4HiY2auJAIFUvCpX3j1OHHKYMAItzqYMnjiO7BuJc/export?format=csv";
-            
-        [MenuItem("GBJAM/GBJAM13/Download Events Database CSV")]
+        [MenuItem("GBJAM/GBJAM14/Download Dialogs CSV")]
         public static void DownloadDatabaseFromSpreadsheet()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture; 
-            
-            // new HttpWebRequest();
 
-            EditorCoroutineUtility.StartCoroutineOwnerless(DownloadCsv());
+            var downloadDatabaseAssets = AssetDatabaseExt.FindAssets<DownloadDatabaseAsset>();
+            foreach (var downloadDatabaseAsset in downloadDatabaseAssets)
+            {
+                EditorCoroutineUtility.StartCoroutineOwnerless(DownloadCsv(downloadDatabaseAsset.spreadsheetUrl, 
+                    downloadDatabaseAsset.outputPath));
+            }
         }
 
-        private static IEnumerator DownloadCsv()
+        private static IEnumerator DownloadCsv(string url, string outputPath)
         {
-            var request = UnityWebRequest.Get(DatabaseCsvUrl);
+            var request = UnityWebRequest.Get(url);
             yield return request.SendWebRequest();
             
             switch (request.result)
             {
                 case UnityWebRequest.Result.Success:
-                    File.WriteAllText(DatabaseCvsPath, request.downloadHandler.text);
+                    File.WriteAllText(outputPath, request.downloadHandler.text);
                     Debug.Log("DOWNLOADED DATABASE");
                     break;
                 default:

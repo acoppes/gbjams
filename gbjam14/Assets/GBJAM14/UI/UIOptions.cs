@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.Components;
-using GBJAM14.Data;
 using Gemserk.Utilities.UI;
-using MyBox;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
