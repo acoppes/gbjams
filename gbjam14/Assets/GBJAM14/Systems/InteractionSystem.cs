@@ -54,7 +54,7 @@ namespace GBJAM14.Systems
                         var dialogData = dialogs.GetRandom();
                         
                         // add dialog to inventory to consider for other dialogs
-                        inventory.items.Add(dialogData.id);
+                        // inventory.items.Add(dialogData.id);
 
                         if (dialogData.output != null)
                         {

@@ -17,3 +17,22 @@ mrtoad_complete,mrtoad,"[1]: Are those?...
 [1]: but I know that Tom Sandman saw something while walking in the black lake.","+grandma_glasses,+mrtoad_start","+mrtoad_complete,-grandma_glasses",
 mrtoad_complete_repeat,mrtoad,"[1]: I don't know where the medal you are looking is...
 [1]: but I know that Tom Sandman saw something while walking in the black lake.",+mrtoad_complete,,
+lost_soul_random1,lost_soul,"[1]: Hey Stranger, Welcome to Hollow Island.
+[1]: What's your name?
+[0]: I'm [0] D. Topson and I will be the best Archeologist.
+[1]: Oh, wow, that's ... ehm great. See ya around.",-welcome_to_island,+welcome_to_island,
+lost_soul_random2,lost_soul,[1]: Do I know you?,+welcome_to_island,,
+lost_soul_random3,lost_soul,"[1]: Hey, are you new in Hollow Island?
+[1]: We have the best frog steaks!",+welcome_to_island,,
+robert_dialog_start,robert,"[1]: Oh, so you came here for treasures?
+[1]: Well, I am looking for a special item.
+[1]: It is really dear to me, I named it <The Box>.
+[1]: If you happen to find it, I will reward you really well.","-quest_robert_complete,-pickup_the_box",+quest_robert_start,
+robert_dialog_complete,robert,"[1]: Oh, yes! my box!
+[1]: Thank you very much, here, take this amulet.
+[1]: It will be handy if you happen to encounter werewolves.",+pickup_the_box,"-pickup_the_box,+quest_robert_complete",
+pickup_the_box1,pickup_the_box,"[0]: So this is <The Box> Robert was talking about.
+[0]: I must hurry and return it to him.
+[0]: He said something about a good reward.",+quest_robert_start,+pickup_the_box,
+pickup_the_box2,pickup_the_box,"[0]: What is this shinny box? It looks important.
+[0]: I must ask people around.",-quest_robert_start,+pickup_the_box,

@@ -24,6 +24,7 @@ namespace GBJAM14.Editor
             {
                 EditorCoroutineUtility.StartCoroutineOwnerless(DownloadCsv(downloadDatabaseAsset.spreadsheetUrl, 
                     downloadDatabaseAsset.outputPath));
+                AssetDatabase.Refresh();
             }
         }
 

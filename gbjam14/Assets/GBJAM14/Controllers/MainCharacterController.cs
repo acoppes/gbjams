@@ -20,7 +20,7 @@ namespace GBJAM14.Controllers
             var input = entity.Get<InputComponent>();
             ref var movement = ref entity.Get<MovementComponent>();
             var dir = input.direction3d();
-            movement.movingDirection = new Vector3(dir.x, dir.z, 0);
+            movement.movingDirection = new Vector3(dir.x, dir.z * 0.75f, 0);
             
             // search for interactions
             
