@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
+using Game.Components;
 using GBJAM14.Components;
 using GBJAM14.UI;
 using Gemserk.Leopotam.Ecs;
@@ -11,6 +11,12 @@ namespace GBJAM14.Systems
 {
     public class InteractionSystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
     {
+        private readonly EcsFilterInject<Inc<InteractableComponent>, Exc<DisabledComponent>> 
+            interactables = default;
+        
+        private readonly EcsFilterInject<Inc<InteractableComponent, ModelInstanceComponent>, Exc<DisabledComponent>> 
+            interactableModels = default;
+        
         private readonly EcsFilterInject<Inc<InteractActionComponent>, Exc<DisabledComponent>> 
             interactActions = default;
         
@@ -79,36 +85,10 @@ namespace GBJAM14.Systems
                     {
                         interactAction.target.Get<DestroyableComponent>().destroy = true;
                     }
+                    
+                    interactAction.target.Get<InteractableComponent>().focusedByPlayer = false;
                 }
 
-                // if (interactAction.target.Has<ItemComponent>())
-                // {
-                //     ref var inventory = ref interactAction.source.Get<InventoryComponent>();
-                //     var item = interactAction.target.Get<ItemComponent>();
-                //
-                //     inventory.items.Add(item.itemId);
-                //
-                //     var dialogData = characterDialogsDB.GetDialog(item.itemId, inventory.items);
-                //
-                //     if (dialogData != null)
-                //     {
-                //         uiDialog.ShowDialog(dialogData, new List<string>()
-                //         {
-                //             interactAction.source.Get<CharacterComponent>().characterId
-                //         });
-                //
-                //         var dialogEntity = world.CreateEntity();
-                //         dialogEntity.Add(new DialogComponent()
-                //         {
-                //             characterId = item.itemId,
-                //             dialogId = dialogData.id,
-                //             completed = false
-                //         });   
-                //     }
-                //
-                //     interactAction.target.Get<DestroyableComponent>().destroy = true;
-                // }
-                
                 interactActions.Pools.Inc1.Del(e);
             }
             
@@ -122,6 +102,23 @@ namespace GBJAM14.Systems
                         dialog.completed = true;
                     }
                 }
+            }
+            
+            foreach (var e in interactableModels.Value)
+            {
+                var interactable = interactableModels.Pools.Inc1.Get(e);
+                var model = interactableModels.Pools.Inc2.Get(e);
+                var interactObject = model.modelGameObject.transform.Find("InteractHighlight");
+                if (interactObject)
+                {
+                    interactObject.gameObject.SetActive(interactable.focusedByPlayer && interactable.showInteractBubble);
+                }
+            }
+            
+            foreach (var e in interactables.Value)
+            {
+                ref var interactable = ref interactables.Pools.Inc1.Get(e);
+                interactable.focusedByPlayer = false;
             }
         }
 

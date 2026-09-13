@@ -21,35 +21,42 @@ namespace GBJAM14.Controllers
             movement.movingDirection = input.direction3d();
             
             // search for interactions
+            
+            var results = new List<Target>();
+            world.GetTargets(new RuntimeTargetingParameters()
+            {
+                alliedPlayersBitmask = entity.Get<PlayerComponent>().GetAlliedPlayers(),
+                direction = entity.Get<LookingDirection>().value,
+                filter = targeting.targetingFilter,
+                position = entity.Get<PositionComponent>().value,
+                rangeMultiplier = 1
+            }, results);
+
+            var interactEntity = Entity.NullEntity;
+            
+            foreach (var target in results)
+            {
+                if (target.entity && target.entity.Has<InteractableComponent>())
+                {
+                    interactEntity = target.entity;
+                    target.entity.Get<InteractableComponent>().focusedByPlayer = true;
+                    break;
+                }
+            }
 
             var bufferedInput = entity.Get<BufferedInputComponent>();
             if (bufferedInput.HasBufferedAction(input.GetButton("button1")))
             {
-                var results = new List<Target>();
-                world.GetTargets(new RuntimeTargetingParameters()
+                if (interactEntity)
                 {
-                    alliedPlayersBitmask = entity.Get<PlayerComponent>().GetAlliedPlayers(),
-                    direction = entity.Get<LookingDirection>().value,
-                    filter = targeting.targetingFilter,
-                    position = entity.Get<PositionComponent>().value,
-                    rangeMultiplier = 1
-                }, results);
-
-                foreach (var target in results)
-                {
-                    if (target.entity && target.entity.Has<CanBeInteractedComponent>())
+                    world.CreateEntity(null, null, (e) =>
                     {
-                        world.CreateEntity(null, null, (e) =>
+                        e.Add(new InteractActionComponent()
                         {
-                            e.Add(new InteractActionComponent()
-                            {
-                                source = entity,
-                                target = target.entity
-                            });
+                            source = entity,
+                            target = interactEntity
                         });
-                        
-                        break;
-                    }
+                    });
                 }
                 
                 bufferedInput.ConsumeBuffer();

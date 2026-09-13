@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Components;
 using UnityEngine;
 
 namespace GBJAM14.Systems
@@ -14,6 +15,7 @@ namespace GBJAM14.Systems
             public string dialogName;
             public Sprite portrait;
             public Color textColor = Color.black;
+            public SoundEffectAsset talkSoundEffect;
         }
 
         public List<CharacterData> characters;
