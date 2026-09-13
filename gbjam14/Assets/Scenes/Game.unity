@@ -357,7 +357,6 @@ Transform:
   - {fileID: 1057776324}
   - {fileID: 1333960963}
   - {fileID: 2054333211}
-  - {fileID: 1308996715}
   - {fileID: 1857137395}
   m_Father: {fileID: 1288261076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2871,57 +2870,6 @@ MonoBehaviour:
   executionType: 0
   maxExecutions: 0
   maxQueue: 0
---- !u!1 &1308996714
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1308996715}
-  - component: {fileID: 1308996716}
-  m_Layer: 0
-  m_Name: ShowDialogData()
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1308996715
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1308996714}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 352174163}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1308996716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1308996714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48d6f7ec4ec5451989b2a1d71587ccf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Triggers.Actions.ShowDialogTriggerAction
-  dialogData:
-    id: 
-    characterId: 
-    requirements: []
-    status: []
-    texts: []
-  characters: []
 --- !u!1 &1333960962
 GameObject:
   m_ObjectHideFlags: 0
@@ -3230,7 +3178,7 @@ GameObject:
   - component: {fileID: 1857137395}
   - component: {fileID: 1857137396}
   m_Layer: 0
-  m_Name: ShowDialogFromDB(main_character, main_character)
+  m_Name: ShowDialogFromDB(game_start, main_character)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3263,7 +3211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf2f2acfee346e6814cbde1126e0be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Triggers.Actions.ShowDialogFromDBTriggerAction
-  dialogId: main_character
+  dialogId: game_start
   characters:
   - main_character
 --- !u!1 &1899693755

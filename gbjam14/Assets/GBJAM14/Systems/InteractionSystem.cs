@@ -6,6 +6,7 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using MyBox;
 
 namespace GBJAM14.Systems
 {
@@ -45,10 +46,13 @@ namespace GBJAM14.Systems
 
                     var characterB = interactAction.target.Get<CharacterComponent>();
                 
-                    var dialogData = characterDialogsDB.GetDialog(characterB.characterId, inventory.items);
+                    var dialogs = characterDialogsDB.GetCharacterDialogs(characterB.characterId, 
+                        inventory.items);
 
-                    if (dialogData != null)
+                    if (dialogs.Count > 0)
                     {
+                        var dialogData = dialogs.GetRandom();
+                        
                         // add dialog to inventory to consider for other dialogs
                         inventory.items.Add(dialogData.id);
 

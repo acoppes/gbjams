@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GBJAM14.Systems
@@ -20,13 +21,13 @@ namespace GBJAM14.Systems
             public List<string> texts;
         }
 
-        private List<DialogData> characterDialogs = new List<DialogData>();
+        private List<DialogData> dialogs = new List<DialogData>();
 
         // private Dictionary<string, DialogData> characterDialogs = new Dictionary<string, DialogData>();
 
         private void Awake()
         {
-            characterDialogs.Add(new DialogData()
+            dialogs.Add(new DialogData()
             {
                 id = "game_start",
                 characterId = "main_character",
@@ -40,7 +41,7 @@ namespace GBJAM14.Systems
                 }
             });
             
-            characterDialogs.Add(new DialogData()
+            dialogs.Add(new DialogData()
             {
                 id = "mrtoad_start",
                 characterId = "mrtoad",
@@ -54,7 +55,7 @@ namespace GBJAM14.Systems
                 }
             });
             
-            characterDialogs.Add(new DialogData()
+            dialogs.Add(new DialogData()
             {
                 id = "robert_dialog_start",
                 characterId = "robert",
@@ -68,7 +69,7 @@ namespace GBJAM14.Systems
                 }
             });
             
-            characterDialogs.Add(new DialogData()
+            dialogs.Add(new DialogData()
             {
                 id = "robert_dialog_end",
                 characterId = "robert",
@@ -82,7 +83,7 @@ namespace GBJAM14.Systems
                 }
             });
             
-            characterDialogs.Add(new DialogData()
+            dialogs.Add(new DialogData()
             {
                 id = "the_box_picked_robert",
                 characterId = "the_box",
@@ -95,7 +96,7 @@ namespace GBJAM14.Systems
                 }
             });
             
-            characterDialogs.Add(new DialogData()
+            dialogs.Add(new DialogData()
             {
                 id = "the_box_picked_norobert",
                 characterId = "the_box",
@@ -107,7 +108,7 @@ namespace GBJAM14.Systems
                 }
             });
             
-            characterDialogs.Add(new DialogData()
+            dialogs.Add(new DialogData()
             {
                 id = "random1",
                 characterId = "lost_soul1",
@@ -122,7 +123,7 @@ namespace GBJAM14.Systems
                 }
             });
             
-            characterDialogs.Add(new DialogData()
+            dialogs.Add(new DialogData()
             {
                 id = "random1",
                 characterId = "lost_soul1",
@@ -133,7 +134,7 @@ namespace GBJAM14.Systems
                 }
             });
             
-            characterDialogs.Add(new DialogData()
+            dialogs.Add(new DialogData()
             {
                 id = "random2",
                 characterId = "lost_soul2",
@@ -144,52 +145,63 @@ namespace GBJAM14.Systems
                 }
             });
         }
-
-        public DialogData GetDialog(string characterCharacterId, List<string> inventory)
+        
+        public List<DialogData> GetCharacterDialogs(string characterId, List<string> inventory = null)
         {
-            foreach (var characterDialog in characterDialogs)
+            var characterDialogs = new List<DialogData>();
+            
+            foreach (var characterDialog in dialogs)
             {
-                if (!characterDialog.characterId.Equals(characterCharacterId,
+                if (!characterDialog.characterId.Equals(characterId,
                         StringComparison.InvariantCultureIgnoreCase))
                     continue;
 
                 // check for requirements in inventory
 
-                var matchRequirements = true;
-
-                if (characterDialog.requirements != null)
+                if (inventory != null)
                 {
-                    foreach (var requirement in characterDialog.requirements)
+                    var matchRequirements = true;
+
+                    if (characterDialog.requirements != null)
                     {
-                        var requirementName = requirement.Substring(1);
+                        foreach (var requirement in characterDialog.requirements)
+                        {
+                            var requirementName = requirement.Substring(1);
                         
-                        if (requirement.StartsWith("-"))
-                        {
-                            if (inventory.Contains(requirementName))
+                            if (requirement.StartsWith("-"))
                             {
-                                matchRequirements = false;
-                                break;
-                            }
-                        } else if (requirement.StartsWith("+"))
-                        {
-                            if (!inventory.Contains(requirementName))
+                                if (inventory.Contains(requirementName))
+                                {
+                                    matchRequirements = false;
+                                    break;
+                                }
+                            } else if (requirement.StartsWith("+"))
                             {
-                                matchRequirements = false;
-                                break;
+                                if (!inventory.Contains(requirementName))
+                                {
+                                    matchRequirements = false;
+                                    break;
+                                }
                             }
                         }
                     }
+                
+                    if (!matchRequirements)
+                    {
+                        continue;
+                    }    
                 }
                 
-                if (!matchRequirements)
-                {
-                    continue;
-                }
-
-                return characterDialog;
+                characterDialogs.Add(characterDialog);
             }
 
-            return null;
+            return characterDialogs;
+        }
+
+        public DialogData GetDialog(string dialogId)
+        {
+            return dialogs.FirstOrDefault(d => 
+                d.id.Equals(dialogId, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
