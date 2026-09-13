@@ -73,36 +73,41 @@ namespace GBJAM14.Systems
                             dialogId = dialogData.id,
                             completed = false
                         });   
-                    }                    
-                }
-
-                if (interactAction.target.Has<ItemComponent>())
-                {
-                    ref var inventory = ref interactAction.source.Get<InventoryComponent>();
-                    var item = interactAction.target.Get<ItemComponent>();
-                
-                    inventory.items.Add(item.itemId);
-
-                    var dialogData = characterDialogsDB.GetDialog(item.itemId, inventory.items);
-
-                    if (dialogData != null)
-                    {
-                        uiDialog.ShowDialog(dialogData, new List<string>()
-                        {
-                            interactAction.source.Get<CharacterComponent>().characterId
-                        });
-
-                        var dialogEntity = world.CreateEntity();
-                        dialogEntity.Add(new DialogComponent()
-                        {
-                            characterId = item.itemId,
-                            dialogId = dialogData.id,
-                            completed = false
-                        });   
                     }
-                
-                    interactAction.target.Get<DestroyableComponent>().destroy = true;
+
+                    if (interactAction.target.Has<ItemComponent>())
+                    {
+                        interactAction.target.Get<DestroyableComponent>().destroy = true;
+                    }
                 }
+
+                // if (interactAction.target.Has<ItemComponent>())
+                // {
+                //     ref var inventory = ref interactAction.source.Get<InventoryComponent>();
+                //     var item = interactAction.target.Get<ItemComponent>();
+                //
+                //     inventory.items.Add(item.itemId);
+                //
+                //     var dialogData = characterDialogsDB.GetDialog(item.itemId, inventory.items);
+                //
+                //     if (dialogData != null)
+                //     {
+                //         uiDialog.ShowDialog(dialogData, new List<string>()
+                //         {
+                //             interactAction.source.Get<CharacterComponent>().characterId
+                //         });
+                //
+                //         var dialogEntity = world.CreateEntity();
+                //         dialogEntity.Add(new DialogComponent()
+                //         {
+                //             characterId = item.itemId,
+                //             dialogId = dialogData.id,
+                //             completed = false
+                //         });   
+                //     }
+                //
+                //     interactAction.target.Get<DestroyableComponent>().destroy = true;
+                // }
                 
                 interactActions.Pools.Inc1.Del(e);
             }

@@ -95,12 +95,25 @@ namespace GBJAM14.Systems
             {
                 id = "random1",
                 characterId = "lost_soul1",
+                requirements = new [] { "-lost_soul1" },
+                status = new [] { "+lost_soul1" },
                 texts = new List<string>
                 {
                     "[1]: Hey Stranger, Welcome to Hollow Island.",
                     "[1]: What's your name?",
                     "[0]: My name is [0] D. Topson, I am the best Archeologist.",
                     "[1]: Oh, wow, that's ... ehm great. See ya around.",
+                }
+            });
+            
+            characterDialogs.Add(new DialogData()
+            {
+                id = "random1",
+                characterId = "lost_soul1",
+                requirements = new [] { "+lost_soul1" },
+                texts = new List<string>
+                {
+                    "[1]: You again?",
                 }
             });
             

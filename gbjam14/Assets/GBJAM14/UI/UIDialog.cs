@@ -31,6 +31,8 @@ namespace GBJAM14.UI
         public bool waiting;
 
         public GameObject waitingButton;
+
+        public bool maximizeNames;
         
         private Coroutine showTextCoroutine;
 
@@ -98,7 +100,8 @@ namespace GBJAM14.UI
                         portraits[i].enabled = true;
                         portraits[i].sprite = characterData.portrait;
                         
-                        dialogText = dialogText.Replace($"[{i}]", characterData.dialogName);
+                        dialogText = dialogText.Replace($"[{i}]", maximizeNames ? 
+                            characterData.dialogName.ToUpperInvariant() : characterData.dialogName);
                     }
                 }
             }
