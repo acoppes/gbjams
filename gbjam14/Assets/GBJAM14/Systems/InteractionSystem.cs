@@ -45,7 +45,16 @@ namespace GBJAM14.Systems
 
                         if (dialogData.status != null)
                         {
-                            inventory.items.AddRange(dialogData.status.ToList());
+                            foreach (var statusId in dialogData.status)
+                            {
+                                if (statusId.StartsWith("+"))
+                                {
+                                    inventory.items.Add(statusId.Substring(1));
+                                } else if (statusId.StartsWith("-"))
+                                {
+                                    inventory.items.Remove(statusId.Substring(1));
+                                }
+                            }
                         }
                         
                         uiDialog.ShowDialog(dialogData);

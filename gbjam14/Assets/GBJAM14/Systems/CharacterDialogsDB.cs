@@ -45,7 +45,7 @@ namespace GBJAM14.Systems
                 {
                     "Oh, so you came here for treasures?",
                     "Well, I am looking for a special item.",
-                    "It is really special to me, I named it <The Box>.",
+                    "It is really dear to me, I named it <The Box>.",
                     "If you happen to find it, I will reward you really well."
                 }
             });
@@ -54,13 +54,13 @@ namespace GBJAM14.Systems
             {
                 id = "robert_dialog_end",
                 characterId = "robert",
-                requirements = new [] { "the_box" },
-                status = new [] { "the_amulet" },
+                requirements = new [] { "+the_box" },
+                status = new [] { "+the_amulet", "-the_box" },
                 texts = new List<string>()
                 {
                     "Oh, yes! my box",
                     "Thank you very much, here, take this amulet.",
-                    "If you happen to encounter werewolves, it might be handy."
+                    "It will be handy if you happen to encounter werewolves."
                 }
             });
             
@@ -68,11 +68,12 @@ namespace GBJAM14.Systems
             {
                 id = "the_box_picked_robert",
                 characterId = "the_box",
-                requirements = new [] { "robert_dialog_start" },
+                requirements = new [] { "+robert_dialog_start" },
                 texts = new List<string>
                 {
                     "So this is <The Box> Robert was talking about",
-                    "I must hurry and return it to him."
+                    "I must hurry and return it to him.",
+                    "He said something about a good reward."
                 }
             });
             
@@ -105,18 +106,22 @@ namespace GBJAM14.Systems
                 {
                     foreach (var requirement in characterDialog.requirements)
                     {
+                        var requirementName = requirement.Substring(1);
+                        
                         if (requirement.StartsWith("-"))
                         {
-                            var requirementName = requirement.Replace("-", "");
                             if (inventory.Contains(requirementName))
                             {
                                 matchRequirements = false;
                                 break;
                             }
-                        } else if (!inventory.Contains(requirement))
+                        } else if (requirement.StartsWith("+"))
                         {
-                            matchRequirements = false;
-                            break;
+                            if (!inventory.Contains(requirementName))
+                            {
+                                matchRequirements = false;
+                                break;
+                            }
                         }
                     }
                 }
