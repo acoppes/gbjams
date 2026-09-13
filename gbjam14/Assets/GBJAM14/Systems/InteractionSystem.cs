@@ -56,9 +56,9 @@ namespace GBJAM14.Systems
                         // add dialog to inventory to consider for other dialogs
                         inventory.items.Add(dialogData.id);
 
-                        if (dialogData.status != null)
+                        if (dialogData.output != null)
                         {
-                            foreach (var statusId in dialogData.status)
+                            foreach (var statusId in dialogData.output)
                             {
                                 if (statusId.StartsWith("+"))
                                 {

@@ -14,7 +14,7 @@ namespace GBJAM14.Systems
             public string characterId;
             
             public string[] requirements;
-            public string[] status;
+            public string[] output;
             
             // public string[] characters;
             
@@ -74,7 +74,7 @@ namespace GBJAM14.Systems
                 id = "robert_dialog_end",
                 characterId = "robert",
                 requirements = new [] { "+the_box" },
-                status = new [] { "+the_amulet", "-the_box" },
+                output = new [] { "+the_amulet", "-the_box" },
                 texts = new List<string>()
                 {
                     "Oh, yes! my box",
@@ -113,7 +113,7 @@ namespace GBJAM14.Systems
                 id = "random1",
                 characterId = "lost_soul1",
                 requirements = new [] { "-lost_soul1" },
-                status = new [] { "+lost_soul1" },
+                output = new [] { "+lost_soul1" },
                 texts = new List<string>
                 {
                     "[1]: Hey Stranger, Welcome to Hollow Island.",
@@ -202,6 +202,11 @@ namespace GBJAM14.Systems
         {
             return dialogs.FirstOrDefault(d => 
                 d.id.Equals(dialogId, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        public void AddDialogData(DialogData dialogData)
+        {
+            dialogs.Add(dialogData);
         }
     }
 }

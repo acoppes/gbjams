@@ -15,3 +15,4 @@
 # NICE TO HAVE
 
 * Player can enter the name of the character
+* Decos to make the environment feel alive.
