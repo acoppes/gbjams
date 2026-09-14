@@ -8,7 +8,7 @@ export GEMSERK_GAME_BUILD_PATH="builds/${GEMSERK_PROJECT_NAME}/windows/${GEMSERK
 export GEMSERK_GAME_BUILD_LOG_PATH="builds/${GEMSERK_PROJECT_NAME}/windows.txt"
 # export WSLENV=$WSLENV:GEMSERK_GAME_BUILD_PATH:GEMSERK_PROJECT_NAME/w
 
-export BUILD_COMMAND="${GEMSERK_UNITY_EDITOR_PATH_6003} -projectPath ${PROJECT_PATH} -quit -silent-crashes -batchmode -nographics -logFile ${GEMSERK_GAME_BUILD_LOG_PATH} -executeMethod Gemserk.BuildTools.Editor.BuildScript.BuildWindows"
+export BUILD_COMMAND="${GEMSERK_UNITY_EDITOR_PATH_6003} -projectPath ${PROJECT_PATH} -buildTarget win64 -quit -silent-crashes -batchmode -nographics -logFile ${GEMSERK_GAME_BUILD_LOG_PATH} -executeMethod Gemserk.BuildTools.Editor.BuildScript.BuildWindows"
 
 echo "${BUILD_COMMAND}"
 ${BUILD_COMMAND}
