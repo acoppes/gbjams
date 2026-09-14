@@ -1,3 +1,4 @@
+using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
 
@@ -5,8 +6,8 @@ namespace GBJAM14.Data
 {
     public class RoomExitData : MonoBehaviour
     {
-        public BoxCollider2D exitCollider;
-
+        public RoomStartData roomStartData;
+        
         public void OnTriggerEnter2D(Collider2D other)
         {
             if (other.attachedRigidbody)
@@ -14,9 +15,14 @@ namespace GBJAM14.Data
                 var entityReference = other.attachedRigidbody.GetComponent<EntityReference>();
                 if (entityReference)
                 {
-                    if (SignalsManager.instance)
+                    var entity = entityReference.entity;
+                    if (entity.Has<RoomNavigationComponent>())
                     {
-                        SignalsManager.instance.onExitRoomSignal.Signal(entityReference.entity);
+                        entity.Get<RoomNavigationComponent>().currentExit = this;
+                        if (SignalsManager.instance)
+                        {
+                            SignalsManager.instance.onExitRoomSignal.Signal(entityReference.entity);
+                        }
                     }
                 }
             }
