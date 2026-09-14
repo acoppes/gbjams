@@ -6,9 +6,11 @@ Rooms
 * Deactivate exit (trigger for room or gamecontroller) while event.
 
 Main Menu
-
 * Add continue savegame as first option if savegame
 * Add start new
+
+Splash
+* Add gbjam sound effects
 
 # BUGS
 
