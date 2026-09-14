@@ -17,6 +17,8 @@ Splash
 
 # BUGS
 
+* Game looks weird if no fullscreen in web build.
+
 # NICE TO HAVE
 
 * Better Palette animation

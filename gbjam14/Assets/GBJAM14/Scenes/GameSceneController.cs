@@ -1,15 +1,10 @@
-﻿using GBJAM14.Data;
-using Gemserk.Leopotam.Ecs;
+﻿using System;
 using UnityEngine;
 
 namespace GBJAM14.Scenes
 {
     public class GameSceneController : MonoBehaviour
     {
-        public WorldReference worldReference;
 
-        public RoomData currentRoom;
-        
-        
     }
 }
