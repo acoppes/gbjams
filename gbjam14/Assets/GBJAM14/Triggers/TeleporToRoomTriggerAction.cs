@@ -2,18 +2,16 @@
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Triggers;
 using Gemserk.Triggers.Queries;
+using UnityEngine;
 
 namespace GBJAM14.Triggers
 {
     public class TeleporToNextRoomTriggerAction : WorldTriggerAction
     {
         public TriggerTarget target;
-
-        // public RoomStartData roomStartData;
         
         public override string GetObjectName()
         {
-            // var roomName = roomStartData ? roomStartData.name : string.Empty;
             return $"TeleportToRoomStart({target})";
         }
         
@@ -26,7 +24,9 @@ namespace GBJAM14.Triggers
                 if (entity.Has<RoomNavigationComponent>())
                 {
                     var roomNavigation = entity.Get<RoomNavigationComponent>();
-                    entity.Get<PositionComponent>().value = roomNavigation.currentExit.roomStartData.transform.position;
+                    var room = GameObject.Find(roomNavigation.nextRoomId);
+                    var start = room.transform.Find("Starts").Find(roomNavigation.nextStartId);
+                    entity.Get<PositionComponent>().value = start.transform.position;
                 }
             }
             

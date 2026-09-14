@@ -18,7 +18,9 @@ namespace GBJAM14.Data
                     var entity = entityReference.entity;
                     if (entity.Has<RoomNavigationComponent>())
                     {
-                        entity.Get<RoomNavigationComponent>().currentExit = this;
+                        entity.Get<RoomNavigationComponent>().nextRoomId = roomStartData.GetComponentInParent<RoomData>().name;
+                        entity.Get<RoomNavigationComponent>().nextStartId = roomStartData.name;
+
                         if (SignalsManager.instance)
                         {
                             SignalsManager.instance.onExitRoomSignal.Signal(entityReference.entity);

@@ -1,5 +1,4 @@
-﻿using GBJAM14.Data;
-using Gemserk.Leopotam.Ecs;
+﻿using Gemserk.Leopotam.Ecs;
 
 namespace GBJAM14.Components
 {
@@ -7,7 +6,11 @@ namespace GBJAM14.Components
     {
         // public int/string currentRoom;
 
-        public RoomExitData currentExit;
+        public string roomId;
+        public string startId;
+
+        public string nextRoomId;
+        public string nextStartId;
     }
     
     public class RoomNavigationComponentDefinition : ComponentDefinitionBase
