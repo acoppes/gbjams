@@ -23,10 +23,15 @@ namespace GBJAM14.Triggers
             {
                 if (entity.Has<RoomNavigationComponent>())
                 {
-                    var roomNavigation = entity.Get<RoomNavigationComponent>();
+                    ref var roomNavigation = ref entity.Get<RoomNavigationComponent>();
+                    
+                    // this should be part of the start after loading
                     var room = GameObject.Find(roomNavigation.nextRoomId);
                     var start = room.transform.Find("Starts").Find(roomNavigation.nextStartId);
                     entity.Get<PositionComponent>().value = start.transform.position;
+
+                    roomNavigation.roomId = roomNavigation.nextRoomId;
+                    roomNavigation.startId = roomNavigation.nextStartId;
                 }
             }
             

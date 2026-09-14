@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using GBJAM14.Services;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace GBJAM14
 {
@@ -20,19 +25,47 @@ namespace GBJAM14
     public class SaveGame
     {
         public const int Version = 1;
+        public const string DefaultSavePath = "savegame.json";
 
         public static SaveGame saveGame = new SaveGame();
-
         public SavegameData data = new SavegameData();
 
         public void Save()
         {
-            
+            var json = JsonConvert.SerializeObject(data);
+            var fileStorageService = Object.FindFirstObjectByType<FileStorageService>();
+            fileStorageService.SaveTextToFile(DefaultSavePath, json);
         }
 
         public void Load()
         {
+            var fileStorageService = Object.FindFirstObjectByType<FileStorageService>();
+            var fileContents = fileStorageService.LoadFileAsText(DefaultSavePath);
             
+            if (string.IsNullOrEmpty(fileContents))
+            {
+                data = new SavegameData();
+            }
+
+            try
+            {
+                var jObject = JObject.Parse(fileContents);
+                if (jObject.ContainsKey("version"))
+                {
+                    var savedVersion = jObject["version"].Value<int>();
+                    if (savedVersion != Version)
+                    {
+                        data = new SavegameData();
+                        return;
+                    } }
+
+                data = jObject.ToObject<SavegameData>();
+            }
+            catch (Exception e) 
+            {
+                Debug.LogError(e);
+                data = new SavegameData();
+            }
         }
     }
 }
