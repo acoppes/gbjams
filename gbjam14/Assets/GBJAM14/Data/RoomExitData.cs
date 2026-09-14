@@ -1,3 +1,4 @@
+using System;
 using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
@@ -27,6 +28,16 @@ namespace GBJAM14.Data
                         }
                     }
                 }
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (roomStartData)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(transform.position, roomStartData.transform.position);
+                Gizmos.DrawSphere(transform.position, 0.25f);
             }
         }
     }

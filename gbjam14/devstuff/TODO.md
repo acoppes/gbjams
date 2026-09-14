@@ -4,7 +4,6 @@
 Rooms
 
 * Spawn or not room content depending inventory and others.
-* Debug room navigation connections will help when creating rooms
 * Autocreate room camera confiner (find room corners and create polygon?)
 * Test Deactivate exit (trigger for room or gamecontroller) while event. (wait/optional)
 
