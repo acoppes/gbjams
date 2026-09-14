@@ -16,6 +16,7 @@ Splash
 
 # NICE TO HAVE
 
+* Better Palette animation
 * Mind dialogs to read character mind for humor and/or for extra clues.
 * Player can enter the name of the character
 * Decos to make the environment feel alive.
