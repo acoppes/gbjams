@@ -1,7 +1,6 @@
-﻿using GBJAM14.UI;
+﻿using GBJAM14.Data;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GBJAM14.Scenes
 {
@@ -9,13 +8,8 @@ namespace GBJAM14.Scenes
     {
         public WorldReference worldReference;
 
-        [FormerlySerializedAs("dialog")] 
-        public UIDialog uiDialog;
-        public UIOptions uiOptions;
-      
-        public void StartGame()
-        {
-           
-        }
+        public RoomData currentRoom;
+        
+        
     }
 }

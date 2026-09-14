@@ -1,15 +1,14 @@
 # TODO
 
 
-* Movement
-  - block movement somehow (probably physics tiles)
+Rooms
+* Move from one room to the next one
+* Save/Load data
 
-* Room loads dynamic
-* Room depends on items/status
+Main Menu
 
-
-
-* Add colo to credits screen in splash
+* Add continue savegame as first option if savegame
+* Add start new
 
 # BUGS
 

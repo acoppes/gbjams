@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GBJAM14.Editor
+namespace GBJAM14.Data
 {
     [CreateAssetMenu(menuName = "GBJAM/DownloadDatabaseAsset")]
     public class DownloadDatabaseAsset : ScriptableObject
