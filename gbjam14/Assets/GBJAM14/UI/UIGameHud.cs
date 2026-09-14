@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Gemserk.Utilities.UI;
 using UnityEngine;
 
@@ -23,7 +22,7 @@ namespace GBJAM14.UI
                 return;
             }
             
-            var saveGame = GameParameters.saveGame;
+            // var saveGame = GameParameters.saveGame;
 
             foreach (var uiResource in uiResources)
             {

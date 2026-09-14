@@ -3,7 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using GBJAM14.Data;
-using Gemserk;
+using GBJAM14.Services;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -12,7 +12,7 @@ using AssetDatabaseExt = Gemserk.RefactorTools.Editor.AssetDatabaseExt;
 
 namespace GBJAM14.Editor
 {
-    public static class DownloadDatabaseCsvUtils
+    public static class GameJamUtils
     {
         [MenuItem("GBJAM/GBJAM14/Download Dialogs CSV")]
         public static void DownloadDatabaseFromSpreadsheet()
@@ -44,6 +44,12 @@ namespace GBJAM14.Editor
                     Debug.LogError("HTTP Error: " + request.error);
                     break;
             }
+        }
+        
+        [MenuItem("GBJAM/GBJAM14/Delete Savegame")]
+        public static void DeleteSavegame()
+        {
+            Object.FindFirstObjectByType<FileStorageService>().DeleteFile(SaveGame.DefaultSavePath);
         }
     }
 }

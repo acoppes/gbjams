@@ -30,6 +30,12 @@ namespace GBJAM14
         public static SaveGame saveGame = new SaveGame();
         public SavegameData data = new SavegameData();
 
+        public void Delete()
+        {
+            var fileStorageService = Object.FindFirstObjectByType<FileStorageService>();
+            fileStorageService.DeleteFile(DefaultSavePath);
+        }
+
         public void Save()
         {
             var json = JsonConvert.SerializeObject(data);

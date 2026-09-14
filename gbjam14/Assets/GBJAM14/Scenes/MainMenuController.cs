@@ -15,7 +15,7 @@ namespace GBJAM14.Scenes
         
         public void StartGame()
         {
-            GameParameters.saveGame = new SaveGame() { };
+            
             onNewGameSelected.Invoke();
         }
 
@@ -24,12 +24,12 @@ namespace GBJAM14.Scenes
             if (options.selectedOptionIndex == 0)
             {
                 // TODO: LOAD SAVEGAME FROM FILE
-                GameParameters.saveGame = new SaveGame();
+                // GameParameters.saveGame = new SaveGame();
                 onContinueGameSelected.Invoke();
             }
             else
             {
-                GameParameters.saveGame = new SaveGame() { };
+                // GameParameters.saveGame = new SaveGame() { };
                 onNewGameSelected.Invoke();
             }
         }
