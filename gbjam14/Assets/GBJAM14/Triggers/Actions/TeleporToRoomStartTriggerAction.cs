@@ -1,4 +1,5 @@
-﻿using GBJAM14.Components;
+﻿using Game;
+using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Triggers;
 using Gemserk.Triggers.Queries;
@@ -18,14 +19,15 @@ namespace GBJAM14.Triggers.Actions
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
             var targets = world.GetEntities(target, activator);
-                
-            foreach (var entity in targets)
+               
+            if (world.TryGetSingletonEntity<ActiveRoomComponent>(out var activeRoomEntity))
             {
-                if (entity.Has<RoomNavigationComponent>())
+                var activeRoom = activeRoomEntity.Get<ActiveRoomComponent>();
+                
+                foreach (var entity in targets)
                 {
-                    ref var roomNavigation = ref entity.Get<RoomNavigationComponent>();
-                    var room = GameObject.Find(roomNavigation.roomId);
-                    var start = room.transform.Find("Starts").Find(roomNavigation.startId);
+                    var room = GameObject.Find(activeRoom.roomId);
+                    var start = room.transform.Find("Starts").Find(activeRoom.startId);
                     entity.Get<PositionComponent>().value = start.transform.position;
                 }
             }

@@ -1,4 +1,3 @@
-using System;
 using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
@@ -19,7 +18,7 @@ namespace GBJAM14.Data
                     var entity = entityReference.entity;
                     if (entity.Has<RoomNavigationComponent>())
                     {
-                        entity.Get<RoomNavigationComponent>().nextRoomId = roomStartData.GetComponentInParent<RoomData>().name;
+                        entity.Get<RoomNavigationComponent>().nextRoomId = roomStartData.GetComponentInParent<Room>().name;
                         entity.Get<RoomNavigationComponent>().nextStartId = roomStartData.name;
 
                         if (SignalsManager.instance)

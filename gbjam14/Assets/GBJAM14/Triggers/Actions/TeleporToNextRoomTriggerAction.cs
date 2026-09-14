@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
+﻿using Game;
 using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Triggers;
-using Gemserk.Triggers.Queries;
 using MyBox;
 
 namespace GBJAM14.Triggers.Actions
@@ -36,32 +35,28 @@ namespace GBJAM14.Triggers.Actions
         
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
-            var targets = world.GetEntities(target, activator);
-
-            if (actionType == ActionType.NextRoom)
+            var targetEntity = target.Get(world, activator);
+            
+            if (world.TryGetSingletonEntity<ActiveRoomComponent>(out var activeRoomEntity))
             {
-                foreach (var entity in targets)
+                ref var activeRoom = ref activeRoomEntity.Get<ActiveRoomComponent>();
+                activeRoom.roomId = roomId;
+                activeRoom.startId = startId;
+                
+                if (actionType == ActionType.NextRoom)
                 {
-                    if (entity.Has<RoomNavigationComponent>())
+                    if (targetEntity.Has<RoomNavigationComponent>())
                     {
-                        ref var roomNavigation = ref entity.Get<RoomNavigationComponent>();
-                        roomNavigation.roomId = roomNavigation.nextRoomId;
-                        roomNavigation.startId = roomNavigation.nextStartId;
+                        var roomNavigation = targetEntity.Get<RoomNavigationComponent>();
+                        activeRoom.roomId = roomNavigation.nextRoomId;
+                        activeRoom.startId = roomNavigation.nextStartId;
                     }
-                }
-            } else if (actionType == ActionType.Custom)
-            {
-                foreach (var entity in targets)
+                } else if (actionType == ActionType.Custom)
                 {
-                    if (entity.Has<RoomNavigationComponent>())
-                    {
-                        ref var roomNavigation = ref entity.Get<RoomNavigationComponent>();
-                        roomNavigation.roomId = roomId;
-                        roomNavigation.startId = startId;
-                    }
+                    activeRoom.roomId = roomId;
+                    activeRoom.startId = startId;
                 }
             }
-
             
             return ITrigger.ExecutionResult.Completed;
         }

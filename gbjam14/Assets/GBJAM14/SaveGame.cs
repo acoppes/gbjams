@@ -51,6 +51,7 @@ namespace GBJAM14
             if (string.IsNullOrEmpty(fileContents))
             {
                 data = new SavegameData();
+                return;
             }
 
             try
@@ -63,13 +64,13 @@ namespace GBJAM14
                     {
                         data = new SavegameData();
                         return;
-                    } }
-
+                    } 
+                }
                 data = jObject.ToObject<SavegameData>();
             }
             catch (Exception e) 
             {
-                Debug.LogError(e);
+                Debug.LogWarning(e);
                 data = new SavegameData();
             }
         }

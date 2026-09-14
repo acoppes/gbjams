@@ -4,11 +4,6 @@ namespace GBJAM14.Components
 {
     public struct RoomNavigationComponent : IEntityComponent
     {
-        // public int/string currentRoom;
-
-        public string roomId;
-        public string startId;
-
         public string nextRoomId;
         public string nextStartId;
     }

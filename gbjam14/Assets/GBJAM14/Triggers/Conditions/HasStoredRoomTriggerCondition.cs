@@ -1,4 +1,5 @@
-﻿using GBJAM14.Components;
+﻿using Game;
+using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Triggers;
 using UnityEngine;
@@ -7,34 +8,36 @@ namespace GBJAM14.Triggers.Conditions
 {
     public class HasStoredRoomTriggerCondition : WorldTriggerCondition
     {
-        public TriggerTarget target;
-
         public override string GetObjectName()
         {
-            return $"HasStoredRoom({target})";
+            return "HasActiveRoom()";
         }
 
         public override bool Evaluate(object activator = null)
         {
-            var targetEntity = target.Get(world, activator);
-            var roomNavigation = targetEntity.Get<RoomNavigationComponent>();
+            if (world.TryGetSingletonEntity<ActiveRoomComponent>(out var activeRoomEntity))
+            {
+                var activeRoom = activeRoomEntity.Get<ActiveRoomComponent>();
+                
+                if (string.IsNullOrEmpty(activeRoom.roomId))
+                {
+                    return false;
+                }
+            
+                if (string.IsNullOrEmpty(activeRoom.startId))
+                {
+                    return false;
+                }
+            
+                var room = GameObject.Find(activeRoom.roomId);
+                if (!room)
+                    return false;
+            
+                var start = room.transform.Find("Starts").Find(activeRoom.startId);
+                return start;
+            }
 
-            if (string.IsNullOrEmpty(roomNavigation.roomId))
-            {
-                return false;
-            }
-            
-            if (string.IsNullOrEmpty(roomNavigation.startId))
-            {
-                return false;
-            }
-            
-            var room = GameObject.Find(roomNavigation.roomId);
-            if (!room)
-                return false;
-            
-            var start = room.transform.Find("Starts").Find(roomNavigation.startId);
-            return start;
+            return false;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Game;
 using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Triggers;
@@ -20,11 +21,16 @@ namespace GBJAM14.Triggers.Actions
             
             var saveGame = SaveGame.saveGame;
             saveGame.data.items = new List<string>(playerEntity.Get<InventoryComponent>().items);
-            saveGame.data.roomData = new SavegameRoomData()
+            
+            if (world.TryGetSingletonEntity<ActiveRoomComponent>(out var activeRoomEntity))
             {
-                currentRoom = playerEntity.Get<RoomNavigationComponent>().roomId,
-                currentStart = playerEntity.Get<RoomNavigationComponent>().startId
-            };
+                saveGame.data.roomData = new SavegameRoomData()
+                {
+                    currentRoom = activeRoomEntity.Get<ActiveRoomComponent>().roomId,
+                    currentStart = activeRoomEntity.Get<ActiveRoomComponent>().startId
+                };
+            }
+            
             saveGame.Save();
             return ITrigger.ExecutionResult.Completed;
         }
