@@ -43,6 +43,9 @@ namespace GBJAM14.Systems
                     {
                         foreach (var requirement in characterDialog.requirements)
                         {
+                            if (string.IsNullOrEmpty(requirement)) 
+                                continue;
+                            
                             var requirementName = requirement.Substring(1);
                         
                             if (requirement.StartsWith("-"))

@@ -117,8 +117,11 @@ namespace GBJAM14.UI
                     {
                         if (i < portraits.Length)
                         {
-                            portraits[i].enabled = true;
-                            portraits[i].sprite = characterData.portrait;
+                            if (characterData.portrait)
+                            {
+                                portraits[i].enabled = true;
+                                portraits[i].sprite = characterData.portrait;
+                            }
                         }
                         
                         dialogText = dialogText.Replace($"[{i}]", maximizeNames ? 
