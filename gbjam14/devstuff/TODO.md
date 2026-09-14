@@ -1,9 +1,13 @@
 # TODO
 
 Rooms
-* Move from one room to the next one
+
 * Save data, reload scene with new room, load data.
-* Deactivate exit (trigger for room or gamecontroller) while event.
+    - Initial room data (can be set in main menu maybe)?
+* Town is a room with enter/exit identifiers too.
+* Debug room navigation connections will help when creating rooms
+* Autocreate room camera confiner (find room corners and create polygon?)
+* Test Deactivate exit (trigger for room or gamecontroller) while event. (wait/optional)
 
 Main Menu
 * Add continue savegame as first option if savegame
