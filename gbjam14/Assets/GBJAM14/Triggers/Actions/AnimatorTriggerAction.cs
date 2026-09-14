@@ -1,7 +1,7 @@
 ﻿using Gemserk.Triggers;
 using UnityEngine;
 
-namespace GBJAM14.Triggers
+namespace GBJAM14.Triggers.Actions
 {
     public class AnimatorTriggerAction : TriggerAction
     {

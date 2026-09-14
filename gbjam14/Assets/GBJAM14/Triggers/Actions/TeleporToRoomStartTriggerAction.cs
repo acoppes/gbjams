@@ -4,9 +4,9 @@ using Gemserk.Triggers;
 using Gemserk.Triggers.Queries;
 using UnityEngine;
 
-namespace GBJAM14.Triggers
+namespace GBJAM14.Triggers.Actions
 {
-    public class TeleporToNextRoomTriggerAction : WorldTriggerAction
+    public class TeleporToRoomStartTriggerAction : WorldTriggerAction
     {
         public TriggerTarget target;
         
@@ -24,14 +24,9 @@ namespace GBJAM14.Triggers
                 if (entity.Has<RoomNavigationComponent>())
                 {
                     ref var roomNavigation = ref entity.Get<RoomNavigationComponent>();
-                    
-                    // this should be part of the start after loading
-                    var room = GameObject.Find(roomNavigation.nextRoomId);
-                    var start = room.transform.Find("Starts").Find(roomNavigation.nextStartId);
+                    var room = GameObject.Find(roomNavigation.roomId);
+                    var start = room.transform.Find("Starts").Find(roomNavigation.startId);
                     entity.Get<PositionComponent>().value = start.transform.position;
-
-                    roomNavigation.roomId = roomNavigation.nextRoomId;
-                    roomNavigation.startId = roomNavigation.nextStartId;
                 }
             }
             
