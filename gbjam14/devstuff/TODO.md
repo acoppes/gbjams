@@ -1,9 +1,9 @@
 # TODO
 
-
 Rooms
 * Move from one room to the next one
-* Save/Load data
+* Save data, reload scene with new room, load data.
+* Deactivate exit (trigger for room or gamecontroller) while event.
 
 Main Menu
 
