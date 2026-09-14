@@ -1,9 +1,11 @@
-﻿using System.Globalization;
+﻿using System.Collections;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using GBJAM14.Systems;
 using UnityEngine;
+using UnityEngine.Networking;
 using yutokun;
 
 namespace GBJAM14
@@ -18,26 +20,28 @@ namespace GBJAM14
         private void Awake()
         {
             var databaseFilePath = Path.Combine(Application.streamingAssetsPath, dialogsDatabasePath);
-            var databaseFileText = File.ReadAllText(databaseFilePath);
-            // StartCoroutine(LoadDatabaseFile(databaseFilePath));
-            LoadDataFromCsv(databaseFileText);
+            // var databaseFileText = File.ReadAllText(databaseFilePath);
+            
+            StartCoroutine(LoadDatabaseFile(databaseFilePath));
+            
+            // LoadDataFromCsv(databaseFileText);
         }
     
-        // private IEnumerator LoadDatabaseFile(string path)
-        // {
-        //     var request = UnityWebRequest.Get(path);
-        //
-        //     yield return request.SendWebRequest();
-        //
-        //     if (request.result == UnityWebRequest.Result.Success)
-        //     {
-        //         LoadEventsFromCsv(request.downloadHandler.text);
-        //     }
-        //     else
-        //     {
-        //         Debug.LogError($"FAILED TO LOAD EVENTS DATABASE: {request.responseCode} {request.error}");
-        //     }
-        // }
+        private IEnumerator LoadDatabaseFile(string path)
+        {
+            var request = UnityWebRequest.Get(path);
+        
+            yield return request.SendWebRequest();
+        
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                LoadDataFromCsv(request.downloadHandler.text);
+            }
+            else
+            {
+                Debug.LogError($"FAILED TO LOAD EVENTS DATABASE: {request.responseCode} {request.error}");
+            }
+        }
         
         private void LoadDataFromCsv(string csvText)
         {
