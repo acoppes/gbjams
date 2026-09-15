@@ -22,9 +22,9 @@ Pickups
 * Item with no dialog
 * Item auto configure depending inventory
 
-Main Menu
-* Add continue savegame as first option if savegame
-* Add start new
+Intro
+
+* Show intro after main meun
 
 Splash
 * Add gbjam sound effects
