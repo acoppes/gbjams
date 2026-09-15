@@ -3,10 +3,19 @@
 
 Rooms
 
+* Start/End autoconfiguration (one thing only), maybe have bool to disable/enable one of the two for some reason?
 * Spawn or not room content depending inventory and others.
   - autodestroy/filter objects in hero inventory somehow from declaration (no triggers)
 * Autocreate room camera confiner (find room corners and create polygon?)
 * Test Deactivate exit (trigger for room or gamecontroller) while event. (wait/optional)
+* save visited rooms
+* npc blocking room
+* reset room
+
+Dialogs
+
+* Support for extra characters
+* Support for options?
 
 Pickups
 

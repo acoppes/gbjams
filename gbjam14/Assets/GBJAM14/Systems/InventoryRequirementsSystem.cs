@@ -9,7 +9,7 @@ namespace GBJAM14.Systems
 {
     public class InventoryRequirementsSystem : BaseSystem, IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<ItemComponent, InventoryRequirementComponent, DestroyableComponent>, Exc<DisabledComponent>> 
+        private readonly EcsFilterInject<Inc<InventoryRequirementComponent, DestroyableComponent>, Exc<DisabledComponent>> 
             items = default;
 
         public void Run(EcsSystems systems)
@@ -20,7 +20,7 @@ namespace GBJAM14.Systems
                 
                 foreach (var e in items.Value)
                 {
-                    var requirements = items.Pools.Inc2.Get(e);
+                    var requirements = items.Pools.Inc1.Get(e);
                     var meetsRequirements = true;
                     
                     foreach (var requirement in requirements.requirements)
@@ -38,7 +38,7 @@ namespace GBJAM14.Systems
 
                     if (!meetsRequirements)
                     {
-                        items.Pools.Inc3.Get(e).destroy = true;
+                        items.Pools.Inc2.Get(e).destroy = true;
                     }
                 }
             }
