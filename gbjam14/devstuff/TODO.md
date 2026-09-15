@@ -3,11 +3,15 @@
 
 Rooms
 
-* Use room start looking for direction 
 * Spawn or not room content depending inventory and others.
   - autodestroy/filter objects in hero inventory somehow from declaration (no triggers)
 * Autocreate room camera confiner (find room corners and create polygon?)
 * Test Deactivate exit (trigger for room or gamecontroller) while event. (wait/optional)
+
+Pickups
+
+* Item with no dialog
+* Item auto configure depending inventory
 
 Main Menu
 * Add continue savegame as first option if savegame

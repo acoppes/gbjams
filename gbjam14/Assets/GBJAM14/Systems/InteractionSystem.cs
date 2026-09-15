@@ -4,6 +4,7 @@ using GBJAM14.Components;
 using GBJAM14.UI;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
+using Gemserk.Utilities;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using MyBox;
@@ -112,7 +113,7 @@ namespace GBJAM14.Systems
             {
                 var interactable = interactableModels.Pools.Inc1.Get(e);
                 var model = interactableModels.Pools.Inc2.Get(e);
-                var interactObject = model.modelGameObject.transform.Find("InteractHighlight");
+                var interactObject = model.modelGameObject.transform.FindInHierarchy("InteractHighlight");
                 if (interactObject)
                 {
                     interactObject.gameObject.SetActive(interactable.focusedByPlayer && interactable.showInteractBubble);
