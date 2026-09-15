@@ -16,7 +16,7 @@ namespace GBJAM14.UI
         public object userData;
     }
     
-    public class UIOptions : MonoBehaviour, ISubmitHandler
+    public class UIOptions : MonoBehaviour, ISubmitHandler, ISelectHandler
     {
         public UIWindow window;
 
@@ -60,23 +60,27 @@ namespace GBJAM14.UI
 
             foreach (var option in options)
             {
-                var uiEventOptionGameObject = GameObject.Instantiate(uiOptionPrefab, contentParent, 
+                var uiOptionObject = GameObject.Instantiate(uiOptionPrefab, contentParent, 
                     false);
-                var uiEventOption = uiEventOptionGameObject.GetComponent<UIOption>();
-                uiEventOption.SetOption(option);
+                var uiOption = uiOptionObject.GetComponent<UIOption>();
+                uiOption.SetOption(option);
+
+                uiOption.gameObject.AddComponent<SubmitHandlerParentDelegate>();
                 
-                uiOptions.Add(uiEventOption);
+                uiOptions.Add(uiOption);
                 // uiEventOption.text.SetText(option);
             }
             
             window.Open();
-            
+        }
+        
+        public void OnSelect(BaseEventData eventData)
+        {
             if (uiOptions.Count > 0)
             {
-                EventSystem.current.SetSelectedGameObject(uiOptions[0].gameObject);
+                StartCoroutine(InputEventSystemUtils.DelegateSelectionDelayed(uiOptions[0].gameObject));
             }
         }
-
 
         public void OnSubmit(BaseEventData eventData)
         {

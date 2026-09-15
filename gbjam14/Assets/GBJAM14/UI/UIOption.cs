@@ -1,19 +1,16 @@
 ﻿using System;
 using Game.Components;
 using Game.Screens;
-using MyBox;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace GBJAM14.UI
 {
     public class UIOption : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         public TextView text;
-        
-        public Image selectedImage;
-        public Image notSelectedImage;
+
+        public GameObject selectedIndicatorObject;
 
         public Color enabledColor;
         public Color disabledColor;
@@ -41,8 +38,10 @@ namespace GBJAM14.UI
 
         private void LateUpdate()
         {
-            selectedImage.enabled = selected;
-            notSelectedImage.enabled = !selected;
+            if  (selectedIndicatorObject)
+            {
+                selectedIndicatorObject.SetActive(selected);
+            }
             
             text.color = option.disabled ? disabledColor : enabledColor;
         }
