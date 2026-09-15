@@ -126,7 +126,5 @@ namespace GBJAM14.Systems
                 interactable.focusedByPlayer = false;
             }
         }
-
-
     }
 }
