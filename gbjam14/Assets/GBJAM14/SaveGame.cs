@@ -19,6 +19,7 @@ namespace GBJAM14
     public class SavegameData
     {
         public List<string> items = new List<string>();
+        public List<string> visitedRooms = new List<string>();
         public SavegameRoomData roomData;
     }
     

@@ -23,10 +23,8 @@ namespace GBJAM14.Triggers.Actions
             saveGame.Load();
             
             playerEntity.Get<InventoryComponent>().items = new List<string>(saveGame.data.items);
+            playerEntity.Get<RoomNavigationComponent>().visitedRooms = new List<string>(saveGame.data.visitedRooms);
             
-            // playerEntity.Get<RoomNavigationComponent>().roomId = saveGame.data.roomData.currentRoom;
-            // playerEntity.Get<RoomNavigationComponent>().startId = saveGame.data.roomData.currentStart;
-
             if (world.TryGetSingletonEntity<ActiveRoomComponent>(out var currentRoomEntity))
             {
                 if (saveGame.data.roomData != null)

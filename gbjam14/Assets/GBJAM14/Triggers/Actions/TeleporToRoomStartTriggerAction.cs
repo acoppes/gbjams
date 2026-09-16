@@ -36,6 +36,15 @@ namespace GBJAM14.Triggers.Actions
                     entity.Get<PositionComponent>().value = door.enter.position;
                     entity.Get<LookingDirection>().value =
                         new Vector2(1, 0).Rotate(door.enter.localEulerAngles.z * Mathf.Deg2Rad);
+
+                    if (entity.Has<RoomNavigationComponent>())
+                    {
+                        ref var roomNavigation = ref entity.Get<RoomNavigationComponent>();
+                        if (!roomNavigation.visitedRooms.Contains(activeRoom.roomId))
+                        {
+                            roomNavigation.visitedRooms.Add(activeRoom.roomId);
+                        }
+                    }
                 }
             }
             
