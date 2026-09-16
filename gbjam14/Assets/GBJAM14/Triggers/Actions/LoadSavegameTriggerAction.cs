@@ -32,7 +32,7 @@ namespace GBJAM14.Triggers.Actions
                 if (saveGame.data.roomData != null)
                 {
                     currentRoomEntity.Get<ActiveRoomComponent>().roomId = saveGame.data.roomData.currentRoom;
-                    currentRoomEntity.Get<ActiveRoomComponent>().startId = saveGame.data.roomData.currentStart;
+                    currentRoomEntity.Get<ActiveRoomComponent>().doorId = saveGame.data.roomData.currentStart;
                 }
             }
 

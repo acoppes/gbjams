@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace GBJAM14.Data
 {
-    public class RoomExitData : MonoBehaviour
+    public class RoomDoor : MonoBehaviour
     {
-        public RoomStartData roomStartData;
+        public Transform enter;
+        public RoomDoor nextRoomDoor;
         
         public void OnTriggerEnter2D(Collider2D other)
         {
@@ -18,8 +19,8 @@ namespace GBJAM14.Data
                     var entity = entityReference.entity;
                     if (entity.Has<RoomNavigationComponent>())
                     {
-                        entity.Get<RoomNavigationComponent>().nextRoomId = roomStartData.GetComponentInParent<Room>().name;
-                        entity.Get<RoomNavigationComponent>().nextStartId = roomStartData.name;
+                        entity.Get<RoomNavigationComponent>().nextRoomId = nextRoomDoor.GetComponentInParent<Room>().name;
+                        entity.Get<RoomNavigationComponent>().nextEnterId = nextRoomDoor.name;
 
                         if (SignalsManager.instance)
                         {
@@ -32,10 +33,10 @@ namespace GBJAM14.Data
 
         private void OnDrawGizmos()
         {
-            if (roomStartData)
+            if (nextRoomDoor && nextRoomDoor.enter)
             {
                 Gizmos.color = Color.blue;
-                Gizmos.DrawLine(transform.position, roomStartData.transform.position);
+                Gizmos.DrawLine(transform.position, nextRoomDoor.enter.transform.position);
                 Gizmos.DrawSphere(transform.position, 0.25f);
             }
         }

@@ -5,7 +5,7 @@ namespace GBJAM14.Components
     public struct ActiveRoomComponent : IEntityComponent
     {
         public string roomId;
-        public string startId;
+        public string doorId;
     }
     
     public class ActiveRoomComponentComponentDefinition : ComponentDefinitionBase

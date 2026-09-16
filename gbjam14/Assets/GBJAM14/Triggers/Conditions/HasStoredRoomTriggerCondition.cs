@@ -2,6 +2,7 @@
 using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Triggers;
+using Gemserk.Utilities;
 using UnityEngine;
 
 namespace GBJAM14.Triggers.Conditions
@@ -24,7 +25,7 @@ namespace GBJAM14.Triggers.Conditions
                     return false;
                 }
             
-                if (string.IsNullOrEmpty(activeRoom.startId))
+                if (string.IsNullOrEmpty(activeRoom.doorId))
                 {
                     return false;
                 }
@@ -32,9 +33,9 @@ namespace GBJAM14.Triggers.Conditions
                 var room = GameObject.Find(activeRoom.roomId);
                 if (!room)
                     return false;
-            
-                var start = room.transform.Find("Starts").Find(activeRoom.startId);
-                return start;
+
+                var enter = room.transform.FindInHierarchy(activeRoom.doorId);
+                return enter;
             }
 
             return false;

@@ -27,7 +27,7 @@ namespace GBJAM14.Triggers.Actions
                 saveGame.data.roomData = new SavegameRoomData()
                 {
                     currentRoom = activeRoomEntity.Get<ActiveRoomComponent>().roomId,
-                    currentStart = activeRoomEntity.Get<ActiveRoomComponent>().startId
+                    currentStart = activeRoomEntity.Get<ActiveRoomComponent>().doorId
                 };
             }
             

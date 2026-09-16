@@ -5,7 +5,7 @@ namespace GBJAM14.Components
     public struct RoomNavigationComponent : IEntityComponent
     {
         public string nextRoomId;
-        public string nextStartId;
+        public string nextEnterId;
     }
     
     public class RoomNavigationComponentDefinition : ComponentDefinitionBase
