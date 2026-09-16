@@ -1,15 +1,16 @@
 # TODO
 
-
 Game 
 
 * One trap
+* Small jump
 * Die and restart in room
+* Pickup coins & other elements
+* Show coins in UI
 
 Rooms
 
-* Autocreate room camera confiner (find room corners and create polygon?)
-* Spawn or not room content depending inventory and others.
+* Simplify room restriction, could be in ld spawn and in requirement system.
 * npc blocking room
 * reset room
 
