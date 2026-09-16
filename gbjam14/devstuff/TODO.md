@@ -1,5 +1,9 @@
 # TODO
 
+General
+
+* Save after interactions
+
 Game 
 
 * One trap
@@ -17,8 +21,6 @@ Rooms
 Dialogs
 
 * Support for options?
-  - intro again?
-  - option to exit
   - auto go to options on dialog complete
 * Support for extra characters
 * Dialog priority instead of random, or random in same priority?
