@@ -3,9 +3,9 @@ using Game.Components;
 using Game.Utilities;
 using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
+using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace GBJAM14.Controllers
@@ -13,6 +13,9 @@ namespace GBJAM14.Controllers
     public class MainCharacterController : ControllerBase, IUpdate
     {
         public Targeting targeting;
+        public Object soundEffectEntityDefinition;
+
+        private Entity soundEffectEntity;
 
         public void OnUpdate(World world, Entity entity, float dt)
         {
@@ -95,6 +98,16 @@ namespace GBJAM14.Controllers
                         animations.Play("walk-down");
                     }
                 }
+
+                if (soundEffectEntityDefinition && !soundEffectEntity)
+                {
+                    soundEffectEntity = world.CreateEntity(soundEffectEntityDefinition);
+                }
+
+                if (soundEffectEntity)
+                {
+                    soundEffectEntity.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
+                }
             }
             else
             {
@@ -118,6 +131,12 @@ namespace GBJAM14.Controllers
                     {
                         animations.Play("idle-down");
                     }
+                }
+
+                if (soundEffectEntity)
+                {
+                    soundEffectEntity.Get<DestroyableComponent>().destroy = true;
+                    soundEffectEntity = Entity.NullEntity;
                 }
             }
 
