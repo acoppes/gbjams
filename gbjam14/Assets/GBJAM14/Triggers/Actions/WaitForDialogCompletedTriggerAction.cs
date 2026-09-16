@@ -7,7 +7,7 @@ namespace GBJAM14.Triggers.Actions
     {
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
-            var uiDialog = FindFirstObjectByType<UIDialog>();
+            var uiDialog = FindFirstObjectByType<GameUIManager>().uiDialog;
             
             if (uiDialog && uiDialog.completed && !uiDialog.waiting)
             {

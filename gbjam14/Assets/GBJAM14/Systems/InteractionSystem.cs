@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Game.Components;
 using GBJAM14.Components;
 using GBJAM14.UI;
@@ -26,12 +27,12 @@ namespace GBJAM14.Systems
             dialogs = default;
         
         private CharacterDialogsDB characterDialogsDB;
-        private UIDialog uiDialog;
+        private GameUIManager gameUIManager;
         
         public void Init(EcsSystems systems)
         {
             characterDialogsDB = FindFirstObjectByType<CharacterDialogsDB>();
-            uiDialog = FindFirstObjectByType<UIDialog>();
+            gameUIManager = FindFirstObjectByType<GameUIManager>();
         }
         
         public void Run(EcsSystems systems)
@@ -43,7 +44,7 @@ namespace GBJAM14.Systems
                 if (interactAction.target.Has<CharacterComponent>())
                 {
                     ref var inventory = ref interactAction.source.Get<InventoryComponent>();
-                    ref var characterA = ref interactAction.source.Get<CharacterComponent>();
+                    var characterA = interactAction.source.Get<CharacterComponent>();
 
                     var characterB = interactAction.target.Get<CharacterComponent>();
                 
@@ -52,41 +53,60 @@ namespace GBJAM14.Systems
 
                     if (dialogs.Count > 0)
                     {
-                        var dialogData = dialogs.GetRandom();
-                        
-                        // add dialog to inventory to consider for other dialogs
-                        // inventory.items.Add(dialogData.id);
+                        var options = dialogs.Where(d => !string.IsNullOrEmpty(d.option)).ToList();
 
-                        // if (dialogData.output != null)
-                        // {
-                        //     foreach (var statusId in dialogData.output)
-                        //     {
-                        //         if (statusId.StartsWith("+"))
-                        //         {
-                        //             inventory.items.Add(statusId.Substring(1));
-                        //         } else if (statusId.StartsWith("-"))
-                        //         {
-                        //             inventory.items.Remove(statusId.Substring(1));
-                        //         }
-                        //     }
-                        // }
-                        
-                        var dialogEntity = world.CreateEntity();
-                        dialogEntity.Add(new DialogComponent()
+                        if (options.Count > 0)
                         {
-                            sourceEntity = interactAction.source,
-                            characterId = characterB.characterId,
-                            dialogId = dialogData.id,
-                            dialogData = dialogData,
-                            completed = false
-                        });
-                        dialogEntity.Add(new DestroyableComponent());
+                            
+                            gameUIManager.dialogOptions.ShowOptions(dialogs.Select(d => new Option()
+                            {
+                                disabled = false,
+                                name = d.option,
+                                userData = d, 
+                                callback = option =>
+                                {
+                                    var optionDialogData = option.userData as CharacterDialogsDB.DialogData;
+                                    
+                                    var dialogEntity = world.CreateEntity();
+                                    dialogEntity.Add(new DialogComponent()
+                                    {
+                                        sourceEntity = interactAction.source,
+                                        characterId = characterB.characterId,
+                                        dialogId = optionDialogData.id,
+                                        dialogData = optionDialogData,
+                                        completed = false
+                                    });
+                                    dialogEntity.Add(new DestroyableComponent());
                         
-                        uiDialog.ShowDialog(dialogData, new List<string>()
+                                    gameUIManager.uiDialog.ShowDialog(optionDialogData, new List<string>()
+                                    {
+                                        characterA.characterId,
+                                        characterB.characterId
+                                    }, dialogEntity);
+                                }
+                            }).ToList());
+                        }
+                        else
                         {
-                            characterA.characterId,
-                            characterB.characterId
-                        }, dialogEntity);
+                            var dialogData = dialogs.GetRandom();
+                        
+                            var dialogEntity = world.CreateEntity();
+                            dialogEntity.Add(new DialogComponent()
+                            {
+                                sourceEntity = interactAction.source,
+                                characterId = characterB.characterId,
+                                dialogId = dialogData.id,
+                                dialogData = dialogData,
+                                completed = false
+                            });
+                            dialogEntity.Add(new DestroyableComponent());
+                        
+                            gameUIManager.uiDialog.ShowDialog(dialogData, new List<string>()
+                            {
+                                characterA.characterId,
+                                characterB.characterId
+                            }, dialogEntity);
+                        }
                     }
 
                     if (interactAction.target.Has<ItemComponent>())
@@ -105,7 +125,7 @@ namespace GBJAM14.Systems
                 ref var dialog = ref dialogs.Pools.Inc1.Get(e);
                 if (!dialog.completed)
                 {
-                    if (uiDialog.window.IsClosed())
+                    if (gameUIManager.uiDialog.window.IsClosed())
                     {
                         var dialogData = dialog.dialogData;
                         

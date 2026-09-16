@@ -24,7 +24,7 @@ namespace GBJAM14.Triggers.Actions
         
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
-            var optionsUI = FindFirstObjectByType<UIOptions>();
+            var optionsUI = FindFirstObjectByType<GameUIManager>().genericOptions;
             optionsUI.ShowOptions(options.Select(o => new Option()
             {
                 name = o.name,

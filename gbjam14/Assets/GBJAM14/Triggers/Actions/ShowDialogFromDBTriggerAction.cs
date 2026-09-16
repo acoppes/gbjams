@@ -19,7 +19,7 @@ namespace GBJAM14.Triggers.Actions
         {
             var characterDialogsDB= FindFirstObjectByType<CharacterDialogsDB>();
             var dialogData = characterDialogsDB.GetDialog(dialogId);
-            var dialog = FindFirstObjectByType<UIDialog>();
+            var dialog = FindFirstObjectByType<GameUIManager>().uiDialog;
             dialog.ShowDialog(dialogData, characters);
             return ITrigger.ExecutionResult.Completed;
         }

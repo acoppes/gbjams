@@ -14,8 +14,9 @@ namespace GBJAM14.UI
         public string name;
         public bool disabled;
         public object userData;
+        public Action<Option> callback;
     }
-    
+
     public class UIOptions : MonoBehaviour, ISubmitHandler, ISelectHandler
     {
         public UIWindow window;
@@ -43,6 +44,8 @@ namespace GBJAM14.UI
         public int selectedOptionIndex;
 
         public Option selectedOption => uiOptions[selectedOptionIndex].option;
+
+        public bool autoCloseOnOptionSelected;
         
         public void ShowOptions(List<Option> options)
         {
@@ -97,18 +100,24 @@ namespace GBJAM14.UI
                         // selectedUIOption = option;
                         optionSelected = true;
                         onOptionSelected.Invoke();
+                        
+                        if (option.option.callback != null)
+                        {
+                            option.option.callback(option.option);
+                        }
+                        
+                        if (autoCloseOnOptionSelected)
+                        {
+                            window.Close();
+                        }
+                        
                         FindAnyObjectByType<UISoundEffects>().PlaySound(confirmSoundEffect);
                         return;
                     }
-                    else
-                    {
-                        FindAnyObjectByType<UISoundEffects>().PlaySound(confirmFailSoundEffect);
-                    }
-          
+
+                    FindAnyObjectByType<UISoundEffects>().PlaySound(confirmFailSoundEffect);
                 }
             }
-            
-
         }
     }
 }

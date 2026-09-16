@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 255222714423359187}
+  - component: {fileID: 5935154503404809479}
   m_Layer: 0
   m_Name: GameWindows
   m_TagString: Untagged
@@ -31,8 +32,77 @@ Transform:
   m_Children:
   - {fileID: 3614138522527143290}
   - {fileID: 221322355534347866}
+  - {fileID: 7493043641483731258}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5935154503404809479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326318559777721903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f8449db7ea45be82de4dd5e19f57d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.UI.GameUIManager
+  uiDialog: {fileID: 7570068716821755718}
+  genericOptions: {fileID: 1547138798206169814}
+  dialogOptions: {fileID: 8184837630430850486}
+--- !u!1001 &4564923215620391740
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 255222714423359187}
+    m_Modifications:
+    - target: {fileID: 4610239362629941944, guid: 3dd69370160e5f4458eee2c739c5fa9d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678967727220878986, guid: 3dd69370160e5f4458eee2c739c5fa9d, type: 3}
+      propertyPath: autoCloseOnOptionSelected
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387650217119834630, guid: 3dd69370160e5f4458eee2c739c5fa9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387650217119834630, guid: 3dd69370160e5f4458eee2c739c5fa9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387650217119834630, guid: 3dd69370160e5f4458eee2c739c5fa9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674324298795424416, guid: 3dd69370160e5f4458eee2c739c5fa9d, type: 3}
+      propertyPath: m_Name
+      value: UIDialogOptions
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3dd69370160e5f4458eee2c739c5fa9d, type: 3}
+--- !u!4 &7493043641483731258 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6387650217119834630, guid: 3dd69370160e5f4458eee2c739c5fa9d, type: 3}
+  m_PrefabInstance: {fileID: 4564923215620391740}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8184837630430850486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5678967727220878986, guid: 3dd69370160e5f4458eee2c739c5fa9d, type: 3}
+  m_PrefabInstance: {fileID: 4564923215620391740}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7ed4d733ba442283d0d7ac011255f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.UI.UIOptions
 --- !u!1001 &6155108749246936884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95,6 +165,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7443510229050466894, guid: 2ad5586f49525064899c8a0978278de7, type: 3}
   m_PrefabInstance: {fileID: 6155108749246936884}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7570068716821755718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4351919421602005106, guid: 2ad5586f49525064899c8a0978278de7, type: 3}
+  m_PrefabInstance: {fileID: 6155108749246936884}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7188e24fcdefe944ba82c41ef0dee5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM13.UI.DialogUI
 --- !u!1001 &9083485576260106102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110,34 +191,6 @@ PrefabInstance:
     - target: {fileID: 5708487136586658186, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
       propertyPath: m_Name
       value: UIOptions
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015447254791883052, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015447254791883052, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 72
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015447254791883052, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015447254791883052, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015447254791883052, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015447254791883052, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015447254791883052, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9015447254791883052, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -161,3 +214,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9015447254791883052, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
   m_PrefabInstance: {fileID: 9083485576260106102}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1547138798206169814 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7743812614560646560, guid: c35a84fe0a37a2f40bcff47ff6b2ba78, type: 3}
+  m_PrefabInstance: {fileID: 9083485576260106102}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7ed4d733ba442283d0d7ac011255f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.UI.UIOptions

@@ -30,7 +30,7 @@ namespace GBJAM14.Components
         {
             entity.Add(new CharacterComponent()
             {
-                characterId = characterId,
+                characterId = characterId.Trim(),
                 // name = characterName
             });
         }
