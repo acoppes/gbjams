@@ -15,7 +15,7 @@ namespace GBJAM14.Components
         {
             entity.Add(new ItemComponent()
             {
-                itemId = itemId
+                itemId = itemId.Trim()
             });
         }
     }

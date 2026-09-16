@@ -1,11 +1,17 @@
+using GBJAM14.Systems;
 using Gemserk.Leopotam.Ecs;
 
 namespace GBJAM14.Components
 {
     public struct DialogComponent : IEntityComponent
     {
+        public Entity sourceEntity;
+        
         public string characterId;
         public string dialogId;
+        
+        public CharacterDialogsDB.DialogData dialogData;
+        
         public bool completed;
     }
     
@@ -24,7 +30,7 @@ namespace GBJAM14.Components
         {
             entity.Add(new CharacterComponent()
             {
-                characterId = characterId,
+                characterId = characterId.Trim(),
                 // name = characterName
             });
         }

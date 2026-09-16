@@ -20,11 +20,13 @@ namespace GBJAM14
         private void Awake()
         {
             var databaseFilePath = Path.Combine(Application.streamingAssetsPath, dialogsDatabasePath);
-            // var databaseFileText = File.ReadAllText(databaseFilePath);
             
+            #if UNITY_EDITOR_LINUX 
+            var databaseFileText = File.ReadAllText(databaseFilePath);
+            LoadDataFromCsv(databaseFileText);
+            #else
             StartCoroutine(LoadDatabaseFile(databaseFilePath));
-            
-            // LoadDataFromCsv(databaseFileText);
+            #endif
         }
     
         private IEnumerator LoadDatabaseFile(string path)
@@ -59,15 +61,20 @@ namespace GBJAM14
 
                 var id = row[0];
                 var characterId = row[1];
-                var texts = row[2].Split('\n');
-                var requirements = row[3];
-                var outputs = row[4];
+                var option = row[2];
+                var texts = row[3].Split('\n');
+                var requirements = row[4];
+                var outputs = row[5];
+                
+                if (string.IsNullOrEmpty(id))
+                    continue;
 
                 // var extraCharacters = row[5];
 
                 var dialogData = new CharacterDialogsDB.DialogData()
                 {
                     id = id,
+                    option = option,
                     characterId = characterId,
                     texts = texts.ToList(),
                     requirements = requirements.Split(','),

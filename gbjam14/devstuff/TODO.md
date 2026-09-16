@@ -1,18 +1,35 @@
 # TODO
 
+Game 
+
+* One trap
+* Small jump
+* Die and restart in room
+* Pickup coins & other elements
+* Show coins in UI
 
 Rooms
 
-* Spawn or not room content depending inventory and others.
-* Autocreate room camera confiner (find room corners and create polygon?)
-* Test Deactivate exit (trigger for room or gamecontroller) while event. (wait/optional)
+* Simplify room restriction, could be in ld spawn and in requirement system.
+* npc blocking room
+* reset room
 
-Main Menu
-* Add continue savegame as first option if savegame
-* Add start new
+Dialogs
 
-Splash
-* Add gbjam sound effects
+* Support for options?
+  - auto go to options on dialog complete
+* Support for extra characters
+* Dialog priority instead of random, or random in same priority?
+* Interact with npc only form being in front?
+
+Pickups
+
+* Item with no dialog
+* Item auto configure depending inventory
+
+Intro
+
+* Show intro after main meun
 
 # BUGS
 

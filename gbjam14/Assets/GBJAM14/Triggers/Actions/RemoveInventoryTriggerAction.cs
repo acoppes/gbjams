@@ -10,6 +10,11 @@ namespace GBJAM14.Triggers.Actions
         public TriggerTarget target;
         public string itemId;
         
+        public override string GetObjectName()
+        {
+            return $"RemoveInventory({target}, {itemId})";
+        }
+        
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
             var targets = world.GetEntities(target, activator);

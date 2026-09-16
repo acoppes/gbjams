@@ -41,7 +41,7 @@ namespace GBJAM14.Triggers.Actions
             {
                 ref var activeRoom = ref activeRoomEntity.Get<ActiveRoomComponent>();
                 activeRoom.roomId = roomId;
-                activeRoom.startId = startId;
+                activeRoom.doorId = startId;
                 
                 if (actionType == ActionType.NextRoom)
                 {
@@ -49,12 +49,12 @@ namespace GBJAM14.Triggers.Actions
                     {
                         var roomNavigation = targetEntity.Get<RoomNavigationComponent>();
                         activeRoom.roomId = roomNavigation.nextRoomId;
-                        activeRoom.startId = roomNavigation.nextStartId;
+                        activeRoom.doorId = roomNavigation.nextEnterId;
                     }
                 } else if (actionType == ActionType.Custom)
                 {
                     activeRoom.roomId = roomId;
-                    activeRoom.startId = startId;
+                    activeRoom.doorId = startId;
                 }
             }
             

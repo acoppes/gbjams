@@ -14,9 +14,10 @@ namespace GBJAM14.UI
         public string name;
         public bool disabled;
         public object userData;
+        public Action<Option> callback;
     }
-    
-    public class UIOptions : MonoBehaviour, ISubmitHandler
+
+    public class UIOptions : MonoBehaviour, ISubmitHandler, ISelectHandler
     {
         public UIWindow window;
 
@@ -43,6 +44,8 @@ namespace GBJAM14.UI
         public int selectedOptionIndex;
 
         public Option selectedOption => uiOptions[selectedOptionIndex].option;
+
+        public bool autoCloseOnOptionSelected;
         
         public void ShowOptions(List<Option> options)
         {
@@ -60,23 +63,27 @@ namespace GBJAM14.UI
 
             foreach (var option in options)
             {
-                var uiEventOptionGameObject = GameObject.Instantiate(uiOptionPrefab, contentParent, 
+                var uiOptionObject = GameObject.Instantiate(uiOptionPrefab, contentParent, 
                     false);
-                var uiEventOption = uiEventOptionGameObject.GetComponent<UIOption>();
-                uiEventOption.SetOption(option);
+                var uiOption = uiOptionObject.GetComponent<UIOption>();
+                uiOption.SetOption(option);
+
+                uiOption.gameObject.AddComponent<SubmitHandlerParentDelegate>();
                 
-                uiOptions.Add(uiEventOption);
+                uiOptions.Add(uiOption);
                 // uiEventOption.text.SetText(option);
             }
             
             window.Open();
-            
+        }
+        
+        public void OnSelect(BaseEventData eventData)
+        {
             if (uiOptions.Count > 0)
             {
-                EventSystem.current.SetSelectedGameObject(uiOptions[0].gameObject);
+                StartCoroutine(InputEventSystemUtils.DelegateSelectionDelayed(uiOptions[0].gameObject));
             }
         }
-
 
         public void OnSubmit(BaseEventData eventData)
         {
@@ -93,18 +100,24 @@ namespace GBJAM14.UI
                         // selectedUIOption = option;
                         optionSelected = true;
                         onOptionSelected.Invoke();
+                        
+                        if (option.option.callback != null)
+                        {
+                            option.option.callback(option.option);
+                        }
+                        
+                        if (autoCloseOnOptionSelected)
+                        {
+                            window.Close();
+                        }
+                        
                         FindAnyObjectByType<UISoundEffects>().PlaySound(confirmSoundEffect);
                         return;
                     }
-                    else
-                    {
-                        FindAnyObjectByType<UISoundEffects>().PlaySound(confirmFailSoundEffect);
-                    }
-          
+
+                    FindAnyObjectByType<UISoundEffects>().PlaySound(confirmFailSoundEffect);
                 }
             }
-            
-
         }
     }
 }

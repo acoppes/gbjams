@@ -1,11 +1,15 @@
-﻿using Gemserk.Leopotam.Ecs;
+﻿using GBJAM14.Data;
+using Gemserk.Leopotam.Ecs;
 
 namespace GBJAM14.Components
 {
     public struct ActiveRoomComponent : IEntityComponent
     {
         public string roomId;
-        public string startId;
+        public string doorId;
+
+        public Room room;
+        public RoomDoor door;
     }
     
     public class ActiveRoomComponentComponentDefinition : ComponentDefinitionBase

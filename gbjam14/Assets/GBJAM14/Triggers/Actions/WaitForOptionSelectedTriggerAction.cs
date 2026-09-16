@@ -7,7 +7,7 @@ namespace GBJAM14.Triggers.Actions
     {
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
-            var uiEventOptions = FindFirstObjectByType<UIOptions>();
+            var uiEventOptions = FindFirstObjectByType<GameUIManager>().genericOptions;
             
             if (uiEventOptions && uiEventOptions.optionSelected)
             {

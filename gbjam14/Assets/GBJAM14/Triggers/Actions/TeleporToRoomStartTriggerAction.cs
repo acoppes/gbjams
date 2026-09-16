@@ -1,8 +1,10 @@
 ﻿using Game;
 using GBJAM14.Components;
+using GBJAM14.Data;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Triggers;
 using Gemserk.Triggers.Queries;
+using Gemserk.Utilities;
 using UnityEngine;
 
 namespace GBJAM14.Triggers.Actions
@@ -26,9 +28,25 @@ namespace GBJAM14.Triggers.Actions
                 
                 foreach (var entity in targets)
                 {
+                    Debug.Log($"Teleporting to [{activeRoom.roomId}, {activeRoom.doorId}]");
                     var room = GameObject.Find(activeRoom.roomId);
-                    var start = room.transform.Find("Starts").Find(activeRoom.startId);
-                    entity.Get<PositionComponent>().value = start.transform.position;
+                    var doorTransform = room.transform.FindInHierarchy(activeRoom.doorId);
+                    var door = doorTransform.GetComponent<RoomDoor>();
+                    
+                    // var door = activeRoom.door;
+                    
+                    entity.Get<PositionComponent>().value = door.enter.position;
+                    entity.Get<LookingDirection>().value =
+                        new Vector2(1, 0).Rotate(door.enter.localEulerAngles.z * Mathf.Deg2Rad);
+
+                    if (entity.Has<RoomNavigationComponent>())
+                    {
+                        ref var roomNavigation = ref entity.Get<RoomNavigationComponent>();
+                        if (!roomNavigation.visitedRooms.Contains(activeRoom.roomId))
+                        {
+                            roomNavigation.visitedRooms.Add(activeRoom.roomId);
+                        }
+                    }
                 }
             }
             

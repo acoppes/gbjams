@@ -1,39 +1,61 @@
-dialog_id,character_id,text,requirements,outputs,extra_characters
-game_start,town,"[0]: Ok, I finally arrived
+dialog_id,character_id,option,text,requirements,outputs,extra_characters,comments
+game_start,town,,"[0]: Ok, I finally arrived
 [0]: Grandma shared so many stories about Hollow island.
 [0]: Wish she was here with me to find it...
-[0]: The GOLDEN TREASURE...
-[0]: To finally become the best archeologist.",,+game_start,
-mrtoad_start,mrtoad,"[1]: Hey, I can't find my grandma glasses
+[0]: The ONE-TREASURE...
+[0]: To finally become the best archeologist.",,+game_start,,
+mrtoad_start,mrtoad,,"[1]: Hey, I can't find my grandma glasses
 [1]: Could you find them for me?
 [1]: They were important for her.....
 [0]: Yeah of course [1], I know what it means.
 [0]: Will start looking at the old forest.
-[1]: Ah, and if go there, beware the rats.","-grandma_glasses,-mrtoad_complete",+mrtoad_start,
-mrtoad_complete,mrtoad,"[1]: Are those?...
+[1]: Ah, and if go there, beware the rats.","-grandma_glasses,-mrtoad_complete,-mrtoad_start",+mrtoad_start,,
+mrtoad_complete,mrtoad,,"[1]: Are those?...
 [1]: I can't believe it, after all these years...
 [1]: Thank you [0].
 [0]: No worries, I know how much this means to you.
 [1]: I don't know where the medal you are looking is...
-[1]: but I know that Tom Sandman saw something while walking in the black lake.","+grandma_glasses,+mrtoad_start","+mrtoad_complete,-grandma_glasses",
-mrtoad_complete_repeat,mrtoad,"[1]: I don't know where the medal you are looking is...
-[1]: but I know that Tom Sandman saw something while walking in the black lake.",+mrtoad_complete,,
-lost_soul_random1,lost_soul,"[1]: Hey Stranger, Welcome to Hollow Island.
+[1]: but I know that Tom Sandman saw something while walking in the black lake.","+grandma_glasses,+mrtoad_start","+mrtoad_complete,-grandma_glasses",,
+mrtoad_complete_repeat,mrtoad,,"[1]: I don't know where the medal you are looking is...
+[1]: but I know that Tom Sandman saw something while walking in the black lake.",+mrtoad_complete,,,
+pickup_grandma_glasses,grandma_glasses,,"[0]: They look similar to the ones my grandma used.
+[0]: Mr Toad will be pleased too see them, I wonder if 
+[0]: he has some information about the golden treasure.",-grandma_glasses,+grandma_glasses,,
+lost_soul_random1,lost_soul,,"[1]: Hey Stranger, Welcome to Hollow Island.
 [1]: What's your name?
 [0]: I'm [0] D. Topson and I will be the best Archeologist.
-[1]: Oh, wow, that's ... ehm great. See ya around.",-welcome_to_island,+welcome_to_island,
-lost_soul_random2,lost_soul,[1]: Do I know you?,+welcome_to_island,,
-lost_soul_random3,lost_soul,"[1]: Hey, are you new in Hollow Island?
-[1]: We have the best frog steaks!",+welcome_to_island,,
-robert_dialog_start,robert,"[1]: Oh, so you came here for treasures?
+[1]: Oh, wow, that's ... ehm great. See ya around.",-welcome_to_island,+welcome_to_island,,
+lost_soul_random2,lost_soul,,[1]: Do I know you?,+welcome_to_island,,,
+lost_soul_random3,lost_soul,,"[1]: Hey, are you new in Hollow Island?
+[1]: We have the best frog steaks!",+welcome_to_island,,,
+robert_dialog_start,robert,,"[1]: Oh, so you came here for treasures?
 [1]: Well, I am looking for a special item.
 [1]: It is really dear to me, I named it <The Box>.
-[1]: If you happen to find it, I will reward you really well.","-quest_robert_complete,-pickup_the_box",+quest_robert_start,
-robert_dialog_complete,robert,"[1]: Oh, yes! my box!
+[1]: If you happen to find it, I will reward you really well.","-quest_robert_complete,-pickup_the_box",+quest_robert_start,,
+robert_dialog_complete,robert,,"[1]: Oh, yes! my box!
 [1]: Thank you very much, here, take this amulet.
-[1]: It will be handy if you happen to encounter werewolves.",+pickup_the_box,"-pickup_the_box,+quest_robert_complete",
-pickup_the_box1,pickup_the_box,"[0]: So this is <The Box> Robert was talking about.
+[1]: It will be handy if you happen to encounter werewolves.",+pickup_the_box,"-pickup_the_box,+quest_robert_complete",,
+pickup_the_box1,pickup_the_box,,"[0]: So this is <The Box> Robert was talking about.
 [0]: I must hurry and return it to him.
-[0]: He said something about a good reward.",+quest_robert_start,+pickup_the_box,
-pickup_the_box2,pickup_the_box,"[0]: What is this shinny box? It looks important.
-[0]: I must ask people around.",-quest_robert_start,+pickup_the_box,
+[0]: He said something about a good reward.",+quest_robert_start,+pickup_the_box,,
+pickup_the_box2,pickup_the_box,,"[0]: What is this shinny box? It looks important.
+[0]: I must ask people around.",-quest_robert_start,+pickup_the_box,,
+pickup_the_vase,pickup_the_vase,,"[0]: Mmm... this vase looks familiar...
+[0]: Maybe from that time I was in Hyrule?
+[0]: Anyways... I will keep it, just in case someone wants it.",-pickup_the_vase,+pickup_the_vase,,
+mrtoad_extra_vase,mrtoad,,"[1]: Is that... the Vase of Zelda?
+[0]: It is! how much are you willing to pay for it?
+[1]: How about 100 golden morlocks?",+pickup_the_vase,,,
+mrtoad_start_repeat,mrtoad,,[1]: Did you find the glasses?,"-grandma_glasses,-mrtoad_complete,+mrtoad_start",,,
+droldguy_start1,droldguy,,"[0]: [1], I presume.
+[1]: Yes, it is me, what is your name kiddo?
+[0]: My name is [0] Topson and I want to be the very best.
+[1]: You reminded me of someone with that spirit...
+[1]: ... Nice to meet you [0], It is nice to see new young adventurers!
+[1]: Are you here for the ONE-TREASURE?
+[0]: Yes, and I am going to be the first to find it! 
+[1]: Oh, hehe, good good. I bet you do, I bet you do...",-droldguy_start,+droldguy_start,,
+droldguy_start2,droldguy,Say Hello,[1]: Still around? the ONE-TREASURE is not going to just appear.,+droldguy_start,,,
+droldguy_start3,droldguy,Ask about Mr Toad,[1]: It is a bit tough some times... but it is not a bad guy.,"+droldguy_start,+mrtoad_start",,,
+droldguy_start4,droldguy,Ask about the ONE-TREASURE,"[1]: I don't know too much, I am old but not that old haha.",+droldguy_start,,,"está mintiendo xD, quiere algo a cambio prrr"
+droldguy_start5,droldguy,Give the Vase,[1]: That is nice but I have many like that already.,"+droldguy_start,+pickup_the_vase",,,

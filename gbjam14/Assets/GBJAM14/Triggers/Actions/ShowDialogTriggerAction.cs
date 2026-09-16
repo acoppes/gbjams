@@ -17,7 +17,7 @@ namespace GBJAM14.Triggers.Actions
         
         public override ITrigger.ExecutionResult Execute(object activator = null)
         {
-            var dialog = FindFirstObjectByType<UIDialog>();
+            var dialog = FindFirstObjectByType<GameUIManager>().uiDialog;
             dialog.ShowDialog(dialogData, characters);
             return ITrigger.ExecutionResult.Completed;
         }

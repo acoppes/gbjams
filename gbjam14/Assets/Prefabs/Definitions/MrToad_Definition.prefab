@@ -1,162 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2957022603647231772
-GameObject:
+--- !u!1001 &561692536752468939
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6212105055466666335}
-  - component: {fileID: 6933105950448948605}
-  - component: {fileID: 1062954852323863048}
-  - component: {fileID: 3125073034624079541}
-  - component: {fileID: 1286205305753384496}
-  - component: {fileID: 7875398643397977205}
-  - component: {fileID: 8176095848534240626}
-  - component: {fileID: 5213270857440419979}
-  - component: {fileID: 865678655766395049}
-  m_Layer: 0
-  m_Name: MrToad_Definition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6212105055466666335
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6933105950448948605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce8e965ed40431e993ca1982c595d6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.ObjectEntityDefinition
---- !u!114 &1062954852323863048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8f2b2bab7db46858f9b60b188dde615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.PositionComponentDefinition
-  startingPositionType: 0
-  type: 1
---- !u!114 &3125073034624079541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edbea8f9e3134232ad13e35f36a4c7e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.ModelComponentDefinition
-  prefab: {fileID: 4258507774620910417, guid: 07f7e0692fa561740b71311e931a3d26, type: 3}
-  rotationType: 2
-  flipUseRotation: 0
-  startingColor: {r: 1, g: 1, b: 1, a: 1}
-  sortingLayerType: 0
-  sortingOrder: 0
-  sortingLayer: 
-  fixedRotationAngles: 0
---- !u!114 &1286205305753384496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe29b734c2044168b5af8f9992825ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.AnimationsComponentDefinition
-  animationsAsset: {fileID: 11400000, guid: c1623fdaaeb01f022933d09e0570ad20, type: 2}
-  spritesMetadata: {fileID: 0}
-  startingAnimationType: 1
-  defaultAnimation: lostsoul
-  randomizeStartFrame: 1
-  defaultAnimationLoop: 0
-  hasMultipleDirectionsPerAnimation: 0
---- !u!114 &7875398643397977205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c422e22d9e8470ba7ed289fbceeaf0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.CanBeInteractedComponentDefinition
-  showInteractBubble: 1
---- !u!114 &8176095848534240626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5de7c4458b6b4054826767f915b3af39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.TargetComponentDefinition
-  targetType: 1
-  targetTypeAsset: {fileID: 0}
-  size: 0
---- !u!114 &5213270857440419979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f8f614944d4c61b3a23174e0d57427, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.LookingDirectionComponentDefinition
-  defaultLookingDirectionType: 0
-  defaultLookingDirection: {x: 1, y: 0, z: 0}
-  copyFromPhysicsRotation: 0
---- !u!114 &865678655766395049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26a3565305be4d289fe329d8b8ab405d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.CharacterComponentDefinition
-  characterId: mrtoad
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 865678655766395049, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: characterId
+      value: mrtoad
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286205305753384496, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: animationsAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c1623fdaaeb01f022933d09e0570ad20, type: 2}
+    - target: {fileID: 1286205305753384496, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: defaultAnimation
+      value: lostsoul
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957022603647231772, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_Name
+      value: MrToad_Definition
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212105055466666335, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212105055466666335, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212105055466666335, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212105055466666335, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212105055466666335, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212105055466666335, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212105055466666335, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212105055466666335, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212105055466666335, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212105055466666335, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e49da617c3ac2df8ca4a25bf40ee3f08, type: 3}
