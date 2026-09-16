@@ -11,6 +11,7 @@ Game
 Rooms
 
 * Simplify room restriction, could be in ld spawn and in requirement system.
+  - auto turn on if inventory changes?
 * npc blocking room
 * reset room
 
@@ -20,7 +21,7 @@ Dialogs
   - auto go to options on dialog complete
 * Support for extra characters
 * Dialog priority instead of random, or random in same priority?
-* Interact with npc only form being in front?
+* Interact with npc only from being in front?
 
 Pickups
 
