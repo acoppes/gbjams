@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Components;
 using GBJAM14.Components;
+using GBJAM14.GamePlay;
 using GBJAM14.UI;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
@@ -118,6 +119,8 @@ namespace GBJAM14.Systems
 
                 interactActions.Pools.Inc1.Del(e);
             }
+
+            var dialogCompleted = false;
             
             foreach (var e in dialogs.Value)
             {
@@ -144,10 +147,18 @@ namespace GBJAM14.Systems
                             }
                         }
                         
+                        // save game!! 
+                        dialogCompleted = true;
+                        
                         dialog.completed = true;
                         dialogs.Pools.Inc2.Get(e).destroy = true;
                     }
                 }
+            }
+
+            if (dialogCompleted)
+            {
+                ActionUtils.SaveGameSave(world);
             }
             
             foreach (var e in interactableModels.Value)

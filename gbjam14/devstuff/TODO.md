@@ -1,9 +1,5 @@
 # TODO
 
-General
-
-* Save after interactions
-
 Game 
 
 * One trap
