@@ -16,9 +16,10 @@ Rooms
 
 Dialogs
 
-* Dialog priority instead of random, or random in same priority?
-* Support for extra characters
 * Support for options?
+* Support for extra characters
+* Dialog priority instead of random, or random in same priority?
+* Interact with npc only form being in front?
 
 Pickups
 

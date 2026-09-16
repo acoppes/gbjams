@@ -22,7 +22,7 @@ namespace GBJAM14.Systems
         private readonly EcsFilterInject<Inc<InteractActionComponent>, Exc<DisabledComponent>> 
             interactActions = default;
         
-        private readonly EcsFilterInject<Inc<DialogComponent>, Exc<DisabledComponent>> 
+        private readonly EcsFilterInject<Inc<DialogComponent, DestroyableComponent>, Exc<DisabledComponent>> 
             dialogs = default;
         
         private CharacterDialogsDB characterDialogsDB;
@@ -57,33 +57,36 @@ namespace GBJAM14.Systems
                         // add dialog to inventory to consider for other dialogs
                         // inventory.items.Add(dialogData.id);
 
-                        if (dialogData.output != null)
+                        // if (dialogData.output != null)
+                        // {
+                        //     foreach (var statusId in dialogData.output)
+                        //     {
+                        //         if (statusId.StartsWith("+"))
+                        //         {
+                        //             inventory.items.Add(statusId.Substring(1));
+                        //         } else if (statusId.StartsWith("-"))
+                        //         {
+                        //             inventory.items.Remove(statusId.Substring(1));
+                        //         }
+                        //     }
+                        // }
+                        
+                        var dialogEntity = world.CreateEntity();
+                        dialogEntity.Add(new DialogComponent()
                         {
-                            foreach (var statusId in dialogData.output)
-                            {
-                                if (statusId.StartsWith("+"))
-                                {
-                                    inventory.items.Add(statusId.Substring(1));
-                                } else if (statusId.StartsWith("-"))
-                                {
-                                    inventory.items.Remove(statusId.Substring(1));
-                                }
-                            }
-                        }
+                            sourceEntity = interactAction.source,
+                            characterId = characterB.characterId,
+                            dialogId = dialogData.id,
+                            dialogData = dialogData,
+                            completed = false
+                        });
+                        dialogEntity.Add(new DestroyableComponent());
                         
                         uiDialog.ShowDialog(dialogData, new List<string>()
                         {
                             characterA.characterId,
                             characterB.characterId
-                        });
-
-                        var dialogEntity = world.CreateEntity();
-                        dialogEntity.Add(new DialogComponent()
-                        {
-                            characterId = characterB.characterId,
-                            dialogId = dialogData.id,
-                            completed = false
-                        });   
+                        }, dialogEntity);
                     }
 
                     if (interactAction.target.Has<ItemComponent>())
@@ -104,7 +107,26 @@ namespace GBJAM14.Systems
                 {
                     if (uiDialog.window.IsClosed())
                     {
+                        var dialogData = dialog.dialogData;
+                        
+                        if (dialogData.output != null)
+                        {
+                            ref var inventory = ref dialog.sourceEntity.Get<InventoryComponent>();
+                            
+                            foreach (var statusId in dialogData.output)
+                            {
+                                if (statusId.StartsWith("+"))
+                                {
+                                    inventory.items.Add(statusId.Substring(1));
+                                } else if (statusId.StartsWith("-"))
+                                {
+                                    inventory.items.Remove(statusId.Substring(1));
+                                }
+                            }
+                        }
+                        
                         dialog.completed = true;
+                        dialogs.Pools.Inc2.Get(e).destroy = true;
                     }
                 }
             }

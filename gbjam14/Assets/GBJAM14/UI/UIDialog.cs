@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Game.Components;
 using Game.Screens;
 using GBJAM14.Systems;
+using Gemserk.Leopotam.Ecs;
 using Gemserk.Utilities;
 using Gemserk.Utilities.UI;
 using MyBox;
@@ -49,6 +50,8 @@ namespace GBJAM14.UI
 
         public SoundEffectAsset talkSoundEffectAsset;
         public AudioSource talkAudioSource;
+
+        private Entity dialogEntity;
         
         private void Awake()
         {
@@ -57,7 +60,7 @@ namespace GBJAM14.UI
             waitingButton.SetActive(false);
         }
 
-        public void ShowDialog(CharacterDialogsDB.DialogData dialogData, List<string> characters)
+        public void ShowDialog(CharacterDialogsDB.DialogData dialogData, List<string> characters, Entity dialogEntity = default)
         {
             window.Open();
             this.dialogData = dialogData;

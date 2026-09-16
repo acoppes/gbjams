@@ -18,6 +18,7 @@ namespace GBJAM14.Systems
             
             // public string[] characters;
             
+            public string option;
             public List<string> texts;
         }
 
