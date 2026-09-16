@@ -5,7 +5,6 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Utilities;
 using Leopotam.EcsLite;
 using Unity.Cinemachine;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -54,7 +53,7 @@ namespace GBJAM14.Systems
                         if (tilemapCollider2D)
                         {
                             activeRoom.room.confiner = new GameObject();
-                            activeRoom.room.confiner.transform.SetParent(activeRoom.room.transform, false);
+                            // activeRoom.room.confiner.transform.SetParent(activeRoom.room.transform, true);
                             
                             var bounds = tilemapCollider2D.bounds;
                             var boxCollider2D = activeRoom.room.confiner.AddComponent<BoxCollider2D>();
