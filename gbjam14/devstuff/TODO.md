@@ -19,7 +19,7 @@ Dialogs
 * Support for options?
   - intro again?
   - option to exit
-  - fix bug for empty
+  - auto go to options on dialog complete
 * Support for extra characters
 * Dialog priority instead of random, or random in same priority?
 * Interact with npc only form being in front?

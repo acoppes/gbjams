@@ -57,8 +57,7 @@ namespace GBJAM14.Systems
 
                         if (options.Count > 0)
                         {
-                            
-                            gameUIManager.dialogOptions.ShowOptions(dialogs.Select(d => new Option()
+                            gameUIManager.dialogOptions.ShowOptions(options.Select(d => new Option()
                             {
                                 disabled = false,
                                 name = d.option,

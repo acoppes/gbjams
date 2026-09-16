@@ -3,6 +3,7 @@ using Game.Components;
 using Game.Screens;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace GBJAM14.UI
 {
@@ -12,8 +13,10 @@ namespace GBJAM14.UI
 
         public GameObject selectedIndicatorObject;
 
-        public Color enabledColor;
+        [FormerlySerializedAs("enabledColor")] 
+        public Color normalColor;
         public Color disabledColor;
+        public Color selectedColor;
         
         [NonSerialized]
         public bool selected;
@@ -42,8 +45,15 @@ namespace GBJAM14.UI
             {
                 selectedIndicatorObject.SetActive(selected);
             }
-            
-            text.color = option.disabled ? disabledColor : enabledColor;
+
+            if (option.disabled)
+            {
+                text.color = disabledColor;
+            }
+            else
+            {
+                text.color = selected ? selectedColor : normalColor;
+            }
         }
 
         public void OnSelect(BaseEventData eventData)
