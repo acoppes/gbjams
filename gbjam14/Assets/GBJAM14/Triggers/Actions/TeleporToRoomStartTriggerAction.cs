@@ -33,6 +33,8 @@ namespace GBJAM14.Triggers.Actions
                     var doorTransform = room.transform.FindInHierarchy(activeRoom.doorId);
                     var door = doorTransform.GetComponent<RoomDoor>();
                     
+                    // var door = activeRoom.door;
+                    
                     entity.Get<PositionComponent>().value = door.enter.position;
                     entity.Get<LookingDirection>().value =
                         new Vector2(1, 0).Rotate(door.enter.localEulerAngles.z * Mathf.Deg2Rad);

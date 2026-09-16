@@ -19,23 +19,7 @@ namespace GBJAM14.Triggers.Conditions
             if (world.TryGetSingletonEntity<ActiveRoomComponent>(out var activeRoomEntity))
             {
                 var activeRoom = activeRoomEntity.Get<ActiveRoomComponent>();
-                
-                if (string.IsNullOrEmpty(activeRoom.roomId))
-                {
-                    return false;
-                }
-            
-                if (string.IsNullOrEmpty(activeRoom.doorId))
-                {
-                    return false;
-                }
-            
-                var room = GameObject.Find(activeRoom.roomId);
-                if (!room)
-                    return false;
-
-                var enter = room.transform.FindInHierarchy(activeRoom.doorId);
-                return enter;
+                return activeRoom.door;
             }
 
             return false;
