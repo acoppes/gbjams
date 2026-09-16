@@ -4,6 +4,7 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using UnityEngine;
 
 namespace GBJAM14.Systems
 {
@@ -25,20 +26,34 @@ namespace GBJAM14.Systems
                     
                     foreach (var requirement in requirements.requirements)
                     {
+                        var requirementName = requirement.Substring(1);
+                        
                         if (requirement.StartsWith("+"))
                         {
-                            meetsRequirements = meetsRequirements && inventoryComponent.items.Contains(requirement.Substring(1));
+                            if (!inventoryComponent.items.Contains(requirementName))
+                            {
+                                meetsRequirements = false;
+                                Debug.Log($"Item didn't match: {requirement}");
+                                break;
+                            }
                         }
                         
                         if (requirement.StartsWith("-"))
                         {
-                            meetsRequirements = meetsRequirements && !inventoryComponent.items.Contains(requirement.Substring(1));
+                            if (inventoryComponent.items.Contains(requirementName))
+                            {
+                                meetsRequirements = false;
+                                Debug.Log($"Item didn't match: {requirement}");
+                                break;
+                            }
                         }
                     }
 
                     if (!meetsRequirements)
                     {
-                        items.Pools.Inc2.Get(e).destroy = true;
+                        Debug.Log($"deleting item, didn´t match requirements: {string.Join(',', requirements.requirements)}");
+                        // items.Pools.Inc2.Get(e).destroy = true;
+                        world.AddComponent(e, new DisabledComponent());
                     }
                 }
             }
