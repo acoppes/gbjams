@@ -2,7 +2,7 @@ dialog_id,character_id,text,requirements,outputs,extra_characters
 game_start,town,"[0]: Ok, I finally arrived
 [0]: Grandma shared so many stories about Hollow island.
 [0]: Wish she was here with me to find it...
-[0]: The GOLDEN TREASURE...
+[0]: The ONE-TREASURE...
 [0]: To finally become the best archeologist.",,+game_start,
 mrtoad_start,mrtoad,"[1]: Hey, I can't find my grandma glasses
 [1]: Could you find them for me?
@@ -47,3 +47,12 @@ mrtoad_extra_vase,mrtoad,"[1]: Is that... the Vase of Zelda?
 [0]: It is! how much are you willing to pay for it?
 [1]: How about 100 golden morlocks?",+pickup_the_vase,,
 mrtoad_start_repeat,mrtoad,[1]: Did you find the glasses?,"-grandma_glasses,-mrtoad_complete,+mrtoad_start",,
+droldguy_start,droldguy,"[0]: [1], I presume.
+[1]: Yes, it is me, what is your name kiddo?
+[0]: My name is [0] Topson and I want to be the very best.
+[1]: Oh, nice to meet you [0], It is nice to see new young adventurers!
+[1]: By the way, you reminded me of someone...
+[1]: Anyways, are you here for the ONE-TREASURE?
+[0]: Yes, and I am going to be the first to find it! 
+[1]: Oh, hehe, good good. I bet you do, I bet you do...",-droldguy_start,+droldguy_start,
+droldguy_start,droldguy,[1]: Still around? the ONE-TREASURE is not going to just appear.,+droldguy_start,,
