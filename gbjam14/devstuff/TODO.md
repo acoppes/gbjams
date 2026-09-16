@@ -15,6 +15,7 @@ Rooms
 
 Dialogs
 
+* Dialog priority instead of random, or random in same priority?
 * Support for extra characters
 * Support for options?
 
