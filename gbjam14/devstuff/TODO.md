@@ -4,6 +4,10 @@ Game
 
 * One trap (arrows)
   - keep arrows in walls for some time (maybe just half of it)
+  - different timings
+* Spikes
+  - fix collider to be more player friendly.
+* Plate
 * Small jump
 * Show coins in UI
 
