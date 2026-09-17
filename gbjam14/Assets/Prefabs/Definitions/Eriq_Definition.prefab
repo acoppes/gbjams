@@ -110,9 +110,10 @@ GameObject:
   - component: {fileID: 7072372891241485753}
   - component: {fileID: 1373639805460788261}
   - component: {fileID: 1661433900961406820}
-  - component: {fileID: 2095348752006092436}
   - component: {fileID: 1151530425550210135}
   - component: {fileID: -8669289843490560087}
+  - component: {fileID: 6758748625118045872}
+  - component: {fileID: 6960581467380278342}
   m_Layer: 0
   m_Name: Eriq_Definition
   m_TagString: Untagged
@@ -320,31 +321,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game::Game.Components.ControllableComponentDefinition
   controllableType: 1
   playerControlId: 0
---- !u!114 &2095348752006092436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4283440475417281190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b2d7edd28434b1ba18bdd30d4d765bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.PhysicsComponentDefinition
-  prefab: {fileID: 0}
-  physicsComponentType: 1
-  shapeType: 1
-  size: {x: 0.25, y: 0.25, z: 0}
-  centerType: 0
-  center: {x: 0, y: 0, z: 0}
-  mass: 100
-  isStatic: 0
-  startingBodyType: 0
-  isTrigger: 0
-  defaultSyncType: 0
-  colliderType: 3
-  disableContactsCalculations: 0
 --- !u!114 &1151530425550210135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,6 +345,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b11703caf3410b97cc1d67c44c2ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.MainCharacterComponentDefinition
+--- !u!114 &6758748625118045872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283440475417281190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46440df405ef4013a92871e32e827247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.GameObjectComponentDefinition
+  linkedObjectInstance: {fileID: 0}
+  prefab: {fileID: 5342567053313088592, guid: f9241b678e0119e478b2b7f38757de81, type: 3}
+  reusable: 0
+  copyPositionType: 1
+  isController: 0
+  autoCreatePhysicsComponent: 1
+--- !u!114 &6960581467380278342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283440475417281190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ca57faa7304bf2848a5d81649027d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.HealthComponentDefinition
+  health: 1
+  temporaryInvulnerabilityTimeAfterHit: 0
+  autoDestroyOnDeath: 0
+  autoDisableOnDeath: 0
+  hasHealthBar: 0
+  healthBarOffset: {x: 0, y: 0, z: 0}
+  healthBarSize: 1
+  hasDamageNumber: 0
+  damageNumberAccumulator: 0
+  startsInvulnerable: 0
 --- !u!1 &6717865567067160048
 GameObject:
   m_ObjectHideFlags: 0
