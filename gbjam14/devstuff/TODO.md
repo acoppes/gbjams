@@ -2,10 +2,9 @@
 
 Game 
 
-* One trap
+* One trap (arrows)
+  - keep arrows in walls for some time (maybe just half of it)
 * Small jump
-* Die and restart in room
-* Pickup coins & other elements
 * Show coins in UI
 
 Rooms
