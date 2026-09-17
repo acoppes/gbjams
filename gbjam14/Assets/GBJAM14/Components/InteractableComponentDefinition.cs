@@ -13,6 +13,7 @@ namespace GBJAM14.Components
     {
         public Entity source;
         public Entity target;
+        public string optionalDialogId;
     }
     
     public class InteractableComponentDefinition : ComponentDefinitionBase

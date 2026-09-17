@@ -52,6 +52,15 @@ namespace GBJAM14.Systems
                     var dialogs = characterDialogsDB.GetCharacterDialogs(characterB.characterId, 
                         inventory.items);
 
+                    if (!string.IsNullOrEmpty(interactAction.optionalDialogId))
+                    {
+                        var dialog = characterDialogsDB.GetDialog(interactAction.optionalDialogId);
+                        dialogs = new List<CharacterDialogsDB.DialogData>()
+                        {
+                            dialog
+                        };
+                    }
+
                     if (dialogs.Count > 0)
                     {
                         var options = dialogs.Where(d => !string.IsNullOrEmpty(d.option)).ToList();
@@ -113,8 +122,11 @@ namespace GBJAM14.Systems
                     {
                         interactAction.target.Get<DestroyableComponent>().destroy = true;
                     }
-                    
-                    interactAction.target.Get<InteractableComponent>().focusedByPlayer = false;
+
+                    if (interactAction.target.Has<InteractableComponent>())
+                    {
+                        interactAction.target.Get<InteractableComponent>().focusedByPlayer = false;
+                    }
                 }
 
                 interactActions.Pools.Inc1.Del(e);

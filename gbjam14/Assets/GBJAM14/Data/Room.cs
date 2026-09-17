@@ -7,7 +7,7 @@ namespace GBJAM14.Data
     {
         [NonSerialized]
         public GameObject confiner;
-        
+
         private void OnDrawGizmos()
         {
             #if UNITY_EDITOR

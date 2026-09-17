@@ -8,6 +8,7 @@ namespace GBJAM14.Triggers.Actions
     {
         public TriggerTarget target;
         public TriggerTarget interactTarget;
+        public string optionalDialogId;
         
         public override string GetObjectName()
         {
@@ -26,7 +27,8 @@ namespace GBJAM14.Triggers.Actions
                     e.Add(new InteractActionComponent()
                     {
                         source = targetEntity,
-                        target = interactEntity
+                        target = interactEntity,
+                        optionalDialogId = optionalDialogId.Trim()
                     });
                 });
             }
