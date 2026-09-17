@@ -23,7 +23,7 @@ namespace GBJAM14.Triggers.Actions
                 if (target.Has<InventoryComponent>())
                 {
                     var inventoryComponent = target.Get<InventoryComponent>();
-                    inventoryComponent.items.Remove(itemId);
+                    inventoryComponent.items.Remove(itemId.Trim());
                 }
             }
             return ITrigger.ExecutionResult.Completed;

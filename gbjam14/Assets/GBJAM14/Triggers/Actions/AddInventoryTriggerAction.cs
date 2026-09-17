@@ -1,4 +1,5 @@
 ﻿using GBJAM14.Components;
+using GBJAM14.GamePlay;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Triggers;
 using Gemserk.Triggers.Queries;
@@ -23,9 +24,10 @@ namespace GBJAM14.Triggers.Actions
                 if (target.Has<InventoryComponent>())
                 {
                     var inventoryComponent = target.Get<InventoryComponent>();
-                    if (!inventoryComponent.items.Contains(itemId))
+                    if (!inventoryComponent.items.Contains(itemId.Trim()))
                     {
-                        inventoryComponent.items.Add(itemId);
+                        inventoryComponent.items.Add(itemId.Trim());
+                        ActionUtils.SaveGameSave(world);
                     }
                 }
             }

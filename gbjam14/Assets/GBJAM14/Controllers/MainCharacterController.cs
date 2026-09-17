@@ -163,6 +163,12 @@ namespace GBJAM14.Controllers
             {
                 ref var animations = ref entity.Get<AnimationsComponent>();
                 animations.Play("death", 1);
+                
+                if (soundEffectEntity)
+                {
+                    soundEffectEntity.Get<DestroyableComponent>().destroy = true;
+                    soundEffectEntity = Entity.NullEntity;
+                }
             }
         }
     }
