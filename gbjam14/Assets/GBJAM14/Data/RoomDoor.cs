@@ -6,7 +6,15 @@ namespace GBJAM14.Data
 {
     public class RoomDoor : MonoBehaviour
     {
-        public Transform enter;
+        public Vector3 EnterPosition => transform.position + enterPosition;
+
+        public Vector2 EnterDirection => enterPosition.normalized;
+
+        [SerializeField] 
+        private Vector3 enterPosition;
+        
+        // public Transform enter;
+        
         public RoomDoor nextRoomDoor;
         
         public void OnTriggerEnter2D(Collider2D other)
@@ -33,10 +41,17 @@ namespace GBJAM14.Data
 
         private void OnDrawGizmos()
         {
-            if (nextRoomDoor && nextRoomDoor.enter)
+            // if (nextRoomDoor && nextRoomDoor.enter)
+            // {
+            //     Gizmos.color = Color.blue;
+            //     Gizmos.DrawLine(transform.position, nextRoomDoor.enter.transform.position);
+            //     Gizmos.DrawSphere(transform.position, 0.25f);
+            // }
+            
+            if (nextRoomDoor)
             {
                 Gizmos.color = Color.blue;
-                Gizmos.DrawLine(transform.position, nextRoomDoor.enter.transform.position);
+                Gizmos.DrawLine(transform.position, nextRoomDoor.EnterPosition);
                 Gizmos.DrawSphere(transform.position, 0.25f);
             }
         }
