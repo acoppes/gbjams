@@ -57,8 +57,6 @@ namespace GBJAM14.Systems
                     }
                 }
             }
-            
-
         }
     }
 }

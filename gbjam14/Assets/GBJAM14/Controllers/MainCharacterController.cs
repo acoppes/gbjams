@@ -73,6 +73,14 @@ namespace GBJAM14.Controllers
                 }
 
                 bufferedInput.ConsumeBuffer();
+                
+                if (soundEffectEntity)
+                {
+                    soundEffectEntity.Get<DestroyableComponent>().destroy = true;
+                    soundEffectEntity = Entity.NullEntity;
+                }
+
+                return;
             }
 
             if (inputDirection.sqrMagnitude > 0.01f)
