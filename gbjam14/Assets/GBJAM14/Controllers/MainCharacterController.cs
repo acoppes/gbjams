@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace GBJAM14.Controllers
 {
-    public class MainCharacterController : ControllerBase, IUpdate
+    public class MainCharacterController : ControllerBase, IUpdate, IHealthStateChanged
     {
         public Targeting targeting;
         public Object soundEffectEntityDefinition;
@@ -24,15 +24,22 @@ namespace GBJAM14.Controllers
             var inputDirection = input.direction3d();
             ref var animations = ref entity.Get<AnimationsComponent>();
 
+            var health = entity.Get<HealthComponent>();
+            if (health.aliveType == HealthComponent.AliveType.Death)
+            {
+                movement.movingDirection = Vector3.zero;
+                return;
+            }
+            
             movement.movingDirection = new Vector3(inputDirection.x, inputDirection.z * 0.75f, 0);
-
+            
             ref var lookingDirection = ref entity.Get<LookingDirection>();
             
             if (movement.movingDirection.sqrMagnitude > 0.1f)
             {
                 lookingDirection.value = movement.movingDirection.normalized;
             }
-
+       
             // search for interactions
 
             var results = new List<Target>();
@@ -148,6 +155,15 @@ namespace GBJAM14.Controllers
                 }
             }
 
+        }
+
+        public void OnHealthStateChanged(World world, Entity entity)
+        {
+            if (entity.Get<HealthComponent>().wasKilledLastFrame)
+            {
+                ref var animations = ref entity.Get<AnimationsComponent>();
+                animations.Play("death", 1);
+            }
         }
     }
 }

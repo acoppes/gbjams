@@ -17,6 +17,31 @@ namespace GBJAM14.Controllers
 
         private void OnEntityCollision(World world, Entity entity, IEntityCollisionDelegate.EntityCollision entityCollision)
         {
+            if (entity.Get<ProjectileComponent>().impacted)
+            {
+                return;
+            }
+            
+            entity.Get<ProjectileComponent>().impacted = true;
+            
+            if (entityCollision.entity)
+            {
+                entity.Get<ProjectileComponent>().impactEntity = entityCollision.entity;
+                
+                if (entityCollision.entity.Has<HealthComponent>())
+                {
+                    entityCollision.entity.Get<HealthComponent>().damages.Add(new HealthChangeData()
+                    {
+                        position = entityCollision.collider2D.transform.position,
+                        player = 0,
+                        knockback = true,
+                        source = entity,
+                        value = 1,
+                        vfxDefinition = null
+                    });
+                }
+            }
+            
             entity.Get<DestroyableComponent>().destroy = true;
         }
     }
