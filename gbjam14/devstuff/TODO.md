@@ -29,12 +29,15 @@ Rooms
 
 Dialogs
 
-* show highlight ui showing interact character name
 * auto go to options on dialog complete
 * support for random answer same option id
 * Support for extra characters
 * Dialog priority instead of random, or random in same priority?
 * Interact with npc only from being in front?
+
+Sound Effects & Music
+
+* Integrate vortex sfx when moving to next room
 
 Pickups
 

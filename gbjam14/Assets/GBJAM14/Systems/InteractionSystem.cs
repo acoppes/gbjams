@@ -220,25 +220,21 @@ namespace GBJAM14.Systems
                 }
             }
 
-            if (string.IsNullOrEmpty(focusedCharacter))
+            if (gameUIManager)
             {
-                gameUIManager.uiFocusedCharacter.Hide();
+                if (string.IsNullOrEmpty(focusedCharacter))
+                {
+                    gameUIManager.uiFocusedCharacter.Hide();
+                }
+                else
+                {
+                    gameUIManager.uiFocusedCharacter.Show(focusedCharacter);
+                }
             }
-            else
-            {
-                gameUIManager.uiFocusedCharacter.Show(focusedCharacter);
-            }
-                
+            
             foreach (var e in focusables.Value)
             {
                 focusables.Pools.Inc1.Del(e);
-                
-                // ref var interactable = ref interactables.Pools.Inc1.Get(e);
-                // if (interactable.focusedByPlayer)
-                // {
-                //     focusedCharacter = interactable.
-                // }
-                // interactable.focusedByPlayer = false;
             }
         }
     }
