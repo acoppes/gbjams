@@ -2,7 +2,6 @@
 using Game.Utilities;
 using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
-using Gemserk.Leopotam.Ecs.Components;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
 using Gemserk.Utilities;
