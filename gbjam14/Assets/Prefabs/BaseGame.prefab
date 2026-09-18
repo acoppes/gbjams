@@ -41,6 +41,7 @@ Transform:
   - {fileID: 6788334635691034480}
   - {fileID: 1937222507496815678}
   - {fileID: 7112910567796705899}
+  - {fileID: 2831797259762452103}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1461629245600838772
@@ -403,6 +404,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08db9fc7f213407cae1a85cf2a524b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Services.FileStorageService
+--- !u!1 &6346688992258850017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2831797259762452103}
+  - component: {fileID: 8612258415067731459}
+  m_Layer: 0
+  m_Name: BackgroundMusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2831797259762452103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346688992258850017}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7170145219896799490}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8612258415067731459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346688992258850017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 254f51e4dcc4454f88c7dc06e0cab305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Services.BackgroundMusicManager
+  backgroundMusicPrefab: {fileID: 4560186822224651438, guid: 97d5fe983746f9c4ca3acb4456dd2034, type: 3}
+  townMusic: {fileID: 8300000, guid: 807006267956b904caeb44ef18c69ae6, type: 3}
+  templeMusic: {fileID: 8300000, guid: 807006267956b904caeb44ef18c69ae6, type: 3}
 --- !u!1 &8238416885522602191
 GameObject:
   m_ObjectHideFlags: 0

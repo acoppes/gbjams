@@ -3,11 +3,12 @@
 Game 
 
 * One trap (arrows)
-  - keep arrows in walls for some time (maybe just half of it)
-  - different timings
-  - break vase with arrow
+  - arrows break on hit wall
+  - break vase with arrow (sfx + particles in ground?)
   - arrows shouldnt kill each other
+  - detection area and/or click plate?
 * Block
+  - can I move them in grid? (same for vases?)
 * Pause menu, options centered or something
   - restart room
   - quit?
@@ -28,8 +29,9 @@ Rooms
 
 Dialogs
 
-* Support for options?
-  - auto go to options on dialog complete
+* show highlight ui showing interact character name
+* auto go to options on dialog complete
+* support for random answer same option id
 * Support for extra characters
 * Dialog priority instead of random, or random in same priority?
 * Interact with npc only from being in front?
@@ -52,4 +54,4 @@ Intro
 * Better Palette animation
 * Mind dialogs to read character mind for humor and/or for extra clues.
 * Player can enter the name of the character
-* Decos to make the environment feel alive.
+* Animated props & decos to make the environment feel alive.
