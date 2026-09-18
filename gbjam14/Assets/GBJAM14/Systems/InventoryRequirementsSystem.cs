@@ -10,7 +10,7 @@ namespace GBJAM14.Systems
 {
     public class InventoryRequirementsSystem : BaseSystem, IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<InventoryRequirementComponent, DestroyableComponent>, Exc<DisabledComponent>> 
+        private readonly EcsFilterInject<Inc<InventoryRequirementComponent>, Exc<DisabledComponent>> 
             items = default;
 
         public void Run(EcsSystems systems)
