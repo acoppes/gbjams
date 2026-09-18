@@ -1,29 +1,26 @@
 dialog_id,character_id,option,text,requirements,outputs,extra_characters,comments
-game_start,town,,"[0]: Ok, I finally arrived
+game_start,town,,"[0]: Ok, I finally arrived...
 [0]: Grandma shared so many stories about Hollow island.
-[0]: Wish she was here with me to find it...
+[0]: I wish she was here with me to find it...
 [0]: The ONE-TREASURE...
 [0]: To finally become the best archeologist.",,+game_start,,
-mrtoad_start,mrtoad,,"[1]: Hey, I can't find my grandma glasses
-[1]: Could you find them for me?
-[1]: They were important for her.....
-[0]: Yeah of course [1], I know what it means.
-[0]: Will start looking at the old forest.
-[1]: Ah, and if go there, beware the rats.","-grandma_glasses,-mrtoad_complete,-mrtoad_start",+mrtoad_start,,
-mrtoad_complete,mrtoad,,"[1]: Are those?...
-[1]: I can't believe it, after all these years...
-[1]: Thank you [0].
-[0]: No worries, I know how much this means to you.
-[1]: I don't know where the medal you are looking is...
-[1]: but I know that Tom Sandman saw something while walking in the black lake.","+grandma_glasses,+mrtoad_start","+mrtoad_complete,-grandma_glasses",,
-mrtoad_complete_repeat,mrtoad,,"[1]: I don't know where the medal you are looking is...
-[1]: but I know that Tom Sandman saw something while walking in the black lake.",+mrtoad_complete,,,
+mrtoad_start,mrtoad,,"[0]: Hello, my name is [0] Topson, I am here for the ONE-TREASURE.
+[1]: You are not the only looking for it kid. I am [1].
+[1]: Lets do this, if you can find the GOLDEN BUG for me...
+[1]: I might give you some tip about the ONE-TREASURE.
+[0]: That sounds like a deal to me [1]! See ya!","-grandma_glasses,-mrtoad_complete,-mrtoad_start",+mrtoad_start,,
+mrtoad_start_repeat,mrtoad,About the quest,[1]: Find the GOLDEN BUG for me and I will give you a tip about the ONE-TREASURE.,"+mrtoad_start,-mrtoad_complete",,,
+mrtoad_complete,mrtoad,Give The GOLDEN BUG,"[0]: Here [1], I present you the GOLDEN BUG.
+[1]: Oh my Oh my! I can't believe it!
+[1]: If it is the Golden Bug itself. I spent years looking for it too.
+[1]: You are something special [0] Topson.","+grandma_glasses,+mrtoad_start","+mrtoad_complete,-grandma_glasses",,
+mrtoad_complete_repeat,mrtoad,,[1]: Find the GOLDEN BUG for me and I will give you a tip about the ONE-TREASURE.,+mrtoad_complete,,,
 pickup_grandma_glasses,grandma_glasses,,"[0]: They look similar to the ones my grandma used.
 [0]: Mr Toad will be pleased too see them, I wonder if 
 [0]: he has some information about the golden treasure.",-grandma_glasses,+grandma_glasses,,
 lost_soul_random1,lost_soul,,"[1]: Hey Stranger, Welcome to Hollow Island.
 [1]: What's your name?
-[0]: I'm [0] D. Topson and I will be the best Archeologist.
+[0]: I'm [0] Topson and I will be the best Archeologist.
 [1]: Oh, wow, that's ... ehm great. See ya around.",-welcome_to_island,+welcome_to_island,,
 lost_soul_random2,lost_soul,,[1]: Do I know you?,+welcome_to_island,,,
 lost_soul_random3,lost_soul,,"[1]: Hey, are you new in Hollow Island?

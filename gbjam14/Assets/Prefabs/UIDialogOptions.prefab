@@ -430,6 +430,7 @@ GameObject:
   - component: {fileID: 7782314864111646523}
   - component: {fileID: 5339861537368150457}
   - component: {fileID: 4523192687390118540}
+  - component: {fileID: 5025049798369887459}
   m_Layer: 5
   m_Name: UIDialogOptions
   m_TagString: Untagged
@@ -496,6 +497,7 @@ MonoBehaviour:
   onOptionSelected:
     m_PersistentCalls:
       m_Calls: []
+  autoCloseOnOptionSelected: 0
 --- !u!114 &7782314864111646523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,3 +566,30 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
+--- !u!114 &5025049798369887459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7674324298795424416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7d544002ce40938a516d034d5d1dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Utilities::Gemserk.Utilities.UI.CancelHandlerUnityEventDelegate
+  onCancel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 529489255490800885}
+        m_TargetAssemblyTypeName: Gemserk.Utilities.UI.UIWindow, Gemserk.Utilities
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
