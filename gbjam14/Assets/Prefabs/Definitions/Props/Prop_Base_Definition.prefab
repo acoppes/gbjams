@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3902358612208603934}
   - component: {fileID: 1768005062383247778}
   - component: {fileID: 580890337586311997}
+  - component: {fileID: 2575922005649839284}
   m_Layer: 0
   m_Name: Prop_Base_Definition
   m_TagString: Untagged
@@ -147,3 +148,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.DestroyableComponentDefinition
   framesToDestroy: 0
   signalOnDestroy: 0
+--- !u!114 &2575922005649839284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4525045490107739147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ca57faa7304bf2848a5d81649027d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.HealthComponentDefinition
+  health: 1
+  temporaryInvulnerabilityTimeAfterHit: 0
+  autoDestroyOnDeath: 1
+  autoDisableOnDeath: 0
+  hasHealthBar: 0
+  healthBarOffset: {x: 0, y: 0, z: 0}
+  healthBarSize: 1
+  hasDamageNumber: 0
+  damageNumberAccumulator: 0
+  startsInvulnerable: 0
