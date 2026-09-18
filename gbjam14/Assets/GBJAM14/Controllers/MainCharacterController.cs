@@ -59,7 +59,8 @@ namespace GBJAM14.Controllers
                 if (target.entity && target.entity.Has<InteractableComponent>())
                 {
                     interactEntity = target.entity;
-                    target.entity.Get<InteractableComponent>().focusedByPlayer = true;
+                    target.entity.Add(new InteractableFocusedByPlayerComponent());
+                    // target.entity.Get<InteractableComponent>().focusedByPlayer = true;
                     break;
                 }
             }

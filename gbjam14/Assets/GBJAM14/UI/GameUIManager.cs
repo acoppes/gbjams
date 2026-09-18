@@ -7,5 +7,6 @@ namespace GBJAM14.UI
         public UIDialog uiDialog;
         public UIOptions genericOptions;
         public UIOptions dialogOptions;
+        public UIFocusedCharacter uiFocusedCharacter;
     }
 }

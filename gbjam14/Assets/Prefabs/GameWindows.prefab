@@ -33,6 +33,7 @@ Transform:
   - {fileID: 3614138522527143290}
   - {fileID: 221322355534347866}
   - {fileID: 7493043641483731258}
+  - {fileID: 7108031609226661372}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5935154503404809479
@@ -50,6 +51,7 @@ MonoBehaviour:
   uiDialog: {fileID: 7570068716821755718}
   genericOptions: {fileID: 1547138798206169814}
   dialogOptions: {fileID: 8184837630430850486}
+  uiFocusedCharacter: {fileID: 364280493561789882}
 --- !u!1001 &4564923215620391740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,6 +105,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7ed4d733ba442283d0d7ac011255f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.UI.UIOptions
+--- !u!1001 &5106336008192008024
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 255222714423359187}
+    m_Modifications:
+    - target: {fileID: 1611241726781975042, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_Name
+      value: UIFocused
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136086790266077727, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136086790266077727, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136086790266077727, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136086790266077727, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136086790266077727, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838615170323139098, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+--- !u!114 &364280493561789882 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4887380477193265890, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+  m_PrefabInstance: {fileID: 5106336008192008024}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f7108039c44ef2bc0ee0d1d2583658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.UI.UIFocusedCharacter
+--- !u!4 &7108031609226661372 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2628295260385972900, guid: 766ec8b69790e134aa35c87107409694, type: 3}
+  m_PrefabInstance: {fileID: 5106336008192008024}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6155108749246936884
 PrefabInstance:
   m_ObjectHideFlags: 0
