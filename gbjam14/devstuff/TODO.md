@@ -5,13 +5,15 @@ Game
 * One trap (arrows)
   - keep arrows in walls for some time (maybe just half of it)
   - different timings
+  - break vase with arrow
+  - arrows shouldnt kill each other
 * Block
 * Pause menu, options centered or something
   - restart room
   - quit?
   - map?
 * Spikes
-  - fix collider to be more player friendly.
+  - arrows trigger spikes but are not killed by it
 * Plate
 * Small jump
 * Show coins in UI

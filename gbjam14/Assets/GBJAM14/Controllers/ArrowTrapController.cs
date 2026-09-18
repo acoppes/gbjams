@@ -11,18 +11,27 @@ namespace GBJAM14.Controllers
         public void OnUpdate(World world, Entity entity, float dt)
         {
             ref var arrowTrapComponent = ref entity.Get<ArrowTrapComponent>();
+            
+            arrowTrapComponent.reloadCooldown.Increase(dt);
+            if (!arrowTrapComponent.reloadCooldown.IsReady)
+            {
+                return;
+            }
+            
             arrowTrapComponent.fireCooldown.Increase(dt);
-
             if (arrowTrapComponent.fireCooldown.IsReady)
             {
                 arrowTrapComponent.fireCooldown.Reset();
+                arrowTrapComponent.reloadCooldown.Reset();
+                
                 var initialOffset = arrowTrapComponent.fireOffset;
+                var spawnOffset = arrowTrapComponent.spawnOffset;
                 var direction = entity.Get<LookingDirection>().value;
+                var position = entity.Get<PositionComponent>().value + arrowTrapComponent.spawnOffset;
                 
                 world.CreateEntity(arrowTrapComponent.projectileDefinition, null, e =>
                 {
-                    e.Get<PositionComponent>().value = 
-                        entity.Get<PositionComponent>().value + direction * initialOffset;
+                    e.Get<PositionComponent>().value = position + direction * initialOffset;
                     e.Get<LookingDirection>().value = direction;
 
                     // e.Get<ProjectileComponent>().initialOffset = initialOffset;
