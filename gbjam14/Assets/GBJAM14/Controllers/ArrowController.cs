@@ -22,14 +22,13 @@ namespace GBJAM14.Controllers
                 return;
             }
             
-            entity.Get<ProjectileComponent>().impacted = true;
-            
             if (entityCollision.entity)
             {
-                entity.Get<ProjectileComponent>().impactEntity = entityCollision.entity;
-                
                 if (entityCollision.entity.Has<HealthComponent>())
                 {
+                    entity.Get<ProjectileComponent>().impacted = true;
+                    entity.Get<ProjectileComponent>().impactEntity = entityCollision.entity;
+                    
                     entityCollision.entity.Get<HealthComponent>().damages.Add(new HealthChangeData()
                     {
                         position = entityCollision.collider2D.transform.position,
@@ -39,10 +38,15 @@ namespace GBJAM14.Controllers
                         value = 1,
                         vfxDefinition = null
                     });
+                    
+                    entity.Get<DestroyableComponent>().destroy = true;
                 }
             }
-            
-            entity.Get<DestroyableComponent>().destroy = true;
+            else
+            {
+                entity.Get<ProjectileComponent>().impacted = true;
+                entity.Get<DestroyableComponent>().destroy = true;
+            }
         }
     }
 }
