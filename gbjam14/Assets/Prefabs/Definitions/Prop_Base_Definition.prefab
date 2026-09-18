@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2957022603647231772
+--- !u!1 &4525045490107739147
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,29 +8,28 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6212105055466666335}
-  - component: {fileID: 6933105950448948605}
-  - component: {fileID: 1062954852323863048}
-  - component: {fileID: 3125073034624079541}
-  - component: {fileID: 1286205305753384496}
-  - component: {fileID: 7875398643397977205}
-  - component: {fileID: 8176095848534240626}
-  - component: {fileID: 5213270857440419979}
-  - component: {fileID: 865678655766395049}
+  - component: {fileID: 5672108171716795537}
+  - component: {fileID: 2400797586898993722}
+  - component: {fileID: 394832122961792019}
+  - component: {fileID: 8697210633839379651}
+  - component: {fileID: 1069844451315032448}
+  - component: {fileID: 3902358612208603934}
+  - component: {fileID: 1768005062383247778}
+  - component: {fileID: 580890337586311997}
   m_Layer: 0
-  m_Name: Character_Base_Definition
+  m_Name: Prop_Base_Definition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6212105055466666335
+--- !u!4 &5672108171716795537
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
+  m_GameObject: {fileID: 4525045490107739147}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -39,25 +38,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6933105950448948605
+--- !u!114 &2400797586898993722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
+  m_GameObject: {fileID: 4525045490107739147}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ce8e965ed40431e993ca1982c595d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.ObjectEntityDefinition
---- !u!114 &1062954852323863048
+--- !u!114 &394832122961792019
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
+  m_GameObject: {fileID: 4525045490107739147}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f2b2bab7db46858f9b60b188dde615, type: 3}
@@ -65,13 +64,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game::Game.Components.PositionComponentDefinition
   startingPositionType: 0
   type: 1
---- !u!114 &3125073034624079541
+--- !u!114 &8697210633839379651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
+  m_GameObject: {fileID: 4525045490107739147}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edbea8f9e3134232ad13e35f36a4c7e0, type: 3}
@@ -85,45 +84,32 @@ MonoBehaviour:
   sortingOrder: 0
   sortingLayer: 
   fixedRotationAngles: 0
---- !u!114 &1286205305753384496
+--- !u!114 &1069844451315032448
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
+  m_GameObject: {fileID: 4525045490107739147}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fe29b734c2044168b5af8f9992825ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Components.AnimationsComponentDefinition
-  animationsAsset: {fileID: 11400000, guid: c1623fdaaeb01f022933d09e0570ad20, type: 2}
+  animationsAsset: {fileID: 0}
   spritesMetadata: {fileID: 0}
   startingAnimationType: 1
   defaultAnimation: idle
   randomizeStartFrame: 1
   defaultAnimationLoop: 0
   hasMultipleDirectionsPerAnimation: 0
---- !u!114 &7875398643397977205
+--- !u!114 &3902358612208603934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c422e22d9e8470ba7ed289fbceeaf0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.CanBeInteractedComponentDefinition
-  showInteractBubble: 1
---- !u!114 &8176095848534240626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
+  m_GameObject: {fileID: 4525045490107739147}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5de7c4458b6b4054826767f915b3af39, type: 3}
@@ -132,13 +118,13 @@ MonoBehaviour:
   targetType: 1
   targetTypeAsset: {fileID: 0}
   size: 0
---- !u!114 &5213270857440419979
+--- !u!114 &1768005062383247778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
+  m_GameObject: {fileID: 4525045490107739147}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57f8f614944d4c61b3a23174e0d57427, type: 3}
@@ -147,16 +133,17 @@ MonoBehaviour:
   defaultLookingDirectionType: 0
   defaultLookingDirection: {x: 1, y: 0, z: 0}
   copyFromPhysicsRotation: 0
---- !u!114 &865678655766395049
+--- !u!114 &580890337586311997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957022603647231772}
+  m_GameObject: {fileID: 4525045490107739147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26a3565305be4d289fe329d8b8ab405d, type: 3}
+  m_Script: {fileID: 11500000, guid: 96123f8bf3aa4ef381716d018af7ff95, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.CharacterComponentDefinition
-  characterId: mrtoad
+  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.DestroyableComponentDefinition
+  framesToDestroy: 0
+  signalOnDestroy: 0

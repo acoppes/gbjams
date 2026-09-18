@@ -5,6 +5,11 @@ Game
 * One trap (arrows)
   - keep arrows in walls for some time (maybe just half of it)
   - different timings
+* Block
+* Pause menu, options centered or something
+  - restart room
+  - quit?
+  - map?
 * Spikes
   - fix collider to be more player friendly.
 * Plate
@@ -13,6 +18,7 @@ Game
 
 Rooms
 
+* Zone to detect for interaction
 * Simplify room restriction, could be in ld spawn and in requirement system.
   - auto turn on if inventory changes?
 * npc blocking room
