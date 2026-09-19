@@ -20,13 +20,7 @@ namespace GBJAM14
         private void Awake()
         {
             var databaseFilePath = Path.Combine(Application.streamingAssetsPath, dialogsDatabasePath);
-            
-            #if UNITY_EDITOR_LINUX 
-            var databaseFileText = File.ReadAllText(databaseFilePath);
-            LoadDataFromCsv(databaseFileText);
-            #else
-            StartCoroutine(LoadDatabaseFile(databaseFilePath));
-            #endif
+            StartCoroutine(LoadDatabaseFile($"file://{databaseFilePath}"));
         }
     
         private IEnumerator LoadDatabaseFile(string path)
