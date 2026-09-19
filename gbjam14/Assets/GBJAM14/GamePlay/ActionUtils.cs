@@ -36,7 +36,14 @@ namespace GBJAM14.GamePlay
             
             if (world.TryGetSingletonEntity<MainCharacterComponent>(out var mainCharacterEntity))
             {
-                mainCharacterEntity.Get<InventoryComponent>().items = new List<string>(saveGame.data.items);
+                foreach (var savedItem in saveGame.data.items)
+                {
+                    if (!mainCharacterEntity.Get<InventoryComponent>().items.Contains(savedItem))
+                    {
+                        mainCharacterEntity.Get<InventoryComponent>().items.Add(savedItem);
+                    }
+                }
+                
                 mainCharacterEntity.Get<RoomNavigationComponent>().visitedRooms = new List<string>(saveGame.data.visitedRooms);
             }
             
