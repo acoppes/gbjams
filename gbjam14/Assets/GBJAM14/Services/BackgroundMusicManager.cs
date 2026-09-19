@@ -57,6 +57,7 @@ namespace GBJAM14.Services
             
             source.clip = newAudioClip;
             source.Play();
+            source.loop = true;
             
             if (source.clip)
             {
