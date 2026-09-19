@@ -9,8 +9,6 @@ mrtoad_start,mrtoad,,"[0]: Hello, my name is [0] Topson, I am here for the ONE-T
 [1]: Lets do this, if you can find the GOLDEN BUG for me...
 [1]: I might give you some tip about the ONE-TREASURE.
 [0]: That sounds like a deal to me [1]! See ya!","-golden_bug,-mrtoad_complete,-mrtoad_start",+mrtoad_start,,
-mrtoad_golden_bug,mrtoad,About the GOLDEN BUG,[1]: Find the GOLDEN BUG for me and I will give you a tip about the ONE-TREASURE.,"+mrtoad_start,-mrtoad_complete",,,
-mrtoad_hollow_island,mrtoad,About Hollow Island.,[1]: Not as beautiful as my loved Swamp but there are lot of treasures.,+mrtoad_start,,,
 mrtoad_complete,mrtoad,Give The GOLDEN BUG,"[0]: Here [1], I present you the GOLDEN BUG.
 [1]: Oh my Oh my! I can't believe it!
 [1]: If it is the GOLDEN BUG itself. I've spent years looking for it...
@@ -18,10 +16,13 @@ mrtoad_complete,mrtoad,Give The GOLDEN BUG,"[0]: Here [1], I present you the GOL
 [1]: Here, as promised, I will give you something that will help your quest.
 [1]: Take this special GOLDEN TICKET and you should see new paths in the temple.
 [1]: Good luck Mr [0] Topson.","+golden_bug,+mrtoad_start","+mrtoad_complete,-golden_bug,+mrtoad_golden_ticket,-mrtoad_quest,+sylvester_quest",,
+mrtoad_golden_bug,mrtoad,About the GOLDEN BUG,[1]: Find the GOLDEN BUG for me and I will give you a tip about the ONE-TREASURE.,"+mrtoad_start,-mrtoad_complete",,,
+mrtoad_hollow_island,mrtoad,About Hollow Island.,[1]: Not as beautiful as my loved Swamp but there are lot of treasures.,+mrtoad_start,,,
 mrtoad_complete_reward,mrtoad,About the ONE-TREASURE,[1]: With that GOLDEN TICKET you should see new paths in the temple.,+mrtoad_complete,,,
-golden_bug_pickup,golden_bug,,"[0]: The GOLDEN BUG! it was difficult, but I have it.
-[0]: It is so beautiful and rare, this should be part of the Bugs collection in the Museum.
-[0]: But I want to find the ONE-TREASURE... I will give it to MR TOAD for that tip.",-golden_bug,+golden_bug,,
+golden_bug_pickup,golden_bug,,"[0]: The GOLDEN BUG! It is so Beautiful and Rare!
+[0]: This should be part of the Bugs collection in a Museum.
+[0]: But I want to find the ONE-TREASURE...
+[0]: I will give it to MR TOAD for that tip he promised.",-golden_bug,+golden_bug,,
 lost_soul_random1,lost_soul,,"[1]: Hey Stranger, Welcome to Hollow Island.
 [1]: What's your name?
 [0]: I'm [0] Topson and I will be the best Archeologist.
