@@ -59,7 +59,8 @@ namespace GBJAM14.Controllers
                 if (target.entity && target.entity.Has<InteractableComponent>())
                 {
                     interactEntity = target.entity;
-                    target.entity.Get<InteractableComponent>().focusedByPlayer = true;
+                    target.entity.Add(new InteractableFocusedByPlayerComponent());
+                    // target.entity.Get<InteractableComponent>().focusedByPlayer = true;
                     break;
                 }
             }
@@ -163,6 +164,12 @@ namespace GBJAM14.Controllers
             {
                 ref var animations = ref entity.Get<AnimationsComponent>();
                 animations.Play("death", 1);
+                
+                if (soundEffectEntity)
+                {
+                    soundEffectEntity.Get<DestroyableComponent>().destroy = true;
+                    soundEffectEntity = Entity.NullEntity;
+                }
             }
         }
     }

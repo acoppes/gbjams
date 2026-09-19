@@ -7,6 +7,7 @@ namespace GBJAM14
     {
         public static SignalsManager instance;
         
+        public SignalAsset onRoomInitSignal;
         public SignalAsset onExitRoomSignal;
 
         private void Awake()

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Gemserk.Leopotam.Ecs;
 
 namespace GBJAM14.Components
@@ -16,7 +17,7 @@ namespace GBJAM14.Components
         {
             entity.Add(new InventoryRequirementComponent()
             {
-                requirements = new List<string>(requirements)
+                requirements = new List<string>(requirements.Select(r => r.Trim()))
             });
         }
     }

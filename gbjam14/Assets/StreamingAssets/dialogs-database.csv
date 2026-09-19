@@ -1,52 +1,35 @@
 dialog_id,character_id,option,text,requirements,outputs,extra_characters,comments
-game_start,town,,"[0]: Ok, I finally arrived
+game_start,town,,"[0]: Ok, I finally arrived...
 [0]: Grandma shared so many stories about Hollow island.
-[0]: Wish she was here with me to find it...
+[0]: I wish she was here with me to find it...
 [0]: The ONE-TREASURE...
 [0]: To finally become the best archeologist.",,+game_start,,
-mrtoad_start,mrtoad,,"[1]: Hey, I can't find my grandma glasses
-[1]: Could you find them for me?
-[1]: They were important for her.....
-[0]: Yeah of course [1], I know what it means.
-[0]: Will start looking at the old forest.
-[1]: Ah, and if go there, beware the rats.","-grandma_glasses,-mrtoad_complete,-mrtoad_start",+mrtoad_start,,
-mrtoad_complete,mrtoad,,"[1]: Are those?...
-[1]: I can't believe it, after all these years...
-[1]: Thank you [0].
-[0]: No worries, I know how much this means to you.
-[1]: I don't know where the medal you are looking is...
-[1]: but I know that Tom Sandman saw something while walking in the black lake.","+grandma_glasses,+mrtoad_start","+mrtoad_complete,-grandma_glasses",,
-mrtoad_complete_repeat,mrtoad,,"[1]: I don't know where the medal you are looking is...
-[1]: but I know that Tom Sandman saw something while walking in the black lake.",+mrtoad_complete,,,
-pickup_grandma_glasses,grandma_glasses,,"[0]: They look similar to the ones my grandma used.
-[0]: Mr Toad will be pleased too see them, I wonder if 
-[0]: he has some information about the golden treasure.",-grandma_glasses,+grandma_glasses,,
+mrtoad_start,mrtoad,,"[0]: Hello, my name is [0] Topson, I am here for the ONE-TREASURE.
+[1]: You are not the only looking for it kid. I am [1].
+[1]: Lets do this, if you can find the GOLDEN BUG for me...
+[1]: I might give you some tip about the ONE-TREASURE.
+[0]: That sounds like a deal to me [1]! See ya!","-golden_bug,-mrtoad_complete,-mrtoad_start",+mrtoad_start,,
+mrtoad_complete,mrtoad,Give The GOLDEN BUG,"[0]: Here [1], I present you the GOLDEN BUG.
+[1]: Oh my Oh my! I can't believe it!
+[1]: If it is the GOLDEN BUG itself. I've spent years looking for it...
+[1]: You are something special [0] Topson, you did what others could not.
+[1]: Here, as promised, I will give you something that will help your quest.
+[1]: Take this special GOLDEN TICKET and you should see new paths in the temple.
+[1]: Good luck Mr [0] Topson.","+golden_bug,+mrtoad_start","+mrtoad_complete,-golden_bug,+mrtoad_golden_ticket,-mrtoad_quest,+sylvester_quest",,
+mrtoad_golden_bug,mrtoad,About the GOLDEN BUG,[1]: Find the GOLDEN BUG for me and I will give you a tip about the ONE-TREASURE.,"+mrtoad_start,-mrtoad_complete",,,
+mrtoad_hollow_island,mrtoad,About Hollow Island.,[1]: Not as beautiful as my loved Swamp but there are lot of treasures.,+mrtoad_start,,,
+mrtoad_complete_reward,mrtoad,About the ONE-TREASURE,[1]: With that GOLDEN TICKET you should see new paths in the temple.,+mrtoad_complete,,,
+golden_bug_pickup,golden_bug,,"[0]: The GOLDEN BUG! It is so Beautiful and Rare!
+[0]: This should be part of the Bugs collection in a Museum.
+[0]: But I want to find the ONE-TREASURE...
+[0]: I will give it to MR TOAD for that tip he promised.",-golden_bug,+golden_bug,,
 lost_soul_random1,lost_soul,,"[1]: Hey Stranger, Welcome to Hollow Island.
 [1]: What's your name?
-[0]: I'm [0] D. Topson and I will be the best Archeologist.
+[0]: I'm [0] Topson and I will be the best Archeologist.
 [1]: Oh, wow, that's ... ehm great. See ya around.",-welcome_to_island,+welcome_to_island,,
-lost_soul_random2,lost_soul,,[1]: Do I know you?,+welcome_to_island,,,
-lost_soul_random3,lost_soul,,"[1]: Hey, are you new in Hollow Island?
-[1]: We have the best frog steaks!",+welcome_to_island,,,
-robert_dialog_start,robert,,"[1]: Oh, so you came here for treasures?
-[1]: Well, I am looking for a special item.
-[1]: It is really dear to me, I named it <The Box>.
-[1]: If you happen to find it, I will reward you really well.","-quest_robert_complete,-pickup_the_box",+quest_robert_start,,
-robert_dialog_complete,robert,,"[1]: Oh, yes! my box!
-[1]: Thank you very much, here, take this amulet.
-[1]: It will be handy if you happen to encounter werewolves.",+pickup_the_box,"-pickup_the_box,+quest_robert_complete",,
-pickup_the_box1,pickup_the_box,,"[0]: So this is <The Box> Robert was talking about.
-[0]: I must hurry and return it to him.
-[0]: He said something about a good reward.",+quest_robert_start,+pickup_the_box,,
-pickup_the_box2,pickup_the_box,,"[0]: What is this shinny box? It looks important.
-[0]: I must ask people around.",-quest_robert_start,+pickup_the_box,,
-pickup_the_vase,pickup_the_vase,,"[0]: Mmm... this vase looks familiar...
-[0]: Maybe from that time I was in Hyrule?
-[0]: Anyways... I will keep it, just in case someone wants it.",-pickup_the_vase,+pickup_the_vase,,
-mrtoad_extra_vase,mrtoad,,"[1]: Is that... the Vase of Zelda?
-[0]: It is! how much are you willing to pay for it?
-[1]: How about 100 golden morlocks?",+pickup_the_vase,,,
-mrtoad_start_repeat,mrtoad,,[1]: Did you find the glasses?,"-grandma_glasses,-mrtoad_complete,+mrtoad_start",,,
+lost_soul_random2,lost_soul,Say Hello,[1]: Do I know you?,+welcome_to_island,,,
+lost_soul_hollow_island1,lost_soul,About Hollow Island,"[0]: What can you tell me about Hollow Island?
+[1]: It is nice during the summer, even tourists come here.",+welcome_to_island,,,
 droldguy_start1,droldguy,,"[0]: [1], I presume.
 [1]: Yes, it is me, what is your name kiddo?
 [0]: My name is [0] Topson and I want to be the very best.
@@ -56,6 +39,56 @@ droldguy_start1,droldguy,,"[0]: [1], I presume.
 [0]: Yes, and I am going to be the first to find it! 
 [1]: Oh, hehe, good good. I bet you do, I bet you do...",-droldguy_start,+droldguy_start,,
 droldguy_start2,droldguy,Say Hello,[1]: Still around? the ONE-TREASURE is not going to just appear.,+droldguy_start,,,
-droldguy_start3,droldguy,Ask about Mr Toad,[1]: It is a bit tough some times... but it is not a bad guy.,"+droldguy_start,+mrtoad_start",,,
-droldguy_start4,droldguy,Ask about the ONE-TREASURE,"[1]: I don't know too much, I am old but not that old haha.",+droldguy_start,,,"está mintiendo xD, quiere algo a cambio prrr"
+droldguy_start3,droldguy,About Mr Toad,"[1]: Oh, hehe, lovely specimen, a bit tough some times...
+[1]: He might have a lead on the ONE-TREASURE, you should ask him.","+droldguy_start,+mrtoad_start",,,
+droldguy_start4,droldguy,About the ONE-TREASURE,"[1]: I don't know too much, I am old but not that old haha.",+droldguy_start,,,"está mintiendo xD, quiere algo a cambio prrr"
 droldguy_start5,droldguy,Give the Vase,[1]: That is nice but I have many like that already.,"+droldguy_start,+pickup_the_vase",,,
+temple_trap_arrow_start,temple,,"[0]: Arrow traps! they remind me that time at the Temple of Doom.
+[0]: It wasn't easy but I have some moves now.",-trap_arrow_start,+trap_arrow_start,,
+temple_trap_death,temple,,"[0]: Maybe I underestimated this Temple's trap. 
+[0]: Thank god I have the GOLDEN AMULET, I can try again.
+[0]: I still remember Grandma's smile the day she gave it to me.",+temple_trap_death,+temple_trap_death_complete,,
+stella_quest_start,stella,,"[1]: Hello there handsome!
+[0]: Hello Miss?
+[1]: Stella-- the name is Stella, and who do I have the pleasure of meeting?
+[0]: I'm [0] Topson, and I am here for the ONE-TREASURE.
+[0]: I am gonna the very best Archeologist.
+[1]: Oh, hi hi hi, so funny
+[0]: It is true! I will be the first to find it.
+[1]: If you are such a great finder, maybe you can help me.
+[0]: Maybe... what can I do to prove it?
+[1]: There is a GOLDEN CROWN in the Hollow Temple, can you find it for me?
+[0]: I can do that.
+[1]: Splendid! if you do, I might have some information about the ONE.","-golden_crown,-stella_complete,-stella_start,+stella_quest",+stella_start,,
+stella_complete,stella,Give the Crown,"[0]: I present you.. the GOLDEN CROWN Miss [1]. 
+[1]: My Crown!! My Crown!! Oh I love it so much!
+[1]: I am so happy, I asked so many travellers and they failed.
+[1]: But you... you are something else.
+[0]: This is what you asked for but heavy is the crown.
+[1]: Oh, hi hi hi, so funny.
+[1]: Talk to Sylvester, his family came here long ago.
+[1]: They might know something about the ONE.
+[0]: Thanks Miss [1].","+golden_crown,-stella_complete","+stella_complete,+sylvester_quest,-stella_quest",,
+stella_others,stella,About the Crown,"[1]: It is in the Temple, somewhere, find it for me handsome!","+stella_start,-stella_complete",,,
+stella_others,stella,About Hollow Island,"[1]: Oh, it is so beautiful! so full of treasures... like ME.",+stella_start,,,
+golden_crown_pickup,golden_crown,,"[0]: The GOLDEN CROWN! It is so Beautiful and Rare!
+[0]: This should be in a Museum.
+[0]: But I want to find the ONE-TREASURE...
+[0]: I will give it to Miss Stella and hear what she has to say.","-golden_crown,-stella_complete",+golden_crown,,
+sylvester_intro,sylvester,,"[0]: Hi Kid, my name is [0], what's yours?
+[1]: My name is Sylvester. I like to play games.
+[0]: Ehm,.. nice, I am an Archeologist.
+[1]: Boooooring!!",-sylvester_intro,+sylvester_intro,,
+sylvester_quest_start,sylvester,Quest,"[1]: Do you want to play a little game?
+[0]: I have more important things to do.
+[1]: That's what daddy says all the time...
+[1]: ...all because of that ONE-TREASURE thingy.
+[0]: I might have some time to play.... tell me more about that.
+[1]: I've lost my GOLDEN BALL!! it is round and golden...
+[0]: and what about the ... thingy?
+[1]: Help me with my ball and I can tell you where my daddy is.
+[0]: DEAL!","-golden_ball,-sylvester_complete,-sylvester_start,+sylvester_quest",+sylvester_start,,
+sylvester_others,sylvester,About the Ball,"[1]: It is round and golden, I want it!! PLEAAASE!","-golden_ball,-sylvester_complete,+sylvester_start",,,
+sylvester_others,sylvester,About Hollow Island,"[1]: It is boring as hell.. we came here for something.
+[1]: Then there is that temple...
+[1]: but I don't care. I miss Rocky Town and my friends.",+sylvester_intro,,,

@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: -8669289843490560087}
   - component: {fileID: 6758748625118045872}
   - component: {fileID: 6960581467380278342}
+  - component: {fileID: 315849799140621359}
   m_Layer: 0
   m_Name: Eriq_Definition
   m_TagString: Untagged
@@ -293,7 +294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a041af3ce34bd4b665d891e4c80c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.InventoryComponentDefinition
-  defaultItems: []
+  defaultItems:
+  - golden_amulet
+  - stella_quest
 --- !u!114 &1373639805460788261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,6 +388,20 @@ MonoBehaviour:
   hasDamageNumber: 0
   damageNumberAccumulator: 0
   startsInvulnerable: 0
+--- !u!114 &315849799140621359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283440475417281190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96123f8bf3aa4ef381716d018af7ff95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.DestroyableComponentDefinition
+  framesToDestroy: 0
+  signalOnDestroy: 0
 --- !u!1 &6717865567067160048
 GameObject:
   m_ObjectHideFlags: 0

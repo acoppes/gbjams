@@ -15,11 +15,20 @@ namespace GBJAM14.Systems
 {
     public class InteractionSystem : BaseSystem, IEcsRunSystem, IEcsInitSystem
     {
-        private readonly EcsFilterInject<Inc<InteractableComponent>, Exc<DisabledComponent>> 
-            interactables = default;
+        // private readonly EcsFilterInject<Inc<InteractableComponent>, Exc<DisabledComponent>> 
+        //     interactables = default;
         
-        private readonly EcsFilterInject<Inc<InteractableComponent, ModelInstanceComponent>, Exc<DisabledComponent>> 
+        private readonly EcsFilterInject<Inc<InteractableFocusedByPlayerComponent>, Exc<DisabledComponent>> 
+            focusables = default;
+        
+        private readonly EcsFilterInject<Inc<CharacterComponent, InteractableComponent, InteractableFocusedByPlayerComponent>, Exc<DisabledComponent>> 
+            focusableCharacters = default;
+        
+        private readonly EcsFilterInject<Inc<ModelInstanceComponent>, Exc<DisabledComponent, InteractableFocusedByPlayerComponent>> 
             interactableModels = default;
+        
+        private readonly EcsFilterInject<Inc<InteractableComponent, ModelInstanceComponent, InteractableFocusedByPlayerComponent>, Exc<DisabledComponent>> 
+            interactableModelsFocused = default;
         
         private readonly EcsFilterInject<Inc<InteractActionComponent>, Exc<DisabledComponent>> 
             interactActions = default;
@@ -51,6 +60,15 @@ namespace GBJAM14.Systems
                 
                     var dialogs = characterDialogsDB.GetCharacterDialogs(characterB.characterId, 
                         inventory.items);
+
+                    if (!string.IsNullOrEmpty(interactAction.optionalDialogId))
+                    {
+                        var dialog = characterDialogsDB.GetDialog(interactAction.optionalDialogId);
+                        dialogs = new List<CharacterDialogsDB.DialogData>()
+                        {
+                            dialog
+                        };
+                    }
 
                     if (dialogs.Count > 0)
                     {
@@ -114,7 +132,11 @@ namespace GBJAM14.Systems
                         interactAction.target.Get<DestroyableComponent>().destroy = true;
                     }
                     
-                    interactAction.target.Get<InteractableComponent>().focusedByPlayer = false;
+                    if (interactAction.target.Has<InteractableFocusedByPlayerComponent>())
+                    {
+                        interactAction.target.Remove<InteractableFocusedByPlayerComponent>();
+                        // interactAction.target.Get<InteractableComponent>().focusedByPlayer = false;
+                    }
                 }
 
                 interactActions.Pools.Inc1.Del(e);
@@ -163,19 +185,56 @@ namespace GBJAM14.Systems
             
             foreach (var e in interactableModels.Value)
             {
-                var interactable = interactableModels.Pools.Inc1.Get(e);
-                var model = interactableModels.Pools.Inc2.Get(e);
+                // var interactable = interactableModels.Pools.Inc1.Get(e);
+                var model = interactableModels.Pools.Inc1.Get(e);
                 var interactObject = model.modelGameObject.transform.FindInHierarchy("InteractHighlight");
                 if (interactObject)
                 {
-                    interactObject.gameObject.SetActive(interactable.focusedByPlayer && interactable.showInteractBubble);
+                    interactObject.gameObject.SetActive(false);
+                    // interactObject.gameObject.SetActive(interactable.focusedByPlayer && interactable.showInteractBubble);
                 }
             }
             
-            foreach (var e in interactables.Value)
+            foreach (var e in interactableModelsFocused.Value)
             {
-                ref var interactable = ref interactables.Pools.Inc1.Get(e);
-                interactable.focusedByPlayer = false;
+                var interactable = interactableModelsFocused.Pools.Inc1.Get(e);
+                var model = interactableModelsFocused.Pools.Inc2.Get(e);
+                var interactObject = model.modelGameObject.transform.FindInHierarchy("InteractHighlight");
+                if (interactObject)
+                {
+                    interactObject.gameObject.SetActive(interactable.showInteractBubble);
+                    // interactObject.gameObject.SetActive(interactable.focusedByPlayer && interactable.showInteractBubble);
+                }
+            }
+            
+            string focusedCharacter = null;
+            
+            foreach (var e in focusableCharacters.Value)
+            {
+                var character = focusableCharacters.Pools.Inc1.Get(e);
+                var interactable = focusableCharacters.Pools.Inc2.Get(e);
+                
+                if (interactable.showFocusedUI)
+                {
+                    focusedCharacter = character.characterId;
+                }
+            }
+
+            if (gameUIManager)
+            {
+                if (string.IsNullOrEmpty(focusedCharacter))
+                {
+                    gameUIManager.uiFocusedCharacter.Hide();
+                }
+                else
+                {
+                    gameUIManager.uiFocusedCharacter.Show(focusedCharacter);
+                }
+            }
+            
+            foreach (var e in focusables.Value)
+            {
+                focusables.Pools.Inc1.Del(e);
             }
         }
     }
