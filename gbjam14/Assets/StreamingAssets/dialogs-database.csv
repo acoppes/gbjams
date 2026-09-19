@@ -1,4 +1,6 @@
 dialog_id,character_id,option,text,requirements,outputs,extra_characters,comments
+development_dummy_intro,dummy,,[1]: Hello there!!,,+dummy_intro,,
+development_dummy_others,dummy,Say Hello,[1]: Hello there again!!,+dummy_intro,,,
 game_start,town,,"[0]: Ok, I finally arrived...
 [0]: Grandma shared so many stories about Hollow island.
 [0]: I wish she was here with me to find it...
@@ -78,7 +80,7 @@ sylvester_intro,sylvester,,"[0]: Hi Kid, my name is [0], what's yours?
 [1]: My name is Sylvester. I like to play games.
 [0]: Ehm,.. nice, I am an Archeologist.
 [1]: Boooooring!!",-sylvester_intro,+sylvester_intro,,
-sylvester_quest_start,sylvester,Quest,"[1]: Do you want to play a little game?
+sylvester_quest_start,sylvester,Hello Again,"[1]: Do you want to play a little game?
 [0]: I have more important things to do.
 [1]: That's what daddy says all the time...
 [1]: ...all because of that ONE-TREASURE thingy.
@@ -86,8 +88,8 @@ sylvester_quest_start,sylvester,Quest,"[1]: Do you want to play a little game?
 [1]: I've lost my GOLDEN BALL!! it is round and golden...
 [0]: and what about the ... thingy?
 [1]: Help me with my ball and I can tell you where my daddy is.
-[0]: DEAL!","-golden_ball,-sylvester_complete,-sylvester_start,+sylvester_quest",+sylvester_start,,
-sylvester_others,sylvester,About the Ball,"[1]: It is round and golden, I want it!! PLEAAASE!","-golden_ball,-sylvester_complete,+sylvester_start",,,
+[0]: DEAL!","-golden_ball,-sylvester_complete,+sylvester_intro,+sylvester_quest",+sylvester_intro,,
+sylvester_others,sylvester,About the Ball,"[1]: It is round and golden, I want it!! PLEAAASE!","-golden_ball,-sylvester_complete,+sylvester_intro",,,
 sylvester_others,sylvester,About Hollow Island,"[1]: It is boring as hell.. we came here for something.
 [1]: Then there is that temple...
 [1]: but I don't care. I miss Rocky Town and my friends.",+sylvester_intro,,,

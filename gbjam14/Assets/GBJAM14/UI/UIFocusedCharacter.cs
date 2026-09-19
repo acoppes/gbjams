@@ -1,5 +1,4 @@
-﻿using System;
-using Game.Screens;
+﻿using Game.Screens;
 using GBJAM14.Systems;
 using Gemserk.Utilities.UI;
 using UnityEngine;

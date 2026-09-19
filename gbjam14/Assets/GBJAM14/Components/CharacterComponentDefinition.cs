@@ -5,7 +5,8 @@ namespace GBJAM14.Components
 {
     public struct DialogComponent : IEntityComponent
     {
-        public Entity sourceEntity;
+        public Entity source;
+        public Entity target;
         
         public string characterId;
         public string dialogId;
@@ -13,6 +14,7 @@ namespace GBJAM14.Components
         public CharacterDialogsDB.DialogData dialogData;
         
         public bool completed;
+        public bool showOptionsOnComplete;
     }
     
     public struct CharacterComponent : IEntityComponent

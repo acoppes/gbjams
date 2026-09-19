@@ -1,5 +1,4 @@
 using Gemserk.Leopotam.Ecs;
-using UnityEngine;
 
 namespace GBJAM14.Components
 {
@@ -12,6 +11,7 @@ namespace GBJAM14.Components
     {
         public bool showInteractBubble;
         public bool showFocusedUI;
+        public float bubbleOffset;
     }
     
     public struct InteractActionComponent : IActionComponent
@@ -25,13 +25,15 @@ namespace GBJAM14.Components
     {
         public bool showInteractBubble;
         public bool showFocusedUI;
+        public float bubbleOffset;
         
         public override void Apply(World world, Entity entity)
         {
             entity.Add(new InteractableComponent()
             {
                 showInteractBubble = showInteractBubble,
-                showFocusedUI = showFocusedUI
+                showFocusedUI = showFocusedUI,
+                bubbleOffset = bubbleOffset
             });
         }
     }
