@@ -58,17 +58,23 @@ stella_quest_start,stella,,"[1]: Hello there handsome!
 [1]: If you are such a great finder, maybe you can help me.
 [0]: Maybe... what can I do to prove it?
 [1]: There is a GOLDEN CROWN in the Hollow Temple, can you find it for me?
-[0]: I can do that.","-golden_crown,-stella_complete,-stella_start,+stella_quest",+stella_start,,
+[0]: I can do that.
+[1]: Splendid! if you do, I might have some information about the ONE.","-golden_crown,-stella_complete,-stella_start,+stella_quest",+stella_start,,
 stella_complete,stella,Give the Crown,"[0]: I present you.. the GOLDEN CROWN Miss [1]. 
 [1]: My Crown!! My Crown!! Oh I love it so much!
 [1]: I am so happy, I asked so many travellers and they failed.
 [1]: But you... you are something else.
-[0]: Be careful though, heavy is the crown.
-[1]: I will, I will, ... I don't know so much about the ONE-TREASURE but..
-[1]: Talk to Sylvester, his family came here long ago, they might know something.
-[0]: Thanks Miss [1].","+golden_crown,-stella_complete","+stella_complete,+sylvester_quest",,
-stella_others,stella,About the Crown,"[1]: It is in the Temple, somewhere, find it for me handsome!",+stella_start,,,
+[0]: This is what you asked for but heavy is the crown.
+[1]: Oh, hi hi hi, so funny.
+[1]: Talk to Sylvester, his family came here long ago.
+[1]: They might know something about the ONE.
+[0]: Thanks Miss [1].","+golden_crown,-stella_complete","+stella_complete,+sylvester_quest,-stella_quest",,
+stella_others,stella,About the Crown,"[1]: It is in the Temple, somewhere, find it for me handsome!","+stella_start,-stella_complete",,,
 stella_others,stella,About Hollow Island,"[1]: Oh, it is so beautiful! so full of treasures... like ME.",+stella_start,,,
+golden_crown_pickup,golden_crown,,"[0]: The GOLDEN CROWN! It is so Beautiful and Rare!
+[0]: This should be in a Museum.
+[0]: But I want to find the ONE-TREASURE...
+[0]: I will give it to Miss Stella and hear what she has to say.","-golden_crown,-stella_complete",+golden_crown,,
 sylvester_intro,sylvester,,"[0]: Hi Kid, my name is [0], what's yours?
 [1]: My name is Sylvester. I like to play games.
 [0]: Ehm,.. nice, I am an Archeologist.
