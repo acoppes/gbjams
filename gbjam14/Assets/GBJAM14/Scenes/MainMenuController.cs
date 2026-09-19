@@ -33,6 +33,11 @@ namespace GBJAM14.Scenes
                 {
                     name = "New Game",
                     disabled = false
+                },
+                new Option()
+                {
+                    name = "Exit Game",
+                    disabled = false
                 }
             });
             
@@ -46,7 +51,7 @@ namespace GBJAM14.Scenes
                 options.window.Close();
                 onContinueGameSelected.Invoke();
             }
-            else
+            else if (options.selectedOptionIndex == 1)
             {
                 var savegame = SaveGame.saveGame;
                 savegame.Delete();
@@ -62,6 +67,9 @@ namespace GBJAM14.Scenes
                 
                 options.window.Close();
                 onNewGameSelected.Invoke();
+            } else if (options.selectedOptionIndex == 2)
+            {
+                Application.Quit(0);
             }
         }
     }
