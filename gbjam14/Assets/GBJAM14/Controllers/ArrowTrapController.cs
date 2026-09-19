@@ -3,11 +3,16 @@ using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Leopotam.Ecs.Controllers;
 using Gemserk.Leopotam.Ecs.Events;
+using MyBox;
+using UnityEngine;
 
 namespace GBJAM14.Controllers
 {
     public class ArrowTrapController : ControllerBase, IUpdate
     {
+        [EntityDefinition]
+        public Object fireArrowSoundEffect;
+        
         public void OnUpdate(World world, Entity entity, float dt)
         {
             ref var arrowTrapComponent = ref entity.Get<ArrowTrapComponent>();
@@ -25,7 +30,7 @@ namespace GBJAM14.Controllers
                 arrowTrapComponent.reloadCooldown.Reset();
                 
                 var initialOffset = arrowTrapComponent.fireOffset;
-                var spawnOffset = arrowTrapComponent.spawnOffset;
+                // var spawnOffset = arrowTrapComponent.spawnOffset;
                 var direction = entity.Get<LookingDirection>().value;
                 var position = entity.Get<PositionComponent>().value + arrowTrapComponent.spawnOffset;
                 
@@ -40,6 +45,14 @@ namespace GBJAM14.Controllers
                         direction = e.Get<LookingDirection>().value
                     });
                 });
+
+                if (fireArrowSoundEffect)
+                {
+                    world.CreateEntity(fireArrowSoundEffect, null, (e) =>
+                    {
+                        e.Get<PositionComponent>().value = position;
+                    });
+                }
             }
         }
     }
