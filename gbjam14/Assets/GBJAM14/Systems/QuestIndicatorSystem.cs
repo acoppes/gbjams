@@ -5,12 +5,13 @@ using Gemserk.Leopotam.Ecs;
 using Gemserk.Utilities;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using UnityEngine;
 
 namespace GBJAM14.Systems
 {
     public class QuestIndicatorSystem : BaseSystem, IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<QuestsComponent, ModelInstanceComponent>, Exc<DisabledComponent, InteractableFocusedByPlayerComponent>> 
+        private readonly EcsFilterInject<Inc<QuestsComponent, ModelInstanceComponent, InteractableComponent>, Exc<DisabledComponent, InteractableFocusedByPlayerComponent>> 
             questModelFilter = default;
         
         public void Run(EcsSystems systems)
@@ -23,7 +24,10 @@ namespace GBJAM14.Systems
                 {
                     var quests = questModelFilter.Pools.Inc1.Get(e);
                     var model = questModelFilter.Pools.Inc2.Get(e);
+                    var interactable = questModelFilter.Pools.Inc3.Get(e);
+                    
                     var interactObject = model.modelGameObject.transform.FindInHierarchy("Quest");
+                    interactObject.localPosition = new Vector3(0, interactable.bubbleOffset, 0);
 
                     var shouldShowQuest = false;
                     

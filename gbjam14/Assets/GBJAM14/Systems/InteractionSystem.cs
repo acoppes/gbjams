@@ -50,8 +50,8 @@ namespace GBJAM14.Systems
         {
             var characterA = source.Get<CharacterComponent>();
             var characterB = target.Get<CharacterComponent>();
-            
-            gameUIManager.dialogOptions.ShowOptions(options.Select(d => new Option()
+
+            var optionDataList = options.Select(d => new Option()
             {
                 disabled = false,
                 name = d.option,
@@ -79,7 +79,19 @@ namespace GBJAM14.Systems
                         characterB.characterId
                     }, dialogEntity);
                 }
-            }).ToList());
+            }).ToList();
+            
+            optionDataList.Add(new Option()
+            {
+                disabled = false,
+                name = "Leave", 
+                callback = _ =>
+                {
+                    gameUIManager.dialogOptions.window.Close();        
+                }
+            });
+            
+            gameUIManager.dialogOptions.ShowOptions(optionDataList);
         }
         
         public void Run(EcsSystems systems)
@@ -114,36 +126,6 @@ namespace GBJAM14.Systems
                         if (options.Count > 0)
                         {
                             ShowDialogOptions(interactAction.source, interactAction.target, options);
-                            
-                            // gameUIManager.dialogOptions.ShowOptions(options.Select(d => new Option()
-                            // {
-                            //     disabled = false,
-                            //     name = d.option,
-                            //     userData = d, 
-                            //     callback = option =>
-                            //     {
-                            //         var optionDialogData = option.userData as CharacterDialogsDB.DialogData;
-                            //         
-                            //         var dialogEntity = world.CreateEntity();
-                            //         dialogEntity.Add(new DialogComponent()
-                            //         {
-                            //             source = interactAction.source,
-                            //             target = interactAction.target,
-                            //             characterId = characterB.characterId,
-                            //             dialogId = optionDialogData.id,
-                            //             dialogData = optionDialogData,
-                            //             completed = false,
-                            //             showOptionsOnComplete = false
-                            //         });
-                            //         dialogEntity.Add(new DestroyableComponent());
-                            //
-                            //         gameUIManager.uiDialog.ShowDialog(optionDialogData, new List<string>()
-                            //         {
-                            //             characterA.characterId,
-                            //             characterB.characterId
-                            //         }, dialogEntity);
-                            //     }
-                            // }).ToList());
                         }
                         else
                         {
@@ -215,10 +197,10 @@ namespace GBJAM14.Systems
                         {
                             var dialogs = characterDialogsDB.GetCharacterDialogs(dialog.characterId, 
                                 inventory.items);
+                            var options = dialogs.Where(d => !string.IsNullOrEmpty(d.option)).ToList();
                          
-                            if (dialogs.Count > 0)
+                            if (options.Count > 0)
                             {
-                                var options = dialogs.Where(d => !string.IsNullOrEmpty(d.option)).ToList();
                                 ShowDialogOptions(dialog.source, dialog.target, options);
                             }
                         }
