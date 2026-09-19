@@ -1,5 +1,9 @@
 # TODO
 
+General
+
+Game is can talk with every character but there can be only one quest at a time in order, we can start with mr toad with the !, the others can talk about general things but they have no real quest. After toad, we can continue with next and next, etc.
+
 Game 
 
 * BUG: eriq collider with vase cant move front
