@@ -2,6 +2,7 @@
 
 Game 
 
+* BUG: eriq collider with vase cant move front
 * One trap (arrows)
   - arrows break on hit wall
   - break vase with arrow (sfx + particles in ground?)
@@ -17,18 +18,19 @@ Game
   - arrows trigger spikes but are not killed by it
 * Plate
 * Small jump
-* Show coins in UI
 
 Rooms
 
 * Zone to detect for interaction
 * Simplify room restriction, could be in ld spawn and in requirement system.
   - auto turn on if inventory changes?
+* Minimap!
 * npc blocking room
 * reset room
 
 Dialogs
 
+* Show Quest Mark on NPCs with quest.
 * auto go to options on dialog complete
 * support for random answer same option id
 * Support for extra characters
