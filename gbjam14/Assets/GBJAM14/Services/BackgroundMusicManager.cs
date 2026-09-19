@@ -55,7 +55,7 @@ namespace GBJAM14.Services
             
             // could use 2 clips and do some cross fade...
             
-            source.clip = templeMusic;
+            source.clip = newAudioClip;
             source.Play();
             
             if (source.clip)

@@ -7,6 +7,9 @@ Game is can talk with every character but there can be only one quest at a time 
 Next
 
 > First Loop, Only 1 available Quest, Complete 1, Unlock next room => game ends.
+* intro dialog has priority?
+* auto go to options on dialog complete
+* Item highlight on interaction ready.
 
 Game 
 
@@ -30,7 +33,6 @@ Game
 
 Rooms
 
-* Item highlight on interaction ready.
 * Simplify room restriction, could be in ld spawn and in requirement system.
   - auto turn on if inventory changes?
 * npc blocking room
@@ -39,8 +41,6 @@ Rooms
 
 Dialogs
 
-* Show Quest Mark on NPCs with quest.
-* auto go to options on dialog complete
 * support for random answer same option id
 * Support for extra characters
 * Dialog priority instead of random, or random in same priority?
