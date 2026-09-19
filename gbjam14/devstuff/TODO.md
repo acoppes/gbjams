@@ -22,6 +22,7 @@ Game
 
 Rooms
 
+* Integrate new tilemap and test trees
 * Zone to detect for interaction
 * Simplify room restriction, could be in ld spawn and in requirement system.
   - auto turn on if inventory changes?
