@@ -43,10 +43,10 @@ Sound Effects & Music
 
 * Integrate vortex sfx when moving to next room
 * Fire arrow
-* Vase breaks
-* Arrow breaks
 * Spikes come out
 * Drag block or vase
+* Vase breaks
+* Arrow breaks
 
 Pickups
 
