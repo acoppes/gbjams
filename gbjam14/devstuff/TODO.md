@@ -30,13 +30,12 @@ Game
 
 Rooms
 
-* Integrate new tilemap and test trees
-* Zone to detect for interaction
+* Item highlight on interaction ready.
 * Simplify room restriction, could be in ld spawn and in requirement system.
   - auto turn on if inventory changes?
-* Minimap!
 * npc blocking room
 * reset room
+* Minimap! (not needed while game is short)
 
 Dialogs
 

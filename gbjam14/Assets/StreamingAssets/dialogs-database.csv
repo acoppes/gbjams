@@ -48,7 +48,7 @@ temple_trap_arrow_start,temple,,"[0]: Arrow traps! they remind me that time at t
 temple_trap_death,temple,,"[0]: Maybe I underestimated this Temple's trap. 
 [0]: Thank god I have the GOLDEN AMULET, I can try again.
 [0]: I still remember Grandma's smile the day she gave it to me.",+temple_trap_death,+temple_trap_death_complete,,
-stella_start,stella,,"[1]: Hello there handsome!
+stella_quest_start,stella,,"[1]: Hello there handsome!
 [0]: Hello Miss?
 [1]: Stella-- the name is Stella, and who do I have the pleasure of meeting?
 [0]: I'm [0] Topson, and I am here for the ONE-TREASURE.
@@ -58,10 +58,22 @@ stella_start,stella,,"[1]: Hello there handsome!
 [1]: If you are such a great finder, maybe you can help me.
 [0]: Maybe... what can I do to prove it?
 [1]: There is a GOLDEN CROWN in the Hollow Temple, can you find it for me?
-[0]: I can do that.","-golden_crown,-stella_complete,-stella_start",+stella_start,,
-stella_start,stella,About the Crown,"[1]: It is in the Temple, somewhere, can you find it for me?","-golden_crown,-stella_complete,+stella_start",,,
-sylvester_start,sylvester,,"[0]: Hi Kid, my name is [0], what's yours?
-[1]: My name is Sylvester. Do you want to play a little game?
+[0]: I can do that.","-golden_crown,-stella_complete,-stella_start,+stella_quest",+stella_start,,
+stella_complete,stella,Give the Crown,"[0]: I present you.. the GOLDEN CROWN Miss [1]. 
+[1]: My Crown!! My Crown!! Oh I love it so much!
+[1]: I am so happy, I asked so many travellers and they failed.
+[1]: But you... you are something else.
+[0]: Be careful though, heavy is the crown.
+[1]: I will, I will, ... I don't know so much about the ONE-TREASURE but..
+[1]: Talk to Sylvester, his family came here long ago, they might know something.
+[0]: Thanks Miss [1].","+golden_crown,-stella_complete","+stella_complete,+sylvester_quest",,
+stella_others,stella,About the Crown,"[1]: It is in the Temple, somewhere, find it for me handsome!",+stella_start,,,
+stella_others,stella,About Hollow Island,"[1]: Oh, it is so beautiful! so full of treasures... like ME.",+stella_start,,,
+sylvester_intro,sylvester,,"[0]: Hi Kid, my name is [0], what's yours?
+[1]: My name is Sylvester. I like to play games.
+[0]: Ehm,.. nice, I am an Archeologist.
+[1]: Boooooring!!",-sylvester_intro,+sylvester_intro,,
+sylvester_quest_start,sylvester,Quest,"[1]: Do you want to play a little game?
 [0]: I have more important things to do.
 [1]: That's what daddy says all the time...
 [1]: ...all because of that ONE-TREASURE thingy.
@@ -69,5 +81,8 @@ sylvester_start,sylvester,,"[0]: Hi Kid, my name is [0], what's yours?
 [1]: I've lost my GOLDEN BALL!! it is round and golden...
 [0]: and what about the ... thingy?
 [1]: Help me with my ball and I can tell you where my daddy is.
-[0]: DEAL!","-golden_ball,-sylvester_complete,-sylvester_start",+sylvester_start,,
-sylvester_start,sylvester,About the Ball,"[1]: It is round and golden, I want it!! PLEAAASE!","-golden_ball,-sylvester_complete,+sylvester_start",,,
+[0]: DEAL!","-golden_ball,-sylvester_complete,-sylvester_start,+sylvester_quest",+sylvester_start,,
+sylvester_others,sylvester,About the Ball,"[1]: It is round and golden, I want it!! PLEAAASE!","-golden_ball,-sylvester_complete,+sylvester_start",,,
+sylvester_others,sylvester,About Hollow Island,"[1]: It is boring as hell.. we came here for something.
+[1]: Then there is that temple...
+[1]: but I don't care. I miss Rocky Town and my friends.",+sylvester_intro,,,
