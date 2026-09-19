@@ -8,16 +8,17 @@ Game
   - break vase with arrow (sfx + particles in ground?)
   - arrows shouldnt kill each other
   - detection area and/or click plate?
-* Block
-  - can I move them in grid? (same for vases?)
 * Pause menu, options centered or something
   - restart room
   - quit?
   - map?
-* Spikes
-  - arrows trigger spikes but are not killed by it
 * Plate
+  - toggle once and keep forever
+  - is pressed but can be unpressed
+  - returns to unpressed after leaving
+  - returns to unpressed after some time
 * Small jump
+* Move blocks and vases over invisible grid?
 
 Rooms
 
@@ -40,6 +41,11 @@ Dialogs
 Sound Effects & Music
 
 * Integrate vortex sfx when moving to next room
+* Fire arrow
+* Vase breaks
+* Arrow breaks
+* Spikes come out
+* Drag block or vase
 
 Pickups
 
