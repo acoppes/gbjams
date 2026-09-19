@@ -1132,6 +1132,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1467055128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &94390470 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6173178105849629259, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
+  m_PrefabInstance: {fileID: 731725842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &94431945
 GameObject:
   m_ObjectHideFlags: 0
@@ -15309,13 +15314,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7471315008090089096, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 167593863}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6173178105849629259, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 731725847}
   m_SourcePrefab: {fileID: 100100000, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
 --- !u!4 &731725843 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7471315008090089096, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
   m_PrefabInstance: {fileID: 731725842}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &731725847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94390470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb31cb596ab41a497241cbd3824c616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.ArrowTrapInstanceParameter
+  fireCooldownStart: 0.75
+  fireCooldown: 1
+  reloadCooldown: 0
 --- !u!1 &732226214
 GameObject:
   m_ObjectHideFlags: 0
@@ -18221,6 +18244,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.InventoryRequirementComponentDefinition
   requirements: []
+--- !u!1 &904230411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6173178105849629259, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
+  m_PrefabInstance: {fileID: 1842270741}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &907330157
 GameObject:
   m_ObjectHideFlags: 0
@@ -29681,6 +29709,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 405668369}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1120341279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6173178105849629259, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
+  m_PrefabInstance: {fileID: 1132674315}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1125006379
 GameObject:
   m_ObjectHideFlags: 0
@@ -32247,13 +32280,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7471315008090089096, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1378712975}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6173178105849629259, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1132674320}
   m_SourcePrefab: {fileID: 100100000, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
 --- !u!4 &1132674316 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7471315008090089096, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
   m_PrefabInstance: {fileID: 1132674315}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1132674320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120341279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb31cb596ab41a497241cbd3824c616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.ArrowTrapInstanceParameter
+  fireCooldownStart: 0.75
+  fireCooldown: 1
+  reloadCooldown: 0
 --- !u!1 &1134027840
 GameObject:
   m_ObjectHideFlags: 0
@@ -44195,7 +44246,7 @@ GameObject:
   - component: {fileID: 1697114328}
   - component: {fileID: 1697114329}
   m_Layer: 0
-  m_Name: WaitTime(0.5)
+  m_Name: WaitTime(0.1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44229,7 +44280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gemserk.Triggers.Extensions::Gemserk.Triggers.WaitTriggerAction
   actionType: 0
-  time: 0.5
+  time: 0.1
   fixedFrames: 1
 --- !u!1 &1700933020
 GameObject:
@@ -46424,13 +46475,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7471315008090089096, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1242132229}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6173178105849629259, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1842270746}
   m_SourcePrefab: {fileID: 100100000, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
 --- !u!4 &1842270742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7471315008090089096, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
   m_PrefabInstance: {fileID: 1842270741}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1842270746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904230411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb31cb596ab41a497241cbd3824c616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.ArrowTrapInstanceParameter
+  fireCooldownStart: 0.75
+  fireCooldown: 1
+  reloadCooldown: 0
 --- !u!1 &1844469829
 GameObject:
   m_ObjectHideFlags: 0
