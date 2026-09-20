@@ -14,6 +14,7 @@ namespace GBJAM14.Controllers
     {
         public Targeting targeting;
         public Object soundEffectEntityDefinition;
+        public Object pickSpecialItemEntityDefinition;
 
         private Entity soundEffectEntity;
 
@@ -78,6 +79,14 @@ namespace GBJAM14.Controllers
                             target = interactEntity
                         });
                     });
+
+                    if (interactEntity.Has<ItemComponent>())
+                    {
+                        world.CreateEntity(pickSpecialItemEntityDefinition, null, e =>
+                        {
+                            e.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
+                        });
+                    }
                 }
 
                 bufferedInput.ConsumeBuffer();

@@ -34,11 +34,11 @@ namespace GBJAM14.Scenes
                     name = "New Game",
                     disabled = false
                 },
-                new Option()
-                {
-                    name = "Exit Game",
-                    disabled = false
-                }
+                // new Option()
+                // {
+                //     name = "Exit Game",
+                //     disabled = false
+                // }
             });
             
             options.onOptionSelected.AddListener(OnOptionSelected);
