@@ -27,6 +27,7 @@ namespace GBJAM14.Systems
                     var interactable = questModelFilter.Pools.Inc3.Get(e);
                     
                     var interactObject = model.modelGameObject.transform.FindInHierarchy("Quest");
+                    var focusedObject = model.modelGameObject.transform.FindInHierarchy("InteractHighlight");
                     interactObject.localPosition = new Vector3(0, interactable.bubbleOffset, 0);
 
                     var shouldShowQuest = false;
@@ -38,8 +39,8 @@ namespace GBJAM14.Systems
                             shouldShowQuest = true;
                         }
                     }
-                    
-                    interactObject.gameObject.SetActive(shouldShowQuest);
+
+                    interactObject.gameObject.SetActive(shouldShowQuest && !focusedObject.gameObject.activeSelf);
                 }
             }
         }

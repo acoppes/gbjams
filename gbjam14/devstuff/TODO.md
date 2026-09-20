@@ -7,7 +7,6 @@ Game is can talk with every character but there can be only one quest at a time 
 Next
 
 > First Loop, Only 1 available Quest, Complete 1, Unlock next room => game ends.
-* Dialog for picking golden ball!
 * Item highlight on interaction ready.
 * Show some dialog for blocking trees and when no blocking trees.
 
