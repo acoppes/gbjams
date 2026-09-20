@@ -11,6 +11,7 @@ namespace GBJAM14.Systems
         public class DialogData
         {
             public string id;
+            public int type;
             public string characterId;
             
             public string[] requirements;

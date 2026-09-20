@@ -54,12 +54,13 @@ namespace GBJAM14
                 var row = results[i];
 
                 var id = row[0];
-                var characterId = row[1];
-                var option = row[2];
-                var texts = row[3].Split('\n');
-                var requirements = row[4];
-                var outputs = row[5];
-                var extraCharacters = row[6];
+                var type = row[1];
+                var characterId = row[2];
+                var option = row[3];
+                var texts = row[4].Split('\n');
+                var requirements = row[5];
+                var outputs = row[6];
+                var extraCharacters = row[7];
                 
                 if (string.IsNullOrEmpty(id))
                     continue;
@@ -69,6 +70,7 @@ namespace GBJAM14
                 var dialogData = new CharacterDialogsDB.DialogData()
                 {
                     id = id,
+                    type = int.Parse(type),
                     option = option,
                     characterId = characterId,
                     texts = texts.ToList(),

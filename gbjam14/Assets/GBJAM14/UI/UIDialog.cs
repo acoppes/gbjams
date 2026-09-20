@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game.Components;
-using Game.Screens;
 using GBJAM14.Systems;
 using Gemserk.Leopotam.Ecs;
 using Gemserk.Utilities;
@@ -16,27 +15,25 @@ namespace GBJAM14.UI
     public class UIDialog : MonoBehaviour
     {
         public UIWindow window;
-        public TextView dialogTextView;
+
+        public List<UIDialogSkin> dialogSkins;
 
         public Image[] portraits;
-        public Image[] indicators;
-        
+
         public float textSpeed = 1f;
 
         public SoundEffectAsset typeSoundEffect;
 
         public Vector3 currentPortraitOffset;
-        
-        [NonSerialized]
-        public bool completed;
 
-        [NonSerialized]
-        public bool waiting;
+        [NonSerialized] public bool completed;
+
+        [NonSerialized] public bool waiting;
 
         public GameObject waitingButton;
 
         public bool maximizeNames;
-        
+
         private Coroutine showTextCoroutine;
 
         private string dialogText = string.Empty;
@@ -52,7 +49,8 @@ namespace GBJAM14.UI
         public AudioSource talkAudioSource;
 
         private Entity dialogEntity;
-        
+        private UIDialogSkin currentSkin;
+
         private void Awake()
         {
             characterDB = FindFirstObjectByType<CharacterDB>(FindObjectsInactive.Exclude);
@@ -60,24 +58,36 @@ namespace GBJAM14.UI
             waitingButton.SetActive(false);
         }
 
-        public void ShowDialog(CharacterDialogsDB.DialogData dialogData, List<string> characters, Entity dialogEntity = default)
+        public void ShowDialog(CharacterDialogsDB.DialogData dialogData, List<string> characters,
+            Entity dialogEntity = default)
         {
             window.Open();
             this.dialogData = dialogData;
             currentText = 0;
-            
+
             this.characters.Clear();
             this.characters.AddRange(characters);
             this.characters.AddRange(dialogData.extraCharacters);
-            
+
+            for (var i = 0; i < dialogSkins.Count; i++)
+            {
+                var dialogskin = dialogSkins[i];
+                dialogskin.active = false;
+            }
+
+            currentSkin = dialogSkins.GetItemOrLast(dialogData.type);
+            currentSkin.active = true;
+
             ShowCurrentDialog();
         }
 
         private void ShowCurrentDialog()
         {
-            dialogTextView.GetComponent<Text>().color = Color.black;
-            
-            foreach (var indicator in indicators)
+            CharacterDB.CharacterData currentCharacterData = null;
+
+            currentSkin.dialogTextView.GetComponent<Text>().color = Color.black;
+
+            foreach (var indicator in currentSkin.indicators)
             {
                 indicator.enabled = false;
             }
@@ -87,30 +97,29 @@ namespace GBJAM14.UI
                 portrait.enabled = false;
                 portrait.rectTransform.localPosition = Vector3.zero;
             }
-            
+
             var dialogText = dialogData.texts[currentText];
 
-            CharacterDB.CharacterData currentCharacterData = null;
-            
             // highlight talking
-            for (int i = 0; i < indicators.Length; i++)
+            for (int i = 0; i < currentSkin.indicators.Length; i++)
             {
                 if (dialogText.StartsWith($"[{i}]"))
                 {
-                    indicators[i].enabled = true;
+                    currentSkin.indicators[i].enabled = true;
                     portraits[i].rectTransform.localPosition = currentPortraitOffset;
-                    
+
                     if (i < characters.Count)
                     {
                         currentCharacterData = characterDB.GetCharacterData(characters[i]);
                         if (currentCharacterData != null)
                         {
-                            dialogTextView.GetComponent<Text>().color = currentCharacterData.textColor;
+                            var textColor = currentCharacterData.colorPerDialogSkin[dialogData.type];
+                            currentSkin.dialogTextView.GetComponent<Text>().color = textColor;
                         }
                     }
                 }
             }
-                
+
             // show corresponding portrait 
             for (var i = 0; i < characters.Count; i++)
             {
@@ -127,35 +136,35 @@ namespace GBJAM14.UI
                                 portraits[i].sprite = characterData.portrait;
                             }
                         }
-                        
-                        dialogText = dialogText.Replace($"[{i}]", maximizeNames ? 
-                            characterData.dialogName.ToUpperInvariant() : characterData.dialogName);
+
+                        dialogText = dialogText.Replace($"[{i}]",
+                            maximizeNames ? characterData.dialogName.ToUpperInvariant() : characterData.dialogName);
                     }
                 }
             }
-            
+
             ShowText(dialogText, currentCharacterData);
         }
 
         private void ShowText(string text, CharacterDB.CharacterData characterData)
         {
             waitingButton.SetActive(false);
-            
+
             completed = false;
             waiting = false;
-            
+
             dialogText = text;
-            
+
             if (showTextCoroutine != null)
             {
                 StopCoroutine(showTextCoroutine);
                 showTextCoroutine = null;
             }
-            
+
             // ideally show step by step...
             showTextCoroutine = StartCoroutine(ShowTextOverTime(1, characterData));
         }
-        
+
         // private void AppendText(string text)
         // {
         //     waitingButton.SetActive(false);
@@ -185,8 +194,10 @@ namespace GBJAM14.UI
                 StopCoroutine(showTextCoroutine);
                 showTextCoroutine = null;
             }
-            
-            dialogTextView.SetText(string.Empty);
+
+            currentSkin.dialogTextView.SetText(string.Empty);
+
+            // dialogTextView.SetText(string.Empty);
         }
 
         public void ForceComplete()
@@ -197,10 +208,11 @@ namespace GBJAM14.UI
                 showTextCoroutine = null;
             }
             
-            dialogTextView.SetText(dialogText);
+            currentSkin.dialogTextView.SetText(dialogText);
+            // dialogTextView.SetText(dialogText);
             completed = true;
             waiting = true;
-            
+
             waitingButton.SetActive(true);
         }
 
@@ -212,10 +224,12 @@ namespace GBJAM14.UI
         private IEnumerator ShowTextOverTime(int start, CharacterDB.CharacterData characterData)
         {
             var uiSoundEffects = FindAnyObjectByType<UISoundEffects>();
-                
+
             for (var i = start; i <= dialogText.Length; i++)
             {
-                dialogTextView.SetText(dialogText.Substring(0, i));
+                currentSkin.dialogTextView.SetText(dialogText.Substring(0, i));
+                
+                // dialogTextView.SetText(dialogText.Substring(0, i));
 
                 if (characterData != null)
                 {
@@ -223,7 +237,7 @@ namespace GBJAM14.UI
                     {
                         talkAudioSource.clip = talkSoundEffectAsset.clips.Random();
                         talkAudioSource.pitch = characterData.randomPitch.RandomInRange();
-                    
+
                         talkAudioSource.volume = talkSoundEffectAsset.volume;
                         talkAudioSource.outputAudioMixerGroup = talkSoundEffectAsset.mixerGroup;
                         talkAudioSource.Play();
@@ -233,13 +247,14 @@ namespace GBJAM14.UI
                 {
                     uiSoundEffects.PlaySound(typeSoundEffect);
                 }
-                
+
                 yield return new WaitForSecondsRealtime(textSpeed);
             }
+
             showTextCoroutine = null;
             completed = true;
             waiting = true;
-            
+
             waitingButton.SetActive(true);
         }
 

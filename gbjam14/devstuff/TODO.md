@@ -64,6 +64,5 @@ Intro
 
 * Minimap! (not needed while game is short)
 * Better Palette animation
-* Mind dialogs to read character mind for humor and/or for extra clues.
 * Player can enter the name of the character
 * Animated props & decos to make the environment feel alive.
