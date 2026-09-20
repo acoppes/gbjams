@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using GBJAM14.Components;
 using Gemserk.Leopotam.Ecs;
 using UnityEngine;
@@ -16,7 +18,18 @@ namespace GBJAM14.Data
         // public Transform enter;
         
         public RoomDoor nextRoomDoor;
-        
+
+        public string nextDoorId;
+
+        private void Start()
+        {
+            if (!nextRoomDoor && !string.IsNullOrEmpty(nextDoorId))
+            {
+                nextRoomDoor = FindObjectsByType<RoomDoor>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                    .FirstOrDefault(r=> r.name.Equals(nextDoorId, StringComparison.InvariantCultureIgnoreCase));
+            }
+        }
+
         public void OnTriggerEnter2D(Collider2D other)
         {
             if (other.attachedRigidbody)
