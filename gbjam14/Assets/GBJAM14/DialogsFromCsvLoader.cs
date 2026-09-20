@@ -59,6 +59,7 @@ namespace GBJAM14
                 var texts = row[3].Split('\n');
                 var requirements = row[4];
                 var outputs = row[5];
+                var extraCharacters = row[6];
                 
                 if (string.IsNullOrEmpty(id))
                     continue;
@@ -72,7 +73,8 @@ namespace GBJAM14
                     characterId = characterId,
                     texts = texts.ToList(),
                     requirements = requirements.Split(','),
-                    output = outputs.Split(',')
+                    output = outputs.Split(','),
+                    extraCharacters = extraCharacters.Split(',')
                 };
                 
                 dialogsDB.AddDialogData(dialogData);

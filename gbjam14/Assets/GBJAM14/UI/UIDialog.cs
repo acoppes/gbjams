@@ -68,6 +68,7 @@ namespace GBJAM14.UI
             
             this.characters.Clear();
             this.characters.AddRange(characters);
+            this.characters.AddRange(dialogData.extraCharacters);
             
             ShowCurrentDialog();
         }

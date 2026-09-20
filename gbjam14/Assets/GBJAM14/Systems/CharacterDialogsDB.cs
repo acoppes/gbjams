@@ -16,7 +16,7 @@ namespace GBJAM14.Systems
             public string[] requirements;
             public string[] output;
             
-            // public string[] characters;
+            public string[] extraCharacters;
             
             public string option;
             public List<string> texts;
