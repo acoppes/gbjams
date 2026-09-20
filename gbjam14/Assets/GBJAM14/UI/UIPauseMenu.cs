@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Gemserk.Utilities.UI;
 using UnityEngine;
@@ -40,14 +38,14 @@ namespace GBJAM14.UI
                         Close();
                     },
                 },
-                new Option()
-                {
-                    name = "Quest",
-                    callback = _ =>
-                    {
-                        Close();
-                    },
-                },
+                // new Option()
+                // {
+                //     name = "Quest",
+                //     callback = _ =>
+                //     {
+                //         Close();
+                //     },
+                // },
                 new Option()
                 {
                     name = "Items",
@@ -56,14 +54,14 @@ namespace GBJAM14.UI
                         Close();
                     },
                 },
-                new Option()
-                {
-                    name = "Exit",
-                    callback = _ =>
-                    {
-                        Close();
-                    },
-                }
+                // new Option()
+                // {
+                //     name = "Exit",
+                //     callback = _ =>
+                //     {
+                //         Close();
+                //     },
+                // }
             });
         }
 
