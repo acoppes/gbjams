@@ -137,6 +137,7 @@ Transform:
   m_Children:
   - {fileID: 5250345629598486058}
   - {fileID: 4948531178542474914}
+  - {fileID: 6150685817727951053}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5209191099038509609
@@ -401,6 +402,95 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.DestroyableComponentDefinition
   framesToDestroy: 0
   signalOnDestroy: 0
+--- !u!1 &5262110866224401794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6150685817727951053}
+  - component: {fileID: 2730112889934605654}
+  - component: {fileID: 7032039588421317896}
+  - component: {fileID: 3275060930279877813}
+  - component: {fileID: 3477774803905938615}
+  m_Layer: 0
+  m_Name: PickupSfx_Definition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6150685817727951053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5262110866224401794}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5671347532991400175}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2730112889934605654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5262110866224401794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce8e965ed40431e993ca1982c595d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.ObjectEntityDefinition
+--- !u!114 &7032039588421317896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5262110866224401794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f2b2bab7db46858f9b60b188dde615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.PositionComponentDefinition
+  startingPositionType: 0
+  type: 1
+--- !u!114 &3275060930279877813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5262110866224401794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99954465c2014750bcdae15766be78f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.SoundEffectComponentDefinition
+  soundEffect: {fileID: 11400000, guid: 7e98fc6bd41d8764bbd074da2322a68a, type: 2}
+  autoDestroyOnComplete: 0
+--- !u!114 &3477774803905938615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5262110866224401794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96123f8bf3aa4ef381716d018af7ff95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.DestroyableComponentDefinition
+  framesToDestroy: 0
+  signalOnDestroy: 0
 --- !u!1 &6717865567067160048
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,3 +597,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Controllers.MainCharacterController
   targeting: {fileID: 9043496783126914069}
   soundEffectEntityDefinition: {fileID: 1852350385286255311}
+  pickSpecialItemEntityDefinition: {fileID: 5262110866224401794}
