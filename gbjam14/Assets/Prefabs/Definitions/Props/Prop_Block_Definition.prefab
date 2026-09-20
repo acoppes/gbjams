@@ -1,5 +1,139 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8252315782600947438
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6127410472792807282}
+  - component: {fileID: 1008091867956019553}
+  - component: {fileID: 7537604645379293275}
+  - component: {fileID: 6305123653124075158}
+  - component: {fileID: 5071541205224817492}
+  m_Layer: 0
+  m_Name: BlockDrag_Sfx_Def
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6127410472792807282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8252315782600947438}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3212707446307026181}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1008091867956019553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8252315782600947438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce8e965ed40431e993ca1982c595d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.ObjectEntityDefinition
+--- !u!114 &7537604645379293275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8252315782600947438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f2b2bab7db46858f9b60b188dde615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.PositionComponentDefinition
+  startingPositionType: 0
+  type: 1
+--- !u!114 &6305123653124075158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8252315782600947438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99954465c2014750bcdae15766be78f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.SoundEffectComponentDefinition
+  soundEffect: {fileID: 11400000, guid: 565a87ed88e0aca4ba7720f3beb3b585, type: 2}
+  autoDestroyOnComplete: 0
+--- !u!114 &5071541205224817492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8252315782600947438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96123f8bf3aa4ef381716d018af7ff95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.DestroyableComponentDefinition
+  framesToDestroy: 1
+  signalOnDestroy: 0
+--- !u!1 &8296561500841777877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6348013813075941700}
+  - component: {fileID: 2880519625121422726}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6348013813075941700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296561500841777877}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3212707446307026181}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2880519625121422726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296561500841777877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9270bdf029ca41a6b35bac7226c827cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Controllers.DragSoundEffectController
+  dragSfx: {fileID: 8252315782600947438}
 --- !u!1001 &7071412495636031892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,12 +212,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5672108171716795537, guid: 89ab749bbd1d3c6faa701c46dbb8cf02, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6348013813075941700}
+    - targetCorrespondingSourceObject: {fileID: 5672108171716795537, guid: 89ab749bbd1d3c6faa701c46dbb8cf02, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6127410472792807282}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4525045490107739147, guid: 89ab749bbd1d3c6faa701c46dbb8cf02, type: 3}
       insertIndex: -1
       addedObject: {fileID: -2686748281919748407}
+    - targetCorrespondingSourceObject: {fileID: 4525045490107739147, guid: 89ab749bbd1d3c6faa701c46dbb8cf02, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3072893781274820968}
   m_SourcePrefab: {fileID: 100100000, guid: 89ab749bbd1d3c6faa701c46dbb8cf02, type: 3}
+--- !u!4 &3212707446307026181 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5672108171716795537, guid: 89ab749bbd1d3c6faa701c46dbb8cf02, type: 3}
+  m_PrefabInstance: {fileID: 7071412495636031892}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6696435745789183391 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4525045490107739147, guid: 89ab749bbd1d3c6faa701c46dbb8cf02, type: 3}
@@ -107,3 +255,18 @@ MonoBehaviour:
   copyPositionType: 0
   isController: 0
   autoCreatePhysicsComponent: 1
+--- !u!114 &3072893781274820968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696435745789183391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f50e4b2f4e45aca78cd8c29deb85e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.ControllerComponentDefinition
+  controllerObject: {fileID: 8296561500841777877}
+  sharedInstance: 0
+  hasStateController: 0
