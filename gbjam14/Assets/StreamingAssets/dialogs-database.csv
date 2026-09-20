@@ -18,7 +18,7 @@ mrtoad_complete_reward,mrtoad,About the ONE-TREASURE,"[1]: I might know somethin
 golden_bug_pickup,golden_bug,,"[0]: The GOLDEN BUG! It is so Beautiful and Rare!
 [0]: This should be part of the Bugs collection in a Museum.
 [0]: But I want to find the ONE-TREASURE...
-[0]: I will give it to MR TOAD for that tip he promised.",-golden_bug,+golden_bug,,
+[0]: I will give it to [2] for that tip he promised.",-golden_bug,+golden_bug,mrtoad,
 lost_soul_random1,lost_soul,,"[1]: Hey Stranger, Welcome to Hollow Island.
 [1]: What's your name?
 [0]: I'm [0] Topson and I will be the best Archeologist.
@@ -49,7 +49,7 @@ temple_trap_death,temple,,"[0]: Maybe I underestimated this Temple's trap.
 [0]: I still remember Grandma's smile the day she gave it to me.",+temple_trap_death,+temple_trap_death_complete,,
 stella_quest_start,stella,,"[1]: Hello there handsome!
 [0]: Hello Miss?
-[1]: Stella-- the name is Stella.
+[1]: [1]-- but you can call me Miss [1].
 [1]: And who do I have the pleasure of meeting?
 [0]: I'm [0] Topson, and I am here for the ONE-TREASURE.
 [0]: I am gonna the very best Archeologist.
@@ -67,17 +67,17 @@ stella_complete,stella,Give the Crown,"[0]: I present you.. the GOLDEN CROWN Mis
 [1]: But you... you are something else.
 [0]: This is what you asked for but heavy is the crown.
 [1]: Oh, hi hi hi, so funny.
-[1]: Talk to Sylvester, his family came here long ago.
+[1]: Talk to [2], his family came here long ago.
 [1]: They might know something about the ONE.
-[0]: Thanks Miss [1].","+golden_crown,-stella_complete","+stella_complete,+sylvester_quest,+stella_intro,-stella_quest",,
+[0]: Thanks Miss [1].","+golden_crown,-stella_complete","+stella_complete,+sylvester_quest,+stella_intro,-stella_quest",sylvester,
 stella_others,stella,About the Crown,"[1]: It is in the Temple, somewhere, find it for me handsome!","+stella_intro,-stella_complete",,,
 stella_others,stella,About Hollow Island,"[1]: Oh, it is so beautiful! so full of treasures... like ME.",+stella_intro,,,
 golden_crown_pickup,golden_crown,,"[0]: The GOLDEN CROWN! It is so Beautiful and Rare!
 [0]: This should be in a Museum.
 [0]: But I want to find the ONE-TREASURE...
-[0]: I will give it to Miss Stella and hear what she has to say.","-golden_crown,-stella_complete,+stella_quest",+golden_crown,,
+[0]: I will give it to Miss [2] and hear what she has to say.","-golden_crown,-stella_complete,+stella_quest",+golden_crown,stella,
 sylvester_intro,sylvester,,"[0]: Hi Kid, my name is [0], what's yours?
-[1]: My name is Sylvester. I like to play games.
+[1]: My name is [1]. I like to play games.
 [0]: Ehm,.. nice, I am an Archeologist.
 [1]: Boooooring!!",-sylvester_intro,+sylvester_intro,,
 sylvester_quest_start,sylvester,Hello again,"[1]: Do you want to play a little game?
@@ -103,9 +103,9 @@ sylvester_others,sylvester,About Hollow Island,"[1]: It is boring as hell.. we c
 [1]: Then there is that temple...
 [1]: but I don't care. I miss Rocky Town and my friends.",+sylvester_intro,,,
 golden_ball_pickup,golden_ball,,"[0]: The GOLDEN BALL!
-[0]: Not a toy at all, Sylvester shouldn't be playing with it.
+[0]: Not a toy at all, [2] shouldn't be playing with it.
 [0]: But I need more information about his dad and the ONE.
-[0]: Time to grab it!","-golden_ball,-sylvester_complete,+sylvester_quest",+golden_ball,,
+[0]: Time to grab it!","-golden_ball,-sylvester_complete,+sylvester_quest",+golden_ball,sylvester,
 trees_passage_1,temple,,"[0]: There is a passage blocked by the trees.
 [0]: I should take a look later, after returning the crown.","-stella_complete,-sylvester_quest_start",,,
 door_blocked,temple,,"[0]: Mmmm, the door is locked.
