@@ -21,6 +21,7 @@ namespace GBJAM14.UI
         public Image[] portraits;
 
         public float textSpeed = 1f;
+        public float textSoundSpeed = 0.12f;
 
         public SoundEffectAsset typeSoundEffect;
 
@@ -35,6 +36,8 @@ namespace GBJAM14.UI
         public bool maximizeNames;
 
         private Coroutine showTextCoroutine;
+        private Coroutine soundPlayingCoroutine;
+        private bool readyToTalk = true;
 
         private string dialogText = string.Empty;
 
@@ -221,6 +224,14 @@ namespace GBJAM14.UI
             waiting = false;
         }
 
+        private IEnumerator SoundPlayingCoroutine()
+        {
+            readyToTalk = false;
+            yield return new WaitForSecondsRealtime(textSoundSpeed);
+            readyToTalk = true;
+            soundPlayingCoroutine = null;
+        }
+
         private IEnumerator ShowTextOverTime(int start, CharacterDB.CharacterData characterData)
         {
             var uiSoundEffects = FindAnyObjectByType<UISoundEffects>();
@@ -233,7 +244,7 @@ namespace GBJAM14.UI
 
                 if (characterData != null)
                 {
-                    if (!talkAudioSource.isPlaying)
+                    if (readyToTalk)
                     {
                         talkAudioSource.clip = talkSoundEffectAsset.clips.Random();
                         talkAudioSource.pitch = characterData.randomPitch.RandomInRange();
@@ -241,6 +252,11 @@ namespace GBJAM14.UI
                         talkAudioSource.volume = talkSoundEffectAsset.volume;
                         talkAudioSource.outputAudioMixerGroup = talkSoundEffectAsset.mixerGroup;
                         talkAudioSource.Play();
+
+                        if(soundPlayingCoroutine == null && readyToTalk)
+                        {
+                            soundPlayingCoroutine = StartCoroutine(SoundPlayingCoroutine());
+                        }
                     }
                 }
                 else
@@ -251,6 +267,7 @@ namespace GBJAM14.UI
                 yield return new WaitForSecondsRealtime(textSpeed);
             }
 
+            soundPlayingCoroutine = null;
             showTextCoroutine = null;
             completed = true;
             waiting = true;
