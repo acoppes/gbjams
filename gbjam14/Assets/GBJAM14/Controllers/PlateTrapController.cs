@@ -43,14 +43,22 @@ namespace GBJAM14.Controllers
                 if (!animations.IsPlaying("idle-pressed"))
                 {
                     animations.Play("idle-pressed");
-                    return;
+
+                    world.CreateEntity(pressSfxDefinition, null, e =>
+                    {
+                        e.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
+                    });
                 }
             } else if (!platesTrap.pressed)
             {
                 if (!animations.IsPlaying("idle"))
                 {
                     animations.Play("idle");
-                    return;
+                    
+                    world.CreateEntity(unpressSfxDefinition, null, e =>
+                    {
+                        e.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
+                    });
                 }
             }
         }
