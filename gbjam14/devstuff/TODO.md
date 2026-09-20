@@ -7,8 +7,7 @@ Game is can talk with every character but there can be only one quest at a time 
 Next
 
 > First Loop, Only 1 available Quest, Complete 1, Unlock next room => game ends when enter last door.
-* Item highlight on interaction ready.
-* Can't enter the temple without first quest
+* Item red outline on highlighted.  
 
 Game 
 
@@ -36,7 +35,6 @@ Rooms
   - auto turn on if inventory changes?
 * npc blocking room
 * reset room
-* Minimap! (not needed while game is short)
 
 Sound Effects & Music
 
@@ -59,9 +57,12 @@ Intro
 # BUGS
 
 * Game looks weird if no fullscreen in web build.
+* Camera does some strange clamping.
+* Tilesets look weird sometimes when camera is moving.
 
 # NICE TO HAVE
 
+* Minimap! (not needed while game is short)
 * Better Palette animation
 * Mind dialogs to read character mind for humor and/or for extra clues.
 * Player can enter the name of the character
