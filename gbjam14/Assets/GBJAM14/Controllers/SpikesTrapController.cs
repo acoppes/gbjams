@@ -31,13 +31,6 @@ namespace GBJAM14.Controllers
                 return;
             }
             
-            ref var animations = ref entity.Get<AnimationsComponent>();
-            
-            if (!animations.IsPlaying("activate"))
-            {
-                animations.Play("activate", 1);
-            }
-            
             if (entityCollision.entity)
             {
                 if (entityCollision.entity.Has<HealthComponent>())
@@ -63,16 +56,26 @@ namespace GBJAM14.Controllers
             ref var spikes = ref entity.Get<SpikesTrapComponent>();
         
             ref var animations = ref entity.Get<AnimationsComponent>();
-            
-            if (animations.IsPlaying("return") && animations.isCompleted)
-            {
-                animations.Play("idle");
-                spikes.active = false;
-                return;
-            }
-            
+
             if (spikes.active)
             {
+                if (animations.IsPlaying("return") && animations.isCompleted)
+                {
+                    animations.Play("idle");
+                    spikes.active = false;
+                    spikes.wasActive = false;
+                    return;
+                }
+                
+                if (!spikes.wasActive)
+                {
+                    if (!animations.IsPlaying("activate"))
+                    {
+                        animations.Play("activate", 1);
+                    }
+                    spikes.wasActive = true;
+                }
+
                 spikes.activeCooldown.Increase(dt);
                 if (spikes.activeCooldown.IsReady)
                 {
