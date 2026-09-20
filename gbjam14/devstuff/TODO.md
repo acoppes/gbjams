@@ -8,7 +8,6 @@ Next
 
 > First Loop, Only 1 available Quest, Complete 1, Unlock next room => game ends.
 * Item highlight on interaction ready.
-* Show some dialog for blocking trees and when no blocking trees.
 
 Game 
 
@@ -37,13 +36,6 @@ Rooms
 * npc blocking room
 * reset room
 * Minimap! (not needed while game is short)
-
-Dialogs
-
-* support for random answer same option id
-* Support for extra characters
-* Dialog priority instead of random, or random in same priority?
-* Interact with npc only from being in front?
 
 Sound Effects & Music
 
