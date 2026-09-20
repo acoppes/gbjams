@@ -48,12 +48,16 @@ namespace GBJAM14.Data
             //     Gizmos.DrawSphere(transform.position, 0.25f);
             // }
             
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(transform.position, 0.25f);
+            
             if (nextRoomDoor)
             {
-                Gizmos.color = Color.blue;
                 Gizmos.DrawLine(transform.position, nextRoomDoor.EnterPosition);
-                Gizmos.DrawSphere(transform.position, 0.25f);
             }
+            
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawSphere(EnterPosition, 0.15f);
         }
     }
 }
