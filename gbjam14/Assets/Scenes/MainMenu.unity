@@ -571,7 +571,7 @@ GameObject:
   - component: {fileID: 482700135}
   - component: {fileID: 482700136}
   m_Layer: 0
-  m_Name: ShowDialogFromDB(game_intro, )
+  m_Name: ShowDialogFromDB(game_intro, main_character_main_menu)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -605,7 +605,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Triggers.Actions.ShowDialogFromDBTriggerAction
   dialogId: game_intro
-  characters: []
+  characters:
+  - main_character_main_menu
 --- !u!1 &581077255
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,6 +1159,10 @@ PrefabInstance:
     - target: {fileID: 804873498530741591, guid: 5fbfacbbe93de4d4e870eaf47484a305, type: 3}
       propertyPath: m_Name
       value: BaseSfx
+      objectReference: {fileID: 0}
+    - target: {fileID: 804873498530741591, guid: 5fbfacbbe93de4d4e870eaf47484a305, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4343612849264845777, guid: 5fbfacbbe93de4d4e870eaf47484a305, type: 3}
       propertyPath: m_LocalPosition.x
