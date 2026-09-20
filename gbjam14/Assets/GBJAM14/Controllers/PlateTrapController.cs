@@ -38,8 +38,10 @@ namespace GBJAM14.Controllers
         
             ref var animations = ref entity.Get<AnimationsComponent>();
 
-            if (platesTrap.pressed)
+            if (platesTrap.pressCount>0 && !platesTrap.wasPressed)
             {
+                platesTrap.restoreTimeCurrent = 0;
+                platesTrap.wasPressed = true;
                 if (!animations.IsPlaying("idle-pressed"))
                 {
                     animations.Play("idle-pressed");
@@ -49,16 +51,22 @@ namespace GBJAM14.Controllers
                         e.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
                     });
                 }
-            } else if (!platesTrap.pressed)
+            } else if (platesTrap.pressCount <= 0 && platesTrap.wasPressed)
             {
-                if (!animations.IsPlaying("idle"))
+                platesTrap.restoreTimeCurrent += dt;
+
+                if (platesTrap.restoreTimeCurrent > platesTrap.restoreTimeTotal)
                 {
-                    animations.Play("idle");
-                    
-                    world.CreateEntity(unpressSfxDefinition, null, e =>
+                    platesTrap.wasPressed = false;
+                    if (!animations.IsPlaying("idle"))
                     {
-                        e.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
-                    });
+                        animations.Play("idle");
+                    
+                        world.CreateEntity(unpressSfxDefinition, null, e =>
+                        {
+                            e.Get<PositionComponent>().value = entity.Get<PositionComponent>().value;
+                        });
+                    }
                 }
             }
         }

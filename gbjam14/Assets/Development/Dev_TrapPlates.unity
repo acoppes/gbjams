@@ -3373,95 +3373,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 1
---- !u!1 &506929280
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 506929281}
-  - component: {fileID: 506929285}
-  - component: {fileID: 506929284}
-  - component: {fileID: 506929283}
-  - component: {fileID: 506929282}
-  m_Layer: 0
-  m_Name: Press_Sfx_Definition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &506929281
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506929280}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.80934, y: 3.30753, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 317396229454139595}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &506929282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506929280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96123f8bf3aa4ef381716d018af7ff95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.DestroyableComponentDefinition
-  framesToDestroy: 1
-  signalOnDestroy: 0
---- !u!114 &506929283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506929280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99954465c2014750bcdae15766be78f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.SoundEffectComponentDefinition
-  soundEffect: {fileID: 11400000, guid: 13a8b121bdceb1b45affd280cf5ef71b, type: 2}
-  autoDestroyOnComplete: 1
---- !u!114 &506929284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506929280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8f2b2bab7db46858f9b60b188dde615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.PositionComponentDefinition
-  startingPositionType: 0
-  type: 1
---- !u!114 &506929285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506929280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce8e965ed40431e993ca1982c595d6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.ObjectEntityDefinition
 --- !u!1 &554573975
 GameObject:
   m_ObjectHideFlags: 0
@@ -10414,7 +10325,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6173178105849629259, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1477141728}
   m_SourcePrefab: {fileID: 100100000, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
 --- !u!4 &1466039305 stripped
 Transform:
@@ -10568,6 +10482,24 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 1
+--- !u!1 &1477141724 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6173178105849629259, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
+  m_PrefabInstance: {fileID: 1466039304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1477141728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477141724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7064128c584d7e87f5fc63a43abf54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.PlateTrapComponentDefinition
+  timeToRestore: 2
 --- !u!1 &1492745182
 GameObject:
   m_ObjectHideFlags: 0
@@ -13292,218 +13224,73 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 1
---- !u!1 &91085197862433773
+--- !u!1 &91085197862433773 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7440150933971697324, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+  m_PrefabInstance: {fileID: 2317390940574909915}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 317396229454139595}
-  - component: {fileID: 1275826779476980144}
-  - component: {fileID: 1154705422499124023}
-  - component: {fileID: 2154269164204091483}
-  - component: {fileID: 5867661764246618298}
-  - component: {fileID: 601137795470007808}
-  - component: {fileID: 1204679654184864061}
-  - component: {fileID: 1474914103415303360}
-  - component: {fileID: 5867661764246618299}
-  m_Layer: 0
-  m_Name: TrapPlate_Definition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &317396229454139595
+--- !u!4 &317396229454139595 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+  m_PrefabInstance: {fileID: 2317390940574909915}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91085197862433773}
+--- !u!1001 &2317390940574909915
+PrefabInstance:
+  m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.80934, y: -3.30753, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4708246125800711715}
-  - {fileID: 506929281}
-  m_Father: {fileID: 1942217314}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &601137795470007808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91085197862433773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8f50e4b2f4e45aca78cd8c29deb85e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.ControllerComponentDefinition
-  controllerObject: {fileID: 6658239556372966075}
-  sharedInstance: 0
-  hasStateController: 0
---- !u!114 &1154705422499124023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91085197862433773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8f2b2bab7db46858f9b60b188dde615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.PositionComponentDefinition
-  startingPositionType: 0
-  type: 1
---- !u!114 &1204679654184864061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91085197862433773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f8f614944d4c61b3a23174e0d57427, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.LookingDirectionComponentDefinition
-  defaultLookingDirectionType: 0
-  defaultLookingDirection: {x: 1, y: 0, z: 0}
-  copyFromPhysicsRotation: 0
---- !u!114 &1275826779476980144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91085197862433773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce8e965ed40431e993ca1982c595d6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.ObjectEntityDefinition
---- !u!114 &1474914103415303360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91085197862433773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46440df405ef4013a92871e32e827247, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.GameObjectComponentDefinition
-  linkedObjectInstance: {fileID: 0}
-  prefab: {fileID: 5342567053313088592, guid: c18041ff87557894bbc23921604d102a, type: 3}
-  reusable: 1
-  copyPositionType: 0
-  isController: 0
-  autoCreatePhysicsComponent: 1
---- !u!114 &2154269164204091483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91085197862433773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edbea8f9e3134232ad13e35f36a4c7e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.ModelComponentDefinition
-  prefab: {fileID: 4258507774620910417, guid: 07f7e0692fa561740b71311e931a3d26, type: 3}
-  rotationType: 2
-  flipUseRotation: 0
-  startingColor: {r: 1, g: 1, b: 1, a: 1}
-  sortingLayerType: 1
-  sortingOrder: -1
-  sortingLayer: Default
-  fixedRotationAngles: 0
---- !u!4 &4708246125800711715
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6658239556372966075}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 317396229454139595}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5867661764246618298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91085197862433773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe29b734c2044168b5af8f9992825ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Components.AnimationsComponentDefinition
-  animationsAsset: {fileID: 11400000, guid: a0f42d5a711842b4098dc78693d88388, type: 2}
-  spritesMetadata: {fileID: 0}
-  startingAnimationType: 1
-  defaultAnimation: idle
-  randomizeStartFrame: 1
-  defaultAnimationLoop: 0
-  hasMultipleDirectionsPerAnimation: 0
---- !u!114 &5867661764246618299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91085197862433773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de7064128c584d7e87f5fc63a43abf54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Components.PlateTrapComponentDefinition
---- !u!1 &6658239556372966075
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4708246125800711715}
-  - component: {fileID: 6658239556372966076}
-  m_Layer: 0
-  m_Name: Controllers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &6658239556372966076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6658239556372966075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d148406dcc384dabb8123da42318704e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Controllers.PlateTrapController
-  pressSfxDefinition: {fileID: 506929280}
-  unpressSfxDefinition: {fileID: 506929280}
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1942217314}
+    m_Modifications:
+    - target: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.80934
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.30753
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493253184784589882, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440150933971697324, guid: d6d5599bee9250c40b0749045848a171, type: 3}
+      propertyPath: m_Name
+      value: TrapPlate_Definition
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d5599bee9250c40b0749045848a171, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

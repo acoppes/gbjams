@@ -5,15 +5,26 @@ namespace GBJAM14.Components
     public struct PlatesTrapComponent : IEntityComponent
     {
         public int pressCount;
-        public bool pressed => pressCount > 0;
+
+        public bool wasPressed;
+        
+        // public bool disableAutomaticRestore;
+        public float restoreTimeTotal;
+
+        public float restoreTimeCurrent;
     }
     
-    public class PlateTrapComponentDefinition : ComponentDefinitionBase
+    public class PlateTrapComponentDefinition : ComponentDefinitionBase, IEntityInstanceParameter
     {
+        // public bool disableAutomaticRestore;
+        public float timeToRestore;
+        
         public override void Apply(World world, Entity entity)
         {
-            entity.Add(new PlatesTrapComponent()
+            entity.AddOrSet(new PlatesTrapComponent()
             {
+                // disableAutomaticRestore = disableAutomaticRestore,
+                restoreTimeTotal = timeToRestore
             });
         }
     }
