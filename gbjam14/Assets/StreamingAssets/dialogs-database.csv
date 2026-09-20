@@ -76,11 +76,13 @@ golden_crown_pickup,golden_crown,,"[0]: The GOLDEN CROWN! It is so Beautiful and
 [0]: This should be in a Museum.
 [0]: But I want to find the ONE-TREASURE...
 [0]: I will give it to Miss Stella and hear what she has to say.","-golden_crown,-stella_complete,+stella_quest",+golden_crown,,
+trees_passage_1,temple,,"[0]: There is a passage blocked by the trees.
+[0]: I should take a look later, after returning the crown.","-stella_complete,-sylvester_quest_start",,,
 sylvester_intro,sylvester,,"[0]: Hi Kid, my name is [0], what's yours?
 [1]: My name is Sylvester. I like to play games.
 [0]: Ehm,.. nice, I am an Archeologist.
 [1]: Boooooring!!",-sylvester_intro,+sylvester_intro,,
-sylvester_quest_start,sylvester,Hello Again,"[1]: Do you want to play a little game?
+sylvester_quest_start,sylvester,Hello again,"[1]: Do you want to play a little game?
 [0]: I have more important things to do.
 [1]: That's what daddy says all the time...
 [1]: ...all because of that ONE-TREASURE thingy.
@@ -88,8 +90,12 @@ sylvester_quest_start,sylvester,Hello Again,"[1]: Do you want to play a little g
 [1]: I've lost my GOLDEN BALL!! it is round and golden...
 [0]: and what about the ... thingy?
 [1]: Help me with my ball and I can tell you where my daddy is.
-[0]: DEAL!","-golden_ball,-sylvester_complete,+sylvester_intro,+sylvester_quest",+sylvester_intro,,
+[0]: DEAL!","-golden_ball,-sylvester_quest_start,+sylvester_intro,+sylvester_quest","+sylvester_intro,+sylvester_quest_start",,
 sylvester_others,sylvester,About the Ball,"[1]: It is round and golden, I want it!! PLEAAASE!","-golden_ball,-sylvester_complete,+sylvester_intro,+sylvester_quest",,,
 sylvester_others,sylvester,About Hollow Island,"[1]: It is boring as hell.. we came here for something.
 [1]: Then there is that temple...
 [1]: but I don't care. I miss Rocky Town and my friends.",+sylvester_intro,,,
+golden_ball_pickup,golden_ball,,"[0]: The GOLDEN BALL!
+[0]: Not a toy at all, Sylvester shouldn't be playing with it.
+[0]: But I need more information about his dad and the ONE.
+[0]: Time to grab it!","-golden_ball,-sylvester_complete,+sylvester_quest",+golden_ball,,
