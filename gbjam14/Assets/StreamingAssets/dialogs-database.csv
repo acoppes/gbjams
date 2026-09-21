@@ -3,7 +3,7 @@ development_dummy_intro,0,dummy,,[1]: Hello there!!,,+dummy_intro,,
 development_dummy_others,0,dummy,Say Hello,[1]: Hello there again!!,+dummy_intro,,,
 development_dummy_mind,1,dummy,Read Mind,"[1]: Noob, he probably thinks I will give him the key.","+dummy_intro,-golden_ball",,,
 development_dummy_mind,1,dummy,Read Mind,"[1]: Can't believe this, he looked so noob but he got the GOLDEN BALL!","+dummy_intro,+golden_ball",,,
-game_intro,0,town,,"[0]: Nana, after all these years, I'm finally headed towards Hollow Island.
+game_intro,0,town,,"[0]: Nana, after all these years, I'm finally headed to Hollow Island.
 [0]: So many dead ends, so many giant boulders...
 [0]: But I can feel it, this is it.
 [0]: Your last words will make sense if I find it... 
@@ -28,21 +28,25 @@ mrtoad_quest_start,0,mrtoad,Quest,"[0]: I believe I'm quite familiar with the To
 [1]: Yeah, yeah, I see ya got some treasure as well...
 [1]: Imma be frank. I don't trust ya. But I do have a request for you... 
 [1]: Ya see, I was once the owner of this huge, beautiful bug, made of gold, too!
-[1]: Ahh, my cherished, precious, darlin' GOLDEN BUG.
+[1]: Ahh, my cherished, precious, darlin' GOLDEN SCARAB.
 [1]: I lost it. Bleh.
 [1]: One of the explorers say they saw it deeper in the Island.
-[1]: If you can find it for me, I *MIGHT* find myself with a looser tongue.
-[0]: On it.
+[1]: If you can find it for me, I *MIGHT* find myself with a looser tongue about your two-time trinket.
+[0]: I'll go search for it then.
 [1]: Not so fast squirt, take this key to open the door to the north part of the Island. 
 [1]: Don't be a pain in the ass and go dying. I only got one o' those!!!","+mrtoad_quest,+mrtoad_intro,-golden_bug","+mrtoad_quest_start,+temple_key_1",,
-mrtoad_quest_complete,0,mrtoad,Give Golden Bug,"[1]: My Precious!!! 
-[1]: A promise is a promise, [2] has the key to enter the last door","+mrtoad_quest,+golden_bug","+mrtoad_quest_complete,-mrtoad_quest,+drlivingrock_quest",drlivingrock,
+mrtoad_quest_complete,0,mrtoad,Give Golden Bug,"[1]: My Beautiful Baby Boy- I mean- SCARAB!
+[1]: *GULP*
+[1]: Ah, thas good food, eh? It's the little pleasures, I say.
+[1]: A deals a deal, talk to [2], they got the last key you need.
+[0]: Thank you, [0].
+[1]: HAH! Sure thing squirt. Don't go dying on me now, you'd be tarnishing my reputation!","+mrtoad_quest,+golden_bug","+mrtoad_quest_complete,-mrtoad_quest,+drlivingrock_quest",drlivingrock,
 mrtoad_hollow_island,0,mrtoad,About Hollow Island,"[1]: Eh, what's to say about it. It's humid, theres arrow traps, flies are an OK size.
 [1]: Nothing beats the swamp if you ask me.
 [1]: But why the hell are ya asking me? You're the Archeologist! Get outta here!
-[1]: Nobody wants to use their observation skills anymore, I swear.",+mrtoad_intro,,,
-mrtoad_complete_reward,0,mrtoad,About the ONE-TREASURE,"[1]: Ya know, I mighta seen something. Lets talk after you get familiar with the Town and the Island, huh?",+mrtoad_intro,,,
-golden_bug_pickup,0,golden_bug,,"[0]: The GOLDEN BUG! It is so Beautiful and Rare!
+[1]: Nobody wants to work anymore, I swear...",+mrtoad_intro,,,
+mrtoad_complete_reward,0,mrtoad,About the ONE-TREASURE,"[1]: Ya know what? I mighta seen something. Lets talk after you get familiar with the Town and the Island, huh?",+mrtoad_intro,,,
+golden_bug_pickup,0,golden_bug,,"[0]: This has to be the GOLDEN SCARAB! It's so beautiful and rare and made of gold, too!
 [0]: This should be part of the Bugs collection in a Museum.
 [0]: But I want to find the ONE-TREASURE...
 [0]: I will give it to [2] for that tip he promised.",-golden_bug,+golden_bug,mrtoad,
@@ -187,12 +191,13 @@ goose_intro,0,goose,,"[0]: Hi there, my name is [0] Topson, I'm looking for the 
 [0]: Are you an adventurer too Mr [1]?
 [1]: Ohh no no, I just like to contemplate, I'm too afraid to enter the temple.",,+goose_intro,,
 mushroom_intro,0,mushroom,,"[0]: Hi there Mr...
-[1]: [1]",,+mushroom_intro,,
+[1]: [1] and don't forget it kiddo.",,+mushroom_intro,,
 mushroom_others,0,mushroom,,"[0]: Hi, you look a bit stressed. Is everything ok?
 [1]: I'm trying to enjoy the soil, Topson but that screaming weed won't shut up
 [0]: Sunny?
-[1]: He thinks he's special because he stares at the sun all day. Like a solar panel.
-",+mushroom_intro +sunnyflower_intro,,,
+[1]: He thinks he's special because he stares at the sun all day. Like a solar panel.",+mushroom_intro +sunnyflower_intro,,,
+mushroom_others,0,mushroom,,"[1]: You know, those plumber brothers pissed me off a couple of times.
+[1]: Can't say getting rid of them is not the main reason I came here. ",+mushroom_intro,,,
 sunnyflower_intro,0,sunnyflower,,"[1]: Hey Adventurer, this is not a place to be wandering.
 [0]: Ok, I guess. Thanks for the advice Mr...?
 [1]: [1], [1] Flowers. I am a detective.
@@ -202,3 +207,5 @@ sunnyflower_others,0,sunnyflower,,"[0]: Hey Sunny, how's everything going today?
 [1]: It would be a perfect day for photosyntesis if that moldy piece of filth wasn't blocking my view
 [0]: You mean mushroom? He is just on the shade.
 [1]: But his spores fly and cover the sun like a thousand arrows.","+sunnyflower_intro, +mushroom_intro",+sunnyflower_intro,,
+golden_cup_pickup,0,golden_cup,,"[0]: What? this is a replica but not the real TREASURE!
+[0]: I suppose the princess is in another castle?",-golden_cup,+golden_cup,stella,
