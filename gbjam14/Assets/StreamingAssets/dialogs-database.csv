@@ -70,13 +70,13 @@ drlivingrock_intro,0,drlivingrock,,"[0]: Ah, [1], I presume!
 [1]: NOT EVEN ME! I still got a Topson to beat after all! 
 [1]: HAR HAR HAR!
 [0]: Sounds like a challenge, Doc!",-drlivingrock_start,+drlivingrock_start,,
-drlivingrock_others,0,drlivingrock,Electric Shovels,[1]: Turns out you need a power outlet to use 'em! PREPOSTEROUS!,+drlivingrock_start,,,
-drlivingrock_others,0,drlivingrock,Missing Tooth,"[1]: STUDENT LOANS, KID! STUDENT LOANS!!!",+drlivingrock_start,,,
+drlivingrock_others,0,drlivingrock,Electric Shovels,[1]: Turns out you need a power outlet to use 'em! PREPOSTEROUS!,"+drlivingrock_start,-electric_shovels",+electric_shovels,,
+drlivingrock_others,0,drlivingrock,Missing Tooth,"[1]: STUDENT LOANS, KID! STUDENT LOANS!!!","+drlivingrock_start,-missing_tooth",+missing_tooth,,
 drlivingrock_others,0,drlivingrock,About Ribbitony,"[1]: HAH! That old toad! He's BALD you know.
 [1]: He might have a lead on the ONE-TREASURE, but I'm done doing favors at my age.
 [1]: You should ask him, if you don't mind a workout! HAR HAR!","+drlivingrock_start,+mrtoad_start",,,
 drlivingrock_others,0,drlivingrock,About the ONE-TREASURE,"[1]: You seem a bit confused, kid. Peer review happens AFTER I find it!
-[1]: HAR HAR HAR!",+drlivingrock_start,,,"está mintiendo xD, quiere algo a cambio prrr"
+[1]: HAR HAR HAR!","+drlivingrock_start,-golden_crown",,,"está mintiendo xD, quiere algo a cambio prrr"
 drlivingrock_others,0,drlivingrock,About the Crown,"[1]: The Crown? Mmm... I believe it used to belong to the Islands' High Priestess.
 [1]: She disappeared quite a long time ago, total mystery.
 [1]: ...(I'm pretty sure the arrow traps did 'er in though)
@@ -92,9 +92,11 @@ drlivingrocklast_intro,0,drlivingrocklast,,"[1]: Kid! Ya made it!
 [1]: COPOUT? That's no way for an Archaeologist to speak kid! 
 [1]: Be proud, you're not dead! AND YA MET ME! 
 [0]: Heh, I suppose that's right Doc. Till we meet again then!",,,,
-temple_trap_arrow_start,0,temple,,"[0]: Arrow traps! they remind me that time at the Temple of Doom.
-[0]: It wasn't easy but I have some moves now.",-trap_arrow_start,+trap_arrow_start,,
-temple_trap_death,0,temple,,"[0]: Maybe I underestimated this Temple's trap. 
+temple_trap_arrow_start,0,temple,,"[0]: Arrow traps! they remind me of that time at the Temple of Doom*.
+[0]: It wasn't easy, but I've got some moves now.
+[0]: ...
+[0]: Walking evasively counts as a move, right?",-trap_arrow_start,+trap_arrow_start,,
+temple_trap_death,0,temple,,"[0]: Maybe I underestimated this Island's trap. 
 [0]: Thank god I have the GOLDEN AMULET, I can try again.
 [0]: I still remember Grandma's smile the day she gave it to me.",+temple_trap_death,+temple_trap_death_complete,,
 stella_quest_start,0,stella,,"[1]: Hello there handsome!
@@ -163,8 +165,11 @@ trees_passage_1,0,temple,,"[0]: There is a passage blocked by the trees.
 [0]: I should take a look later, after returning the crown.","-stella_complete,-sylvester_quest_start",,,
 door_blocked,0,temple,,"[0]: Mmmm, the door is locked.
 [0]: There must be another way to get inside.","-stella_complete,-sylvester_quest_start",,,
-mrlong,0,mrlong,,"[1]: Hello There, [1] Here.
-[1]: You can pass but only if you find [2] to me.",-mrlong_quest_start,+mrlong_quest_start,,
+mrlong_intro,0,mrlong,,"[1]: [2] boss told [1] to find da bug but [1] not sure how to reach it.
+[1]: can you help [1]? I can be of help if you get in a fight.",-mrlong_intro,+mrlong_intro,mrtoad,
+mrlong_others,0,mrlong,Adventures,"[0]: Are you an adventurer?
+[1]: [1] is not an adventurer, just likes to work for the boss and do as he says.",+mrlong_intro,,,
+mrlong_others,1,mrlong,Read mind,[1]: What am I doing here?? I want to be home playing with my Game Boy!  ,+mrlong_intro,,,
 alien_intro,0,alien,,"[1]:Uhhhgg... My head... My core is completely offline... 
 [0]: Whoa! Are you ok?
 [1]:A... bipedal creature? Wait, why is your skeleton on the inside and it's covered in soft mush meat? That's terrible design.",-alien_intro,+alien_intro,,
