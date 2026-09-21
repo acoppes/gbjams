@@ -20,7 +20,12 @@ namespace GBJAM14
         private void Awake()
         {
             var databaseFilePath = Path.Combine(Application.streamingAssetsPath, dialogsDatabasePath);
-            StartCoroutine(LoadDatabaseFile($"file://{databaseFilePath}"));
+            if (Application.platform == RuntimePlatform.LinuxPlayer) 
+                StartCoroutine(LoadDatabaseFile($"file://{databaseFilePath}"));
+            else
+            {
+                StartCoroutine(LoadDatabaseFile($"{databaseFilePath}"));
+            }
         }
     
         private IEnumerator LoadDatabaseFile(string path)

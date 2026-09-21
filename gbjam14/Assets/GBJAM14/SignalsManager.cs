@@ -12,6 +12,8 @@ namespace GBJAM14
         
         public SignalAsset onPlatePressed;
         public SignalAsset onPlateReleased;
+        
+        public SignalAsset onDialogComplete;
 
         private void Awake()
         {
