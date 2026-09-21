@@ -43,7 +43,7 @@ mrtoad_quest_complete,0,mrtoad,Give Golden Bug,"[1]: Now that's a SCARAB!
 [1]: Ah, thas good food, eh? It's the little pleasures, I say.
 [1]: Turns out you didn't mind a little work, eh?
 [1]: You know, its coming back to me. Talk to [2], they got the last key you need.
-[0]: Thanks, [0].
+[0]: Sure. Thanks, [1].
 [1]: HAH! Sure thing squirt. Don't go dying on me now, I might need another snack soon!","+mrtoad_quest,+golden_bug","+mrtoad_quest_complete,-mrtoad_quest,+drlivingrock_quest",drlivingrock,
 mrtoad_hollow_island,0,mrtoad,About Hollow Island,"[1]: Eh, what's to say about it. It's humid, theres arrow traps, flies are an OK size.
 [1]: Nothing beats the swamp if you ask me.
@@ -51,9 +51,9 @@ mrtoad_hollow_island,0,mrtoad,About Hollow Island,"[1]: Eh, what's to say about 
 [1]: Nobody wants to work anymore, I swear...",+mrtoad_intro,,,
 mrtoad_complete_reward,0,mrtoad,About the ONE-TREASURE,"[1]: Ya know what? I mighta seen something. Lets talk after you get familiar with the Town and the Island, huh?",+mrtoad_intro,,,
 golden_bug_pickup,0,golden_bug,,"[0]: This has to be the GOLDEN SCARAB! It's so beautiful and rare and made of gold, too!
-[0]: This should be part of the Bugs collection in a Museum.
-[0]: But I want to find the ONE-TREASURE...
-[0]: I will give it to [2] for that tip he promised.",-golden_bug,+golden_bug,mrtoad,
+[0]: Such a treasure BELONGS in a bug exhibit!
+[0]: But I need to find the ONE-TREASURE.
+[0]: Ugh, I guess I'll give it to [2] as promised.",-golden_bug,+golden_bug,mrtoad,
 lost_soul_random1,0,lost_soul,,"[1]: Hey Stranger, Welcome to Hollow Island.
 [1]: What's your name?
 [0]: I'm [0] Topson and I will be the best Archeologist.
@@ -107,11 +107,11 @@ temple_trap_arrow_start,0,temple,,"[0]: Arrow traps! they remind me of that time
 [0]: It wasn't easy, but I've got some moves now.
 [0]: ...
 [0]: Walking evasively counts as a move, right?",-trap_arrow_start,+trap_arrow_start,,
-temple_trap_death,0,temple,,"[0]: Maybe I underestimated this Island's trap. 
-[0]: Thank god I have the GOLDEN AMULET, I can try again.
-[0]: I still remember Grandma's smile the day she gave it to me.",+temple_trap_death,+temple_trap_death_complete,,
-stella_quest_start,0,stella,,"[1]: Hello there handsome!
-[0]: Hello Miss?
+temple_trap_death,0,temple,,"[0]: Ugh, I underestimated this Islands' traps. 
+[0]: Thank god I've got the GOLDEN AMULET, I can try again.
+[0]: Gone, but still saving my butt, Nana.",+temple_trap_death,+temple_trap_death_complete,,
+stella_quest_start,0,stella,,"[1]: Hi Hi Hi there Mister!!
+[0]: Oh! Who might you be little lady?
 [1]: [1]-- but you can call me Miss [1].
 [1]: And who do I have the pleasure of meeting?
 [0]: I'm [0] Topson, and I am here for the ONE-TREASURE.
@@ -143,7 +143,7 @@ sylvester_intro,0,sylvester,,"[0]: Hi Kid, my name is [0], what's yours?
 [1]: My name is [1]. I like to play games.
 [0]: Ehm,.. nice, I am an Archeologist.
 [1]: Boooooring!!",-sylvester_intro,+sylvester_intro,,
-sylvester_quest_start,0,sylvester,Hello again,"[1]: Do you want to play a little game?
+sylvester_quest_start,0,sylvester,Quest,"[1]: Do you want to play a little game?
 [0]: I have more important things to do.
 [1]: That's what daddy says all the time...
 [1]: ...all because of that ONE-TREASURE thingy.
@@ -158,9 +158,8 @@ sylvester_quest_complete,0,sylvester,Give GOLDEN BALL,"[0]: So... I found the ba
 [0]: Ok.. well yeah, I am... thanks...
 [0]: Here... take the GOLDEN BALL but be careful with it.
 [1]: Weeeee!!!
-[1]: Take this special key Mr [0], my dad uses it all the time.
-[1]: It should open a door in the temple and lead you to where he is.
-[1]: And talk with [2], he and my dad talk a lot.","+golden_ball,+sylvester_quest_start,+sylvester_intro,+sylvester_quest","+sylvester_quest_complete,+mrtoad_quest,-sylvester_quest",mrtoad,
+[1]: you should talk with [2], he and my dad talk a lot
+[1]: he might know about that thing you want.","+golden_ball,+sylvester_quest_start,+sylvester_intro,+sylvester_quest","+sylvester_quest_complete,+mrtoad_quest,-sylvester_quest",mrtoad,
 sylvester_others,0,sylvester,About the Ball,"[1]: It is round and golden, I want it!! PLEAAASE!","-golden_ball,-sylvester_complete,+sylvester_intro,+sylvester_quest_start",,,
 sylvester_others,0,sylvester,About Hollow Island,"[1]: It is boring as hell.. we came here for something.
 [1]: Then there is that temple...
