@@ -3,23 +3,36 @@ development_dummy_intro,0,dummy,,[1]: Hello there!!,,+dummy_intro,,
 development_dummy_others,0,dummy,Say Hello,[1]: Hello there again!!,+dummy_intro,,,
 development_dummy_mind,1,dummy,Read Mind,"[1]: Noob, he probably thinks I will give him the key.","+dummy_intro,-golden_ball",,,
 development_dummy_mind,1,dummy,Read Mind,"[1]: Can't believe this, he looked so noob but he got the GOLDEN BALL!","+dummy_intro,+golden_ball",,,
-game_intro,0,town,,"[0]: Grandma, After all these years, I am finally travelling to The Hollow Island.
-[0]: I visted many temples but I couldn't find it.
-[0]: This must be it.
-[0]: I will be the best finder If I find ... 
+game_intro,0,town,,"[0]: Nana, After all these years, I'm finally heading towards Hollow Island.
+[0]: I travelled a lot and visted many temples...
+[0]: but I couldn't find it.
+[0]: This is the last place, it must be it.
+[0]: All your teachings will make sense If I find ... 
 [0]: WHEN I find... The ONE-TREASURE.",+main_menu_only,,,
-game_start,0,town,,"[0]: Ok, I finally arrived...
-[0]: Grandma shared so many stories about Hollow island.
-[0]: I wish she was here with me to find it...
-[0]: The ONE-TREASURE...
-[0]: To finally become the best archeologist.",,+game_start,,
-mrtoad_intro,0,mrtoad,,"[0]: Hello, my name is [0] Topson, I am here for the ONE-TREASURE.
-[1]: You are not the only looking for it kid. I am [1].
-[1]: I run things here in Hollow Town, 
-[1]: We could exchange favors in the future.
-[0]: Nice to meet you [1].
-[1]: Once you get familiar with the Town and the Temple...
-[1]: Come to see me again, I might have a favor to ask.",-mrtoad_intro,+mrtoad_intro,,
+game_start,0,town,,"[0]: Finally here...
+[0]: After all the stories...
+[0]: Hollow Island!
+[0]: Wish we were doing this together Nana...",,+game_start,,
+mrtoad_intro,0,mrtoad,,"[0]: Greetings, my name is [0] Topson! 
+[0]: I'm in search of the ONE-TREASURE, and any information 
+[1]: HAH! Nobody wants to work anymore, I swear. Always with tha friggin' treasure.
+[1]: I'm  [1].
+[1]: I run things here in Hollow Town.
+[1]: Those who want treasure, give treasure, ya geddit?
+[0]: I believe we can come to an understanding, yes.
+[0]: Pleasure to meet you [1].
+[1]: Sure, yeah, yeah...
+[1]: Listen, once you get familiar with the Town and the Island come see me again.
+[1]: You might want to help me with something.",-mrtoad_intro,+mrtoad_intro,,
+mrtoad_quest_start,0,mrtoad,Quest,"[0]: I believe I am quite familiar with the Town and Temple by now.
+[1]: Yes yes, and now that I see you found some treasures...
+[1]: I have a request for you... 
+[1]: You see, I was once the owner of this beautiful bug
+[1]: the GOLDEN BUG, but now I can't find it.
+[1]: One of the explorers saw it inside the temple.
+[1]: If you can find it for me, I will help you with your quest.
+[0]: On it [1] !!
+[1]: Here, take this key to open the door to the north part.",+mrtoad_quest,"+mrtoad_quest_start,+temple_key_1",,
 mrtoad_hollow_island,0,mrtoad,About Hollow Island,[1]: Not as beautiful as my loved Swamp but there are lot of treasures.,+mrtoad_intro,,,
 mrtoad_complete_reward,0,mrtoad,About the ONE-TREASURE,"[1]: I might know something, lets talk after you get familiar with the Town and the Temple.",+mrtoad_intro,,,
 golden_bug_pickup,0,golden_bug,,"[0]: The GOLDEN BUG! It is so Beautiful and Rare!
@@ -33,15 +46,20 @@ lost_soul_random1,0,lost_soul,,"[1]: Hey Stranger, Welcome to Hollow Island.
 lost_soul_random2,0,lost_soul,Say Hello,"[1]: You look familiar, do I know you?",+welcome_to_island,,,
 lost_soul_hollow_island1,0,lost_soul,About Hollow Island,"[0]: What can you tell me about Hollow Island?
 [1]: It is nice during the summer, even tourists come here.",+welcome_to_island,,,
-drlivingrock_intro,0,drlivingrock,,"[0]: [1], I presume.
-[1]: Yes, it is me, what is your name kiddo?
-[0]: My name is [0] Topson and I want to be the very best.
-[1]: You reminded me of someone with that spirit...
-[1]: ... Nice to meet you [0], It is nice to see new young adventurers!
+drlivingrock_intro,0,drlivingrock,,"[0]: Ah, [1], I presume!
+[1]: Mmmmm? Who's askin'? I don't need any new shovels young fellow!
+[1]:...Already blew half my funding on 'em fancy pantsy USELESS electric shovels...
+[0]: Uh, I'm Eriq Topson, sir.
+[1]: The Topson kid!!! How are ya? How's your grandmama? 
+[0]: She passed sir, some time back.
+[1]: ...
+[0]: Sir?
+[1]: That old HAG! Beat me to another tomb did she! Har har har!
+[1]: I reckon I'll be meeting her soon anyways, and then I can rub it in her face that I found Hollow Island first!
 [1]: Are you here for the ONE-TREASURE?
 [0]: Yes, and I am going to be the first to find it! 
 [1]: Oh, hehe, good good. I bet you do, I bet you do...",-drlivingrock_start,+drlivingrock_start,,
-drlivingrock_others,0,drlivingrock,Say Hello,[1]: Still around? that treasure is not going to just appear.,+drlivingrock_start,,,
+drlivingrock_others,0,drlivingrock,Say Hello,[1]: Still around? More treasure for me!,+drlivingrock_start,,,
 drlivingrock_others,0,drlivingrock,About Mr Toad,"[1]: Oh, hehe, lovely specimen, a bit tough some times...
 [1]: He might have a lead on the ONE-TREASURE, you should ask him.","+drlivingrock_start,+mrtoad_start",,,
 drlivingrock_others,0,drlivingrock,About the ONE-TREASURE,"[1]: I don't know too much, I am old but not that old haha.",+drlivingrock_start,,,"está mintiendo xD, quiere algo a cambio prrr"
@@ -49,6 +67,7 @@ drlivingrock_others,0,drlivingrock,About the Crown,"[1]: That crown belonged to 
 [1]: She disappeared long time ago and nobody knows her whereabouts.
 [1]: The rumor says that the one who wears the crown...
 [1]: would be worshiped by everyone for eternity...","+drlivingrock,+golden_crown",,,
+drlivingrocklast_intro,0,drlivingrocklast,,[0]:,,,,
 temple_trap_arrow_start,0,temple,,"[0]: Arrow traps! they remind me that time at the Temple of Doom.
 [0]: It wasn't easy but I have some moves now.",-trap_arrow_start,+trap_arrow_start,,
 temple_trap_death,0,temple,,"[0]: Maybe I underestimated this Temple's trap. 
@@ -122,11 +141,32 @@ door_blocked,0,temple,,"[0]: Mmmm, the door is locked.
 [0]: There must be another way to get inside.","-stella_complete,-sylvester_quest_start",,,
 mrlong,0,mrlong,,"[1]: Hello There, [1] Here.
 [1]: You can pass but only if you find [2] to me.",-mrlong_quest_start,+mrlong_quest_start,,
-alien_intro,0,alien,,"[0]: Hi there Mr...
-[1]: [1]",,+alien_intro,,
-goose_intro,0,goose,,"[0]: Hi there Mr...
-[1]: [1]",,+goose_intro,,
+alien_intro,0,alien,,"[0]:Uhhhgg... My head... My core is completely offline... 
+[1]: [Whoa! Are you ok?]
+[0]:A... bipedal creature? Wait, why is your skeleton on the inside and it's covered in soft mush meat? That's terrible design.",-alien_intro,+alien_intro,,
+alien_others,0,alien,,"[1]: [ Last night I was taking a walk when suddenly I fell ill...]
+[1]: [ It seems I lost consciousness. That would have been... about 13 Earth hours ago.]",+alien_intro,,,
+alien_others,0,alien,,[1]: [I saw you covering your filthy tentacle hands with those furry things... I know you wear slippers on your hands],+alien_intro,,,
+alien_others,0,alien,,"[1]: [So, you put water on your face hole instead of drinking the moisture through your feet? Gross!]",+alien_intro,,,
+alien_others,0,alien,,[1]: [Digging up garbage that other humans threw away seems like a pretty crazy hobby],+alien_intro,,,
+goose_intro,0,goose,,"[0]: Hi there, my name is [0] Topson, I'm looking for the ONE TREASURE.
+[1]: Niiiiice to meeet you Mr [0] Topson.
+[1]: I'm [1], I like to look at the beach to see new adventurers...
+[0]: Are you an adventurer too Mr [1]?
+[1]: Ohh no no, I just like to contemplate, I'm too afraid to enter the temple.",,+goose_intro,,
 mushroom_intro,0,mushroom,,"[0]: Hi there Mr...
 [1]: [1]",,+mushroom_intro,,
-sunnyflower_intro,0,sunnyflower,,"[0]: Hi there Mr...
-[1]: [1]",,+sunnyflower_intro,,
+mushroom_others,0,mushroom,,"[0]: [Hi, you look a bit stressed. Is everything ok?]
+[1]: [I'm trying to enjoy the soil, Topson but that screaming weed won't shut up]
+[0]: [Sunny?]
+[1]: [He thinks he's special because he stares at the sun all day. Like a solar panel.]
+",+mushroom_intro,,,
+sunnyflower_intro,0,sunnyflower,,"[1]: Hey Adventurer, this is not a place to be wandering.
+[0]: Ok, I guess. Thanks for the advice Mr...?
+[1]: [1], [1] Flowers. I am a detective.
+[0]: [0] Topson here, Archeologist.
+[1]: Nice to meet you Mr [0], just try to not get killed out there.",,+sunnyflower_intro,,
+sunnyflower_others,0,sunnyflower,,"[0]: Hey Sunny, how's everything going today?
+[1]: It would be a perfect day for photosyntesis if that moldy piece of filth wasn't blocking my view
+[0]: You mean mushroom? He is just on the shade.
+[1]: But his spores fly and cover the sun like a thousand arrows.",+sunnyflower_intro,+sunnyflower_intro,,
