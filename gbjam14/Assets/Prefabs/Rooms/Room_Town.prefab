@@ -218,6 +218,87 @@ MonoBehaviour:
   executionType: 0
   maxExecutions: 0
   maxQueue: 0
+--- !u!1 &1654930128716696010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1892468858323883677}
+  - component: {fileID: 5605110890448094338}
+  m_Layer: 0
+  m_Name: HasVisitedRoom(Room_14A_End)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1892468858323883677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654930128716696010}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1993123609670072400}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5605110890448094338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654930128716696010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9086f33779b431dade9b495a690083e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Triggers.Conditions.HasVisitedRoomTriggerCondition
+  worldReference:
+    type: 0
+    name: 
+    tag: 
+  roomId: Room_14A_End
+--- !u!1 &1665222133248986915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 41160664489821492}
+  m_Layer: 0
+  m_Name: Events
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &41160664489821492
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665222133248986915}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2236588867209087049}
+  m_Father: {fileID: 5441526658437447709}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2171154972721468225
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Data.RoomDoor
   enterPosition: {x: 0, y: -1, z: 0}
   nextRoomDoor: {fileID: 0}
+  nextDoorId: 
 --- !u!61 &7686239259269263429
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -411,6 +493,56 @@ MonoBehaviour:
     query: {fileID: 0}
     identifier: main_character
   controllableType: 0
+--- !u!1 &2500623138335244754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5441526658437447709}
+  - component: {fileID: 7678300448055330753}
+  m_Layer: 0
+  m_Name: Trigger (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5441526658437447709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2500623138335244754}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 41160664489821492}
+  - {fileID: 1993123609670072400}
+  - {fileID: 8944835167916107276}
+  m_Father: {fileID: 5375945306717302364}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7678300448055330753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2500623138335244754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f04d4cd93349cbbd1f118fb47c865d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Triggers::Gemserk.Triggers.TriggerObject
+  executionType: 0
+  maxExecutions: 0
+  maxQueue: 0
 --- !u!1 &2727812691189249184
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,6 +789,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41142a733c764aa88f2da2caeb106ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gemserk.Triggers::Gemserk.Triggers.Conditions.NotTriggerCondition
+--- !u!1 &4153945957360687650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6000061011450932183}
+  - component: {fileID: 6140885897446484479}
+  m_Layer: 0
+  m_Name: Disable([Identifier:drlivingrocktown])
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6000061011450932183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4153945957360687650}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8944835167916107276}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6140885897446484479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4153945957360687650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1782ae0b18542f4b43d4999356d94fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Triggers.Extensions::Gemserk.Triggers.EnableEntityTriggerAction
+  worldReference:
+    type: 0
+    name: 
+    tag: 
+  actionType: 1
+  target:
+    sourceType: 0
+    query: {fileID: 0}
+    identifier: drlivingrocktown
 --- !u!1 &4890855899236559056
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,6 +1024,38 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &5401957523718000638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8944835167916107276}
+  m_Layer: 0
+  m_Name: Actions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8944835167916107276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401957523718000638}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6000061011450932183}
+  m_Father: {fileID: 5441526658437447709}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5574362724235150031
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +1120,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 448559026909160364}
+  - {fileID: 5441526658437447709}
   m_Father: {fileID: 4283151667151103308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3244619718672186023
@@ -963,6 +1181,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gemserk.Triggers.Extensions::Gemserk.Triggers.OnSignalTriggerEvent
   signal: {fileID: 11400000, guid: f97656fd005482d478b5487d22588372, type: 2}
+--- !u!1 &5690661399632320242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1993123609670072400}
+  m_Layer: 0
+  m_Name: Conditions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1993123609670072400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690661399632320242}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1892468858323883677}
+  m_Father: {fileID: 5441526658437447709}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7285761012142735428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,6 +1422,51 @@ Transform:
   - {fileID: 1819163997906944555}
   m_Father: {fileID: 1769845653114713112}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8555794837810562672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2236588867209087049}
+  - component: {fileID: 2229114529232306225}
+  m_Layer: 0
+  m_Name: OnSignal(OnRoomInit)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2236588867209087049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555794837810562672}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 41160664489821492}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2229114529232306225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555794837810562672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a9d73c36a77d5499e816a8d33f92b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Triggers.Extensions::Gemserk.Triggers.OnSignalTriggerEvent
+  signal: {fileID: 11400000, guid: f97656fd005482d478b5487d22588372, type: 2}
 --- !u!1 &8826069082652811543
 GameObject:
   m_ObjectHideFlags: 0
@@ -4115,6 +4410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Data.RoomDoor
   enterPosition: {x: -1, y: 0, z: 0}
   nextRoomDoor: {fileID: 0}
+  nextDoorId: 
 --- !u!1 &9153243908516038262
 GameObject:
   m_ObjectHideFlags: 0
@@ -4438,6 +4734,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6875123916706933670}
     m_Modifications:
+    - target: {fileID: 1280328048925223274, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
+      propertyPath: entityName
+      value: drlivingrocktown
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280328048925223274, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
+      propertyPath: namingType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1280328048925223274, guid: 594197cac4e9fd1428e5a17c2665fbfd, type: 3}
       propertyPath: controllable
       value: 0
