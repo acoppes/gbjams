@@ -1,5 +1,94 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &297558602612659989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4814242091048556152}
+  - component: {fileID: 5628676094501407679}
+  - component: {fileID: 4535554609444919891}
+  - component: {fileID: 3277140093356227374}
+  - component: {fileID: 8449997160254598236}
+  m_Layer: 0
+  m_Name: BlockDrag_Sfx_Def
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4814242091048556152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297558602612659989}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3172249282092053498}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5628676094501407679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297558602612659989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce8e965ed40431e993ca1982c595d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.ObjectEntityDefinition
+--- !u!114 &4535554609444919891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297558602612659989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f2b2bab7db46858f9b60b188dde615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.PositionComponentDefinition
+  startingPositionType: 0
+  type: 1
+--- !u!114 &3277140093356227374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297558602612659989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99954465c2014750bcdae15766be78f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Components.SoundEffectComponentDefinition
+  soundEffect: {fileID: 11400000, guid: 565a87ed88e0aca4ba7720f3beb3b585, type: 2}
+  autoDestroyOnComplete: 0
+--- !u!114 &8449997160254598236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297558602612659989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96123f8bf3aa4ef381716d018af7ff95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gemserk.Leopotam.Ecs::Gemserk.Leopotam.Ecs.Components.DestroyableComponentDefinition
+  framesToDestroy: 1
+  signalOnDestroy: 0
 --- !u!1 &6109650478104712134
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4324258203072444481}
   - component: {fileID: 7588111073909091623}
+  - component: {fileID: 2129826963303650145}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -44,6 +134,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d7fe45e2054c31998da5024f64a77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Controllers.PropController
+--- !u!114 &2129826963303650145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109650478104712134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9270bdf029ca41a6b35bac7226c827cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GBJAM14.Controllers.DragSoundEffectController
+  dragSfx: {fileID: 297558602612659989}
 --- !u!1001 &7111596945878069099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,6 +217,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5672108171716795537, guid: 89ab749bbd1d3c6faa701c46dbb8cf02, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4324258203072444481}
+    - targetCorrespondingSourceObject: {fileID: 5672108171716795537, guid: 89ab749bbd1d3c6faa701c46dbb8cf02, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4814242091048556152}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4525045490107739147, guid: 89ab749bbd1d3c6faa701c46dbb8cf02, type: 3}
       insertIndex: -1

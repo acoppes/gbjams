@@ -9,6 +9,9 @@ namespace GBJAM14
         
         public SignalAsset onRoomInitSignal;
         public SignalAsset onExitRoomSignal;
+        
+        public SignalAsset onPlatePressed;
+        public SignalAsset onPlateReleased;
 
         private void Awake()
         {

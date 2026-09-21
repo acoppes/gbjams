@@ -42,6 +42,9 @@ namespace GBJAM14.Controllers
             {
                 platesTrap.restoreTimeCurrent = 0;
                 platesTrap.wasPressed = true;
+                
+                SignalsManager.instance.onPlatePressed.Signal(entity);
+                
                 if (!animations.IsPlaying("idle-pressed"))
                 {
                     animations.Play("idle-pressed");
@@ -58,6 +61,9 @@ namespace GBJAM14.Controllers
                 if (platesTrap.restoreTimeCurrent > platesTrap.restoreTimeTotal)
                 {
                     platesTrap.wasPressed = false;
+                    
+                    SignalsManager.instance.onPlateReleased.Signal(entity);
+                    
                     if (!animations.IsPlaying("idle"))
                     {
                         animations.Play("idle");
