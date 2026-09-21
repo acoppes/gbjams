@@ -205,6 +205,10 @@ namespace GBJAM14.Systems
                             }
                         }
 
+                        if (SignalsManager.instance.onDialogComplete)
+                        {
+                            SignalsManager.instance.onDialogComplete.Signal(dialog.target);
+                        }
                         
                         // save game!! 
                         dialogCompleted = true;
