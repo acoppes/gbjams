@@ -41,7 +41,8 @@ mrtoad_quest_start,0,mrtoad,Quest,"[0]: I believe I'm quite familiar with the To
 mrtoad_quest_complete,0,mrtoad,Give Golden Bug,"[1]: Now that's a SCARAB! 
 [1]: *GULP*
 [1]: Ah, thas good food, eh? It's the little pleasures, I say.
-[1]: Turns out you didn't mind a little work, eh?
+[1]: Turns out you didn't mind a little work, HUH? 
+[1]: HAHAHAHA!
 [1]: You know, its coming back to me. Talk to [2], they got the last key you need.
 [0]: Sure. Thanks, [1].
 [1]: HAH! Sure thing squirt. Don't go dying on me now, I might need another snack soon!","+mrtoad_quest,+golden_bug","+mrtoad_quest_complete,-mrtoad_quest,+drlivingrock_quest",drlivingrock,
@@ -49,18 +50,23 @@ mrtoad_hollow_island,0,mrtoad,About Hollow Island,"[1]: Eh, what's to say about 
 [1]: Nothing beats the swamp if you ask me.
 [1]: But why the hell are ya asking me? You're the Archeologist! Get outta here!
 [1]: Nobody wants to work anymore, I swear...",+mrtoad_intro,,,
-mrtoad_complete_reward,0,mrtoad,About the ONE-TREASURE,"[1]: Ya know what? I mighta seen something. Lets talk after you get familiar with the Town and the Island, huh?",+mrtoad_intro,,,
+mrtoad_others,1,mrtoad,Read mind,"[1]: Another one of these dumbasses in glasses... 
+[1]: We gotta start charging an entrance fee or somethin'... Now there's an idea!
+[1]: Yeah... Make 'em spend BEFORE they die horribly in the forest!","+mrtoad_intro,-mrtoad_quest_complete",,,
+mrtoad_others,1,mrtoad,Read mind,"[1]: The squirts' alright... 
+[1]: I hadn't had one of em GOLDEN SCARAB snacks in so long...
+[1]: Damn it [1]! Are you going soft?","+mrtoad_intro,+mrtoad_quest_complete",,,
+mrtoad_complete_reward,0,mrtoad,About the ONE-TREASURE,"[1]: You know what? I mighta seen something. Lets talk after you get familiar with the Town and the Island, huh?",+mrtoad_intro,,,
 golden_bug_pickup,0,golden_bug,,"[0]: This has to be the GOLDEN SCARAB! It's so beautiful and rare and made of gold, too!
 [0]: Such a treasure BELONGS in a bug exhibit!
 [0]: But I need to find the ONE-TREASURE.
 [0]: Ugh, I guess I'll give it to [2] as promised.",-golden_bug,+golden_bug,mrtoad,
 lost_soul_random1,0,lost_soul,,"[1]: Hey Stranger, Welcome to Hollow Island.
 [1]: What's your name?
-[0]: I'm [0] Topson and I will be the best Archeologist.
+[0]: I'm [0] Topson, Top Archeologist!
 [1]: Oh, wow, that's ... ehm great. See ya around.",-welcome_to_island,+welcome_to_island,,
-lost_soul_random2,0,lost_soul,Say Hello,"[1]: You look familiar, do I know you?",+welcome_to_island,,,
-lost_soul_hollow_island1,0,lost_soul,About Hollow Island,"[0]: What can you tell me about Hollow Island?
-[1]: It is nice during the summer, even tourists come here.",+welcome_to_island,,,
+lost_soul_random2,0,lost_soul,Say Hello,"[1]: You look... familiar, do I know you?",+welcome_to_island,,,
+lost_soul_hollow_island1,0,lost_soul,About Hollow Island,[1]: I like it here in the summer. I like it when people visit... I think...,+welcome_to_island,,,
 drlivingrock_intro,0,drlivingrock,,"[0]: Ah, [1], I presume!
 [1]: Mmmmm? Who's askin'? I don't need any new shovels young fellow!
 [1]:...Already blew half my funding on 'em fancy pancy USELESS electric shovels...
@@ -80,20 +86,33 @@ drlivingrock_intro,0,drlivingrock,,"[0]: Ah, [1], I presume!
 [1]: NOT EVEN ME! I still got a Topson to beat after all! 
 [1]: HAR HAR HAR!
 [0]: Sounds like a challenge, Doc!",-drlivingrock_start,+drlivingrock_start,,
-drlivingrock_quest_start,0,drlivingrock,Quest,"[1]: Join me on the last room, here is a key to enter it, and lets find the treasure together.","+drlivingrock_start,drlivingrock_quest","+drlivingrock_quest_start,+temple_key_2",,
+drlivingrock_quest_start,0,drlivingrock,Quest,"[1]: Meet ya at the entrance to the temple, the deepest room in all the forest! 
+[1]: That's where the EXCITING BIT STARTS YA KNOW!
+[1]: HAR HAR HAR!","+drlivingrock_start,+drlivingrock_quest","+drlivingrock_quest_start,+temple_key_2",,
 drlivingrock_others,0,drlivingrock,Electric Shovels,[1]: Turns out you need a power outlet to use 'em! PREPOSTEROUS!,"+drlivingrock_start,-electric_shovels",+electric_shovels,,
-drlivingrock_others,0,drlivingrock,Missing Tooth,"[1]: STUDENT LOANS, KID! STUDENT LOANS!!!","+drlivingrock_start,-missing_tooth",+missing_tooth,,
+drlivingrock_others,0,drlivingrock,Missing Tooth,"[1]: STUDENT LOANS, KID! STUDENT LOANS!!!
+[1]: ...
+[1]: Digging out a research site and performing a root canal are surprisingly different endeavors.
+","+drlivingrock_start,-missing_tooth",+missing_tooth,,
 drlivingrock_others,0,drlivingrock,About Ribbitony,"[1]: HAH! That old toad! He's BALD you know.
 [1]: He might have a lead on the ONE-TREASURE, but I'm done doing favors at my age.
 [1]: You should ask him, if you don't mind a workout! HAR HAR!","+drlivingrock_start,+mrtoad_start",,,
 drlivingrock_others,0,drlivingrock,About the ONE-TREASURE,"[1]: You seem a bit confused, kid. Peer review happens AFTER I find it!
-[1]: HAR HAR HAR!","+drlivingrock_start,-golden_crown",,,"está mintiendo xD, quiere algo a cambio prrr"
+[1]: HAR HAR HAR!",+drlivingrock_start,,,"está mintiendo xD, quiere algo a cambio prrr"
 drlivingrock_others,0,drlivingrock,About the Crown,"[1]: The Crown? Mmm... I believe it used to belong to the Islands' High Priestess.
 [1]: She disappeared quite a long time ago, total mystery.
 [1]: ...(I'm pretty sure the arrow traps did 'er in though)
 [1]: Legend says the one who wears the crown
 [1]: would be worshiped by everyone for eternity...
-[1]: But legends aren't science, and I'm a DOCTOR!","+drlivingrock,+golden_crown",,,
+[1]: But legends aren't science, and I'm a DOCTOR!","+drlivingrock_start,+stella_intro",,,
+drlivingrock_others,1,drlivingrock,Read mind,"[1]: SUNshine, lollipops and RAINBOWS Everything that's~
+[1]: WONDERFUL is what I feel when WE'RE together~","+drlivingrock_start,-toggle_thought",+toggle_thought,,
+drlivingrock_others,1,drlivingrock,Read mind,"[1]: I wonder if he has the same gift as Ethel? What if he's reading my mind right now?
+[1]: ...
+[1]: CAUGHT YOU PEEKING!
+[1]: Har Har Har! Just kidding! 
+[1]: I have no idea if you're here or not.
+[1]: Please get out if you are though, it's an incredible violation of my privacy.","+drlivingrock_start,+toggle_thought",-toggle_thought,,
 drlivingrocklast_intro,0,drlivingrocklast,,"[1]: Kid! Ya made it!
 [0]: Doc? Did you find the ONE-TREASURE?
 [1]: What? No, ya DORK! Ya made it to the end of the GAME!
@@ -102,7 +121,7 @@ drlivingrocklast_intro,0,drlivingrocklast,,"[1]: Kid! Ya made it!
 [0]: ...I guess I wasn't expecting a copout is all.
 [1]: COPOUT? That's no way for an Archaeologist to speak kid! 
 [1]: Be proud, you're not dead! AND YA MET ME! 
-[0]: Heh, I suppose that's right Doc. Till we meet again then!",,,,
+[0]: I suppose that's right Doc. Till we meet again then!",,,,
 temple_trap_arrow_start,0,temple,,"[0]: Arrow traps! they remind me of that time at the Temple of Doom*.
 [0]: It wasn't easy, but I've got some moves now.
 [0]: ...
@@ -135,52 +154,60 @@ stella_complete,0,stella,Give the Crown,"[0]: I present to you!... the GOLDEN CR
 [1]: Okay!! Now you go talk to [2]!! They know like, a lot lot lot of stuff I think!!
 [0]: Thanks Turbo [1].","+golden_crown,-stella_complete","+stella_complete,+sylvester_quest,+stella_intro,-stella_quest",sylvester,
 stella_others,0,stella,About the Crown,"[1]: It's in the Island silly, not HERE!! Duh!!","+stella_intro,-stella_complete",,,
+stella_others,1,stella,Read mind,"[1]: La la la la la la. Oooooh I wonder what Sylvester's doing!! Ohh or Mister Froggy!!
+[1]: Mmmm actually no. I don't wonder that. 
+[1]: IIIII wonderrrr... ummmmmmm... um um...
+[1]: Iunno!! I guess I'm not wondering anything!!","+stella_intro,-stella_complete",,,
+stella_others,1,stella,Read mind,"[1]: Yayyy Mister Glasses is so nice and good at his job!!
+[1]: I hope mommy's coming back now that I have her crown...
+[1]: Ooooooh getting excited!! Yay yay yay!!","+stella_intro,+stella_complete",,,
 stella_others,0,stella,About Hollow Island,"[1]: Oh, It's okay! I like playing with Sylvester and shining really really bright at night until Mister Froggy yells at me!!
 [1]: Mister Froggy is so so so funny!!",+stella_intro,,,
 golden_crown_pickup,0,golden_crown,,"[0]: The GOLDEN CROWN! It's so shiny and mystical!
 [0]: This should be in a Jewelry Exhibit...
 [0]: But I need to find the ONE-TREASURE...
-[0]: Also, I promised Miss [1], and I think I'd drop dead if I made her sad.","-golden_crown,-stella_complete",+golden_crown,stella,
-sylvester_intro,0,sylvester,,"[0]: Hi Kid, my name is [0], what's yours?
-[1]: My name is [1]. I like to play games.
-[0]: Ehm,.. nice, I am an Archeologist.
-[1]: Boooooring!!",-sylvester_intro,+sylvester_intro,,
+[0]: Also, I promised Miss [2], and I think I'd drop dead if I made her sad.","-golden_crown,-stella_complete",+golden_crown,stella,
+sylvester_intro,0,sylvester,,"[0]: Hey kid! My name's [0], what's yours?
+[1]: Hmm... My name is [1]. I like to play games.
+[0]: Ah... I see! I'm an Archeologist. 
+[1]: BOOOOOOORING!!",-sylvester_intro,+sylvester_intro,,
 sylvester_quest_start,0,sylvester,Quest,"[1]: Do you want to play a little game?
-[0]: I have more important things to do.
-[1]: That's what daddy says all the time...
-[1]: ...all because of that ONE-TREASURE thingy.
-[0]: I might have some time to play.... tell me more about that.
-[1]: I've lost my GOLDEN BALL!! it is round and golden...
-[0]: and what about the ... thingy?
-[1]: Help me with my ball and I can tell you where my daddy is.
-[0]: DEAL!","-sylvester_quest_start,+sylvester_intro,+sylvester_quest","+sylvester_intro,+sylvester_quest_start",,
+[0]: I'm a bit busy at the moment.
+[1]: That's what dad says all the time...
+[1]: ...all because of that ONE-TREASURE crap.
+[0]: Oh uh... I actually might have some time to play! 
+[0]: How about you tell me more about that boring stuff.
+[1]: Well we CANT play. I lost my GOLDEN BALL!! It's like, round and golden...
+[0]: And what about the ... treasure crap?
+[1]: Play with me and I can tell you where my boring dad is!
+[0]: Ok!","-sylvester_quest_start,+sylvester_intro,+sylvester_quest","+sylvester_intro,+sylvester_quest_start",,
 sylvester_quest_complete,0,sylvester,Give GOLDEN BALL,"[0]: So... I found the ball but....
 [1]: Weeeee!!! I knew you weren't THAT boring!
-[1]: So not like my Dad... Maybe you are the best Archeologist Mr [0].
+[1]: SO not like my Dad... Maybe you are the best Archeologist Mr [0].
 [0]: Oh!... well yeah, I'm... thanks!
 [0]: Here... take the GOLDEN BALL but be careful with it.
 [1]: Weeeee!!! IM GONNA HIT IT SO HARD!
-[1]: you should talk with [2], he and my dad talk a lot about a lot of the boring stuff you like.","+golden_ball,+sylvester_quest_start,+sylvester_intro,+sylvester_quest","+sylvester_quest_complete,+mrtoad_quest,-sylvester_quest",mrtoad,
-sylvester_others,0,sylvester,About the Ball,"[1]: It is round and golden, I want it!! PLEAAASE!","-golden_ball,-sylvester_complete,+sylvester_intro,+sylvester_quest_start",,,
-sylvester_others,0,sylvester,About Hollow Island,"[1]: It is boring as hell.. we came here for something.
-[1]: Then there is that temple...
-[1]: but I don't care. I miss Rocky Town and my friends.",+sylvester_intro,,,
+[1]: You should talk with [2], he and my dad talk a lot about a lot of the boring stuff you like.","+golden_ball,+sylvester_quest_start,+sylvester_intro,+sylvester_quest","+sylvester_quest_complete,+mrtoad_quest,-sylvester_quest",mrtoad,
+sylvester_others,0,sylvester,About the Ball,[1]: It's round and golden! Hurry up pleeeeaaase! I'M DYING OF BORING!,"-golden_ball,-sylvester_complete,+sylvester_intro,+sylvester_quest_start",,,
+sylvester_others,0,sylvester,About Hollow Island,"[1]: It's boring as hell.. we came here for some something.
+[1]: Then there's that boring ass temple...
+[1]: I DON'T CARE. I miss Rocky Town and my friends.",+sylvester_intro,,,
 sylvester_others,1,sylvester,Read mind,"[1]: Another Archosomething, so boring... and useless.","+sylvester_intro,-sylvester_quest_start",,,
-sylvester_others,1,sylvester,Read mind,"[1]: He is soooo cool, I hope my daddy was like him.","+sylvester_intro,+sylvester_quest_complete",,,
+sylvester_others,1,sylvester,Read mind,"[1]: He's soooo cool, I wish Dad was like him.","+sylvester_intro,+sylvester_quest_complete",,,
 golden_ball_pickup,0,golden_ball,,"[0]: The GOLDEN BALL!
 [0]: Not a toy at all, [2] shouldn't be playing with it.
-[0]: But I need more information about his dad and the ONE.
+[0]: But I need more information about his Dad and the ONE.
 [0]: Time to grab it!","-golden_ball,-sylvester_complete,+sylvester_quest",+golden_ball,sylvester,
 temple_closed,0,temple,,[0]: I should probably get more information first.,+temple_closed,,,
-trees_passage_1,0,temple,,"[0]: There is a passage blocked by the trees.
+trees_passage_1,0,temple,,"[0]: There's a passage blocked by the trees.
 [0]: I should take a look later, after returning the crown.","-stella_complete,-sylvester_quest_start",,,
-door_blocked,0,temple,,"[0]: Mmmm, the door is locked.
+door_blocked,0,temple,,"[0]: Mmmm, the door's locked.
 [0]: There must be another way to get inside.","-stella_complete,-sylvester_quest_start",,,
-mrlong_intro,0,mrlong,,"[1]: [2] boss told [1] to find da bug but [1] not sure how to reach it.
-[1]: can you help [1]? I can be of help if you get in a fight.",-mrlong_intro,+mrlong_intro,mrtoad,
+mrlong_intro,0,mrlong,,"[1]: [2] boss told [1] to find da bug but [1] not sure how to reach it. HAHA!
+[1]: Can you help [1]? [1] fight real good if you need fight. HEHE! ",-mrlong_intro,+mrlong_intro,mrtoad,
 mrlong_others,0,mrlong,Adventures,"[0]: Are you an adventurer?
-[1]: [1] is not an adventurer, just likes to work for the boss and do as he says.",+mrlong_intro,,,
-mrlong_others,1,mrlong,Read mind,[1]: What am I doing here?? I want to be home playing with my Game Boy!  ,+mrlong_intro,,,
+[1]: [1] is not an adventurer, just likes to work for the boss and do as he says. HOHO!",+mrlong_intro,,,
+mrlong_others,1,mrlong,Read mind,[1]: What the hell am I doing here? I just want to get home and play on my Game Boy! ,+mrlong_intro,,,
 alien_intro,0,alien,,"[1]:Uhhhgg... My head... My core is completely offline... 
 [0]: Whoa! Are you ok?
 [1]:A... bipedal creature? Wait, why is your skeleton on the inside and it's covered in soft mush meat? That's terrible design.",-alien_intro,+alien_intro,,
@@ -189,27 +216,42 @@ alien_others,0,alien,,"[1]: Last night I was taking a walk when suddenly I fell 
 alien_others,0,alien,,[1]: I saw you covering your filthy tentacle hands with those furry things... I know you wear slippers on your hands,+alien_intro,,,
 alien_others,0,alien,,"[1]: So, you put water on your face hole instead of drinking the moisture through your feet? Gross!",+alien_intro,,,
 alien_others,0,alien,,[1]: Digging up garbage that other humans threw away seems like a pretty crazy hobby,+alien_intro,,,
-goose_intro,0,goose,,"[0]: Hi there, my name is [0] Topson, I'm looking for the ONE TREASURE.
+goose_intro,0,goose,,"[0]: Hi there, my name is [0] Topson, I'm looking for the ONE-TREASURE!
 [1]: Niiiiice to meeet you Mr [0] Topson.
-[1]: I'm [1], I like to look at the beach to see new adventurers...
+[1]: Though I already knew that, heh.
+[0]: ...?
+[1]: I'm [1], I like to look at the beach to see new adventurers, heh...
 [0]: Are you an adventurer too Mr [1]?
-[1]: Ohh no no, I just like to contemplate, I'm too afraid to enter the temple.",,+goose_intro,,
+[1]: Ohh no no, I just like to contemplate. I'm uh... too afraid to enter the temple.",,+goose_intro,,
+goose_others,0,goose,About Hollow Island,"[1]: Uhh... Lots of explorer and adventurer types, heh. 
+[1]: Everyone talks about treasure, but I prefer the beach, heh, uhm...
+[1]: I don't think it's going to be very useful talking to me.",+goose_intro,,,
+goose_others,1,goose,Read mind,"[1]: Don't worry, your secret's safe with me, fellow esper! *mental wink*",+goose_intro,,,
 mushroom_intro,0,mushroom,,"[0]: Hi there Mr...
 [1]: [1] and don't forget it kiddo.",-mushroom_intro,+mushroom_intro,,
-mushroom_others,0,mushroom,,"[0]: Hi, you look a bit stressed. Is everything ok?
-[1]: I'm trying to enjoy the soil, Topson but that screaming weed won't shut up
-[0]: Sunny?
-[1]: He thinks he's special because he stares at the sun all day. Like a solar panel.",+mushroom_intro +sunnyflower_intro,,,
-mushroom_others,0,mushroom,,"[1]: You know, those plumber brothers pissed me off a couple of times.
+mushroom_others,0,mushroom,About Sunny,"[0]: Hi, you look a bit stressed. Is everything ok?
+[1]: I'm trying to enjoy the soil, Topson. HOWEVER, that screaming weed won't shut up
+[0]: [2]?
+[1]: He thinks he's SOOO special because he stares at the sun all day. Like a solar panel.","+mushroom_intro,+sunnyflower_intro",,sunnyflower,
+mushroom_others,0,mushroom,Talk,"[1]: You know, those plumber brothers pissed me off a couple of times.
 [1]: Can't say getting rid of them is not the main reason I came here. ",+mushroom_intro,,,
-sunnyflower_intro,0,sunnyflower,,"[1]: Hey Adventurer, this is not a place to be wandering.
-[0]: Ok, I guess. Thanks for the advice Mr...?
-[1]: [1], [1] Flowers. I am a detective.
-[0]: [0] Topson here, Archeologist.
-[1]: Nice to meet you Mr [0], just try to not get killed out there.",,+sunnyflower_intro,,
-sunnyflower_others,0,sunnyflower,,"[0]: Hey Sunny, how's everything going today?
-[1]: It would be a perfect day for photosyntesis if that moldy piece of filth wasn't blocking my view
-[0]: You mean mushroom? He is just on the shade.
-[1]: But his spores fly and cover the sun like a thousand arrows.","+sunnyflower_intro, +mushroom_intro",+sunnyflower_intro,,
-golden_cup_pickup,0,golden_cup,,"[0]: What? this is a replica but not the real TREASURE!
-[0]: I suppose the princess is in another castle?",-golden_cup,+golden_cup,stella,
+mushroom_others,1,mushroom,Read mind,[1]: ...That flowery fucker... Should rip their petals one by one... Why I Oughta...,+mushroom_intro,,,
+sunnyflower_intro,0,sunnyflower,,"[1]: Oh WOW! An Adventurer, or an Explorer, perhaps?
+[0]: An Archaeologist! And a top one at-
+[1]: UGHHHH
+[0]: ...Is uhh... everything okay?
+[1]: I'm bored. You bored me. There's too many of you buzzing around this island.
+[0]: I'm... Sorry?
+[1]: ...
+[0]: ...
+[1]: Whatever, good enough. I'm [1]. [1] the Sunflower. I know.
+[0]: Pleased to meet you [1] the Sunflower. I'm [0] Topson. I won't bore you with the details.
+[1]: HA! Fine, I guess you're fine.
+[1]: Now stop smiling and get out of my sunlight.",,+sunnyflower_intro,,
+sunnyflower_intro,1,sunnyflower,Read mind,[1]: ...That loamy chump... Fungi little freak... Why I oughta ...,+sunnyflower_intro,,,
+sunnyflower_others,0,sunnyflower,About Champy,"[0]: Hey [1], how's everything going today?
+[1]: It WOULD be a perfect day for photosyntesis if that moldy piece of filth wasn't blocking my view.
+[0]: You mean [2]? He's just in the shade.
+[1]: But his spores fly and cover the sun like a thousand arrows.","+sunnyflower_intro,+mushroom_intro",+sunnyflower_intro,mushroom,
+golden_cup_pickup,0,golden_cup,,"[0]: What? this isn't the real ONE-TREASURE!
+[0]: I suppose the treasure is in another temple?",-golden_cup,+golden_cup,stella,
