@@ -58,8 +58,15 @@ namespace GBJAM14.Editor
             for (var i = 3; i < palContents.Length; i++)
             {
                 var colors = palContents[i].Split(' ');
+                var alpha = 1f;
+
+                if (colors.Length > 3)
+                {
+                    alpha = int.Parse(colors[3]) / 255f;
+                }
+                
                 var parsedColor = new Color(int.Parse(colors[0]) / 255f, int.Parse(colors[1]) / 255f, 
-                    int.Parse(colors[2]) / 255f, int.Parse(colors[3]) / 255f);
+                    int.Parse(colors[2]) / 255f, alpha);
                 if (parsedColor.Equals(new Color(0, 0, 0, 0)))
                 {
                     continue;
